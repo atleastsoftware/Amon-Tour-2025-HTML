@@ -2465,21 +2465,19 @@ Crawl-delay: 1`;
       // Extract and enhance tours data from the legacy API response  
       let tours: any[] = [];
       
-      // The new API returns tours with actual image URLs
+      // Process tours from the API response - handle both new and legacy formats
       if (apiResponse.success && apiResponse.tours && Array.isArray(apiResponse.tours)) {
         tours = apiResponse.tours.map((tour: any) => {
           // Use the direct image URLs from Tour Ninja API
           const tourImages: string[] = [];
           
-          // New API provides 'image' field with the featured image URL (e.g., https://www.tourninja.io/api/tours/images/{ID}/0)
+          // Check if API provided 'image' field directly
           if (tour.image) {
             tourImages.push(tour.image);
-            console.log(`Tour ${tour.name}: Using featured image from new API: ${tour.image}`);
-          }
-          
-          // Also check for 'images' array if provided by the API
-          if (tour.images && Array.isArray(tour.images) && tour.images.length > 0) {
-            // Add any additional images not already in the array
+            console.log(`Tour ${tour.name}: Using featured image from API: ${tour.image}`);
+          } 
+          // Check for 'images' array if provided
+          else if (tour.images && Array.isArray(tour.images) && tour.images.length > 0) {
             tour.images.forEach((img: string) => {
               if (img && !tourImages.includes(img)) {
                 tourImages.push(img);
@@ -2487,11 +2485,22 @@ Crawl-delay: 1`;
             });
             console.log(`Tour ${tour.name}: Added ${tour.images.length} images from images array`);
           }
-          
-          // Only use placeholder if absolutely no images available
-          if (tourImages.length === 0) {
+          // If no image data from API, construct the URL using Tour Ninja's image endpoint format
+          else if (tour.id) {
+            // Use the format: https://www.tourninja.io/api/tours/images/{TOUR_ID}/0 for featured image
+            const constructedUrl = `https://www.tourninja.io/api/tours/images/${tour.id}/0`;
+            tourImages.push(constructedUrl);
+            console.log(`Tour ${tour.name}: Constructed featured image URL: ${constructedUrl}`);
+            
+            // Optionally add additional image URLs (1-4) for galleries
+            for (let i = 1; i <= 4; i++) {
+              tourImages.push(`https://www.tourninja.io/api/tours/images/${tour.id}/${i}`);
+            }
+          } 
+          // Only use placeholder if no ID available at all
+          else {
             tourImages.push('https://via.placeholder.com/800x600/3BA8AF/ffffff?text=Tour+Image');
-            console.log(`Tour ${tour.name}: No images available, using placeholder`);
+            console.log(`Tour ${tour.name}: No tour ID available, using placeholder`);
           }
           
           // Use the first image as primary (the featured image)
