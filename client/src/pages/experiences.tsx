@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/animations";
 import { useTourNinjaWithCustomImages } from "@/hooks/useTourNinja";
 import { useIframe } from "@/contexts/IframeContext";
+import TourNinjaCard from "@/components/tour/TourNinjaCard";
 
 // Image is loaded from URL directly
 
@@ -138,90 +139,7 @@ export default function Experiences() {
               ) : tourNinjaTours.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
                   {tourNinjaTours.map((tour: any, index: number) => (
-                    <motion.div
-                      key={tour.id}
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: index * 0.1 }}
-                      className="bg-card rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
-                    >
-                      <div 
-                        className="relative h-48 bg-gradient-to-br from-primary/40 to-primary/60 cursor-pointer"
-                        onClick={() => {
-                          if (tour.presentationUrl) {
-                            openIframe(tour.presentationUrl, `Présentation - ${tour.name}`);
-                          }
-                        }}
-                      >
-                        {tour.images && tour.images.length > 0 ? (
-                          <img 
-                            src={tour.images[0]} 
-                            alt={tour.name}
-                            className="w-full h-full object-cover"
-                            onError={(e) => {
-                              const target = e.target as HTMLImageElement;
-                              target.style.display = 'none';
-                            }}
-                          />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center">
-                            <FiChevronRight className="h-16 w-16 text-primary/70" />
-                          </div>
-                        )}
-                        <div className="absolute top-4 right-4">
-                          <Badge variant="secondary" className="bg-white/90 text-primary font-semibold px-2 py-1">
-                            {tour.duration} day{Number(tour.duration) > 1 ? 's' : ''}
-                          </Badge>
-                        </div>
-                      </div>
-                      
-                      <div className="p-6">
-                        <h3 
-                          className="text-lg font-bold text-gray-800 mb-3 line-clamp-2 cursor-pointer hover:text-primary transition-colors"
-                          onClick={() => {
-                            if (tour.presentationUrl) {
-                              openIframe(tour.presentationUrl, `Présentation - ${tour.name}`);
-                            }
-                          }}
-                        >
-                          {tour.name}
-                        </h3>
-                        
-                        {tour.shortDescription && (
-                          <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                            {tour.shortDescription}
-                          </p>
-                        )}
-                        
-                        <div className="flex gap-2">
-                          {tour.detailsUrl && (
-                            <button 
-                              onClick={() => {
-                                openIframe(tour.detailsUrl, `Détails - ${tour.name}`);
-                              }}
-                              className="flex-1 border border-primary text-primary hover:bg-primary/10 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
-                              data-testid={`button-view-details-${tour.id}`}
-                            >
-                              View Details
-                              <FiChevronRight className="h-3 w-3" />
-                            </button>
-                          )}
-                          {tour.bookingUrl && (
-                            <button 
-                              onClick={() => {
-                                openIframe(tour.bookingUrl, `Booking - ${tour.name}`);
-                              }}
-                              className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
-                              data-testid={`button-book-now-${tour.id}`}
-                            >
-                              Book Now
-                              <FiChevronRight className="h-3 w-3" />
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    </motion.div>
+                    <TourNinjaCard key={tour.id} tour={tour} index={index} />
                   ))}
                 </div>
               ) : (
