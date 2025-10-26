@@ -2479,21 +2479,17 @@ Crawl-delay: 1`;
           // The 'image' field already contains the featured image URL
           const tourImages: string[] = [];
           
-          // Option 1: Use the image field directly (recommended by Tour Ninja)
-          if (tour.image) {
-            tourImages.push(tour.image);
-            console.log(`Tour ${tour.name}: Using direct Tour Ninja image: ${tour.image}`);
-          } 
-          // Option 2: Construct URL if image field is missing but ID exists
-          else if (tour.id) {
-            const constructedUrl = `https://www.tourninja.io/api/tours/images/${tour.id}/presentation`;
-            tourImages.push(constructedUrl);
-            console.log(`Tour ${tour.name}: Constructed presentation image URL: ${constructedUrl}`);
+          // Use our proxy endpoint to avoid CORS issues with Tour Ninja images
+          if (tour.id) {
+            // Use our proxy endpoint that fetches and serves the Tour Ninja images
+            const proxyUrl = `/api/tour-ninja-image/${tour.id}/0`;
+            tourImages.push(proxyUrl);
+            console.log(`Tour ${tour.name}: Using proxy for Tour Ninja image: ${proxyUrl}`);
           }
-          // Fallback to placeholder only if no image data available
+          // Fallback to placeholder only if no tour ID available
           else {
             tourImages.push('https://via.placeholder.com/800x600/3BA8AF/ffffff?text=Tour+Image');
-            console.log(`Tour ${tour.name}: No image available, using placeholder`);
+            console.log(`Tour ${tour.name}: No tour ID available, using placeholder`);
           }
           
           // Use the first image as primary
@@ -2604,6 +2600,42 @@ Crawl-delay: 1`;
         apiStatus: "connection_issue",
         error: process.env.NODE_ENV === 'development' ? String(error) : undefined
       });
+    }
+  });
+
+  // Tour Ninja Image Proxy - Fetches and serves images to avoid CORS issues
+  app.get("/api/tour-ninja-image/:tourId/:index", async (req, res) => {
+    try {
+      const { tourId, index } = req.params;
+      const imageUrl = `https://www.tourninja.io/api/tours/images/${tourId}/${index}`;
+      
+      // Fetch the image from Tour Ninja
+      const response = await fetch(imageUrl, {
+        headers: {
+          'Accept': 'image/*',
+          'User-Agent': 'Amon Tour Website'
+        }
+      });
+      
+      if (!response.ok) {
+        // If image not found, return a nice placeholder
+        return res.redirect('https://via.placeholder.com/800x600/3BA8AF/ffffff?text=Tour+Image');
+      }
+      
+      // Get the content type and image data
+      const contentType = response.headers.get('content-type') || 'image/jpeg';
+      const imageBuffer = await response.arrayBuffer();
+      
+      // Set appropriate headers and serve the image
+      res.setHeader('Content-Type', contentType);
+      res.setHeader('Cache-Control', 'public, max-age=86400'); // Cache for 24 hours
+      res.setHeader('Access-Control-Allow-Origin', '*'); // Allow all origins
+      res.send(Buffer.from(imageBuffer));
+      
+    } catch (error) {
+      console.error(`Error proxying Tour Ninja image ${req.params.tourId}/${req.params.index}:`, error);
+      // Return placeholder on error
+      return res.redirect('https://via.placeholder.com/800x600/3BA8AF/ffffff?text=Tour+Image');
     }
   });
 
