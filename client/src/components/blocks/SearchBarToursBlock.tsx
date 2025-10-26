@@ -54,7 +54,6 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
   const [destinationFilter, setDestinationFilter] = useState<string>("all");
   
   // State pour gérer les images qui ont échoué (pour afficher le dégradé)
-  const [failedImageIds, setFailedImageIds] = useState<Set<string>>(new Set());
 
   // State pour les options de filtres
   const [filterOptions, setFilterOptions] = useState<{
@@ -283,7 +282,7 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
                     className="relative h-64 cursor-pointer overflow-hidden"
                     onClick={() => handleTourDetails(tour)}
                   >
-                    {!tour.primaryImage || failedImageIds.has(tour.id) ? (
+                    {!tour.primaryImage ? (
                       <div 
                         className="w-full h-full relative overflow-hidden"
                         style={{ 
@@ -295,10 +294,6 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
                         src={tour.primaryImage}
                         alt={tour.name}
                         className="w-full h-full object-cover"
-                        onError={() => {
-                          console.log('Image failed for tour:', tour.id, tour.name);
-                          setFailedImageIds(prev => new Set(prev).add(tour.id));
-                        }}
                       />
                     )}
                     <div className="absolute top-4 right-4">
