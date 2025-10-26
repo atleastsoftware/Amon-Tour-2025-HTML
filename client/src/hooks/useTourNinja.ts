@@ -111,13 +111,13 @@ export function useTourNinjaWithCustomImages() {
     refetchOnMount: false, // Don't refetch on mount if data is still fresh
   });
 
-  // Use public endpoint to get only active overrides
-  const { data: imageOverrides, isLoading: overridesLoading } = useQuery({
-    queryKey: ["/api/tour-ninja-image-overrides"],
-    retry: false,
-    staleTime: 60 * 60 * 1000, // 1 hour - consistent caching
-    gcTime: 2 * 60 * 60 * 1000, // 2 hours
-  });
+  // DISABLED: Not fetching image overrides anymore to use Tour Ninja API images directly
+  // const { data: imageOverrides, isLoading: overridesLoading } = useQuery({
+  //   queryKey: ["/api/tour-ninja-image-overrides"],
+  //   retry: false,
+  //   staleTime: 60 * 60 * 1000, // 1 hour - consistent caching
+  //   gcTime: 2 * 60 * 60 * 1000, // 2 hours
+  // });
 
   const [toursWithOverrides, setToursWithOverrides] = useState<TourNinjaTour[]>([]);
 
@@ -127,22 +127,16 @@ export function useTourNinjaWithCustomImages() {
       return;
     }
 
+    // NO LONGER APPLYING IMAGE OVERRIDES - Using Tour Ninja API images directly
     const processedTours = response.data.map(tour => {
-      // Since we only get active overrides from the public endpoint, no need to check isActive
-      const override = (imageOverrides as any[])?.find(
-        (override: any) => override.tourNinjaId === tour.id
-      );
-      
-      // Ensure we keep the original images if no override is provided
-      // Use the first image from the images array as fallback
-      const finalPrimaryImage = override?.customImageUrl || 
-                               tour.primaryImage || 
+      // Use Tour Ninja API images directly without any overrides
+      const finalPrimaryImage = tour.primaryImage || 
                                (tour.images && tour.images[0]) || 
                                null;
       
       return {
         ...tour,
-        customImage: override?.customImageUrl,
+        customImage: null, // No custom overrides
         primaryImage: finalPrimaryImage,
         originalImage: tour.primaryImage,
         images: tour.images || [] // Ensure images array is always present
@@ -150,11 +144,11 @@ export function useTourNinjaWithCustomImages() {
     });
     
     setToursWithOverrides(processedTours);
-  }, [response?.data, imageOverrides]);
+  }, [response?.data]);
 
   return {
     tours: toursWithOverrides,
-    isLoading: isLoading || overridesLoading,
+    isLoading: isLoading, // No longer loading overrides
     error,
     refetch,
     cached: response?.cached || false,
@@ -162,7 +156,7 @@ export function useTourNinjaWithCustomImages() {
     success: response?.success || false,
     message: response?.message,
     count: toursWithOverrides?.length || 0,
-    imageOverrides
+    imageOverrides: null // No overrides being used
   };
 }
 
