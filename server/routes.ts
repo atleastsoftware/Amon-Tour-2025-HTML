@@ -2465,31 +2465,36 @@ Crawl-delay: 1`;
       // Extract and enhance tours data from the legacy API response  
       let tours: any[] = [];
       
-      // The legacy API returns an object with tours array - structure confirmed by Tour Ninja agent
+      // The new API returns tours with actual image URLs
       if (apiResponse.success && apiResponse.tours && Array.isArray(apiResponse.tours)) {
         tours = apiResponse.tours.map((tour: any) => {
-          // Use the direct image URL from Tour Ninja API
-          // The 'image' field already contains the featured image URL
+          // Use the direct image URLs from Tour Ninja API
           const tourImages: string[] = [];
           
-          // Option 1: Use the image field directly (recommended by Tour Ninja)
+          // New API provides 'image' field with the featured image URL (e.g., https://www.tourninja.io/api/tours/images/{ID}/0)
           if (tour.image) {
             tourImages.push(tour.image);
-            console.log(`Tour ${tour.name}: Using direct Tour Ninja image: ${tour.image}`);
-          } 
-          // Option 2: Construct URL if image field is missing but ID exists
-          else if (tour.id) {
-            const constructedUrl = `https://www.tourninja.io/api/tours/images/${tour.id}/presentation`;
-            tourImages.push(constructedUrl);
-            console.log(`Tour ${tour.name}: Constructed presentation image URL: ${constructedUrl}`);
-          }
-          // Fallback to placeholder only if no image data available
-          else {
-            tourImages.push('https://via.placeholder.com/800x600/3BA8AF/ffffff?text=Tour+Image');
-            console.log(`Tour ${tour.name}: No image available, using placeholder`);
+            console.log(`Tour ${tour.name}: Using featured image from new API: ${tour.image}`);
           }
           
-          // Use the first image as primary
+          // Also check for 'images' array if provided by the API
+          if (tour.images && Array.isArray(tour.images) && tour.images.length > 0) {
+            // Add any additional images not already in the array
+            tour.images.forEach((img: string) => {
+              if (img && !tourImages.includes(img)) {
+                tourImages.push(img);
+              }
+            });
+            console.log(`Tour ${tour.name}: Added ${tour.images.length} images from images array`);
+          }
+          
+          // Only use placeholder if absolutely no images available
+          if (tourImages.length === 0) {
+            tourImages.push('https://via.placeholder.com/800x600/3BA8AF/ffffff?text=Tour+Image');
+            console.log(`Tour ${tour.name}: No images available, using placeholder`);
+          }
+          
+          // Use the first image as primary (the featured image)
           const primaryImage = tourImages[0] || null;
           
           return {
