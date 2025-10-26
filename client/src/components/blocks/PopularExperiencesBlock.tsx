@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
+import { useIframe } from "@/contexts/IframeContext";
 
 // Helper function to convert hex to rgba
 function hexToRgba(hex: string, alpha: number = 1): string {
@@ -23,6 +24,8 @@ export default function PopularExperiencesBlock({
   configuration = {},
   isPreview = false
 }: PopularExperiencesBlockProps) {
+  const { openIframe } = useIframe();
+  
   const { data: tourNinjaResponse, isLoading: tourNinjaLoading } = useQuery<{success: boolean, data: any[]}>({
     queryKey: ['/api/proxy/tours'],
     refetchInterval: isPreview ? 2000 : false,
@@ -200,6 +203,13 @@ export default function PopularExperiencesBlock({
                           color: config.cardsColor || '#2563eb',
                           backgroundColor: 'white',
                         }}
+                        onClick={() => {
+                          if (tour.detailsUrl) {
+                            openIframe(tour.detailsUrl, `Details - ${tour.name}`);
+                          } else if (tour.presentationUrl) {
+                            openIframe(tour.presentationUrl, `Presentation - ${tour.name}`);
+                          }
+                        }}
                         onMouseEnter={(e) => {
                           e.currentTarget.style.backgroundColor = (config.cardsColor || '#2563eb') + '10';
                         }}
@@ -214,6 +224,11 @@ export default function PopularExperiencesBlock({
                         className="flex-1 py-2 px-3 rounded-lg font-semibold transition-colors text-white flex items-center justify-center gap-1"
                         style={{
                           backgroundColor: config.cardsColor || '#2563eb',
+                        }}
+                        onClick={() => {
+                          if (tour.bookingUrl) {
+                            openIframe(tour.bookingUrl, `Booking - ${tour.name}`);
+                          }
                         }}
                         onMouseEnter={(e) => {
                           e.currentTarget.style.filter = 'brightness(110%)';
