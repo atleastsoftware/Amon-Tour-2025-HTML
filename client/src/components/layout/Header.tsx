@@ -62,6 +62,23 @@ export default function Header() {
     staleTime: 5 * 60 * 1000 // 5 minutes
   });
 
+  // Map menu item names to translations based on URL
+  const getTranslatedMenuName = (item: any) => {
+    // Map URLs to translation keys
+    const urlToTranslation: { [key: string]: string } = {
+      '/': nav.home,
+      '/tours': nav.tours,
+      '/experiences': nav.experiences,
+      '/cruise': nav.cruise,
+      '/custom-trip': nav.customTrip,
+      '/blog': nav.blog,
+      '/contact': nav.contact
+    };
+    
+    // Return translated name if available, otherwise fallback to database name
+    return urlToTranslation[item.url] || item.name;
+  };
+
   // Fetch theme settings for notification bar
   const { data: themeSettings } = useQuery({
     queryKey: ['/api/public/theme-settings'],
@@ -365,7 +382,7 @@ export default function Header() {
                 isHomePage={isHomePage} 
                 scrolled={scrolled}
               >
-                {item.name}
+                {getTranslatedMenuName(item)}
               </NavLink>
             ))}
           
@@ -416,7 +433,7 @@ export default function Header() {
                     isHomePage={isHomePage} 
                     scrolled={scrolled}
                   >
-                    {item.name}
+                    {getTranslatedMenuName(item)}
                   </NavLink>
                 ))}
               
