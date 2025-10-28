@@ -17,10 +17,10 @@ export default function TourNinjaSection() {
           <div className="text-center">
             <div className="flex items-center justify-center mb-4">
               <AlertCircle className="text-[hsl(var(--destructive))] mr-2" size={24} />
-              <h2 className="font-heading font-bold text-2xl">External Tours</h2>
+              <h2 className="font-heading font-bold text-2xl">{translations.tours.title}</h2>
             </div>
             <p className="text-gray-600 mb-4">
-              Unable to load external tour data. Please check your connection.
+              {translations.common.error}
             </p>
             <Button 
               onClick={() => refetch()} 
@@ -28,7 +28,7 @@ export default function TourNinjaSection() {
               className="flex items-center"
             >
               <RefreshCw size={16} className="mr-2" />
-              Try Again
+              {translations.common.tryAgain}
             </Button>
           </div>
         </div>
@@ -82,14 +82,14 @@ export default function TourNinjaSection() {
           </motion.div>
         ) : (
           <div className="text-center py-8">
-            <p className="text-gray-500">No partner tours available at the moment.</p>
+            <p className="text-gray-500">{translations.tours.description}</p>
             <Button 
               onClick={() => refetch()} 
               variant="outline" 
               className="mt-4 flex items-center mx-auto"
             >
               <RefreshCw size={16} className="mr-2" />
-              Refresh
+              {translations.common.tryAgain}
             </Button>
           </div>
         )}

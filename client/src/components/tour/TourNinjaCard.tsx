@@ -6,6 +6,7 @@ import { MapPin, Clock, ExternalLink } from "lucide-react";
 import { TourNinjaTour } from "@/hooks/useTourNinja";
 import { formatTHB } from "@/lib/utils";
 import { useIframe } from "@/contexts/IframeContext";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 interface TourNinjaCardProps {
   tour: TourNinjaTour;
@@ -30,6 +31,9 @@ function getImageCandidates(tour: TourNinjaTour): string[] {
 
 export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
   const { openIframe } = useIframe();
+  const { translations } = useTranslation();
+  const common = translations.common;
+  const tours = translations.tours;
   
   // Calculer les candidats d'images de manière optimisée
   const imageCandidates = useMemo(() => getImageCandidates(tour), [tour]);
@@ -105,7 +109,7 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
             <div className="h-48 overflow-hidden relative">
               {isImageLoading && (
                 <div className="absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center">
-                  <div className="text-gray-400">Chargement...</div>
+                  <div className="text-gray-400">{common.loading}</div>
                 </div>
               )}
               <img
@@ -133,7 +137,7 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
             <Badge variant="secondary" className="bg-white/90 text-primary font-semibold px-2 py-1">
               {tour.price > 0 
                 ? (tour.currency === 'THB' ? formatTHB(tour.price) : `${tour.price} ${tour.currency || 'THB'}`)
-                : 'Prix sur demande'
+                : tours.price
               }
             </Badge>
           </div>
