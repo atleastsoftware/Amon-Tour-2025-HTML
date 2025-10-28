@@ -4,7 +4,7 @@ import { FadeInWhenVisible, SlideUpWhenVisible, StaggerChildren, StaggerItem } f
 import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import heroImage from "@/assets/DJI_20241115104455_0160_D-min.jpeg";
-import { translationService } from "@/services/translationService";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 // Use optimized video (6MB instead of 40MB) for better loading performance
 const backgroundVideo = "/attached_assets/hero-video-optimized.mp4";
@@ -50,8 +50,9 @@ export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const loadTimeoutRef = useRef<NodeJS.Timeout>();
   
-  // Get translations
-  const hero = translationService.getHero();
+  // Get translations using the hook
+  const { translations } = useTranslation();
+  const hero = translations.hero;
 
   // Récupérer les données de configuration du héros (avec gestion d'erreur)
   const { data: heroBlocks } = useQuery({
@@ -141,13 +142,15 @@ export default function Hero() {
     
     console.log('Connection quality:', quality, 'Mobile:', mobile);
     
-    // Charger la vidéo sauf si explicitement désactivée en production
-    const shouldLoad = !(IS_PRODUCTION && DISABLE_VIDEO_IN_PRODUCTION);
+    // Always load video unless explicitly disabled via environment variable
+    // Removed IS_PRODUCTION check to allow video in production
+    const shouldLoad = !DISABLE_VIDEO_IN_PRODUCTION;
     
     if (shouldLoad) {
       setShouldLoadVideo(true);
+      console.log('Video loading enabled');
     } else {
-      console.log('Video loading disabled in production');
+      console.log('Video loading disabled via VITE_DISABLE_HERO_VIDEO environment variable');
     }
   }, []);
   return (

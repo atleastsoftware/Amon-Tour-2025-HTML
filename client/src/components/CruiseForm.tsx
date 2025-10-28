@@ -25,7 +25,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { translationService } from "@/services/translationService";
+import { useTranslation } from "@/contexts/TranslationContext";
 import { apiRequest } from "@/lib/queryClient";
 
 const cruiseFormSchema = z.object({
@@ -52,7 +52,8 @@ type CruiseFormData = {
 
 export default function CruiseForm() {
   const { toast } = useToast();
-  const cruise = translationService.getCruise();
+  const { translations } = useTranslation();
+  const cruise = translations.cruise;
   const [isSubmitting, setIsSubmitting] = useState(false);
   
   const form = useForm<CruiseFormData>({

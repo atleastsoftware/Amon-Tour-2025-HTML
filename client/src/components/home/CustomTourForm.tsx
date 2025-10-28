@@ -6,7 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
-import { translationService } from "@/services/translationService";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 import {
   Form,
@@ -73,7 +73,8 @@ export default function CustomTourForm({ title, subtitle }: CustomTourFormProps 
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const datePickerRef = useRef<HTMLInputElement | null>(null);
-  const home = translationService.getHome();
+  const { translations } = useTranslation();
+  const home = translations.home;
 
   const form = useForm<CustomTourFormData>({
     resolver: zodResolver(customTourSchema),

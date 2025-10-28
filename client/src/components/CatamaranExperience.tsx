@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { StaggerChildren, StaggerItem } from "@/components/ui/animations";
 import { Map, Zap, Globe, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
-import { translationService } from "@/services/translationService";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 // Photo Gallery Carousel Component with Lightbox
 function PhotoGallery() {
@@ -307,7 +307,8 @@ function PhotoGallery() {
 }
 
 export default function CatamaranExperience() {
-  const cruise = translationService.getCruise();
+  const { translations } = useTranslation();
+  const cruise = translations.cruise;
   
   return (
     <section className="py-20 bg-neutral-light">

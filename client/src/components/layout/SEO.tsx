@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet';
 import { useEffect, useState } from 'react';
-import { translationService } from '@/services/translationService';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 interface SEOProps {
   title?: string;
@@ -34,7 +34,8 @@ export default function SEO({
   reviewSchema,
 }: SEOProps) {
   const siteUrl = 'https://amon-tour.com';
-  const seo = translationService.getSeo();
+  const { translations } = useTranslation();
+  const seo = translations.seo;
   
   // Use translated defaults if no values provided
   const finalTitle = title || seo.defaultTitle;

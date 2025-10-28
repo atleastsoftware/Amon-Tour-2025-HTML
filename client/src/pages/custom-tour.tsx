@@ -4,11 +4,12 @@ import SEO from "@/components/layout/SEO";
 import HeroHeader from "@/components/layout/HeroHeader";
 import CustomTourForm from "@/components/home/CustomTourForm";
 import { MapPin, Building2, HeadphonesIcon } from "lucide-react";
-import { translationService } from "@/services/translationService";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function CustomTour() {
-  const customTour = translationService.getCustomTour();
-  const home = translationService.getHome();
+  const { translations } = useTranslation();
+  const customTour = translations.customTour;
+  const home = translations.home;
   
   return (
     <>

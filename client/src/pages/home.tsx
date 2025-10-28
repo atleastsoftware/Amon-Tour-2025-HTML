@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { translationService } from "@/services/translationService";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 import SEO from "@/components/layout/SEO";
 import Hero from "@/components/home/Hero";
@@ -33,9 +33,10 @@ export default function Home() {
   const { openIframe } = useIframe();
   
   // Get translations
-  const tours = translationService.getTours();
-  const common = translationService.getCommon();
-  const home = translationService.getHome();
+  const { translations } = useTranslation();
+  const tours = translations.tours;
+  const common = translations.common;
+  const home = translations.home;
   
   const { data: featuredTours, isLoading: isLoadingTours } = useQuery<Tour[]>({
     queryKey: ['/api/tours/featured'],

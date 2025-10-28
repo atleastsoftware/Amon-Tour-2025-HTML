@@ -1,9 +1,10 @@
 import { useEffect, useRef } from "react";
-import { translationService } from "@/services/translationService";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function Testimonials() {
   const googleReviewsRef = useRef<HTMLDivElement>(null);
-  const home = translationService.getHome();
+  const { translations } = useTranslation();
+  const home = translations.home;
 
   useEffect(() => {
     // To load the Google reviews widget

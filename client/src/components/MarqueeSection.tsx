@@ -2,10 +2,11 @@ import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { translationService } from "@/services/translationService";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function MarqueeSection() {
-  const home = translationService.getHome();
+  const { translations } = useTranslation();
+  const home = translations.home;
   
   // Tours réels de l'iframe Tour Ninja showcase/2
   const iframeTours = [

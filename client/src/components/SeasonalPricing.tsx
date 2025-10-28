@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
-import { translationService } from "@/services/translationService";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function SeasonalPricing() {
-  const cruise = translationService.getCruise();
+  const { translations } = useTranslation();
+  const cruise = translations.cruise;
   
   return (
     <div className="w-full">

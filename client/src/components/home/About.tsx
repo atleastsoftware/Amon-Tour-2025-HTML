@@ -1,9 +1,10 @@
 import { Link } from "wouter";
 import amonTourTeam from "@/assets/amon-tour-team.jpg";
-import { translationService } from "@/services/translationService";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function About() {
-  const home = translationService.getHome();
+  const { translations } = useTranslation();
+  const home = translations.home;
   
   return (
     <section id="who-we-are" className="py-16 bg-white">
