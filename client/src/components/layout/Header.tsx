@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useQuery } from '@tanstack/react-query';
 import logoAmon from "@/assets/logo-amon.png";
 import LanguageSelector from "@/components/LanguageSelector";
-import { useTranslations } from "@/hooks/useTranslations";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 type NavLinkProps = {
   href: string;
@@ -52,9 +52,9 @@ export default function Header() {
   const isBookingPage = location.startsWith('/booking');
   const isHomePage = location === '/';
   
-  // Get translations for fallback
-  const { getNav } = useTranslations();
-  const nav = getNav();
+  // Get translations
+  const { translations, currentLanguage } = useTranslation();
+  const nav = translations.nav;
 
   // Fetch navigation menu items from database
   const { data: menuItems = [] } = useQuery<any[]>({
@@ -351,7 +351,7 @@ export default function Header() {
         >
           {!isHomePage && (
             <NavLink href="/" isActive={false} isHomePage={isHomePage} scrolled={scrolled}>
-              Home
+              {nav.home}
             </NavLink>
           )}
           {menuItems
@@ -401,7 +401,7 @@ export default function Header() {
             >
               {!isHomePage && (
                 <NavLink href="/" isActive={false} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                  Home
+                  {nav.home}
                 </NavLink>
               )}
               {menuItems

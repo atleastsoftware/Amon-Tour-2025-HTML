@@ -1,8 +1,11 @@
 import { Link } from 'wouter';
 import { motion } from 'framer-motion';
 import logo from '@assets/IMG_1454-removebg-preview.png';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 export default function HeaderSimple() {
+  const { translations } = useTranslation();
+  const nav = translations.nav;
   return (
     <header className="bg-white shadow-sm py-2 border-b">
       <div className="container mx-auto px-4">
@@ -27,12 +30,12 @@ export default function HeaderSimple() {
           <nav className="flex items-center space-x-2 sm:space-x-6">
             <Link href="/tours">
               <a className="text-gray-700 hover:text-primary text-sm sm:text-base font-medium">
-                Tours
+                {nav.tours}
               </a>
             </Link>
             <Link href="/experiences">
               <a className="text-gray-700 hover:text-primary text-sm sm:text-base font-medium">
-                Experiences
+                {nav.experiences}
               </a>
             </Link>
           </nav>

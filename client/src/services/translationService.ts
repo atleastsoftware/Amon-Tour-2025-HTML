@@ -4,6 +4,8 @@
 export interface Translations {
   // Navigation
   nav: {
+    home: string;
+    tours: string;
     experiences: string;
     cruise: string;
     customTrip: string;
@@ -272,6 +274,8 @@ export interface Translations {
 const translations: Record<string, Translations> = {
   en: {
     nav: {
+      home: "Home",
+      tours: "Tours",
       experiences: "Experiences",
       cruise: "Cruise",
       customTrip: "Custom Trip",
@@ -523,6 +527,8 @@ const translations: Record<string, Translations> = {
   },
   fr: {
     nav: {
+      home: "Accueil",
+      tours: "Tours",
       experiences: "Expériences",
       cruise: "Croisière",
       customTrip: "Voyage Sur Mesure",
@@ -774,6 +780,8 @@ const translations: Record<string, Translations> = {
   },
   es: {
     nav: {
+      home: "Inicio",
+      tours: "Tours",
       experiences: "Experiencias",
       cruise: "Crucero",
       customTrip: "Viaje Personalizado",
