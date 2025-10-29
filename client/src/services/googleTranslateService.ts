@@ -134,6 +134,8 @@ class GoogleTranslateService {
   async translateBatch(texts: string[], targetLanguage: string, sourceLanguage: string = 'auto'): Promise<{ [key: string]: string }> {
     const results: { [key: string]: string } = {};
     
+    console.log(`🔄 translateBatch called with ${texts.length} texts to ${targetLanguage}`);
+    
     // Return original texts if translating to same language
     if (sourceLanguage === targetLanguage) {
       texts.forEach(text => {
@@ -153,9 +155,12 @@ class GoogleTranslateService {
         textsToTranslate.push(text);
       }
     }
+    
+    console.log(`📊 Cache status: ${texts.length - textsToTranslate.length} cached, ${textsToTranslate.length} need translation`);
 
     // If all texts were cached, return immediately
     if (textsToTranslate.length === 0) {
+      console.log('✅ All texts were cached, returning cached results');
       return results;
     }
 
@@ -166,19 +171,30 @@ class GoogleTranslateService {
     }
 
     // Process each batch
-    for (const batch of batches) {
+    console.log(`🚀 Making ${batches.length} API call(s) to translate ${textsToTranslate.length} texts`);
+    
+    for (let batchIndex = 0; batchIndex < batches.length; batchIndex++) {
+      const batch = batches[batchIndex];
+      console.log(`📤 Sending batch ${batchIndex + 1}/${batches.length} with ${batch.length} texts to /api/translate/batch`);
+      
       try {
+        const requestBody = {
+          texts: batch,
+          targetLanguage,
+          sourceLanguage
+        };
+        
+        console.log('🌐 Making API request to /api/translate/batch');
+        
         const response = await fetch('/api/translate/batch', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            texts: batch,
-            targetLanguage,
-            sourceLanguage
-          })
+          body: JSON.stringify(requestBody)
         });
+
+        console.log(`📥 API Response status: ${response.status}`);
 
         if (!response.ok) {
           throw new Error(`Translation API error: ${response.status}`);
@@ -186,6 +202,8 @@ class GoogleTranslateService {
 
         const data = await response.json();
         const translations = data.translations || {};
+        
+        console.log(`✅ Received ${Object.keys(translations).length} translations from API`);
         
         // Process translations and update cache
         Object.entries(translations).forEach(([originalText, translation]) => {
@@ -205,7 +223,20 @@ class GoogleTranslateService {
   }
 
   // Translate an object with nested strings
-  async translateObject(obj: any, targetLanguage: string, sourceLanguage: string = 'auto'): Promise<any> {
+  async translateObject(obj: any, targetLanguage: string, sourceLanguage: string = 'auto', bypassCache: boolean = false): Promise<any> {
+    console.log('📞 translateObject called with:', {
+      targetLanguage,
+      sourceLanguage,
+      bypassCache,
+      objectKeys: Object.keys(obj)
+    });
+    
+    // Clear cache if bypass is requested (useful for testing)
+    if (bypassCache) {
+      console.log('🗑️ Bypassing cache for testing');
+      this.clearCache(targetLanguage);
+    }
+    
     // Collect all strings from the object
     const strings: string[] = [];
     const paths: string[] = [];
@@ -225,6 +256,8 @@ class GoogleTranslateService {
     }
 
     collectStrings(obj);
+    
+    console.log(`📊 Found ${strings.length} strings to translate`);
 
     // Translate all strings in batch
     const translations = await this.translateBatch(strings, targetLanguage, sourceLanguage);
