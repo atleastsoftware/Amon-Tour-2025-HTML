@@ -4,7 +4,7 @@ import { FadeInWhenVisible, SlideUpWhenVisible, StaggerChildren, StaggerItem } f
 import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import heroImage from "@/assets/DJI_20241115104455_0160_D-min.jpeg";
-import { useTranslation } from "@/contexts/TranslationContext";
+import { useTranslation } from "@/contexts/GoogleTranslateContext";
 
 // Use optimized video (6MB instead of 40MB) for better loading performance
 const backgroundVideo = "/attached_assets/hero-video-optimized.mp4";

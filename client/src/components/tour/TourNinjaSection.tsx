@@ -3,7 +3,7 @@ import { RefreshCw, AlertCircle } from "lucide-react";
 import { useTourNinjaWithCustomImages } from "@/hooks/useTourNinja";
 import TourNinjaCard from "./TourNinjaCard";
 import { Button } from "@/components/ui/button";
-import { useTranslation } from "@/contexts/TranslationContext";
+import { useTranslation } from "@/contexts/GoogleTranslateContext";
 
 export default function TourNinjaSection() {
   const { tours, isLoading, error, refetch, cached, fallback, success } = useTourNinjaWithCustomImages();

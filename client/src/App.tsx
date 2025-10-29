@@ -1,6 +1,6 @@
 import { Switch, Route } from "wouter";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { TranslationProvider } from "@/contexts/TranslationContext";
+import { TranslationProvider } from "@/contexts/GoogleTranslateContext";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import HomeDynamicPage from "@/pages/HomeDynamicPage";

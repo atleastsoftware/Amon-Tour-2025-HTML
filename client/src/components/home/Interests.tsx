@@ -3,7 +3,7 @@ import { FadeInWhenVisible, SlideUpWhenVisible } from "@/components/ui/animation
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin } from "lucide-react";
 import { Link } from "wouter";
-import { useTranslation } from "@/contexts/TranslationContext";
+import { useTranslation } from "@/contexts/GoogleTranslateContext";
 
 export default function Interests() {
   const { translations } = useTranslation();

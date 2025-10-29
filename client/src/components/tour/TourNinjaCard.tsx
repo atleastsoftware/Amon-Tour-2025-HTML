@@ -6,7 +6,7 @@ import { MapPin, Clock, ExternalLink } from "lucide-react";
 import { TourNinjaTour } from "@/hooks/useTourNinja";
 import { formatTHB } from "@/lib/utils";
 import { useIframe } from "@/contexts/IframeContext";
-import { useTranslation } from "@/contexts/TranslationContext";
+import { useTranslation } from "@/contexts/GoogleTranslateContext";
 
 interface TourNinjaCardProps {
   tour: TourNinjaTour;
