@@ -111,16 +111,16 @@ export default function CustomTourForm({ title, subtitle }: CustomTourFormProps 
       await apiRequest("POST", "/api/custom-tour", requestData);
       
       toast({
-        title: "Request sent",
-        description: "We will contact you very soon to discuss your travel project.",
+        title: translations.cruise.requestSent,
+        description: translations.cruise.contactShortly,
         variant: "default",
       });
       
       form.reset();
     } catch (error) {
       toast({
-        title: "Error",
-        description: "There was a problem sending your request. Please try again.",
+        title: translations.common.error,
+        description: translations.cruise.errorMessage,
         variant: "destructive",
       });
     } finally {
@@ -246,7 +246,7 @@ export default function CustomTourForm({ title, subtitle }: CustomTourFormProps 
                         <FormItem>
                           <FormLabel>{home.fullName} *</FormLabel>
                           <FormControl>
-                            <Input placeholder="Your name" {...field} />
+                            <Input placeholder={translations.cruise.fullNamePlaceholder} {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -259,7 +259,7 @@ export default function CustomTourForm({ title, subtitle }: CustomTourFormProps 
                         <FormItem>
                           <FormLabel>{home.email} *</FormLabel>
                           <FormControl>
-                            <Input placeholder="Your email" {...field} />
+                            <Input placeholder={translations.cruise.emailPlaceholder} {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -281,7 +281,7 @@ export default function CustomTourForm({ title, subtitle }: CustomTourFormProps 
                           >
                             <FormControl>
                               <SelectTrigger>
-                                <SelectValue placeholder="Code" />
+                                <SelectValue placeholder={home.countryCode} />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
@@ -304,7 +304,7 @@ export default function CustomTourForm({ title, subtitle }: CustomTourFormProps 
                           <FormItem>
                             <FormLabel>{home.whatsappNumber} *</FormLabel>
                             <FormControl>
-                              <Input placeholder="Your WhatsApp number" {...field} />
+                              <Input placeholder={home.whatsappNumber} {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -329,16 +329,16 @@ export default function CustomTourForm({ title, subtitle }: CustomTourFormProps 
                           >
                             <FormControl>
                               <SelectTrigger>
-                                <SelectValue placeholder="Select number of adults" />
+                                <SelectValue placeholder={home.numberOfAdults} />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              <SelectItem value="1">1 adult</SelectItem>
-                              <SelectItem value="2">2 adults</SelectItem>
-                              <SelectItem value="3">3 adults</SelectItem>
-                              <SelectItem value="4">4 adults</SelectItem>
-                              <SelectItem value="5">5 adults</SelectItem>
-                              <SelectItem value="6+">6+ adults</SelectItem>
+                              <SelectItem value="1">1</SelectItem>
+                              <SelectItem value="2">2</SelectItem>
+                              <SelectItem value="3">3</SelectItem>
+                              <SelectItem value="4">4</SelectItem>
+                              <SelectItem value="5">5</SelectItem>
+                              <SelectItem value="6+">6+</SelectItem>
                             </SelectContent>
                           </Select>
                           <FormMessage />
@@ -358,16 +358,16 @@ export default function CustomTourForm({ title, subtitle }: CustomTourFormProps 
                           >
                             <FormControl>
                               <SelectTrigger>
-                                <SelectValue placeholder="Select number of kids" />
+                                <SelectValue placeholder={home.numberOfKidsLabel} />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              <SelectItem value="0">No kids</SelectItem>
-                              <SelectItem value="1">1 kid</SelectItem>
-                              <SelectItem value="2">2 kids</SelectItem>
-                              <SelectItem value="3">3 kids</SelectItem>
-                              <SelectItem value="4">4 kids</SelectItem>
-                              <SelectItem value="5+">5+ kids</SelectItem>
+                              <SelectItem value="0">0</SelectItem>
+                              <SelectItem value="1">1</SelectItem>
+                              <SelectItem value="2">2</SelectItem>
+                              <SelectItem value="3">3</SelectItem>
+                              <SelectItem value="4">4</SelectItem>
+                              <SelectItem value="5+">5+</SelectItem>
                             </SelectContent>
                           </Select>
                           <FormMessage />
@@ -384,7 +384,7 @@ export default function CustomTourForm({ title, subtitle }: CustomTourFormProps 
                         <FormLabel>{home.datesOfTrip}</FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="Select trip dates"
+                            placeholder={translations.cruise.datesPlaceholder}
                             value={field.value}
                             onChange={field.onChange}
                             ref={(el) => {
@@ -412,14 +412,14 @@ export default function CustomTourForm({ title, subtitle }: CustomTourFormProps 
                         >
                           <FormControl>
                             <SelectTrigger>
-                              <SelectValue placeholder="Select duration" />
+                              <SelectValue placeholder={translations.cruise.chooseDuration} />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="1-3">1-3 days</SelectItem>
-                            <SelectItem value="4-7">4-7 days</SelectItem>
-                            <SelectItem value="8-14">8-14 days</SelectItem>
-                            <SelectItem value="15+">15+ days</SelectItem>
+                            <SelectItem value="1-3">1-3 {translations.tours.duration}</SelectItem>
+                            <SelectItem value="4-7">4-7 {translations.tours.duration}</SelectItem>
+                            <SelectItem value="8-14">8-14 {translations.tours.duration}</SelectItem>
+                            <SelectItem value="15+">15+ {translations.tours.duration}</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -533,7 +533,7 @@ export default function CustomTourForm({ title, subtitle }: CustomTourFormProps 
                         <FormLabel>{home.describeIdealTrip}</FormLabel>
                         <FormControl>
                           <Textarea 
-                            placeholder="Tell us what you would like to see and do during your journey..."
+                            placeholder={home.describeIdealTrip}
                             rows={4}
                             {...field} 
                           />
@@ -548,7 +548,7 @@ export default function CustomTourForm({ title, subtitle }: CustomTourFormProps 
                     className="w-full bg-primary text-white py-3 rounded-md font-heading font-semibold hover:bg-primary-dark transition-colors"
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? "Sending..." : home.sendRequest}
+                    {isSubmitting ? translations.cruise.sending : home.sendRequest}
                   </Button>
                   
                   {/* WhatsApp Contact Button */}

@@ -34,6 +34,7 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
   const { translations } = useTranslation();
   const common = translations.common;
   const tours = translations.tours;
+  const home = translations.home;
   
   // Calculer les candidats d'images de manière optimisée
   const imageCandidates = useMemo(() => getImageCandidates(tour), [tour]);
@@ -126,8 +127,8 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
               <div className="absolute inset-0 bg-black/20"></div>
               <div className="text-white text-center p-4 relative z-10">
                 <MapPin className="w-8 h-8 mx-auto mb-2" />
-                <span className="text-sm font-medium">Krabi, Thailand</span>
-                <div className="text-xs opacity-80 mt-1">Image de présentation</div>
+                <span className="text-sm font-medium">{home.krabi}, {translations.hero.thailand}</span>
+                <div className="text-xs opacity-80 mt-1">{tours.featured}</div>
               </div>
               <div className="absolute inset-0 bg-gradient-to-br from-transparent to-primary/30"></div>
             </div>
@@ -194,7 +195,7 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  View details
+                  {common.viewDetails}
                   <ExternalLink size={12} className="ml-1" />
                 </motion.button>
               )}
@@ -210,7 +211,7 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Book
+                  {common.bookNow}
                 </motion.button>
               )}
             </div>

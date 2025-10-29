@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { X, Loader2 } from "lucide-react";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 interface TourModalProps {
   isOpen: boolean;
@@ -13,6 +14,8 @@ interface TourModalProps {
 export default function TourModal({ isOpen, onClose, tourId, tourName }: TourModalProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { translations } = useTranslation();
+  const common = translations.common;
 
   useEffect(() => {
     if (isOpen) {
@@ -65,7 +68,7 @@ export default function TourModal({ isOpen, onClose, tourId, tourName }: TourMod
             {/* Header */}
             <div className="flex items-center justify-between p-3 border-b bg-gray-50">
               <h2 className="text-lg font-semibold text-gray-900 truncate">
-                {tourName || "Détails du tour"}
+                {tourName || common.viewDetails}
               </h2>
               
               <Button
@@ -83,7 +86,7 @@ export default function TourModal({ isOpen, onClose, tourId, tourName }: TourMod
                 <div className="absolute inset-0 flex items-center justify-center bg-white z-10">
                   <div className="text-center">
                     <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-primary" />
-                    <p className="text-gray-600">Chargement des détails du tour...</p>
+                    <p className="text-gray-600">{common.loading}</p>
                   </div>
                 </div>
               )}
@@ -94,10 +97,10 @@ export default function TourModal({ isOpen, onClose, tourId, tourName }: TourMod
                     <div className="w-16 h-16 bg-[hsl(var(--destructive)/0.1)] rounded-full flex items-center justify-center mx-auto mb-4">
                       <X className="h-8 w-8 text-[hsl(var(--destructive))]" />
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Erreur de chargement</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{common.error}</h3>
                     <p className="text-gray-600 mb-4">{error}</p>
                     <Button onClick={onClose} variant="outline">
-                      Fermer
+                      X
                     </Button>
                   </div>
                 </div>
@@ -106,10 +109,10 @@ export default function TourModal({ isOpen, onClose, tourId, tourName }: TourMod
               <iframe
                 src={`https://www.tourninja.io/details/${tourId}`}
                 className="w-full h-full border-0"
-                title="Détails du tour"
+                title={common.viewDetails}
                 onLoad={() => setIsLoading(false)}
                 onError={() => {
-                  setError("Impossible de charger les détails du tour");
+                  setError(translations.common.error);
                   setIsLoading(false);
                 }}
                 allow="fullscreen"

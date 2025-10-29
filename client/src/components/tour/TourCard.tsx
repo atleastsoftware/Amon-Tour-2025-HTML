@@ -2,12 +2,17 @@ import { Link } from "wouter";
 import { Tour } from "@shared/schema";
 import { formatTHB } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 interface TourCardProps {
   tour: Tour;
 }
 
 export default function TourCard({ tour }: TourCardProps) {
+  const { translations } = useTranslation();
+  const tours = translations.tours;
+  const common = translations.common;
+  
   return (
     <motion.div 
       className="tour-card bg-white rounded-lg overflow-hidden shadow-md"
@@ -45,14 +50,14 @@ export default function TourCard({ tour }: TourCardProps) {
             className="font-heading font-bold text-lg text-primary"
             whileHover={{ scale: 1.05 }}
           >
-            From {formatTHB(tour.price)}
+            {tours.price} {formatTHB(tour.price)}
           </motion.span>
           <Link href={`/tours/${tour.id}`}>
             <motion.span 
               className="text-secondary font-semibold cursor-pointer flex items-center"
               whileHover={{ x: 5, color: "#E67E22" }}
             >
-              View details →
+              {common.viewDetails} →
             </motion.span>
           </Link>
         </div>
@@ -63,7 +68,7 @@ export default function TourCard({ tour }: TourCardProps) {
               whileHover={{ scale: 1.03, backgroundColor: "#E67E22" }}
               whileTap={{ scale: 0.98 }}
             >
-              Book Now
+              {common.bookNow}
             </motion.span>
           </Link>
         </div>

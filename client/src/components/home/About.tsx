@@ -93,7 +93,7 @@ export default function About() {
                     rel="noopener noreferrer"
                     className="text-xs text-primary hover:underline mt-1 inline-block"
                   >
-                    See all reviews
+                    {translations.common.viewDetails}
                   </a>
                 </div>
               </div>

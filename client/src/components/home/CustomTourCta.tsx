@@ -1,8 +1,12 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { FadeInWhenVisible } from "@/components/ui/animations";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function CustomTourCta() {
+  const { translations } = useTranslation();
+  const home = translations.home;
+  
   return (
     <section className="py-16 bg-gray-900 relative">
       {/* Overlay with semi-transparent gradient */}
@@ -24,11 +28,10 @@ export default function CustomTourCta() {
         <FadeInWhenVisible>
           <div className="max-w-3xl mx-auto text-center text-white">
             <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6">
-              Create Your Custom Journey
+              {home.createYourJourney}
             </h2>
             <p className="text-lg md:text-xl mb-8 text-white/90">
-              Whether you're looking for adventure, relaxation, or cultural immersion,
-              we can create a personalized itinerary tailored to your interests.
+              {home.tailorMadeDescription}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -43,7 +46,7 @@ export default function CustomTourCta() {
                   }
                 }}
               >
-                About us
+                {translations.footer.aboutUs}
               </motion.button>
               <a 
                 href="https://wa.me/66653496445" 
@@ -55,7 +58,7 @@ export default function CustomTourCta() {
                   whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.1)' }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  Contact us
+                  {home.contactUs}
                 </motion.span>
               </a>
             </div>

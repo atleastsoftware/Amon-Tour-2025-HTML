@@ -113,7 +113,7 @@ export default function Testimonials() {
               rel="noopener noreferrer"
               className="text-primary hover:underline font-medium inline-flex items-center"
             >
-              <span>View all reviews on Google</span>
+              <span>{translations.common.viewDetails}</span>
               <i className="fas fa-external-link-alt ml-2 text-sm"></i>
             </a>
           </div>

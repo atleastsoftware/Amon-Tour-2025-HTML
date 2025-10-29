@@ -3,71 +3,74 @@ import { FadeInWhenVisible, SlideUpWhenVisible } from "@/components/ui/animation
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin } from "lucide-react";
 import { Link } from "wouter";
-
-const interestCategories = [
-  {
-    name: "Culture & History",
-    icon: "fas fa-landmark"
-  },
-  {
-    name: "Nature & Adventure",
-    icon: "fas fa-mountain"
-  },
-  {
-    name: "Beaches & Islands",
-    icon: "fas fa-umbrella-beach"
-  },
-  {
-    name: "Family trip",
-    icon: "fas fa-child"
-  },
-  {
-    name: "Group trip",
-    icon: "fas fa-users"
-  },
-  {
-    name: "Wedding & Honeymoon",
-    icon: "fas fa-heart"
-  }
-];
-
-const destinations = [
-  {
-    name: "Khao Sok",
-    icon: "fas fa-tree"
-  },
-  {
-    name: "Krabi",
-    icon: "fas fa-water"
-  },
-  {
-    name: "Koh Mook",
-    icon: "fas fa-island-tropical"
-  },
-  {
-    name: "Bangkok",
-    icon: "fas fa-city"
-  },
-  {
-    name: "Chiang Mai",
-    icon: "fas fa-mountain"
-  },
-  {
-    name: "Others destinations",
-    icon: "fas fa-map-location-dot"
-  }
-];
+import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function Interests() {
+  const { translations } = useTranslation();
+  const home = translations.home;
+
+  const interestCategories = [
+    {
+      name: home.cultureHistory,
+      icon: "fas fa-landmark"
+    },
+    {
+      name: home.natureAdventure,
+      icon: "fas fa-mountain"
+    },
+    {
+      name: home.beachesIslands,
+      icon: "fas fa-umbrella-beach"
+    },
+    {
+      name: home.familyTrip,
+      icon: "fas fa-child"
+    },
+    {
+      name: home.groupTrip,
+      icon: "fas fa-users"
+    },
+    {
+      name: home.weddingHoneymoon,
+      icon: "fas fa-heart"
+    }
+  ];
+
+  const destinations = [
+    {
+      name: home.khaoSok,
+      icon: "fas fa-tree"
+    },
+    {
+      name: home.krabi,
+      icon: "fas fa-water"
+    },
+    {
+      name: home.kohMook,
+      icon: "fas fa-island-tropical"
+    },
+    {
+      name: home.bangkok,
+      icon: "fas fa-city"
+    },
+    {
+      name: home.chiangMai,
+      icon: "fas fa-mountain"
+    },
+    {
+      name: home.othersDestinations,
+      icon: "fas fa-map-location-dot"
+    }
+  ];
   return (
     <section id="interests" className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <FadeInWhenVisible>
           <div className="text-center mb-12">
-            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Interests</h2>
+            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{home.destinations}</h2>
             <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Discover Thailand through your passions and interests. Choose from our curated categories or explore by destination.
+              {home.customizedItinerariesDesc}
             </p>
           </div>
         </FadeInWhenVisible>
