@@ -25,13 +25,27 @@ export default function LanguageSelector() {
   const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
 
   const handleLanguageChange = (langCode: string) => {
-    if (isChangingLanguage || currentLanguage === langCode) return;
+    console.log('🔍 Language button clicked:', {
+      targetLanguage: langCode,
+      currentLanguage,
+      isChangingLanguage,
+      isSameLanguage: currentLanguage === langCode
+    });
+    
+    if (isChangingLanguage || currentLanguage === langCode) {
+      console.log('⚠️ Language change blocked:', {
+        isChangingLanguage,
+        isSameLanguage: currentLanguage === langCode
+      });
+      return;
+    }
     
     try {
+      console.log('🔄 Calling setLanguage with:', langCode);
       setLanguage(langCode);
-      console.log(`Language changed to: ${langCode}`);
+      console.log(`✅ Language change initiated to: ${langCode}`);
     } catch (error) {
-      console.error('Failed to switch language:', error);
+      console.error('❌ Failed to switch language:', error);
     }
   };
 

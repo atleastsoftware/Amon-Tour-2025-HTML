@@ -38,15 +38,25 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
 
   // Translate all content when language changes
   const translateContent = useCallback(async (targetLang: string) => {
+    console.log('🌍 translateContent called with:', targetLang);
+    
     if (targetLang === 'en') {
+      console.log('🔤 Resetting to English content');
       // Reset to default English content
       setTranslations(defaultTranslations);
       return;
     }
 
+    console.log('⏳ Setting loading state...');
     setIsLoading(true);
     
     try {
+      console.log('📡 Calling Google Translate API for:', targetLang);
+      console.log('📦 Content to translate:', {
+        hasContent: !!defaultTranslations,
+        sections: Object.keys(defaultTranslations || {})
+      });
+      
       // Translate the entire translations object
       const translatedContent = await googleTranslateService.translateObject(
         defaultTranslations,
@@ -54,32 +64,55 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
         'en'
       );
       
+      console.log('📥 Received translated content:', {
+        hasContent: !!translatedContent,
+        sections: Object.keys(translatedContent || {})
+      });
+      
       setTranslations(translatedContent);
+      console.log('✅ Translations updated successfully');
     } catch (error) {
-      console.error('Translation failed:', error);
+      console.error('❌ Translation failed:', error);
       // Keep current translations on error
     } finally {
+      console.log('🏁 Setting loading state to false');
       setIsLoading(false);
     }
   }, []);
 
   const setLanguage = useCallback(async (language: string) => {
-    if (language === currentLanguage) return;
+    console.log('🔵 setLanguage called with:', {
+      newLanguage: language,
+      currentLanguage,
+      isSame: language === currentLanguage
+    });
     
+    if (language === currentLanguage) {
+      console.log('⚠️ Language is already set to:', language);
+      return;
+    }
+    
+    console.log('🔄 Starting language change process...');
     setIsChangingLanguage(true);
     
     try {
       // Update language
+      console.log('📝 Updating language state to:', language);
       setCurrentLanguage(language);
       document.documentElement.lang = language;
       localStorage.setItem('preferred-language', language);
       
       // Log language change
-      console.log('Language changed to:', language);
+      console.log('✅ Language state updated to:', language);
       
       // Translate content
+      console.log('🌐 Starting content translation...');
       await translateContent(language);
+      console.log('✅ Content translation completed');
+    } catch (error) {
+      console.error('❌ Error in setLanguage:', error);
     } finally {
+      console.log('🏁 Language change process complete');
       setIsChangingLanguage(false);
     }
   }, [currentLanguage, translateContent]);
