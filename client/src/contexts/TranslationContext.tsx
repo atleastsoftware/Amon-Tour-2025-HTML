@@ -1,78 +1,97 @@
-import { createContext, useContext, useState, useEffect, ReactNode, useMemo } from 'react';
-import { translationService, Translations } from '../services/translationService';
+import { createContext, useContext, useState, useEffect, ReactNode, useMemo, useCallback } from 'react';
+import { googleTranslateService } from '../services/googleTranslateService';
+import { translationService } from '../services/translationService';
 
 interface TranslationContextType {
   currentLanguage: string;
-  translations: Translations;
+  translations: any;
   setLanguage: (language: string) => void;
   isChangingLanguage: boolean;
-  isPremiumFeature: boolean; // For future paywall
+  isPremiumFeature: boolean;
+  isLoading: boolean;
 }
 
 const TranslationContext = createContext<TranslationContextType | undefined>(undefined);
 
-export function TranslationProvider({ children }: { children: ReactNode }) {
-  const [currentLanguage, setCurrentLanguage] = useState(translationService.getCurrentLanguage());
-  const [isChangingLanguage, setIsChangingLanguage] = useState(false);
-  const [isPremiumFeature] = useState(false); // Will be used for paywall later
-  
-  // Force re-render by creating new translations object when language changes
-  const [translationKey, setTranslationKey] = useState(0);
+// Get default English content from existing translation service
+const defaultTranslations = translationService.getTranslations();
 
+export function TranslationProvider({ children }: { children: ReactNode }) {
+  const [currentLanguage, setCurrentLanguage] = useState('en');
+  const [translations, setTranslations] = useState(defaultTranslations);
+  const [isChangingLanguage, setIsChangingLanguage] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isPremiumFeature] = useState(false);
+
+  // Load saved language preference
   useEffect(() => {
-    // Initialize with saved language preference
     const savedLanguage = localStorage.getItem('preferred-language');
     if (savedLanguage && ['en', 'fr', 'es'].includes(savedLanguage)) {
-      translationService.setLanguage(savedLanguage);
-      setCurrentLanguage(savedLanguage);
-      setTranslationKey(prev => prev + 1); // Force re-render
-      document.documentElement.lang = savedLanguage;
+      if (savedLanguage !== 'en') {
+        setLanguage(savedLanguage);
+      } else {
+        setCurrentLanguage(savedLanguage);
+        document.documentElement.lang = savedLanguage;
+      }
     }
   }, []);
 
-  const setLanguage = (language: string) => {
-    if (language === currentLanguage) return;
-    
-    // Future paywall check
-    if (isPremiumFeature && language !== 'en') {
-      // In the future, show paywall modal here
-      console.log('Premium feature required for language switching');
-      // For now, allow it to work
+  // Translate all content when language changes
+  const translateContent = useCallback(async (targetLang: string) => {
+    if (targetLang === 'en') {
+      // Reset to default English content
+      setTranslations(defaultTranslations);
+      return;
     }
+
+    setIsLoading(true);
+    
+    try {
+      // Translate the entire translations object
+      const translatedContent = await googleTranslateService.translateObject(
+        defaultTranslations,
+        targetLang,
+        'en'
+      );
+      
+      setTranslations(translatedContent);
+    } catch (error) {
+      console.error('Translation failed:', error);
+      // Keep current translations on error
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const setLanguage = useCallback(async (language: string) => {
+    if (language === currentLanguage) return;
     
     setIsChangingLanguage(true);
     
-    // Update translation service
-    const success = translationService.setLanguage(language);
-    
-    if (success) {
+    try {
+      // Update language
       setCurrentLanguage(language);
-      setTranslationKey(prev => prev + 1); // Force re-render with new translations
       document.documentElement.lang = language;
       localStorage.setItem('preferred-language', language);
       
-      // Small delay to show language is changing
-      setTimeout(() => {
-        setIsChangingLanguage(false);
-      }, 300);
-    } else {
+      // Log language change
+      console.log('Language changed to:', language);
+      
+      // Translate content
+      await translateContent(language);
+    } finally {
       setIsChangingLanguage(false);
     }
-  };
-
-  // Create new translations object on each render when key changes
-  const translations = useMemo(() => {
-    // Force a new object to trigger re-renders
-    return { ...translationService.getTranslations() };
-  }, [translationKey, currentLanguage]);
+  }, [currentLanguage, translateContent]);
 
   const contextValue = useMemo(() => ({
     currentLanguage,
     translations,
     setLanguage,
     isChangingLanguage,
-    isPremiumFeature
-  }), [currentLanguage, translations, isChangingLanguage, isPremiumFeature]);
+    isPremiumFeature,
+    isLoading
+  }), [currentLanguage, translations, setLanguage, isChangingLanguage, isPremiumFeature, isLoading]);
 
   return (
     <TranslationContext.Provider value={contextValue}>
@@ -92,7 +111,7 @@ export function useTranslation() {
 }
 
 // Helper hook to get specific translation section
-export function useTranslationSection<T extends keyof Translations>(section: T): Translations[T] {
+export function useTranslationSection<T = any>(section: string): T {
   const { translations } = useTranslation();
-  return translations[section];
+  return translations[section] || {};
 }
