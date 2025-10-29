@@ -107,15 +107,6 @@ router.post('/api/translate/batch', async (req, res) => {
         const cacheKey = getCacheKey(originalText, targetLanguage, sourceLanguage);
         translationCache.set(cacheKey, translatedText);
       });
-      
-      // Debug: Log sample translations to verify they're working
-      console.log(`✅ Translation batch completed for ${targetLanguage}:`, {
-        totalTexts: textsToTranslate.length,
-        sample: textsToTranslate.length > 0 ? {
-          original: textsToTranslate[0],
-          translated: results[textsToTranslate[0]]
-        } : null
-      });
     }
 
     res.json({ translations: results });
