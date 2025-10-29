@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
@@ -63,7 +63,7 @@ export default function Header() {
   });
 
   // Map menu item names to translations based on URL
-  const getTranslatedMenuName = (item: any) => {
+  const getTranslatedMenuName = useCallback((item: any) => {
     // Map URLs to translation keys
     const urlToTranslation: { [key: string]: string } = {
       '/': nav.home,
@@ -75,9 +75,12 @@ export default function Header() {
       '/contact': nav.contact
     };
     
+    // Debug log to see what's being translated
+    console.log('Translating menu item:', item.url, '→', urlToTranslation[item.url] || item.name, 'Language:', currentLanguage);
+    
     // Return translated name if available, otherwise fallback to database name
     return urlToTranslation[item.url] || item.name;
-  };
+  }, [nav, currentLanguage]);
 
   // Fetch theme settings for notification bar
   const { data: themeSettings } = useQuery({
