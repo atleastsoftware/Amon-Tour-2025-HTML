@@ -5,6 +5,7 @@ import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { storage } from "./storage";
 import { db } from "./db";
+import translateRoutes from "./api/translate";
 import { eq } from "drizzle-orm";
 import { users } from "@shared/schema";
 import { migrateTours } from "./migration";
@@ -118,6 +119,9 @@ app.use((req, res, next) => {
 });
 
 (async () => {
+  // Register translation routes
+  app.use(translateRoutes);
+  
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
