@@ -205,6 +205,22 @@ class GoogleTranslateService {
         
         console.log(`✅ Received ${Object.keys(translations).length} translations from API`);
         
+        // Check if there's an error message about quota
+        if (data.error?.type === 'QUOTA_EXCEEDED') {
+          console.error('❌ Google Translate API Quota Exceeded!');
+          console.error('💡 Solution:', data.error.solution);
+          console.error('📝 To fix this:');
+          console.error('1. Go to https://console.cloud.google.com/billing');
+          console.error('2. Enable billing for your Google Cloud project');
+          console.error('3. The Google Translate API free tier is very limited (500,000 characters/month)');
+          
+          // Show alert to user (only once per session)
+          if (!window.sessionStorage.getItem('quota_error_shown')) {
+            alert('⚠️ Google Translate API Quota Exceeded!\n\nYour API key has hit the free tier limit.\n\nTo fix:\n1. Enable billing in Google Cloud Console\n2. Or wait until next month for quota reset\n\nTexts will remain in English for now.');
+            window.sessionStorage.setItem('quota_error_shown', 'true');
+          }
+        }
+        
         // Process translations and update cache
         Object.entries(translations).forEach(([originalText, translation]) => {
           results[originalText] = translation as string;

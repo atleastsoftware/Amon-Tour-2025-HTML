@@ -106,8 +106,31 @@ router.post('/api/translate/batch', async (req, res) => {
     console.log(`📨 [Translation API] Google API Response status:`, response.status);
 
     if (!response.ok) {
-      const error = await response.text();
-      console.error('Google Translate API error:', error);
+      const errorText = await response.text();
+      console.error('Google Translate API error:', errorText);
+      
+      let errorMessage = 'Translation service temporarily unavailable';
+      let errorDetails = {};
+      
+      try {
+        const errorData = JSON.parse(errorText);
+        if (errorData.error?.message?.includes('User Rate Limit Exceeded')) {
+          errorMessage = 'Google Translate API quota exceeded. Please enable billing in Google Cloud Console.';
+          errorDetails = {
+            type: 'QUOTA_EXCEEDED',
+            message: 'Your Google API key has exceeded its free quota. Enable billing in Google Cloud Console to continue using translations.',
+            solution: 'Visit https://console.cloud.google.com/billing and enable billing for your project'
+          };
+        } else if (errorData.error?.message?.includes('API key not valid')) {
+          errorMessage = 'Invalid Google Translate API key';
+          errorDetails = {
+            type: 'INVALID_API_KEY',
+            message: 'The Google Translate API key is not valid or not properly configured.'
+          };
+        }
+      } catch (e) {
+        // If error parsing fails, use generic message
+      }
       
       // Return original texts as fallback
       textsToTranslate.forEach(text => {
@@ -116,7 +139,8 @@ router.post('/api/translate/batch', async (req, res) => {
       
       return res.json({ 
         translations: results,
-        warning: 'Translation service temporarily unavailable'
+        warning: errorMessage,
+        error: errorDetails
       });
     }
 
