@@ -55,6 +55,7 @@ export default function Hero() {
   const hero = translations.hero;
 
   // Récupérer les données de configuration du héros (avec gestion d'erreur)
+  // NOTE: Only use this for visual configuration, NOT for text content
   const { data: heroBlocks } = useQuery({
     queryKey: ['/api/admin/page-blocks', 'home'],
     queryFn: async () => {
@@ -76,6 +77,7 @@ export default function Hero() {
   });
 
   // Trouver le bloc hero principal (tous types possibles)
+  // This is ONLY for configuration settings, not for text content
   const heroConfig = heroBlocks?.find((block: any) => 
     block.blockType === 'video_hero' || 
     block.blockType === 'hero' || 
@@ -99,20 +101,21 @@ export default function Hero() {
   
   // Fonction pour appliquer la couleur au mot spécifique dans le titre
   const renderTitleWithColors = () => {
-    const mainTitle = heroConfig?.titleMainColor || heroConfig?.title || hero.title;
-    const colorPart = heroConfig?.titleColorPart || hero.subtitle;
+    // ALWAYS use translations, never use database content
+    const mainTitle = hero.title;
+    const colorPart = hero.subtitle;
     const titlePrimaryColor = heroConfig?.titlePrimaryColor || 'white';
     const titleAccentColor = heroConfig?.titleAccentColor || 'primary';
-    const heroCountry = heroConfig?.heroCountry || `– ${hero.thailand}`;
+    const heroCountry = hero.thailand;
     
     // Si le titre contient le mot à colorier
-    if (mainTitle.includes(colorPart)) {
+    if (mainTitle && colorPart && mainTitle.includes(colorPart)) {
       const parts = mainTitle.split(colorPart);
       return (
         <>
           <span className={getColorClass(titlePrimaryColor, 'text-white')}>{parts[0]}</span>
           <span className={getColorClass(titleAccentColor, 'text-primary')}>{colorPart}</span>
-          <span className={getColorClass(titlePrimaryColor, 'text-white')}>{parts[1] || ` ${heroCountry}`}</span>
+          <span className={getColorClass(titlePrimaryColor, 'text-white')}>{parts[1] || ` – ${heroCountry}`}</span>
         </>
       );
     }
@@ -125,7 +128,7 @@ export default function Hero() {
           <>
             <br/>
             <span className={getColorClass(titleAccentColor, 'text-primary')}>{colorPart} </span>
-            <span className={getColorClass(titlePrimaryColor, 'text-white')}>{heroCountry}</span>
+            <span className={getColorClass(titlePrimaryColor, 'text-white')}>– {heroCountry}</span>
           </>
         )}
       </>
@@ -234,7 +237,7 @@ export default function Hero() {
               <p className={`mb-6 text-lg drop-shadow-md ${
                 getColorClass(heroConfig?.subtitleColor || 'white', 'text-white/90')
               }`}>
-                {heroConfig?.subtitle || hero.description}
+                {hero.description}
               </p>
               
               <div className={`flex flex-col sm:flex-row gap-4 ${
@@ -242,10 +245,11 @@ export default function Hero() {
                 heroConfig?.contentAlignment === 'right' ? 'justify-end' :
                 'justify-start'
               }`}>
-                {(heroConfig?.buttons || [
-                  {text: hero.seeOffers, url: '/tours', color: '#084F6E', style: 'filled'},
-                  {text: hero.customTrip, url: '/custom-tour', color: '#084F6E', style: 'filled'}
-                ]).map((button: any, index: number) => (
+                {/* Always use translated button text */}
+                {[
+                  {text: hero.seeOffers, url: '/tours', color: heroConfig?.button1Color || '#084F6E', style: heroConfig?.button1Style || 'filled'},
+                  {text: hero.customTrip, url: '/custom-tour', color: heroConfig?.button2Color || '#084F6E', style: heroConfig?.button2Style || 'filled'}
+                ].map((button: any, index: number) => (
                   <Link key={index} href={button.url}>
                     <motion.span 
                       className={`px-8 py-3 mt-4 rounded transition-colors cursor-pointer inline-block shadow-lg w-48 text-center ${
