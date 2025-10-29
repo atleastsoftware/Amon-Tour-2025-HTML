@@ -26,59 +26,14 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
   // Load saved language preference
   useEffect(() => {
     const savedLanguage = localStorage.getItem('preferred-language');
-    if (savedLanguage && ['en', 'fr', 'es'].includes(savedLanguage)) {
-      if (savedLanguage !== 'en') {
-        setLanguage(savedLanguage);
-      } else {
-        setCurrentLanguage(savedLanguage);
-        document.documentElement.lang = savedLanguage;
-      }
+    if (savedLanguage && savedLanguage !== 'en') {
+      // Only auto-load non-English languages
+      // We'll translate on mount
+      setCurrentLanguage(savedLanguage);
+      document.documentElement.lang = savedLanguage;
     }
   }, []);
 
-  // Translate all content when language changes
-  const translateContent = useCallback(async (targetLang: string) => {
-    console.log('🌍 translateContent called with:', targetLang);
-    
-    if (targetLang === 'en') {
-      console.log('🔤 Resetting to English content');
-      // Reset to default English content
-      setTranslations(defaultTranslations);
-      return;
-    }
-
-    console.log('⏳ Setting loading state...');
-    setIsLoading(true);
-    
-    try {
-      console.log('📡 Calling Google Translate API for:', targetLang);
-      console.log('📦 Content to translate:', {
-        hasContent: !!defaultTranslations,
-        sections: Object.keys(defaultTranslations || {})
-      });
-      
-      // Translate the entire translations object
-      const translatedContent = await googleTranslateService.translateObject(
-        defaultTranslations,
-        targetLang,
-        'en'
-      );
-      
-      console.log('📥 Received translated content:', {
-        hasContent: !!translatedContent,
-        sections: Object.keys(translatedContent || {})
-      });
-      
-      setTranslations(translatedContent);
-      console.log('✅ Translations updated successfully');
-    } catch (error) {
-      console.error('❌ Translation failed:', error);
-      // Keep current translations on error
-    } finally {
-      console.log('🏁 Setting loading state to false');
-      setIsLoading(false);
-    }
-  }, []);
 
   const setLanguage = useCallback(async (language: string) => {
     console.log('🔵 setLanguage called with:', {
@@ -96,26 +51,56 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
     setIsChangingLanguage(true);
     
     try {
-      // Update language
+      // Translate content FIRST before updating language
+      console.log('🌐 Starting content translation...');
+      if (language === 'en') {
+        console.log('🔤 Resetting to English content');
+        // Reset to default English content
+        setTranslations(defaultTranslations);
+      } else {
+        console.log('📡 Calling Google Translate API for:', language);
+        console.log('📦 Content to translate:', {
+          hasContent: !!defaultTranslations,
+          sections: Object.keys(defaultTranslations || {})
+        });
+        
+        setIsLoading(true);
+        try {
+          // Translate the entire translations object
+          const translatedContent = await googleTranslateService.translateObject(
+            defaultTranslations,
+            language,
+            'en'
+          );
+          
+          console.log('📥 Received translated content:', {
+            hasContent: !!translatedContent,
+            sections: Object.keys(translatedContent || {}),
+            sample: translatedContent?.nav?.tours // Log a sample to verify content
+          });
+          
+          // Force new object reference for React to detect change
+          setTranslations({...translatedContent});
+          console.log('✅ Translations updated successfully');
+        } finally {
+          setIsLoading(false);
+        }
+      }
+      
+      // Then update language state
       console.log('📝 Updating language state to:', language);
       setCurrentLanguage(language);
       document.documentElement.lang = language;
       localStorage.setItem('preferred-language', language);
       
-      // Log language change
-      console.log('✅ Language state updated to:', language);
-      
-      // Translate content
-      console.log('🌐 Starting content translation...');
-      await translateContent(language);
-      console.log('✅ Content translation completed');
+      console.log('✅ Language state and content updated');
     } catch (error) {
       console.error('❌ Error in setLanguage:', error);
     } finally {
       console.log('🏁 Language change process complete');
       setIsChangingLanguage(false);
     }
-  }, [currentLanguage, translateContent]);
+  }, [currentLanguage]);
 
   const contextValue = useMemo(() => ({
     currentLanguage,
