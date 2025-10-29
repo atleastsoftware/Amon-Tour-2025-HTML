@@ -20,7 +20,16 @@ router.post('/api/translate/batch', async (req, res) => {
   try {
     const { texts, targetLanguage, sourceLanguage = 'auto' } = req.body;
     
+    console.log(`📥 [Translation API] Batch translation request:`, {
+      textCount: texts?.length,
+      targetLanguage,
+      sourceLanguage,
+      apiKeyExists: !!GOOGLE_TRANSLATE_API_KEY,
+      apiKeyLength: GOOGLE_TRANSLATE_API_KEY?.length
+    });
+    
     if (!GOOGLE_TRANSLATE_API_KEY) {
+      console.error('❌ [Translation API] GOOGLE_TRANSLATE_API_KEY not configured');
       return res.status(500).json({ 
         error: 'Translation service not configured',
         translations: texts // Return original texts as fallback
@@ -49,9 +58,17 @@ router.post('/api/translate/batch', async (req, res) => {
         textsToTranslate.push(text);
       }
     }
+    
+    console.log(`📊 [Translation API] Cache status:`, {
+      totalTexts: texts.length,
+      cachedTexts: texts.length - textsToTranslate.length,
+      textsToTranslate: textsToTranslate.length,
+      cacheSize: translationCache.size
+    });
 
     // If all texts were cached, return immediately
     if (textsToTranslate.length === 0) {
+      console.log('✅ [Translation API] All texts cached, returning cached results');
       return res.json({ translations: results });
     }
 
@@ -69,14 +86,24 @@ router.post('/api/translate/batch', async (req, res) => {
     textsToTranslate.forEach(text => {
       params.append('q', text);
     });
+    
+    const apiUrl = `${GOOGLE_TRANSLATE_API_URL}?${params}`;
+    console.log(`🚀 [Translation API] Making request to Google Translate API:`, {
+      url: GOOGLE_TRANSLATE_API_URL,
+      targetLanguage,
+      sourceLanguage,
+      textsCount: textsToTranslate.length
+    });
 
     // Make API request
-    const response = await fetch(`${GOOGLE_TRANSLATE_API_URL}?${params}`, {
+    const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       }
     });
+    
+    console.log(`📨 [Translation API] Google API Response status:`, response.status);
 
     if (!response.ok) {
       const error = await response.text();
