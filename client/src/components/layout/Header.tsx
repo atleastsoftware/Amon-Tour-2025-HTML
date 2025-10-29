@@ -70,13 +70,10 @@ export default function Header() {
       '/tours': nav.tours,
       '/experiences': nav.experiences,
       '/cruise': nav.cruise,
-      '/custom-tour': nav.customTrip,  // Corrected URL
+      '/custom-tour': nav.customTrip,
       '/blog': nav.blog,
       '/contact': nav.contact
     };
-    
-    // Debug log to see what's being translated
-    console.log('Translating menu item:', item.url, '→', urlToTranslation[item.url] || item.name, 'Language:', currentLanguage);
     
     // Return translated name if available, otherwise fallback to database name
     return urlToTranslation[item.url] || item.name;
