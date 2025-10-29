@@ -241,10 +241,11 @@ export class AutoBrowserTranslate {
 export const autoTranslate = new AutoBrowserTranslate();
 
 // Auto-initialize when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
-    autoTranslate.init();
-  });
-} else {
-  autoTranslate.init();
-}
+// DISABLED: Auto-translate conflicts with Google Translate API implementation
+// if (document.readyState === 'loading') {
+//   document.addEventListener('DOMContentLoaded', () => {
+//     autoTranslate.init();
+//   });
+// } else {
+//   autoTranslate.init();
+// }
