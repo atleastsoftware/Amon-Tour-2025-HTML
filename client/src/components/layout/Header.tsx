@@ -70,7 +70,7 @@ export default function Header() {
       '/tours': nav.tours,
       '/experiences': nav.experiences,
       '/cruise': nav.cruise,
-      '/custom-trip': nav.customTrip,
+      '/custom-tour': nav.customTrip,  // Corrected URL
       '/blog': nav.blog,
       '/contact': nav.contact
     };
