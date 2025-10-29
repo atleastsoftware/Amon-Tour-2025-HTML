@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useTranslation } from '../contexts/TranslationContext';
-import { googleTranslateService } from '../services/googleTranslateService';
 import { Check } from 'lucide-react';
 
 const languageData = {
@@ -24,7 +23,6 @@ const languageData = {
 export default function LanguageSelector() {
   const { currentLanguage, setLanguage, isChangingLanguage } = useTranslation();
   const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
-  const [showDebug, setShowDebug] = useState(false);
 
   const handleLanguageChange = (langCode: string) => {
     console.log('🔍 Language button clicked:', {
@@ -50,39 +48,13 @@ export default function LanguageSelector() {
       console.error('❌ Failed to switch language:', error);
     }
   };
-  
-  const handleClearCache = () => {
-    console.log('🗑️ Clearing translation cache...');
-    googleTranslateService.clearCache();
-    localStorage.removeItem('translationCache');
-    console.log('✅ Translation cache cleared! Next translation will make fresh API calls.');
-    // Refresh the current language to trigger new API calls
-    const currentLang = currentLanguage;
-    setLanguage('en');
-    setTimeout(() => {
-      if (currentLang !== 'en') {
-        setLanguage(currentLang);
-      }
-    }, 100);
-  };
 
   const handleImageError = (langCode: string) => {
     setFailedImages(prev => new Set(prev).add(langCode));
   };
 
   return (
-    <div className="relative flex items-center gap-2">
-      {/* Debug mode toggle - only show in development */}
-      {process.env.NODE_ENV === 'development' && (
-        <button
-          onClick={() => setShowDebug(!showDebug)}
-          className="text-xs text-gray-500 hover:text-gray-700 mr-2"
-          title="Toggle debug mode"
-        >
-          🔧
-        </button>
-      )}
-      
+    <div className="flex items-center gap-2">
       {Object.entries(languageData).map(([langCode, langData]) => (
         <button
           key={langCode}
@@ -131,22 +103,6 @@ export default function LanguageSelector() {
           )}
         </button>
       ))}
-      
-      {/* Debug panel - only show when debug mode is active */}
-      {showDebug && (
-        <div className="absolute top-full right-0 mt-2 p-3 bg-white border border-gray-200 rounded-md shadow-lg z-50">
-          <div className="text-xs text-gray-600 mb-2">Debug Tools</div>
-          <button
-            onClick={handleClearCache}
-            className="text-xs bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
-          >
-            Clear Translation Cache
-          </button>
-          <div className="text-xs text-gray-500 mt-2">
-            Clearing cache will force fresh API calls
-          </div>
-        </div>
-      )}
     </div>
   );
 }

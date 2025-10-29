@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, ReactNode, useMemo, useCallback } from 'react';
+import { staticTranslationService } from '../services/staticTranslationService';
 import { googleTranslateService } from '../services/googleTranslateService';
-import { translationService } from '../services/translationService';
 
 interface TranslationContextType {
   currentLanguage: string;
@@ -9,12 +9,13 @@ interface TranslationContextType {
   isChangingLanguage: boolean;
   isPremiumFeature: boolean;
   isLoading: boolean;
+  useDynamicTranslation: (text: string) => Promise<string>;
 }
 
 const TranslationContext = createContext<TranslationContextType | undefined>(undefined);
 
-// Get default English content from existing translation service
-const defaultTranslations = translationService.getTranslations();
+// Get default English content from static translation service
+const defaultTranslations = staticTranslationService.getTranslations('en');
 
 export function TranslationProvider({ children }: { children: ReactNode }) {
   const [currentLanguage, setCurrentLanguage] = useState('en');
@@ -23,8 +24,9 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isPremiumFeature] = useState(false);
 
-  // Load saved language preference
+  // Load saved language preference and dynamic cache
   useEffect(() => {
+    staticTranslationService.loadDynamicCache();
     const savedLanguage = localStorage.getItem('preferred-language');
     if (savedLanguage && ['en', 'fr', 'es'].includes(savedLanguage)) {
       if (savedLanguage !== 'en') {
@@ -36,86 +38,86 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  // Translate all content when language changes
+  // Use static translations - instant and free!
   const translateContent = useCallback(async (targetLang: string) => {
-    console.log('🌍 translateContent called with:', targetLang);
+    console.log('🌍 Using static translations for:', targetLang);
     
-    if (targetLang === 'en') {
-      console.log('🔤 Resetting to English content');
-      // Reset to default English content
-      setTranslations(defaultTranslations);
+    // Get translations from static JSON files
+    const staticTranslations = staticTranslationService.getTranslations(targetLang);
+    
+    if (staticTranslations) {
+      console.log('✅ Loaded static translations instantly');
+      setTranslations(staticTranslations);
       return;
     }
-
-    console.log('⏳ Setting loading state...');
-    setIsLoading(true);
     
-    try {
-      console.log('📡 Calling Google Translate API for:', targetLang);
-      console.log('📦 Content to translate:', {
-        hasContent: !!defaultTranslations,
-        sections: Object.keys(defaultTranslations || {})
-      });
-      
-      // Translate the entire translations object
-      const translatedContent = await googleTranslateService.translateObject(
-        defaultTranslations,
-        targetLang,
-        'en'
-      );
-      
-      console.log('📥 Received translated content:', {
-        hasContent: !!translatedContent,
-        sections: Object.keys(translatedContent || {})
-      });
-      
-      setTranslations(translatedContent);
-      console.log('✅ Translations updated successfully');
-    } catch (error) {
-      console.error('❌ Translation failed:', error);
-      // Keep current translations on error
-    } finally {
-      console.log('🏁 Setting loading state to false');
-      setIsLoading(false);
-    }
+    // Fallback to English if language not found
+    console.log('⚠️ Language not found, using English');
+    setTranslations(defaultTranslations);
   }, []);
 
   const setLanguage = useCallback(async (language: string) => {
-    console.log('🔵 setLanguage called with:', {
-      newLanguage: language,
-      currentLanguage,
-      isSame: language === currentLanguage
-    });
+    console.log('🔵 setLanguage called with:', language);
     
     if (language === currentLanguage) {
       console.log('⚠️ Language is already set to:', language);
       return;
     }
     
-    console.log('🔄 Starting language change process...');
+    if (!staticTranslationService.isLanguageSupported(language)) {
+      console.error('❌ Language not supported:', language);
+      return;
+    }
+    
+    console.log('🔄 Changing language to:', language);
     setIsChangingLanguage(true);
     
     try {
-      // Update language
-      console.log('📝 Updating language state to:', language);
+      // Update language in static service
+      staticTranslationService.setLanguage(language);
+      
+      // Update state
       setCurrentLanguage(language);
       document.documentElement.lang = language;
-      localStorage.setItem('preferred-language', language);
       
-      // Log language change
-      console.log('✅ Language state updated to:', language);
-      
-      // Translate content
-      console.log('🌐 Starting content translation...');
+      // Load translations instantly from static files
       await translateContent(language);
-      console.log('✅ Content translation completed');
+      
+      console.log('✅ Language changed successfully to:', language);
     } catch (error) {
-      console.error('❌ Error in setLanguage:', error);
+      console.error('❌ Error changing language:', error);
     } finally {
-      console.log('🏁 Language change process complete');
       setIsChangingLanguage(false);
     }
   }, [currentLanguage, translateContent]);
+  
+  // Function to translate dynamic content (like tour descriptions)
+  const useDynamicTranslation = useCallback(async (text: string): Promise<string> => {
+    if (!text || currentLanguage === 'en') {
+      return text;
+    }
+    
+    // Check if already cached
+    const cached = staticTranslationService.getDynamicTranslation(text, currentLanguage);
+    if (cached) {
+      return cached;
+    }
+    
+    // For dynamic content, we can optionally use Google API
+    // But only if it's really needed (e.g., user-generated content)
+    if (staticTranslationService.isDynamicContent(text)) {
+      try {
+        const translated = await googleTranslateService.translateText(text, currentLanguage, 'en');
+        staticTranslationService.addDynamicTranslation(text, translated, currentLanguage);
+        return translated;
+      } catch (error) {
+        console.error('Failed to translate dynamic content:', error);
+        return text;
+      }
+    }
+    
+    return text;
+  }, [currentLanguage]);
 
   const contextValue = useMemo(() => ({
     currentLanguage,
@@ -123,8 +125,9 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
     setLanguage,
     isChangingLanguage,
     isPremiumFeature,
-    isLoading
-  }), [currentLanguage, translations, setLanguage, isChangingLanguage, isPremiumFeature, isLoading]);
+    isLoading,
+    useDynamicTranslation
+  }), [currentLanguage, translations, setLanguage, isChangingLanguage, isPremiumFeature, isLoading, useDynamicTranslation]);
 
   return (
     <TranslationContext.Provider value={contextValue}>
