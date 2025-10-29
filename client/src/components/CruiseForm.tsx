@@ -25,7 +25,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useTranslation } from "@/contexts/GoogleTranslateContext";
+import { useTranslation } from "@/contexts/TranslationContext";
 import { apiRequest } from "@/lib/queryClient";
 
 const cruiseFormSchema = z.object({

@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import amonTourTeam from "@/assets/amon-tour-team.jpg";
-import { useTranslation } from "@/contexts/GoogleTranslateContext";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function About() {
   const { translations } = useTranslation();

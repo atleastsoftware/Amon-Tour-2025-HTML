@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { StaggerChildren, StaggerItem } from "@/components/ui/animations";
 import { Users, Compass, Sparkles } from "lucide-react";
-import { useTranslation } from "@/contexts/GoogleTranslateContext";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function Features() {
   const { translations } = useTranslation();

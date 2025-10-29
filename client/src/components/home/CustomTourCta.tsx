@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { FadeInWhenVisible } from "@/components/ui/animations";
-import { useTranslation } from "@/contexts/GoogleTranslateContext";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function CustomTourCta() {
   const { translations } = useTranslation();

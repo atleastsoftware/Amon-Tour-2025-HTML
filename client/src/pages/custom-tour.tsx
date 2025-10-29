@@ -4,7 +4,7 @@ import SEO from "@/components/layout/SEO";
 import HeroHeader from "@/components/layout/HeroHeader";
 import CustomTourForm from "@/components/home/CustomTourForm";
 import { MapPin, Building2, HeadphonesIcon } from "lucide-react";
-import { useTranslation } from "@/contexts/GoogleTranslateContext";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function CustomTour() {
   const { translations } = useTranslation();

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useTranslation } from "@/contexts/GoogleTranslateContext";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function SeasonalPricing() {
   const { translations } = useTranslation();

@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { StaggerChildren, StaggerItem } from "@/components/ui/animations";
 import { Map, Zap, Globe, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
-import { useTranslation } from "@/contexts/GoogleTranslateContext";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 // Photo Gallery Carousel Component with Lightbox
 function PhotoGallery() {

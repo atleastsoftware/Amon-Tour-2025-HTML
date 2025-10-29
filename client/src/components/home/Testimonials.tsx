@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useTranslation } from "@/contexts/GoogleTranslateContext";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function Testimonials() {
   const googleReviewsRef = useRef<HTMLDivElement>(null);

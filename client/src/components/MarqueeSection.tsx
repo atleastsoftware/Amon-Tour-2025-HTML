@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { useTranslation } from "@/contexts/GoogleTranslateContext";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function MarqueeSection() {
   const { translations } = useTranslation();

@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import { Tour } from "@shared/schema";
 import { formatTHB } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { useTranslation } from "@/contexts/GoogleTranslateContext";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 interface TourCardProps {
   tour: Tour;
