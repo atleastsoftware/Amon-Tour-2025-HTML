@@ -14,10 +14,14 @@ import { MapPin, Clock, ExternalLink, Search, Filter, X, AlertCircle } from "luc
 import { formatTHB } from "@/lib/utils";
 import { useTourNinjaWithCustomImages, type TourNinjaTour } from "@/hooks/useTourNinja";
 import { useIframe } from "@/contexts/IframeContext";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function Tours() {
   const { tours, isLoading, error, success, cached, fallback } = useTourNinjaWithCustomImages();
   const { openIframe } = useIframe();
+  const { translations } = useTranslation();
+  const t = translations.tours;
+  const common = translations.common;
   
   // Filtres
   const [searchTerm, setSearchTerm] = useState("");
@@ -186,8 +190,8 @@ export default function Tours() {
       <main className="min-h-screen bg-gradient-to-br from-primary/10 to-primary/20">
         {/* Hero */}
         <HeroHeader 
-          title="Our Experiences"
-          subtitle="Discover the exceptional beauty of Krabi and southern Thailand."
+          title={t.title}
+          subtitle={t.description}
           alt="Tours and experiences in Thailand"
         />
 
@@ -195,7 +199,7 @@ export default function Tours() {
         <section className="container mx-auto px-4 py-8">
           <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
             <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-gray-800">Filters</h2>
+              <h2 className="text-xl font-semibold text-gray-800">{common.filters || 'Filters'}</h2>
               <Button
                 variant="ghost"
                 size="sm"
@@ -203,7 +207,7 @@ export default function Tours() {
                 className="md:hidden"
               >
                 <Filter className="h-4 w-4 mr-2" />
-                {showFilters ? 'Hide' : 'Show'} filters
+                {showFilters ? (common.hide || 'Hide') : (common.show || 'Show')} {common.filters || 'filters'}
               </Button>
             </div>
 
@@ -212,7 +216,7 @@ export default function Tours() {
               <div className="relative md:col-span-2 lg:col-span-2">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                 <Input
-                  placeholder="Search for a tour..."
+                  placeholder={common.searchPlaceholder || 'Search for a tour...'}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10"
@@ -222,10 +226,10 @@ export default function Tours() {
               {/* Prix */}
               <Select value={priceRange} onValueChange={setPriceRange}>
                 <SelectTrigger>
-                  <SelectValue placeholder="All prices" />
+                  <SelectValue placeholder={common.allPrices || 'All prices'} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All prices</SelectItem>
+                  <SelectItem value="all">{common.allPrices || 'All prices'}</SelectItem>
                   {filterOptions.priceRanges.map(range => (
                     <SelectItem key={range.value} value={range.value}>
                       {range.label}
@@ -237,13 +241,13 @@ export default function Tours() {
               {/* Durée */}
               <Select value={durationFilter} onValueChange={setDurationFilter}>
                 <SelectTrigger>
-                  <SelectValue placeholder="All durations" />
+                  <SelectValue placeholder={common.allDurations || 'All durations'} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All durations</SelectItem>
+                  <SelectItem value="all">{common.allDurations || 'All durations'}</SelectItem>
                   {filterOptions.durations.map(duration => (
                     <SelectItem key={duration} value={duration.toString()}>
-                      {duration} day{Number(duration) > 1 ? 's' : ''}
+                      {duration} {Number(duration) === 1 ? (common.day || 'day') : (common.days || 'days')}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -252,10 +256,10 @@ export default function Tours() {
               {/* Destination */}
               <Select value={destinationFilter} onValueChange={setDestinationFilter}>
                 <SelectTrigger>
-                  <SelectValue placeholder="All destinations" />
+                  <SelectValue placeholder={common.allDestinations || 'All destinations'} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All destinations</SelectItem>
+                  <SelectItem value="all">{common.allDestinations || 'All destinations'}</SelectItem>
                   {filterOptions.destinations.map(destination => (
                     <SelectItem key={destination} value={destination}>
                       {destination}
@@ -268,7 +272,7 @@ export default function Tours() {
               {hasActiveFilters && (
                 <Button variant="outline" onClick={clearFilters} className="w-full md:col-span-4 lg:col-span-5">
                   <X className="h-4 w-4 mr-2" />
-                  Clear filters
+                  {common.clearFilters || 'Clear filters'}
                 </Button>
               )}
             </div>
@@ -320,7 +324,7 @@ export default function Tours() {
                       <div className="absolute top-4 right-4">
                         <Badge variant="secondary" className="bg-white/90 text-gray-800">
                           <Clock className="h-3 w-3 mr-1" />
-                          {tour.duration} day{Number(tour.duration) > 1 ? 's' : ''}
+                          {tour.duration} {Number(tour.duration) === 1 ? (common.day || 'day') : (common.days || 'days')}
                         </Badge>
                       </div>
                     </div>
@@ -350,14 +354,14 @@ export default function Tours() {
                           variant="outline"
                           className="flex-1 border-primary text-primary hover:bg-primary/10"
                         >
-                          View details
+                          {common.viewDetails}
                           <ExternalLink className="h-4 w-4 ml-2" />
                         </Button>
                         <Button 
                           onClick={() => handleTourBooking(tour)}
                           className="flex-1 bg-primary hover:bg-primary/90 text-white"
                         >
-                          Book
+                          {common.bookNow}
                           <ExternalLink className="h-4 w-4 ml-2" />
                         </Button>
                       </div>

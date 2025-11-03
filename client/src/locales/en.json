@@ -22,7 +22,17 @@
     "tryAgain": "Try again",
     "learnMore": "Learn more",
     "viewDetails": "View details",
-    "bookNow": "Book now"
+    "bookNow": "Book now",
+    "filters": "Filters",
+    "show": "Show",
+    "hide": "Hide",
+    "searchPlaceholder": "Search for a tour...",
+    "allPrices": "All prices",
+    "allDurations": "All durations",
+    "allDestinations": "All destinations",
+    "clearFilters": "Clear filters",
+    "day": "day",
+    "days": "days"
   },
   "tours": {
     "title": "Tours & Experiences",

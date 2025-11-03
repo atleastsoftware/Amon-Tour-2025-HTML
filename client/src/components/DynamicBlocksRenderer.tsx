@@ -367,8 +367,8 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                     className={`flex gap-4 mt-8 ${contentAlignment === 'center' ? 'justify-center' : contentAlignment === 'right' ? 'justify-end' : 'justify-start'}`}
                   >
                     {heroConfig.buttons.map((button: any, index: number) => {
-                      // Use translations for button text if button.text is not set
-                      const buttonText = button.text || (index === 0 ? hero.seeOffers : hero.customTrip);
+                      // ALWAYS USE TRANSLATIONS FIRST for button text
+                      const buttonText = (index === 0 ? hero.seeOffers : hero.customTrip) || button.text;
                       if (!buttonText) return null;
                       
                       const buttonStyle = button.style || 'solid';
