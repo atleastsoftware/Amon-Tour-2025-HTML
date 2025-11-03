@@ -26,16 +26,31 @@ export default function PopularExperiencesBlock({
   isPreview = false
 }: PopularExperiencesBlockProps) {
   const { openIframe } = useIframe();
-  const { translations } = useTranslation();
+  const { translations, currentLanguage } = useTranslation();
   const tours = translations.tours;
   const common = translations.common;
+  
+  console.log('🎯 [PopularExperiencesBlock] Rendering with language:', currentLanguage);
   
   // Use translations as fallback if no title/subtitle provided
   const displayTitle = title || tours.featured;
   const displaySubtitle = subtitle || tours.description;
   
   const { data: tourNinjaResponse, isLoading: tourNinjaLoading } = useQuery<{success: boolean, data: any[]}>({
-    queryKey: ['/api/proxy/tours'],
+    queryKey: ['/api/proxy/tours', currentLanguage], // ✅ Add language to queryKey!
+    queryFn: async () => {
+      console.log('🌐 [PopularExperiencesBlock] Fetching tours for language:', currentLanguage);
+      const url = `/api/proxy/tours?language=${currentLanguage}`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('Failed to fetch tours');
+      const data = await res.json();
+      console.log('📦 [PopularExperiencesBlock] Received:', {
+        count: data.data?.length,
+        language: data.language,
+        firstTourName: data.data?.[0]?.name
+      });
+      return data;
+    },
     refetchInterval: isPreview ? 2000 : false,
     staleTime: isPreview ? 0 : 60000,
   });

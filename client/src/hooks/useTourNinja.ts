@@ -129,6 +129,8 @@ export function useTourNinja() {
 export function useTourNinjaWithCustomImages() {
   const { currentLanguage } = useTranslation();
   
+  console.log('🔧 [useTourNinjaWithCustomImages] Hook called with currentLanguage:', currentLanguage);
+  
   const { data: response, isLoading, error, refetch } = useQuery<TourNinjaApiResponse>({
     queryKey: ['/api/proxy/tours', currentLanguage], // Include language in cache key
     queryFn: async () => {
@@ -156,7 +158,8 @@ export function useTourNinjaWithCustomImages() {
 
   // Force refetch when language changes
   useEffect(() => {
-    console.log('🔄 [useTourNinjaWithCustomImages] Language changed to:', currentLanguage, '- refetching tours');
+    console.log('🔄 [useTourNinjaWithCustomImages] useEffect triggered! Language:', currentLanguage);
+    console.log('🔄 [useTourNinjaWithCustomImages] Calling refetch...');
     refetch();
   }, [currentLanguage]); // Remove refetch from dependencies as it's stable in React Query v5
 
