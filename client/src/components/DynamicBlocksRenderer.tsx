@@ -4,6 +4,7 @@ import { Loader2, Users, Compass, Sparkles, ExternalLink, Clock } from "lucide-r
 import Gallery from "@/components/ui/Gallery";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 // Lazy load form components
 const CruiseForm = lazy(() => import("@/components/CruiseForm"));
@@ -58,6 +59,9 @@ function hexToRgba(hex: string, alpha: number = 1): string {
 }
 
 export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererProps) {
+  const { translations, currentLanguage } = useTranslation();
+  const hero = translations.hero;
+  
   const renderBlock = (block: PageBlock) => {
     // Pour l'instant, on affiche un rendu basique pour chaque type de bloc
     // Dans le futur, chaque type de bloc aura son propre composant
@@ -168,8 +172,8 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
           right: 'items-center justify-end text-right'
         }[contentAlignment];
         
-        // Render title with colored accent
-        const fullTitle = heroConfig.title || block.title || "Your exclusive experiences\nin Krabi –\nTHAILAND";
+        // Render title with colored accent - USE TRANSLATION AS DEFAULT
+        const fullTitle = heroConfig.title || block.title || hero.title;
         const accentText = heroConfig.titleAccentText || "in Krabi –";
         const titleColor = heroConfig.titleColor || '#ffffff';
         const accentColor = heroConfig.titleAccentColor || '#3BA8AF';
@@ -289,6 +293,17 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
           <section key={block.id} className="relative pt-40 md:pt-48 pb-20 min-h-screen flex overflow-hidden">
             {heroBackground}
             <div className="absolute inset-0 bg-black/40 z-10"></div>
+            
+            {/* DEBUG BANNER - Remove after testing */}
+            <div className="absolute top-4 left-4 z-50 bg-yellow-400 text-black p-3 rounded text-xs font-mono max-w-md">
+              <div>HERO BLOCK DEBUG:</div>
+              <div>Lang: {currentLanguage}</div>
+              <div>Translation Title: {hero.title}</div>
+              <div>Config Title: {heroConfig.title || "none"}</div>
+              <div>Block Title: {block.title || "none"}</div>
+              <div>Final Title: {fullTitle}</div>
+            </div>
+            
             <div className={`relative z-20 w-full px-8 md:px-12 lg:px-16 flex ${alignmentClasses}`}>
               <motion.div 
                 className="max-w-5xl"
@@ -302,7 +317,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                 } : {}}
               >
                 {heroTitle}
-                {(heroConfig.subtitle || block.subtitle) && (
+                {(heroConfig.subtitle || block.subtitle || hero.description) && (
                   <p 
                     className="text-lg md:text-xl mb-8 max-w-3xl"
                     style={{ 
@@ -310,7 +325,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                       whiteSpace: 'pre-line'
                     }}
                   >
-                    {heroConfig.subtitle || block.subtitle}
+                    {heroConfig.subtitle || block.subtitle || hero.description}
                   </p>
                 )}
                 {heroConfig.buttons && heroConfig.buttons.length > 0 && (
@@ -318,7 +333,9 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                     className={`flex gap-4 mt-8 ${contentAlignment === 'center' ? 'justify-center' : contentAlignment === 'right' ? 'justify-end' : 'justify-start'}`}
                   >
                     {heroConfig.buttons.map((button: any, index: number) => {
-                      if (!button.text) return null;
+                      // Use translations for button text if button.text is not set
+                      const buttonText = button.text || (index === 0 ? hero.seeOffers : hero.customTrip);
+                      if (!buttonText) return null;
                       
                       const buttonStyle = button.style || 'solid';
                       const buttonColor = button.color || '#3BA8AF';
@@ -336,7 +353,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                               border: `2px solid ${buttonColor}`
                             }}
                           >
-                            {button.text}
+                            {buttonText}
                           </a>
                         );
                       }
@@ -351,7 +368,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                             color: buttonTextColor
                           }}
                         >
-                          {button.text}
+                          {buttonText}
                         </a>
                       );
                     })}
