@@ -2478,33 +2478,39 @@ Crawl-delay: 1`;
       // Process tours from the API response - handle both new and legacy formats
       if (apiResponse.success && apiResponse.tours && Array.isArray(apiResponse.tours)) {
         tours = apiResponse.tours.map((tour: any) => {
-          // Use the direct image URLs from Tour Ninja API
+          // Convert Tour Ninja image URLs to use our proxy endpoint
           const tourImages: string[] = [];
           
           // Check if API provided 'image' field directly
           if (tour.image) {
-            tourImages.push(tour.image);
-            console.log(`Tour ${tour.name}: Using featured image from API: ${tour.image}`);
+            // Use index 0 for the featured/presentation image
+            const proxyUrl = `/api/tour-image-proxy/${tour.id}/0`;
+            tourImages.push(proxyUrl);
+            console.log(`Tour ${tour.name}: Using proxied featured image: ${proxyUrl}`);
           } 
           // Check for 'images' array if provided
           else if (tour.images && Array.isArray(tour.images) && tour.images.length > 0) {
-            tour.images.forEach((img: string) => {
-              if (img && !tourImages.includes(img)) {
-                tourImages.push(img);
+            tour.images.forEach((img: string, index: number) => {
+              if (img) {
+                // Convert each image to proxy URL
+                const proxyUrl = `/api/tour-image-proxy/${tour.id}/${index}`;
+                if (!tourImages.includes(proxyUrl)) {
+                  tourImages.push(proxyUrl);
+                }
               }
             });
-            console.log(`Tour ${tour.name}: Added ${tour.images.length} images from images array`);
+            console.log(`Tour ${tour.name}: Added ${tourImages.length} proxied images`);
           }
-          // If no image data from API, construct the URL using Tour Ninja's image endpoint format
+          // If no image data from API, use proxy endpoint with default index
           else if (tour.id) {
-            // Use the format: https://www.tourninja.io/api/tours/images/{TOUR_ID}/0 for featured image
-            const constructedUrl = `https://www.tourninja.io/api/tours/images/${tour.id}/0`;
-            tourImages.push(constructedUrl);
-            console.log(`Tour ${tour.name}: Constructed featured image URL: ${constructedUrl}`);
+            // Use proxy endpoint: /api/tour-image-proxy/{TOUR_ID}/0 for featured image
+            const proxyUrl = `/api/tour-image-proxy/${tour.id}/0`;
+            tourImages.push(proxyUrl);
+            console.log(`Tour ${tour.name}: Using default proxied image: ${proxyUrl}`);
             
-            // Optionally add additional image URLs (1-4) for galleries
+            // Optionally add additional proxy image URLs (1-4) for galleries
             for (let i = 1; i <= 4; i++) {
-              tourImages.push(`https://www.tourninja.io/api/tours/images/${tour.id}/${i}`);
+              tourImages.push(`/api/tour-image-proxy/${tour.id}/${i}`);
             }
           } 
           // Only use placeholder if no ID available at all
