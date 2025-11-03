@@ -156,7 +156,7 @@ export default function Hero() {
     return (
       <>
         <span className={getColorClass(titlePrimaryColor, "text-white")}>
-          {mainTitle}
+          test {mainTitle}
         </span>
         {colorPart && (
           <>
