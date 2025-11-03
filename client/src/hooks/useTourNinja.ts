@@ -65,6 +65,12 @@ export function useTourNinja() {
     refetchOnMount: true, // MUST refetch when language changes (queryKey changes)
   });
 
+  // Force refetch when language changes
+  useEffect(() => {
+    console.log('🔄 [useTourNinja] Language changed to:', currentLanguage, '- refetching tours');
+    refetch();
+  }, [currentLanguage, refetch]);
+
   // Fetch image overrides
   const { data: imageOverrides, isLoading: overridesLoading } = useQuery({
     queryKey: ['/api/tour-ninja-image-overrides'],
@@ -147,6 +153,12 @@ export function useTourNinjaWithCustomImages() {
     refetchOnWindowFocus: false,
     refetchOnMount: true, // MUST refetch when language changes (queryKey changes)
   });
+
+  // Force refetch when language changes
+  useEffect(() => {
+    console.log('🔄 [useTourNinjaWithCustomImages] Language changed to:', currentLanguage, '- refetching tours');
+    refetch();
+  }, [currentLanguage, refetch]);
 
   // DISABLED: Not fetching image overrides anymore to use Tour Ninja API images directly
   // const { data: imageOverrides, isLoading: overridesLoading } = useQuery({
