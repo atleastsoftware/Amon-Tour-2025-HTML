@@ -69,7 +69,7 @@ export function useTourNinja() {
   useEffect(() => {
     console.log('🔄 [useTourNinja] Language changed to:', currentLanguage, '- refetching tours');
     refetch();
-  }, [currentLanguage, refetch]);
+  }, [currentLanguage]); // Remove refetch from dependencies as it's stable in React Query v5
 
   // Fetch image overrides
   const { data: imageOverrides, isLoading: overridesLoading } = useQuery({
@@ -158,7 +158,7 @@ export function useTourNinjaWithCustomImages() {
   useEffect(() => {
     console.log('🔄 [useTourNinjaWithCustomImages] Language changed to:', currentLanguage, '- refetching tours');
     refetch();
-  }, [currentLanguage, refetch]);
+  }, [currentLanguage]); // Remove refetch from dependencies as it's stable in React Query v5
 
   // DISABLED: Not fetching image overrides anymore to use Tour Ninja API images directly
   // const { data: imageOverrides, isLoading: overridesLoading } = useQuery({

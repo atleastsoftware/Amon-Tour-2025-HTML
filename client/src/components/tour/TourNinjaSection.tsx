@@ -7,8 +7,15 @@ import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function TourNinjaSection() {
   const { tours, isLoading, error, refetch, cached, fallback, success } = useTourNinjaWithCustomImages();
-  const { translations } = useTranslation();
+  const { translations, currentLanguage } = useTranslation();
   const home = translations.home;
+  
+  console.log('🎯 [TourNinjaSection] Rendered with:', { 
+    currentLanguage, 
+    toursCount: tours.length,
+    firstTourName: tours[0]?.name,
+    isLoading
+  });
 
   if (error) {
     return (
