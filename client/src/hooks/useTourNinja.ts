@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 export interface TourNinjaTour {
   id: string;
@@ -37,8 +38,15 @@ interface TourNinjaApiResponse {
 }
 
 export function useTourNinja() {
+  const { currentLanguage } = useTranslation();
+  
   const { data: response, isLoading, error, refetch } = useQuery<TourNinjaApiResponse>({
-    queryKey: ['/api/proxy/tours'],
+    queryKey: ['/api/proxy/tours', currentLanguage], // Include language in cache key
+    queryFn: async () => {
+      const res = await fetch(`/api/proxy/tours?language=${currentLanguage}`);
+      if (!res.ok) throw new Error('Failed to fetch tours');
+      return res.json();
+    },
     retry: 1,
     staleTime: 60 * 60 * 1000, // 1 hour - increased from 5 minutes for better performance
     gcTime: 2 * 60 * 60 * 1000, // 2 hours - keep in cache for longer
@@ -102,8 +110,15 @@ export function useTourNinja() {
 
 // Enhanced hook that includes custom image overrides (uses admin endpoint for comprehensive data)
 export function useTourNinjaWithCustomImages() {
+  const { currentLanguage } = useTranslation();
+  
   const { data: response, isLoading, error, refetch } = useQuery<TourNinjaApiResponse>({
-    queryKey: ['/api/proxy/tours'],
+    queryKey: ['/api/proxy/tours', currentLanguage], // Include language in cache key
+    queryFn: async () => {
+      const res = await fetch(`/api/proxy/tours?language=${currentLanguage}`);
+      if (!res.ok) throw new Error('Failed to fetch tours');
+      return res.json();
+    },
     retry: 1,
     staleTime: 60 * 60 * 1000, // 1 hour - increased from 5 minutes for better performance
     gcTime: 2 * 60 * 60 * 1000, // 2 hours - keep in cache for longer
@@ -132,11 +147,11 @@ export function useTourNinjaWithCustomImages() {
       // Use Tour Ninja API images directly without any overrides
       const finalPrimaryImage = tour.primaryImage || 
                                (tour.images && tour.images[0]) || 
-                               null;
+                               undefined;
       
       return {
         ...tour,
-        customImage: null, // No custom overrides
+        customImage: undefined, // No custom overrides
         primaryImage: finalPrimaryImage,
         originalImage: tour.primaryImage,
         images: tour.images || [] // Ensure images array is always present

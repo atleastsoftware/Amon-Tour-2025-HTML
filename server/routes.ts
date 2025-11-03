@@ -2332,8 +2332,12 @@ Crawl-delay: 1`;
       const apiKey = "tourninja-showcase-2-amontour";
       const companyId = "2";
       
+      // Get language parameter from query string (defaults to 'en')
+      const language = (req.query.language as string) || 'en';
+      
       console.log("Using Tour Ninja production API");
       console.log("Tour Ninja API endpoint: https://www.tourninja.io/api/public/tours");
+      console.log("Requested language:", language);
       const allowedDomain = process.env.COMPANY_DOMAIN;
       
       // Security: Verify domain if configured (disabled for deployment debugging)
@@ -2384,15 +2388,16 @@ Crawl-delay: 1`;
         });
       }
 
-      // Always use the new API endpoint with apiKey and companyId
-      const primaryUrl = `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}&limit=100`;
-      const fallbackUrl = `https://www.tourninja.io/api/public/tours/legacy?companyId=${companyId}`;
+      // Always use the new API endpoint with apiKey, companyId, and language
+      const primaryUrl = `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}&limit=100&language=${language}`;
+      const fallbackUrl = `https://www.tourninja.io/api/public/tours/legacy?companyId=${companyId}&language=${language}`;
       
       console.log("Fetching fresh data from Tour Ninja API (cache expired or invalid)", {
         url: primaryUrl,
         usingNewApi: true,
         environment: process.env.NODE_ENV,
         hostname: req.hostname,
+        language: language,
         cacheAge: Math.round(cacheAge / 1000) + "s"
       });
       
