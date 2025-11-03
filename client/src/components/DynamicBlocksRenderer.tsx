@@ -61,6 +61,51 @@ function hexToRgba(hex: string, alpha: number = 1): string {
 export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererProps) {
   const { translations, currentLanguage } = useTranslation();
   const hero = translations.hero;
+  const home = translations.home;
+  const tours = translations.tours;
+  const common = translations.common;
+  
+  // Helper function to get translated text based on block identifier or title
+  const getTranslatedText = (identifier: string | null, blockType: string, title: string, field: 'title' | 'subtitle' | 'content', fallback: string = '') => {
+    if (!identifier && !title) return fallback;
+    
+    // Match based on identifier patterns (contains check) or title content
+    const id = identifier?.toLowerCase() || '';
+    const titleLower = title?.toLowerCase() || '';
+    
+    // Intro section - "When expats welcome you"
+    if (id.includes('intro') || titleLower.includes('when expats') || titleLower.includes('welcome you')) {
+      if (field === 'title') return home.introTitle;
+      if (field === 'content') return home.introDescription;
+    }
+    
+    // Popular experiences section
+    if (id.includes('popular_experiences') || blockType === 'popular_experiences' || titleLower.includes('exclusive experiences')) {
+      if (field === 'title') return tours.featured;
+      if (field === 'content') return tours.description;
+    }
+    
+    // Why choose us section
+    if (id.includes('why_choose') || titleLower.includes('why choose')) {
+      if (field === 'title') return home.whyChooseTitle;
+      if (field === 'content') return home.whyChooseDescription;
+    }
+    
+    // Who we are section
+    if (id.includes('who_we_are') || titleLower.includes('who we are')) {
+      if (field === 'title') return home.whoWeAreTitle;
+      if (field === 'content') return home.whoWeAreDescription;
+    }
+    
+    // Custom trip section
+    if (id.includes('custom_trip') || id.includes('custom_tour_form')) {
+      if (field === 'title') return home.tailorMadeTitle;
+      if (field === 'subtitle') return home.customTripSubtitle;
+      if (field === 'content') return home.tailorMadeDescription;
+    }
+    
+    return fallback;
+  };
   
   const renderBlock = (block: PageBlock) => {
     // Pour l'instant, on affiche un rendu basique pour chaque type de bloc
@@ -293,17 +338,6 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
           <section key={block.id} className="relative pt-40 md:pt-48 pb-20 min-h-screen flex overflow-hidden">
             {heroBackground}
             <div className="absolute inset-0 bg-black/40 z-10"></div>
-            
-            {/* DEBUG BANNER - Remove after testing */}
-            <div className="absolute top-4 left-4 z-50 bg-yellow-400 text-black p-3 rounded text-xs font-mono max-w-md">
-              <div>HERO BLOCK DEBUG:</div>
-              <div>Lang: {currentLanguage}</div>
-              <div>Translation Title: {hero.title}</div>
-              <div>Config Title: {heroConfig.title || "none"}</div>
-              <div>Block Title: {block.title || "none"}</div>
-              <div>Final Title: {fullTitle}</div>
-            </div>
-            
             <div className={`relative z-20 w-full px-8 md:px-12 lg:px-16 flex ${alignmentClasses}`}>
               <motion.div 
                 className="max-w-5xl"
@@ -382,6 +416,10 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
 
       case 'text':
         const textConfig = block.configuration || {};
+        // USE TRANSLATIONS FIRST
+        const textTitle = getTranslatedText(block.identifier, block.blockType, block.title || textConfig.title || '', 'title', block.title || textConfig.title || '');
+        const textContent = getTranslatedText(block.identifier, block.blockType, block.title || textConfig.title || '', 'content', block.content || textConfig.content || '');
+        
         return (
           <section key={block.id} className="py-20" style={{ backgroundColor: textConfig.backgroundColor || '#ffffff' }}>
             <div className="container mx-auto px-4 max-w-4xl text-center">
@@ -391,32 +429,34 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                {textConfig.title && (
+                {textTitle && (
                   <h2 
                     className="font-heading font-bold text-3xl md:text-4xl mb-3"
                     style={{ color: textConfig.titleColor || '#333333' }}
                   >
-                    {textConfig.title}
+                    {textTitle}
                   </h2>
                 )}
-                {textConfig.title && (
+                {textTitle && (
                   <div 
                     className="w-20 h-1 mx-auto mb-8"
                     style={{ backgroundColor: textConfig.dividerColor || '#3BA8AF' }}
                   ></div>
                 )}
-                {textConfig.content && (
+                {textContent && (
                   <p 
                     className="text-lg leading-relaxed"
                     style={{ color: textConfig.contentColor || '#666666' }}
                   >
-                    {textConfig.content}
+                    {textContent}
                   </p>
                 )}
                 {textConfig.buttons && textConfig.buttons.length > 0 && (
                   <div className="flex gap-4 justify-center mt-8">
                     {textConfig.buttons.map((button: any, index: number) => {
-                      if (!button.text) return null;
+                      // Use translations for buttons if not set
+                      const buttonText = button.text || common.learnMore;
+                      if (!buttonText) return null;
                       
                       if (button.style === 'outline') {
                         return (
@@ -430,7 +470,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                               border: `2px solid ${button.color || '#084F6E'}`
                             }}
                           >
-                            {button.text}
+                            {buttonText}
                           </a>
                         );
                       }
@@ -457,19 +497,24 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
         );
 
       case 'text_section':
+        // USE TRANSLATIONS FIRST
+        const sectionTitle = getTranslatedText(block.identifier, block.blockType, block.title || '', 'title', block.title || '');
+        const sectionSubtitle = getTranslatedText(block.identifier, block.blockType, block.title || '', 'subtitle', block.subtitle || '');
+        const sectionContent = getTranslatedText(block.identifier, block.blockType, block.title || '', 'content', block.content || '');
+        
         return (
           <div key={block.id} className={`py-16 bg-${block.backgroundColor || 'white'}`}>
             <div className="container mx-auto px-4">
-              {block.title && (
-                <h2 className="text-3xl font-bold text-center mb-4">{block.title}</h2>
+              {sectionTitle && (
+                <h2 className="text-3xl font-bold text-center mb-4">{sectionTitle}</h2>
               )}
-              {block.subtitle && (
-                <p className="text-xl text-gray-600 text-center mb-8">{block.subtitle}</p>
+              {sectionSubtitle && (
+                <p className="text-xl text-gray-600 text-center mb-8">{sectionSubtitle}</p>
               )}
-              {block.content && (
+              {sectionContent && (
                 <div 
                   className="prose prose-lg mx-auto"
-                  dangerouslySetInnerHTML={{ __html: block.content }}
+                  dangerouslySetInnerHTML={{ __html: sectionContent }}
                 />
               )}
             </div>
@@ -506,22 +551,26 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
             </div>
           );
         }
-        // Default text_image rendering
+        // Default text_image rendering - USE TRANSLATIONS FIRST
+        const textImgTitle = getTranslatedText(block.identifier, block.blockType, block.title || '', 'title', block.title || '');
+        const textImgSubtitle = getTranslatedText(block.identifier, block.blockType, block.title || '', 'subtitle', block.subtitle || '');
+        const textImgContent = getTranslatedText(block.identifier, block.blockType, block.title || '', 'content', block.content || '');
+        
         return (
           <div key={block.id} className="py-16 bg-white w-full">
             <div className="w-full px-8 md:px-12 lg:px-16 max-w-7xl mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                 <div>
-                  {block.title && (
-                    <h2 className="text-3xl font-bold mb-4">{block.title}</h2>
+                  {textImgTitle && (
+                    <h2 className="text-3xl font-bold mb-4">{textImgTitle}</h2>
                   )}
-                  {block.subtitle && (
-                    <p className="text-xl text-gray-600 mb-4">{block.subtitle}</p>
+                  {textImgSubtitle && (
+                    <p className="text-xl text-gray-600 mb-4">{textImgSubtitle}</p>
                   )}
-                  {block.content && (
+                  {textImgContent && (
                     <div 
                       className="prose prose-lg max-w-none"
-                      dangerouslySetInnerHTML={{ __html: block.content }}
+                      dangerouslySetInnerHTML={{ __html: textImgContent }}
                     />
                   )}
                   {block.ctaText && block.ctaUrl && (
@@ -549,21 +598,26 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
 
       case 'cta_banner':
       case 'cta_section':
+        // USE TRANSLATIONS FIRST
+        const ctaTitle = getTranslatedText(block.identifier, block.blockType, block.title || '', 'title', block.title || '');
+        const ctaSubtitle = getTranslatedText(block.identifier, block.blockType, block.title || '', 'subtitle', block.subtitle || '');
+        const ctaText = block.ctaText || common.learnMore;
+        
         return (
           <div key={block.id} className="py-16 bg-primary">
             <div className="container mx-auto px-4 text-center">
-              {block.title && (
-                <h2 className="text-3xl font-bold text-white mb-4">{block.title}</h2>
+              {ctaTitle && (
+                <h2 className="text-3xl font-bold text-white mb-4">{ctaTitle}</h2>
               )}
-              {block.subtitle && (
-                <p className="text-xl text-white/90 mb-8">{block.subtitle}</p>
+              {ctaSubtitle && (
+                <p className="text-xl text-white/90 mb-8">{ctaSubtitle}</p>
               )}
-              {block.ctaText && block.ctaUrl && (
+              {ctaText && block.ctaUrl && (
                 <a 
                   href={block.ctaUrl} 
                   className="inline-block bg-white text-primary px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
                 >
-                  {block.ctaText}
+                  {ctaText}
                 </a>
               )}
             </div>
