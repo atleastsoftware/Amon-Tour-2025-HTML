@@ -54,13 +54,8 @@ export default function Hero() {
   const { translations, currentLanguage } = useTranslation();
   const hero = translations.hero;
   
-  // DETAILED DEBUG LOGGING - Always runs on every render
-  console.log('========== HERO RENDER ==========');
-  console.log('Lang:', currentLanguage);
-  console.log('Title:', hero?.title);
-  console.log('Subtitle:', hero?.subtitle);
-  console.log('Desc:', hero?.description);
-  console.log('=================================');
+  // Force component to have a unique key based on language to ensure re-render
+  const componentKey = `hero-${currentLanguage}-${hero?.title}`;
 
   // Récupérer les données de configuration du héros (avec gestion d'erreur)
   // NOTE: Only use this for visual configuration, NOT for text content
@@ -220,6 +215,11 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
       </div>
       <div className="container mx-auto px-4 relative z-10 pt-16 md:pt-24">
+        {/* DEBUG BANNER - Remove this after testing */}
+        <div className="bg-yellow-400 text-black p-2 mb-4 rounded text-sm font-mono">
+          DEBUG: Lang={currentLanguage} | Title={hero?.title} | Key={componentKey}
+        </div>
+        
         <div className="flex flex-col md:flex-row items-center gap-10">
           {/* Left content - Title and description */}
           <div className="w-full">
