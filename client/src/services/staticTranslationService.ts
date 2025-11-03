@@ -29,10 +29,13 @@ class StaticTranslationService {
 
   /**
    * Get all translations for a language
+   * Returns a new object to ensure React detects the change
    */
   getTranslations(language?: string): any {
     const lang = language || this.currentLanguage;
-    return this.translations[lang] || this.translations.en;
+    const translations = this.translations[lang] || this.translations.en;
+    // Return a shallow copy to ensure React detects changes
+    return { ...translations };
   }
 
   /**
