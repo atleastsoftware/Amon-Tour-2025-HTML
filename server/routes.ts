@@ -2418,8 +2418,10 @@ Crawl-delay: 1`;
           signal: controller.signal
         });
         
+        console.log("✅ Primary API fetch successful - Status:", response.status, response.statusText);
+        
         if (!response.ok) {
-          console.log("Primary API failed, trying fallback URL:", fallbackUrl);
+          console.log("❌ Primary API returned non-OK status:", response.status, "- trying fallback URL:", fallbackUrl);
           clearTimeout(timeoutId);
           controller = new AbortController();
           timeoutId = setTimeout(() => controller.abort(), 30000);
@@ -2433,7 +2435,9 @@ Crawl-delay: 1`;
           });
         }
       } catch (error) {
-        console.log("Primary API errored, trying fallback URL:", fallbackUrl);
+        console.log("❌ Primary API threw error:", error instanceof Error ? error.message : String(error));
+        console.log("Full error details:", error);
+        console.log("Trying fallback URL:", fallbackUrl);
         clearTimeout(timeoutId);
         controller = new AbortController();
         timeoutId = setTimeout(() => controller.abort(), 30000);
