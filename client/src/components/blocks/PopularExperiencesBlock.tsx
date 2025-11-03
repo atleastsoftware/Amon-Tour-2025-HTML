@@ -28,6 +28,7 @@ export default function PopularExperiencesBlock({
   const { openIframe } = useIframe();
   const { translations } = useTranslation();
   const tours = translations.tours;
+  const common = translations.common;
   
   // Use translations as fallback if no title/subtitle provided
   const displayTitle = title || tours.featured;
@@ -224,7 +225,7 @@ export default function PopularExperiencesBlock({
                           e.currentTarget.style.backgroundColor = 'white';
                         }}
                       >
-                        View details
+                        {common.viewDetails}
                         <ChevronRight className="h-3 w-3" />
                       </button>
                       <button 
@@ -244,7 +245,7 @@ export default function PopularExperiencesBlock({
                           e.currentTarget.style.filter = 'brightness(100%)';
                         }}
                       >
-                        Book now
+                        {common.bookNow}
                         <ChevronRight className="h-3 w-3" />
                       </button>
                     </div>

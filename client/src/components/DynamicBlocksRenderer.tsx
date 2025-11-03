@@ -968,69 +968,83 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                     </div>
                   )}
                   
-                  {/* Introduction */}
-                  {whoWeAreConfig.introduction && (
-                    <div className="mb-6">
-                      {whoWeAreConfig.introduction.split('\n').map((para: string, i: number) => 
-                        para.trim() && (
-                          <p 
-                            key={i}
-                            className="text-muted-foreground mb-4"
-                            style={{ color: whoWeAreConfig.textColor || '#666666' }}
-                          >
-                            {para.trim()}
-                          </p>
-                        )
-                      )}
-                    </div>
-                  )}
+                  {/* Introduction - USE TRANSLATIONS */}
+                  <div className="mb-6">
+                    <p 
+                      className="text-muted-foreground mb-4"
+                      style={{ color: whoWeAreConfig.textColor || '#666666' }}
+                    >
+                      {home.whoWeAreDescription}
+                    </p>
+                    <p 
+                      className="text-muted-foreground mb-4"
+                      style={{ color: whoWeAreConfig.textColor || '#666666' }}
+                    >
+                      {home.whoWeAreStory}
+                    </p>
+                  </div>
 
-                  {/* Sous-sections */}
-                  {whoSections.map((section: any, index: number) => (
-                    <div key={index} className="mt-6">
-                      <h3 
-                        className="font-heading font-semibold text-2xl mb-3"
-                        style={{ color: whoWeAreConfig.subtitleColor || '#084F6E' }}
-                      >
-                        {section.subtitle}
-                      </h3>
-                      {section.text.split('\n').map((para: string, i: number) => 
-                        para.trim() && (
-                          <p 
-                            key={i}
-                            className="text-muted-foreground mb-4"
-                            style={{ color: whoWeAreConfig.textColor || '#666666' }}
-                          >
-                            {para.trim()}
-                          </p>
-                        )
-                      )}
-                    </div>
-                  ))}
+                  {/* Sous-sections - USE TRANSLATIONS */}
+                  <div className="mt-6">
+                    <h3 
+                      className="font-heading font-semibold text-2xl mb-3"
+                      style={{ color: whoWeAreConfig.subtitleColor || '#084F6E' }}
+                    >
+                      {home.deepLocalRootsTitle}
+                    </h3>
+                    <p 
+                      className="text-muted-foreground mb-4"
+                      style={{ color: whoWeAreConfig.textColor || '#666666' }}
+                    >
+                      {home.deepLocalRootsDescription}
+                    </p>
+                    <p 
+                      className="text-muted-foreground mb-4"
+                      style={{ color: whoWeAreConfig.textColor || '#666666' }}
+                    >
+                      {home.deepLocalRootsExplanation}
+                    </p>
+                  </div>
 
-                  {/* Boutons */}
-                  {whoButtons.length > 0 && (
-                    <div className="flex items-center space-x-4 mt-6">
-                      {whoButtons.map((button: any, index: number) => (
-                        <a
-                          key={index}
-                          href={button.url || '#'}
-                          className={`px-6 py-2 rounded font-heading font-semibold transition-colors inline-flex items-center ${
-                            button.style === 'filled' 
-                              ? 'hover:opacity-90' 
-                              : 'hover:opacity-80'
-                          }`}
-                          style={{
-                            backgroundColor: button.style === 'filled' ? (button.color || '#084F6E') : 'transparent',
-                            color: button.textColor || (button.style === 'outline' ? (button.color || '#084F6E') : '#ffffff'),
-                            border: button.style === 'outline' ? `2px solid ${button.color || '#084F6E'}` : 'none'
-                          }}
-                        >
-                          {button.text}
-                        </a>
-                      ))}
-                    </div>
-                  )}
+                  <div className="mt-6">
+                    <h3 
+                      className="font-heading font-semibold text-2xl mb-3"
+                      style={{ color: whoWeAreConfig.subtitleColor || '#084F6E' }}
+                    >
+                      {home.ourConceptTitle}
+                    </h3>
+                    <p 
+                      className="text-muted-foreground mb-4"
+                      style={{ color: whoWeAreConfig.textColor || '#666666' }}
+                    >
+                      {home.ourConceptDescription}
+                    </p>
+                  </div>
+
+                  {/* Boutons - USE TRANSLATIONS */}
+                  <div className="flex items-center space-x-4 mt-6">
+                    <a
+                      href="/contact"
+                      className="px-6 py-2 rounded font-heading font-semibold transition-colors inline-flex items-center hover:opacity-90"
+                      style={{
+                        backgroundColor: whoWeAreConfig.button1Color || '#084F6E',
+                        color: '#ffffff'
+                      }}
+                    >
+                      {home.contactUs}
+                    </a>
+                    <a
+                      href="/custom-tour"
+                      className="px-6 py-2 rounded font-heading font-semibold transition-colors inline-flex items-center hover:opacity-80"
+                      style={{
+                        backgroundColor: 'transparent',
+                        color: whoWeAreConfig.button2Color || '#084F6E',
+                        border: `2px solid ${whoWeAreConfig.button2Color || '#084F6E'}`
+                      }}
+                    >
+                      {home.createYourJourney}
+                    </a>
+                  </div>
                 </div>
 
                 {/* Bloc d'images empilées */}
