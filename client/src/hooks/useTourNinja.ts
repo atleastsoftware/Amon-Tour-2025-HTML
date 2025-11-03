@@ -62,7 +62,7 @@ export function useTourNinja() {
     staleTime: 0, // Always refetch - will use backend cache instead
     gcTime: 2 * 60 * 60 * 1000, // 2 hours - keep in cache for longer
     refetchOnWindowFocus: false,
-    refetchOnMount: false, // Don't refetch on mount if data is still fresh
+    refetchOnMount: true, // MUST refetch when language changes (queryKey changes)
   });
 
   // Fetch image overrides
@@ -145,7 +145,7 @@ export function useTourNinjaWithCustomImages() {
     staleTime: 0, // Always refetch - will use backend cache instead
     gcTime: 2 * 60 * 60 * 1000, // 2 hours - keep in cache for longer
     refetchOnWindowFocus: false,
-    refetchOnMount: false, // Don't refetch on mount if data is still fresh
+    refetchOnMount: true, // MUST refetch when language changes (queryKey changes)
   });
 
   // DISABLED: Not fetching image overrides anymore to use Tour Ninja API images directly
