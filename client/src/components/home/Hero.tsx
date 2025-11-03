@@ -54,11 +54,13 @@ export default function Hero() {
   const { translations, currentLanguage } = useTranslation();
   const hero = translations.hero;
   
-  // Debug: Log when language or translations change
-  useEffect(() => {
-    console.log('🌍 Hero component - Language:', currentLanguage);
-    console.log('📝 Hero translations:', hero);
-  }, [currentLanguage, hero]);
+  // DETAILED DEBUG LOGGING - Always runs on every render
+  console.log('========== HERO RENDER ==========');
+  console.log('Lang:', currentLanguage);
+  console.log('Title:', hero?.title);
+  console.log('Subtitle:', hero?.subtitle);
+  console.log('Desc:', hero?.description);
+  console.log('=================================');
 
   // Récupérer les données de configuration du héros (avec gestion d'erreur)
   // NOTE: Only use this for visual configuration, NOT for text content
