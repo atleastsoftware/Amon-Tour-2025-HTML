@@ -178,5 +178,11 @@
     "defaultTitle": "Amon Tour - Authentic Thailand Experiences",
     "defaultDescription": "Discover authentic Thailand with Amon Tour. Private tours in Krabi, tailor-made journeys, and exclusive experiences away from mass tourism.",
     "defaultKeywords": "amon tour, krabi tours, thailand travel, private tour krabi, local travel agency"
+  },
+  "experiences": {
+    "title": "Discover Thailand Experiences",
+    "subtitle": "Immerse yourself in authentic Thai culture with our unique experiences",
+    "availableTitle": "Available Tours & Experiences",
+    "availableSubtitle": "Discover our authentic Thailand tours with expert guides"
   }
 }

@@ -21,11 +21,14 @@ import {
 import { useTourNinjaWithCustomImages } from "@/hooks/useTourNinja";
 import { useIframe } from "@/contexts/IframeContext";
 import TourNinjaCard from "@/components/tour/TourNinjaCard";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 // Image is loaded from URL directly
 
 export default function Experiences() {
   const { openIframe } = useIframe();
+  const { translations } = useTranslation();
+  const experiences = translations.experiences;
   
   const { data: tourCards = [], isLoading } = useQuery<TourCardItemProps[]>({
     queryKey: ['/api/tour-cards'],
@@ -108,8 +111,8 @@ export default function Experiences() {
       <main>
         {/* Hero Banner */}
         <HeroHeader 
-          title="Discover Thailand Experiences"
-          subtitle="Immerse yourself in authentic Thai culture with our unique experiences"
+          title={experiences.title}
+          subtitle={experiences.subtitle}
           alt="Thailand experiences and cultural journeys"
         />
         
@@ -119,11 +122,11 @@ export default function Experiences() {
             <FadeInWhenVisible>
               <div className="mb-8">
                 <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
-                  Available Tours & Experiences
+                  {experiences.availableTitle}
                 </h2>
                 <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
                 <p className="text-lg text-gray-700 leading-relaxed">
-                  Discover our authentic Thailand tours with expert guides
+                  {experiences.availableSubtitle}
                 </p>
               </div>
             </FadeInWhenVisible>
