@@ -115,12 +115,22 @@ export function useTourNinjaWithCustomImages() {
   const { data: response, isLoading, error, refetch } = useQuery<TourNinjaApiResponse>({
     queryKey: ['/api/proxy/tours', currentLanguage], // Include language in cache key
     queryFn: async () => {
-      const res = await fetch(`/api/proxy/tours?language=${currentLanguage}`);
+      console.log('🌐 Fetching tours for language:', currentLanguage);
+      const url = `/api/proxy/tours?language=${currentLanguage}`;
+      console.log('📡 API URL:', url);
+      const res = await fetch(url);
       if (!res.ok) throw new Error('Failed to fetch tours');
-      return res.json();
+      const data = await res.json();
+      console.log('📦 Received tour data:', { 
+        success: data.success, 
+        count: data.data?.length,
+        cached: data.cached,
+        firstTourName: data.data?.[0]?.name 
+      });
+      return data;
     },
     retry: 1,
-    staleTime: 60 * 60 * 1000, // 1 hour - increased from 5 minutes for better performance
+    staleTime: 5 * 60 * 1000, // 5 minutes - shorter for testing
     gcTime: 2 * 60 * 60 * 1000, // 2 hours - keep in cache for longer
     refetchOnWindowFocus: false,
     refetchOnMount: false, // Don't refetch on mount if data is still fresh

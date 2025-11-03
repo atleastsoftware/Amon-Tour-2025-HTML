@@ -2153,7 +2153,7 @@ Crawl-delay: 1`;
   });
 
   // Import shared Tour Ninja cache - using dynamic import due to module context
-  const { tourCache } = await import('./tourCache');
+  const { getCachedData, setCachedData, clearCache, CACHE_TTL } = await import('./tourCache');
 
   // Don't clear cache on startup - let it fetch when needed
   // tourCache.data = null;
@@ -2368,23 +2368,24 @@ Crawl-delay: 1`;
       // Only clear cache if requested explicitly
       const forceFresh = req.query.fresh === 'true';
       if (forceFresh) {
-        console.log("Fresh data requested - clearing cache");
-        tourCache.data = null;
-        tourCache.timestamp = 0;
+        console.log("Fresh data requested - clearing cache for language:", language);
+        clearCache(language);
       }
 
-      // Check if cache is still valid
-      const cacheAge = Date.now() - tourCache.timestamp;
-      const isCacheValid = tourCache.data && cacheAge < tourCache.TTL && !forceFresh;
+      // Check if cache is still valid for this specific language
+      const cachedEntry = getCachedData(language);
+      const cacheAge = cachedEntry ? Date.now() - cachedEntry.timestamp : Infinity;
+      const isCacheValid = cachedEntry && cacheAge < CACHE_TTL && !forceFresh;
       
       if (isCacheValid) {
-        console.log(`Returning cached data (age: ${Math.round(cacheAge / 1000)}s, TTL: ${Math.round(tourCache.TTL / 1000)}s)`);
+        console.log(`Returning cached data for language '${language}' (age: ${Math.round(cacheAge / 1000)}s, TTL: ${Math.round(CACHE_TTL / 1000)}s)`);
         return res.json({
           success: true,
-          data: tourCache.data,
+          data: cachedEntry.data,
           cached: true,
           cacheAge: cacheAge,
-          timestamp: tourCache.timestamp
+          timestamp: cachedEntry.timestamp,
+          language: language
         });
       }
 
@@ -2570,33 +2571,36 @@ Crawl-delay: 1`;
         console.log("🔄 Applying demo fallback for tours...");
         // Force using demo data that works
         const fallbackUrl = "https://www.tourninja.io/api/public/tours?apiKey=tourninja-showcase-2-amontour&companyId=2&limit=100";
-        tourCache.data = null; // Clear cache to force fresh fetch
+        clearCache(language); // Clear cache to force fresh fetch
         // This will be handled by the existing logic above
       }
       
-      // Update cache
-      tourCache.data = tours;
-      tourCache.timestamp = Date.now();
+      // Update cache (language-specific)
+      setCachedData(language, tours);
+      console.log(`Tour Ninja API: Data cached successfully for language '${language}'`);
       
       res.json({
         success: true,
         data: tours,
         cached: false,
         fallback: tours.length > 0 && tours[0]?.id ? (tours[0].id.toString().startsWith('demo') ? 'demo' : 'production') : 'none',
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        language: language
       });
     } catch (error) {
       console.error("Error fetching tours from Tour Ninja:", error);
       
       // Fallback to cache if available, even if expired
-      if (tourCache.data) {
-        console.log("Returning expired cache as fallback");
+      const cachedEntry = getCachedData(language);
+      if (cachedEntry) {
+        console.log(`Returning expired cache as fallback for language '${language}'`);
         return res.json({
           success: true,
-          data: tourCache.data,
+          data: cachedEntry.data,
           cached: true,
           fallback: true,
-          timestamp: tourCache.timestamp
+          timestamp: cachedEntry.timestamp,
+          language: language
         });
       }
       
