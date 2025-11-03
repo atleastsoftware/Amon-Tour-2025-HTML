@@ -51,8 +51,14 @@ export default function Hero() {
   const loadTimeoutRef = useRef<NodeJS.Timeout>();
   
   // Get translations using the hook
-  const { translations } = useTranslation();
+  const { translations, currentLanguage } = useTranslation();
   const hero = translations.hero;
+  
+  // Debug: Log when language or translations change
+  useEffect(() => {
+    console.log('🌍 Hero component - Language:', currentLanguage);
+    console.log('📝 Hero translations:', hero);
+  }, [currentLanguage, hero]);
 
   // Récupérer les données de configuration du héros (avec gestion d'erreur)
   // NOTE: Only use this for visual configuration, NOT for text content
