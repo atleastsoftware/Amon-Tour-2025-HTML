@@ -719,22 +719,30 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
       case 'popular_experiences':
       case 'tour_ninja_section':
         const popularExpConfig = block.configuration || {};
+        // USE TRANSLATIONS FIRST for popular experiences
+        const popularTitle = getTranslatedText(block.identifier, block.blockType, block.title || '', 'title', block.title || popularExpConfig.title || '');
+        const popularSubtitle = getTranslatedText(block.identifier, block.blockType, block.title || '', 'content', block.subtitle || popularExpConfig.subtitle || '');
+        
         return (
           <PopularExperiencesBlock
             key={block.id}
-            title={block.title || popularExpConfig.title}
-            subtitle={block.subtitle || popularExpConfig.subtitle}
+            title={popularTitle}
+            subtitle={popularSubtitle}
             configuration={popularExpConfig}
           />
         );
 
       case 'custom_tour_form':
         const customTourFormConfig = block.configuration || {};
+        // USE TRANSLATIONS FIRST for custom tour form
+        const customFormTitle = getTranslatedText(block.identifier, block.blockType, block.title || '', 'title', block.title || customTourFormConfig.title || '');
+        const customFormSubtitle = getTranslatedText(block.identifier, block.blockType, block.title || '', 'subtitle', block.subtitle || customTourFormConfig.subtitle || '');
+        
         return (
           <DynamicFormBlock
             key={block.id}
-            title={block.title || customTourFormConfig.title}
-            subtitle={block.subtitle || customTourFormConfig.subtitle}
+            title={customFormTitle}
+            subtitle={customFormSubtitle}
             formId={customTourFormConfig.formId}
             titleColor={customTourFormConfig.titleColor}
             subtitleColor={customTourFormConfig.subtitleColor}
@@ -745,6 +753,10 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
 
       case 'why_choose_us': {
         const featuresConfig = block.configuration || {};
+        // USE TRANSLATIONS FIRST for why choose us
+        const whyTitle = getTranslatedText(block.identifier, block.blockType, block.title || '', 'title', block.title || featuresConfig.title || '');
+        const whySubtitle = getTranslatedText(block.identifier, block.blockType, block.title || '', 'content', featuresConfig.subtitle || '');
+        
         const iconBlocks = featuresConfig.iconBlocks || [
           {
             id: 1,
@@ -771,26 +783,26 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                   viewport={{ once: true }}
                   transition={{ duration: 0.5 }}
                 >
-                  {featuresConfig.title && (
+                  {whyTitle && (
                     <h2 
                       className="font-heading font-bold text-3xl md:text-4xl mb-3"
                       style={{ color: featuresConfig.titleColor || '#333333' }}
                     >
-                      {featuresConfig.title}
+                      {whyTitle}
                     </h2>
                   )}
-                  {featuresConfig.title && (
+                  {whyTitle && (
                     <div 
                       className="w-20 h-1 mx-auto mb-8"
                       style={{ backgroundColor: featuresConfig.dividerColor || '#3BA8AF' }}
                     ></div>
                   )}
-                  {featuresConfig.subtitle && (
+                  {whySubtitle && (
                     <p 
                       className="text-lg leading-relaxed"
                       style={{ color: featuresConfig.subtitleColor || '#666666' }}
                     >
-                      {featuresConfig.subtitle}
+                      {whySubtitle}
                     </p>
                   )}
                 </motion.div>
@@ -926,6 +938,9 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
 
       case 'who_we_are': {
         const whoWeAreConfig = block.configuration || {};
+        // USE TRANSLATIONS FIRST for who we are
+        const whoTitle = getTranslatedText(block.identifier, block.blockType, block.title || '', 'title', block.title || whoWeAreConfig.title || '');
+        
         const whoSections = whoWeAreConfig.sections || [];
         const whoImages = whoWeAreConfig.images || [];
         const whoButtons = whoWeAreConfig.buttons || [];
@@ -938,13 +953,13 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                 {/* Bloc de contenu textuel */}
                 <div className={imagesPosition === 'right' ? 'order-2 lg:order-1' : 'order-2 lg:order-2'}>
                   {/* Titre principal avec tiret */}
-                  {whoWeAreConfig.title && (
+                  {whoTitle && (
                     <div className="mb-6">
                       <h2 
                         className="font-heading font-bold text-3xl md:text-4xl mb-3"
                         style={{ color: whoWeAreConfig.titleColor || '#084F6E' }}
                       >
-                        {whoWeAreConfig.title}
+                        {whoTitle}
                       </h2>
                       <div 
                         className="w-20 h-1"

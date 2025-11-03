@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import { useIframe } from "@/contexts/IframeContext";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 // Helper function to convert hex to rgba
 function hexToRgba(hex: string, alpha: number = 1): string {
@@ -25,6 +26,12 @@ export default function PopularExperiencesBlock({
   isPreview = false
 }: PopularExperiencesBlockProps) {
   const { openIframe } = useIframe();
+  const { translations } = useTranslation();
+  const tours = translations.tours;
+  
+  // Use translations as fallback if no title/subtitle provided
+  const displayTitle = title || tours.featured;
+  const displaySubtitle = subtitle || tours.description;
   
   const { data: tourNinjaResponse, isLoading: tourNinjaLoading } = useQuery<{success: boolean, data: any[]}>({
     queryKey: ['/api/proxy/tours'],
@@ -91,7 +98,7 @@ export default function PopularExperiencesBlock({
               color: config.titleColor || '#333333'
             }}
           >
-            {title || "Our Popular Experiences"}
+            {displayTitle}
           </h2>
           <div 
             className="w-20 h-1 mx-auto mb-8"
@@ -105,7 +112,7 @@ export default function PopularExperiencesBlock({
               color: config.subtitleColor || '#666666'
             }}
           >
-            {subtitle || "Step off the beaten path into carefully curated experiences beyond the tourist trail."}
+            {displaySubtitle}
           </p>
         </motion.div>
       </div>
