@@ -140,7 +140,7 @@ export default function Hero() {
       return (
         <>
           <span className={getColorClass(titlePrimaryColor, "text-white")}>
-            test{parts[0]}
+            {parts[0]}
           </span>
           <span className={getColorClass(titleAccentColor, "text-primary")}>
             {colorPart}
@@ -156,7 +156,7 @@ export default function Hero() {
     return (
       <>
         <span className={getColorClass(titlePrimaryColor, "text-white")}>
-          test {mainTitle}
+          {mainTitle}
         </span>
         {colorPart && (
           <>
