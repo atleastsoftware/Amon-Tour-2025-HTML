@@ -172,8 +172,8 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
           right: 'items-center justify-end text-right'
         }[contentAlignment];
         
-        // Render title with colored accent - USE TRANSLATION AS DEFAULT
-        const fullTitle = heroConfig.title || block.title || hero.title;
+        // USE TRANSLATION FIRST - database config is only for visual styling overrides
+        const fullTitle = hero.title || heroConfig.title || block.title;
         const accentText = heroConfig.titleAccentText || "in Krabi –";
         const titleColor = heroConfig.titleColor || '#ffffff';
         const accentColor = heroConfig.titleAccentColor || '#3BA8AF';
@@ -317,7 +317,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                 } : {}}
               >
                 {heroTitle}
-                {(heroConfig.subtitle || block.subtitle || hero.description) && (
+                {(hero.description || heroConfig.subtitle || block.subtitle) && (
                   <p 
                     className="text-lg md:text-xl mb-8 max-w-3xl"
                     style={{ 
@@ -325,7 +325,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                       whiteSpace: 'pre-line'
                     }}
                   >
-                    {heroConfig.subtitle || block.subtitle || hero.description}
+                    {hero.description || heroConfig.subtitle || block.subtitle}
                   </p>
                 )}
                 {heroConfig.buttons && heroConfig.buttons.length > 0 && (
