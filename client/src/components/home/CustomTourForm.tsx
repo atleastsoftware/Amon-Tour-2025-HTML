@@ -108,7 +108,7 @@ export default function CustomTourForm({ title, subtitle }: CustomTourFormProps 
         destinations: data.destinations || [],
         message: data.message
       };
-      await apiRequest("POST", "/api/custom-tour", requestData);
+      await apiRequest("POST", "/api/custom-tour-requests", requestData);
       
       toast({
         title: translations.cruise.requestSent,
