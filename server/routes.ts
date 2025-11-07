@@ -2172,9 +2172,9 @@ Crawl-delay: 1`;
       apiKeyLength: apiKey ? apiKey.length : 0,
       companyId: companyId,
       cacheStatus: {
-        hasData: !!tourCache.data,
-        timestamp: tourCache.timestamp,
-        age: Date.now() - tourCache.timestamp
+        hasData: !!getCachedData('en'),
+        timestamp: getCachedData('en')?.timestamp || 0,
+        age: getCachedData('en')?.timestamp ? Date.now() - getCachedData('en')!.timestamp : 0
       }
     });
   });
@@ -2185,8 +2185,9 @@ Crawl-delay: 1`;
       const { tourId } = req.params;
       
       // Check if we have cached tour data
-      if (tourCache.data && Array.isArray(tourCache.data)) {
-        const tour = tourCache.data.find((t: any) => t.id === tourId);
+      const cachedData = getCachedData('en');
+      if (cachedData && Array.isArray(cachedData.data)) {
+        const tour = cachedData.data.find((t: any) => t.id === tourId);
         
         if (tour && tour._serverCachedImage) {
           // Check if it's already a base64 data URL
@@ -2327,13 +2328,13 @@ Crawl-delay: 1`;
 
   // Secure Tour Ninja API proxy route
   app.get("/api/proxy/tours", async (req, res) => {
+    // Get language parameter from query string (defaults to 'en')
+    const language = (req.query.language as string) || 'en';
+    
     try {
       // Use correct Tour Ninja production credentials
       const apiKey = "tourninja-showcase-2-amontour";
       const companyId = "2";
-      
-      // Get language parameter from query string (defaults to 'en')
-      const language = (req.query.language as string) || 'en';
       
       console.log("Using Tour Ninja production API");
       console.log("Tour Ninja API endpoint: https://www.tourninja.io/api/public/tours");
