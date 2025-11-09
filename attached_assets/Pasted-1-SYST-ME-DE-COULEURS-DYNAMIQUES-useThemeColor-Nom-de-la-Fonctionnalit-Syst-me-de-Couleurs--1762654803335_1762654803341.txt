@@ -1,0 +1,160 @@
+1️⃣ SYSTÈME DE COULEURS DYNAMIQUES & useThemeColor
+✨ Nom de la Fonctionnalité
+Système de Couleurs avec Dropdowns Dynamiques et Hook useThemeColor
+💡 Ce Qu'elle Apporte
+•	ColorPicker intelligent avec dropdown pour sélectionner des références de couleurs (ref:primary, ref:secondary, etc.)
+•	Auto-conversion des anciennes valeurs hex vers le système de références
+•	Hook useThemeColor avec 3 niveaux de priorité pour résoudre les couleurs dynamiquement
+•	Prévisualisation en temps réel des changements de couleur dans l'éditeur
+🛠️ Fichiers Concernés
+Frontend:
+•	client/src/pages/admin-appearance.tsx - ColorPicker component
+•	client/src/hooks/useThemeColor.ts - Hook de résolution de couleurs
+•	Tous les composants de blocs utilisant des couleurs
+Backend:
+•	server/routes.ts - Routes theme-settings
+•	shared/schema.ts - Table siteSettings
+📝 Étapes d'Implémentation
+Étape 1: Créer le Hook useThemeColor
+Créer client/src/hooks/useThemeColor.ts:
+import { useQuery } from '@tanstack/react-query';
+const THEME_COLORS = {
+  primary: '#1e73be',
+  secondary: '#E6B64C',
+  heading: '#333333',
+  text: '#666666',
+  background: '#ffffff'
+};
+export function useThemeColor(colorValue: string | undefined | null): string {
+  const { data: themeSettings = [] } = useQuery<any[]>({
+    queryKey: ['/api/public/theme-settings'],
+  });
+  if (!colorValue) return '#ffffff';
+  const isReference = colorValue.startsWith('ref:') || 
+                      colorValue in THEME_COLORS || 
+                      !colorValue.startsWith('#');
+  
+  if (isReference) {
+    const refKey = colorValue.startsWith('ref:') ? colorValue.replace('ref:', '') : colorValue;
+    
+    // PRIORITÉ 1: Vérifier dans color_palette JSON (palette admin)
+    const colorPaletteSetting = themeSettings.find(s => s.section === 'theme' && s.key === 'color_palette');
+    if (colorPaletteSetting?.value) {
+      try {
+        const palette = typeof colorPaletteSetting.value === 'string' 
+          ? JSON.parse(colorPaletteSetting.value) 
+          : colorPaletteSetting.value;
+        if (palette[refKey]) {
+          return palette[refKey];
+        }
+      } catch (e) { }
+    }
+    
+    // PRIORITÉ 2: Champs séparés dans theme settings
+    const dbKey = `${refKey}_color`;
+    const setting = themeSettings.find(s => s.section === 'theme' && s.key === dbKey);
+    if (setting?.value) {
+      return setting.value;
+    }
+    
+    // PRIORITÉ 3: Fallback couleurs par défaut
+    return THEME_COLORS[refKey as keyof typeof THEME_COLORS] || '#ffffff';
+  }
+  return colorValue;
+}
+Étape 2: Créer le ColorPicker dans admin-appearance.tsx
+Dans client/src/pages/admin-appearance.tsx, ajouter le composant ColorPicker:
+interface ColorPickerProps {
+  value: string;
+  onChange: (value: string) => void;
+  label?: string;
+  themeColors: {
+    primary: string;
+    secondary: string;
+    heading: string;
+    text: string;
+    background: string;
+  };
+}
+function ColorPicker({ value, onChange, label, themeColors }: ColorPickerProps) {
+  const [isEditingCustom, setIsEditingCustom] = useState(false);
+  const [customInput, setCustomInput] = useState('');
+  const currentColorValue = value || '#ffffff';
+  // Auto-conversion hex → ref: (s'exécute une fois par changement de valeur)
+  useEffect(() => {
+    if (!currentColorValue || currentColorValue.startsWith('ref:')) return;
+    
+    const normalizeHex = (hex: string) => hex.toLowerCase().trim();
+    const currentNormalized = normalizeHex(currentColorValue);
+    
+    if (normalizeHex(themeColors.primary) === currentNormalized) {
+      onChange('ref:primary');
+    } else if (normalizeHex(themeColors.secondary) === currentNormalized) {
+      onChange('ref:secondary');
+    } else if (normalizeHex(themeColors.heading) === currentNormalized) {
+      onChange('ref:heading');
+    } else if (normalizeHex(themeColors.text) === currentNormalized) {
+      onChange('ref:text');
+    } else if (normalizeHex(themeColors.background) === currentNormalized) {
+      onChange('ref:background');
+    }
+  }, [currentColorValue, themeColors, onChange]);
+  const handleOptionSelect = (option: string) => {
+    onChange(`ref:${option}`);
+    setIsEditingCustom(false);
+  };
+  return (
+    <div className="space-y-2">
+      {label && <Label>{label}</Label>}
+      
+      <Select 
+        value={currentColorValue.startsWith('ref:') ? currentColorValue.replace('ref:', '') : 'custom'}
+        onValueChange={(val) => val === 'custom' ? setIsEditingCustom(true) : handleOptionSelect(val)}
+      >
+        <SelectTrigger>
+          <SelectValue placeholder="Choisir une couleur" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="primary">🎨 Couleur Principale</SelectItem>
+          <SelectItem value="secondary">🎨 Couleur Secondaire</SelectItem>
+          <SelectItem value="heading">📝 Couleur Titres</SelectItem>
+          <SelectItem value="text">📄 Couleur Texte</SelectItem>
+          <SelectItem value="background">⬜ Couleur Fond</SelectItem>
+          <SelectItem value="custom">🎨 Couleur Personnalisée</SelectItem>
+        </SelectContent>
+      </Select>
+      {isEditingCustom && (
+        <div className="flex gap-2">
+          <Input
+            type="color"
+            value={currentColorValue.startsWith('#') ? currentColorValue : '#000000'}
+            onChange={(e) => setCustomInput(e.target.value)}
+          />
+          <Button size="sm" onClick={() => onChange(customInput)}>Valider</Button>
+        </div>
+      )}
+    </div>
+  );
+}
+Étape 3: Utiliser useThemeColor dans les Composants de Blocs
+Dans tous les composants de blocs (client/src/components/blocks/*.tsx), remplacer les couleurs directes par useThemeColor:
+Avant:
+<div style={{ backgroundColor: block.backgroundColor }}>
+Après:
+import { useThemeColor } from '@/hooks/useThemeColor';
+function MyBlock({ backgroundColor }) {
+  const resolvedBgColor = useThemeColor(backgroundColor);
+  
+  return <div style={{ backgroundColor: resolvedBgColor }}>...</div>;
+}
+⚠️ Points d'Attention
+1.	Conservation des couleurs existantes: Si le site a déjà des couleurs personnalisées en hex, elles seront automatiquement converties lors de la première édition
+2.	Palette centralisée: S'assurer que color_palette est bien sauvegardé en JSON dans siteSettings
+3.	Fallback: Le système a 3 niveaux de fallback pour garantir qu'une couleur est toujours affichée
+✅ Test de Validation
+1.	Aller dans Admin → Apparence → Couleurs
+2.	Modifier la "Couleur Principale"
+3.	Éditer un bloc qui utilise ref:primary
+4.	Vérifier que le dropdown affiche "Couleur Principale"
+5.	Changer la couleur principale → le bloc doit se mettre à jour automatiquement
+6.	Tester avec une couleur personnalisée → elle doit être sauvegardée en hex
