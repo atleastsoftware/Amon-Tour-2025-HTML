@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 import { Input } from "@/components/ui/input";
@@ -8,6 +8,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FormInput } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest } from "@/lib/queryClient";
 
 // System colors for form
 const SYSTEM_COLORS = {
@@ -38,6 +40,10 @@ export default function DynamicFormBlock({
   backgroundColor,
   isPreview = false
 }: DynamicFormBlockProps) {
+  const { toast } = useToast();
+  const [formValues, setFormValues] = useState<Record<string, any>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
   const { data: formData, isLoading } = useQuery<any>({
     queryKey: ['/api/public/custom-forms', formId],
     queryFn: () => formId ? fetch(`/api/public/custom-forms/${formId}`).then(res => res.json()) : null,
@@ -56,12 +62,28 @@ export default function DynamicFormBlock({
       const dateInputs = document.querySelectorAll('.flatpickr-input');
       dateInputs.forEach((input) => {
         if (!(input as any)._flatpickr) {
+          const fieldId = input.getAttribute('data-field-id');
           flatpickr(input as HTMLInputElement, {
             mode: "range",
             dateFormat: "d/m/Y",
             minDate: "today",
             allowInput: false,
             clickOpens: true,
+            onChange: (selectedDates: Date[]) => {
+              if (fieldId) {
+                if (selectedDates.length === 2) {
+                  const startDate = selectedDates[0];
+                  const endDate = selectedDates[1];
+                  const formattedRange = `${startDate.toLocaleDateString('en-GB')} - ${endDate.toLocaleDateString('en-GB')}`;
+                  setFormValues(prev => ({ ...prev, [fieldId]: formattedRange }));
+                } else if (selectedDates.length === 1) {
+                  const startDate = selectedDates[0];
+                  setFormValues(prev => ({ ...prev, [fieldId]: startDate.toLocaleDateString('en-GB') }));
+                } else {
+                  setFormValues(prev => ({ ...prev, [fieldId]: '' }));
+                }
+              }
+            }
           });
         }
       });
@@ -69,6 +91,78 @@ export default function DynamicFormBlock({
 
     return () => clearTimeout(timer);
   }, [formData]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (isPreview) {
+      toast({
+        title: "Preview Mode",
+        description: "Form submission is disabled in preview mode.",
+        variant: "default",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      // Map form values to the backend expected format
+      const requestData = {
+        fullName: formValues['fullName'] || '',
+        email: formValues['email'] || '',
+        phoneNumber: formValues['phoneNumber'] || '',
+        numberOfAdults: parseInt(formValues['numberOfAdults']) || 1,
+        numberOfKids: parseInt(formValues['numberOfKids']) || 0,
+        tripDates: formValues['tripDates'] || '',
+        duration: formValues['duration'] || '',
+        tripTypes: formValues['tripTypes'] || [],
+        destinations: formValues['destinations'] || [],
+        message: formValues['message'] || ''
+      };
+
+      await apiRequest("POST", "/api/custom-tour-requests", requestData);
+      
+      toast({
+        title: "Request Sent!",
+        description: "We'll contact you shortly to discuss your custom trip.",
+        variant: "default",
+      });
+      
+      // Reset form
+      setFormValues({});
+      // Clear flatpickr dates
+      const dateInputs = document.querySelectorAll('.flatpickr-input');
+      dateInputs.forEach((input) => {
+        if ((input as any)._flatpickr) {
+          (input as any)._flatpickr.clear();
+        }
+      });
+    } catch (error) {
+      console.error("Form submission error:", error);
+      toast({
+        title: "Error",
+        description: "Failed to send your request. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleInputChange = (fieldId: string, value: any) => {
+    setFormValues(prev => ({ ...prev, [fieldId]: value }));
+  };
+
+  const handleCheckboxChange = (fieldId: string, option: string, checked: boolean) => {
+    setFormValues(prev => {
+      const currentValues = prev[fieldId] || [];
+      if (checked) {
+        return { ...prev, [fieldId]: [...currentValues, option] };
+      } else {
+        return { ...prev, [fieldId]: currentValues.filter((v: string) => v !== option) };
+      }
+    });
+  };
 
   const renderField = (field: any) => {
     const fieldStyle = {
@@ -85,7 +179,13 @@ export default function DynamicFormBlock({
             <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}{field.required ? ' *' : ''}
             </Label>
-            <Input placeholder={field.placeholder} type={field.type} style={{ color: resolveColor(formData.textColor) }} />
+            <Input 
+              placeholder={field.placeholder} 
+              type={field.type} 
+              value={formValues[field.id] || ''} 
+              onChange={(e) => handleInputChange(field.id, e.target.value)}
+              style={{ color: resolveColor(formData.textColor) }} 
+            />
           </div>
         );
         
@@ -95,7 +195,13 @@ export default function DynamicFormBlock({
             <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}{field.required ? ' *' : ''}
             </Label>
-            <Textarea placeholder={field.placeholder} rows={4} style={{ color: resolveColor(formData.textColor) }} />
+            <Textarea 
+              placeholder={field.placeholder} 
+              rows={4} 
+              value={formValues[field.id] || ''} 
+              onChange={(e) => handleInputChange(field.id, e.target.value)}
+              style={{ color: resolveColor(formData.textColor) }} 
+            />
           </div>
         );
         
@@ -105,7 +211,7 @@ export default function DynamicFormBlock({
             <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}{field.required ? ' *' : ''}
             </Label>
-            <Select>
+            <Select value={formValues[field.id]} onValueChange={(value) => handleInputChange(field.id, value)}>
               <SelectTrigger style={{ color: resolveColor(formData.textColor) }}>
                 <SelectValue placeholder={field.placeholder || "Select an option"} />
               </SelectTrigger>
@@ -130,6 +236,8 @@ export default function DynamicFormBlock({
                   <Checkbox 
                     id={`${field.id}-${index}`} 
                     className="mt-1 checkbox-custom" 
+                    checked={(formValues[field.id] || []).includes(option)}
+                    onCheckedChange={(checked) => handleCheckboxChange(field.id, option, checked as boolean)}
                     style={{ 
                       '--checkbox-color': resolveColor(formData.primaryColor),
                       accentColor: resolveColor(formData.primaryColor)
@@ -188,8 +296,10 @@ export default function DynamicFormBlock({
             </Label>
             <Input 
               placeholder={field.placeholder || "Select trip dates"} 
+              value={formValues[field.id] || ''}
               readOnly 
               className="cursor-pointer flatpickr-input" 
+              data-field-id={field.id}
               style={{ color: resolveColor(formData.textColor) }}
             />
           </div>
@@ -283,7 +393,7 @@ export default function DynamicFormBlock({
                     )}
                   </div>
                 </div>
-                <div className="p-8" style={{ backgroundColor: resolveColor(formData.frameColor) }}>
+                <form onSubmit={handleSubmit} className="p-8" style={{ backgroundColor: resolveColor(formData.frameColor) }}>
                   <div className="grid grid-cols-12 gap-4">
                     {formData.fields?.map((field: any, index: number) => {
                       let colSpan = 'col-span-12';
@@ -314,33 +424,36 @@ export default function DynamicFormBlock({
                   
                   <div className="pt-4">
                     <button 
+                      type="submit"
+                      disabled={isSubmitting}
                       style={{ 
                         backgroundColor: resolveColor(formData.primaryColor),
                         color: '#ffffff'
                       }}
-                      className="w-full px-8 py-3 rounded-md font-semibold"
+                      className="w-full px-8 py-3 rounded-md font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      {formData.settings?.submitButtonText || 'Envoyer'}
+                      {isSubmitting ? 'Sending...' : (formData.settings?.submitButtonText || 'Envoyer')}
                     </button>
                     
-                    {formData.settings?.whatsappButtonEnabled && (
-                      <div className="mt-4 pt-4 border-t border-gray-200">
-                        <p className="text-center text-sm text-gray-600 mb-3">
-                          {formData.settings?.whatsappButtonText || 'Or contact us directly via WhatsApp'}
-                        </p>
-                        <a
-                          href="https://wa.me/66653496445?text=Hello%20Amon%20Tour,%20I%20would%20like%20to%20inquire%20about%20a%20custom%20tour."
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-md font-heading font-semibold transition-colors duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
-                        >
-                          <i className="fab fa-whatsapp text-xl" aria-hidden="true"></i>
-                          Contact via WhatsApp
-                        </a>
-                      </div>
-                    )}
                   </div>
-                </div>
+                  
+                  {formData.settings?.whatsappButtonEnabled && (
+                    <div className="mt-4 pt-4 border-t border-gray-200">
+                      <p className="text-center text-sm text-gray-600 mb-3">
+                        {formData.settings?.whatsappButtonText || 'Or contact us directly via WhatsApp'}
+                      </p>
+                      <a
+                        href="https://wa.me/66653496445?text=Hello%20Amon%20Tour,%20I%20would%20like%20to%20inquire%20about%20a%20custom%20tour."
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-md font-heading font-semibold transition-colors duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+                      >
+                        <i className="fab fa-whatsapp text-xl" aria-hidden="true"></i>
+                        Contact via WhatsApp
+                      </a>
+                    </div>
+                  )}
+                </form>
               </div>
             ) : formData.formLayout === 'footer' ? (
               // Layout Footer
@@ -431,7 +544,7 @@ export default function DynamicFormBlock({
                   </div>
                 </div>
                 
-                <div className="p-8" style={{ backgroundColor: resolveColor(formData.frameColor) }}>
+                <form onSubmit={handleSubmit} className="p-8" style={{ backgroundColor: resolveColor(formData.frameColor) }}>
                   <div className="grid grid-cols-12 gap-4">
                     {formData.fields?.map((field: any, index: number) => {
                       let colSpan = 'col-span-12';
@@ -462,33 +575,36 @@ export default function DynamicFormBlock({
                   
                   <div className="pt-4">
                     <button 
+                      type="submit"
+                      disabled={isSubmitting}
                       style={{ 
                         backgroundColor: resolveColor(formData.primaryColor),
                         color: '#ffffff'
                       }}
-                      className="w-full px-8 py-3 rounded-md font-semibold"
+                      className="w-full px-8 py-3 rounded-md font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      {formData.settings?.submitButtonText || 'Envoyer'}
+                      {isSubmitting ? 'Sending...' : (formData.settings?.submitButtonText || 'Envoyer')}
                     </button>
                     
-                    {formData.settings?.whatsappButtonEnabled && (
-                      <div className="mt-4 pt-4 border-t border-gray-200">
-                        <p className="text-center text-sm text-gray-600 mb-3">
-                          {formData.settings?.whatsappButtonText || 'Or contact us directly via WhatsApp'}
-                        </p>
-                        <a
-                          href="https://wa.me/66653496445?text=Hello%20Amon%20Tour,%20I%20would%20like%20to%20inquire%20about%20a%20custom%20tour."
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-md font-heading font-semibold transition-colors duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
-                        >
-                          <i className="fab fa-whatsapp text-xl" aria-hidden="true"></i>
-                          Contact via WhatsApp
-                        </a>
-                      </div>
-                    )}
                   </div>
-                </div>
+                  
+                  {formData.settings?.whatsappButtonEnabled && (
+                    <div className="mt-4 pt-4 border-t border-gray-200">
+                      <p className="text-center text-sm text-gray-600 mb-3">
+                        {formData.settings?.whatsappButtonText || 'Or contact us directly via WhatsApp'}
+                      </p>
+                      <a
+                        href="https://wa.me/66653496445?text=Hello%20Amon%20Tour,%20I%20would%20like%20to%20inquire%20about%20a%20custom%20tour."
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-md font-heading font-semibold transition-colors duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+                      >
+                        <i className="fab fa-whatsapp text-xl" aria-hidden="true"></i>
+                        Contact via WhatsApp
+                      </a>
+                    </div>
+                  )}
+                </form>
               </div>
             )}
           </div>
