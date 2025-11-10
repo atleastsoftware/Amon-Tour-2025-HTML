@@ -117,7 +117,11 @@ export default function CustomTourForm({ title, subtitle }: CustomTourFormProps 
       });
       
       form.reset();
+      if (datePickerRef.current && (datePickerRef.current as any)._flatpickr) {
+        (datePickerRef.current as any)._flatpickr.clear();
+      }
     } catch (error) {
+      console.error("Form submission error:", error);
       toast({
         title: translations.common.error,
         description: translations.cruise.errorMessage,
@@ -173,10 +177,11 @@ export default function CustomTourForm({ title, subtitle }: CustomTourFormProps 
 
   // Initialize flatpickr
   useEffect(() => {
-    if (datePickerRef.current) {
+    if (datePickerRef.current && !(datePickerRef.current as any)._flatpickr) {
       const fp = flatpickr(datePickerRef.current, {
         mode: "range" as const,
         dateFormat: "d/m/Y",
+        minDate: "today",
         allowInput: false,
         clickOpens: true,
         onChange: (selectedDates: Date[]) => {
@@ -195,7 +200,9 @@ export default function CustomTourForm({ title, subtitle }: CustomTourFormProps 
       } as any);
 
       return () => {
-        fp.destroy();
+        if (fp) {
+          fp.destroy();
+        }
       };
     }
   }, [form]);
@@ -385,14 +392,13 @@ export default function CustomTourForm({ title, subtitle }: CustomTourFormProps 
                         <FormControl>
                           <Input
                             placeholder={translations.cruise.datesPlaceholder}
-                            value={field.value}
+                            value={field.value || ''}
                             onChange={field.onChange}
                             ref={(el) => {
                               datePickerRef.current = el;
-                              if (field.ref) field.ref(el);
                             }}
-                            readOnly
                             className="cursor-pointer"
+                            data-testid="input-trip-dates"
                           />
                         </FormControl>
                         <FormMessage />
@@ -547,6 +553,7 @@ export default function CustomTourForm({ title, subtitle }: CustomTourFormProps 
                     type="submit" 
                     className="w-full bg-primary text-white py-3 rounded-md font-heading font-semibold hover:bg-primary-dark transition-colors"
                     disabled={isSubmitting}
+                    data-testid="button-send-request"
                   >
                     {isSubmitting ? translations.cruise.sending : home.sendRequest}
                   </Button>
