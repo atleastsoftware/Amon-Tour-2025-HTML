@@ -503,7 +503,7 @@ export default function DynamicFormBlock({
               </div>
             ) : formData.formLayout === 'footer' ? (
               // Layout Footer
-              <div className="p-8">
+              <form onSubmit={handleSubmit} className="p-8">
                 <div className="grid grid-cols-12 gap-4">
                   {formData.fields?.map((field: any, index: number) => {
                     let colSpan = 'col-span-12';
@@ -534,13 +534,15 @@ export default function DynamicFormBlock({
                 
                 <div className="pt-4">
                   <button 
+                    type="submit"
+                    disabled={isSubmitting}
                     style={{ 
                       backgroundColor: resolveColor(formData.primaryColor),
                       color: '#ffffff'
                     }}
-                    className="w-full px-8 py-3 rounded-md font-semibold"
+                    className="w-full px-8 py-3 rounded-md font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {formData.settings?.submitButtonText || 'Envoyer'}
+                    {isSubmitting ? 'Sending...' : (formData.settings?.submitButtonText || 'Envoyer')}
                   </button>
                   
                   {formData.settings?.whatsappButtonEnabled && (
@@ -560,7 +562,7 @@ export default function DynamicFormBlock({
                     </div>
                   )}
                 </div>
-              </div>
+              </form>
             ) : (
               // Layout Side-by-side (default)
               <div className="grid md:grid-cols-2">
