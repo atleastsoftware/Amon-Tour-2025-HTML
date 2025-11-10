@@ -177,34 +177,49 @@ export default function CustomTourForm({ title, subtitle }: CustomTourFormProps 
 
   // Initialize flatpickr
   useEffect(() => {
-    if (datePickerRef.current && !(datePickerRef.current as any)._flatpickr) {
-      const fp = flatpickr(datePickerRef.current, {
-        mode: "range" as const,
-        dateFormat: "d/m/Y",
-        minDate: "today",
-        allowInput: false,
-        clickOpens: true,
-        onChange: (selectedDates: Date[]) => {
-          if (selectedDates.length === 2) {
-            const startDate = selectedDates[0];
-            const endDate = selectedDates[1];
-            const formattedRange = `${startDate.toLocaleDateString('en-GB')} - ${endDate.toLocaleDateString('en-GB')}`;
-            form.setValue('dateRange', formattedRange);
-          } else if (selectedDates.length === 1) {
-            const startDate = selectedDates[0];
-            form.setValue('dateRange', startDate.toLocaleDateString('en-GB'));
-          } else {
-            form.setValue('dateRange', '');
+    const timer = setTimeout(() => {
+      if (datePickerRef.current && !(datePickerRef.current as any)._flatpickr) {
+        console.log('Initializing flatpickr...');
+        const fp = flatpickr(datePickerRef.current, {
+          mode: "range" as const,
+          dateFormat: "d/m/Y",
+          minDate: "today",
+          allowInput: false,
+          clickOpens: true,
+          static: false,
+          onChange: (selectedDates: Date[]) => {
+            if (selectedDates.length === 2) {
+              const startDate = selectedDates[0];
+              const endDate = selectedDates[1];
+              const formattedRange = `${startDate.toLocaleDateString('en-GB')} - ${endDate.toLocaleDateString('en-GB')}`;
+              form.setValue('dateRange', formattedRange);
+            } else if (selectedDates.length === 1) {
+              const startDate = selectedDates[0];
+              form.setValue('dateRange', startDate.toLocaleDateString('en-GB'));
+            } else {
+              form.setValue('dateRange', '');
+            }
           }
-        }
-      } as any);
+        } as any);
 
-      return () => {
-        if (fp) {
-          fp.destroy();
-        }
-      };
-    }
+        console.log('Flatpickr initialized:', fp);
+        
+        return () => {
+          if (fp) {
+            fp.destroy();
+          }
+        };
+      } else {
+        console.log('Flatpickr not initialized:', { 
+          hasRef: !!datePickerRef.current, 
+          hasExisting: datePickerRef.current ? !!(datePickerRef.current as any)._flatpickr : false 
+        });
+      }
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, [form]);
 
   return (
@@ -396,6 +411,11 @@ export default function CustomTourForm({ title, subtitle }: CustomTourFormProps 
                             onChange={field.onChange}
                             ref={(el) => {
                               datePickerRef.current = el;
+                            }}
+                            onClick={() => {
+                              if (datePickerRef.current && (datePickerRef.current as any)._flatpickr) {
+                                (datePickerRef.current as any)._flatpickr.open();
+                              }
                             }}
                             className="cursor-pointer"
                             data-testid="input-trip-dates"
