@@ -113,12 +113,44 @@ export default function DynamicFormBlock({
         return match ? parseInt(match[1]) : 0;
       };
 
-      // Combine country code and WhatsApp number
-      const countryCode = formValues['countrycode'] || '';
-      const whatsappNum = formValues['whatsappNumber'] || '';
-      const phoneNumber = countryCode && whatsappNum 
-        ? `${countryCode.split(' ')[1]} ${whatsappNum}`.trim()
-        : whatsappNum;
+      // Handle phone number field mapping (different forms use different field structures)
+      let phoneNumber = '';
+      
+      // Form 2: separate countrycode and whatsappNumber fields
+      if (formValues['whatsappNumber']) {
+        const countryCode = formValues['countrycode'] || '';
+        const whatsappNum = formValues['whatsappNumber'] || '';
+        phoneNumber = countryCode && whatsappNum 
+          ? `${countryCode.split(' ')[1]} ${whatsappNum}`.trim()
+          : whatsappNum;
+      }
+      // Form 8: single countrycode field for phone
+      else if (formValues['countrycode']) {
+        phoneNumber = formValues['countrycode'];
+      }
+
+      // Collect all destination/special request fields (handles custom field IDs)
+      let destinations: string[] = formValues['destinations'] || [];
+      let specialRequests = '';
+      
+      // Check for cruise form's custom destination/special request fields
+      Object.keys(formValues).forEach(key => {
+        if (key.startsWith('field_') && formValues[key]) {
+          const value = formValues[key];
+          // If it looks like destinations (contains location names)
+          if (key.includes('1760538055472') || value.toLowerCase().includes('phi') || value.toLowerCase().includes('hong')) {
+            if (Array.isArray(value)) {
+              destinations = [...destinations, ...value];
+            } else if (typeof value === 'string') {
+              destinations.push(value);
+            }
+          }
+          // If it looks like special requests
+          else if (key.includes('1760538069884') || value.toLowerCase().includes('dietary') || value.toLowerCase().includes('celebration')) {
+            specialRequests = value;
+          }
+        }
+      });
 
       // Map form values to the backend expected format
       const requestData = {
@@ -130,8 +162,8 @@ export default function DynamicFormBlock({
         tripDates: formValues['tripDates'] || '',
         duration: formValues['duration'] || '',
         tripTypes: formValues['tripTypes'] || [],
-        destinations: formValues['destinations'] || [],
-        message: formValues['message'] || ''
+        destinations: destinations,
+        message: specialRequests || formValues['message'] || ''
       };
 
       await apiRequest("POST", "/api/custom-tour-requests", requestData);
