@@ -106,13 +106,27 @@ export default function DynamicFormBlock({
 
     setIsSubmitting(true);
     try {
+      // Parse number of adults from text like "2 adults" -> 2
+      const parseNumber = (text: string) => {
+        if (!text) return 0;
+        const match = text.match(/(\d+)/);
+        return match ? parseInt(match[1]) : 0;
+      };
+
+      // Combine country code and WhatsApp number
+      const countryCode = formValues['countrycode'] || '';
+      const whatsappNum = formValues['whatsappNumber'] || '';
+      const phoneNumber = countryCode && whatsappNum 
+        ? `${countryCode.split(' ')[1]} ${whatsappNum}`.trim()
+        : whatsappNum;
+
       // Map form values to the backend expected format
       const requestData = {
         fullName: formValues['fullName'] || '',
         email: formValues['email'] || '',
-        phoneNumber: formValues['phoneNumber'] || '',
-        numberOfAdults: parseInt(formValues['numberOfAdults']) || 1,
-        numberOfKids: parseInt(formValues['numberOfKids']) || 0,
+        phoneNumber: phoneNumber || '',
+        numberOfAdults: parseNumber(formValues['numberOfAdults']) || 1,
+        numberOfKids: formValues['numberOfKids'] === 'No kids' ? 0 : parseNumber(formValues['numberOfKids']) || 0,
         tripDates: formValues['tripDates'] || '',
         duration: formValues['duration'] || '',
         tripTypes: formValues['tripTypes'] || [],
