@@ -1,4 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
+import flatpickr from "flatpickr";
+import "flatpickr/dist/flatpickr.min.css";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -46,6 +49,26 @@ export default function DynamicFormBlock({
   const resolveColor = (colorValue: string) => {
     return SYSTEM_COLORS[colorValue as keyof typeof SYSTEM_COLORS] || colorValue;
   };
+
+  // Initialize flatpickr for date inputs
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const dateInputs = document.querySelectorAll('.flatpickr-input');
+      dateInputs.forEach((input) => {
+        if (!(input as any)._flatpickr) {
+          flatpickr(input as HTMLInputElement, {
+            mode: "range",
+            dateFormat: "d/m/Y",
+            minDate: "today",
+            allowInput: false,
+            clickOpens: true,
+          });
+        }
+      });
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [formData]);
 
   const renderField = (field: any) => {
     const fieldStyle = {
