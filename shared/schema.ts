@@ -347,26 +347,16 @@ export const insertCustomTourRequestSchema = createInsertSchema(customTourReques
   fullName: z.string().min(1, "Full name is required"),
   email: z.string().email("Valid email address is required"),
   phoneNumber: z.string().min(1, "Phone number is required"),
-  numberOfAdults: z.number().min(1, "At least 1 adult is required"),
-  numberOfKids: z.number().min(0, "Number of kids cannot be negative"),
+  numberOfAdults: z.number().min(0).default(1).optional(),
+  numberOfKids: z.number().min(0, "Number of kids cannot be negative").default(0).optional(),
   tripDates: z.string().optional(),
   duration: z.string().optional(),
   interests: z.array(z.string()).default([]),
   tripTypes: z.array(z.string()).default([]),
   destinations: z.array(z.string()).default([]),
-  message: z.string().min(1, "Message is required"),
+  message: z.string().optional(),
   status: z.enum(["new", "in_progress", "archived"]).default("new"),
-}).refine(
-  (data) => {
-    // At least one of tripDates or duration must be provided
-    return (data.tripDates && data.tripDates.trim() !== "") || 
-           (data.duration && data.duration.trim() !== "");
-  },
-  {
-    message: "Please provide either your trip dates or an approximate duration.",
-    path: ["tripDates"],
-  }
-);
+});
 
 export type InsertCustomTourRequest = z.infer<typeof insertCustomTourRequestSchema>;
 export type CustomTourRequest = typeof customTourRequests.$inferSelect;
