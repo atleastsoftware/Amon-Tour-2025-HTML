@@ -20,7 +20,13 @@ class AutoTranslationService {
     sourceLanguage: string = 'en'
   ): Promise<TranslationResult> {
     try {
-      console.log(`🌍 Translating from ${sourceLanguage} to ${targetLanguage}: "${text.substring(0, 50)}..."`);
+      // Clean text: replace special characters that might cause issues
+      const cleanText = text
+        .replace(/–/g, '-')  // Replace em dash with regular dash
+        .replace(/—/g, '-')  // Replace en dash with regular dash
+        .trim();
+      
+      console.log(`🌍 Translating from ${sourceLanguage} to ${targetLanguage}: "${cleanText.substring(0, 50)}..."`);
       
       const response = await fetch(this.apiUrl, {
         method: 'POST',
@@ -28,7 +34,7 @@ class AutoTranslationService {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          q: text,
+          q: cleanText,
           source: sourceLanguage,
           target: targetLanguage,
           format: 'text'
