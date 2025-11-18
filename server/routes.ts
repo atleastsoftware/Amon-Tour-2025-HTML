@@ -4611,34 +4611,97 @@ Crawl-delay: 1`;
         const oldConfig = oldBlock.configuration || {};
         const newConfig = validatedData.configuration;
         
-        // Check for text changes in common fields
-        const textFields = ['title', 'subtitle', 'description', 'content'];
-        
-        for (const field of textFields) {
-          const oldText = typeof oldConfig[field] === 'string' ? oldConfig[field] : undefined;
-          const newText = typeof newConfig[field] === 'string' ? newConfig[field] : '';
+        // Special handling for Hero block
+        if (oldBlock.blockType === 'hero' || oldBlock.identifier?.startsWith('hero')) {
+          const oldTitle = typeof oldConfig['title'] === 'string' ? oldConfig['title'] : undefined;
+          const newTitle = typeof newConfig['title'] === 'string' ? newConfig['title'] : '';
+          const oldSubtitle = typeof oldConfig['subtitle'] === 'string' ? oldConfig['subtitle'] : undefined;
+          const newSubtitle = typeof newConfig['subtitle'] === 'string' ? newConfig['subtitle'] : '';
           
-          if (newText && await autoTranslationService.detectTextChange(oldText, newText)) {
-            console.log(`🔄 Text changed in ${field}, translating...`);
+          if (newTitle && await autoTranslationService.detectTextChange(oldTitle, newTitle)) {
+            console.log(`🔄 Hero title changed, updating JSON translations...`);
             
             try {
-              // Translate to all languages
-              const translations = await autoTranslationService.translateToAllLanguages(newText, 'en');
+              // Parse Hero title format: "Your exclusive\nexperiences\nin Krabi – THAILAND"
+              const titleParts = newTitle.split('\n').map(part => part.trim()).filter(p => p);
               
-              // Update translation files based on block identifier
-              const sectionKey = oldBlock.identifier?.split('_')[0] || 'hero';
-              const fieldKey = field;
+              // Extract parts
+              const mainTitleParts: string[] = [];
+              let subtitle = 'in Krabi';
+              let thailand = 'THAILAND';
               
+              for (const part of titleParts) {
+                if (part.toLowerCase().startsWith('in ')) {
+                  subtitle = part;
+                } else if (part.toUpperCase() === part && part.includes('THAILAND')) {
+                  thailand = part.replace(/[–-]/g, '').trim();
+                } else if (!part.includes('–') && !part.includes('THAILAND')) {
+                  mainTitleParts.push(part);
+                }
+              }
+              
+              const mainTitle = mainTitleParts.join(' ');
+              
+              // Translate each part
+              const titleTranslations = await autoTranslationService.translateToAllLanguages(mainTitle, 'en');
+              const subtitleTranslations = await autoTranslationService.translateToAllLanguages(subtitle, 'en');
+              
+              // Update JSON files with all hero fields
+              await translationFileService.batchUpdateTranslations([
+                { section: 'hero', key: 'title', translations: titleTranslations },
+                { section: 'hero', key: 'subtitle', translations: subtitleTranslations },
+                { section: 'hero', key: 'thailand', translations: { en: thailand, fr: 'THAÏLANDE', es: 'TAILANDIA' } }
+              ]);
+              
+              console.log(`✅ Hero translations updated in JSON files`);
+            } catch (error) {
+              console.error(`⚠️ Hero translation failed:`, error);
+            }
+          }
+          
+          // Update description if changed
+          if (newSubtitle && await autoTranslationService.detectTextChange(oldSubtitle, newSubtitle)) {
+            console.log(`🔄 Hero description changed, translating...`);
+            
+            try {
+              const translations = await autoTranslationService.translateToAllLanguages(newSubtitle, 'en');
               await translationFileService.updateTranslations({
-                section: sectionKey,
-                key: fieldKey,
+                section: 'hero',
+                key: 'description',
                 translations
               });
               
-              console.log(`✅ Translations updated for ${sectionKey}.${fieldKey}`);
+              console.log(`✅ Hero description updated in JSON files`);
             } catch (error) {
-              console.error(`⚠️ Translation failed for ${field}:`, error);
-              // Continue anyway - don't block the update
+              console.error(`⚠️ Description translation failed:`, error);
+            }
+          }
+        } else {
+          // Standard handling for non-Hero blocks
+          const textFields = ['title', 'subtitle', 'description', 'content'];
+          
+          for (const field of textFields) {
+            const oldText = typeof oldConfig[field] === 'string' ? oldConfig[field] : undefined;
+            const newText = typeof newConfig[field] === 'string' ? newConfig[field] : '';
+            
+            if (newText && await autoTranslationService.detectTextChange(oldText, newText)) {
+              console.log(`🔄 Text changed in ${field}, translating...`);
+              
+              try {
+                const translations = await autoTranslationService.translateToAllLanguages(newText, 'en');
+                const sectionKey = oldBlock.identifier?.split('_')[0] || 'content';
+                const fieldKey = field;
+                
+                await translationFileService.updateTranslations({
+                  section: sectionKey,
+                  key: fieldKey,
+                  translations
+                });
+                
+                console.log(`✅ Translations updated for ${sectionKey}.${fieldKey}`);
+              } catch (error) {
+                console.error(`⚠️ Translation failed for ${field}:`, error);
+              }
             }
           }
         }

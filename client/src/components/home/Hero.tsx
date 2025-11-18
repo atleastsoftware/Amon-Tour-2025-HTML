@@ -73,44 +73,8 @@ export default function Hero() {
   // Force component to have a unique key based on language to ensure re-render
   const componentKey = `hero-${currentLanguage}-${hero?.title}`;
 
-  // Récupérer les données de configuration du héros (avec gestion d'erreur)
-  // NOTE: Use public API to access dashboard content for all users
-  const { data: heroBlocks } = useQuery({
-    queryKey: ["/api/public/page-blocks/home"],
-    queryFn: async () => {
-      try {
-        const response = await fetch("/api/public/page-blocks/home");
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      } catch (error) {
-        console.log("Hero config fetch failed, using defaults:", error);
-        return [];
-      }
-    },
-  });
-
-  // Trouver le bloc hero principal (tous types possibles)
-  // This is ONLY for configuration settings, not for text content
-  const heroConfig = heroBlocks?.find(
-    (block: any) =>
-      block.blockType === "video_hero" ||
-      block.blockType === "hero" ||
-      block.blockType === "hero_banner",
-  );
-
-  // DEBUG: Log to see what data we're receiving
-  console.log('🔍 Hero Debug - Has blocks?', !!heroBlocks);
-  console.log('🔍 Hero Debug - Blocks length:', heroBlocks?.length);
-  console.log('🔍 Hero Debug - Has heroConfig?', !!heroConfig);
-  console.log('🔍 Hero Debug - Config title:', heroConfig?.configuration?.title);
-  console.log('🔍 Hero Debug - Config subtitle:', heroConfig?.configuration?.subtitle);
-  console.log('🔍 Hero Debug - JSON title:', hero?.title);
-  console.log('🔍 Hero Debug - JSON desc:', hero?.description);
-
-  // Récupérer la valeur de hasAnimation depuis la configuration
-  const hasAnimation = heroConfig?.configuration?.hasAnimation ?? true;
+  // Simple: always use animation (no dashboard config needed)
+  const hasAnimation = true;
 
   // Fonction pour obtenir la classe CSS selon la couleur configurée
   const getColorClass = (colorValue: string, defaultClass = "text-white") => {
@@ -130,46 +94,22 @@ export default function Hero() {
     }
   };
 
-  // Fonction pour appliquer la couleur au mot spécifique dans le titre
+  // Render title with colors - ONLY uses JSON translations
   const renderTitleWithColors = () => {
-    const titlePrimaryColor = heroConfig?.titlePrimaryColor || "white";
-    const titleAccentColor = heroConfig?.titleAccentColor || "primary";
-
-    // Check if we have dashboard data or should use JSON translations
-    if (heroConfig?.configuration?.title) {
-      // Dashboard data: title contains everything, just display it
-      const fullTitle = heroConfig.configuration.title;
-      
-      // Replace \n with actual line breaks and render
-      const lines = fullTitle.split('\n').map((line: string, index: number) => (
-        <span key={index}>
-          {line}
-          {index < fullTitle.split('\n').length - 1 && <br />}
-        </span>
-      ));
-      
-      return (
-        <span className={getColorClass(titlePrimaryColor, "text-white")}>
-          {lines}
-        </span>
-      );
-    }
-
-    // JSON translations: use the structured format (title + subtitle + thailand)
     const mainTitle = hero.title;
     const colorPart = hero.subtitle;
     const heroCountry = hero.thailand;
 
     return (
       <>
-        <span className={getColorClass(titlePrimaryColor, "text-white")}>
+        <span className="text-white">
           {mainTitle}
         </span>
         <br />
-        <span className={getColorClass(titleAccentColor, "text-primary")}>
+        <span className="text-primary">
           {colorPart}{" "}
         </span>
-        <span className={getColorClass(titlePrimaryColor, "text-white")}>
+        <span className="text-white">
           – {heroCountry}
         </span>
       </>
@@ -273,49 +213,30 @@ export default function Hero() {
                     }
                   : {}
               }
-              className={`max-w-xl ml-3 md:ml-6 ${
-                heroConfig?.contentAlignment === "center"
-                  ? "mx-auto text-center"
-                  : heroConfig?.contentAlignment === "right"
-                    ? "ml-auto text-right"
-                    : "text-left"
-              }`}
+              className="max-w-xl ml-3 md:ml-6 text-left"
             >
               <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight drop-shadow-lg">
                 {renderTitleWithColors()}
               </h1>
 
-              <p
-                className={`mb-6 text-lg drop-shadow-md ${getColorClass(
-                  heroConfig?.subtitleColor || "white",
-                  "text-white/90",
-                )}`}
-              >
-                {heroConfig?.configuration?.subtitle || hero.description}
+              <p className="mb-6 text-lg drop-shadow-md text-white/90">
+                {hero.description}
               </p>
 
-              <div
-                className={`flex flex-col sm:flex-row gap-4 ${
-                  heroConfig?.contentAlignment === "center"
-                    ? "justify-center"
-                    : heroConfig?.contentAlignment === "right"
-                      ? "justify-end"
-                      : "justify-start"
-                }`}
-              >
-                {/* Use dashboard text if available, otherwise use translations */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-start">
+                {/* Use JSON translations */}
                 {[
                   {
-                    text: heroConfig?.configuration?.seeOffers || hero.seeOffers,
+                    text: hero.seeOffers,
                     url: "/tours",
-                    color: heroConfig?.button1Color || "#084F6E",
-                    style: heroConfig?.button1Style || "filled",
+                    color: "#084F6E",
+                    style: "filled",
                   },
                   {
-                    text: heroConfig?.configuration?.customTrip || hero.customTrip,
+                    text: hero.customTrip,
                     url: "/custom-tour",
-                    color: heroConfig?.button2Color || "#084F6E",
-                    style: heroConfig?.button2Style || "filled",
+                    color: "#084F6E",
+                    style: "filled",
                   },
                 ].map((button: any, index: number) => (
                   <Link key={index} href={button.url}>
