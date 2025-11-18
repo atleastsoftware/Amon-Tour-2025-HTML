@@ -37,6 +37,8 @@ import { persistentImageStorage } from "./objectStorageService";
 import path from "path";
 import bcrypt from "bcrypt";
 import rateLimit from "express-rate-limit";
+import { autoTranslationService } from "./services/autoTranslationService";
+import { translationFileService } from "./services/translationFileService";
 
 // Initialize default legal pages on startup
 async function initializeDefaultLegalPages() {
@@ -4600,6 +4602,48 @@ Crawl-delay: 1`;
       }
 
       const validatedData = insertPageBlockSchema.partial().parse(req.body);
+      
+      // Get the old block to compare text changes
+      const oldBlock = await storage.getPageBlock(id);
+      
+      // Auto-translate if text content has changed
+      if (oldBlock && validatedData.configuration) {
+        const oldConfig = oldBlock.configuration || {};
+        const newConfig = validatedData.configuration;
+        
+        // Check for text changes in common fields
+        const textFields = ['title', 'subtitle', 'description', 'content'];
+        
+        for (const field of textFields) {
+          const oldText = oldConfig[field];
+          const newText = newConfig[field];
+          
+          if (newText && await autoTranslationService.detectTextChange(oldText, newText)) {
+            console.log(`🔄 Text changed in ${field}, translating...`);
+            
+            try {
+              // Translate to all languages
+              const translations = await autoTranslationService.translateToAllLanguages(newText, 'en');
+              
+              // Update translation files based on block identifier
+              const sectionKey = oldBlock.identifier?.split('_')[0] || 'hero';
+              const fieldKey = field;
+              
+              await translationFileService.updateTranslations({
+                section: sectionKey,
+                key: fieldKey,
+                translations
+              });
+              
+              console.log(`✅ Translations updated for ${sectionKey}.${fieldKey}`);
+            } catch (error) {
+              console.error(`⚠️ Translation failed for ${field}:`, error);
+              // Continue anyway - don't block the update
+            }
+          }
+        }
+      }
+      
       const block = await storage.updatePageBlock(id, validatedData);
       
       if (!block) {
