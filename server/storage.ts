@@ -1670,6 +1670,14 @@ export class DatabaseStorage implements IStorage {
       .orderBy(asc(pageBlocks.blockOrder));
   }
 
+  async getPageBlock(id: number): Promise<PageBlock | undefined> {
+    const [block] = await db
+      .select()
+      .from(pageBlocks)
+      .where(eq(pageBlocks.id, id));
+    return block || undefined;
+  }
+
   async getPageBlocksBySlug(pageSlug: string): Promise<PageBlock[]> {
     const config = await this.getPageConfiguration(pageSlug);
     if (!config) return [];

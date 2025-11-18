@@ -127,12 +127,12 @@ export default function Hero() {
 
   // Fonction pour appliquer la couleur au mot spécifique dans le titre
   const renderTitleWithColors = () => {
-    // ALWAYS use translations, never use database content
-    const mainTitle = hero.title;
-    const colorPart = hero.subtitle;
+    // Use dashboard content if available, otherwise use translations (JSON files)
+    const mainTitle = heroConfig?.configuration?.title || hero.title;
+    const colorPart = heroConfig?.configuration?.subtitle || hero.subtitle;
     const titlePrimaryColor = heroConfig?.titlePrimaryColor || "white";
     const titleAccentColor = heroConfig?.titleAccentColor || "primary";
-    const heroCountry = hero.thailand;
+    const heroCountry = heroConfig?.configuration?.thailand || hero.thailand;
 
     // Si le titre contient le mot à colorier
     if (mainTitle && colorPart && mainTitle.includes(colorPart)) {
@@ -254,12 +254,6 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
       </div>
       <div className="container mx-auto px-4 relative z-10 pt-16 md:pt-24">
-        {/* DEBUG BANNER - Remove this after testing */}
-        <div className="bg-yellow-400 text-black p-2 mb-4 rounded text-sm font-mono">
-          DEBUG: Lang={currentLanguage} | Title={hero?.title} | Key=
-          {componentKey}
-        </div>
-
         <div className="flex flex-col md:flex-row items-center gap-10">
           {/* Left content - Title and description */}
           <div className="w-full">
@@ -294,7 +288,7 @@ export default function Hero() {
                   "text-white/90",
                 )}`}
               >
-                {hero.description}
+                {heroConfig?.configuration?.description || hero.description}
               </p>
 
               <div
@@ -306,16 +300,16 @@ export default function Hero() {
                       : "justify-start"
                 }`}
               >
-                {/* Always use translated button text */}
+                {/* Use dashboard text if available, otherwise use translations */}
                 {[
                   {
-                    text: hero.seeOffers,
+                    text: heroConfig?.configuration?.seeOffers || hero.seeOffers,
                     url: "/tours",
                     color: heroConfig?.button1Color || "#084F6E",
                     style: heroConfig?.button1Style || "filled",
                   },
                   {
-                    text: hero.customTrip,
+                    text: heroConfig?.configuration?.customTrip || hero.customTrip,
                     url: "/custom-tour",
                     color: heroConfig?.button2Color || "#084F6E",
                     style: heroConfig?.button2Style || "filled",

@@ -4615,8 +4615,8 @@ Crawl-delay: 1`;
         const textFields = ['title', 'subtitle', 'description', 'content'];
         
         for (const field of textFields) {
-          const oldText = oldConfig[field];
-          const newText = newConfig[field];
+          const oldText = typeof oldConfig[field] === 'string' ? oldConfig[field] : undefined;
+          const newText = typeof newConfig[field] === 'string' ? newConfig[field] : '';
           
           if (newText && await autoTranslationService.detectTextChange(oldText, newText)) {
             console.log(`🔄 Text changed in ${field}, translating...`);
