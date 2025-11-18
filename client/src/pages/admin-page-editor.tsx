@@ -8079,13 +8079,36 @@ export default function AdminPageEditor() {
   // Update block mutation
   const updateBlockMutation = useMutation({
     mutationFn: async (blockData: PageBlock) => {
+      // Get old block data before updating
+      const oldBlock = pageBlocks?.find(b => b.id === blockData.id);
+      
       const response = await fetch(`/api/admin/page-blocks/${blockData.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(blockData),
       });
       if (!response.ok) throw new Error('Failed to update block');
-      return response.json();
+      const updatedBlock = await response.json();
+      
+      // Trigger automatic translation if text has changed
+      if (oldBlock) {
+        try {
+          await fetch('/api/admin/translate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              oldBlock,
+              newBlock: updatedBlock,
+              pageSlug
+            }),
+          });
+        } catch (error) {
+          console.error('Auto-translation failed:', error);
+          // Don't throw - translation failure shouldn't block the update
+        }
+      }
+      
+      return updatedBlock;
     },
     onSuccess: () => {
       // Invalidate both admin and public caches
