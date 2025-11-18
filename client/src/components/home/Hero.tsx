@@ -123,48 +123,46 @@ export default function Hero() {
 
   // Fonction pour appliquer la couleur au mot spécifique dans le titre
   const renderTitleWithColors = () => {
-    // Use dashboard content if available, otherwise use translations (JSON files)
-    const mainTitle = heroConfig?.configuration?.title || hero.title;
-    const colorPart = heroConfig?.configuration?.subtitle || hero.subtitle;
     const titlePrimaryColor = heroConfig?.titlePrimaryColor || "white";
     const titleAccentColor = heroConfig?.titleAccentColor || "primary";
-    const heroCountry = heroConfig?.configuration?.thailand || hero.thailand;
 
-    // Si le titre contient le mot à colorier
-    if (mainTitle && colorPart && mainTitle.includes(colorPart)) {
-      const parts = mainTitle.split(colorPart);
+    // Check if we have dashboard data or should use JSON translations
+    if (heroConfig?.configuration?.title) {
+      // Dashboard data: title contains everything, just display it
+      const fullTitle = heroConfig.configuration.title;
+      
+      // Replace \n with actual line breaks and render
+      const lines = fullTitle.split('\n').map((line: string, index: number) => (
+        <span key={index}>
+          {line}
+          {index < fullTitle.split('\n').length - 1 && <br />}
+        </span>
+      ));
+      
       return (
-        <>
-          <span className={getColorClass(titlePrimaryColor, "text-white")}>
-            {parts[0]}
-          </span>
-          <span className={getColorClass(titleAccentColor, "text-primary")}>
-            {colorPart}
-          </span>
-          <span className={getColorClass(titlePrimaryColor, "text-white")}>
-            {parts[1] || ` – ${heroCountry}`}
-          </span>
-        </>
+        <span className={getColorClass(titlePrimaryColor, "text-white")}>
+          {lines}
+        </span>
       );
     }
 
-    // Sinon, afficher le titre avec le texte coloré séparément
+    // JSON translations: use the structured format (title + subtitle + thailand)
+    const mainTitle = hero.title;
+    const colorPart = hero.subtitle;
+    const heroCountry = hero.thailand;
+
     return (
       <>
         <span className={getColorClass(titlePrimaryColor, "text-white")}>
           {mainTitle}
         </span>
-        {colorPart && (
-          <>
-            <br />
-            <span className={getColorClass(titleAccentColor, "text-primary")}>
-              {colorPart}{" "}
-            </span>
-            <span className={getColorClass(titlePrimaryColor, "text-white")}>
-              – {heroCountry}
-            </span>
-          </>
-        )}
+        <br />
+        <span className={getColorClass(titleAccentColor, "text-primary")}>
+          {colorPart}{" "}
+        </span>
+        <span className={getColorClass(titlePrimaryColor, "text-white")}>
+          – {heroCountry}
+        </span>
       </>
     );
   };
@@ -284,7 +282,7 @@ export default function Hero() {
                   "text-white/90",
                 )}`}
               >
-                {heroConfig?.configuration?.description || hero.description}
+                {heroConfig?.configuration?.subtitle || hero.description}
               </p>
 
               <div
