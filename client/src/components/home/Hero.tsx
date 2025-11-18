@@ -100,6 +100,17 @@ export default function Hero() {
       block.blockType === "hero_banner",
   );
 
+  // DEBUG: Log to see what data we're receiving
+  console.log('🔍 Hero Debug:', {
+    hasHeroBlocks: !!heroBlocks,
+    blocksLength: heroBlocks?.length,
+    heroConfig: heroConfig,
+    configTitle: heroConfig?.configuration?.title,
+    configSubtitle: heroConfig?.configuration?.subtitle,
+    jsonTitle: hero?.title,
+    jsonDescription: hero?.description
+  });
+
   // Récupérer la valeur de hasAnimation depuis la configuration
   const hasAnimation = heroConfig?.configuration?.hasAnimation ?? true;
 
