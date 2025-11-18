@@ -101,15 +101,13 @@ export default function Hero() {
   );
 
   // DEBUG: Log to see what data we're receiving
-  console.log('🔍 Hero Debug:', {
-    hasHeroBlocks: !!heroBlocks,
-    blocksLength: heroBlocks?.length,
-    heroConfig: heroConfig,
-    configTitle: heroConfig?.configuration?.title,
-    configSubtitle: heroConfig?.configuration?.subtitle,
-    jsonTitle: hero?.title,
-    jsonDescription: hero?.description
-  });
+  console.log('🔍 Hero Debug - Has blocks?', !!heroBlocks);
+  console.log('🔍 Hero Debug - Blocks length:', heroBlocks?.length);
+  console.log('🔍 Hero Debug - Has heroConfig?', !!heroConfig);
+  console.log('🔍 Hero Debug - Config title:', heroConfig?.configuration?.title);
+  console.log('🔍 Hero Debug - Config subtitle:', heroConfig?.configuration?.subtitle);
+  console.log('🔍 Hero Debug - JSON title:', hero?.title);
+  console.log('🔍 Hero Debug - JSON desc:', hero?.description);
 
   // Récupérer la valeur de hasAnimation depuis la configuration
   const hasAnimation = heroConfig?.configuration?.hasAnimation ?? true;
