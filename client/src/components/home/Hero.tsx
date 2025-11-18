@@ -74,17 +74,13 @@ export default function Hero() {
   const componentKey = `hero-${currentLanguage}-${hero?.title}`;
 
   // Récupérer les données de configuration du héros (avec gestion d'erreur)
-  // NOTE: Only use this for visual configuration, NOT for text content
+  // NOTE: Use public API to access dashboard content for all users
   const { data: heroBlocks } = useQuery({
-    queryKey: ["/api/admin/page-blocks", "home"],
+    queryKey: ["/api/public/page-blocks/home"],
     queryFn: async () => {
       try {
-        const response = await fetch("/api/admin/page-blocks/home");
+        const response = await fetch("/api/public/page-blocks/home");
         if (!response.ok) {
-          // Si pas d'authentification, retourner des données par défaut
-          if (response.status === 401) {
-            return [];
-          }
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         return response.json();
