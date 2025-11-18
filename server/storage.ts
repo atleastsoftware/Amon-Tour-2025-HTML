@@ -257,6 +257,7 @@ export interface IStorage {
   
   // Page Blocks operations
   getPageBlocks(pageId: number): Promise<PageBlock[]>;
+  getPageBlock(id: number): Promise<PageBlock | undefined>;
   getPageBlocksBySlug(pageSlug: string): Promise<PageBlock[]>;
   getAllPageBlocksBySlug(pageSlug: string): Promise<PageBlock[]>;
   createPageBlock(block: InsertPageBlock): Promise<PageBlock>;
