@@ -56,24 +56,25 @@ export class BlockTranslationService {
       if (!newValue) continue;
       
       // Check if field changed OR if it exists but was never translated
+      const translationKey = this.mapFieldNameToTranslationKey(fieldName);
       const hasChanged = await autoTranslationService.detectTextChange(oldValue, newValue);
-      const needsTranslation = hasChanged || !(await translationFileService.translationExists(section, this.camelToSnakeCase(fieldName)));
+      const needsTranslation = hasChanged || !(await translationFileService.translationExists(section, translationKey));
       
       if (needsTranslation) {
-        console.log(`🔄 Translating ${section}.${fieldName}...`);
+        console.log(`🔄 Translating ${section}.${translationKey}...`);
         
         try {
           const translations = await autoTranslationService.translateToAllLanguages(newValue, 'en');
           
           await translationFileService.updateTranslations({
             section,
-            key: this.camelToSnakeCase(fieldName),
+            key: translationKey,
             translations
           });
           
-          console.log(`✅ ${section}.${fieldName} translations updated`);
+          console.log(`✅ ${section}.${translationKey} translations updated`);
         } catch (error) {
-          console.error(`⚠️ ${section}.${fieldName} translation failed:`, error);
+          console.error(`⚠️ ${section}.${translationKey} translation failed:`, error);
         }
       }
     }
@@ -150,6 +151,16 @@ export class BlockTranslationService {
 
   private camelToSnakeCase(str: string): string {
     return str.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
+  }
+
+  private mapFieldNameToTranslationKey(fieldName: string): string {
+    // Map database field names to JSON translation keys
+    const fieldMappings: Record<string, string> = {
+      'content': 'description',      // content field maps to description in JSON
+      'titleAccentText': 'title_accent', // camelCase to snake_case
+    };
+    
+    return fieldMappings[fieldName] || this.camelToSnakeCase(fieldName);
   }
 }
 

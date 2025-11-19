@@ -192,5 +192,15 @@
   "custom_tour_form": {
     "title": "Nos voyages sur mesure",
     "subtitle": "Concevez votre propre voyage à travers la Thaïlande avec nos séjours sur mesure : des découvertes culturelles et des aventures familiales aux escapades romantiques et aux escapades sur l'île. Chaque itinéraire est conçu pour répondre à vos souhaits, offrant des expériences authentiques, des services de qualité et une immersion unique loin du tourisme de masse."
+  },
+  "text": {
+    "title": "section tiltle",
+    "description": "ajoutez votre texte ici. c'est juste un test pour savoir si cela fonctionne."
+  },
+  "who_we_are": {
+    "title": "Qui sommes-nous",
+    "introduction": "Nous sommes Eric, Margaux, Gabriel et Raphaël, une famille française vivant à Krabi, dans le sud de la Thaïlande, depuis 2013.\n\nDe notre vie ici, nous avons créé Amon Tour, une petite agence de voyage indépendante construite sur une idée simple : accueillir personnellement nos voyageurs à Krabi et leur offrir une façon différente de découvrir la Thaïlande.",
+    "sections_0_subtitle": "Ancrage local",
+    "sections_0_text": "Nous vivons ici toute l'année, au cœur de la région que nous aimons. Ce lien étroit avec la destination nous permet d'offrir des expériences exclusives à Krabi, conçues et guidées par notre équipe de guides locaux professionnels ou de partenaires de confiance.\n\nVous ne réservez pas une visite générique : vous êtes accueilli, guidé et pris en charge par des personnes qui vivent ici, qui connaissent les marées, les saisons, les foules à éviter et les joyaux cachés qui valent la peine d'être découverts."
   }
 }
