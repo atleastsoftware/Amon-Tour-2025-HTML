@@ -39,6 +39,7 @@ import bcrypt from "bcrypt";
 import rateLimit from "express-rate-limit";
 import { autoTranslationService } from "./services/autoTranslationService";
 import { translationFileService } from "./services/translationFileService";
+import { blockTranslationService } from "./services/blockTranslationService";
 
 // Initialize default legal pages on startup
 async function initializeDefaultLegalPages() {
@@ -4606,142 +4607,20 @@ Crawl-delay: 1`;
       // Get the old block to compare text changes
       const oldBlock = await storage.getPageBlock(id);
       
-      // Auto-translate if text content has changed
+      // Auto-translate if text content has changed using generic translation service
       if (oldBlock && validatedData.configuration) {
         const oldConfig = oldBlock.configuration || {};
         const newConfig = validatedData.configuration;
         
-        // Special handling for Hero block
-        if (oldBlock.blockType === 'hero' || oldBlock.identifier?.startsWith('hero')) {
-          const oldTitle = typeof oldConfig['title'] === 'string' ? oldConfig['title'] : undefined;
-          const newTitle = typeof newConfig['title'] === 'string' ? newConfig['title'] : '';
-          const oldSubtitle = typeof oldConfig['subtitle'] === 'string' ? oldConfig['subtitle'] : undefined;
-          const newSubtitle = typeof newConfig['subtitle'] === 'string' ? newConfig['subtitle'] : '';
-          const oldAccentText = typeof oldConfig['titleAccentText'] === 'string' ? oldConfig['titleAccentText'] : undefined;
-          const newAccentText = typeof newConfig['titleAccentText'] === 'string' ? newConfig['titleAccentText'] : '';
-          
-          // Translate Hero title (with line breaks preserved)
-          if (newTitle && await autoTranslationService.detectTextChange(oldTitle, newTitle)) {
-            console.log(`🔄 Hero title changed, updating JSON translations...`);
-            
-            try {
-              // Translate the full title preserving line breaks
-              const titleTranslations = await autoTranslationService.translateToAllLanguages(newTitle, 'en');
-              
-              // Update JSON files
-              await translationFileService.updateTranslations({
-                section: 'hero',
-                key: 'title',
-                translations: titleTranslations
-              });
-              
-              console.log(`✅ Hero title translations updated in JSON files`);
-            } catch (error) {
-              console.error(`⚠️ Hero title translation failed:`, error);
-            }
-          }
-          
-          // Translate Hero accent text (the colored word)
-          // Translate if it changed OR if it exists but was never translated
-          const accentNeedsTranslation = newAccentText && (
-            await autoTranslationService.detectTextChange(oldAccentText, newAccentText) ||
-            !(await translationFileService.translationExists('hero', 'titleAccent'))
+        try {
+          await blockTranslationService.translateBlockChanges(
+            oldBlock.blockType,
+            oldBlock.identifier,
+            oldConfig,
+            newConfig
           );
-          
-          if (accentNeedsTranslation) {
-            console.log(`🔄 Hero accent text translating...`);
-            
-            try {
-              const accentTranslations = await autoTranslationService.translateToAllLanguages(newAccentText, 'en');
-              
-              await translationFileService.updateTranslations({
-                section: 'hero',
-                key: 'titleAccent',
-                translations: accentTranslations
-              });
-              
-              console.log(`✅ Hero accent text translations updated in JSON files`);
-            } catch (error) {
-              console.error(`⚠️ Hero accent text translation failed:`, error);
-            }
-          }
-          
-          // Translate Hero subtitle/description
-          if (newSubtitle && await autoTranslationService.detectTextChange(oldSubtitle, newSubtitle)) {
-            console.log(`🔄 Hero subtitle changed, translating...`);
-            
-            try {
-              const translations = await autoTranslationService.translateToAllLanguages(newSubtitle, 'en');
-              await translationFileService.updateTranslations({
-                section: 'hero',
-                key: 'description',
-                translations
-              });
-              
-              console.log(`✅ Hero subtitle updated in JSON files`);
-            } catch (error) {
-              console.error(`⚠️ Hero subtitle translation failed:`, error);
-            }
-          }
-          
-          // Translate button texts if they exist
-          if (newConfig.buttons && Array.isArray(newConfig.buttons)) {
-            const oldButtons = (oldConfig.buttons && Array.isArray(oldConfig.buttons)) ? oldConfig.buttons : [];
-            
-            for (let i = 0; i < newConfig.buttons.length; i++) {
-              const newButton = newConfig.buttons[i];
-              const oldButton = oldButtons[i];
-              const newButtonText = newButton?.text;
-              const oldButtonText = oldButton?.text;
-              
-              if (newButtonText && await autoTranslationService.detectTextChange(oldButtonText, newButtonText)) {
-                console.log(`🔄 Hero button ${i} text changed, translating...`);
-                
-                try {
-                  const translations = await autoTranslationService.translateToAllLanguages(newButtonText, 'en');
-                  const buttonKey = i === 0 ? 'seeOffers' : i === 1 ? 'customTrip' : `button${i}`;
-                  
-                  await translationFileService.updateTranslations({
-                    section: 'hero',
-                    key: buttonKey,
-                    translations
-                  });
-                  
-                  console.log(`✅ Hero button ${i} updated in JSON files`);
-                } catch (error) {
-                  console.error(`⚠️ Button ${i} translation failed:`, error);
-                }
-              }
-            }
-          }
-        } else {
-          // Standard handling for non-Hero blocks
-          const textFields = ['title', 'subtitle', 'description', 'content'];
-          
-          for (const field of textFields) {
-            const oldText = typeof oldConfig[field] === 'string' ? oldConfig[field] : undefined;
-            const newText = typeof newConfig[field] === 'string' ? newConfig[field] : '';
-            
-            if (newText && await autoTranslationService.detectTextChange(oldText, newText)) {
-              console.log(`🔄 Text changed in ${field}, translating...`);
-              
-              try {
-                const translations = await autoTranslationService.translateToAllLanguages(newText, 'en');
-                const sectionKey = oldBlock.identifier?.split('_')[0] || 'content';
-                const fieldKey = field;
-                
-                await translationFileService.updateTranslations({
-                  section: sectionKey,
-                  key: fieldKey,
-                  translations
-                });
-                
-                console.log(`✅ Translations updated for ${sectionKey}.${fieldKey}`);
-              } catch (error) {
-                console.error(`⚠️ Translation failed for ${field}:`, error);
-              }
-            }
-          }
+        } catch (error) {
+          console.error(`⚠️ Block translation failed for ${oldBlock.blockType}:`, error);
         }
       }
       
