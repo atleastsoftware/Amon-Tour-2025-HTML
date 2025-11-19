@@ -65,46 +65,12 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
   const tours = translations.tours;
   const common = translations.common;
   
-  // Helper function to get translated text based on block identifier or title
-  const getTranslatedText = (identifier: string | null, blockType: string, title: string, field: 'title' | 'subtitle' | 'content', fallback: string = '') => {
-    if (!identifier && !title) return fallback;
-    
-    // Match based on identifier patterns (contains check) or title content
-    const id = identifier?.toLowerCase() || '';
-    const titleLower = title?.toLowerCase() || '';
-    
-    // Intro section - "When expats welcome you"
-    if (id.includes('intro') || titleLower.includes('when expats') || titleLower.includes('welcome you')) {
-      if (field === 'title') return home.introTitle;
-      if (field === 'content') return home.introDescription;
-    }
-    
-    // Popular experiences section
-    if (id.includes('popular_experiences') || blockType === 'popular_experiences' || titleLower.includes('exclusive experiences')) {
-      if (field === 'title') return tours.featured;
-      if (field === 'content') return tours.description;
-    }
-    
-    // Why choose us section
-    if (id.includes('why_choose') || titleLower.includes('why choose')) {
-      if (field === 'title') return home.whyChooseTitle;
-      if (field === 'content') return home.whyChooseDescription;
-    }
-    
-    // Who we are section
-    if (id.includes('who_we_are') || titleLower.includes('who we are')) {
-      if (field === 'title') return home.whoWeAreTitle;
-      if (field === 'content') return home.whoWeAreDescription;
-    }
-    
-    // Custom trip section
-    if (id.includes('custom_trip') || id.includes('custom_tour_form')) {
-      if (field === 'title') return home.tailorMadeTitle;
-      if (field === 'subtitle') return home.customTripSubtitle;
-      if (field === 'content') return home.tailorMadeDescription;
-    }
-    
-    return fallback;
+  // Helper function to get dynamic translations from JSON files (updated by backend)
+  const getDynamicTranslation = (blockType: string, field: string, fallback: string = ''): string => {
+    const dynamicTranslations = (translations as any);
+    const section = blockType; // Section name matches block type
+    const value = dynamicTranslations?.[section]?.[field];
+    return value || fallback;
   };
   
   const renderBlock = (block: PageBlock) => {
@@ -217,15 +183,9 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
           right: 'items-center justify-end text-right'
         }[contentAlignment];
         
-        // CRITICAL: Use DB content for English (source), JSON translations for other languages
-        // This ensures Dashboard edits appear immediately in English, while other languages use auto-translated JSON
-        const fullTitle = currentLanguage === 'en'
-          ? (heroConfig.title || block.title || hero.title)
-          : (hero.title || heroConfig.title || block.title);
-        
-        const accentText = currentLanguage === 'en'
-          ? (heroConfig.titleAccentText || "in Krabi –")
-          : (hero.titleAccent || heroConfig.titleAccentText || "in Krabi –");
+        // Use dynamic translations from JSON files (automatically updated by backend)
+        const fullTitle = getDynamicTranslation('hero', 'title', heroConfig.title || block.title || '');
+        const accentText = getDynamicTranslation('hero', 'title_accent', heroConfig.titleAccentText || '');
         const titleColor = heroConfig.titleColor || '#ffffff';
         const accentColor = heroConfig.titleAccentColor || '#3BA8AF';
         const hasAnimation = heroConfig.hasAnimation !== false;
@@ -357,7 +317,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                 } : {}}
               >
                 {heroTitle}
-                {(heroConfig.subtitle || block.subtitle || hero.description) && (
+                {(heroConfig.subtitle || block.subtitle) && (
                   <p 
                     className="text-lg md:text-xl mb-8 max-w-3xl"
                     style={{ 
@@ -365,9 +325,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                       whiteSpace: 'pre-line'
                     }}
                   >
-                    {currentLanguage === 'en'
-                      ? (heroConfig.subtitle || block.subtitle || hero.description)
-                      : (hero.description || heroConfig.subtitle || block.subtitle)}
+                    {getDynamicTranslation('hero', 'description', heroConfig.subtitle || block.subtitle || '')}
                   </p>
                 )}
                 {heroConfig.buttons && heroConfig.buttons.length > 0 && (
@@ -375,10 +333,9 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                     className={`flex gap-4 mt-8 ${contentAlignment === 'center' ? 'justify-center' : contentAlignment === 'right' ? 'justify-end' : 'justify-start'}`}
                   >
                     {heroConfig.buttons.map((button: any, index: number) => {
-                      // Use DB for English, JSON translations for other languages
-                      const buttonText = currentLanguage === 'en'
-                        ? (button.text || (index === 0 ? hero.seeOffers : hero.customTrip))
-                        : ((index === 0 ? hero.seeOffers : hero.customTrip) || button.text);
+                      // Use dynamic translations from JSON (updated automatically by backend)
+                      const buttonKey = index === 0 ? 'see_offers' : 'custom_trip';
+                      const buttonText = getDynamicTranslation('hero', buttonKey, button.text || '');
                       if (!buttonText) return null;
                       
                       const buttonStyle = button.style || 'solid';
@@ -427,8 +384,8 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
       case 'text':
         const textConfig = block.configuration || {};
         // USE TRANSLATIONS FIRST
-        const textTitle = getTranslatedText(block.identifier, block.blockType, block.title || textConfig.title || '', 'title', block.title || textConfig.title || '');
-        const textContent = getTranslatedText(block.identifier, block.blockType, block.title || textConfig.title || '', 'content', block.content || textConfig.content || '');
+        const textTitle = getDynamicTranslation(block.blockType, "title", block.title || textConfig.title || '');
+        const textContent = getDynamicTranslation(block.blockType, "description", block.content || textConfig.content || '');
         
         return (
           <section key={block.id} className="py-20" style={{ backgroundColor: textConfig.backgroundColor || '#ffffff' }}>
@@ -508,9 +465,9 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
 
       case 'text_section':
         // USE TRANSLATIONS FIRST
-        const sectionTitle = getTranslatedText(block.identifier, block.blockType, block.title || '', 'title', block.title || '');
-        const sectionSubtitle = getTranslatedText(block.identifier, block.blockType, block.title || '', 'subtitle', block.subtitle || '');
-        const sectionContent = getTranslatedText(block.identifier, block.blockType, block.title || '', 'content', block.content || '');
+        const sectionTitle = getDynamicTranslation(block.blockType, "title", block.title || '');
+        const sectionSubtitle = getDynamicTranslation(block.blockType, "subtitle", block.subtitle || '');
+        const sectionContent = getDynamicTranslation(block.blockType, "description", block.content || '');
         
         return (
           <div key={block.id} className={`py-16 bg-${block.backgroundColor || 'white'}`}>
@@ -562,9 +519,9 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
           );
         }
         // Default text_image rendering - USE TRANSLATIONS FIRST
-        const textImgTitle = getTranslatedText(block.identifier, block.blockType, block.title || '', 'title', block.title || '');
-        const textImgSubtitle = getTranslatedText(block.identifier, block.blockType, block.title || '', 'subtitle', block.subtitle || '');
-        const textImgContent = getTranslatedText(block.identifier, block.blockType, block.title || '', 'content', block.content || '');
+        const textImgTitle = getDynamicTranslation(block.blockType, "title", block.title || '');
+        const textImgSubtitle = getDynamicTranslation(block.blockType, "subtitle", block.subtitle || '');
+        const textImgContent = getDynamicTranslation(block.blockType, "description", block.content || '');
         
         return (
           <div key={block.id} className="py-16 bg-white w-full">
@@ -609,8 +566,8 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
       case 'cta_banner':
       case 'cta_section':
         // USE TRANSLATIONS FIRST
-        const ctaTitle = getTranslatedText(block.identifier, block.blockType, block.title || '', 'title', block.title || '');
-        const ctaSubtitle = getTranslatedText(block.identifier, block.blockType, block.title || '', 'subtitle', block.subtitle || '');
+        const ctaTitle = getDynamicTranslation(block.blockType, "title", block.title || '');
+        const ctaSubtitle = getDynamicTranslation(block.blockType, "subtitle", block.subtitle || '');
         const ctaText = block.ctaText || common.learnMore;
         
         return (
@@ -730,8 +687,8 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
       case 'tour_ninja_section':
         const popularExpConfig = block.configuration || {};
         // USE TRANSLATIONS FIRST for popular experiences
-        const popularTitle = getTranslatedText(block.identifier, block.blockType, block.title || '', 'title', block.title || popularExpConfig.title || '');
-        const popularSubtitle = getTranslatedText(block.identifier, block.blockType, block.title || '', 'content', block.subtitle || popularExpConfig.subtitle || '');
+        const popularTitle = getDynamicTranslation(block.blockType, "title", block.title || popularExpConfig.title || '');
+        const popularSubtitle = getDynamicTranslation(block.blockType, "description", block.subtitle || popularExpConfig.subtitle || '');
         
         return (
           <PopularExperiencesBlock
@@ -744,9 +701,10 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
 
       case 'custom_tour_form':
         const customTourFormConfig = block.configuration || {};
-        // USE TRANSLATIONS FIRST for custom tour form
-        const customFormTitle = getTranslatedText(block.identifier, block.blockType, block.title || '', 'title', block.title || customTourFormConfig.title || '');
-        const customFormSubtitle = getTranslatedText(block.identifier, block.blockType, block.title || '', 'subtitle', block.subtitle || customTourFormConfig.subtitle || '');
+        // Use dynamic translations from JSON files (updated automatically by backend)
+        const dynamicTranslations = (translations as any);
+        const customFormTitle = dynamicTranslations?.custom_tour_form?.title || block.title || customTourFormConfig.title || '';
+        const customFormSubtitle = dynamicTranslations?.custom_tour_form?.subtitle || block.subtitle || customTourFormConfig.subtitle || '';
         
         return (
           <DynamicFormBlock
@@ -764,8 +722,8 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
       case 'why_choose_us': {
         const featuresConfig = block.configuration || {};
         // USE TRANSLATIONS FIRST for why choose us
-        const whyTitle = getTranslatedText(block.identifier, block.blockType, block.title || '', 'title', block.title || featuresConfig.title || '');
-        const whySubtitle = getTranslatedText(block.identifier, block.blockType, block.title || '', 'content', featuresConfig.subtitle || '');
+        const whyTitle = getDynamicTranslation(block.blockType, "title", block.title || featuresConfig.title || '');
+        const whySubtitle = getDynamicTranslation(block.blockType, "description", featuresConfig.subtitle || '');
         
         const iconBlocks = featuresConfig.iconBlocks || [
           {
@@ -949,7 +907,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
       case 'who_we_are': {
         const whoWeAreConfig = block.configuration || {};
         // USE TRANSLATIONS FIRST for who we are
-        const whoTitle = getTranslatedText(block.identifier, block.blockType, block.title || '', 'title', block.title || whoWeAreConfig.title || '');
+        const whoTitle = getDynamicTranslation(block.blockType, "title", block.title || whoWeAreConfig.title || '');
         
         const whoSections = whoWeAreConfig.sections || [];
         const whoImages = whoWeAreConfig.images || [];

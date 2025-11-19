@@ -188,5 +188,9 @@
   },
   "custom": {
     "subtitle": "Concevez votre propre voyage à travers la Thaïlande avec nos séjours sur mesure : des découvertes culturelles et des aventures familiales aux escapades romantiques et aux escapades sur l'île. Chaque itinéraire est conçu pour répondre à vos souhaits, offrant des expériences authentiques, des services de qualité et une immersion unique loin du tourisme de masse."
+  },
+  "custom_tour_form": {
+    "title": "Nos voyages sur mesure",
+    "subtitle": "Concevez votre propre voyage à travers la Thaïlande avec nos séjours sur mesure : des découvertes culturelles et des aventures familiales aux escapades romantiques et aux escapades sur l'île. Chaque itinéraire est conçu pour répondre à vos souhaits, offrant des expériences authentiques, des services de qualité et une immersion unique loin du tourisme de masse."
   }
 }

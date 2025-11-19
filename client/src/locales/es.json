@@ -188,5 +188,9 @@
   },
   "custom": {
     "subtitle": "Diseña tu propio viaje por Tailandia con nuestras estancias a medida: desde descubrimientos culturales y aventuras familiares hasta escapadas románticas y escapadas a la isla. Cada itinerario está diseñado para satisfacer tus deseos, ofreciendo experiencias auténticas, servicios de calidad y una inmersión única lejos del turismo de masas."
+  },
+  "custom_tour_form": {
+    "title": "Viajes a medida.",
+    "subtitle": "Diseña tu propio viaje por Tailandia con nuestras estancias a medida: desde descubrimientos culturales y aventuras familiares hasta escapadas románticas y escapadas a la isla. Cada itinerario está diseñado para satisfacer tus deseos, ofreciendo experiencias auténticas, servicios de calidad y una inmersión única lejos del turismo de masas."
   }
 }

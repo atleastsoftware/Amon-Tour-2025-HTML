@@ -188,5 +188,9 @@
   },
   "custom": {
     "subtitle": "Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism."
+  },
+  "custom_tour_form": {
+    "title": "Our Tailor-made trips",
+    "subtitle": "Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism."
   }
 }
