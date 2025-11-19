@@ -220,8 +220,8 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
         // CRITICAL: Use DB content for English (source), JSON translations for other languages
         // This ensures Dashboard edits appear immediately in English, while other languages use auto-translated JSON
         const fullTitle = currentLanguage === 'en'
-          ? (heroConfig.title || block.title || hero.title)  // English: DB first
-          : (hero.title || heroConfig.title || block.title); // Other langs: Translation first
+          ? (heroConfig.title || block.title || hero.title)
+          : (hero.title || heroConfig.title || block.title);
         
         const accentText = heroConfig.titleAccentText || "in Krabi –";
         const titleColor = heroConfig.titleColor || '#ffffff';
@@ -364,8 +364,8 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                     }}
                   >
                     {currentLanguage === 'en'
-                      ? (heroConfig.subtitle || block.subtitle || hero.description)  // English: DB first
-                      : (hero.description || heroConfig.subtitle || block.subtitle)} // Other langs: Translation first
+                      ? (heroConfig.subtitle || block.subtitle || hero.description)
+                      : (hero.description || heroConfig.subtitle || block.subtitle)}
                   </p>
                 )}
                 {heroConfig.buttons && heroConfig.buttons.length > 0 && (
@@ -375,8 +375,8 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                     {heroConfig.buttons.map((button: any, index: number) => {
                       // Use DB for English, JSON translations for other languages
                       const buttonText = currentLanguage === 'en'
-                        ? (button.text || (index === 0 ? hero.seeOffers : hero.customTrip))  // English: DB first
-                        : ((index === 0 ? hero.seeOffers : hero.customTrip) || button.text); // Other langs: Translation first
+                        ? (button.text || (index === 0 ? hero.seeOffers : hero.customTrip))
+                        : ((index === 0 ? hero.seeOffers : hero.customTrip) || button.text);
                       if (!buttonText) return null;
                       
                       const buttonStyle = button.style || 'solid';
