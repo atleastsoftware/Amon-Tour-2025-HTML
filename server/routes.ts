@@ -4618,50 +4618,30 @@ Crawl-delay: 1`;
           const oldSubtitle = typeof oldConfig['subtitle'] === 'string' ? oldConfig['subtitle'] : undefined;
           const newSubtitle = typeof newConfig['subtitle'] === 'string' ? newConfig['subtitle'] : '';
           
+          // Translate Hero title (with line breaks preserved)
           if (newTitle && await autoTranslationService.detectTextChange(oldTitle, newTitle)) {
             console.log(`🔄 Hero title changed, updating JSON translations...`);
             
             try {
-              // Parse Hero title format: "Your exclusive\nexperiences\nin Krabi – THAILAND"
-              const titleParts = newTitle.split('\n').map(part => part.trim()).filter(p => p);
+              // Translate the full title preserving line breaks
+              const titleTranslations = await autoTranslationService.translateToAllLanguages(newTitle, 'en');
               
-              // Extract parts
-              const mainTitleParts: string[] = [];
-              let subtitle = 'in Krabi';
-              let thailand = 'THAILAND';
+              // Update JSON files
+              await translationFileService.updateTranslations({
+                section: 'hero',
+                key: 'title',
+                translations: titleTranslations
+              });
               
-              for (const part of titleParts) {
-                if (part.toLowerCase().startsWith('in ')) {
-                  subtitle = part;
-                } else if (part.toUpperCase() === part && part.includes('THAILAND')) {
-                  thailand = part.replace(/[–-]/g, '').trim();
-                } else if (!part.includes('–') && !part.includes('THAILAND')) {
-                  mainTitleParts.push(part);
-                }
-              }
-              
-              const mainTitle = mainTitleParts.join(' ');
-              
-              // Translate each part
-              const titleTranslations = await autoTranslationService.translateToAllLanguages(mainTitle, 'en');
-              const subtitleTranslations = await autoTranslationService.translateToAllLanguages(subtitle, 'en');
-              
-              // Update JSON files with all hero fields
-              await translationFileService.batchUpdateTranslations([
-                { section: 'hero', key: 'title', translations: titleTranslations },
-                { section: 'hero', key: 'subtitle', translations: subtitleTranslations },
-                { section: 'hero', key: 'thailand', translations: { en: thailand, fr: 'THAÏLANDE', es: 'TAILANDIA' } }
-              ]);
-              
-              console.log(`✅ Hero translations updated in JSON files`);
+              console.log(`✅ Hero title translations updated in JSON files`);
             } catch (error) {
-              console.error(`⚠️ Hero translation failed:`, error);
+              console.error(`⚠️ Hero title translation failed:`, error);
             }
           }
           
-          // Update description if changed
+          // Translate Hero subtitle/description
           if (newSubtitle && await autoTranslationService.detectTextChange(oldSubtitle, newSubtitle)) {
-            console.log(`🔄 Hero description changed, translating...`);
+            console.log(`🔄 Hero subtitle changed, translating...`);
             
             try {
               const translations = await autoTranslationService.translateToAllLanguages(newSubtitle, 'en');
@@ -4671,9 +4651,40 @@ Crawl-delay: 1`;
                 translations
               });
               
-              console.log(`✅ Hero description updated in JSON files`);
+              console.log(`✅ Hero subtitle updated in JSON files`);
             } catch (error) {
-              console.error(`⚠️ Description translation failed:`, error);
+              console.error(`⚠️ Hero subtitle translation failed:`, error);
+            }
+          }
+          
+          // Translate button texts if they exist
+          if (newConfig.buttons && Array.isArray(newConfig.buttons)) {
+            const oldButtons = (oldConfig.buttons && Array.isArray(oldConfig.buttons)) ? oldConfig.buttons : [];
+            
+            for (let i = 0; i < newConfig.buttons.length; i++) {
+              const newButton = newConfig.buttons[i];
+              const oldButton = oldButtons[i];
+              const newButtonText = newButton?.text;
+              const oldButtonText = oldButton?.text;
+              
+              if (newButtonText && await autoTranslationService.detectTextChange(oldButtonText, newButtonText)) {
+                console.log(`🔄 Hero button ${i} text changed, translating...`);
+                
+                try {
+                  const translations = await autoTranslationService.translateToAllLanguages(newButtonText, 'en');
+                  const buttonKey = i === 0 ? 'seeOffers' : i === 1 ? 'customTrip' : `button${i}`;
+                  
+                  await translationFileService.updateTranslations({
+                    section: 'hero',
+                    key: buttonKey,
+                    translations
+                  });
+                  
+                  console.log(`✅ Hero button ${i} updated in JSON files`);
+                } catch (error) {
+                  console.error(`⚠️ Button ${i} translation failed:`, error);
+                }
+              }
             }
           }
         } else {
