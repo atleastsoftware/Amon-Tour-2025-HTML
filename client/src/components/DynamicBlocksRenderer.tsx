@@ -83,6 +83,10 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
         const frameSize = headerPageConfig.frameSize || 'small';
         const heightClass = frameSize === 'large' ? 'h-[70vh]' : 'h-[35vh] md:h-[52vh]';
         
+        // Use dynamic translations from JSON files (automatically updated by backend)
+        const headerTitle = getDynamicTranslation(block.blockType, block.id, 'title', headerPageConfig.title || block.title || '');
+        const headerSubtitle = getDynamicTranslation(block.blockType, block.id, 'subtitle', headerPageConfig.subtitle || block.subtitle || '');
+        
         let headerBackground;
         if (bgType === 'color') {
           headerBackground = (
@@ -121,7 +125,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
             <>
               <img 
                 src={headerPageConfig.imageUrl || block.imageUrl} 
-                alt={headerPageConfig.imageAlt || block.imageAlt || block.title || ''} 
+                alt={headerPageConfig.imageAlt || block.imageAlt || headerTitle} 
                 className="absolute inset-0 w-full h-full object-cover z-0"
               />
               <div className="absolute inset-0 bg-black/50 z-10"></div>
@@ -150,20 +154,20 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                   <img src={headerPageConfig.iconUrl} alt="" className="w-full h-full object-contain" />
                 </div>
               )}
-              {(headerPageConfig.title || block.title) && (
+              {headerTitle && (
                 <h1 
                   className="text-4xl md:text-5xl font-heading font-bold mb-4"
                   style={{ color: headerPageConfig.titleColor || '#ffffff', whiteSpace: 'pre-line' }}
                 >
-                  {headerPageConfig.title || block.title}
+                  {headerTitle}
                 </h1>
               )}
-              {(headerPageConfig.subtitle || block.subtitle) && (
+              {headerSubtitle && (
                 <p 
                   className="text-lg md:text-xl max-w-2xl mx-auto"
                   style={{ color: headerPageConfig.subtitleColor || '#ffffff', whiteSpace: 'pre-line' }}
                 >
-                  {headerPageConfig.subtitle || block.subtitle}
+                  {headerSubtitle}
                 </p>
               )}
             </div>
@@ -383,9 +387,9 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
 
       case 'text':
         const textConfig = block.configuration || {};
-        // USE TRANSLATIONS FIRST
         const textTitle = getDynamicTranslation(block.blockType, block.id, "title", block.title || textConfig.title || '');
         const textContent = getDynamicTranslation(block.blockType, block.id, "description", block.content || textConfig.content || '');
+        const textCtaText = getDynamicTranslation(block.blockType, block.id, "cta_text", block.ctaText || textConfig.ctaText || '');
         
         return (
           <section key={block.id} className="py-20" style={{ backgroundColor: textConfig.backgroundColor || '#ffffff' }}>
@@ -421,7 +425,6 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                 {textConfig.buttons && textConfig.buttons.length > 0 && (
                   <div className="flex gap-4 justify-center mt-8">
                     {textConfig.buttons.map((button: any, index: number) => {
-                      // Use translations for buttons if not set
                       const buttonText = button.text || common.learnMore;
                       if (!buttonText) return null;
                       
@@ -452,7 +455,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                             color: button.textColor || '#ffffff'
                           }}
                         >
-                          {button.text}
+                          {buttonText}
                         </a>
                       );
                     })}
@@ -518,10 +521,11 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
             </div>
           );
         }
-        // Default text_image rendering - USE TRANSLATIONS FIRST
-        const textImgTitle = getDynamicTranslation(block.blockType, block.id, "title", block.title || '');
-        const textImgSubtitle = getDynamicTranslation(block.blockType, block.id, "subtitle", block.subtitle || '');
-        const textImgContent = getDynamicTranslation(block.blockType, block.id, "description", block.content || '');
+        const textImgConfig = block.configuration || {};
+        const textImgTitle = getDynamicTranslation(block.blockType, block.id, "title", block.title || textImgConfig.title || '');
+        const textImgSubtitle = getDynamicTranslation(block.blockType, block.id, "subtitle", block.subtitle || textImgConfig.subtitle || '');
+        const textImgContent = getDynamicTranslation(block.blockType, block.id, "description", block.content || textImgConfig.content || '');
+        const textImgCtaText = getDynamicTranslation(block.blockType, block.id, "cta_text", block.ctaText || textImgConfig.ctaText || '');
         
         return (
           <div key={block.id} className="py-16 bg-white w-full">
@@ -540,20 +544,20 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                       dangerouslySetInnerHTML={{ __html: textImgContent }}
                     />
                   )}
-                  {block.ctaText && block.ctaUrl && (
+                  {textImgCtaText && (block.ctaUrl || textImgConfig.ctaUrl) && (
                     <a 
-                      href={block.ctaUrl} 
+                      href={block.ctaUrl || textImgConfig.ctaUrl} 
                       className="inline-block mt-6 bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors"
                     >
-                      {block.ctaText}
+                      {textImgCtaText}
                     </a>
                   )}
                 </div>
-                {block.imageUrl && (
+                {(block.imageUrl || textImgConfig.imageUrl) && (
                   <div>
                     <img 
-                      src={block.imageUrl} 
-                      alt={block.imageAlt || block.title || ''} 
+                      src={block.imageUrl || textImgConfig.imageUrl} 
+                      alt={block.imageAlt || textImgConfig.imageAlt || textImgTitle || ''} 
                       className="w-full rounded-lg shadow-lg"
                     />
                   </div>
@@ -564,11 +568,12 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
         );
 
       case 'cta_banner':
-      case 'cta_section':
-        // USE TRANSLATIONS FIRST
-        const ctaTitle = getDynamicTranslation(block.blockType, block.id, "title", block.title || '');
-        const ctaSubtitle = getDynamicTranslation(block.blockType, block.id, "subtitle", block.subtitle || '');
-        const ctaText = block.ctaText || common.learnMore;
+      case 'cta_section': {
+        const ctaConfig = block.configuration || {};
+        const ctaTitle = getDynamicTranslation(block.blockType, block.id, "title", block.title || ctaConfig.title || '');
+        const ctaSubtitle = getDynamicTranslation(block.blockType, block.id, "subtitle", block.subtitle || ctaConfig.subtitle || '');
+        const ctaDescription = getDynamicTranslation(block.blockType, block.id, "description", block.content || ctaConfig.description || '');
+        const ctaText = getDynamicTranslation(block.blockType, block.id, "cta_text", block.ctaText || ctaConfig.ctaText || '');
         
         return (
           <div key={block.id} className="py-16 bg-primary">
@@ -579,9 +584,12 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
               {ctaSubtitle && (
                 <p className="text-xl text-white/90 mb-8">{ctaSubtitle}</p>
               )}
-              {ctaText && block.ctaUrl && (
+              {ctaDescription && (
+                <p className="text-lg text-white/80 mb-8">{ctaDescription}</p>
+              )}
+              {ctaText && (block.ctaUrl || ctaConfig.ctaUrl) && (
                 <a 
-                  href={block.ctaUrl} 
+                  href={block.ctaUrl || ctaConfig.ctaUrl} 
                   className="inline-block bg-white text-primary px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
                 >
                   {ctaText}
@@ -590,34 +598,60 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
             </div>
           </div>
         );
+      }
 
       case 'contact_info':
-      case 'contact_cards':
+      case 'contact_cards': {
+        const contactConfig = block.configuration || {};
+        const contactTitle = getDynamicTranslation(block.blockType, block.id, "title", block.title || contactConfig.title || '');
+        const contactSubtitle = getDynamicTranslation(block.blockType, block.id, "subtitle", block.subtitle || contactConfig.subtitle || '');
+        const contactEmailLabel = getDynamicTranslation(block.blockType, block.id, "email_label", contactConfig.emailLabel || '');
+        const contactEmail = getDynamicTranslation(block.blockType, block.id, "email", contactConfig.email || '');
+        const contactPhoneLabel = getDynamicTranslation(block.blockType, block.id, "phone_label", contactConfig.phoneLabel || '');
+        const contactPhone = getDynamicTranslation(block.blockType, block.id, "phone", contactConfig.phone || '');
+        const contactWhatsappLabel = getDynamicTranslation(block.blockType, block.id, "whatsapp_label", contactConfig.whatsappLabel || '');
+        const contactWhatsapp = getDynamicTranslation(block.blockType, block.id, "whatsapp", contactConfig.whatsapp || '');
+        const contactLineIdLabel = getDynamicTranslation(block.blockType, block.id, "line_id_label", contactConfig.lineIdLabel || '');
+        const contactLineId = getDynamicTranslation(block.blockType, block.id, "line_id", contactConfig.lineId || '');
+        const aboutTitle = getDynamicTranslation(block.blockType, block.id, "about_title", contactConfig.aboutTitle || '');
+        const companyBrand = getDynamicTranslation(block.blockType, block.id, "company_brand", contactConfig.companyBrand || '');
+        const companyName = getDynamicTranslation(block.blockType, block.id, "company_name", contactConfig.companyName || '');
+        const companyLicense = getDynamicTranslation(block.blockType, block.id, "company_license", contactConfig.companyLicense || '');
+        const companyDescription = getDynamicTranslation(block.blockType, block.id, "company_description", contactConfig.companyDescription || '');
+        
         return (
           <div key={block.id} className="py-16 bg-gray-50">
             <div className="container mx-auto px-4">
-              {block.title && (
-                <h2 className="text-3xl font-bold text-center mb-8">{block.title}</h2>
+              {contactTitle && (
+                <h2 className="text-3xl font-bold text-center mb-8">{contactTitle}</h2>
               )}
-              {block.content && (
+              {contactSubtitle && (
+                <p className="text-xl text-gray-600 text-center mb-8">{contactSubtitle}</p>
+              )}
+              {(block.content || contactConfig.content) && (
                 <div 
                   className="prose prose-lg mx-auto text-center"
-                  dangerouslySetInnerHTML={{ __html: block.content }}
+                  dangerouslySetInnerHTML={{ __html: block.content || contactConfig.content }}
                 />
               )}
             </div>
           </div>
         );
+      }
 
       case 'form':
       case 'custom_form':
-      case 'dynamic_form':
+      case 'dynamic_form': {
         const formConfig = block.configuration || {};
+        const formTitle = getDynamicTranslation(block.blockType, block.id, 'title', block.title || formConfig.title || '');
+        const formSubtitle = getDynamicTranslation(block.blockType, block.id, 'subtitle', block.subtitle || formConfig.subtitle || '');
+        const formDescription = getDynamicTranslation(block.blockType, block.id, 'description', block.content || formConfig.description || '');
+        
         return (
           <DynamicFormBlock
             key={block.id}
-            title={block.title || formConfig.title}
-            subtitle={block.subtitle || formConfig.subtitle}
+            title={formTitle}
+            subtitle={formSubtitle}
             formId={formConfig.formId}
             titleColor={formConfig.titleColor}
             subtitleColor={formConfig.subtitleColor}
@@ -625,17 +659,23 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
             backgroundColor={formConfig.backgroundColor}
           />
         );
+      }
 
-      case 'advantages':
+      case 'advantages': {
+        const advantagesConfig = block.configuration || {};
+        const advantagesTitle = getDynamicTranslation(block.blockType, block.id, 'title', block.title || advantagesConfig.title || '');
+        const advantagesSubtitle = getDynamicTranslation(block.blockType, block.id, 'subtitle', block.subtitle || advantagesConfig.subtitle || '');
+        const advantagesContent = getDynamicTranslation(block.blockType, block.id, 'description', block.content || advantagesConfig.content || '');
+        
         // Special handling for "Your Cruise, Our Expertise" section
         if (block.identifier === 'our_expertise') {
           return (
             <div key={block.id} className="bg-white w-full">
               <div className="w-full">
-                {block.content && (
+                {advantagesContent && (
                   <div 
                     className="prose prose-lg max-w-none"
-                    dangerouslySetInnerHTML={{ __html: block.content }}
+                    dangerouslySetInnerHTML={{ __html: advantagesContent }}
                   />
                 )}
               </div>
@@ -646,37 +686,43 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
         return (
           <div key={block.id} className="py-16 bg-white w-full">
             <div className="w-full px-8 md:px-12 lg:px-16">
-              {block.title && (
-                <h2 className="text-3xl font-bold text-center mb-4">{block.title}</h2>
+              {advantagesTitle && (
+                <h2 className="text-3xl font-bold text-center mb-4">{advantagesTitle}</h2>
               )}
-              {block.subtitle && (
-                <p className="text-xl text-gray-600 text-center mb-8">{block.subtitle}</p>
+              {advantagesSubtitle && (
+                <p className="text-xl text-gray-600 text-center mb-8">{advantagesSubtitle}</p>
               )}
-              {block.content && (
+              {advantagesContent && (
                 <div 
                   className="prose prose-lg mx-auto max-w-none"
-                  dangerouslySetInnerHTML={{ __html: block.content }}
+                  dangerouslySetInnerHTML={{ __html: advantagesContent }}
                 />
               )}
             </div>
           </div>
         );
+      }
 
       case 'card_grid':
       case 'cards_grid':
+        const cardGridConfig = block.configuration || {};
+        const cardGridTitle = getDynamicTranslation(block.blockType, block.id, 'title', block.title || cardGridConfig.title || '');
+        const cardGridSubtitle = getDynamicTranslation(block.blockType, block.id, 'subtitle', block.subtitle || cardGridConfig.subtitle || '');
+        const cardGridContent = getDynamicTranslation(block.blockType, block.id, 'description', block.content || cardGridConfig.content || '');
+        
         return (
           <div key={block.id} className="py-16 bg-gray-50 w-full">
             <div className="w-full px-8 md:px-12 lg:px-16">
-              {block.title && (
-                <h2 className="text-3xl font-bold text-center mb-4">{block.title}</h2>
+              {cardGridTitle && (
+                <h2 className="text-3xl font-bold text-center mb-4">{cardGridTitle}</h2>
               )}
-              {block.subtitle && (
-                <p className="text-xl text-gray-600 text-center mb-8">{block.subtitle}</p>
+              {cardGridSubtitle && (
+                <p className="text-xl text-gray-600 text-center mb-8">{cardGridSubtitle}</p>
               )}
-              {block.content && (
+              {cardGridContent && (
                 <div 
                   className="prose prose-lg mx-auto max-w-none"
-                  dangerouslySetInnerHTML={{ __html: block.content }}
+                  dangerouslySetInnerHTML={{ __html: cardGridContent }}
                 />
               )}
             </div>
@@ -702,9 +748,8 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
       case 'custom_tour_form':
         const customTourFormConfig = block.configuration || {};
         // Use dynamic translations from JSON files (updated automatically by backend)
-        const dynamicTranslations = (translations as any);
-        const customFormTitle = dynamicTranslations?.custom_tour_form?.title || block.title || customTourFormConfig.title || '';
-        const customFormSubtitle = dynamicTranslations?.custom_tour_form?.subtitle || block.subtitle || customTourFormConfig.subtitle || '';
+        const customFormTitle = getDynamicTranslation(block.blockType, block.id, 'title', block.title || customTourFormConfig.title || '');
+        const customFormSubtitle = getDynamicTranslation(block.blockType, block.id, 'description', block.subtitle || customTourFormConfig.subtitle || '');
         
         return (
           <DynamicFormBlock
