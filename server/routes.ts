@@ -5135,6 +5135,101 @@ Crawl-delay: 1`;
     }
   });
 
+  // Migration endpoint: Generate translations for all existing blocks
+  app.post("/api/admin/migrate-block-translations", requireAuth, async (req, res) => {
+    try {
+      console.log('🚀 Starting block translation migration...\n');
+      
+      // Get all blocks from the database
+      const { pageBlocks } = await import('../shared/schema');
+      const blocks = await db.select().from(pageBlocks);
+      console.log(`📦 Found ${blocks.length} blocks to process\n`);
+      
+      let processedCount = 0;
+      let skippedCount = 0;
+      const results: any[] = [];
+      
+      for (const block of blocks) {
+        const blockConfig = block.configuration || {};
+        
+        // Check if block has any translatable content
+        const hasContent = 
+          block.title || 
+          block.subtitle || 
+          block.content || 
+          blockConfig.title ||
+          blockConfig.subtitle ||
+          blockConfig.description;
+        
+        if (!hasContent) {
+          console.log(`⏭️  Skipping block ${block.id} (${block.blockType}) - no translatable content`);
+          skippedCount++;
+          results.push({ 
+            id: block.id, 
+            blockType: block.blockType, 
+            status: 'skipped',
+            reason: 'no content'
+          });
+          continue;
+        }
+        
+        console.log(`🔄 Processing block ${block.id} (${block.blockType})...`);
+        
+        try {
+          // Trigger translation by comparing empty old config with current config
+          await blockTranslationService.translateBlockChanges(
+            block.blockType,
+            block.id,
+            block.identifier,
+            {}, // Empty old config to force translation of all fields
+            blockConfig
+          );
+          
+          processedCount++;
+          console.log(`✅ Block ${block.id} (${block.blockType}) translated successfully\n`);
+          results.push({ 
+            id: block.id, 
+            blockType: block.blockType, 
+            status: 'success'
+          });
+        } catch (error) {
+          console.error(`❌ Failed to translate block ${block.id}:`, error);
+          results.push({ 
+            id: block.id, 
+            blockType: block.blockType, 
+            status: 'error',
+            error: String(error)
+          });
+        }
+      }
+      
+      console.log('\n📊 Migration Summary:');
+      console.log(`   ✅ Successfully processed: ${processedCount}`);
+      console.log(`   ⏭️  Skipped (no content): ${skippedCount}`);
+      console.log(`   📝 Total blocks: ${blocks.length}`);
+      console.log('\n✨ Migration completed!');
+      
+      res.json({
+        success: true,
+        message: 'Block translation migration completed',
+        summary: {
+          total: blocks.length,
+          processed: processedCount,
+          skipped: skippedCount
+        },
+        results
+      });
+      
+    } catch (error) {
+      console.error("Error migrating block translations:", error);
+      res.status(500).json({ 
+        success: false,
+        message: "Failed to migrate block translations", 
+        error: String(error) 
+      });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
