@@ -90,7 +90,7 @@ class TranslationFileService {
   async translationExists(section: string, key: string): Promise<boolean> {
     for (const language of this.supportedLanguages.filter(l => l !== 'en')) {
       const value = await this.getTranslationValue(section, key, language);
-      if (!value || value === null || value === undefined) {
+      if (!value || value === null || value === undefined || value.trim() === '') {
         return false;
       }
     }
