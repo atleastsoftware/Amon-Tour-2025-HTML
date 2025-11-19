@@ -151,3 +151,10 @@ export function useTranslationSection<T = any>(section: string): T {
   const { translations } = useTranslation();
   return translations[section] || {};
 }
+
+// Accept HMR but force a full page reload to prevent context loss
+if (import.meta.hot) {
+  import.meta.hot.accept(() => {
+    window.location.reload();
+  });
+}
