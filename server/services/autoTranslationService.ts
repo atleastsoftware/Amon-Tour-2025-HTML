@@ -11,7 +11,7 @@ export interface BatchTranslationResult {
 }
 
 class AutoTranslationService {
-  private readonly apiUrl = 'https://libretranslate.com/translate';
+  private readonly apiUrl = 'https://api.mymemory.translated.net/get';
   private readonly supportedLanguages = ['en', 'fr', 'es'];
   
   async translateText(
@@ -20,53 +20,44 @@ class AutoTranslationService {
     sourceLanguage: string = 'en'
   ): Promise<TranslationResult> {
     try {
-      // CRITICAL: LibreTranslate cannot handle newlines in text (causes 400 error)
-      // Solution: Translate line by line, then recombine with newlines
       const hasNewlines = text.includes('\n');
       
       if (hasNewlines) {
         console.log(`🌍 Translating multi-line text from ${sourceLanguage} to ${targetLanguage} (${text.split('\n').length} lines)`);
         
-        // Split by newlines, translate each line, then recombine
         const lines = text.split('\n');
         const translatedLines: string[] = [];
         
         for (const line of lines) {
           if (!line.trim()) {
-            // Keep empty lines as is
             translatedLines.push(line);
             continue;
           }
           
-          // Clean line: replace special characters that might cause issues
           const cleanLine = line
-            .replace(/–/g, '-')  // Replace em dash with regular dash
-            .replace(/—/g, '-')  // Replace en dash with regular dash
+            .replace(/–/g, '-')
+            .replace(/—/g, '-')
             .trim();
           
           console.log(`  📝 Translating line: "${cleanLine}"`);
           
-          const response = await fetch(this.apiUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              q: cleanLine,
-              source: sourceLanguage,
-              target: targetLanguage,
-              format: 'text'
-            })
-          });
+          const encodedText = encodeURIComponent(cleanLine);
+          const url = `${this.apiUrl}?q=${encodedText}&langpair=${sourceLanguage}|${targetLanguage}`;
+          
+          const response = await fetch(url);
 
           if (!response.ok) {
-            throw new Error(`LibreTranslate API error: ${response.status} ${response.statusText}`);
+            throw new Error(`MyMemory API error: ${response.status} ${response.statusText}`);
           }
 
-          const data = await response.json() as { translatedText: string };
-          translatedLines.push(data.translatedText);
+          const data = await response.json() as any;
           
-          // Small delay between API calls to avoid rate limiting
+          if (data.responseStatus !== 200) {
+            throw new Error(`MyMemory API error: ${data.responseStatus} - ${data.responseDetails || 'Unknown error'}`);
+          }
+          
+          translatedLines.push(data.responseData.translatedText);
+          
           await new Promise(resolve => setTimeout(resolve, 100));
         }
         
@@ -79,37 +70,34 @@ class AutoTranslationService {
           targetLanguage
         };
       } else {
-        // Single line translation (original logic)
         const cleanText = text
-          .replace(/–/g, '-')  // Replace em dash with regular dash
-          .replace(/—/g, '-')  // Replace en dash with regular dash
+          .replace(/–/g, '-')
+          .replace(/—/g, '-')
           .trim();
         
         console.log(`🌍 Translating from ${sourceLanguage} to ${targetLanguage}: "${cleanText.substring(0, 50)}..."`);
         
-        const response = await fetch(this.apiUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            q: cleanText,
-            source: sourceLanguage,
-            target: targetLanguage,
-            format: 'text'
-          })
-        });
+        const encodedText = encodeURIComponent(cleanText);
+        const url = `${this.apiUrl}?q=${encodedText}&langpair=${sourceLanguage}|${targetLanguage}`;
+        
+        const response = await fetch(url);
 
         if (!response.ok) {
-          throw new Error(`LibreTranslate API error: ${response.status} ${response.statusText}`);
+          throw new Error(`MyMemory API error: ${response.status} ${response.statusText}`);
         }
 
-        const data = await response.json() as { translatedText: string };
+        const data = await response.json() as any;
         
-        console.log(`✅ Translation successful: "${data.translatedText.substring(0, 50)}..."`);
+        if (data.responseStatus !== 200) {
+          throw new Error(`MyMemory API error: ${data.responseStatus} - ${data.responseDetails || 'Unknown error'}`);
+        }
+        
+        const translatedText = data.responseData.translatedText;
+        
+        console.log(`✅ Translation successful: "${translatedText.substring(0, 50)}..."`);
         
         return {
-          translatedText: data.translatedText,
+          translatedText,
           sourceLanguage,
           targetLanguage
         };
@@ -125,7 +113,7 @@ class AutoTranslationService {
     sourceLanguage: string = 'en'
   ): Promise<BatchTranslationResult> {
     const results: BatchTranslationResult = {
-      [sourceLanguage]: text // Include source text
+      [sourceLanguage]: text
     };
 
     const targetLanguages = this.supportedLanguages.filter(lang => lang !== sourceLanguage);
@@ -137,11 +125,10 @@ class AutoTranslationService {
         const result = await this.translateText(text, targetLang, sourceLanguage);
         results[targetLang] = result.translatedText;
         
-        // Small delay to avoid rate limiting
         await new Promise(resolve => setTimeout(resolve, 100));
       } catch (error) {
         console.error(`Failed to translate to ${targetLang}:`, error);
-        results[targetLang] = text; // Fallback to original text
+        results[targetLang] = text;
       }
     }
 
@@ -149,8 +136,8 @@ class AutoTranslationService {
   }
 
   async detectTextChange(oldText: string | undefined, newText: string): Promise<boolean> {
-    if (!oldText) return true; // New text, needs translation
-    if (oldText === newText) return false; // No change
+    if (!oldText) return true;
+    if (oldText === newText) return false;
     
     const normalizedOld = oldText.trim().toLowerCase();
     const normalizedNew = newText.trim().toLowerCase();
