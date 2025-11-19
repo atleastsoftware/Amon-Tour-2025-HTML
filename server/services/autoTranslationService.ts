@@ -20,11 +20,21 @@ class AutoTranslationService {
     sourceLanguage: string = 'en'
   ): Promise<TranslationResult> {
     try {
+      // CRITICAL: LibreTranslate cannot handle newlines in text (causes 400 error)
+      // Solution: Replace newlines with a unique marker, translate, then restore
+      const NEWLINE_MARKER = '[[NEWLINE_PLACEHOLDER]]';
+      const hasNewlines = text.includes('\n');
+      
       // Clean text: replace special characters that might cause issues
-      const cleanText = text
+      let cleanText = text
         .replace(/–/g, '-')  // Replace em dash with regular dash
         .replace(/—/g, '-')  // Replace en dash with regular dash
         .trim();
+      
+      // Replace newlines with marker for translation
+      if (hasNewlines) {
+        cleanText = cleanText.replace(/\n/g, NEWLINE_MARKER);
+      }
       
       console.log(`🌍 Translating from ${sourceLanguage} to ${targetLanguage}: "${cleanText.substring(0, 50)}..."`);
       
@@ -47,10 +57,16 @@ class AutoTranslationService {
 
       const data = await response.json() as { translatedText: string };
       
-      console.log(`✅ Translation successful: "${data.translatedText.substring(0, 50)}..."`);
+      // Restore newlines in translated text
+      let translatedText = data.translatedText;
+      if (hasNewlines) {
+        translatedText = translatedText.replace(new RegExp(NEWLINE_MARKER, 'g'), '\n');
+      }
+      
+      console.log(`✅ Translation successful: "${translatedText.substring(0, 50)}..."`);
       
       return {
-        translatedText: data.translatedText,
+        translatedText,
         sourceLanguage,
         targetLanguage
       };
