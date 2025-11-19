@@ -86,6 +86,16 @@ class TranslationFileService {
     const translations = await this.readTranslationFile(language);
     return translations[section]?.[key];
   }
+
+  async translationExists(section: string, key: string): Promise<boolean> {
+    for (const language of this.supportedLanguages.filter(l => l !== 'en')) {
+      const value = await this.getTranslationValue(section, key, language);
+      if (!value || value === null || value === undefined) {
+        return false;
+      }
+    }
+    return true;
+  }
 }
 
 export const translationFileService = new TranslationFileService();

@@ -4642,8 +4642,14 @@ Crawl-delay: 1`;
           }
           
           // Translate Hero accent text (the colored word)
-          if (newAccentText && await autoTranslationService.detectTextChange(oldAccentText, newAccentText)) {
-            console.log(`🔄 Hero accent text changed, updating JSON translations...`);
+          // Translate if it changed OR if it exists but was never translated
+          const accentNeedsTranslation = newAccentText && (
+            await autoTranslationService.detectTextChange(oldAccentText, newAccentText) ||
+            !(await translationFileService.translationExists('hero', 'titleAccent'))
+          );
+          
+          if (accentNeedsTranslation) {
+            console.log(`🔄 Hero accent text translating...`);
             
             try {
               const accentTranslations = await autoTranslationService.translateToAllLanguages(newAccentText, 'en');
