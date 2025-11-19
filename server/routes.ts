@@ -4617,6 +4617,8 @@ Crawl-delay: 1`;
           const newTitle = typeof newConfig['title'] === 'string' ? newConfig['title'] : '';
           const oldSubtitle = typeof oldConfig['subtitle'] === 'string' ? oldConfig['subtitle'] : undefined;
           const newSubtitle = typeof newConfig['subtitle'] === 'string' ? newConfig['subtitle'] : '';
+          const oldAccentText = typeof oldConfig['titleAccentText'] === 'string' ? oldConfig['titleAccentText'] : undefined;
+          const newAccentText = typeof newConfig['titleAccentText'] === 'string' ? newConfig['titleAccentText'] : '';
           
           // Translate Hero title (with line breaks preserved)
           if (newTitle && await autoTranslationService.detectTextChange(oldTitle, newTitle)) {
@@ -4636,6 +4638,25 @@ Crawl-delay: 1`;
               console.log(`✅ Hero title translations updated in JSON files`);
             } catch (error) {
               console.error(`⚠️ Hero title translation failed:`, error);
+            }
+          }
+          
+          // Translate Hero accent text (the colored word)
+          if (newAccentText && await autoTranslationService.detectTextChange(oldAccentText, newAccentText)) {
+            console.log(`🔄 Hero accent text changed, updating JSON translations...`);
+            
+            try {
+              const accentTranslations = await autoTranslationService.translateToAllLanguages(newAccentText, 'en');
+              
+              await translationFileService.updateTranslations({
+                section: 'hero',
+                key: 'titleAccent',
+                translations: accentTranslations
+              });
+              
+              console.log(`✅ Hero accent text translations updated in JSON files`);
+            } catch (error) {
+              console.error(`⚠️ Hero accent text translation failed:`, error);
             }
           }
           

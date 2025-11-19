@@ -23,46 +23,35 @@ class AutoTranslationService {
       const hasNewlines = text.includes('\n');
       
       if (hasNewlines) {
-        console.log(`🌍 Translating multi-line text from ${sourceLanguage} to ${targetLanguage} (${text.split('\n').length} lines)`);
+        console.log(`🌍 Translating multi-line text from ${sourceLanguage} to ${targetLanguage} (keeping context)`);
         
-        const lines = text.split('\n');
-        const translatedLines: string[] = [];
+        const cleanText = text
+          .replace(/–/g, '-')
+          .replace(/—/g, '-');
         
-        for (const line of lines) {
-          if (!line.trim()) {
-            translatedLines.push(line);
-            continue;
-          }
-          
-          const cleanLine = line
-            .replace(/–/g, '-')
-            .replace(/—/g, '-')
-            .trim();
-          
-          console.log(`  📝 Translating line: "${cleanLine}"`);
-          
-          const encodedText = encodeURIComponent(cleanLine);
-          const url = `${this.apiUrl}?q=${encodedText}&langpair=${sourceLanguage}|${targetLanguage}`;
-          
-          const response = await fetch(url);
+        const textWithPlaceholder = cleanText.replace(/\n/g, ' [[NEWLINE]] ');
+        
+        console.log(`  📝 Translating: "${textWithPlaceholder.substring(0, 80)}..."`);
+        
+        const encodedText = encodeURIComponent(textWithPlaceholder);
+        const url = `${this.apiUrl}?q=${encodedText}&langpair=${sourceLanguage}|${targetLanguage}`;
+        
+        const response = await fetch(url);
 
-          if (!response.ok) {
-            throw new Error(`MyMemory API error: ${response.status} ${response.statusText}`);
-          }
+        if (!response.ok) {
+          throw new Error(`MyMemory API error: ${response.status} ${response.statusText}`);
+        }
 
-          const data = await response.json() as any;
-          
-          if (data.responseStatus !== 200) {
-            throw new Error(`MyMemory API error: ${data.responseStatus} - ${data.responseDetails || 'Unknown error'}`);
-          }
-          
-          translatedLines.push(data.responseData.translatedText);
-          
-          await new Promise(resolve => setTimeout(resolve, 100));
+        const data = await response.json() as any;
+        
+        if (data.responseStatus !== 200) {
+          throw new Error(`MyMemory API error: ${data.responseStatus} - ${data.responseDetails || 'Unknown error'}`);
         }
         
-        const translatedText = translatedLines.join('\n');
-        console.log(`✅ Multi-line translation complete`);
+        let translatedText = data.responseData.translatedText;
+        translatedText = translatedText.replace(/\s*\[\[NEWLINE\]\]\s*/g, '\n');
+        
+        console.log(`✅ Multi-line translation complete: "${translatedText.substring(0, 80)}..."`);
         
         return {
           translatedText,

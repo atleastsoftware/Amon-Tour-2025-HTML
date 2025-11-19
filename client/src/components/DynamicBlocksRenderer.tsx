@@ -223,7 +223,9 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
           ? (heroConfig.title || block.title || hero.title)
           : (hero.title || heroConfig.title || block.title);
         
-        const accentText = heroConfig.titleAccentText || "in Krabi –";
+        const accentText = currentLanguage === 'en'
+          ? (heroConfig.titleAccentText || "in Krabi –")
+          : (hero.titleAccent || heroConfig.titleAccentText || "in Krabi –");
         const titleColor = heroConfig.titleColor || '#ffffff';
         const accentColor = heroConfig.titleAccentColor || '#3BA8AF';
         const hasAnimation = heroConfig.hasAnimation !== false;
