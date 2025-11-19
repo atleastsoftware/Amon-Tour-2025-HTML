@@ -217,8 +217,12 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
           right: 'items-center justify-end text-right'
         }[contentAlignment];
         
-        // USE TRANSLATION FIRST - database config is only for visual styling overrides
-        const fullTitle = hero.title || heroConfig.title || block.title;
+        // CRITICAL: Use DB content for English (source), JSON translations for other languages
+        // This ensures Dashboard edits appear immediately in English, while other languages use auto-translated JSON
+        const fullTitle = currentLanguage === 'en'
+          ? (heroConfig.title || block.title || hero.title)  // English: DB first
+          : (hero.title || heroConfig.title || block.title); // Other langs: Translation first
+        
         const accentText = heroConfig.titleAccentText || "in Krabi –";
         const titleColor = heroConfig.titleColor || '#ffffff';
         const accentColor = heroConfig.titleAccentColor || '#3BA8AF';
@@ -351,7 +355,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                 } : {}}
               >
                 {heroTitle}
-                {(hero.description || heroConfig.subtitle || block.subtitle) && (
+                {(heroConfig.subtitle || block.subtitle || hero.description) && (
                   <p 
                     className="text-lg md:text-xl mb-8 max-w-3xl"
                     style={{ 
@@ -359,7 +363,9 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                       whiteSpace: 'pre-line'
                     }}
                   >
-                    {hero.description || heroConfig.subtitle || block.subtitle}
+                    {currentLanguage === 'en'
+                      ? (heroConfig.subtitle || block.subtitle || hero.description)  // English: DB first
+                      : (hero.description || heroConfig.subtitle || block.subtitle)} // Other langs: Translation first
                   </p>
                 )}
                 {heroConfig.buttons && heroConfig.buttons.length > 0 && (
@@ -367,8 +373,10 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                     className={`flex gap-4 mt-8 ${contentAlignment === 'center' ? 'justify-center' : contentAlignment === 'right' ? 'justify-end' : 'justify-start'}`}
                   >
                     {heroConfig.buttons.map((button: any, index: number) => {
-                      // ALWAYS USE TRANSLATIONS FIRST for button text
-                      const buttonText = (index === 0 ? hero.seeOffers : hero.customTrip) || button.text;
+                      // Use DB for English, JSON translations for other languages
+                      const buttonText = currentLanguage === 'en'
+                        ? (button.text || (index === 0 ? hero.seeOffers : hero.customTrip))  // English: DB first
+                        : ((index === 0 ? hero.seeOffers : hero.customTrip) || button.text); // Other langs: Translation first
                       if (!buttonText) return null;
                       
                       const buttonStyle = button.style || 'solid';
