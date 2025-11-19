@@ -4615,6 +4615,7 @@ Crawl-delay: 1`;
         try {
           await blockTranslationService.translateBlockChanges(
             oldBlock.blockType,
+            id,
             oldBlock.identifier,
             oldConfig,
             newConfig

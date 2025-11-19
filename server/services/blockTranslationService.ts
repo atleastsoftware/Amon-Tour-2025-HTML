@@ -9,6 +9,7 @@ interface BlockConfig {
 export class BlockTranslationService {
   async translateBlockChanges(
     blockType: string,
+    blockId: number,
     identifier: string | null,
     oldConfig: BlockConfig,
     newConfig: BlockConfig
@@ -20,7 +21,7 @@ export class BlockTranslationService {
       return;
     }
 
-    const section = this.getSectionFromIdentifier(identifier, blockType);
+    const section = this.getSectionFromBlockId(blockType, blockId);
     
     // Translate simple text fields
     if (translatableConfig.simpleFields) {
@@ -127,26 +128,11 @@ export class BlockTranslationService {
     }
   }
 
-  private getSectionFromIdentifier(identifier: string | null, blockType: string): string {
-    if (!identifier) return blockType;
-    
-    // Extract meaningful section name from identifier
-    // Examples: "hero_1234" -> "hero", "custom_tour_form_5678" -> "custom_tour_form"
-    const parts = identifier.split('_');
-    
-    // If identifier starts with block type, use it
-    if (identifier.startsWith(blockType)) {
-      return blockType;
-    }
-    
-    // Otherwise, try to extract meaningful prefix
-    if (parts.length > 1) {
-      // Remove the timestamp number at the end
-      const withoutTimestamp = parts.slice(0, -1).join('_');
-      return withoutTimestamp || blockType;
-    }
-    
-    return identifier;
+  private getSectionFromBlockId(blockType: string, blockId: number): string {
+    // Create a unique section identifier using blockType and blockId
+    // This ensures each block instance has its own translation section
+    // Examples: "text_435", "hero_199", "who_we_are_301"
+    return `${blockType}_${blockId}`;
   }
 
   private camelToSnakeCase(str: string): string {
