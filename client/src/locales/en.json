@@ -9,12 +9,13 @@
     "contact": "Contact"
   },
   "hero": {
-    "title": "Your amazing\nexperiences\nin Krabi – THAILAND.",
+    "title": "Your exclusive\nexperiences\nin Krabi – THAILAND",
     "subtitle": "in Krabi",
     "thailand": "THAILAND",
     "description": "Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.",
     "seeOffers": "See our offers",
-    "customTrip": "Custom your trip"
+    "customTrip": "Custom your trip",
+    "titleAccent": "in Krabi –"
   },
   "common": {
     "loading": "Loading...",

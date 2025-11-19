@@ -9,12 +9,13 @@
     "contact": "Contacto"
   },
   "hero": {
-    "title": "Tus increíbles\nexperiencias\nen Krabi - TAILANDIA.",
+    "title": "Tus\nexperiencias exclusivas\nen Krabi - TAILANDIA",
     "subtitle": "en Krabi",
     "thailand": "TAILANDIA",
     "description": "Descubre lugares increíbles lejos del turismo de masas en Krabi.\nY también Khao Sok, Koh Mook y muchos más destinos.",
     "seeOffers": "Ver nuestras ofertas",
-    "customTrip": "Personaliza tu viaje"
+    "customTrip": "Personaliza tu viaje",
+    "titleAccent": "en Krabi -"
   },
   "common": {
     "loading": "Cargando...",
