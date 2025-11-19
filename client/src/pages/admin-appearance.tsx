@@ -1572,6 +1572,10 @@ export default function AdminAppearance() {
     seoKeywords: ''
   });
 
+  // TEMPORARY: States for one-time translation migration
+  const [isMigrating, setIsMigrating] = useState(false);
+  const [migrationResult, setMigrationResult] = useState<any>(null);
+
   // Helper functions for temp settings with fallbacks
   const getTempSetting = (section: string, key: string, tempState: any) => {
     if (tempState) return tempState;
@@ -1652,6 +1656,43 @@ export default function AdminAppearance() {
       queryClient.invalidateQueries({ queryKey: ['/api/public/theme-settings'] });
       queryClient.invalidateQueries({ queryKey: ['/api/admin/site-settings'] });
       toast({ title: "Pop-up sauvegardée !", description: "Les paramètres de pop-up ont été appliqués." });
+    }
+  };
+
+  // TEMPORARY: Function to run one-time translation migration
+  const runTranslationMigration = async () => {
+    setIsMigrating(true);
+    setMigrationResult(null);
+    
+    try {
+      const response = await fetch('/api/admin/migrate-block-translations', {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setMigrationResult(data);
+      
+      toast({
+        title: "Migration terminée !",
+        description: `${data.summary.processed} blocs traités avec succès.`,
+      });
+    } catch (error) {
+      console.error('Migration error:', error);
+      setMigrationResult({ error: error instanceof Error ? error.message : 'Erreur inconnue' });
+      
+      toast({
+        title: "Erreur de migration",
+        description: "Une erreur s'est produite. Vérifie la console pour plus de détails.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsMigrating(false);
     }
   };
 
@@ -2515,6 +2556,59 @@ export default function AdminAppearance() {
             </Button>
           </div>
         </div>
+
+        {/* TEMPORARY: One-time Translation Migration Button */}
+        {!migrationResult?.summary && (
+          <div className="bg-yellow-50 border-2 border-yellow-400 rounded-lg p-4 mb-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
+              <div>
+                <h3 className="font-semibold text-yellow-900 mb-1 flex items-center gap-2">
+                  <Database className="w-5 h-5" />
+                  Migration des traductions (une seule fois)
+                </h3>
+                <p className="text-sm text-yellow-800">
+                  Clique sur ce bouton pour générer les traductions automatiques des blocs existants.
+                  Cette action est nécessaire une seule fois. Après, toutes les modifications seront automatiques.
+                </p>
+              </div>
+              <Button
+                onClick={runTranslationMigration}
+                disabled={isMigrating}
+                className="bg-yellow-600 hover:bg-yellow-700 text-white whitespace-nowrap"
+                data-testid="button-migrate-translations"
+              >
+                {isMigrating ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2" />
+                    Migration en cours...
+                  </>
+                ) : (
+                  'Lancer la migration'
+                )}
+              </Button>
+            </div>
+            
+            {/* Show result after migration */}
+            {migrationResult && (
+              <div className="mt-4 p-3 bg-white rounded border border-yellow-300">
+                {migrationResult.error ? (
+                  <div className="text-red-600">
+                    <strong>Erreur:</strong> {migrationResult.error}
+                  </div>
+                ) : (
+                  <div className="text-green-700">
+                    <strong>✓ Migration terminée!</strong>
+                    <div className="text-sm mt-1">
+                      • Blocs traités: {migrationResult.summary.processed}<br/>
+                      • Blocs ignorés: {migrationResult.summary.skipped}<br/>
+                      • Total: {migrationResult.summary.total}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Main Navigation */}
         <Tabs value={activeCategory} onValueChange={setActiveCategory} className="space-y-6">
