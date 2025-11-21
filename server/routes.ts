@@ -3666,6 +3666,23 @@ Crawl-delay: 1`;
     try {
       const validatedData = insertPageBlockSchema.parse(req.body);
       const block = await storage.createPageBlock(validatedData);
+      
+      // Automatically generate translations for the new block
+      if (block && validatedData.configuration) {
+        try {
+          await blockTranslationService.translateBlockChanges(
+            block.blockType,
+            block.id,
+            block.identifier,
+            {}, // Empty old config to force translation of all fields
+            validatedData.configuration
+          );
+          console.log(`✅ Translations created for new block ${block.id} (${block.blockType})`);
+        } catch (error) {
+          console.error(`⚠️ Block translation failed for new ${block.blockType}:`, error);
+        }
+      }
+      
       res.status(201).json(block);
     } catch (error) {
       console.error("Error creating page block:", error);
