@@ -72,7 +72,7 @@ interface Block {
 interface Page {
   id: number;
   pageSlug: string;
-  pageTitle: string;
+  pageName: string;
   blocks: Block[];
 }
 
@@ -214,7 +214,7 @@ export default function BlockTranslationEditor() {
             {filteredPages.map(page => (
               <div key={page.id} className="border-b">
                 <div className="p-3 bg-muted/30 font-semibold text-sm sticky top-0">
-                  {page.pageTitle}
+                  {page.pageName}
                 </div>
                 <div className="divide-y">
                   {page.blocks.map(block => {
