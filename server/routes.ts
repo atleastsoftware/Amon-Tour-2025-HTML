@@ -5179,11 +5179,11 @@ Crawl-delay: 1`;
             .orderBy(pageBlocks.blockOrder);
           
           // For each block, get its translations from JSON files
-          const blocksWithTranslations = blocks.map(block => {
+          const blocksWithTranslations = await Promise.all(blocks.map(async (block) => {
             const section = `${block.blockType}_${block.id}`;
-            const enTranslations = translationFileService.getSection('en', section);
-            const frTranslations = translationFileService.getSection('fr', section);
-            const esTranslations = translationFileService.getSection('es', section);
+            const enTranslations = await translationFileService.getSection('en', section);
+            const frTranslations = await translationFileService.getSection('fr', section);
+            const esTranslations = await translationFileService.getSection('es', section);
             
             return {
               ...block,
@@ -5193,7 +5193,7 @@ Crawl-delay: 1`;
                 es: esTranslations || {}
               }
             };
-          });
+          }));
           
           return {
             ...page,
