@@ -329,7 +329,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                       whiteSpace: 'pre-line'
                     }}
                   >
-                    {getDynamicTranslation(block.blockType, block.id, 'description', heroConfig.subtitle || block.subtitle || '')}
+                    {getDynamicTranslation(block.blockType, block.id, 'subtitle', heroConfig.subtitle || block.subtitle || '')}
                   </p>
                 )}
                 {heroConfig.buttons && heroConfig.buttons.length > 0 && (
@@ -338,7 +338,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                   >
                     {heroConfig.buttons.map((button: any, index: number) => {
                       // Use dynamic translations from JSON (updated automatically by backend)
-                      const buttonKey = index === 0 ? 'see_offers' : 'custom_trip';
+                      const buttonKey = `buttons_${index}_text`;
                       const buttonText = getDynamicTranslation(block.blockType, block.id, buttonKey, button.text || '');
                       if (!buttonText) return null;
                       
@@ -734,7 +734,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
         const popularExpConfig = block.configuration || {};
         // USE TRANSLATIONS FIRST for popular experiences
         const popularTitle = getDynamicTranslation(block.blockType, block.id, "title", block.title || popularExpConfig.title || '');
-        const popularSubtitle = getDynamicTranslation(block.blockType, block.id, "description", block.subtitle || popularExpConfig.subtitle || '');
+        const popularSubtitle = getDynamicTranslation(block.blockType, block.id, "subtitle", block.subtitle || popularExpConfig.subtitle || '');
         
         return (
           <PopularExperiencesBlock
@@ -749,7 +749,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
         const customTourFormConfig = block.configuration || {};
         // Use dynamic translations from JSON files (updated automatically by backend)
         const customFormTitle = getDynamicTranslation(block.blockType, block.id, 'title', block.title || customTourFormConfig.title || '');
-        const customFormSubtitle = getDynamicTranslation(block.blockType, block.id, 'description', block.subtitle || customTourFormConfig.subtitle || '');
+        const customFormSubtitle = getDynamicTranslation(block.blockType, block.id, 'subtitle', block.subtitle || customTourFormConfig.subtitle || '');
         
         return (
           <DynamicFormBlock
@@ -768,7 +768,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
         const featuresConfig = block.configuration || {};
         // USE TRANSLATIONS FIRST for why choose us
         const whyTitle = getDynamicTranslation(block.blockType, block.id, "title", block.title || featuresConfig.title || '');
-        const whySubtitle = getDynamicTranslation(block.blockType, block.id, "description", featuresConfig.subtitle || '');
+        const whySubtitle = getDynamicTranslation(block.blockType, block.id, "subtitle", featuresConfig.subtitle || '');
         
         const iconBlocks = featuresConfig.iconBlocks || [
           {
