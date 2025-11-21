@@ -148,6 +148,52 @@ export class BlockTranslationService {
     
     return fieldMappings[fieldName] || this.camelToSnakeCase(fieldName);
   }
+
+  /**
+   * Extract ALL translatable fields from a block (for the translation editor)
+   * Returns all fields with their English values from the block's content/configuration
+   */
+  extractAllTranslatableFields(blockType: string, blockContent: any): Record<string, string> {
+    const translatableConfig = getTranslatableFields(blockType);
+    const extractedFields: Record<string, string> = {};
+    
+    if (!translatableConfig.simpleFields && !translatableConfig.arrayFields) {
+      return extractedFields;
+    }
+
+    // Extract simple text fields
+    if (translatableConfig.simpleFields) {
+      for (const fieldName of translatableConfig.simpleFields) {
+        const value = blockContent?.[fieldName];
+        if (typeof value === 'string' && value.trim()) {
+          const translationKey = this.mapFieldNameToTranslationKey(fieldName);
+          extractedFields[translationKey] = value;
+        }
+      }
+    }
+    
+    // Extract array fields (buttons, sections, items, etc.)
+    if (translatableConfig.arrayFields) {
+      for (const arrayConfig of translatableConfig.arrayFields) {
+        const { arrayKey, textFields } = arrayConfig;
+        const array = Array.isArray(blockContent?.[arrayKey]) ? blockContent[arrayKey] : [];
+        
+        for (let i = 0; i < array.length; i++) {
+          const item = array[i];
+          
+          for (const fieldName of textFields) {
+            const value = item?.[fieldName];
+            if (typeof value === 'string' && value.trim()) {
+              const translationKey = `${this.camelToSnakeCase(arrayKey)}_${i}_${this.camelToSnakeCase(fieldName)}`;
+              extractedFields[translationKey] = value;
+            }
+          }
+        }
+      }
+    }
+
+    return extractedFields;
+  }
 }
 
 export const blockTranslationService = new BlockTranslationService();

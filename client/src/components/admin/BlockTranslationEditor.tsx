@@ -7,9 +7,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient } from "@/lib/queryClient";
-import { Globe, Save, ChevronRight, FileText } from "lucide-react";
+import { Globe, Save, FileText } from "lucide-react";
 
 // Block type name mapping for display
 const BLOCK_TYPE_NAMES: Record<string, string> = {
@@ -40,8 +41,8 @@ const BLOCK_TYPE_NAMES: Record<string, string> = {
   why_choose_us: "Why Choose Us",
   who_we_are: "Who We Are",
   blog_search: "Blog Search",
-  text_listing: "Text Listing",
-  text_pricing: "Text Pricing",
+  text_listing: "Text + Listing",
+  text_pricing: "Text + Pricing",
   text_video: "Text + Video",
   text_gallery: "Text + Gallery",
   cards_grid: "Cards Grid",
@@ -78,7 +79,6 @@ interface Page {
 
 export default function BlockTranslationEditor() {
   const { toast } = useToast();
-  const [selectedPageId, setSelectedPageId] = useState<number | null>(null);
   const [selectedBlockId, setSelectedBlockId] = useState<number | null>(null);
   const [editedTranslations, setEditedTranslations] = useState<BlockTranslations | null>(null);
 
@@ -87,16 +87,10 @@ export default function BlockTranslationEditor() {
     queryKey: ['/api/admin/blocks-with-translations'],
   });
 
-  // Find selected page and block
-  const selectedPage = pages.find(page => page.id === selectedPageId);
-  const selectedBlock = selectedPage?.blocks.find(block => block.id === selectedBlockId);
-
-  // Auto-select first page if none selected
-  useEffect(() => {
-    if (pages.length > 0 && !selectedPageId) {
-      setSelectedPageId(pages[0].id);
-    }
-  }, [pages, selectedPageId]);
+  // Find selected block
+  const selectedBlock = pages
+    .flatMap(page => page.blocks)
+    .find(block => block.id === selectedBlockId);
 
   // Update edited translations when a block is selected
   useEffect(() => {
@@ -163,122 +157,86 @@ export default function BlockTranslationEditor() {
   }
 
   return (
-    <div className="grid grid-cols-12 gap-4 h-[calc(100vh-12rem)]">
-      {/* Left Panel: Pages List */}
-      <Card className="col-span-3">
-        <CardHeader className="pb-3">
-          <CardTitle className="text-lg flex items-center gap-2">
-            <Globe className="w-5 h-5" />
-            Pages
-          </CardTitle>
-          <CardDescription>
-            {pages.length} page{pages.length > 1 ? 's' : ''}
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="p-0">
-          <ScrollArea className="h-[calc(100vh-18rem)]">
-            <div className="divide-y">
-              {pages.map(page => {
-                const isSelected = page.id === selectedPageId;
-                return (
-                  <button
-                    key={page.id}
-                    data-testid={`page-item-${page.id}`}
-                    onClick={() => {
-                      setSelectedPageId(page.id);
-                      setSelectedBlockId(null);
-                    }}
-                    className={`w-full p-4 text-left flex items-center justify-between hover:bg-muted/50 transition-colors ${
-                      isSelected ? 'bg-primary/10 border-l-4 border-primary' : ''
-                    }`}
-                  >
-                    <div className="flex-1">
-                      <div className="font-semibold">{page.pageName}</div>
-                      <div className="text-sm text-muted-foreground">
-                        {page.blocks.length} bloc{page.blocks.length > 1 ? 's' : ''}
-                      </div>
-                    </div>
-                    {isSelected && <ChevronRight className="w-5 h-5 text-primary" />}
-                  </button>
-                );
-              })}
-            </div>
-          </ScrollArea>
-        </CardContent>
-      </Card>
-
-      {/* Center Panel: Blocks List */}
-      <Card className="col-span-3">
+    <div className="grid grid-cols-12 gap-4">
+      {/* Left Panel: Pages with Blocks in Accordion */}
+      <Card className="col-span-4">
         <CardHeader className="pb-3">
           <CardTitle className="text-lg flex items-center gap-2">
             <FileText className="w-5 h-5" />
-            Blocs
+            Pages et Blocs
           </CardTitle>
-          {selectedPage && (
-            <CardDescription>
-              {selectedPage.pageName} - {selectedPage.blocks.length} bloc{selectedPage.blocks.length > 1 ? 's' : ''}
-            </CardDescription>
-          )}
+          <CardDescription>
+            {pages.length} page{pages.length > 1 ? 's' : ''} avec blocs d'édition
+          </CardDescription>
         </CardHeader>
         <CardContent className="p-0">
-          <ScrollArea className="h-[calc(100vh-18rem)]">
-            {selectedPage ? (
-              <div className="divide-y">
-                {selectedPage.blocks.map(block => {
-                  const isSelected = block.id === selectedBlockId;
-                  const hasTranslations = Object.keys(block.translations.en).length > 0;
-                  
-                  return (
-                    <button
-                      key={block.id}
-                      data-testid={`block-item-${block.id}`}
-                      onClick={() => setSelectedBlockId(block.id)}
-                      className={`w-full p-4 text-left hover:bg-muted/50 transition-colors ${
-                        isSelected ? 'bg-primary/10 border-l-4 border-primary' : ''
-                      }`}
-                    >
-                      <div className="flex items-start justify-between gap-2">
-                        <div className="flex-1 min-w-0">
-                          <div className="font-medium text-sm mb-1">
-                            {getBlockDisplayName(block.blockType)}
-                          </div>
-                          {block.title && (
-                            <div className="text-xs text-muted-foreground truncate">
-                              {block.title}
+          <ScrollArea className="h-[calc(100vh-16rem)]">
+            <Accordion type="single" collapsible className="w-full">
+              {pages.map(page => (
+                <AccordionItem key={page.id} value={`page-${page.id}`}>
+                  <AccordionTrigger className="px-4 hover:no-underline hover:bg-muted/50">
+                    <div className="flex items-center justify-between w-full pr-2">
+                      <span className="font-semibold">{page.pageName}</span>
+                      <Badge variant="outline" className="ml-2">
+                        {page.blocks.length}
+                      </Badge>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="pb-0">
+                    <div className="divide-y">
+                      {page.blocks.map(block => {
+                        const isSelected = block.id === selectedBlockId;
+                        const hasTranslations = Object.keys(block.translations.en).length > 0;
+                        
+                        return (
+                          <button
+                            key={block.id}
+                            data-testid={`block-item-${block.id}`}
+                            onClick={() => setSelectedBlockId(block.id)}
+                            className={`w-full p-3 text-left hover:bg-muted/50 transition-colors ${
+                              isSelected ? 'bg-primary/10 border-l-4 border-primary' : ''
+                            }`}
+                          >
+                            <div className="flex items-start justify-between gap-2">
+                              <div className="flex-1 min-w-0">
+                                <div className="font-medium text-sm mb-1">
+                                  {getBlockDisplayName(block.blockType)}
+                                </div>
+                                {block.title && (
+                                  <div className="text-xs text-muted-foreground truncate">
+                                    {block.title}
+                                  </div>
+                                )}
+                                <div className="flex gap-2 mt-2">
+                                  <Badge variant="outline" className="text-xs">
+                                    #{block.blockOrder}
+                                  </Badge>
+                                  {hasTranslations ? (
+                                    <Badge variant="default" className="text-xs bg-green-500">
+                                      {Object.keys(block.translations.en).length} champs
+                                    </Badge>
+                                  ) : (
+                                    <Badge variant="secondary" className="text-xs">
+                                      Aucun texte
+                                    </Badge>
+                                  )}
+                                </div>
+                              </div>
                             </div>
-                          )}
-                          <div className="flex gap-2 mt-2">
-                            <Badge variant="outline" className="text-xs">
-                              #{block.blockOrder}
-                            </Badge>
-                            {hasTranslations ? (
-                              <Badge variant="default" className="text-xs bg-green-500">
-                                Traduit
-                              </Badge>
-                            ) : (
-                              <Badge variant="secondary" className="text-xs">
-                                Non traduit
-                              </Badge>
-                            )}
-                          </div>
-                        </div>
-                        {isSelected && <ChevronRight className="w-5 h-5 text-primary flex-shrink-0" />}
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-            ) : (
-              <div className="p-8 text-center text-muted-foreground">
-                Sélectionnez une page pour voir ses blocs
-              </div>
-            )}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </ScrollArea>
         </CardContent>
       </Card>
 
-      {/* Right Panel: Translation Editor */}
-      <Card className="col-span-6">
+      {/* Right Panel: Translation Editor - Full Height */}
+      <Card className="col-span-8">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
             <div>
@@ -306,15 +264,15 @@ export default function BlockTranslationEditor() {
         <CardContent>
           {selectedBlock && editedTranslations ? (
             <Tabs defaultValue="fr" className="w-full">
-              <TabsList className="grid w-full grid-cols-2">
+              <TabsList className="grid w-full grid-cols-2 mb-4">
                 <TabsTrigger value="fr">Français</TabsTrigger>
                 <TabsTrigger value="es">Espagnol</TabsTrigger>
               </TabsList>
 
               {(['fr', 'es'] as const).map(lang => (
                 <TabsContent key={lang} value={lang} className="space-y-4">
-                  <ScrollArea className="h-[calc(100vh-24rem)] pr-4">
-                    <div className="space-y-4">
+                  <ScrollArea className="h-[calc(100vh-20rem)]">
+                    <div className="space-y-4 pr-4">
                       {Object.keys(editedTranslations.en).length > 0 ? (
                         Object.entries(editedTranslations.en).map(([key, enValue]) => {
                           const translatedValue = editedTranslations[lang][key] || '';

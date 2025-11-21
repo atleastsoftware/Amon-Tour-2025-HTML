@@ -5157,6 +5157,7 @@ Crawl-delay: 1`;
     try {
       const { pageConfigurations, pageBlocks } = await import('../shared/schema');
       const { or, isNull } = await import('drizzle-orm');
+      const { blockTranslationService } = await import('./services/blockTranslationService');
       
       // Get all pages EXCEPT custom code pages
       const pages = await db.select()
@@ -5178,17 +5179,24 @@ Crawl-delay: 1`;
             .where(eq(pageBlocks.pageId, page.id))
             .orderBy(pageBlocks.blockOrder);
           
-          // For each block, get its translations from JSON files
+          // For each block, extract ALL translatable fields and get existing translations
           const blocksWithTranslations = await Promise.all(blocks.map(async (block) => {
             const section = `${block.blockType}_${block.id}`;
-            const enTranslations = await translationFileService.getSection('en', section);
+            
+            // Extract ALL translatable fields from block content (English source)
+            const extractedEnglishFields = blockTranslationService.extractAllTranslatableFields(
+              block.blockType,
+              block.content || block.configuration
+            );
+            
+            // Get existing translations from JSON files
             const frTranslations = await translationFileService.getSection('fr', section);
             const esTranslations = await translationFileService.getSection('es', section);
             
             return {
               ...block,
               translations: {
-                en: enTranslations || {},
+                en: extractedEnglishFields,  // Use extracted fields as English source
                 fr: frTranslations || {},
                 es: esTranslations || {}
               }
