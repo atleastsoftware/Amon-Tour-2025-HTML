@@ -3,7 +3,7 @@ import { useLocation } from "wouter";
 import { useIsAuthenticated } from "@/lib/auth";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import TranslationManager from "@/components/admin/TranslationManager";
+import BlockTranslationEditor from "@/components/admin/BlockTranslationEditor";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -37,7 +37,7 @@ export default function AdminTranslation() {
     <>
       <Header />
       <div className="min-h-screen bg-muted/30 pt-24 pb-16">
-        <div className="container mx-auto px-4 max-w-4xl">
+        <div className="container mx-auto px-4 max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -55,21 +55,21 @@ export default function AdminTranslation() {
               </Button>
               <div>
                 <h1 className="text-3xl font-heading font-bold text-foreground">
-                  Gestion de la Traduction Automatique
+                  Gestion des Traductions par Bloc
                 </h1>
                 <p className="text-muted-foreground mt-2">
-                  Configuration et contrôle de la traduction automatique basée sur la géolocalisation IP
+                  Édite et corrige les traductions automatiques pour chaque bloc de contenu
                 </p>
               </div>
             </div>
 
-            {/* Translation Manager Component */}
+            {/* Block Translation Editor Component */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <TranslationManager />
+              <BlockTranslationEditor />
             </motion.div>
           </motion.div>
         </div>
