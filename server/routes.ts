@@ -5152,6 +5152,98 @@ Crawl-delay: 1`;
     }
   });
 
+  // Get all pages with their blocks and translations for the translation editor
+  app.get("/api/admin/blocks-with-translations", requireAuth, async (req, res) => {
+    try {
+      const { pageConfigurations, pageBlocks } = await import('../shared/schema');
+      
+      // Get all pages
+      const pages = await db.select().from(pageConfigurations).orderBy(pageConfigurations.pageSlug);
+      
+      // Get all blocks for each page
+      const pagesWithBlocks = await Promise.all(
+        pages.map(async (page) => {
+          const blocks = await db
+            .select()
+            .from(pageBlocks)
+            .where(eq(pageBlocks.pageId, page.id))
+            .orderBy(pageBlocks.blockOrder);
+          
+          // For each block, get its translations from JSON files
+          const blocksWithTranslations = blocks.map(block => {
+            const section = `${block.blockType}_${block.id}`;
+            const enTranslations = translationFileService.getSection('en', section);
+            const frTranslations = translationFileService.getSection('fr', section);
+            const esTranslations = translationFileService.getSection('es', section);
+            
+            return {
+              ...block,
+              translations: {
+                en: enTranslations || {},
+                fr: frTranslations || {},
+                es: esTranslations || {}
+              }
+            };
+          });
+          
+          return {
+            ...page,
+            blocks: blocksWithTranslations
+          };
+        })
+      );
+      
+      res.json(pagesWithBlocks);
+    } catch (error) {
+      console.error("Error fetching blocks with translations:", error);
+      res.status(500).json({ message: "Failed to fetch blocks with translations", error: String(error) });
+    }
+  });
+  
+  // Update translations for a specific block
+  app.put("/api/admin/block-translations/:blockId", requireAuth, async (req, res) => {
+    try {
+      const blockId = parseInt(req.params.blockId);
+      const { translations } = req.body; // { en: {...}, fr: {...}, es: {...} }
+      
+      if (!translations || typeof translations !== 'object') {
+        return res.status(400).json({ message: "Invalid translations data" });
+      }
+      
+      // Get the block to determine its section name
+      const { pageBlocks } = await import('../shared/schema');
+      const block = await db.select().from(pageBlocks).where(eq(pageBlocks.id, blockId)).limit(1);
+      
+      if (!block || block.length === 0) {
+        return res.status(404).json({ message: "Block not found" });
+      }
+      
+      const section = `${block[0].blockType}_${blockId}`;
+      
+      // Update translations for each language
+      for (const [lang, langTranslations] of Object.entries(translations)) {
+        if (lang === 'en' || lang === 'fr' || lang === 'es') {
+          for (const [key, value] of Object.entries(langTranslations as Record<string, string>)) {
+            await translationFileService.updateTranslations({
+              section,
+              key,
+              translations: {
+                en: lang === 'en' ? value : translations.en?.[key] || '',
+                fr: lang === 'fr' ? value : translations.fr?.[key] || '',
+                es: lang === 'es' ? value : translations.es?.[key] || ''
+              }
+            });
+          }
+        }
+      }
+      
+      res.json({ message: "Translations updated successfully" });
+    } catch (error) {
+      console.error("Error updating block translations:", error);
+      res.status(500).json({ message: "Failed to update translations", error: String(error) });
+    }
+  });
+
   // Migration endpoint: Generate translations for all existing blocks
   app.post("/api/admin/migrate-block-translations", requireAuth, async (req, res) => {
     try {

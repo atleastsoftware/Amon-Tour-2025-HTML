@@ -96,6 +96,11 @@ class TranslationFileService {
     }
     return true;
   }
+
+  async getSection(language: string, section: string): Promise<any> {
+    const translations = await this.readTranslationFile(language);
+    return translations[section] || {};
+  }
 }
 
 export const translationFileService = new TranslationFileService();
