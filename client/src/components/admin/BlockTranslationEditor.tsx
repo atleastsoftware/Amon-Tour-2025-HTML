@@ -9,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient } from "@/lib/queryClient";
-import { Globe, Save, Eye, EyeOff, Search } from "lucide-react";
+import { Globe, Save, ChevronRight, FileText } from "lucide-react";
 
 // Block type name mapping for display
 const BLOCK_TYPE_NAMES: Record<string, string> = {
@@ -78,25 +78,32 @@ interface Page {
 
 export default function BlockTranslationEditor() {
   const { toast } = useToast();
+  const [selectedPageId, setSelectedPageId] = useState<number | null>(null);
   const [selectedBlockId, setSelectedBlockId] = useState<number | null>(null);
   const [editedTranslations, setEditedTranslations] = useState<BlockTranslations | null>(null);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [showInactive, setShowInactive] = useState(true);
 
   // Fetch all pages with their blocks and translations
   const { data: pages = [], isLoading } = useQuery<Page[]>({
     queryKey: ['/api/admin/blocks-with-translations'],
   });
 
-  // Find selected block
-  const selectedBlock = pages
-    .flatMap(page => page.blocks)
-    .find(block => block.id === selectedBlockId);
+  // Find selected page and block
+  const selectedPage = pages.find(page => page.id === selectedPageId);
+  const selectedBlock = selectedPage?.blocks.find(block => block.id === selectedBlockId);
+
+  // Auto-select first page if none selected
+  useEffect(() => {
+    if (pages.length > 0 && !selectedPageId) {
+      setSelectedPageId(pages[0].id);
+    }
+  }, [pages, selectedPageId]);
 
   // Update edited translations when a block is selected
   useEffect(() => {
     if (selectedBlock) {
       setEditedTranslations(selectedBlock.translations);
+    } else {
+      setEditedTranslations(null);
     }
   }, [selectedBlock]);
 
@@ -125,19 +132,18 @@ export default function BlockTranslationEditor() {
         description: "Impossible de sauvegarder les traductions.",
         variant: "destructive",
       });
-    }
+    },
   });
 
   const handleSaveTranslations = () => {
-    if (selectedBlockId && editedTranslations) {
-      saveTranslationsMutation.mutate({
-        blockId: selectedBlockId,
-        translations: editedTranslations
-      });
-    }
+    if (!selectedBlockId || !editedTranslations) return;
+    saveTranslationsMutation.mutate({
+      blockId: selectedBlockId,
+      translations: editedTranslations
+    });
   };
 
-  const handleTranslationChange = (lang: 'en' | 'fr' | 'es', key: string, value: string) => {
+  const handleTranslationChange = (lang: 'fr' | 'es', key: string, value: string) => {
     if (!editedTranslations) return;
     setEditedTranslations({
       ...editedTranslations,
@@ -148,217 +154,228 @@ export default function BlockTranslationEditor() {
     });
   };
 
-  // Filter pages/blocks based on search
-  const filteredPages = pages.map(page => ({
-    ...page,
-    blocks: page.blocks.filter(block => {
-      if (!showInactive && !block.isActive) return false;
-      if (!searchQuery) return true;
-      
-      const blockName = getBlockDisplayName(block.blockType).toLowerCase();
-      const blockTitle = (block.title || '').toLowerCase();
-      const query = searchQuery.toLowerCase();
-      
-      return blockName.includes(query) || blockTitle.includes(query);
-    })
-  })).filter(page => page.blocks.length > 0);
-
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center p-12">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-muted-foreground">Chargement des traductions...</p>
-        </div>
+      <div className="flex items-center justify-center h-96">
+        <div className="text-muted-foreground">Chargement des traductions...</div>
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100vh-12rem)]">
-      {/* Left Panel: Block List by Page */}
-      <Card className="lg:col-span-1">
-        <CardHeader>
+    <div className="grid grid-cols-12 gap-4 h-[calc(100vh-12rem)]">
+      {/* Left Panel: Pages List */}
+      <Card className="col-span-3">
+        <CardHeader className="pb-3">
           <CardTitle className="text-lg flex items-center gap-2">
-            <Globe className="h-5 w-5" />
-            Blocs par Page
+            <Globe className="w-5 h-5" />
+            Pages
           </CardTitle>
           <CardDescription>
-            Sélectionne un bloc pour éditer ses traductions
+            {pages.length} page{pages.length > 1 ? 's' : ''}
           </CardDescription>
-          
-          {/* Search and Filter */}
-          <div className="space-y-2 pt-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Rechercher un bloc..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-9"
-              />
-            </div>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setShowInactive(!showInactive)}
-              className="w-full flex items-center gap-2"
-            >
-              {showInactive ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
-              {showInactive ? "Masquer les blocs inactifs" : "Afficher les blocs inactifs"}
-            </Button>
-          </div>
         </CardHeader>
         <CardContent className="p-0">
-          <ScrollArea className="h-[calc(100vh-26rem)]">
-            {filteredPages.map(page => (
-              <div key={page.id} className="border-b">
-                <div className="p-3 bg-muted/30 font-semibold text-sm sticky top-0">
-                  {page.pageName}
-                </div>
-                <div className="divide-y">
-                  {page.blocks.map(block => {
-                    const isSelected = block.id === selectedBlockId;
-                    const hasTranslations = Object.keys(block.translations.en).length > 0;
-                    
-                    return (
-                      <button
-                        key={block.id}
-                        onClick={() => setSelectedBlockId(block.id)}
-                        className={`w-full text-left p-3 hover:bg-muted/50 transition-colors ${
-                          isSelected ? 'bg-primary/10 border-l-4 border-primary' : ''
-                        } ${!block.isActive ? 'opacity-50' : ''}`}
-                      >
-                        <div className="flex items-start justify-between gap-2">
-                          <div className="flex-1 min-w-0">
-                            <div className="font-medium text-sm truncate">
-                              {getBlockDisplayName(block.blockType)}
-                            </div>
-                            {block.title && (
-                              <div className="text-xs text-muted-foreground truncate mt-1">
-                                {block.title}
-                              </div>
-                            )}
+          <ScrollArea className="h-[calc(100vh-18rem)]">
+            <div className="divide-y">
+              {pages.map(page => {
+                const isSelected = page.id === selectedPageId;
+                return (
+                  <button
+                    key={page.id}
+                    data-testid={`page-item-${page.id}`}
+                    onClick={() => {
+                      setSelectedPageId(page.id);
+                      setSelectedBlockId(null);
+                    }}
+                    className={`w-full p-4 text-left flex items-center justify-between hover:bg-muted/50 transition-colors ${
+                      isSelected ? 'bg-primary/10 border-l-4 border-primary' : ''
+                    }`}
+                  >
+                    <div className="flex-1">
+                      <div className="font-semibold">{page.pageName}</div>
+                      <div className="text-sm text-muted-foreground">
+                        {page.blocks.length} bloc{page.blocks.length > 1 ? 's' : ''}
+                      </div>
+                    </div>
+                    {isSelected && <ChevronRight className="w-5 h-5 text-primary" />}
+                  </button>
+                );
+              })}
+            </div>
+          </ScrollArea>
+        </CardContent>
+      </Card>
+
+      {/* Center Panel: Blocks List */}
+      <Card className="col-span-3">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-lg flex items-center gap-2">
+            <FileText className="w-5 h-5" />
+            Blocs
+          </CardTitle>
+          {selectedPage && (
+            <CardDescription>
+              {selectedPage.pageName} - {selectedPage.blocks.length} bloc{selectedPage.blocks.length > 1 ? 's' : ''}
+            </CardDescription>
+          )}
+        </CardHeader>
+        <CardContent className="p-0">
+          <ScrollArea className="h-[calc(100vh-18rem)]">
+            {selectedPage ? (
+              <div className="divide-y">
+                {selectedPage.blocks.map(block => {
+                  const isSelected = block.id === selectedBlockId;
+                  const hasTranslations = Object.keys(block.translations.en).length > 0;
+                  
+                  return (
+                    <button
+                      key={block.id}
+                      data-testid={`block-item-${block.id}`}
+                      onClick={() => setSelectedBlockId(block.id)}
+                      className={`w-full p-4 text-left hover:bg-muted/50 transition-colors ${
+                        isSelected ? 'bg-primary/10 border-l-4 border-primary' : ''
+                      }`}
+                    >
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex-1 min-w-0">
+                          <div className="font-medium text-sm mb-1">
+                            {getBlockDisplayName(block.blockType)}
                           </div>
-                          <div className="flex flex-col gap-1 items-end flex-shrink-0">
-                            {!block.isActive && (
-                              <Badge variant="secondary" className="text-xs">
-                                Masqué
+                          {block.title && (
+                            <div className="text-xs text-muted-foreground truncate">
+                              {block.title}
+                            </div>
+                          )}
+                          <div className="flex gap-2 mt-2">
+                            <Badge variant="outline" className="text-xs">
+                              #{block.blockOrder}
+                            </Badge>
+                            {hasTranslations ? (
+                              <Badge variant="default" className="text-xs bg-green-500">
+                                Traduit
                               </Badge>
-                            )}
-                            {hasTranslations && (
-                              <Badge variant="outline" className="text-xs">
-                                {Object.keys(block.translations.en).length} textes
+                            ) : (
+                              <Badge variant="secondary" className="text-xs">
+                                Non traduit
                               </Badge>
                             )}
                           </div>
                         </div>
-                      </button>
-                    );
-                  })}
-                </div>
+                        {isSelected && <ChevronRight className="w-5 h-5 text-primary flex-shrink-0" />}
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
-            ))}
+            ) : (
+              <div className="p-8 text-center text-muted-foreground">
+                Sélectionnez une page pour voir ses blocs
+              </div>
+            )}
           </ScrollArea>
         </CardContent>
       </Card>
 
       {/* Right Panel: Translation Editor */}
-      <Card className="lg:col-span-2">
-        {selectedBlock && editedTranslations ? (
-          <>
-            <CardHeader>
-              <div className="flex items-start justify-between">
-                <div>
-                  <CardTitle className="flex items-center gap-2">
-                    {getBlockDisplayName(selectedBlock.blockType)}
-                    {!selectedBlock.isActive && (
-                      <Badge variant="secondary">Masqué</Badge>
-                    )}
-                  </CardTitle>
-                  {selectedBlock.title && (
-                    <CardDescription className="mt-2">
-                      {selectedBlock.title}
-                    </CardDescription>
-                  )}
-                </div>
-                <Button
-                  onClick={handleSaveTranslations}
-                  disabled={saveTranslationsMutation.isPending}
-                  className="flex items-center gap-2"
-                >
-                  <Save className="h-4 w-4" />
-                  {saveTranslationsMutation.isPending ? "Sauvegarde..." : "Sauvegarder"}
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent>
-              {Object.keys(editedTranslations.en).length === 0 ? (
-                <div className="text-center py-12 text-muted-foreground">
-                  <Globe className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                  <p>Aucune traduction disponible pour ce bloc.</p>
-                  <p className="text-sm mt-2">
-                    Les traductions seront générées automatiquement lors de la modification du bloc.
-                  </p>
-                </div>
-              ) : (
-                <Tabs defaultValue="fr" className="w-full">
-                  <TabsList className="grid w-full grid-cols-3 mb-6">
-                    <TabsTrigger value="en">🇬🇧 Anglais</TabsTrigger>
-                    <TabsTrigger value="fr">🇫🇷 Français</TabsTrigger>
-                    <TabsTrigger value="es">🇪🇸 Espagnol</TabsTrigger>
-                  </TabsList>
-
-                  {(['en', 'fr', 'es'] as const).map(lang => (
-                    <TabsContent key={lang} value={lang}>
-                      <ScrollArea className="h-[calc(100vh-28rem)]">
-                        <div className="space-y-4 pr-4">
-                          {Object.entries(editedTranslations[lang]).map(([key, value]) => {
-                            const isMultiline = typeof value === 'string' && (value.includes('\n') || value.length > 100);
-                            
-                            return (
-                              <div key={key} className="space-y-2">
-                                <label className="text-sm font-medium text-muted-foreground">
-                                  {key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
-                                </label>
-                                {isMultiline ? (
-                                  <Textarea
-                                    value={value || ''}
-                                    onChange={(e) => handleTranslationChange(lang, key, e.target.value)}
-                                    rows={4}
-                                    className="font-mono text-sm"
-                                    placeholder={`Traduction ${lang.toUpperCase()}...`}
-                                  />
-                                ) : (
-                                  <Input
-                                    value={value || ''}
-                                    onChange={(e) => handleTranslationChange(lang, key, e.target.value)}
-                                    className="font-mono text-sm"
-                                    placeholder={`Traduction ${lang.toUpperCase()}...`}
-                                  />
-                                )}
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </ScrollArea>
-                    </TabsContent>
-                  ))}
-                </Tabs>
+      <Card className="col-span-6">
+        <CardHeader className="pb-3">
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="text-lg">
+                {selectedBlock ? getBlockDisplayName(selectedBlock.blockType) : 'Traductions'}
+              </CardTitle>
+              {selectedBlock && (
+                <CardDescription>
+                  Modifier les traductions pour ce bloc
+                </CardDescription>
               )}
-            </CardContent>
-          </>
-        ) : (
-          <CardContent className="flex items-center justify-center h-full">
-            <div className="text-center text-muted-foreground py-12">
-              <Globe className="h-16 w-16 mx-auto mb-4 opacity-50" />
-              <p className="text-lg font-medium">Sélectionne un bloc</p>
-              <p className="text-sm mt-2">
-                Choisis un bloc dans la liste de gauche pour éditer ses traductions
-              </p>
             </div>
-          </CardContent>
-        )}
+            {selectedBlock && editedTranslations && (
+              <Button
+                data-testid="button-save-translations"
+                onClick={handleSaveTranslations}
+                disabled={saveTranslationsMutation.isPending}
+              >
+                <Save className="w-4 h-4 mr-2" />
+                Sauvegarder
+              </Button>
+            )}
+          </div>
+        </CardHeader>
+        <CardContent>
+          {selectedBlock && editedTranslations ? (
+            <Tabs defaultValue="fr" className="w-full">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="fr">Français</TabsTrigger>
+                <TabsTrigger value="es">Espagnol</TabsTrigger>
+              </TabsList>
+
+              {(['fr', 'es'] as const).map(lang => (
+                <TabsContent key={lang} value={lang} className="space-y-4">
+                  <ScrollArea className="h-[calc(100vh-24rem)] pr-4">
+                    <div className="space-y-4">
+                      {Object.keys(editedTranslations.en).length > 0 ? (
+                        Object.entries(editedTranslations.en).map(([key, enValue]) => {
+                          const translatedValue = editedTranslations[lang][key] || '';
+                          const isLongText = enValue.length > 100;
+
+                          return (
+                            <div key={key} className="space-y-2 p-4 border rounded-lg">
+                              <div className="flex items-center justify-between">
+                                <label className="text-sm font-semibold text-foreground">
+                                  {key}
+                                </label>
+                                <Badge variant="outline" className="text-xs">
+                                  {lang.toUpperCase()}
+                                </Badge>
+                              </div>
+                              
+                              <div className="text-xs text-muted-foreground bg-muted/50 p-2 rounded border">
+                                <strong>Anglais (source):</strong>
+                                <div className="mt-1 whitespace-pre-line">{enValue}</div>
+                              </div>
+
+                              {isLongText ? (
+                                <Textarea
+                                  data-testid={`input-translation-${lang}-${key}`}
+                                  value={translatedValue}
+                                  onChange={(e) => handleTranslationChange(lang, key, e.target.value)}
+                                  placeholder={`Traduction en ${lang === 'fr' ? 'français' : 'espagnol'}...`}
+                                  className="min-h-[100px] font-mono text-sm"
+                                  style={{ whiteSpace: 'pre-line' }}
+                                />
+                              ) : (
+                                <Input
+                                  data-testid={`input-translation-${lang}-${key}`}
+                                  value={translatedValue}
+                                  onChange={(e) => handleTranslationChange(lang, key, e.target.value)}
+                                  placeholder={`Traduction en ${lang === 'fr' ? 'français' : 'espagnol'}...`}
+                                  className="font-mono text-sm"
+                                />
+                              )}
+                            </div>
+                          );
+                        })
+                      ) : (
+                        <div className="text-center py-12 text-muted-foreground">
+                          Aucun texte à traduire dans ce bloc
+                        </div>
+                      )}
+                    </div>
+                  </ScrollArea>
+                </TabsContent>
+              ))}
+            </Tabs>
+          ) : (
+            <div className="flex flex-col items-center justify-center h-96 text-center">
+              <Globe className="w-16 h-16 text-muted-foreground/30 mb-4" />
+              <div className="text-muted-foreground">
+                Sélectionnez un bloc pour modifier ses traductions
+              </div>
+            </div>
+          )}
+        </CardContent>
       </Card>
     </div>
   );
