@@ -5156,9 +5156,18 @@ Crawl-delay: 1`;
   app.get("/api/admin/blocks-with-translations", requireAuth, async (req, res) => {
     try {
       const { pageConfigurations, pageBlocks } = await import('../shared/schema');
+      const { or, isNull } = await import('drizzle-orm');
       
-      // Get all pages
-      const pages = await db.select().from(pageConfigurations).orderBy(pageConfigurations.pageSlug);
+      // Get all pages EXCEPT custom code pages
+      const pages = await db.select()
+        .from(pageConfigurations)
+        .where(
+          or(
+            eq(pageConfigurations.isCustomCode, false),
+            isNull(pageConfigurations.isCustomCode)
+          )
+        )
+        .orderBy(pageConfigurations.pageSlug);
       
       // Get all blocks for each page
       const pagesWithBlocks = await Promise.all(
