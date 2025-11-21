@@ -46,7 +46,13 @@ export const TRANSLATABLE_BLOCK_FIELDS: Record<string, TranslatableFieldConfig> 
   },
   
   features_3col: {
-    simpleFields: ['title', 'description']
+    simpleFields: ['title', 'description'],
+    arrayFields: [
+      {
+        arrayKey: 'iconBlocks',
+        textFields: ['title', 'description']
+      }
+    ]
   },
   
   testimonials: {
@@ -128,7 +134,13 @@ export const TRANSLATABLE_BLOCK_FIELDS: Record<string, TranslatableFieldConfig> 
   },
   
   why_choose_us: {
-    simpleFields: ['title', 'subtitle', 'description']
+    simpleFields: ['title', 'subtitle', 'description'],
+    arrayFields: [
+      {
+        arrayKey: 'iconBlocks',
+        textFields: ['title', 'description']
+      }
+    ]
   },
   
   who_we_are: {

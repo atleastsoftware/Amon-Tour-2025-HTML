@@ -55,6 +55,104 @@ function getBlockDisplayName(blockType: string): string {
   return BLOCK_TYPE_NAMES[blockType] || blockType;
 }
 
+// Map translation keys to user-friendly French field names
+function getFieldDisplayName(key: string): string {
+  // Handle simple fields first
+  const simpleFields: Record<string, string> = {
+    'title': 'Titre',
+    'subtitle': 'Sous-titre',
+    'description': 'Description',
+    'content': 'Contenu',
+    'cta_text': 'Texte du bouton',
+    'title_accent': 'Texte en accent',
+    'placeholder': 'Texte indicatif',
+    'introduction': 'Introduction',
+    'text': 'Texte',
+    'label': 'Label',
+    'email_label': 'Label email',
+    'email': 'Email',
+    'phone_label': 'Label téléphone',
+    'phone': 'Téléphone',
+    'whatsapp_label': 'Label WhatsApp',
+    'whatsapp': 'WhatsApp',
+    'line_id_label': 'Label LINE ID',
+    'line_id': 'LINE ID',
+    'about_title': 'Titre à propos',
+    'company_brand': 'Marque',
+    'company_name': 'Nom de société',
+    'company_license': 'Licence',
+    'company_description': 'Description société',
+    'button_text': 'Texte du bouton',
+    'privacy_text': 'Texte de confidentialité',
+    'search_placeholder': 'Texte indicatif de recherche',
+    'tags_title': 'Titre tags',
+    'categories_title': 'Titre catégories',
+    'all_tags_text': 'Texte tous les tags',
+    'all_categories_text': 'Texte toutes catégories',
+    'pickup_title': 'Titre ramassage',
+    'included_title': 'Titre inclus',
+    'included_description': 'Description inclus',
+    'not_included_title': 'Titre non inclus',
+    'not_included_description': 'Description non inclus',
+    'price': 'Prix',
+    'currency': 'Devise',
+    'cycle': 'Période',
+    'more_text': 'Texte plus',
+    'time': 'Heure',
+    'location': 'Lieu'
+  };
+
+  // Check if it's a simple field
+  if (simpleFields[key]) {
+    return simpleFields[key];
+  }
+
+  // Handle array fields with pattern: arrayName_index_fieldName
+  // Examples: 
+  // - buttons_0_text → Bouton 1 - Texte
+  // - items_2_label → Élément 3 - Label
+  // - icon_blocks_0_title → Bloc 1 - Titre
+  // - icon_blocks_1_mini_icons_2_text → Bloc 2 - Mini icône 3
+  
+  // Pattern for nested mini icons: icon_blocks_N_mini_icons_M_text
+  const nestedIconMatch = key.match(/^icon_blocks_(\d+)_mini_icons_(\d+)_text$/);
+  if (nestedIconMatch) {
+    const blockIndex = parseInt(nestedIconMatch[1]) + 1;
+    const iconIndex = parseInt(nestedIconMatch[2]) + 1;
+    return `Bloc ${blockIndex} - Mini icône ${iconIndex}`;
+  }
+
+  // Pattern for array fields: arrayName_index_fieldName
+  const arrayMatch = key.match(/^(.+)_(\d+)_(.+)$/);
+  if (arrayMatch) {
+    const arrayName = arrayMatch[1];
+    const index = parseInt(arrayMatch[2]) + 1; // Convert to 1-based
+    const fieldName = arrayMatch[3];
+
+    // Map array names to French
+    const arrayNames: Record<string, string> = {
+      'buttons': 'Bouton',
+      'items': 'Élément',
+      'sections': 'Section',
+      'icon_blocks': 'Bloc',
+      'pricing_cards': 'Carte',
+      'pickup_times': 'Horaire',
+      'mini_icons': 'Mini icône'
+    };
+
+    const displayArrayName = arrayNames[arrayName] || arrayName;
+    const displayFieldName = simpleFields[fieldName] || fieldName;
+
+    return `${displayArrayName} ${index} - ${displayFieldName}`;
+  }
+
+  // Fallback: return the key as-is but make it prettier
+  return key
+    .split('_')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
 interface BlockTranslations {
   en: Record<string, string>;
   fr: Record<string, string>;
@@ -282,7 +380,7 @@ export default function BlockTranslationEditor() {
                             <div key={key} className="space-y-2 p-4 border rounded-lg">
                               <div className="flex items-center justify-between">
                                 <label className="text-sm font-semibold text-foreground">
-                                  {key}
+                                  {getFieldDisplayName(key)}
                                 </label>
                                 <Badge variant="outline" className="text-xs">
                                   {lang.toUpperCase()}

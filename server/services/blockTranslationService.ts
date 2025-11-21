@@ -124,6 +124,43 @@ export class BlockTranslationService {
             }
           }
         }
+        
+        // Handle nested miniIcons for iconBlocks (features_3col, why_choose_us)
+        if (arrayKey === 'iconBlocks' && Array.isArray(newItem.miniIcons)) {
+          const oldMiniIcons = Array.isArray(oldItem?.miniIcons) ? oldItem.miniIcons : [];
+          
+          for (let j = 0; j < newItem.miniIcons.length; j++) {
+            const newMiniIcon = newItem.miniIcons[j];
+            const oldMiniIcon = oldMiniIcons[j];
+            
+            if (newMiniIcon?.text && typeof newMiniIcon.text === 'string') {
+              const oldMiniText = oldMiniIcon?.text;
+              const newMiniText = newMiniIcon.text;
+              
+              const hasChanged = await autoTranslationService.detectTextChange(oldMiniText, newMiniText);
+              const translationKey = `icon_blocks_${i}_mini_icons_${j}_text`;
+              const needsTranslation = hasChanged || !(await translationFileService.translationExists(section, translationKey));
+              
+              if (needsTranslation) {
+                console.log(`🔄 Translating ${section}.${translationKey}...`);
+                
+                try {
+                  const translations = await autoTranslationService.translateToAllLanguages(newMiniText, 'en');
+                  
+                  await translationFileService.updateTranslations({
+                    section,
+                    key: translationKey,
+                    translations
+                  });
+                  
+                  console.log(`✅ ${section}.${translationKey} translations updated`);
+                } catch (error) {
+                  console.error(`⚠️ ${section}.${translationKey} translation failed:`, error);
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -186,6 +223,17 @@ export class BlockTranslationService {
             if (typeof value === 'string' && value.trim()) {
               const translationKey = `${this.camelToSnakeCase(arrayKey)}_${i}_${this.camelToSnakeCase(fieldName)}`;
               extractedFields[translationKey] = value;
+            }
+          }
+          
+          // Special handling for nested miniIcons in iconBlocks (for features_3col, why_choose_us)
+          if (arrayKey === 'iconBlocks' && Array.isArray(item.miniIcons)) {
+            for (let j = 0; j < item.miniIcons.length; j++) {
+              const miniIcon = item.miniIcons[j];
+              if (typeof miniIcon.text === 'string' && miniIcon.text.trim()) {
+                const translationKey = `icon_blocks_${i}_mini_icons_${j}_text`;
+                extractedFields[translationKey] = miniIcon.text;
+              }
             }
           }
         }
