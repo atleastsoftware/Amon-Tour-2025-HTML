@@ -5193,12 +5193,20 @@ Crawl-delay: 1`;
             const frTranslations = await translationFileService.getSection('fr', section);
             const esTranslations = await translationFileService.getSection('es', section);
             
+            // Get metadata for manual edit status
+            const frMeta = await translationFileService.getSectionMetadata(section, 'fr');
+            const esMeta = await translationFileService.getSectionMetadata(section, 'es');
+            
             return {
               ...block,
               translations: {
                 en: extractedEnglishFields,  // Use extracted fields as English source
                 fr: frTranslations || {},
                 es: esTranslations || {}
+              },
+              translationsMeta: {
+                fr: frMeta || {},
+                es: esMeta || {}
               }
             };
           }));
@@ -5248,7 +5256,8 @@ Crawl-delay: 1`;
                 en: lang === 'en' ? value : translations.en?.[key] || '',
                 fr: lang === 'fr' ? value : translations.fr?.[key] || '',
                 es: lang === 'es' ? value : translations.es?.[key] || ''
-              }
+              },
+              isManualEdit: true  // Mark as manually edited
             });
           }
         }

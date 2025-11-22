@@ -7,6 +7,7 @@ export interface TranslationUpdate {
   translations: {
     [language: string]: string;
   };
+  isManualEdit?: boolean;
 }
 
 class TranslationFileService {
@@ -47,6 +48,20 @@ class TranslationFileService {
         }
         
         translations[update.section][update.key] = update.translations[language];
+        
+        // Mark as manually edited if specified (for fr and es only)
+        if (update.isManualEdit && (language === 'fr' || language === 'es')) {
+          if (!translations._meta) {
+            translations._meta = {};
+          }
+          if (!translations._meta[update.section]) {
+            translations._meta[update.section] = {};
+          }
+          if (!translations._meta[update.section][update.key]) {
+            translations._meta[update.section][update.key] = {};
+          }
+          translations._meta[update.section][update.key].isManuallyEdited = true;
+        }
         
         await this.writeTranslationFile(language, translations);
       } catch (error) {
@@ -100,6 +115,42 @@ class TranslationFileService {
   async getSection(language: string, section: string): Promise<any> {
     const translations = await this.readTranslationFile(language);
     return translations[section] || {};
+  }
+
+  /**
+   * Check if a translation was manually edited
+   */
+  async isManuallyEdited(section: string, key: string, language: string): Promise<boolean> {
+    const translations = await this.readTranslationFile(language);
+    return translations._meta?.[section]?.[key]?.isManuallyEdited === true;
+  }
+
+  /**
+   * Mark a translation as manually edited
+   */
+  async markAsManuallyEdited(section: string, key: string, language: string): Promise<void> {
+    const translations = await this.readTranslationFile(language);
+    
+    if (!translations._meta) {
+      translations._meta = {};
+    }
+    if (!translations._meta[section]) {
+      translations._meta[section] = {};
+    }
+    if (!translations._meta[section][key]) {
+      translations._meta[section][key] = {};
+    }
+    
+    translations._meta[section][key].isManuallyEdited = true;
+    await this.writeTranslationFile(language, translations);
+  }
+
+  /**
+   * Get metadata for a translation section
+   */
+  async getSectionMetadata(section: string, language: string): Promise<any> {
+    const translations = await this.readTranslationFile(language);
+    return translations._meta?.[section] || {};
   }
 }
 
