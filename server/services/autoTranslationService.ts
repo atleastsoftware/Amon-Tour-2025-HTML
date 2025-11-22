@@ -100,7 +100,7 @@ class AutoTranslationService {
         const result = await this.translateText(text, targetLang, sourceLanguage);
         results[targetLang] = result.translatedText;
         
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(resolve => setTimeout(resolve, 1000));
       } catch (error) {
         console.error(`Failed to translate to ${targetLang}:`, error);
         results[targetLang] = text;

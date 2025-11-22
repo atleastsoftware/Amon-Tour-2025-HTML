@@ -5426,8 +5426,8 @@ Crawl-delay: 1`;
             
             if (needsTranslation) {
               try {
-                // Add 500ms delay to avoid hitting API rate limits
-                await delay(500);
+                // Add 1 second delay to avoid hitting API rate limits
+                await delay(1000);
                 
                 const translations = await autoTranslationService.translateToAllLanguages(enValue, 'en');
                 
