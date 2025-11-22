@@ -5268,6 +5268,55 @@ Crawl-delay: 1`;
             };
           }));
           
+          // Add special handling for legal pages - add virtual blocks for JSON sections
+          const legalPageMapping: Record<string, string> = {
+            'privacy-policy': 'text_section_370',
+            'legal-notice': 'text_section_368',
+            'terms-conditions': 'text_section_369'
+          };
+          
+          if (page.pageType === 'legal' && legalPageMapping[page.pageSlug]) {
+            const section = legalPageMapping[page.pageSlug];
+            
+            // Get translations directly from JSON files
+            const enTranslations = await translationFileService.getSection('en', section);
+            const frTranslations = await translationFileService.getSection('fr', section);
+            const esTranslations = await translationFileService.getSection('es', section);
+            
+            // Get metadata for manual edit status
+            const frMeta = await translationFileService.getSectionMetadata(section, 'fr');
+            const esMeta = await translationFileService.getSectionMetadata(section, 'es');
+            
+            // Create a virtual block for the legal page content
+            const virtualBlock = {
+              id: -1 * page.id, // Negative ID to distinguish from real blocks
+              pageId: page.id,
+              blockType: 'text_section',
+              blockOrder: 0,
+              identifier: section,
+              title: page.pageName,
+              subtitle: null,
+              content: enTranslations.description || '',
+              configuration: {},
+              settings: {},
+              isActive: true,
+              createdAt: new Date(),
+              updatedAt: new Date(),
+              translations: {
+                en: enTranslations || {},
+                fr: frTranslations || {},
+                es: esTranslations || {}
+              },
+              translationsMeta: {
+                fr: frMeta || {},
+                es: esMeta || {}
+              }
+            };
+            
+            // Add virtual block at the beginning
+            blocksWithTranslations.unshift(virtualBlock);
+          }
+          
           return {
             ...page,
             blocks: blocksWithTranslations
@@ -5292,15 +5341,41 @@ Crawl-delay: 1`;
         return res.status(400).json({ message: "Invalid translations data" });
       }
       
-      // Get the block to determine its section name
-      const { pageBlocks } = await import('../shared/schema');
-      const block = await db.select().from(pageBlocks).where(eq(pageBlocks.id, blockId)).limit(1);
+      let section: string;
       
-      if (!block || block.length === 0) {
-        return res.status(404).json({ message: "Block not found" });
+      // Check if this is a virtual legal page block (negative ID)
+      if (blockId < 0) {
+        // Virtual block for legal pages - determine section from page ID
+        const pageId = -1 * blockId;
+        const { pageConfigurations } = await import('../shared/schema');
+        const page = await db.select().from(pageConfigurations).where(eq(pageConfigurations.id, pageId)).limit(1);
+        
+        if (!page || page.length === 0) {
+          return res.status(404).json({ message: "Legal page not found" });
+        }
+        
+        // Map page slug to JSON section
+        const legalPageMapping: Record<string, string> = {
+          'privacy-policy': 'text_section_370',
+          'legal-notice': 'text_section_368',
+          'terms-conditions': 'text_section_369'
+        };
+        
+        section = legalPageMapping[page[0].pageSlug];
+        if (!section) {
+          return res.status(404).json({ message: "Unknown legal page" });
+        }
+      } else {
+        // Regular block - get from database
+        const { pageBlocks } = await import('../shared/schema');
+        const block = await db.select().from(pageBlocks).where(eq(pageBlocks.id, blockId)).limit(1);
+        
+        if (!block || block.length === 0) {
+          return res.status(404).json({ message: "Block not found" });
+        }
+        
+        section = `${block[0].blockType}_${blockId}`;
       }
-      
-      const section = `${block[0].blockType}_${blockId}`;
       
       // Update translations for each language
       for (const [lang, langTranslations] of Object.entries(translations)) {
