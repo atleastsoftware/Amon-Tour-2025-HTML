@@ -10,7 +10,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient } from "@/lib/queryClient";
-import { Globe, Save, FileText } from "lucide-react";
+import { Globe, Save, FileText, Lock, Sparkles } from "lucide-react";
 
 // Block type name mapping for display
 const BLOCK_TYPE_NAMES: Record<string, string> = {
@@ -159,6 +159,12 @@ interface BlockTranslations {
   es: Record<string, string>;
 }
 
+interface TranslationMeta {
+  [key: string]: {
+    isManuallyEdited?: boolean;
+  };
+}
+
 interface Block {
   id: number;
   blockType: string;
@@ -166,6 +172,10 @@ interface Block {
   title: string | null;
   isActive: boolean;
   translations: BlockTranslations;
+  translationsMeta?: {
+    fr?: TranslationMeta;
+    es?: TranslationMeta;
+  };
 }
 
 interface Page {
@@ -375,13 +385,34 @@ export default function BlockTranslationEditor() {
                         Object.entries(editedTranslations.en).map(([key, enValue]) => {
                           const translatedValue = editedTranslations[lang][key] || '';
                           const isLongText = enValue.length > 100;
+                          const isManuallyEdited = selectedBlock?.translationsMeta?.[lang]?.[key]?.isManuallyEdited === true;
 
                           return (
-                            <div key={key} className="space-y-2 p-4 border rounded-lg">
+                            <div 
+                              key={key} 
+                              className={`space-y-2 p-4 border rounded-lg ${
+                                isManuallyEdited 
+                                  ? 'border-amber-400 bg-amber-50/50 dark:bg-amber-950/20' 
+                                  : 'border-border'
+                              }`}
+                            >
                               <div className="flex items-center justify-between">
-                                <label className="text-sm font-semibold text-foreground">
-                                  {getFieldDisplayName(key)}
-                                </label>
+                                <div className="flex items-center gap-2">
+                                  <label className="text-sm font-semibold text-foreground">
+                                    {getFieldDisplayName(key)}
+                                  </label>
+                                  {isManuallyEdited ? (
+                                    <Badge variant="secondary" className="text-xs bg-amber-500 text-white flex items-center gap-1">
+                                      <Lock className="w-3 h-3" />
+                                      Modifiée manuellement
+                                    </Badge>
+                                  ) : (
+                                    <Badge variant="outline" className="text-xs flex items-center gap-1">
+                                      <Sparkles className="w-3 h-3" />
+                                      Auto
+                                    </Badge>
+                                  )}
+                                </div>
                                 <Badge variant="outline" className="text-xs">
                                   {lang.toUpperCase()}
                                 </Badge>
