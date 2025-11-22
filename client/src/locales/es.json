@@ -353,11 +353,11 @@
     "icon_blocks_1_mini_icons_0_text": "Ruta personalizada",
     "icon_blocks_1_mini_icons_1_text": "TIEMPO FLEXIBLE",
     "icon_blocks_1_mini_icons_2_text": "Tu ritmo",
-    "icon_blocks_2_title": "Experiencias auténticas",
-    "icon_blocks_2_description": "Descubre destinos fuera de lo común y sumérgete en la cultura local.",
-    "icon_blocks_2_mini_icons_0_text": "Pescado de Consumo local",
-    "icon_blocks_2_mini_icons_1_text": "Local people",
-    "icon_blocks_2_mini_icons_2_text": "Cultura"
+    "icon_blocks_2_title": "Authentic Experiences",
+    "icon_blocks_2_description": "Discover destinations off the beaten path and immerse yourself in the local culture.",
+    "icon_blocks_2_mini_icons_0_text": "Local Food",
+    "icon_blocks_2_mini_icons_1_text": " Local People",
+    "icon_blocks_2_mini_icons_2_text": "Culture"
   },
   "who_we_are_270": {
     "title": "Quiénes somos",
@@ -407,7 +407,7 @@
     "pickup_times_2_time": "8:00",
     "pickup_times_2_location": "de Klong Mueang",
     "pickup_times_2_price": "+1.000 Baht",
-    "pickup_times_3_time": "8:00",
+    "pickup_times_3_time": "8:45",
     "pickup_times_3_location": "de Ao Nang",
     "pickup_times_3_price": "Cuota extra",
     "pickup_times_4_time": "9:00",
