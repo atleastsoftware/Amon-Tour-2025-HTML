@@ -1,5 +1,4 @@
-const translate = require('@vitalets/google-translate-api');
-const { HttpsProxyAgent } = require('https-proxy-agent');
+import { HttpsProxyAgent } from 'https-proxy-agent';
 
 export interface TranslationResult {
   translatedText: string;
@@ -13,6 +12,14 @@ export interface BatchTranslationResult {
 
 class AutoTranslationService {
   private readonly supportedLanguages = ['en', 'fr', 'es'];
+  private translateModule: any = null;
+  
+  private async getTranslateModule() {
+    if (!this.translateModule) {
+      this.translateModule = await import('@vitalets/google-translate-api');
+    }
+    return this.translateModule.default || this.translateModule;
+  }
   
   async translateText(
     text: string,
@@ -20,6 +27,7 @@ class AutoTranslationService {
     sourceLanguage: string = 'en'
   ): Promise<TranslationResult> {
     try {
+      const translate = await this.getTranslateModule();
       const hasNewlines = text.includes('\n');
       
       if (hasNewlines) {
