@@ -5287,6 +5287,20 @@ Crawl-delay: 1`;
             const frMeta = await translationFileService.getSectionMetadata(section, 'fr');
             const esMeta = await translationFileService.getSectionMetadata(section, 'es');
             
+            // Only extract title and description for legal pages
+            const legalEnTranslations = {
+              title: enTranslations.title || '',
+              description: enTranslations.description || ''
+            };
+            const legalFrTranslations = {
+              title: frTranslations.title || '',
+              description: frTranslations.description || ''
+            };
+            const legalEsTranslations = {
+              title: esTranslations.title || '',
+              description: esTranslations.description || ''
+            };
+            
             // Create a virtual block for the legal page content
             const virtualBlock = {
               id: -1 * page.id, // Negative ID to distinguish from real blocks
@@ -5303,9 +5317,9 @@ Crawl-delay: 1`;
               createdAt: new Date(),
               updatedAt: new Date(),
               translations: {
-                en: enTranslations || {},
-                fr: frTranslations || {},
-                es: esTranslations || {}
+                en: legalEnTranslations,
+                fr: legalFrTranslations,
+                es: legalEsTranslations
               },
               translationsMeta: {
                 fr: frMeta || {},
