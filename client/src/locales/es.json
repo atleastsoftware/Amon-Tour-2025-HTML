@@ -1,11 +1,11 @@
 {
   "nav": {
     "home": "Inicio",
-    "tours": "Tours",
+    "tours": "Circuitos",
     "experiences": "Experiencias",
     "cruise": "Crucero",
     "customTrip": "Viaje a medida",
-    "blog": "Blog",
+    "blog": "Noticias",
     "contact": "Contacto"
   },
   "hero": {
@@ -19,7 +19,7 @@
   },
   "common": {
     "loading": "Cargando...",
-    "error": "Error",
+    "error": "Error de carga",
     "tryAgain": "Intentar de nuevo",
     "learnMore": "Saber más",
     "viewDetails": "Ver detalles",
@@ -70,11 +70,11 @@
     "familyTrip": "Viaje familiar",
     "groupTrip": "Viaje en grupo",
     "weddingHoneymoon": "Boda y Luna de miel",
-    "khaoSok": "Khao Sok",
+    "khaoSok": "Parque Nacional de Khao Sok",
     "bangkok": "Bangkok",
     "krabi": "Krabi",
     "chiangMai": "Chiang Mai",
-    "kohMook": "Koh Mook",
+    "kohMook": "Isla de Koh Mook",
     "othersDestinations": "Otros destinos",
     "someIdeasTitle": "Algunas ideas para tu próximo viaje",
     "someIdeasDescription": "Inspírate con nuestras experiencias de viaje diseñadas a medida.",
@@ -228,7 +228,7 @@
   "contact_340": {
     "title": "Póngase en contacto",
     "subtitle": "¿Todo listo para explorar Krabi? Contáctenos a través de cualquiera de los métodos a continuación. Nuestro amable equipo está aquí para responder a tus preguntas y ayudarte a planificar una experiencia inolvidable.",
-    "email_label": "Email",
+    "email_label": "Correo electrónico",
     "email": "info@amon-tour.com",
     "phone_label": "Teléfono",
     "phone": "+66 9 62 16 65 59",
