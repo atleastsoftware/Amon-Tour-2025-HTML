@@ -210,12 +210,12 @@
   "why_choose_us_325": {
     "title": "Pourquoi choisir une visite personnalisée ?",
     "subtitle": "Un voyage personnalisé offre une expérience unique adaptée à vos désirs, votre rythme et votre budget.",
-    "icon_blocks_0_title": "",
-    "icon_blocks_0_description": "",
-    "icon_blocks_1_title": "",
-    "icon_blocks_1_description": "",
-    "icon_blocks_2_title": "",
-    "icon_blocks_2_description": ""
+    "icon_blocks_0_title": "Flexible Itinerary",
+    "icon_blocks_0_description": "Choose the destinations that interest you and set your own travel pace.",
+    "icon_blocks_1_title": "Tailored Accommodations",
+    "icon_blocks_1_description": "Select accommodations that match your preferences and budget.",
+    "icon_blocks_2_title": "Personalized Support",
+    "icon_blocks_2_description": "Benefit from expert advice and an English-speaking guide for an authentic experience."
   },
   "text_205": {
     "title": "Quand les expatriés vous accueillent dans leur pays d'accueil",
@@ -329,12 +329,12 @@
   "why_choose_us_352": {
     "title": "Liberté et exclusivité",
     "subtitle": "Naviguez vers l'exclusivité à bord de l'une des rares croisières en catamaran au départ de Krabi. Explorez la mer d'Andaman comme peu de voyageurs ont la chance de le faire : en toute liberté, loin des circuits touristiques, avec un itinéraire entièrement conçu pour vous.",
-    "icon_blocks_0_title": "",
-    "icon_blocks_0_description": "",
-    "icon_blocks_1_title": "",
-    "icon_blocks_1_description": "",
-    "icon_blocks_2_title": "",
-    "icon_blocks_2_description": ""
+    "icon_blocks_0_title": "Tailor-made routes",
+    "icon_blocks_0_description": "We compose your itinerary to reveal the best of the region, prioritizing preserved sites and exceptional moments.",
+    "icon_blocks_1_title": "Expert crew",
+    "icon_blocks_1_description": "Our captains have perfect mastery of these waters. They optimize each navigation by adapting to weather conditions, tides and winds to maximize your pleasure.",
+    "icon_blocks_2_title": "Total freedom",
+    "icon_blocks_2_description": "Deserted beaches, turquoise lagoons, snorkeling in crystal-clear waters... Your cruise evolves according to your preferences."
   },
   "popular_experiences_433": {
     "title": "Nos forfaits exclusifs",
@@ -343,21 +343,21 @@
   "why_choose_us_259": {
     "title": "Pourquoi Nous Choisir",
     "subtitle": "Vivez une excursion privée exclusive d'une journée avec nos guides certifiés anglophones ou francophones.",
-    "icon_blocks_0_title": "",
-    "icon_blocks_0_description": "",
-    "icon_blocks_0_mini_icons_0_text": "",
-    "icon_blocks_0_mini_icons_1_text": "",
-    "icon_blocks_0_mini_icons_2_text": "",
-    "icon_blocks_1_title": "",
-    "icon_blocks_1_description": "",
-    "icon_blocks_1_mini_icons_0_text": "",
-    "icon_blocks_1_mini_icons_1_text": "",
-    "icon_blocks_1_mini_icons_2_text": "",
-    "icon_blocks_2_title": "",
-    "icon_blocks_2_description": "",
-    "icon_blocks_2_mini_icons_0_text": "",
-    "icon_blocks_2_mini_icons_1_text": "",
-    "icon_blocks_2_mini_icons_2_text": ""
+    "icon_blocks_0_title": "Private Tours",
+    "icon_blocks_0_description": "Experience an exclusive day trip with our professional guides and private vehicles.",
+    "icon_blocks_0_mini_icons_0_text": "Private Car",
+    "icon_blocks_0_mini_icons_1_text": "Guide",
+    "icon_blocks_0_mini_icons_2_text": "Nouveau",
+    "icon_blocks_1_title": "Customized Itineraries",
+    "icon_blocks_1_description": "Create your own journey based on your desires, your pace, and your interests.",
+    "icon_blocks_1_mini_icons_0_text": "Custom Route",
+    "icon_blocks_1_mini_icons_1_text": "Flexible Time",
+    "icon_blocks_1_mini_icons_2_text": "Your Pace",
+    "icon_blocks_2_title": "Authentic Experiences",
+    "icon_blocks_2_description": "Discover destinations off the beaten path and immerse yourself in the local culture.",
+    "icon_blocks_2_mini_icons_0_text": "Local Food",
+    "icon_blocks_2_mini_icons_1_text": " Local People",
+    "icon_blocks_2_mini_icons_2_text": "Culture"
   },
   "who_we_are_270": {
     "title": "Qui sommes-nous",
