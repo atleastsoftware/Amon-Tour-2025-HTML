@@ -210,12 +210,12 @@
   "why_choose_us_325": {
     "title": "¿Por qué elegir un tour personalizado?",
     "subtitle": "Un viaje personalizado ofrece una experiencia única adaptada a tus deseos, ritmo y presupuesto.",
-    "icon_blocks_0_title": "Flexible Itinerary",
-    "icon_blocks_0_description": "Choose the destinations that interest you and set your own travel pace.",
-    "icon_blocks_1_title": "Tailored Accommodations",
-    "icon_blocks_1_description": "Select accommodations that match your preferences and budget.",
-    "icon_blocks_2_title": "Personalized Support",
-    "icon_blocks_2_description": "Benefit from expert advice and an English-speaking guide for an authentic experience."
+    "icon_blocks_0_title": "Itinerario flexible",
+    "icon_blocks_0_description": "Elige los destinos que te interesan y establece tu propio ritmo de viaje.",
+    "icon_blocks_1_title": "Alojamientos a medida",
+    "icon_blocks_1_description": "Selecciona alojamientos que se adapten a tus preferencias y presupuesto.",
+    "icon_blocks_2_title": "Acompañamiento personalizado",
+    "icon_blocks_2_description": "Benefíciate de consejos expertos y un guía de habla hispana o inglesa para una experiencia auténtica."
   },
   "text_205": {
     "title": "Cuando los expatriados te reciben en su país de acogida",
@@ -250,11 +250,11 @@
     "buttons_1_text": "Personaliza tu viaje"
   },
   "blog_search_347": {
-    "search_placeholder": "Rechercher des articles...",
+    "search_placeholder": "Buscar artículos...",
     "tags_title": "Etiquetas",
-    "categories_title": "Catégories",
-    "all_tags_text": "Tous les tags",
-    "all_categories_text": "Toutes les catégories"
+    "categories_title": "Categorías",
+    "all_tags_text": "Todas las etiquetas",
+    "all_categories_text": "Todas las categorías"
   },
   "text_344": {
     "title": "¿Todo listo para empezar tu aventura? ",
@@ -296,7 +296,7 @@
   },
   "text_gallery_353": {
     "title": "Un catamarán Lagoon 470",
-    "subtitle": "Built in 1999 and constantly improved since 2023, combines comfort and character. It has 4 double cabins with private bathrooms: two cabins with queen-size beds (160 cm) and two with double beds (140 cm). Each cabin is equipped with fans, 220V sockets and large storage spaces.\n\nSpacious and well-designed, the Lagoon offers seamless flow between the interior and exterior living spaces: large, bright living room, equipped kitchen, shaded cockpit, sunbathing area at the front, etc. The discreet engine ensures peaceful navigation.\n\nPerfect for holidays with family, friends or private charter, this boat guarantees your comfort, privacy and freedom to explore the most beautiful islands of the Andaman Sea."
+    "subtitle": "Construido en 1999 y constantemente mejorado desde 2023, combina comodidad y carácter. Cuenta con 4 cabinas dobles con baños privados: dos cabinas con camas queen-size (160 cm) y dos con camas dobles (140 cm). Cada cabina está equipada con ventiladores, enchufes de 220V y amplios espacios de almacenamiento.\n\nAmplio y bien diseñado, el Lagoon ofrece un flujo perfecto entre los espacios de vida interiores y exteriores: gran sala luminosa, cocina equipada, cabina sombreada, área para tomar el sol en la parte delantera, etc. El motor discreto asegura una navegación tranquila.\n\nPerfecto para vacaciones en familia, con amigos o en chárter privado, este barco garantiza tu comodidad, privacidad y libertad para explorar las islas más hermosas del mar de Andamán."
   },
   "custom_tour_form_252": {
     "title": "Viajes a medida.",
@@ -329,12 +329,12 @@
   "why_choose_us_352": {
     "title": "Libertad y exclusividad",
     "subtitle": "Navega hacia la exclusividad a bordo de uno de los raros cruceros en catamarán que salen de Krabi. Explora el mar de Andamán como pocos viajeros tienen la oportunidad de hacerlo: con total libertad, lejos de los circuitos turísticos, con un itinerario pensado íntegramente para ti.",
-    "icon_blocks_0_title": "Tailor-made routes",
-    "icon_blocks_0_description": "We compose your itinerary to reveal the best of the region, prioritizing preserved sites and exceptional moments.",
-    "icon_blocks_1_title": "Expert crew",
-    "icon_blocks_1_description": "Our captains have perfect mastery of these waters. They optimize each navigation by adapting to weather conditions, tides and winds to maximize your pleasure.",
-    "icon_blocks_2_title": "Total freedom",
-    "icon_blocks_2_description": "Deserted beaches, turquoise lagoons, snorkeling in crystal-clear waters... Your cruise evolves according to your preferences."
+    "icon_blocks_0_title": "Rutas a medida",
+    "icon_blocks_0_description": "Componemos tu itinerario para revelar lo mejor de la región, priorizando sitios preservados y momentos excepcionales.",
+    "icon_blocks_1_title": "Tripulación experta",
+    "icon_blocks_1_description": "Nuestros capitanes dominan perfectamente estas aguas. Optimizan cada navegación adaptándose a las condiciones meteorológicas, mareas y vientos para maximizar tu placer.",
+    "icon_blocks_2_title": "Libertad total",
+    "icon_blocks_2_description": "Playas desiertas, lagunas turquesas, snorkel en aguas cristalinas... Tu crucero evoluciona según tus preferencias."
   },
   "popular_experiences_433": {
     "title": "\" Programas exclusivos.",
@@ -343,21 +343,21 @@
   "why_choose_us_259": {
     "title": "Por qué Elegir a Nosotros",
     "subtitle": "Disfruta de una excursión privada exclusiva de un día con nuestros guías certificados de habla inglesa o francesa.",
-    "icon_blocks_0_title": "Private Tours",
-    "icon_blocks_0_description": "Experience an exclusive day trip with our professional guides and private vehicles.",
-    "icon_blocks_0_mini_icons_0_text": "Private Car",
-    "icon_blocks_0_mini_icons_1_text": "Guide",
-    "icon_blocks_0_mini_icons_2_text": "Nouveau",
-    "icon_blocks_1_title": "Customized Itineraries",
-    "icon_blocks_1_description": "Create your own journey based on your desires, your pace, and your interests.",
-    "icon_blocks_1_mini_icons_0_text": "Custom Route",
-    "icon_blocks_1_mini_icons_1_text": "Flexible Time",
-    "icon_blocks_1_mini_icons_2_text": "Your Pace",
-    "icon_blocks_2_title": "Authentic Experiences",
-    "icon_blocks_2_description": "Discover destinations off the beaten path and immerse yourself in the local culture.",
-    "icon_blocks_2_mini_icons_0_text": "Local Food",
-    "icon_blocks_2_mini_icons_1_text": " Local People",
-    "icon_blocks_2_mini_icons_2_text": "Culture"
+    "icon_blocks_0_title": "Tours privados",
+    "icon_blocks_0_description": "Vive una excursión exclusiva de un día con nuestros guías profesionales y vehículos privados.",
+    "icon_blocks_0_mini_icons_0_text": "Coche privado",
+    "icon_blocks_0_mini_icons_1_text": "Guía",
+    "icon_blocks_0_mini_icons_2_text": "Seguridad",
+    "icon_blocks_1_title": "Itinerarios personalizados",
+    "icon_blocks_1_description": "Crea tu propio viaje basado en tus deseos, tu ritmo y tus intereses.",
+    "icon_blocks_1_mini_icons_0_text": "Ruta personalizada",
+    "icon_blocks_1_mini_icons_1_text": "Horario flexible",
+    "icon_blocks_1_mini_icons_2_text": "Tu ritmo",
+    "icon_blocks_2_title": "Experiencias auténticas",
+    "icon_blocks_2_description": "Descubre destinos fuera de los caminos trillados y sumérgete en la cultura local.",
+    "icon_blocks_2_mini_icons_0_text": "Comida local",
+    "icon_blocks_2_mini_icons_1_text": "Gente local",
+    "icon_blocks_2_mini_icons_2_text": "Cultura"
   },
   "who_we_are_270": {
     "title": "Quiénes somos",

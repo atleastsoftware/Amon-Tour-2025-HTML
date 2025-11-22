@@ -210,12 +210,12 @@
   "why_choose_us_325": {
     "title": "Pourquoi choisir une visite personnalisée ?",
     "subtitle": "Un voyage personnalisé offre une expérience unique adaptée à vos désirs, votre rythme et votre budget.",
-    "icon_blocks_0_title": "Flexible Itinerary",
-    "icon_blocks_0_description": "Choose the destinations that interest you and set your own travel pace.",
-    "icon_blocks_1_title": "Tailored Accommodations",
-    "icon_blocks_1_description": "Select accommodations that match your preferences and budget.",
-    "icon_blocks_2_title": "Personalized Support",
-    "icon_blocks_2_description": "Benefit from expert advice and an English-speaking guide for an authentic experience."
+    "icon_blocks_0_title": "Itinéraire flexible",
+    "icon_blocks_0_description": "Choisissez les destinations qui vous intéressent et définissez votre propre rythme de voyage.",
+    "icon_blocks_1_title": "Hébergements sur mesure",
+    "icon_blocks_1_description": "Sélectionnez des hébergements qui correspondent à vos préférences et à votre budget.",
+    "icon_blocks_2_title": "Accompagnement personnalisé",
+    "icon_blocks_2_description": "Bénéficiez de conseils d'experts et d'un guide francophone ou anglophone pour une expérience authentique."
   },
   "text_205": {
     "title": "Quand les expatriés vous accueillent dans leur pays d'accueil",
@@ -230,7 +230,7 @@
     "subtitle": "Prêt à explorer Krabi ? Contactez-nous par l'une des méthodes ci-dessous. Notre équipe amicale est là pour répondre à vos questions et vous aider à planifier une expérience inoubliable.",
     "email_label": "Email",
     "email": "info@amon-tour.com",
-    "phone_label": "Phone",
+    "phone_label": "Téléphone",
     "phone": "+66 9 62 16 65 59",
     "whatsapp_label": "WhatsApp",
     "whatsapp": "+66 6 53 49 64 45",
@@ -296,7 +296,7 @@
   },
   "text_gallery_353": {
     "title": "Un catamaran Lagoon 470",
-    "subtitle": "Built in 1999 and constantly improved since 2023, combines comfort and character. It has 4 double cabins with private bathrooms: two cabins with queen-size beds (160 cm) and two with double beds (140 cm). Each cabin is equipped with fans, 220V sockets and large storage spaces.\n\nSpacious and well-designed, the Lagoon offers seamless flow between the interior and exterior living spaces: large, bright living room, equipped kitchen, shaded cockpit, sunbathing area at the front, etc. The discreet engine ensures peaceful navigation.\n\nPerfect for holidays with family, friends or private charter, this boat guarantees your comfort, privacy and freedom to explore the most beautiful islands of the Andaman Sea."
+    "subtitle": "Construit en 1999 et constamment amélioré depuis 2023, allie confort et caractère. Il dispose de 4 cabines doubles avec salles de bain privées : deux cabines avec lits queen-size (160 cm) et deux avec lits doubles (140 cm). Chaque cabine est équipée de ventilateurs, de prises 220V et de grands espaces de rangement.\n\nSpacieux et bien conçu, le Lagoon offre une circulation fluide entre les espaces de vie intérieurs et extérieurs : grand salon lumineux, cuisine équipée, cockpit ombragé, espace bain de soleil à l'avant, etc. Le moteur discret assure une navigation paisible.\n\nParfait pour des vacances en famille, entre amis ou en charter privé, ce bateau garantit votre confort, votre intimité et votre liberté d'explorer les plus belles îles de la mer d'Andaman."
   },
   "custom_tour_form_252": {
     "title": "Nos voyages sur mesure",
@@ -329,12 +329,12 @@
   "why_choose_us_352": {
     "title": "Liberté et exclusivité",
     "subtitle": "Naviguez vers l'exclusivité à bord de l'une des rares croisières en catamaran au départ de Krabi. Explorez la mer d'Andaman comme peu de voyageurs ont la chance de le faire : en toute liberté, loin des circuits touristiques, avec un itinéraire entièrement conçu pour vous.",
-    "icon_blocks_0_title": "Tailor-made routes",
-    "icon_blocks_0_description": "We compose your itinerary to reveal the best of the region, prioritizing preserved sites and exceptional moments.",
-    "icon_blocks_1_title": "Expert crew",
-    "icon_blocks_1_description": "Our captains have perfect mastery of these waters. They optimize each navigation by adapting to weather conditions, tides and winds to maximize your pleasure.",
-    "icon_blocks_2_title": "Total freedom",
-    "icon_blocks_2_description": "Deserted beaches, turquoise lagoons, snorkeling in crystal-clear waters... Your cruise evolves according to your preferences."
+    "icon_blocks_0_title": "Itinéraires sur mesure",
+    "icon_blocks_0_description": "Nous composons votre itinéraire pour révéler le meilleur de la région, en privilégiant les sites préservés et les moments exceptionnels.",
+    "icon_blocks_1_title": "Équipage expert",
+    "icon_blocks_1_description": "Nos capitaines maîtrisent parfaitement ces eaux. Ils optimisent chaque navigation en s'adaptant aux conditions météorologiques, aux marées et aux vents pour maximiser votre plaisir.",
+    "icon_blocks_2_title": "Liberté totale",
+    "icon_blocks_2_description": "Plages désertes, lagons turquoise, snorkeling dans des eaux cristallines... Votre croisière évolue selon vos préférences."
   },
   "popular_experiences_433": {
     "title": "Nos forfaits exclusifs",
@@ -343,20 +343,20 @@
   "why_choose_us_259": {
     "title": "Pourquoi Nous Choisir",
     "subtitle": "Vivez une excursion privée exclusive d'une journée avec nos guides certifiés anglophones ou francophones.",
-    "icon_blocks_0_title": "Private Tours",
-    "icon_blocks_0_description": "Experience an exclusive day trip with our professional guides and private vehicles.",
-    "icon_blocks_0_mini_icons_0_text": "Private Car",
+    "icon_blocks_0_title": "Tours privés",
+    "icon_blocks_0_description": "Vivez une excursion exclusive d'une journée avec nos guides professionnels et véhicules privés.",
+    "icon_blocks_0_mini_icons_0_text": "Voiture privée",
     "icon_blocks_0_mini_icons_1_text": "Guide",
-    "icon_blocks_0_mini_icons_2_text": "Nouveau",
-    "icon_blocks_1_title": "Customized Itineraries",
-    "icon_blocks_1_description": "Create your own journey based on your desires, your pace, and your interests.",
-    "icon_blocks_1_mini_icons_0_text": "Custom Route",
-    "icon_blocks_1_mini_icons_1_text": "Flexible Time",
-    "icon_blocks_1_mini_icons_2_text": "Your Pace",
-    "icon_blocks_2_title": "Authentic Experiences",
-    "icon_blocks_2_description": "Discover destinations off the beaten path and immerse yourself in the local culture.",
-    "icon_blocks_2_mini_icons_0_text": "Local Food",
-    "icon_blocks_2_mini_icons_1_text": " Local People",
+    "icon_blocks_0_mini_icons_2_text": "Sécurité",
+    "icon_blocks_1_title": "Itinéraires personnalisés",
+    "icon_blocks_1_description": "Créez votre propre voyage basé sur vos désirs, votre rythme et vos intérêts.",
+    "icon_blocks_1_mini_icons_0_text": "Itinéraire sur mesure",
+    "icon_blocks_1_mini_icons_1_text": "Horaires flexibles",
+    "icon_blocks_1_mini_icons_2_text": "Votre rythme",
+    "icon_blocks_2_title": "Expériences authentiques",
+    "icon_blocks_2_description": "Découvrez des destinations hors des sentiers battus et immergez-vous dans la culture locale.",
+    "icon_blocks_2_mini_icons_0_text": "Cuisine locale",
+    "icon_blocks_2_mini_icons_1_text": "Population locale",
     "icon_blocks_2_mini_icons_2_text": "Culture"
   },
   "who_we_are_270": {
