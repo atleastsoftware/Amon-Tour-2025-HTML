@@ -5270,6 +5270,216 @@ Crawl-delay: 1`;
     }
   });
 
+  // Analyze translations to find missing, empty, or English text
+  app.get("/api/admin/translation-analysis", requireAuth, async (req, res) => {
+    try {
+      const { pageBlocks } = await import('../shared/schema');
+      const blocks = await db.select().from(pageBlocks);
+      
+      const issues: any[] = [];
+      
+      for (const block of blocks) {
+        const section = `${block.blockType}_${block.id}`;
+        
+        // Extract all translatable fields
+        const englishFields = blockTranslationService.extractAllTranslatableFields(
+          block.blockType,
+          block.content || block.configuration
+        );
+        
+        for (const [key, enValue] of Object.entries(englishFields)) {
+          if (!enValue || typeof enValue !== 'string') continue;
+          
+          // Check FR translation
+          const frValue = await translationFileService.getTranslationValue(section, key, 'fr');
+          const frManuallyEdited = await translationFileService.isManuallyEdited(section, key, 'fr');
+          
+          if (!frValue || frValue.trim() === '') {
+            issues.push({
+              blockId: block.id,
+              blockType: block.blockType,
+              section,
+              key,
+              language: 'fr',
+              issue: 'empty',
+              englishText: enValue,
+              manuallyEdited: frManuallyEdited
+            });
+          } else if (frValue === enValue) {
+            // Translation is same as English (not translated)
+            issues.push({
+              blockId: block.id,
+              blockType: block.blockType,
+              section,
+              key,
+              language: 'fr',
+              issue: 'not_translated',
+              englishText: enValue,
+              currentValue: frValue,
+              manuallyEdited: frManuallyEdited
+            });
+          }
+          
+          // Check ES translation
+          const esValue = await translationFileService.getTranslationValue(section, key, 'es');
+          const esManuallyEdited = await translationFileService.isManuallyEdited(section, key, 'es');
+          
+          if (!esValue || esValue.trim() === '') {
+            issues.push({
+              blockId: block.id,
+              blockType: block.blockType,
+              section,
+              key,
+              language: 'es',
+              issue: 'empty',
+              englishText: enValue,
+              manuallyEdited: esManuallyEdited
+            });
+          } else if (esValue === enValue) {
+            issues.push({
+              blockId: block.id,
+              blockType: block.blockType,
+              section,
+              key,
+              language: 'es',
+              issue: 'not_translated',
+              englishText: enValue,
+              currentValue: esValue,
+              manuallyEdited: esManuallyEdited
+            });
+          }
+        }
+      }
+      
+      // Categorize issues
+      const summary = {
+        total: issues.length,
+        empty: issues.filter(i => i.issue === 'empty').length,
+        notTranslated: issues.filter(i => i.issue === 'not_translated').length,
+        manuallyEdited: issues.filter(i => i.manuallyEdited).length,
+        canAutoFix: issues.filter(i => !i.manuallyEdited).length,
+        byLanguage: {
+          fr: issues.filter(i => i.language === 'fr').length,
+          es: issues.filter(i => i.language === 'es').length
+        }
+      };
+      
+      res.json({
+        summary,
+        issues: issues.slice(0, 100)  // Return first 100 for UI
+      });
+      
+    } catch (error) {
+      console.error("Error analyzing translations:", error);
+      res.status(500).json({ 
+        message: "Failed to analyze translations", 
+        error: String(error) 
+      });
+    }
+  });
+  
+  // Re-translate all missing/invalid translations (skip manually edited)
+  app.post("/api/admin/regenerate-translations", requireAuth, async (req, res) => {
+    try {
+      const { pageBlocks } = await import('../shared/schema');
+      const blocks = await db.select().from(pageBlocks);
+      
+      const results: any[] = [];
+      let translatedCount = 0;
+      let skippedCount = 0;
+      
+      for (const block of blocks) {
+        const section = `${block.blockType}_${block.id}`;
+        
+        // Extract all translatable fields
+        const englishFields = blockTranslationService.extractAllTranslatableFields(
+          block.blockType,
+          block.content || block.configuration
+        );
+        
+        for (const [key, enValue] of Object.entries(englishFields)) {
+          if (!enValue || typeof enValue !== 'string') continue;
+          
+          // Check both languages
+          for (const lang of ['fr', 'es']) {
+            const currentValue = await translationFileService.getTranslationValue(section, key, lang);
+            const isManuallyEdited = await translationFileService.isManuallyEdited(section, key, lang);
+            
+            // Skip if manually edited
+            if (isManuallyEdited) {
+              skippedCount++;
+              results.push({
+                section,
+                key,
+                lang,
+                status: 'skipped_manual_edit'
+              });
+              continue;
+            }
+            
+            // Check if needs translation (empty or same as English)
+            const needsTranslation = !currentValue || currentValue.trim() === '' || currentValue === enValue;
+            
+            if (needsTranslation) {
+              try {
+                const translations = await autoTranslationService.translateToAllLanguages(enValue, 'en');
+                
+                await translationFileService.updateTranslations({
+                  section,
+                  key,
+                  translations: {
+                    en: enValue,
+                    fr: lang === 'fr' ? translations.fr : currentValue || '',
+                    es: lang === 'es' ? translations.es : currentValue || ''
+                  },
+                  isManualEdit: false
+                });
+                
+                translatedCount++;
+                results.push({
+                  section,
+                  key,
+                  lang,
+                  status: 'translated'
+                });
+                
+                console.log(`✅ Regenerated ${lang} for ${section}.${key}`);
+              } catch (error) {
+                console.error(`❌ Failed to translate ${section}.${key} (${lang}):`, error);
+                results.push({
+                  section,
+                  key,
+                  lang,
+                  status: 'error',
+                  error: String(error)
+                });
+              }
+            }
+          }
+        }
+      }
+      
+      res.json({
+        success: true,
+        message: `Regeneration complete: ${translatedCount} translations regenerated, ${skippedCount} skipped (manual edits)`,
+        summary: {
+          translated: translatedCount,
+          skipped: skippedCount,
+          total: results.length
+        },
+        results: results.slice(0, 50)  // Return sample
+      });
+      
+    } catch (error) {
+      console.error("Error regenerating translations:", error);
+      res.status(500).json({ 
+        success: false,
+        message: "Failed to regenerate translations", 
+        error: String(error) 
+      });
+    }
+  });
+
   // Migration endpoint: Generate translations for all existing blocks
   app.post("/api/admin/migrate-block-translations", requireAuth, async (req, res) => {
     try {
