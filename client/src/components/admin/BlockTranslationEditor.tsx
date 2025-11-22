@@ -268,7 +268,7 @@ export default function BlockTranslationEditor() {
           </CardDescription>
         </CardHeader>
         <CardContent className="p-0">
-          <ScrollArea className="h-[calc(100vh-16rem)]">
+          <div className="max-h-[calc(100vh-16rem)] overflow-y-auto">
             <Accordion type="single" collapsible className="w-full">
               {pages.map(page => (
                 <AccordionItem key={page.id} value={`page-${page.id}`}>
@@ -329,7 +329,7 @@ export default function BlockTranslationEditor() {
                 </AccordionItem>
               ))}
             </Accordion>
-          </ScrollArea>
+          </div>
         </CardContent>
       </Card>
 
@@ -369,7 +369,7 @@ export default function BlockTranslationEditor() {
 
               {(['fr', 'es'] as const).map(lang => (
                 <TabsContent key={lang} value={lang} className="space-y-4">
-                  <ScrollArea className="h-[calc(100vh-20rem)]">
+                  <div className="max-h-[calc(100vh-20rem)] overflow-y-auto">
                     <div className="space-y-4 pr-4">
                       {Object.keys(editedTranslations.en).length > 0 ? (
                         Object.entries(editedTranslations.en).map(([key, enValue]) => {
@@ -419,7 +419,7 @@ export default function BlockTranslationEditor() {
                         </div>
                       )}
                     </div>
-                  </ScrollArea>
+                  </div>
                 </TabsContent>
               ))}
             </Tabs>
