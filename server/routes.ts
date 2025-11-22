@@ -4736,6 +4736,63 @@ Crawl-delay: 1`;
     }
   });
 
+  // Legal pages translation sync route
+  app.put("/api/admin/legal-page-translations/:slug", requireAuth, async (req, res) => {
+    try {
+      const { slug } = req.params;
+      const { title, content } = req.body;
+
+      if (!title || !content) {
+        return res.status(400).json({ message: "Title and content are required" });
+      }
+
+      // Map slug to JSON translation identifier
+      const slugToIdentifier: Record<string, string> = {
+        'privacy-policy': 'text_section_370',
+        'legal-notice': 'text_section_368',
+        'terms-conditions': 'text_section_369'
+      };
+
+      const section = slugToIdentifier[slug];
+      if (!section) {
+        return res.status(400).json({ message: `Unknown legal page slug: ${slug}` });
+      }
+
+      console.log(`📝 Updating legal page translations for ${slug} (${section})`);
+
+      // Auto-translate title and content to FR and ES
+      const titleTranslations = await autoTranslationService.translateToAllLanguages(title, 'en');
+      const contentTranslations = await autoTranslationService.translateToAllLanguages(content, 'en');
+
+      // Save title translations
+      await translationFileService.updateTranslations({
+        section,
+        key: 'title',
+        translations: titleTranslations
+      });
+
+      // Save content translations
+      await translationFileService.updateTranslations({
+        section,
+        key: 'description',
+        translations: contentTranslations
+      });
+
+      console.log(`✅ Legal page translations updated for ${slug}`);
+      
+      res.json({ 
+        message: "Legal page translations updated successfully",
+        translations: {
+          title: titleTranslations,
+          content: contentTranslations
+        }
+      });
+    } catch (error) {
+      console.error("Error updating legal page translations:", error);
+      res.status(500).json({ message: "Failed to update legal page translations", error: String(error) });
+    }
+  });
+
   // Page Block History Management Routes
   app.get("/api/admin/page-blocks/:id/history", requireAuth, async (req, res) => {
     try {

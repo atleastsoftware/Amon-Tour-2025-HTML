@@ -87,8 +87,8 @@ export default function AdminLegalPages() {
       const pageConfig = await pageConfigResponse.json();
 
       // Create a text block with the content
+      const cleanedContent = cleanHTML(data.content);
       if (data.content) {
-        const cleanedContent = cleanHTML(data.content);
         await apiRequest('POST', '/api/admin/page-blocks', {
           pageId: pageConfig.id,
           blockType: 'text_section',
@@ -105,6 +105,22 @@ export default function AdminLegalPages() {
           },
           isActive: true
         });
+      }
+
+      // Sync translations to JSON files for all 3 languages (EN, FR, ES)
+      // Only sync for the 3 main legal pages
+      const legalPageSlugs = ['privacy-policy', 'legal-notice', 'terms-conditions'];
+      if (legalPageSlugs.includes(pageConfig.pageSlug)) {
+        try {
+          await apiRequest('PUT', `/api/admin/legal-page-translations/${pageConfig.pageSlug}`, {
+            title: data.title,
+            content: cleanedContent
+          });
+          console.log(`✅ Legal page translations synced for ${pageConfig.pageSlug}`);
+        } catch (error) {
+          console.error('⚠️ Failed to sync translations to JSON files:', error);
+          // Don't throw - page is created in DB even if translation sync fails
+        }
       }
 
       return pageConfig;
@@ -174,6 +190,18 @@ export default function AdminLegalPages() {
           },
           isActive: true
         });
+      }
+
+      // Sync translations to JSON files for all 3 languages (EN, FR, ES)
+      try {
+        await apiRequest('PUT', `/api/admin/legal-page-translations/${selectedPage.pageSlug}`, {
+          title: data.title,
+          content: cleanedContent
+        });
+        console.log(`✅ Legal page translations synced for ${selectedPage.pageSlug}`);
+      } catch (error) {
+        console.error('⚠️ Failed to sync translations to JSON files:', error);
+        // Don't throw - page is saved in DB even if translation sync fails
       }
     },
     onSuccess: () => {
