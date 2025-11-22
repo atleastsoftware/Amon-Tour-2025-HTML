@@ -62,18 +62,42 @@ export class BlockTranslationService {
       const needsTranslation = hasChanged || !(await translationFileService.translationExists(section, translationKey));
       
       if (needsTranslation) {
+        // Check if manually edited for each language
+        const frManuallyEdited = await translationFileService.isManuallyEdited(section, translationKey, 'fr');
+        const esManuallyEdited = await translationFileService.isManuallyEdited(section, translationKey, 'es');
+        
+        if (frManuallyEdited || esManuallyEdited) {
+          console.log(`⚠️ ${section}.${translationKey} has manual edits - preserving them`);
+        }
+        
         console.log(`🔄 Translating ${section}.${translationKey}...`);
         
         try {
           const translations = await autoTranslationService.translateToAllLanguages(newValue, 'en');
           
+          // Only update translations that haven't been manually edited
+          const finalTranslations: any = { en: newValue };
+          if (!frManuallyEdited) {
+            finalTranslations.fr = translations.fr;
+          } else {
+            // Keep existing FR translation
+            finalTranslations.fr = await translationFileService.getTranslationValue(section, translationKey, 'fr') || translations.fr;
+          }
+          if (!esManuallyEdited) {
+            finalTranslations.es = translations.es;
+          } else {
+            // Keep existing ES translation
+            finalTranslations.es = await translationFileService.getTranslationValue(section, translationKey, 'es') || translations.es;
+          }
+          
           await translationFileService.updateTranslations({
             section,
             key: translationKey,
-            translations
+            translations: finalTranslations,
+            isManualEdit: false  // This is automatic translation
           });
           
-          console.log(`✅ ${section}.${translationKey} translations updated`);
+          console.log(`✅ ${section}.${translationKey} translations updated (FR: ${frManuallyEdited ? 'preserved' : 'auto'}, ES: ${esManuallyEdited ? 'preserved' : 'auto'})`);
         } catch (error) {
           console.error(`⚠️ ${section}.${translationKey} translation failed:`, error);
         }
@@ -107,18 +131,40 @@ export class BlockTranslationService {
           const needsTranslation = hasChanged || !(await translationFileService.translationExists(section, translationKey));
           
           if (needsTranslation) {
+            // Check if manually edited
+            const frManuallyEdited = await translationFileService.isManuallyEdited(section, translationKey, 'fr');
+            const esManuallyEdited = await translationFileService.isManuallyEdited(section, translationKey, 'es');
+            
+            if (frManuallyEdited || esManuallyEdited) {
+              console.log(`⚠️ ${section}.${translationKey} has manual edits - preserving them`);
+            }
+            
             console.log(`🔄 Translating ${section}.${translationKey}...`);
             
             try {
               const translations = await autoTranslationService.translateToAllLanguages(newValue, 'en');
               
+              // Only update translations that haven't been manually edited
+              const finalTranslations: any = { en: newValue };
+              if (!frManuallyEdited) {
+                finalTranslations.fr = translations.fr;
+              } else {
+                finalTranslations.fr = await translationFileService.getTranslationValue(section, translationKey, 'fr') || translations.fr;
+              }
+              if (!esManuallyEdited) {
+                finalTranslations.es = translations.es;
+              } else {
+                finalTranslations.es = await translationFileService.getTranslationValue(section, translationKey, 'es') || translations.es;
+              }
+              
               await translationFileService.updateTranslations({
                 section,
                 key: translationKey,
-                translations
+                translations: finalTranslations,
+                isManualEdit: false
               });
               
-              console.log(`✅ ${section}.${translationKey} translations updated`);
+              console.log(`✅ ${section}.${translationKey} translations updated (FR: ${frManuallyEdited ? 'preserved' : 'auto'}, ES: ${esManuallyEdited ? 'preserved' : 'auto'})`);
             } catch (error) {
               console.error(`⚠️ ${section}.${translationKey} translation failed:`, error);
             }
@@ -142,18 +188,40 @@ export class BlockTranslationService {
               const needsTranslation = hasChanged || !(await translationFileService.translationExists(section, translationKey));
               
               if (needsTranslation) {
+                // Check if manually edited
+                const frManuallyEdited = await translationFileService.isManuallyEdited(section, translationKey, 'fr');
+                const esManuallyEdited = await translationFileService.isManuallyEdited(section, translationKey, 'es');
+                
+                if (frManuallyEdited || esManuallyEdited) {
+                  console.log(`⚠️ ${section}.${translationKey} has manual edits - preserving them`);
+                }
+                
                 console.log(`🔄 Translating ${section}.${translationKey}...`);
                 
                 try {
                   const translations = await autoTranslationService.translateToAllLanguages(newMiniText, 'en');
                   
+                  // Only update translations that haven't been manually edited
+                  const finalTranslations: any = { en: newMiniText };
+                  if (!frManuallyEdited) {
+                    finalTranslations.fr = translations.fr;
+                  } else {
+                    finalTranslations.fr = await translationFileService.getTranslationValue(section, translationKey, 'fr') || translations.fr;
+                  }
+                  if (!esManuallyEdited) {
+                    finalTranslations.es = translations.es;
+                  } else {
+                    finalTranslations.es = await translationFileService.getTranslationValue(section, translationKey, 'es') || translations.es;
+                  }
+                  
                   await translationFileService.updateTranslations({
                     section,
                     key: translationKey,
-                    translations
+                    translations: finalTranslations,
+                    isManualEdit: false
                   });
                   
-                  console.log(`✅ ${section}.${translationKey} translations updated`);
+                  console.log(`✅ ${section}.${translationKey} translations updated (FR: ${frManuallyEdited ? 'preserved' : 'auto'}, ES: ${esManuallyEdited ? 'preserved' : 'auto'})`);
                 } catch (error) {
                   console.error(`⚠️ ${section}.${translationKey} translation failed:`, error);
                 }
