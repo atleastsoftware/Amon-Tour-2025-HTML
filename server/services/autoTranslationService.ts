@@ -1,4 +1,5 @@
-import fetch from 'node-fetch';
+const translate = require('@vitalets/google-translate-api');
+const { HttpsProxyAgent } = require('https-proxy-agent');
 
 export interface TranslationResult {
   translatedText: string;
@@ -11,7 +12,6 @@ export interface BatchTranslationResult {
 }
 
 class AutoTranslationService {
-  private readonly apiUrl = 'https://api.mymemory.translated.net/get';
   private readonly supportedLanguages = ['en', 'fr', 'es'];
   
   async translateText(
@@ -33,22 +33,15 @@ class AutoTranslationService {
         
         console.log(`  📝 Translating: "${textWithPlaceholder.substring(0, 80)}..."`);
         
-        const encodedText = encodeURIComponent(textWithPlaceholder);
-        const url = `${this.apiUrl}?q=${encodedText}&langpair=${sourceLanguage}|${targetLanguage}`;
+        const result = await translate(textWithPlaceholder, { 
+          from: sourceLanguage, 
+          to: targetLanguage,
+          fetchOptions: {
+            agent: new HttpsProxyAgent('http://proxy:3128')
+          }
+        });
         
-        const response = await fetch(url);
-
-        if (!response.ok) {
-          throw new Error(`MyMemory API error: ${response.status} ${response.statusText}`);
-        }
-
-        const data = await response.json() as any;
-        
-        if (data.responseStatus !== 200) {
-          throw new Error(`MyMemory API error: ${data.responseStatus} - ${data.responseDetails || 'Unknown error'}`);
-        }
-        
-        let translatedText = data.responseData.translatedText;
+        let translatedText = result.text;
         translatedText = translatedText.replace(/\s*\[\[NEWLINE\]\]\s*/g, '\n');
         
         console.log(`✅ Multi-line translation complete: "${translatedText.substring(0, 80)}..."`);
@@ -66,22 +59,15 @@ class AutoTranslationService {
         
         console.log(`🌍 Translating from ${sourceLanguage} to ${targetLanguage}: "${cleanText.substring(0, 50)}..."`);
         
-        const encodedText = encodeURIComponent(cleanText);
-        const url = `${this.apiUrl}?q=${encodedText}&langpair=${sourceLanguage}|${targetLanguage}`;
+        const result = await translate(cleanText, { 
+          from: sourceLanguage, 
+          to: targetLanguage,
+          fetchOptions: {
+            agent: new HttpsProxyAgent('http://proxy:3128')
+          }
+        });
         
-        const response = await fetch(url);
-
-        if (!response.ok) {
-          throw new Error(`MyMemory API error: ${response.status} ${response.statusText}`);
-        }
-
-        const data = await response.json() as any;
-        
-        if (data.responseStatus !== 200) {
-          throw new Error(`MyMemory API error: ${data.responseStatus} - ${data.responseDetails || 'Unknown error'}`);
-        }
-        
-        const translatedText = data.responseData.translatedText;
+        const translatedText = result.text;
         
         console.log(`✅ Translation successful: "${translatedText.substring(0, 50)}..."`);
         
@@ -114,7 +100,7 @@ class AutoTranslationService {
         const result = await this.translateText(text, targetLang, sourceLanguage);
         results[targetLang] = result.translatedText;
         
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await new Promise(resolve => setTimeout(resolve, 500));
       } catch (error) {
         console.error(`Failed to translate to ${targetLang}:`, error);
         results[targetLang] = text;
