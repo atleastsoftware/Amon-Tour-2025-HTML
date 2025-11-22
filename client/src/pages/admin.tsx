@@ -354,13 +354,13 @@ export default function Admin() {
                         <Globe className="h-6 w-6" />
                       </div>
                       <div>
-                        <CardTitle className="text-lg font-heading">Traduction Auto</CardTitle>
+                        <CardTitle className="text-lg font-heading">Gestion des Traductions</CardTitle>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="text-white/90">
                     <CardDescription className="text-white/80">
-                      Gérer la traduction automatique par IP
+                      Corriger et personnaliser les traductions
                     </CardDescription>
                   </CardContent>
                 </Card>
