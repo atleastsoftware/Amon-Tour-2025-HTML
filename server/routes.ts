@@ -5404,70 +5404,90 @@ Crawl-delay: 1`;
         for (const [key, enValue] of Object.entries(englishFields)) {
           if (!enValue || typeof enValue !== 'string') continue;
           
-          // Check both languages
-          for (const lang of ['fr', 'es']) {
-            const currentValue = await translationFileService.getTranslationValue(section, key, lang);
-            const isManuallyEdited = await translationFileService.isManuallyEdited(section, key, lang);
+          // Check both languages ONCE per field
+          const frValue = await translationFileService.getTranslationValue(section, key, 'fr');
+          const esValue = await translationFileService.getTranslationValue(section, key, 'es');
+          const frManuallyEdited = await translationFileService.isManuallyEdited(section, key, 'fr');
+          const esManuallyEdited = await translationFileService.isManuallyEdited(section, key, 'es');
+          
+          // Determine which languages need translation
+          const frNeedsTranslation = !frManuallyEdited && (!frValue || frValue.trim() === '' || frValue === enValue);
+          const esNeedsTranslation = !esManuallyEdited && (!esValue || esValue.trim() === '' || esValue === enValue);
+          
+          // Skip if both are manually edited
+          if (frManuallyEdited && esManuallyEdited) {
+            skippedCount += 2;
+            results.push(
+              { section, key, lang: 'fr', status: 'skipped_manual_edit' },
+              { section, key, lang: 'es', status: 'skipped_manual_edit' }
+            );
+            continue;
+          }
+          
+          // Skip entirely if nothing needs translation
+          if (!frNeedsTranslation && !esNeedsTranslation) {
+            continue;
+          }
+          
+          // Translate ONCE for both languages
+          try {
+            // Add delay to avoid hitting API rate limits
+            await delay(1000);
             
-            // Skip if manually edited
-            if (isManuallyEdited) {
+            console.log(`🌍 Translating ${section}.${key}...`);
+            const translations = await autoTranslationService.translateToAllLanguages(enValue, 'en');
+            
+            // Determine final values (use new translation or keep existing/manual)
+            const finalFrValue = frNeedsTranslation ? translations.fr : (frValue || '');
+            const finalEsValue = esNeedsTranslation ? translations.es : (esValue || '');
+            
+            // Save both translations at once
+            await translationFileService.updateTranslations({
+              section,
+              key,
+              translations: {
+                en: enValue,
+                fr: finalFrValue,
+                es: finalEsValue
+              },
+              isManualEdit: false
+            });
+            
+            // Track what was translated
+            if (frNeedsTranslation && !frManuallyEdited) {
+              translatedCount++;
+              results.push({ section, key, lang: 'fr', status: 'translated' });
+              console.log(`✅ Translated FR: ${section}.${key}`);
+            } else if (frManuallyEdited) {
               skippedCount++;
-              results.push({
-                section,
-                key,
-                lang,
-                status: 'skipped_manual_edit'
-              });
-              continue;
+              results.push({ section, key, lang: 'fr', status: 'skipped_manual_edit' });
             }
             
-            // Check if needs translation (empty or same as English)
-            const needsTranslation = !currentValue || currentValue.trim() === '' || currentValue === enValue;
+            if (esNeedsTranslation && !esManuallyEdited) {
+              translatedCount++;
+              results.push({ section, key, lang: 'es', status: 'translated' });
+              console.log(`✅ Translated ES: ${section}.${key}`);
+            } else if (esManuallyEdited) {
+              skippedCount++;
+              results.push({ section, key, lang: 'es', status: 'skipped_manual_edit' });
+            }
             
-            if (needsTranslation) {
-              try {
-                // Add 1 second delay to avoid hitting API rate limits
-                await delay(1000);
-                
-                const translations = await autoTranslationService.translateToAllLanguages(enValue, 'en');
-                
-                await translationFileService.updateTranslations({
-                  section,
-                  key,
-                  translations: {
-                    en: enValue,
-                    fr: lang === 'fr' ? translations.fr : currentValue || '',
-                    es: lang === 'es' ? translations.es : currentValue || ''
-                  },
-                  isManualEdit: false
-                });
-                
-                translatedCount++;
-                results.push({
-                  section,
-                  key,
-                  lang,
-                  status: 'translated'
-                });
-                
-                console.log(`✅ Regenerated ${lang} for ${section}.${key}`);
-              } catch (error) {
-                errorCount++;
-                console.error(`❌ Failed to translate ${section}.${key} (${lang}):`, error);
-                results.push({
-                  section,
-                  key,
-                  lang,
-                  status: 'error',
-                  error: String(error)
-                });
-                
-                // If we hit rate limit, add longer delay before continuing
-                if (String(error).includes('429') || String(error).includes('Too Many Requests')) {
-                  console.log('⏳ Rate limit hit, waiting 3 seconds before continuing...');
-                  await delay(3000);
-                }
-              }
+          } catch (error) {
+            errorCount++;
+            console.error(`❌ Failed to translate ${section}.${key}:`, error);
+            
+            // Mark both as errored if translation failed
+            if (frNeedsTranslation) {
+              results.push({ section, key, lang: 'fr', status: 'error', error: String(error) });
+            }
+            if (esNeedsTranslation) {
+              results.push({ section, key, lang: 'es', status: 'error', error: String(error) });
+            }
+            
+            // If we hit rate limit, add longer delay before continuing
+            if (String(error).includes('429') || String(error).includes('Too Many Requests')) {
+              console.log('⏳ Rate limit hit, waiting 3 seconds before continuing...');
+              await delay(3000);
             }
           }
         }
