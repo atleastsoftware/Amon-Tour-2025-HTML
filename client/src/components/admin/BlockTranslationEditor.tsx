@@ -10,7 +10,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient } from "@/lib/queryClient";
-import { Globe, Save, FileText, Lock, Sparkles } from "lucide-react";
+import { Globe, Save, FileText, Lock, Sparkles, AlertCircle, RefreshCw, CheckCircle } from "lucide-react";
 
 // Block type name mapping for display
 const BLOCK_TYPE_NAMES: Record<string, string> = {
@@ -189,6 +189,9 @@ export default function BlockTranslationEditor() {
   const { toast } = useToast();
   const [selectedBlockId, setSelectedBlockId] = useState<number | null>(null);
   const [editedTranslations, setEditedTranslations] = useState<BlockTranslations | null>(null);
+  const [analysisData, setAnalysisData] = useState<any>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [isRegenerating, setIsRegenerating] = useState(false);
 
   // Fetch all pages with their blocks and translations
   const { data: pages = [], isLoading } = useQuery<Page[]>({
@@ -245,6 +248,61 @@ export default function BlockTranslationEditor() {
     });
   };
 
+  const handleAnalyzeTranslations = async () => {
+    setIsAnalyzing(true);
+    try {
+      const res = await fetch('/api/admin/translation-analysis', {
+        credentials: 'include'
+      });
+      if (!res.ok) throw new Error('Analysis failed');
+      const data = await res.json();
+      setAnalysisData(data);
+      toast({
+        title: "Analyse terminée",
+        description: `${data.summary.total} problèmes trouvés`,
+      });
+    } catch (error) {
+      toast({
+        title: "Erreur d'analyse",
+        description: "Impossible d'analyser les traductions",
+        variant: "destructive",
+      });
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
+
+  const handleRegenerateTranslations = async () => {
+    setIsRegenerating(true);
+    try {
+      const res = await fetch('/api/admin/regenerate-translations', {
+        method: 'POST',
+        credentials: 'include'
+      });
+      if (!res.ok) throw new Error('Regeneration failed');
+      const data = await res.json();
+      
+      toast({
+        title: "Régénération terminée !",
+        description: `${data.summary.translated} traductions régénérées, ${data.summary.skipped} préservées (modifiées manuellement)`,
+      });
+      
+      // Refresh data
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/blocks-with-translations'] });
+      
+      // Re-analyze
+      await handleAnalyzeTranslations();
+    } catch (error) {
+      toast({
+        title: "Erreur de régénération",
+        description: "Impossible de régénérer les traductions",
+        variant: "destructive",
+      });
+    } finally {
+      setIsRegenerating(false);
+    }
+  };
+
   const handleTranslationChange = (lang: 'fr' | 'es', key: string, value: string) => {
     if (!editedTranslations) return;
     setEditedTranslations({
@@ -265,18 +323,81 @@ export default function BlockTranslationEditor() {
   }
 
   return (
-    <div className="grid grid-cols-12 gap-4">
-      {/* Left Panel: Pages with Blocks in Accordion */}
-      <Card className="col-span-4">
-        <CardHeader className="pb-3">
-          <CardTitle className="text-lg flex items-center gap-2">
-            <FileText className="w-5 h-5" />
-            Pages et Blocs
-          </CardTitle>
-          <CardDescription>
-            {pages.length} page{pages.length > 1 ? 's' : ''} avec blocs d'édition
-          </CardDescription>
+    <div className="space-y-4">
+      {/* Analysis & Tools Section */}
+      <Card>
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="flex items-center gap-2">
+                <AlertCircle className="w-5 h-5" />
+                Analyse des Traductions
+              </CardTitle>
+              <CardDescription>
+                Vérifier la qualité et régénérer les traductions manquantes
+              </CardDescription>
+            </div>
+            <div className="flex gap-2">
+              <Button
+                onClick={handleAnalyzeTranslations}
+                disabled={isAnalyzing}
+                variant="outline"
+                data-testid="button-analyze-translations"
+              >
+                {isAnalyzing ? "Analyse..." : "Analyser"}
+              </Button>
+              <Button
+                onClick={handleRegenerateTranslations}
+                disabled={isRegenerating || !analysisData}
+                data-testid="button-regenerate-translations"
+              >
+                <RefreshCw className={`w-4 h-4 mr-2 ${isRegenerating ? 'animate-spin' : ''}`} />
+                {isRegenerating ? "Régénération..." : "Régénérer les traductions"}
+              </Button>
+            </div>
+          </div>
         </CardHeader>
+        {analysisData && (
+          <CardContent>
+            <div className="grid grid-cols-5 gap-4">
+              <div className="text-center p-3 bg-muted rounded-lg">
+                <div className="text-2xl font-bold">{analysisData.summary.total}</div>
+                <div className="text-xs text-muted-foreground">Total problèmes</div>
+              </div>
+              <div className="text-center p-3 bg-red-50 dark:bg-red-950/20 rounded-lg">
+                <div className="text-2xl font-bold text-red-600">{analysisData.summary.empty}</div>
+                <div className="text-xs text-muted-foreground">Vides</div>
+              </div>
+              <div className="text-center p-3 bg-orange-50 dark:bg-orange-950/20 rounded-lg">
+                <div className="text-2xl font-bold text-orange-600">{analysisData.summary.notTranslated}</div>
+                <div className="text-xs text-muted-foreground">Non traduites</div>
+              </div>
+              <div className="text-center p-3 bg-amber-50 dark:bg-amber-950/20 rounded-lg">
+                <div className="text-2xl font-bold text-amber-600">{analysisData.summary.manuallyEdited}</div>
+                <div className="text-xs text-muted-foreground">Modifiées (préservées)</div>
+              </div>
+              <div className="text-center p-3 bg-green-50 dark:bg-green-950/20 rounded-lg">
+                <div className="text-2xl font-bold text-green-600">{analysisData.summary.canAutoFix}</div>
+                <div className="text-xs text-muted-foreground">Corrigibles auto</div>
+              </div>
+            </div>
+          </CardContent>
+        )}
+      </Card>
+
+      {/* Main Editor */}
+      <div className="grid grid-cols-12 gap-4">
+        {/* Left Panel: Pages with Blocks in Accordion */}
+        <Card className="col-span-4">
+          <CardHeader className="pb-3">
+            <CardTitle className="text-lg flex items-center gap-2">
+              <FileText className="w-5 h-5" />
+              Pages et Blocs
+            </CardTitle>
+            <CardDescription>
+              {pages.length} page{pages.length > 1 ? 's' : ''} avec blocs d'édition
+            </CardDescription>
+          </CardHeader>
         <CardContent className="p-0">
           <div className="max-h-[calc(100vh-16rem)] overflow-y-auto">
             <Accordion type="single" collapsible className="w-full">
@@ -464,6 +585,7 @@ export default function BlockTranslationEditor() {
           )}
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 }
