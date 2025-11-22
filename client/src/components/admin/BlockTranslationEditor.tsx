@@ -539,28 +539,67 @@ export default function BlockTranslationEditor() {
                                 </Badge>
                               </div>
                               
-                              <div className="text-xs text-muted-foreground bg-muted/50 p-2 rounded border">
-                                <strong>Anglais (source):</strong>
-                                <div className="mt-1 whitespace-pre-line">{enValue}</div>
-                              </div>
-
-                              {isLongText ? (
-                                <Textarea
-                                  data-testid={`input-translation-${lang}-${key}`}
-                                  value={translatedValue}
-                                  onChange={(e) => handleTranslationChange(lang, key, e.target.value)}
-                                  placeholder={`Traduction en ${lang === 'fr' ? 'français' : 'espagnol'}...`}
-                                  className="min-h-[100px] font-mono text-sm"
-                                  style={{ whiteSpace: 'pre-line' }}
-                                />
+                              {/* Special handling for HTML content (description field) */}
+                              {key === 'description' && enValue.includes('<') ? (
+                                <>
+                                  <div className="text-xs text-muted-foreground bg-muted/50 p-2 rounded border">
+                                    <strong>Anglais (source) - Aperçu HTML:</strong>
+                                    <div 
+                                      className="mt-2 prose prose-sm max-w-none dark:prose-invert"
+                                      dangerouslySetInnerHTML={{ __html: enValue }}
+                                    />
+                                  </div>
+                                  
+                                  <div className="space-y-2">
+                                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                      <AlertCircle className="w-3 h-3" />
+                                      <span>Modifiez le code HTML ci-dessous</span>
+                                    </div>
+                                    <Textarea
+                                      data-testid={`input-translation-${lang}-${key}`}
+                                      value={translatedValue}
+                                      onChange={(e) => handleTranslationChange(lang, key, e.target.value)}
+                                      placeholder={`Code HTML en ${lang === 'fr' ? 'français' : 'espagnol'}...`}
+                                      className="min-h-[200px] font-mono text-xs"
+                                    />
+                                  </div>
+                                  
+                                  {translatedValue && translatedValue.includes('<') && (
+                                    <div className="text-xs text-muted-foreground bg-muted/50 p-2 rounded border">
+                                      <strong>Aperçu de votre traduction:</strong>
+                                      <div 
+                                        className="mt-2 prose prose-sm max-w-none dark:prose-invert"
+                                        dangerouslySetInnerHTML={{ __html: translatedValue }}
+                                      />
+                                    </div>
+                                  )}
+                                </>
                               ) : (
-                                <Input
-                                  data-testid={`input-translation-${lang}-${key}`}
-                                  value={translatedValue}
-                                  onChange={(e) => handleTranslationChange(lang, key, e.target.value)}
-                                  placeholder={`Traduction en ${lang === 'fr' ? 'français' : 'espagnol'}...`}
-                                  className="font-mono text-sm"
-                                />
+                                <>
+                                  <div className="text-xs text-muted-foreground bg-muted/50 p-2 rounded border">
+                                    <strong>Anglais (source):</strong>
+                                    <div className="mt-1 whitespace-pre-line">{enValue}</div>
+                                  </div>
+
+                                  {isLongText ? (
+                                    <Textarea
+                                      data-testid={`input-translation-${lang}-${key}`}
+                                      value={translatedValue}
+                                      onChange={(e) => handleTranslationChange(lang, key, e.target.value)}
+                                      placeholder={`Traduction en ${lang === 'fr' ? 'français' : 'espagnol'}...`}
+                                      className="min-h-[100px] font-mono text-sm"
+                                      style={{ whiteSpace: 'pre-line' }}
+                                    />
+                                  ) : (
+                                    <Input
+                                      data-testid={`input-translation-${lang}-${key}`}
+                                      value={translatedValue}
+                                      onChange={(e) => handleTranslationChange(lang, key, e.target.value)}
+                                      placeholder={`Traduction en ${lang === 'fr' ? 'français' : 'espagnol'}...`}
+                                      className="font-mono text-sm"
+                                    />
+                                  )}
+                                </>
                               )}
                             </div>
                           );
