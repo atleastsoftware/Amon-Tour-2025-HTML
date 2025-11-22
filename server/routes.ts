@@ -5387,6 +5387,10 @@ Crawl-delay: 1`;
       const results: any[] = [];
       let translatedCount = 0;
       let skippedCount = 0;
+      let errorCount = 0;
+      
+      // Helper function to add delay between API calls
+      const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
       
       for (const block of blocks) {
         const section = `${block.blockType}_${block.id}`;
@@ -5422,6 +5426,9 @@ Crawl-delay: 1`;
             
             if (needsTranslation) {
               try {
+                // Add 500ms delay to avoid hitting API rate limits
+                await delay(500);
+                
                 const translations = await autoTranslationService.translateToAllLanguages(enValue, 'en');
                 
                 await translationFileService.updateTranslations({
@@ -5445,6 +5452,7 @@ Crawl-delay: 1`;
                 
                 console.log(`✅ Regenerated ${lang} for ${section}.${key}`);
               } catch (error) {
+                errorCount++;
                 console.error(`❌ Failed to translate ${section}.${key} (${lang}):`, error);
                 results.push({
                   section,
@@ -5453,6 +5461,12 @@ Crawl-delay: 1`;
                   status: 'error',
                   error: String(error)
                 });
+                
+                // If we hit rate limit, add longer delay before continuing
+                if (String(error).includes('429') || String(error).includes('Too Many Requests')) {
+                  console.log('⏳ Rate limit hit, waiting 3 seconds before continuing...');
+                  await delay(3000);
+                }
               }
             }
           }
@@ -5461,10 +5475,11 @@ Crawl-delay: 1`;
       
       res.json({
         success: true,
-        message: `Regeneration complete: ${translatedCount} translations regenerated, ${skippedCount} skipped (manual edits)`,
+        message: `Regeneration complete: ${translatedCount} translations regenerated, ${skippedCount} skipped (manual edits), ${errorCount} errors`,
         summary: {
           translated: translatedCount,
           skipped: skippedCount,
+          errors: errorCount,
           total: results.length
         },
         results: results.slice(0, 50)  // Return sample
