@@ -209,7 +209,13 @@
   },
   "why_choose_us_325": {
     "title": "¿Por qué elegir un tour personalizado?",
-    "subtitle": "Un viaje personalizado ofrece una experiencia única adaptada a tus deseos, ritmo y presupuesto."
+    "subtitle": "Un viaje personalizado ofrece una experiencia única adaptada a tus deseos, ritmo y presupuesto.",
+    "icon_blocks_0_title": "Itinerario flexible",
+    "icon_blocks_0_description": "Elige los destinos que te interesen y marca tu propio ritmo de viaje.",
+    "icon_blocks_1_title": "Adaptaciones a medida",
+    "icon_blocks_1_description": "Selecciona alojamientos que se ajusten a tus preferencias y presupuesto.",
+    "icon_blocks_2_title": "Apoyo personalizado",
+    "icon_blocks_2_description": "Benefíciate del asesoramiento de expertos y de un guía de habla inglesa para disfrutar de una experiencia auténtica."
   },
   "text_205": {
     "title": "Cuando los expatriados te reciben en su país de acogida",
@@ -322,7 +328,13 @@
   },
   "why_choose_us_352": {
     "title": "Libertad y exclusividad",
-    "subtitle": "Navega hacia la exclusividad a bordo de uno de los raros cruceros en catamarán que salen de Krabi. Explora el mar de Andamán como pocos viajeros tienen la oportunidad de hacerlo: con total libertad, lejos de los circuitos turísticos, con un itinerario pensado íntegramente para ti."
+    "subtitle": "Navega hacia la exclusividad a bordo de uno de los raros cruceros en catamarán que salen de Krabi. Explora el mar de Andamán como pocos viajeros tienen la oportunidad de hacerlo: con total libertad, lejos de los circuitos turísticos, con un itinerario pensado íntegramente para ti.",
+    "icon_blocks_0_title": "Rutas a medida",
+    "icon_blocks_0_description": "Redactamos tu itinerario para dar a conocer lo mejor de la región, priorizando sitios preservados y momentos excepcionales.",
+    "icon_blocks_1_title": "Tripulación experta",
+    "icon_blocks_1_description": "Nuestros capitanes dominan perfectamente estas aguas. Optimizan cada navegación adaptándose a las condiciones climáticas, las mareas y los vientos para maximizar tu placer.",
+    "icon_blocks_2_title": "Libertad total",
+    "icon_blocks_2_description": "Playas desiertas, lagunas turquesas, snorkel en aguas cristalinas… Tu crucero evoluciona según tus preferencias."
   },
   "popular_experiences_433": {
     "title": "\" Programas exclusivos.",
@@ -330,7 +342,22 @@
   },
   "why_choose_us_259": {
     "title": "Por qué Elegir a Nosotros",
-    "subtitle": "Disfruta de una excursión privada exclusiva de un día con nuestros guías certificados de habla inglesa o francesa."
+    "subtitle": "Disfruta de una excursión privada exclusiva de un día con nuestros guías certificados de habla inglesa o francesa.",
+    "icon_blocks_0_title": "Tours privados",
+    "icon_blocks_0_description": "Disfruta de una excursión exclusiva de un día con nuestros guías profesionales y vehículos privados.",
+    "icon_blocks_0_mini_icons_0_text": "Coche Privado",
+    "icon_blocks_0_mini_icons_1_text": "Guía",
+    "icon_blocks_0_mini_icons_2_text": "Nuevo",
+    "icon_blocks_1_title": "ITINERARIOS PERSONALIZADOS",
+    "icon_blocks_1_description": "Crea tu propio viaje en función de tus deseos, tu ritmo y tus intereses.",
+    "icon_blocks_1_mini_icons_0_text": "Ruta personalizada",
+    "icon_blocks_1_mini_icons_1_text": "TIEMPO FLEXIBLE",
+    "icon_blocks_1_mini_icons_2_text": "Tu ritmo",
+    "icon_blocks_2_title": "Experiencias auténticas",
+    "icon_blocks_2_description": "Descubre destinos fuera de lo común y sumérgete en la cultura local.",
+    "icon_blocks_2_mini_icons_0_text": "Pescado de Consumo local",
+    "icon_blocks_2_mini_icons_1_text": "Local people",
+    "icon_blocks_2_mini_icons_2_text": "Cultura"
   },
   "who_we_are_270": {
     "title": "Quiénes somos",

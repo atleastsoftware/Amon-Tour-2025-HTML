@@ -209,7 +209,13 @@
   },
   "why_choose_us_325": {
     "title": "Pourquoi choisir une visite personnalisée ?",
-    "subtitle": "Un voyage personnalisé offre une expérience unique adaptée à vos désirs, votre rythme et votre budget."
+    "subtitle": "Un voyage personnalisé offre une expérience unique adaptée à vos désirs, votre rythme et votre budget.",
+    "icon_blocks_0_title": "",
+    "icon_blocks_0_description": "",
+    "icon_blocks_1_title": "",
+    "icon_blocks_1_description": "",
+    "icon_blocks_2_title": "",
+    "icon_blocks_2_description": ""
   },
   "text_205": {
     "title": "Quand les expatriés vous accueillent dans leur pays d'accueil",
@@ -222,7 +228,7 @@
   "contact_340": {
     "title": "Contactez-nous",
     "subtitle": "Prêt à explorer Krabi ? Contactez-nous par l'une des méthodes ci-dessous. Notre équipe amicale est là pour répondre à vos questions et vous aider à planifier une expérience inoubliable.",
-    "email_label": "Courriel",
+    "email_label": "Email",
     "email": "info@amon-tour.com",
     "phone_label": "Phone",
     "phone": "+66 9 62 16 65 59",
@@ -247,8 +253,8 @@
     "search_placeholder": "Rechercher des articles...",
     "tags_title": "Étiquettes",
     "categories_title": "Catégories",
-    "all_tags_text": "'Tous les tags',",
-    "all_categories_text": "All Categories"
+    "all_tags_text": "Tous les tags",
+    "all_categories_text": "Toutes les catégories"
   },
   "text_344": {
     "title": "Prêt à commencer votre aventure ?",
@@ -322,7 +328,13 @@
   },
   "why_choose_us_352": {
     "title": "Liberté et exclusivité",
-    "subtitle": "Naviguez vers l'exclusivité à bord de l'une des rares croisières en catamaran au départ de Krabi. Explorez la mer d'Andaman comme peu de voyageurs ont la chance de le faire : en toute liberté, loin des circuits touristiques, avec un itinéraire entièrement conçu pour vous."
+    "subtitle": "Naviguez vers l'exclusivité à bord de l'une des rares croisières en catamaran au départ de Krabi. Explorez la mer d'Andaman comme peu de voyageurs ont la chance de le faire : en toute liberté, loin des circuits touristiques, avec un itinéraire entièrement conçu pour vous.",
+    "icon_blocks_0_title": "",
+    "icon_blocks_0_description": "",
+    "icon_blocks_1_title": "",
+    "icon_blocks_1_description": "",
+    "icon_blocks_2_title": "",
+    "icon_blocks_2_description": ""
   },
   "popular_experiences_433": {
     "title": "Nos forfaits exclusifs",
@@ -330,7 +342,22 @@
   },
   "why_choose_us_259": {
     "title": "Pourquoi Nous Choisir",
-    "subtitle": "Vivez une excursion privée exclusive d'une journée avec nos guides certifiés anglophones ou francophones."
+    "subtitle": "Vivez une excursion privée exclusive d'une journée avec nos guides certifiés anglophones ou francophones.",
+    "icon_blocks_0_title": "",
+    "icon_blocks_0_description": "",
+    "icon_blocks_0_mini_icons_0_text": "",
+    "icon_blocks_0_mini_icons_1_text": "",
+    "icon_blocks_0_mini_icons_2_text": "",
+    "icon_blocks_1_title": "",
+    "icon_blocks_1_description": "",
+    "icon_blocks_1_mini_icons_0_text": "",
+    "icon_blocks_1_mini_icons_1_text": "",
+    "icon_blocks_1_mini_icons_2_text": "",
+    "icon_blocks_2_title": "",
+    "icon_blocks_2_description": "",
+    "icon_blocks_2_mini_icons_0_text": "",
+    "icon_blocks_2_mini_icons_1_text": "",
+    "icon_blocks_2_mini_icons_2_text": ""
   },
   "who_we_are_270": {
     "title": "Qui sommes-nous",
@@ -371,10 +398,10 @@
     "pricing_cards_2_cycle": "par jour",
     "pricing_cards_2_label": "Période:",
     "pricing_cards_2_more_text": "1er avr. - 14 oct. 2026\n\n",
-    "pickup_times_0_time": "8h30",
+    "pickup_times_0_time": "8:30",
     "pickup_times_0_location": "de Tubkeak",
     "pickup_times_0_price": "+1 300 bahts",
-    "pickup_times_1_time": "8h30",
+    "pickup_times_1_time": "8:30",
     "pickup_times_1_location": "de Thalane",
     "pickup_times_1_price": "+1 800 bahts",
     "pickup_times_2_time": "8h40",
@@ -383,7 +410,7 @@
     "pickup_times_3_time": "8:45",
     "pickup_times_3_location": "d'Ao Nang",
     "pickup_times_3_price": "Supplément",
-    "pickup_times_4_time": "9 :27)",
+    "pickup_times_4_time": "9:00",
     "pickup_times_4_location": "de Railay",
     "pickup_times_4_price": "Supplément"
   },
