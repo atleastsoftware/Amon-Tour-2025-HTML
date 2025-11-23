@@ -2927,6 +2927,13 @@ Crawl-delay: 1`;
     try {
       const formData = insertCustomFormSchema.parse(req.body);
       const form = await storage.createCustomForm(formData);
+      
+      // Initialize translations for the new form (async, don't wait)
+      const { formTranslationService } = await import('./services/formTranslationService');
+      formTranslationService.initializeFormTranslations(form.id).catch(err => {
+        console.error(`Failed to initialize translations for form ${form.id}:`, err);
+      });
+      
       res.status(201).json(form);
     } catch (error: any) {
       console.error("Error creating custom form:", error);
@@ -2953,6 +2960,22 @@ Crawl-delay: 1`;
       
       if (!updatedForm) {
         return res.status(404).json({ message: "Custom form not found" });
+      }
+
+      // Update translations if form content changed (async, don't wait)
+      if (formData.title || formData.subtitle !== undefined || formData.description !== undefined || 
+          formData.fields || formData.settings) {
+        const { formTranslationService } = await import('./services/formTranslationService');
+        formTranslationService.updateFormTranslations(
+          id,
+          updatedForm.title,
+          updatedForm.subtitle,
+          updatedForm.description,
+          updatedForm.fields as any,
+          updatedForm.settings as any
+        ).catch(err => {
+          console.error(`Failed to update translations for form ${id}:`, err);
+        });
       }
 
       res.json(updatedForm);

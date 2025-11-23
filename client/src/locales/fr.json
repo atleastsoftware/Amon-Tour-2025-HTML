@@ -243,11 +243,11 @@
     "company_description": "Nous sommes un voyagiste agréé basé à Ao Nang, Krabi, spécialisé dans les expériences locales authentiques et les services de voyage personnalisés."
   },
   "hero_199": {
-    "title": "Vos\nexpériences exclusives\nà Krabi - THAÏLANDE",
+    "title": "Vos expériences exclusives à Krabi - THAÏLANDE",
     "subtitle": "Découvrez des endroits incroyables loin du tourisme de masse à Krabi.\nEt aussi Khao Sok, Koh Mook et bien d'autres destinations. test",
     "title_accent": "à Krabi -",
     "buttons_0_text": "Voir nos offres",
-    "buttons_1_text": "Personnalisez votre course"
+    "buttons_1_text": "Personnalisez votre voyage"
   },
   "blog_search_347": {
     "search_placeholder": "Rechercher des articles...",
@@ -610,6 +610,23 @@
         "isManuallyEdited": true
       },
       "pickup_times_4_price": {
+        "isManuallyEdited": true
+      }
+    },
+    "hero_199": {
+      "title": {
+        "isManuallyEdited": true
+      },
+      "subtitle": {
+        "isManuallyEdited": true
+      },
+      "title_accent": {
+        "isManuallyEdited": true
+      },
+      "buttons_0_text": {
+        "isManuallyEdited": true
+      },
+      "buttons_1_text": {
         "isManuallyEdited": true
       }
     }

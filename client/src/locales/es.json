@@ -612,6 +612,23 @@
       "pickup_times_4_price": {
         "isManuallyEdited": true
       }
+    },
+    "hero_199": {
+      "title": {
+        "isManuallyEdited": true
+      },
+      "subtitle": {
+        "isManuallyEdited": true
+      },
+      "title_accent": {
+        "isManuallyEdited": true
+      },
+      "buttons_0_text": {
+        "isManuallyEdited": true
+      },
+      "buttons_1_text": {
+        "isManuallyEdited": true
+      }
     }
   }
 }
