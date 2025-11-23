@@ -286,67 +286,6 @@ export default function BlockTranslationEditor() {
 
   return (
     <div className="space-y-4">
-      {/* Analysis & Tools Section */}
-      <Card>
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <div>
-              <CardTitle className="flex items-center gap-2">
-                <AlertCircle className="w-5 h-5" />
-                Analyse des Traductions
-              </CardTitle>
-              <CardDescription>
-                Vérifier la qualité et régénérer les traductions manquantes
-              </CardDescription>
-            </div>
-            <div className="flex gap-2">
-              <Button
-                onClick={handleAnalyzeTranslations}
-                disabled={isAnalyzing}
-                variant="outline"
-                data-testid="button-analyze-translations"
-              >
-                {isAnalyzing ? "Analyse..." : "Analyser"}
-              </Button>
-              <Button
-                onClick={handleRegenerateTranslations}
-                disabled={isRegenerating || !analysisData}
-                data-testid="button-regenerate-translations"
-              >
-                <RefreshCw className={`w-4 h-4 mr-2 ${isRegenerating ? 'animate-spin' : ''}`} />
-                {isRegenerating ? "Régénération..." : "Régénérer les traductions"}
-              </Button>
-            </div>
-          </div>
-        </CardHeader>
-        {analysisData && (
-          <CardContent>
-            <div className="grid grid-cols-5 gap-4">
-              <div className="text-center p-3 bg-muted rounded-lg">
-                <div className="text-2xl font-bold">{analysisData.summary.total}</div>
-                <div className="text-xs text-muted-foreground">Total problèmes</div>
-              </div>
-              <div className="text-center p-3 bg-red-50 dark:bg-red-950/20 rounded-lg">
-                <div className="text-2xl font-bold text-red-600">{analysisData.summary.empty}</div>
-                <div className="text-xs text-muted-foreground">Vides</div>
-              </div>
-              <div className="text-center p-3 bg-orange-50 dark:bg-orange-950/20 rounded-lg">
-                <div className="text-2xl font-bold text-orange-600">{analysisData.summary.notTranslated}</div>
-                <div className="text-xs text-muted-foreground">Non traduites</div>
-              </div>
-              <div className="text-center p-3 bg-amber-50 dark:bg-amber-950/20 rounded-lg">
-                <div className="text-2xl font-bold text-amber-600">{analysisData.summary.manuallyEdited}</div>
-                <div className="text-xs text-muted-foreground">Modifiées (préservées)</div>
-              </div>
-              <div className="text-center p-3 bg-green-50 dark:bg-green-950/20 rounded-lg">
-                <div className="text-2xl font-bold text-green-600">{analysisData.summary.canAutoFix}</div>
-                <div className="text-xs text-muted-foreground">Corrigibles auto</div>
-              </div>
-            </div>
-          </CardContent>
-        )}
-      </Card>
-
       {/* Main Editor */}
       <div className="grid grid-cols-12 gap-4">
         {/* Left Panel: Pages with Blocks in Accordion */}

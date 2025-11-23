@@ -334,6 +334,14 @@ export default function GlobalElementTranslationEditor() {
               <p className="text-gray-500">Sélectionnez un élément pour gérer ses traductions</p>
             </CardContent>
           </Card>
+        ) : selectedElement?.type === 'popup' && Object.keys(selectedElementData.translations.en).length === 0 ? (
+          <Card>
+            <CardContent className="py-12 text-center">
+              <MessageSquare className="h-12 w-12 mx-auto text-gray-300 mb-4" />
+              <p className="text-gray-500 font-medium">Pop-up non configuré</p>
+              <p className="text-sm text-gray-400 mt-2">Activez le pop-up dans le dashboard pour gérer ses traductions</p>
+            </CardContent>
+          </Card>
         ) : (
           <Card>
             <CardHeader>
