@@ -4704,7 +4704,6 @@ Crawl-delay: 1`;
           );
           
           // Also get translation metadata
-          const translationFileService = (await import('./services/translationFileService')).translationFileService;
           const section = `${oldBlock.blockType}_${id}`;
           const frMeta = await translationFileService.getSectionMetadata(section, 'fr');
           const esMeta = await translationFileService.getSectionMetadata(section, 'es');
