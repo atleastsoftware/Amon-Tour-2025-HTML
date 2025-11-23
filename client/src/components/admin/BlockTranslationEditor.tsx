@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/hooks/use-toast";
+import { useUITranslation } from '@/hooks/useUITranslation';
 import { queryClient } from "@/lib/queryClient";
 import { FileText, Save, Lock, Sparkles, AlertCircle, EyeOff } from "lucide-react";
 import { BLOCK_TYPE_LABELS } from "./BlockSelectionPopup";
@@ -51,49 +52,49 @@ function getSortedFieldKeys(keys: string[]): string[] {
   return [...orderedKeys, ...unorderedKeys];
 }
 
-function getFieldDisplayName(key: string): string {
+function getFieldDisplayName(key: string, t: (key: string) => string): string {
   const simpleFields: Record<string, string> = {
-    'title': 'Titre',
-    'subtitle': 'Sous-titre',
-    'description': 'Description',
-    'content': 'Contenu',
-    'cta_text': 'Texte du bouton',
-    'title_accent': 'Mot du titre en seconde couleur',
-    'placeholder': 'Texte indicatif',
-    'introduction': 'Introduction',
-    'text': 'Texte',
-    'label': 'Label',
-    'email_label': 'Label email',
-    'email': 'Email',
-    'phone_label': 'Label téléphone',
-    'phone': 'Téléphone',
-    'whatsapp_label': 'Label WhatsApp',
-    'whatsapp': 'WhatsApp',
-    'line_id_label': 'Label LINE ID',
-    'line_id': 'LINE ID',
-    'about_title': 'Titre à propos',
-    'company_brand': 'Marque',
-    'company_name': 'Nom de société',
-    'company_license': 'Licence',
-    'company_description': 'Description société',
-    'button_text': 'Texte du bouton',
-    'privacy_text': 'Texte de confidentialité',
-    'search_placeholder': 'Texte indicatif de recherche',
-    'tags_title': 'Titre tags',
-    'categories_title': 'Titre catégories',
-    'all_tags_text': 'Texte tous les tags',
-    'all_categories_text': 'Texte toutes catégories',
-    'pickup_title': 'Titre ramassage',
-    'included_title': 'Titre inclus',
-    'included_description': 'Description inclus',
-    'not_included_title': 'Titre non inclus',
-    'not_included_description': 'Description non inclus',
-    'price': 'Prix',
-    'currency': 'Devise',
-    'cycle': 'Période',
-    'more_text': 'Texte plus',
-    'time': 'Heure',
-    'location': 'Lieu'
+    'title': t('translationEditor.fieldNames.title'),
+    'subtitle': t('translationEditor.fieldNames.subtitle'),
+    'description': t('translationEditor.fieldNames.description'),
+    'content': t('translationEditor.fieldNames.content'),
+    'cta_text': t('translationEditor.fieldNames.ctaText'),
+    'title_accent': t('translationEditor.fieldNames.titleAccent'),
+    'placeholder': t('translationEditor.fieldNames.placeholder'),
+    'introduction': t('translationEditor.fieldNames.introduction'),
+    'text': t('translationEditor.fieldNames.text'),
+    'label': t('translationEditor.fieldNames.label'),
+    'email_label': t('translationEditor.fieldNames.emailLabel'),
+    'email': t('translationEditor.fieldNames.email'),
+    'phone_label': t('translationEditor.fieldNames.phoneLabel'),
+    'phone': t('translationEditor.fieldNames.phone'),
+    'whatsapp_label': t('translationEditor.fieldNames.whatsappLabel'),
+    'whatsapp': t('translationEditor.fieldNames.whatsapp'),
+    'line_id_label': t('translationEditor.fieldNames.lineIdLabel'),
+    'line_id': t('translationEditor.fieldNames.lineId'),
+    'about_title': t('translationEditor.fieldNames.aboutTitle'),
+    'company_brand': t('translationEditor.fieldNames.companyBrand'),
+    'company_name': t('translationEditor.fieldNames.companyName'),
+    'company_license': t('translationEditor.fieldNames.companyLicense'),
+    'company_description': t('translationEditor.fieldNames.companyDescription'),
+    'button_text': t('translationEditor.fieldNames.buttonText'),
+    'privacy_text': t('translationEditor.fieldNames.privacyText'),
+    'search_placeholder': t('translationEditor.fieldNames.searchPlaceholder'),
+    'tags_title': t('translationEditor.fieldNames.tagsTitle'),
+    'categories_title': t('translationEditor.fieldNames.categoriesTitle'),
+    'all_tags_text': t('translationEditor.fieldNames.allTagsText'),
+    'all_categories_text': t('translationEditor.fieldNames.allCategoriesText'),
+    'pickup_title': t('translationEditor.fieldNames.pickupTitle'),
+    'included_title': t('translationEditor.fieldNames.includedTitle'),
+    'included_description': t('translationEditor.fieldNames.includedDescription'),
+    'not_included_title': t('translationEditor.fieldNames.notIncludedTitle'),
+    'not_included_description': t('translationEditor.fieldNames.notIncludedDescription'),
+    'price': t('translationEditor.fieldNames.price'),
+    'currency': t('translationEditor.fieldNames.currency'),
+    'cycle': t('translationEditor.fieldNames.cycle'),
+    'more_text': t('translationEditor.fieldNames.moreText'),
+    'time': t('translationEditor.fieldNames.time'),
+    'location': t('translationEditor.fieldNames.location')
   };
 
   if (simpleFields[key]) {
@@ -104,7 +105,7 @@ function getFieldDisplayName(key: string): string {
   if (nestedIconMatch) {
     const blockIndex = parseInt(nestedIconMatch[1]) + 1;
     const iconIndex = parseInt(nestedIconMatch[2]) + 1;
-    return `Bloc ${blockIndex} - Mini icône ${iconIndex}`;
+    return `${t('translationEditor.fieldNames.block')} ${blockIndex} - ${t('translationEditor.fieldNames.miniIcon')} ${iconIndex}`;
   }
 
   const arrayMatch = key.match(/^(.+)_(\d+)_(.+)$/);
@@ -114,13 +115,13 @@ function getFieldDisplayName(key: string): string {
     const fieldName = arrayMatch[3];
 
     const arrayNames: Record<string, string> = {
-      'buttons': 'Bouton',
-      'items': 'Élément',
-      'sections': 'Section',
-      'icon_blocks': 'Bloc',
-      'pricing_cards': 'Carte',
-      'pickup_times': 'Horaire',
-      'mini_icons': 'Mini icône'
+      'buttons': t('translationEditor.fieldNames.button'),
+      'items': t('translationEditor.fieldNames.item'),
+      'sections': t('translationEditor.fieldNames.section'),
+      'icon_blocks': t('translationEditor.fieldNames.block'),
+      'pricing_cards': t('translationEditor.fieldNames.pricingCard'),
+      'pickup_times': t('translationEditor.fieldNames.pickupTime'),
+      'mini_icons': t('translationEditor.fieldNames.miniIcon')
     };
 
     const displayArrayName = arrayNames[arrayName] || arrayName;
@@ -168,6 +169,7 @@ interface Page {
 }
 
 export default function BlockTranslationEditor() {
+  const { t } = useUITranslation();
   const { toast } = useToast();
   const [selectedPageId, setSelectedPageId] = useState<number | null>(null);
   const [selectedBlockId, setSelectedBlockId] = useState<number | null>(null);
@@ -212,14 +214,14 @@ export default function BlockTranslationEditor() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/blocks-with-translations'] });
       toast({
-        title: "Traductions sauvegardées !",
-        description: "Les modifications ont été enregistrées avec succès.",
+        title: t('translationEditor.saveSuccess.title'),
+        description: t('translationEditor.saveSuccess.description'),
       });
     },
     onError: () => {
       toast({
-        title: "Erreur",
-        description: "Impossible de sauvegarder les traductions.",
+        title: t('translationEditor.saveError.title'),
+        description: t('translationEditor.saveError.description'),
         variant: "destructive",
       });
     },
@@ -250,11 +252,11 @@ export default function BlockTranslationEditor() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <FileText className="w-5 h-5" />
-            Traductions des blocs de pages
+            {t('translationEditor.title')}
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground">Chargement...</p>
+          <p className="text-muted-foreground">{t('translationEditor.loading')}</p>
         </CardContent>
       </Card>
     );
@@ -266,10 +268,10 @@ export default function BlockTranslationEditor() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <FileText className="w-5 h-5" />
-            Traductions des blocs de pages
+            {t('translationEditor.title')}
           </CardTitle>
           <CardDescription>
-            Sélectionnez une page puis un bloc pour modifier ses traductions
+            {t('translationEditor.subtitle')}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -295,7 +297,7 @@ export default function BlockTranslationEditor() {
             {selectedPage && (
               <div className="space-y-3">
                 <h3 className="text-sm font-semibold text-muted-foreground">
-                  Blocs de la page {selectedPage.pageName}
+                  {t('translationEditor.pageBlocks', { pageName: selectedPage.pageName })}
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {selectedPage.blocks
@@ -320,7 +322,7 @@ export default function BlockTranslationEditor() {
                     })}
                 </div>
                 {selectedPage.blocks.filter(block => Object.keys(block.translations.en).length > 0).length === 0 && (
-                  <p className="text-sm text-muted-foreground">Aucun bloc avec du texte à traduire</p>
+                  <p className="text-sm text-muted-foreground">{t('translationEditor.noTextToTranslate')}</p>
                 )}
               </div>
             )}
@@ -336,17 +338,17 @@ export default function BlockTranslationEditor() {
                     data-testid="button-save-block-translations"
                   >
                     <Save className="w-4 h-4 mr-2" />
-                    Sauvegarder
+                    {t('translationEditor.save')}
                   </Button>
                 </div>
 
                 <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as 'fr' | 'es')}>
                   <TabsList className="grid w-full grid-cols-2">
                     <TabsTrigger value="fr" data-testid="tab-fr">
-                      🇫🇷 Français
+                      {t('translationEditor.tabs.french')}
                     </TabsTrigger>
                     <TabsTrigger value="es" data-testid="tab-es">
-                      🇪🇸 Español
+                      {t('translationEditor.tabs.spanish')}
                     </TabsTrigger>
                   </TabsList>
 
@@ -372,30 +374,30 @@ export default function BlockTranslationEditor() {
                                 >
                                   <div className="flex items-center justify-between">
                                     <label className="text-sm font-medium flex items-center gap-2">
-                                      {getFieldDisplayName(key)}
+                                      {getFieldDisplayName(key, t)}
                                       {isManuallyEdited ? (
                                         <Badge variant="secondary" className="text-xs bg-amber-500 text-white flex items-center gap-1">
                                           <Lock className="w-3 h-3" />
-                                          Édité manuellement
+                                          {t('translationEditor.badges.manuallyEdited')}
                                         </Badge>
                                       ) : (
                                         <Badge variant="outline" className="text-xs flex items-center gap-1">
                                           <Sparkles className="w-3 h-3" />
-                                          Auto
+                                          {t('translationEditor.badges.auto')}
                                         </Badge>
                                       )}
                                     </label>
                                   </div>
                                   
                                   <div className="text-xs text-muted-foreground bg-muted p-2 rounded" style={{ whiteSpace: 'pre-line' }}>
-                                    <strong>EN:</strong> {enValue}
+                                    <strong>{t('translationEditor.originalText')}</strong> {enValue}
                                   </div>
 
                                   {isLongText ? (
                                     <Textarea
                                       value={translatedValue}
                                       onChange={(e) => handleTranslationChange(lang, key, e.target.value)}
-                                      placeholder={`Traduction ${lang === 'fr' ? 'française' : 'espagnole'}`}
+                                      placeholder={t(`translationEditor.translationPlaceholder.${lang}`)}
                                       rows={Math.max(4, (translatedValue.match(/\n/g) || []).length + 2)}
                                       data-testid={`textarea-${lang}-${key}`}
                                     />
@@ -403,7 +405,7 @@ export default function BlockTranslationEditor() {
                                     <Input
                                       value={translatedValue}
                                       onChange={(e) => handleTranslationChange(lang, key, e.target.value)}
-                                      placeholder={`Traduction ${lang === 'fr' ? 'française' : 'espagnole'}`}
+                                      placeholder={t(`translationEditor.translationPlaceholder.${lang}`)}
                                       data-testid={`input-${lang}-${key}`}
                                     />
                                   )}
@@ -412,7 +414,7 @@ export default function BlockTranslationEditor() {
                             })
                           ) : (
                             <p className="text-center py-12 text-muted-foreground">
-                              Aucun texte à traduire dans ce bloc
+                              {t('translationEditor.noTextInBlock')}
                             </p>
                           )}
                         </div>

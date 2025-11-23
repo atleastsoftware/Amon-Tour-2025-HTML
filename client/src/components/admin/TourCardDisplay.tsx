@@ -12,6 +12,7 @@ import {
 import TourCardEditModal from "./TourCardEditModal";
 import { useToast } from "@/hooks/use-toast";
 import { formatTHB } from "@/lib/utils";
+import { useUITranslation } from "@/hooks/useUITranslation";
 
 import type { TourCard } from "@shared/schema";
 
@@ -24,6 +25,7 @@ interface TourCardDisplayProps {
 }
 
 export default function TourCardDisplay({ tourCard, onDelete, onUpdate }: TourCardDisplayProps) {
+  const { t } = useUITranslation();
   const { toast } = useToast();
   const [copied, setCopied] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -48,16 +50,16 @@ export default function TourCardDisplay({ tourCard, onDelete, onUpdate }: TourCa
       await navigator.clipboard.writeText(tourCard.customLink);
       setCopied(true);
       toast({
-        title: "Lien copié",
-        description: "Le lien a été copié dans le presse-papiers"
+        title: t('tourCard.display.linkCopied'),
+        description: t('tourCard.display.linkCopiedDescription')
       });
       
       setTimeout(() => setCopied(false), 2000);
     } catch (error) {
       console.error('Failed to copy link:', error);
       toast({
-        title: "Erreur",
-        description: "Impossible de copier le lien",
+        title: t('tourCard.display.copyFailed'),
+        description: t('tourCard.display.copyFailedDescription'),
         variant: "destructive"
       });
     }
@@ -68,7 +70,7 @@ export default function TourCardDisplay({ tourCard, onDelete, onUpdate }: TourCa
       if (navigator.share) {
         await navigator.share({
           title: tourCard.title,
-          text: tourCard.description || `Découvrez ${tourCard.title}`,
+          text: tourCard.description || t('tourCard.display.discover', { title: tourCard.title }),
           url: tourCard.customLink
         });
       } else {
@@ -82,7 +84,7 @@ export default function TourCardDisplay({ tourCard, onDelete, onUpdate }: TourCa
   };
   
   const handleDelete = () => {
-    if (window.confirm(`Êtes-vous sûr de vouloir supprimer la fiche "${tourCard.title}" ?`)) {
+    if (window.confirm(t('tourCard.display.deleteConfirm', { title: tourCard.title }))) {
       onDelete && onDelete(tourCard.id);
     }
   };
@@ -111,7 +113,7 @@ export default function TourCardDisplay({ tourCard, onDelete, onUpdate }: TourCa
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
           <h3 className="text-white font-semibold text-lg line-clamp-1">{tourCard.title}</h3>
           <p className="text-white/90 font-medium">
-            À partir de {formatPrice(tourCard.price, tourCard.currency)}/pers.
+            {t('tourCard.display.fromPrice', { price: formatPrice(tourCard.price, tourCard.currency) })}
           </p>
         </div>
       </div>
@@ -136,7 +138,7 @@ export default function TourCardDisplay({ tourCard, onDelete, onUpdate }: TourCa
               onClick={copyLink}
             >
               {copied ? <Check className="mr-1 h-4 w-4" /> : <Copy className="mr-1 h-4 w-4" />}
-              {copied ? "Copié" : "Copier le lien"}
+              {copied ? t('tourCard.display.copied') : t('tourCard.display.copyLink')}
             </Button>
             
             <Button 

@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { useUITranslation } from '@/hooks/useUITranslation';
 
 // CSS personnalisé pour les checkboxes
 const checkboxStyles = `
@@ -109,17 +110,17 @@ interface FormBuilderProps {
   onCancel: () => void;
 }
 
-const FIELD_TYPES = [
-  { type: 'text', label: 'Texte', icon: Type },
-  { type: 'email', label: 'Email', icon: Mail },
-  { type: 'phone', label: 'Téléphone', icon: Phone },
-  { type: 'textarea', label: 'Zone de texte', icon: Type },
-  { type: 'select', label: 'Sélection', icon: ChevronDown },
-  { type: 'checkbox', label: 'Cases à cocher', icon: CheckSquare },
-  { type: 'radio', label: 'Boutons radio', icon: Circle },
-  { type: 'file', label: 'Fichier', icon: File },
-  { type: 'date', label: 'Date', icon: Calendar },
-  { type: 'number', label: 'Nombre', icon: Hash },
+const getFieldTypes = (t: (key: string) => string) => [
+  { type: 'text', label: t('formBuilder.fieldTypes.text'), icon: Type },
+  { type: 'email', label: t('formBuilder.fieldTypes.email'), icon: Mail },
+  { type: 'phone', label: t('formBuilder.fieldTypes.phone'), icon: Phone },
+  { type: 'textarea', label: t('formBuilder.fieldTypes.textarea'), icon: Type },
+  { type: 'select', label: t('formBuilder.fieldTypes.select'), icon: ChevronDown },
+  { type: 'checkbox', label: t('formBuilder.fieldTypes.checkbox'), icon: CheckSquare },
+  { type: 'radio', label: t('formBuilder.fieldTypes.radio'), icon: Circle },
+  { type: 'file', label: t('formBuilder.fieldTypes.file'), icon: File },
+  { type: 'date', label: t('formBuilder.fieldTypes.date'), icon: Calendar },
+  { type: 'number', label: t('formBuilder.fieldTypes.number'), icon: Hash },
 ] as const;
 
 // Couleurs principales du système
@@ -151,6 +152,7 @@ interface ColorPickerProps {
 }
 
 function ColorPicker({ value, onChange, label }: ColorPickerProps) {
+  const { t } = useUITranslation();
   const [isEditingCustom, setIsEditingCustom] = useState(false);
   const [customInput, setCustomInput] = useState('');
   const currentColorValue = value || '#ffffff';
@@ -281,21 +283,21 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
           <Select value={getCurrentOption()} onValueChange={handleOptionSelect}>
             <SelectTrigger className="flex-1">
               <SelectValue>
-                {getCurrentOption() === 'primary' && 'Couleur principale'}
-                {getCurrentOption() === 'secondary' && 'Couleur secondaire'}
-                {getCurrentOption() === 'heading' && 'Couleur de titre'}
-                {getCurrentOption() === 'text' && 'Couleur de texte'}
-                {getCurrentOption() === 'background' && 'Couleur de fond'}
-                {getCurrentOption() === 'custom' && `Référence couleur : ${displayValue}`}
+                {getCurrentOption() === 'primary' && t('formBuilder.colorPicker.primary')}
+                {getCurrentOption() === 'secondary' && t('formBuilder.colorPicker.secondary')}
+                {getCurrentOption() === 'heading' && t('formBuilder.colorPicker.heading')}
+                {getCurrentOption() === 'text' && t('formBuilder.colorPicker.text')}
+                {getCurrentOption() === 'background' && t('formBuilder.colorPicker.background')}
+                {getCurrentOption() === 'custom' && t('formBuilder.colorPicker.colorReference', { color: displayValue })}
               </SelectValue>
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="custom">Référence couleur</SelectItem>
-              <SelectItem value="primary">Couleur principale</SelectItem>
-              <SelectItem value="secondary">Couleur secondaire</SelectItem>
-              <SelectItem value="heading">Couleur de titre</SelectItem>
-              <SelectItem value="text">Couleur de texte</SelectItem>
-              <SelectItem value="background">Couleur de fond</SelectItem>
+              <SelectItem value="custom">{t('formBuilder.colorPicker.customColor')}</SelectItem>
+              <SelectItem value="primary">{t('formBuilder.colorPicker.primary')}</SelectItem>
+              <SelectItem value="secondary">{t('formBuilder.colorPicker.secondary')}</SelectItem>
+              <SelectItem value="heading">{t('formBuilder.colorPicker.heading')}</SelectItem>
+              <SelectItem value="text">{t('formBuilder.colorPicker.text')}</SelectItem>
+              <SelectItem value="background">{t('formBuilder.colorPicker.background')}</SelectItem>
             </SelectContent>
           </Select>
         )}
@@ -308,6 +310,7 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
 }
 
 export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuilderProps) {
+  const { t } = useUITranslation();
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState<'informations' | 'builder' | 'style' | 'settings'>('informations');
   const [showPreview, setShowPreview] = useState(true);
@@ -315,6 +318,8 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
   const [saving, setSaving] = useState(false);
   const [selectedField, setSelectedField] = useState<string | null>(null);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  
+  const FIELD_TYPES = getFieldTypes(t);
 
   // Injecter le CSS personnalisé pour les checkboxes
   useEffect(() => {
@@ -635,7 +640,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
             </Label>
             <Select>
               <SelectTrigger style={{ color: resolveColor(formData.textColor) }}>
-                <SelectValue placeholder={field.placeholder || "Select an option"} />
+                <SelectValue placeholder={field.placeholder || t('formBuilder.preview.selectOption')} />
               </SelectTrigger>
               <SelectContent>
                 {field.options?.map((option, index) => (
@@ -859,7 +864,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                             }}
                             className="w-full px-8 py-2"
                           >
-                            {formData.settings.submitButtonText || 'Envoyer'}
+                            {formData.settings.submitButtonText || t('formBuilder.informations.submitButtonTextDefault')}
                           </Button>
                           
                           {/* WhatsApp Button */}
@@ -938,7 +943,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                           }}
                           className="w-full px-8 py-3"
                         >
-                          {formData.settings.submitButtonText || 'Envoyer'}
+                          {formData.settings.submitButtonText || t('formBuilder.informations.submitButtonTextDefault')}
                         </Button>
                         
                         {/* WhatsApp Footer - Always visible in footer layout */}
@@ -1059,7 +1064,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                             }}
                             className="w-full px-8 py-2"
                           >
-                            {formData.settings.submitButtonText || 'Envoyer'}
+                            {formData.settings.submitButtonText || t('formBuilder.informations.submitButtonTextDefault')}
                           </Button>
                           
                           {/* WhatsApp Button */}
@@ -1193,7 +1198,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                   <div>
                     <Label>Texte du bouton</Label>
                     <Input
-                      value={formData.settings.submitButtonText || 'Envoyer'}
+                      value={formData.settings.submitButtonText || t('formBuilder.informations.submitButtonTextDefault')}
                       onChange={(e) => setFormData(prev => ({
                         ...prev,
                         settings: { ...prev.settings, submitButtonText: e.target.value }

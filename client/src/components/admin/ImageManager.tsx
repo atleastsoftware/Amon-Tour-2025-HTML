@@ -3,6 +3,7 @@ import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautif
 import { GripVertical, Trash2, Plus, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useUITranslation } from '@/hooks/useUITranslation';
 
 interface ImageManagerProps {
   images: string[];
@@ -10,6 +11,7 @@ interface ImageManagerProps {
 }
 
 export default function ImageManager({ images, onChange }: ImageManagerProps) {
+  const { t } = useUITranslation();
   const [imageUrls, setImageUrls] = useState<string[]>(images || []);
 
   const handleAddImage = () => {
@@ -94,7 +96,7 @@ export default function ImageManager({ images, onChange }: ImageManagerProps) {
                         size="icon"
                         onClick={() => handleUpload(index)}
                         className="border-2 border-dashed border-gray-400 hover:border-primary hover:bg-accent"
-                        title="Upload une image"
+                        title={t("imageManager.upload")}
                       >
                         <Plus className="w-4 h-4" />
                       </Button>
@@ -105,7 +107,7 @@ export default function ImageManager({ images, onChange }: ImageManagerProps) {
                         size="icon"
                         onClick={() => handleRemoveImage(index)}
                         className="text-destructive hover:text-destructive hover:bg-destructive/10"
-                        title="Supprimer"
+                        title={t("imageManager.delete")}
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>
@@ -126,7 +128,7 @@ export default function ImageManager({ images, onChange }: ImageManagerProps) {
         className="w-full"
       >
         <Plus className="w-4 h-4 mr-2" />
-        Ajouter une image
+        {t("imageManager.add")}
       </Button>
     </div>
   );

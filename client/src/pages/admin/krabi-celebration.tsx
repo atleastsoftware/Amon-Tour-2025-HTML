@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useIsAuthenticated } from "@/lib/auth";
+import { useUITranslation } from "@/hooks/useUITranslation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -55,6 +56,7 @@ export default function AdminKrabiCelebration() {
   const { isAuthenticated, isLoading } = useIsAuthenticated();
   const [, setLocation] = useLocation();
   const { toast } = useToast();
+  const { t } = useUITranslation();
   const queryClient = useQueryClient();
   const [selectedRequest, setSelectedRequest] = useState<KrabiCelebrationRequest | null>(null);
   const [showUnreadOnly, setShowUnreadOnly] = useState(false);

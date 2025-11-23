@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useIsAuthenticated } from "@/lib/auth";
+import { useUITranslation } from "@/hooks/useUITranslation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -55,6 +56,7 @@ export default function AdminGroupRequests() {
   const { isAuthenticated, isLoading } = useIsAuthenticated();
   const [, setLocation] = useLocation();
   const { toast } = useToast();
+  const { t } = useUITranslation();
   const queryClient = useQueryClient();
   const [selectedRequest, setSelectedRequest] = useState<GroupRequest | null>(null);
   const [showUnreadOnly, setShowUnreadOnly] = useState(false);
@@ -71,14 +73,14 @@ export default function AdminGroupRequests() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/group-requests"] });
       toast({
-        title: "Succès",
-        description: "Demande marquée comme lue",
+        title: t('common.success'),
+        description: t('groupRequests.markAsReadSuccess'),
       });
     },
     onError: () => {
       toast({
-        title: "Erreur",
-        description: "Impossible de marquer la demande comme lue",
+        title: t('common.error'),
+        description: t('groupRequests.markAsReadError'),
         variant: "destructive",
       });
     },
@@ -92,14 +94,14 @@ export default function AdminGroupRequests() {
       queryClient.invalidateQueries({ queryKey: ["/api/group-requests"] });
       setSelectedRequest(null);
       toast({
-        title: "Succès",
-        description: "Demande supprimée avec succès",
+        title: t('common.success'),
+        description: t('groupRequests.deleteSuccess'),
       });
     },
     onError: () => {
       toast({
-        title: "Erreur",
-        description: "Impossible de supprimer la demande",
+        title: t('common.error'),
+        description: t('groupRequests.deleteError'),
         variant: "destructive",
       });
     },
@@ -121,7 +123,7 @@ export default function AdminGroupRequests() {
             <div className="flex items-center justify-center h-96">
               <div className="text-center">
                 <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
-                <p className="mt-4 text-gray-600">Chargement...</p>
+                <p className="mt-4 text-gray-600">{t('common.loading')}</p>
               </div>
             </div>
           </div>
@@ -156,13 +158,13 @@ export default function AdminGroupRequests() {
                   className="flex items-center gap-2"
                 >
                   <ArrowLeft className="h-4 w-4" />
-                  Back
+                  {t('common.back')}
                 </Button>
                 <div className="flex items-center gap-3">
                   <UsersIcon className="h-8 w-8 text-amber-600" />
                   <div>
-                    <h1 className="text-3xl font-heading text-gray-900">Groupes & Entreprises</h1>
-                    <p className="text-gray-600">Demandes de groupes et corporates</p>
+                    <h1 className="text-3xl font-heading text-gray-900">{t('groupRequests.title')}</h1>
+                    <p className="text-gray-600">{t('groupRequests.subtitle')}</p>
                   </div>
                 </div>
               </div>
@@ -170,7 +172,7 @@ export default function AdminGroupRequests() {
               <div className="flex items-center gap-4">
                 {unreadCount > 0 && (
                   <Badge variant="destructive" className="flex items-center gap-1">
-                    {unreadCount} non lue{unreadCount > 1 ? 's' : ''}
+                    {t('groupRequests.unreadBadge', { count: unreadCount })}
                   </Badge>
                 )}
                 <Button
@@ -178,34 +180,34 @@ export default function AdminGroupRequests() {
                   onClick={() => setShowUnreadOnly(!showUnreadOnly)}
                   className="flex items-center gap-2"
                 >
-                  {showUnreadOnly ? "View all" : "Unread only"}
+                  {showUnreadOnly ? t('groupRequests.viewAll') : t('groupRequests.unreadOnly')}
                 </Button>
               </div>
             </div>
 
             <Card>
               <CardHeader>
-                <CardTitle>Demandes reçues ({requests.length})</CardTitle>
+                <CardTitle>{t('groupRequests.requestsReceived', { count: requests.length })}</CardTitle>
               </CardHeader>
               <CardContent>
                 {requests.length === 0 ? (
                   <div className="text-center py-8">
                     <UsersIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                     <p className="text-gray-500">
-                      {showUnreadOnly ? "Aucune demande non lue" : "Aucune demande reçue"}
+                      {showUnreadOnly ? t('groupRequests.noUnreadRequests') : t('groupRequests.noRequests')}
                     </p>
                   </div>
                 ) : (
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>Statut</TableHead>
-                        <TableHead>Contact</TableHead>
-                        <TableHead>Entreprise</TableHead>
-                        <TableHead>Participants</TableHead>
-                        <TableHead>Dates de voyage</TableHead>
-                        <TableHead>Reçu le</TableHead>
-                        <TableHead>Actions</TableHead>
+                        <TableHead>{t('groupRequests.tableHeaders.status')}</TableHead>
+                        <TableHead>{t('groupRequests.tableHeaders.contact')}</TableHead>
+                        <TableHead>{t('groupRequests.tableHeaders.company')}</TableHead>
+                        <TableHead>{t('groupRequests.tableHeaders.participants')}</TableHead>
+                        <TableHead>{t('groupRequests.tableHeaders.travelDates')}</TableHead>
+                        <TableHead>{t('groupRequests.tableHeaders.receivedOn')}</TableHead>
+                        <TableHead>{t('groupRequests.tableHeaders.actions')}</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -213,15 +215,15 @@ export default function AdminGroupRequests() {
                         <TableRow key={request.id}>
                           <TableCell>
                             {!request.read ? (
-                              <Badge variant="destructive">Nouveau</Badge>
+                              <Badge variant="destructive">{t('groupRequests.statusNew')}</Badge>
                             ) : (
-                              <Badge variant="secondary">Lu</Badge>
+                              <Badge variant="secondary">{t('groupRequests.statusRead')}</Badge>
                             )}
                           </TableCell>
                           <TableCell className="font-medium">{request.contactName}</TableCell>
                           <TableCell>{request.companyName}</TableCell>
-                          <TableCell>{request.groupSize} personnes</TableCell>
-                          <TableCell>{request.travelDates || 'Non précisées'}</TableCell>
+                          <TableCell>{t('groupRequests.peopleCount', { count: request.groupSize })}</TableCell>
+                          <TableCell>{request.travelDates || t('groupRequests.notSpecified')}</TableCell>
                           <TableCell>
                             {new Date(request.createdAt).toLocaleDateString('fr-FR')}
                           </TableCell>
@@ -268,10 +270,10 @@ export default function AdminGroupRequests() {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <UsersIcon className="h-5 w-5 text-amber-600" />
-              Demande de groupe
+              {t('groupRequests.dialogTitle')}
             </DialogTitle>
             <DialogDescription>
-              Détails de la demande de voyage de groupe
+              {t('groupRequests.dialogDescription')}
             </DialogDescription>
           </DialogHeader>
           
@@ -279,66 +281,66 @@ export default function AdminGroupRequests() {
             <div className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Nom du contact</label>
+                  <label className="text-sm font-medium text-gray-700">{t('groupRequests.fields.contactName')}</label>
                   <p className="text-gray-900">{selectedRequest.contactName}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Email</label>
+                  <label className="text-sm font-medium text-gray-700">{t('groupRequests.fields.email')}</label>
                   <p className="text-gray-900">{selectedRequest.email}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Entreprise/Organisation</label>
+                  <label className="text-sm font-medium text-gray-700">{t('groupRequests.fields.company')}</label>
                   <p className="text-gray-900">{selectedRequest.companyName}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Téléphone</label>
-                  <p className="text-gray-900">{selectedRequest.phone || 'Non renseigné'}</p>
+                  <label className="text-sm font-medium text-gray-700">{t('groupRequests.fields.phone')}</label>
+                  <p className="text-gray-900">{selectedRequest.phone || t('groupRequests.notProvided')}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Nombre de participants</label>
+                  <label className="text-sm font-medium text-gray-700">{t('groupRequests.fields.participants')}</label>
                   <p className="text-gray-900 flex items-center gap-1">
                     <Users className="h-4 w-4" />
-                    {selectedRequest.groupSize} personnes
+                    {t('groupRequests.peopleCount', { count: selectedRequest.groupSize })}
                   </p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Budget</label>
-                  <p className="text-gray-900">{selectedRequest.budget || 'Non précisé'}</p>
+                  <label className="text-sm font-medium text-gray-700">{t('groupRequests.fields.budget')}</label>
+                  <p className="text-gray-900">{selectedRequest.budget || t('groupRequests.notSpecified')}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Dates de voyage souhaitées</label>
+                  <label className="text-sm font-medium text-gray-700">{t('groupRequests.fields.travelDates')}</label>
                   <p className="text-gray-900 flex items-center gap-1">
                     <Calendar className="h-4 w-4" />
-                    {selectedRequest.travelDates || 'Non précisées'}
+                    {selectedRequest.travelDates || t('groupRequests.notSpecified')}
                   </p>
                 </div>
               </div>
               
-              {selectedRequest.requirements && (
+              {selectedRequest.description && (
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Exigences spéciales</label>
+                  <label className="text-sm font-medium text-gray-700">{t('groupRequests.fields.specialRequirements')}</label>
                   <p className="text-gray-900 bg-gray-50 p-3 rounded-lg mt-1">
-                    {selectedRequest.requirements}
+                    {selectedRequest.description}
                   </p>
                 </div>
               )}
               
               <div className="flex items-center justify-between pt-4 border-t">
                 <p className="text-sm text-gray-500">
-                  Reçu le {new Date(selectedRequest.createdAt).toLocaleString('fr-FR')}
+                  {t('groupRequests.receivedOn')} {new Date(selectedRequest.createdAt).toLocaleString('fr-FR')}
                 </p>
                 <div className="flex gap-2">
                   <Button
                     variant="outline"
-                    onClick={() => window.open(`mailto:${selectedRequest.email}?subject=Votre demande de voyage de groupe&body=Bonjour ${selectedRequest.name},%0D%0A%0D%0ANous avons bien reçu votre demande pour un voyage de groupe (${selectedRequest.groupType}).%0D%0A%0D%0ACordialement,%0D%0AÉquipe Amon Tour`)}
+                    onClick={() => window.open(`mailto:${selectedRequest.email}?subject=Votre demande de voyage de groupe&body=Bonjour ${selectedRequest.contactName},%0D%0A%0D%0ANous avons bien reçu votre demande pour un voyage de groupe (${selectedRequest.companyName}).%0D%0A%0D%0ACordialement,%0D%0AÉquipe Amon Tour`)}
                   >
                     <Mail className="h-4 w-4 mr-2" />
-                    Répondre par email
+                    {t('groupRequests.replyByEmail')}
                   </Button>
                   {!selectedRequest.read && (
                     <Button onClick={() => markAsReadMutation.mutate(selectedRequest.id)}>
                       <CheckCircle2 className="h-4 w-4 mr-2" />
-                      Marquer comme lu
+                      {t('groupRequests.markAsRead')}
                     </Button>
                   )}
                 </div>

@@ -350,7 +350,7 @@ export default function AdminPartnershipRequests() {
                 <div className="flex gap-2">
                   <Button
                     variant="outline"
-                    onClick={() => window.open(`mailto:${selectedRequest.email}?subject=Votre demande de partenariat&body=Bonjour ${selectedRequest.fullName},%0D%0A%0D%0ANous avons bien reçu votre proposition de partenariat pour ${selectedRequest.companyName}.%0D%0A%0D%0ACordialement,%0D%0AÉquipe Amon Tour`)}
+                    onClick={() => window.open(`mailto:${selectedRequest.email}?subject=Votre demande de partenariat&body=Bonjour ${selectedRequest.contactName},%0D%0A%0D%0ANous avons bien reçu votre proposition de partenariat pour ${selectedRequest.companyName}.%0D%0A%0D%0ACordialement,%0D%0AÉquipe Amon Tour`)}
                   >
                     <Mail className="h-4 w-4 mr-2" />
                     Répondre par email

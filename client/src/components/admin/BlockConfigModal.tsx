@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Plus, X, Upload } from 'lucide-react';
+import { useUITranslation } from '@/hooks/useUITranslation';
 
 import type { PageBlock } from '../../../../shared/schema';
 
@@ -39,6 +40,8 @@ interface ColorPickerProps {
 }
 
 function ColorPicker({ value, onChange }: ColorPickerProps) {
+  const { t } = useUITranslation();
+  
   const getColorValue = (colorName: string) => {
     return SYSTEM_COLORS[colorName as keyof typeof SYSTEM_COLORS] || colorName;
   };
@@ -53,7 +56,6 @@ function ColorPicker({ value, onChange }: ColorPickerProps) {
 
   const handleHexInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const hexValue = e.target.value;
-    // Valider que c'est un code hex valide
     if (/^#[0-9A-F]{6}$/i.test(hexValue) || hexValue === '') {
       onChange(hexValue);
     }
@@ -63,22 +65,20 @@ function ColorPicker({ value, onChange }: ColorPickerProps) {
 
   return (
     <div className="space-y-4">
-      {/* Champ de référence couleur */}
       <div className="space-y-2">
-        <Label className="text-sm font-medium">Référence couleur</Label>
+        <Label className="text-sm font-medium">{t('blockEditor.colorPicker.colorReference')}</Label>
         <Input
           type="text"
           value={currentColorValue}
           onChange={handleHexInputChange}
-          placeholder="#ffffff"
+          placeholder={t('blockEditor.colorPicker.colorPlaceholder')}
           className="font-mono text-sm"
-          title="Tapez le code couleur ou sélectionnez une couleur prédéfinie"
+          title={t('blockEditor.colorPicker.inputHelp')}
         />
       </div>
       
-      {/* Couleurs prédéfinies du thème */}
       <div className="space-y-3">
-        <Label className="text-sm font-medium">Couleurs du thème</Label>
+        <Label className="text-sm font-medium">{t('blockEditor.colorPicker.themeColors')}</Label>
         <div className="grid grid-cols-2 gap-2">
           <button
             type="button"
@@ -86,13 +86,13 @@ function ColorPicker({ value, onChange }: ColorPickerProps) {
             className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-all hover:scale-105 ${
               value === 'primary' ? 'border-primary ring-2 ring-primary/30 bg-primary/10' : 'border-gray-200 hover:border-gray-300'
             }`}
-            title="Couleur principale du thème"
+            title={t('blockEditor.colorPicker.primaryTitle')}
           >
             <div 
               className="w-6 h-6 rounded"
               style={{ backgroundColor: SYSTEM_COLORS.primary }}
             />
-            <span className="text-sm font-medium">Principale</span>
+            <span className="text-sm font-medium">{t('blockEditor.colorPicker.primary')}</span>
           </button>
           
           <button
@@ -101,13 +101,13 @@ function ColorPicker({ value, onChange }: ColorPickerProps) {
             className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-all hover:scale-105 ${
               value === 'secondary' ? 'border-secondary ring-2 ring-secondary/30 bg-secondary/10' : 'border-gray-200 hover:border-gray-300'
             }`}
-            title="Couleur secondaire du thème"
+            title={t('blockEditor.colorPicker.secondaryTitle')}
           >
             <div 
               className="w-6 h-6 rounded"
               style={{ backgroundColor: SYSTEM_COLORS.secondary }}
             />
-            <span className="text-sm font-medium">Secondaire</span>
+            <span className="text-sm font-medium">{t('blockEditor.colorPicker.secondary')}</span>
           </button>
 
           <button
@@ -116,13 +116,13 @@ function ColorPicker({ value, onChange }: ColorPickerProps) {
             className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-all hover:scale-105 ${
               value === 'heading' ? 'border-gray-900 ring-2 ring-gray-900/30 bg-gray-900/10' : 'border-gray-200 hover:border-gray-300'
             }`}
-            title="Couleur de titre (référence)"
+            title={t('blockEditor.colorPicker.headingTitle')}
           >
             <div 
               className="w-6 h-6 rounded"
               style={{ backgroundColor: SYSTEM_COLORS.heading }}
             />
-            <span className="text-sm font-medium">Titre</span>
+            <span className="text-sm font-medium">{t('blockEditor.colorPicker.heading')}</span>
           </button>
 
           <button
@@ -131,13 +131,13 @@ function ColorPicker({ value, onChange }: ColorPickerProps) {
             className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-all hover:scale-105 ${
               value === 'text' ? 'border-gray-700 ring-2 ring-gray-700/30 bg-gray-700/10' : 'border-gray-200 hover:border-gray-300'
             }`}
-            title="Couleur de texte (référence)"
+            title={t('blockEditor.colorPicker.textTitle')}
           >
             <div 
               className="w-6 h-6 rounded"
               style={{ backgroundColor: SYSTEM_COLORS.text }}
             />
-            <span className="text-sm font-medium">Texte</span>
+            <span className="text-sm font-medium">{t('blockEditor.colorPicker.text')}</span>
           </button>
 
           <button
@@ -146,30 +146,29 @@ function ColorPicker({ value, onChange }: ColorPickerProps) {
             className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-all hover:scale-105 ${
               value === 'background' ? 'border-gray-400 ring-2 ring-gray-400/30 bg-gray-400/10' : 'border-gray-200 hover:border-gray-300'
             }`}
-            title="Couleur de fond (référence)"
+            title={t('blockEditor.colorPicker.backgroundTitle')}
           >
             <div 
               className="w-6 h-6 rounded border border-gray-300"
               style={{ backgroundColor: SYSTEM_COLORS.background }}
             />
-            <span className="text-sm font-medium">Fond</span>
+            <span className="text-sm font-medium">{t('blockEditor.colorPicker.background')}</span>
           </button>
         </div>
       </div>
 
-      {/* Aperçu visuel avec color picker natif */}
       <div className="space-y-2">
-        <Label className="text-sm font-medium">Aperçu</Label>
+        <Label className="text-sm font-medium">{t('blockEditor.colorPicker.preview')}</Label>
         <div className="flex items-center gap-2">
           <Input
             type="color"
             value={currentColorValue}
             onChange={handleCustomColorChange}
             className="w-12 h-8 p-0 border cursor-pointer"
-            title="Sélectionneur de couleur"
+            title={t('blockEditor.colorPicker.pickerTitle')}
           />
           <span className="text-sm text-gray-600">
-            Cliquez pour ouvrir le sélectionneur de couleur
+            {t('blockEditor.colorPicker.pickerHelp')}
           </span>
         </div>
       </div>
@@ -178,6 +177,7 @@ function ColorPicker({ value, onChange }: ColorPickerProps) {
 }
 
 export function BlockConfigModal({ open, onOpenChange, block, onSave }: BlockConfigModalProps) {
+  const { t } = useUITranslation();
   const [config, setConfig] = useState<any>({});
   const [activeTab, setActiveTab] = useState('content');
 
@@ -241,7 +241,7 @@ export function BlockConfigModal({ open, onOpenChange, block, onSave }: BlockCon
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Configure Block: {block.blockType}</DialogTitle>
+          <DialogTitle>{t('blockEditor.title', { type: block.blockType })}</DialogTitle>
           <div className="flex gap-2">
             <Badge variant="outline">{block.identifier}</Badge>
             <Badge>{block.blockType}</Badge>
@@ -250,70 +250,70 @@ export function BlockConfigModal({ open, onOpenChange, block, onSave }: BlockCon
 
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="content">Content</TabsTrigger>
-            <TabsTrigger value="style">Style</TabsTrigger>
-            <TabsTrigger value="actions">Actions</TabsTrigger>
-            <TabsTrigger value="advanced">Advanced</TabsTrigger>
+            <TabsTrigger value="content">{t('blockEditor.tabs.content')}</TabsTrigger>
+            <TabsTrigger value="style">{t('blockEditor.tabs.style')}</TabsTrigger>
+            <TabsTrigger value="actions">{t('blockEditor.tabs.actions')}</TabsTrigger>
+            <TabsTrigger value="advanced">{t('blockEditor.tabs.advanced')}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="content" className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="title">Title</Label>
+                <Label htmlFor="title">{t('blockEditor.fields.title')}</Label>
                 <Input
                   id="title"
                   value={config.title || ''}
                   onChange={(e) => handleConfigChange('title', e.target.value)}
-                  placeholder="Block title"
+                  placeholder={t('blockEditor.fields.blockTitlePlaceholder')}
                 />
               </div>
               <div>
-                <Label htmlFor="subtitle">Subtitle</Label>
+                <Label htmlFor="subtitle">{t('blockEditor.fields.subtitle')}</Label>
                 <Input
                   id="subtitle"
                   value={config.subtitle || ''}
                   onChange={(e) => handleConfigChange('subtitle', e.target.value)}
-                  placeholder="Block subtitle"
+                  placeholder={t('blockEditor.fields.blockSubtitlePlaceholder')}
                 />
               </div>
             </div>
 
             <div>
-              <Label htmlFor="description">Description</Label>
+              <Label htmlFor="description">{t('blockEditor.fields.description')}</Label>
               <Textarea
                 id="description"
                 value={config.description || ''}
                 onChange={(e) => handleConfigChange('description', e.target.value)}
-                placeholder="Block description"
+                placeholder={t('blockEditor.fields.blockDescriptionPlaceholder')}
                 rows={3}
               />
             </div>
 
             <div>
-              <Label htmlFor="content">Content</Label>
+              <Label htmlFor="content">{t('blockEditor.fields.content')}</Label>
               <Textarea
                 id="content"
                 value={config.content || ''}
                 onChange={(e) => handleConfigChange('content', e.target.value)}
-                placeholder="Main content (supports HTML)"
+                placeholder={t('blockEditor.fields.mainContentPlaceholder')}
                 rows={4}
               />
             </div>
 
             {/* Block-specific content fields */}
-            {renderBlockSpecificContent(block.blockType, config, handleConfigChange, handleArrayAdd, handleArrayRemove, handleArrayUpdate)}
+            {renderBlockSpecificContent(block.blockType, config, handleConfigChange, handleArrayAdd, handleArrayRemove, handleArrayUpdate, t)}
           </TabsContent>
 
           <TabsContent value="style" className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="imageUrl">Image URL</Label>
+                <Label htmlFor="imageUrl">{t('blockEditor.fields.imageUrl')}</Label>
                 <div className="flex gap-2">
                   <Input
                     id="imageUrl"
                     value={config.imageUrl || ''}
                     onChange={(e) => handleConfigChange('imageUrl', e.target.value)}
-                    placeholder="/path/to/image.jpg"
+                    placeholder={t('blockEditor.fields.imageUrlPlaceholder')}
                   />
                   <Button variant="outline" size="icon">
                     <Upload className="h-4 w-4" />
@@ -321,7 +321,7 @@ export function BlockConfigModal({ open, onOpenChange, block, onSave }: BlockCon
                 </div>
               </div>
               <div>
-                <Label htmlFor="backgroundColor">Background Color</Label>
+                <Label htmlFor="backgroundColor">{t('blockEditor.fields.backgroundColor')}</Label>
                 <Select 
                   value={config.backgroundColor || 'white'} 
                   onValueChange={(value) => handleConfigChange('backgroundColor', value)}
@@ -330,11 +330,11 @@ export function BlockConfigModal({ open, onOpenChange, block, onSave }: BlockCon
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="white">White</SelectItem>
-                    <SelectItem value="gray">Gray</SelectItem>
-                    <SelectItem value="primary">Primary Blue</SelectItem>
-                    <SelectItem value="secondary">Secondary Gold</SelectItem>
-                    <SelectItem value="dark">Dark</SelectItem>
+                    <SelectItem value="white">{t('blockEditor.fields.backgroundColors.white')}</SelectItem>
+                    <SelectItem value="gray">{t('blockEditor.fields.backgroundColors.gray')}</SelectItem>
+                    <SelectItem value="primary">{t('blockEditor.fields.backgroundColors.primaryBlue')}</SelectItem>
+                    <SelectItem value="secondary">{t('blockEditor.fields.backgroundColors.secondaryGold')}</SelectItem>
+                    <SelectItem value="dark">{t('blockEditor.fields.backgroundColors.dark')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -343,7 +343,7 @@ export function BlockConfigModal({ open, onOpenChange, block, onSave }: BlockCon
             {block.blockType === 'text_image' && (
               <div className="space-y-4">
                 <div>
-                  <Label>Layout</Label>
+                  <Label>{t('blockEditor.fields.layout')}</Label>
                   <Select 
                     value={config.layout || 'text-left'} 
                     onValueChange={(value) => handleConfigChange('layout', value)}
@@ -352,13 +352,13 @@ export function BlockConfigModal({ open, onOpenChange, block, onSave }: BlockCon
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="text-left">Text Left, Image Right</SelectItem>
-                      <SelectItem value="image-left">Image Left, Text Right</SelectItem>
+                      <SelectItem value="text-left">{t('blockEditor.fields.layouts.textLeftImageRight')}</SelectItem>
+                      <SelectItem value="image-left">{t('blockEditor.fields.layouts.imageLeftTextRight')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div>
-                  <Label>Couleur du texte</Label>
+                  <Label>{t('blockEditor.fields.textColor')}</Label>
                   <ColorPicker 
                     value={config.textColor || 'dark'} 
                     onChange={(value) => handleConfigChange('textColor', value)}
@@ -371,29 +371,28 @@ export function BlockConfigModal({ open, onOpenChange, block, onSave }: BlockCon
           <TabsContent value="actions" className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="ctaText">Call-to-Action Text</Label>
+                <Label htmlFor="ctaText">{t('blockEditor.fields.ctaText')}</Label>
                 <Input
                   id="ctaText"
                   value={config.ctaText || ''}
                   onChange={(e) => handleConfigChange('ctaText', e.target.value)}
-                  placeholder="Learn More"
+                  placeholder={t('blockEditor.fields.ctaTextPlaceholder')}
                 />
               </div>
               <div>
-                <Label htmlFor="ctaUrl">Call-to-Action URL</Label>
+                <Label htmlFor="ctaUrl">{t('blockEditor.fields.ctaUrl')}</Label>
                 <Input
                   id="ctaUrl"
                   value={config.ctaUrl || ''}
                   onChange={(e) => handleConfigChange('ctaUrl', e.target.value)}
-                  placeholder="/contact"
+                  placeholder={t('blockEditor.fields.ctaUrlPlaceholder')}
                 />
               </div>
             </div>
 
-            {/* CTA Buttons for Hero blocks */}
             {(block.blockType === 'hero' || block.blockType === 'video_hero') && (
               <div>
-                <Label>CTA Buttons</Label>
+                <Label>{t('blockEditor.fields.ctaButtons')}</Label>
                 <div className="space-y-2">
                   {(config.ctaButtons || []).map((button: any, index: number) => (
                     <Card key={index}>
@@ -402,7 +401,7 @@ export function BlockConfigModal({ open, onOpenChange, block, onSave }: BlockCon
                           <Input
                             value={button.text || ''}
                             onChange={(e) => handleArrayUpdate('ctaButtons', index, { ...button, text: e.target.value })}
-                            placeholder="Button text"
+                            placeholder={t('blockEditor.fields.buttonText')}
                           />
                           <Select
                             value={button.style || 'primary'}
@@ -412,9 +411,9 @@ export function BlockConfigModal({ open, onOpenChange, block, onSave }: BlockCon
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="primary">Primary</SelectItem>
-                              <SelectItem value="secondary">Secondary</SelectItem>
-                              <SelectItem value="outline">Outline</SelectItem>
+                              <SelectItem value="primary">{t('blockEditor.fields.buttonStyles.primary')}</SelectItem>
+                              <SelectItem value="secondary">{t('blockEditor.fields.buttonStyles.secondary')}</SelectItem>
+                              <SelectItem value="outline">{t('blockEditor.fields.buttonStyles.outline')}</SelectItem>
                             </SelectContent>
                           </Select>
                           <Button
@@ -430,10 +429,10 @@ export function BlockConfigModal({ open, onOpenChange, block, onSave }: BlockCon
                   ))}
                   <Button
                     variant="outline"
-                    onClick={() => handleArrayAdd('ctaButtons', { text: 'New Button', style: 'primary', url: '' })}
+                    onClick={() => handleArrayAdd('ctaButtons', { text: t('blockEditor.fields.newButton'), style: 'primary', url: '' })}
                   >
                     <Plus className="h-4 w-4 mr-2" />
-                    Add Button
+                    {t('blockEditor.fields.addButton')}
                   </Button>
                 </div>
               </div>
@@ -443,7 +442,7 @@ export function BlockConfigModal({ open, onOpenChange, block, onSave }: BlockCon
           <TabsContent value="advanced" className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="identifier">Block Identifier</Label>
+                <Label htmlFor="identifier">{t('blockEditor.fields.blockId')}</Label>
                 <Input
                   id="identifier"
                   value={block.identifier}
@@ -452,7 +451,7 @@ export function BlockConfigModal({ open, onOpenChange, block, onSave }: BlockCon
                 />
               </div>
               <div>
-                <Label htmlFor="blockOrder">Block Order</Label>
+                <Label htmlFor="blockOrder">{t('blockEditor.fields.blockOrder')}</Label>
                 <Input
                   id="blockOrder"
                   type="number"
@@ -469,12 +468,12 @@ export function BlockConfigModal({ open, onOpenChange, block, onSave }: BlockCon
                 checked={block.isActive !== false}
                 disabled
               />
-              <Label htmlFor="isActive">Block is active</Label>
+              <Label htmlFor="isActive">{t('blockEditor.fields.isActive')}</Label>
             </div>
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-sm">Raw Configuration (JSON)</CardTitle>
+                <CardTitle className="text-sm">{t('blockEditor.fields.rawConfig')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <Textarea
@@ -484,12 +483,12 @@ export function BlockConfigModal({ open, onOpenChange, block, onSave }: BlockCon
                       const parsed = JSON.parse(e.target.value);
                       handleConfigChange('configuration', parsed);
                     } catch (err) {
-                      // Invalid JSON, don't update
+                      //
                     }
                   }}
                   rows={8}
                   className="font-mono text-xs"
-                  placeholder="{ }"
+                  placeholder={t('blockEditor.fields.rawConfigPlaceholder')}
                 />
               </CardContent>
             </Card>
@@ -498,10 +497,10 @@ export function BlockConfigModal({ open, onOpenChange, block, onSave }: BlockCon
 
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)}>
-            Annuler
+            {t('common.cancel')}
           </Button>
           <Button onClick={handleSave}>
-            Enregistrer
+            {t('common.save')}
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -516,35 +515,36 @@ function renderBlockSpecificContent(
   handleConfigChange: (key: string, value: any) => void,
   handleArrayAdd: (key: string, item: any) => void,
   handleArrayRemove: (key: string, index: number) => void,
-  handleArrayUpdate: (key: string, index: number, item: any) => void
+  handleArrayUpdate: (key: string, index: number, item: any) => void,
+  t: (key: string, params?: Record<string, any>) => string
 ) {
   switch (blockType) {
     case 'video_hero':
       return (
         <div className="space-y-4">
           <div>
-            <Label htmlFor="videoUrl">Video URL</Label>
+            <Label htmlFor="videoUrl">{t('blockEditor.fields.videoUrl')}</Label>
             <Input
               id="videoUrl"
               value={config.videoUrl || ''}
               onChange={(e) => handleConfigChange('videoUrl', e.target.value)}
-              placeholder="/path/to/video.mp4"
+              placeholder={t('blockEditor.fields.videoUrlPlaceholder')}
             />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="titleMainColor">Titre principal</Label>
+              <Label htmlFor="titleMainColor">{t('blockEditor.fields.mainTitle')}</Label>
               <Textarea
                 id="titleMainColor"
                 value={config.titleMainColor || ''}
                 onChange={(e) => handleConfigChange('titleMainColor', e.target.value)}
-                placeholder="Titre principal du héros"
+                placeholder={t('blockEditor.fields.mainTitlePlaceholder')}
                 rows={2}
               />
             </div>
             <div>
-              <Label htmlFor="titlePrimaryColor">Couleur principale du titre</Label>
+              <Label htmlFor="titlePrimaryColor">{t('blockEditor.fields.titlePrimaryColor')}</Label>
               <ColorPicker 
                 value={config.titlePrimaryColor || 'primary'} 
                 onChange={(value) => handleConfigChange('titlePrimaryColor', value)}
@@ -554,16 +554,16 @@ function renderBlockSpecificContent(
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="titleColorPart">Mot du titre en seconde couleur</Label>
+              <Label htmlFor="titleColorPart">{t('blockEditor.fields.titleColorPart')}</Label>
               <Input
                 id="titleColorPart"
                 value={config.titleColorPart || ''}
                 onChange={(e) => handleConfigChange('titleColorPart', e.target.value)}
-                placeholder="Mot à colorier différemment"
+                placeholder={t('blockEditor.fields.titleColorPartPlaceholder')}
               />
             </div>
             <div>
-              <Label htmlFor="titleAccentColor">Couleur accent</Label>
+              <Label htmlFor="titleAccentColor">{t('blockEditor.fields.accentColor')}</Label>
               <ColorPicker 
                 value={config.titleAccentColor || 'secondary'} 
                 onChange={(value) => handleConfigChange('titleAccentColor', value)}
@@ -572,7 +572,7 @@ function renderBlockSpecificContent(
           </div>
 
           <div>
-            <Label htmlFor="subtitleColor">Couleur du sous-titre</Label>
+            <Label htmlFor="subtitleColor">{t('blockEditor.fields.subtitleColor')}</Label>
             <ColorPicker 
               value={config.subtitleColor || 'white'} 
               onChange={(value) => handleConfigChange('subtitleColor', value)}
@@ -580,12 +580,12 @@ function renderBlockSpecificContent(
           </div>
 
           <div>
-            <Label htmlFor="heroCountry">Pays/Région</Label>
+            <Label htmlFor="heroCountry">{t('blockEditor.fields.heroCountry')}</Label>
             <Input
               id="heroCountry"
               value={config.heroCountry || ''}
               onChange={(e) => handleConfigChange('heroCountry', e.target.value)}
-              placeholder="ex: in Krabi"
+              placeholder={t('blockEditor.fields.heroCountryPlaceholder')}
             />
           </div>
         </div>
@@ -594,7 +594,7 @@ function renderBlockSpecificContent(
     case 'advantages':
       return (
         <div>
-          <Label>Features</Label>
+          <Label>{t('blockEditor.fields.features')}</Label>
           <div className="space-y-2">
             {(config.features || []).map((feature: any, index: number) => (
               <Card key={index}>
@@ -603,17 +603,17 @@ function renderBlockSpecificContent(
                     <Input
                       value={feature.icon || ''}
                       onChange={(e) => handleArrayUpdate('features', index, { ...feature, icon: e.target.value })}
-                      placeholder="Icon name"
+                      placeholder={t('blockEditor.fields.iconName')}
                     />
                     <Input
                       value={feature.title || ''}
                       onChange={(e) => handleArrayUpdate('features', index, { ...feature, title: e.target.value })}
-                      placeholder="Feature title"
+                      placeholder={t('blockEditor.fields.featureTitle')}
                     />
                     <Input
                       value={feature.description || ''}
                       onChange={(e) => handleArrayUpdate('features', index, { ...feature, description: e.target.value })}
-                      placeholder="Feature description"
+                      placeholder={t('blockEditor.fields.featureDescription')}
                     />
                     <Button
                       variant="ghost"
@@ -628,10 +628,10 @@ function renderBlockSpecificContent(
             ))}
             <Button
               variant="outline"
-              onClick={() => handleArrayAdd('features', { icon: 'Users', title: 'New Feature', description: 'Feature description' })}
+              onClick={() => handleArrayAdd('features', { icon: 'Users', title: t('blockEditor.fields.newFeature'), description: t('blockEditor.fields.featureDescription') })}
             >
               <Plus className="h-4 w-4 mr-2" />
-              Add Feature
+              {t('blockEditor.fields.addFeature')}
             </Button>
           </div>
         </div>
@@ -641,7 +641,7 @@ function renderBlockSpecificContent(
       return (
         <div className="space-y-4">
           <div>
-            <Label htmlFor="formType">Form Type</Label>
+            <Label htmlFor="formType">{t('blockEditor.fields.formType')}</Label>
             <Select 
               value={config.formType || 'contact'} 
               onValueChange={(value) => handleConfigChange('formType', value)}
@@ -650,20 +650,20 @@ function renderBlockSpecificContent(
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="contact">Contact Form</SelectItem>
-                <SelectItem value="custom_tour">Custom Tour Form</SelectItem>
-                <SelectItem value="newsletter">Newsletter Signup</SelectItem>
+                <SelectItem value="contact">{t('blockEditor.fields.formTypes.contact')}</SelectItem>
+                <SelectItem value="custom_tour">{t('blockEditor.fields.formTypes.customTour')}</SelectItem>
+                <SelectItem value="newsletter">{t('blockEditor.fields.formTypes.newsletter')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
           
           <div>
-            <Label htmlFor="submitText">Submit Button Text</Label>
+            <Label htmlFor="submitText">{t('blockEditor.fields.submitText')}</Label>
             <Input
               id="submitText"
               value={config.submitText || ''}
               onChange={(e) => handleConfigChange('submitText', e.target.value)}
-              placeholder="Send Message"
+              placeholder={t('blockEditor.fields.submitTextPlaceholder')}
             />
           </div>
         </div>
@@ -673,7 +673,7 @@ function renderBlockSpecificContent(
       return (
         <div className="space-y-4">
           <div>
-            <Label htmlFor="displayCount">Number of Cards</Label>
+            <Label htmlFor="displayCount">{t('blockEditor.fields.numberOfCards')}</Label>
             <Input
               id="displayCount"
               type="number"
@@ -690,7 +690,7 @@ function renderBlockSpecificContent(
               checked={config.showTourNinja || false}
               onCheckedChange={(checked) => handleConfigChange('showTourNinja', checked)}
             />
-            <Label htmlFor="showTourNinja">Show Tour Ninja integration</Label>
+            <Label htmlFor="showTourNinja">{t('blockEditor.fields.showTourNinja')}</Label>
           </div>
         </div>
       );
@@ -700,7 +700,7 @@ function renderBlockSpecificContent(
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="rating">Rating</Label>
+              <Label htmlFor="rating">{t('blockEditor.fields.rating')}</Label>
               <Input
                 id="rating"
                 type="number"
@@ -712,7 +712,7 @@ function renderBlockSpecificContent(
               />
             </div>
             <div>
-              <Label htmlFor="reviewCount">Review Count</Label>
+              <Label htmlFor="reviewCount">{t('blockEditor.fields.reviewCount')}</Label>
               <Input
                 id="reviewCount"
                 type="number"
@@ -728,7 +728,7 @@ function renderBlockSpecificContent(
               checked={config.googleReviewsWidget || false}
               onCheckedChange={(checked) => handleConfigChange('googleReviewsWidget', checked)}
             />
-            <Label htmlFor="googleReviewsWidget">Show Google Reviews widget</Label>
+            <Label htmlFor="googleReviewsWidget">{t('blockEditor.fields.showGoogleReviews')}</Label>
           </div>
         </div>
       );
@@ -736,47 +736,45 @@ function renderBlockSpecificContent(
     case 'contact':
       return (
         <div className="space-y-4">
-          {/* Titre et sous-titre */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="contactTitle">Titre</Label>
+              <Label htmlFor="contactTitle">{t('blockEditor.fields.title')}</Label>
               <Input
                 id="contactTitle"
                 value={config.title || ''}
                 onChange={(e) => handleConfigChange('title', e.target.value)}
-                placeholder="Contactez-nous"
+                placeholder={t('blockEditor.fields.contactTitlePlaceholder')}
               />
             </div>
             <div>
-              <Label htmlFor="contactSubtitle">Sous-titre</Label>
+              <Label htmlFor="contactSubtitle">{t('blockEditor.fields.subtitle')}</Label>
               <Textarea
                 id="contactSubtitle"
                 value={config.subtitle || ''}
                 onChange={(e) => handleConfigChange('subtitle', e.target.value)}
-                placeholder="Nous sommes là pour vous aider..."
+                placeholder={t('blockEditor.fields.contactSubtitlePlaceholder')}
                 rows={2}
               />
             </div>
           </div>
 
-          {/* Couleurs */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <Label htmlFor="titleColor">Couleur du titre</Label>
+              <Label htmlFor="titleColor">{t('blockEditor.fields.titleColor')}</Label>
               <ColorPicker 
                 value={config.titleColor || 'primary'} 
                 onChange={(value) => handleConfigChange('titleColor', value)}
               />
             </div>
             <div>
-              <Label htmlFor="subtitleColor">Couleur du sous-titre</Label>
+              <Label htmlFor="subtitleColor">{t('blockEditor.fields.subtitleColor')}</Label>
               <ColorPicker 
                 value={config.subtitleColor || '#666666'} 
                 onChange={(value) => handleConfigChange('subtitleColor', value)}
               />
             </div>
             <div>
-              <Label htmlFor="dividerColor">Couleur du séparateur</Label>
+              <Label htmlFor="dividerColor">{t('blockEditor.fields.dividerColor')}</Label>
               <ColorPicker 
                 value={config.dividerColor || 'secondary'} 
                 onChange={(value) => handleConfigChange('dividerColor', value)}
@@ -785,154 +783,149 @@ function renderBlockSpecificContent(
           </div>
 
           <div>
-            <Label htmlFor="backgroundColor">Couleur de fond</Label>
+            <Label htmlFor="backgroundColor">{t('blockEditor.fields.backgroundColor')}</Label>
             <ColorPicker 
               value={config.backgroundColor || '#ffffff'} 
               onChange={(value) => handleConfigChange('backgroundColor', value)}
             />
           </div>
 
-          {/* Email */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="emailLabel">Label Email</Label>
+              <Label htmlFor="emailLabel">{t('blockEditor.fields.emailLabel')}</Label>
               <Input
                 id="emailLabel"
                 value={config.emailLabel || ''}
                 onChange={(e) => handleConfigChange('emailLabel', e.target.value)}
-                placeholder="Email"
+                placeholder={t('blockEditor.fields.emailPlaceholder')}
               />
             </div>
             <div>
-              <Label htmlFor="email">Adresse Email</Label>
+              <Label htmlFor="email">{t('blockEditor.fields.emailAddress')}</Label>
               <Input
                 id="email"
                 type="email"
                 value={config.email || ''}
                 onChange={(e) => handleConfigChange('email', e.target.value)}
-                placeholder="contact@example.com"
+                placeholder={t('blockEditor.fields.emailAddressPlaceholder')}
               />
             </div>
           </div>
 
-          {/* Téléphone */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="phoneLabel">Label Téléphone</Label>
+              <Label htmlFor="phoneLabel">{t('blockEditor.fields.phoneLabel')}</Label>
               <Input
                 id="phoneLabel"
                 value={config.phoneLabel || ''}
                 onChange={(e) => handleConfigChange('phoneLabel', e.target.value)}
-                placeholder="Téléphone"
+                placeholder={t('blockEditor.fields.phonePlaceholder')}
               />
             </div>
             <div>
-              <Label htmlFor="phone">Numéro de téléphone</Label>
+              <Label htmlFor="phone">{t('blockEditor.fields.phoneNumber')}</Label>
               <Input
                 id="phone"
                 type="tel"
                 value={config.phone || ''}
                 onChange={(e) => handleConfigChange('phone', e.target.value)}
-                placeholder="+33 1 23 45 67 89"
+                placeholder={t('blockEditor.fields.phoneNumberPlaceholder')}
               />
             </div>
           </div>
 
-          {/* WhatsApp */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="whatsappLabel">Label WhatsApp</Label>
+              <Label htmlFor="whatsappLabel">{t('blockEditor.fields.whatsappLabel')}</Label>
               <Input
                 id="whatsappLabel"
                 value={config.whatsappLabel || ''}
                 onChange={(e) => handleConfigChange('whatsappLabel', e.target.value)}
-                placeholder="WhatsApp"
+                placeholder={t('blockEditor.fields.whatsappPlaceholder')}
               />
             </div>
             <div>
-              <Label htmlFor="whatsapp">Numéro WhatsApp</Label>
+              <Label htmlFor="whatsapp">{t('blockEditor.fields.whatsappNumber')}</Label>
               <Input
                 id="whatsapp"
                 type="tel"
                 value={config.whatsapp || ''}
                 onChange={(e) => handleConfigChange('whatsapp', e.target.value)}
-                placeholder="+33 6 12 34 56 78"
+                placeholder={t('blockEditor.fields.whatsappNumberPlaceholder')}
               />
             </div>
           </div>
 
-          {/* Line ID */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="lineIdLabel">Label Line ID</Label>
+              <Label htmlFor="lineIdLabel">{t('blockEditor.fields.lineIdLabel')}</Label>
               <Input
                 id="lineIdLabel"
                 value={config.lineIdLabel || ''}
                 onChange={(e) => handleConfigChange('lineIdLabel', e.target.value)}
-                placeholder="Line ID"
+                placeholder={t('blockEditor.fields.lineIdPlaceholder')}
               />
             </div>
             <div>
-              <Label htmlFor="lineId">Line ID</Label>
+              <Label htmlFor="lineId">{t('blockEditor.fields.lineId')}</Label>
               <Input
                 id="lineId"
                 value={config.lineId || ''}
                 onChange={(e) => handleConfigChange('lineId', e.target.value)}
-                placeholder="moncompte"
+                placeholder={t('blockEditor.fields.lineIdValuePlaceholder')}
               />
             </div>
           </div>
 
-          {/* Section À propos */}
           <div className="flex items-center space-x-2">
             <Switch
               id="showAboutCompany"
               checked={config.showAboutCompany ?? true}
               onCheckedChange={(checked) => handleConfigChange('showAboutCompany', checked)}
             />
-            <Label htmlFor="showAboutCompany">Afficher la section "À propos de notre entreprise"</Label>
+            <Label htmlFor="showAboutCompany">{t('blockEditor.fields.showAboutCompany')}</Label>
           </div>
 
           {(config.showAboutCompany ?? true) && (
             <div className="space-y-4 border-l-4 border-secondary pl-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="companyBrand">Nom de la marque</Label>
+                  <Label htmlFor="companyBrand">{t('blockEditor.fields.companyBrand')}</Label>
                   <Input
                     id="companyBrand"
                     value={config.companyBrand || ''}
                     onChange={(e) => handleConfigChange('companyBrand', e.target.value)}
-                    placeholder="Votre Marque"
+                    placeholder={t('blockEditor.fields.companyBrandPlaceholder')}
                   />
                 </div>
                 <div>
-                  <Label htmlFor="companyName">Nom de l'entreprise</Label>
+                  <Label htmlFor="companyName">{t('blockEditor.fields.companyName')}</Label>
                   <Input
                     id="companyName"
                     value={config.companyName || ''}
                     onChange={(e) => handleConfigChange('companyName', e.target.value)}
-                    placeholder="Votre Entreprise SARL"
+                    placeholder={t('blockEditor.fields.companyNamePlaceholder')}
                   />
                 </div>
               </div>
 
               <div>
-                <Label htmlFor="tatLicense">Licence TAT</Label>
+                <Label htmlFor="tatLicense">{t('blockEditor.fields.tatLicense')}</Label>
                 <Input
                   id="tatLicense"
                   value={config.tatLicense || ''}
                   onChange={(e) => handleConfigChange('tatLicense', e.target.value)}
-                  placeholder="12/34567"
+                  placeholder={t('blockEditor.fields.tatLicensePlaceholder')}
                 />
               </div>
 
               <div>
-                <Label htmlFor="companyDescription">Description de l'entreprise</Label>
+                <Label htmlFor="companyDescription">{t('blockEditor.fields.companyDescription')}</Label>
                 <Textarea
                   id="companyDescription"
                   value={config.companyDescription || ''}
                   onChange={(e) => handleConfigChange('companyDescription', e.target.value)}
-                  placeholder="Nous sommes un opérateur touristique agréé..."
+                  placeholder={t('blockEditor.fields.companyDescriptionPlaceholder')}
                   rows={3}
                 />
               </div>

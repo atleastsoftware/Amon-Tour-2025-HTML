@@ -10,6 +10,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { FileText, Save, RefreshCw, Sparkles, AlertCircle } from "lucide-react";
+import { useUITranslation } from "@/hooks/useUITranslation";
 
 interface CustomForm {
   id: number;
@@ -28,31 +29,32 @@ interface CustomForm {
 }
 
 // Get human-readable field name
-function getFieldDisplayName(key: string): string {
-  const fieldMap: Record<string, string> = {
-    'name': 'Nom du formulaire',
-    'description': 'Description',
-    'submit_button': 'Bouton d\'envoi',
-    'success_message': 'Message de succès',
-    'error_message': 'Message d\'erreur'
+function getFieldDisplayName(key: string, t: (key: string, params?: any) => string): string {
+  const fieldMapKeys: Record<string, string> = {
+    'name': 'formTranslationEditor.fieldNames.formName',
+    'description': 'formTranslationEditor.fieldNames.description',
+    'submit_button': 'formTranslationEditor.fieldNames.submitButton',
+    'success_message': 'formTranslationEditor.fieldNames.successMessage',
+    'error_message': 'formTranslationEditor.fieldNames.errorMessage'
   };
 
-  if (fieldMap[key]) return fieldMap[key];
+  if (fieldMapKeys[key]) return t(fieldMapKeys[key]);
 
   // Handle field labels/placeholders
   if (key.startsWith('field_') && key.includes('_label')) {
     const fieldIndex = key.match(/field_(\d+)/)?.[1];
-    return `Champ ${fieldIndex} - Label`;
+    return t('formTranslationEditor.fieldNames.fieldLabel', { number: fieldIndex });
   }
   if (key.startsWith('field_') && key.includes('_placeholder')) {
     const fieldIndex = key.match(/field_(\d+)/)?.[1];
-    return `Champ ${fieldIndex} - Placeholder`;
+    return t('formTranslationEditor.fieldNames.fieldPlaceholder', { number: fieldIndex });
   }
 
   return key.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 }
 
 export default function FormTranslationEditor() {
+  const { t } = useUITranslation();
   const { toast } = useToast();
   const [selectedFormId, setSelectedFormId] = useState<number | null>(null);
   const [editedTranslations, setEditedTranslations] = useState<any>(null);
@@ -83,15 +85,15 @@ export default function FormTranslationEditor() {
     },
     onSuccess: () => {
       toast({
-        title: "✅ Traductions sauvegardées",
-        description: "Les traductions du formulaire ont été mises à jour."
+        title: t("formTranslationEditor.toasts.saveSuccess.title"),
+        description: t("formTranslationEditor.toasts.saveSuccess.description")
       });
       queryClient.invalidateQueries({ queryKey: ['/api/admin/forms-with-translations'] });
     },
     onError: (error) => {
       toast({
-        title: "❌ Erreur",
-        description: `Impossible de sauvegarder: ${error}`,
+        title: t("formTranslationEditor.toasts.saveError.title"),
+        description: t("formTranslationEditor.toasts.saveError.description", { error }),
         variant: "destructive"
       });
     }
@@ -106,15 +108,15 @@ export default function FormTranslationEditor() {
     },
     onSuccess: () => {
       toast({
-        title: "✅ Traductions régénérées",
-        description: "Les traductions automatiques ont été mises à jour avec succès."
+        title: t("formTranslationEditor.toasts.regenerateSuccess.title"),
+        description: t("formTranslationEditor.toasts.regenerateSuccess.description")
       });
       queryClient.invalidateQueries({ queryKey: ['/api/admin/forms-with-translations'] });
     },
     onError: (error) => {
       toast({
-        title: "❌ Erreur de traduction",
-        description: `Impossible de régénérer les traductions: ${error}`,
+        title: t("formTranslationEditor.toasts.regenerateError.title"),
+        description: t("formTranslationEditor.toasts.regenerateError.description", { error }),
         variant: "destructive"
       });
     }
@@ -154,11 +156,11 @@ export default function FormTranslationEditor() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <FileText className="w-5 h-5" />
-            Traductions des formulaires
+            {t("formTranslationEditor.title")}
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground">Chargement...</p>
+          <p className="text-muted-foreground">{t("formTranslationEditor.loading")}</p>
         </CardContent>
       </Card>
     );
@@ -170,11 +172,11 @@ export default function FormTranslationEditor() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <FileText className="w-5 h-5" />
-            Traductions des formulaires
+            {t("formTranslationEditor.title")}
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground">Aucun formulaire disponible.</p>
+          <p className="text-muted-foreground">{t("formTranslationEditor.noForms")}</p>
         </CardContent>
       </Card>
     );
@@ -186,10 +188,10 @@ export default function FormTranslationEditor() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <FileText className="w-5 h-5" />
-            Traductions des formulaires
+            {t("formTranslationEditor.title")}
           </CardTitle>
           <CardDescription>
-            Gérez les traductions de vos formulaires personnalisés
+            {t("formTranslationEditor.description")}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -222,12 +224,12 @@ export default function FormTranslationEditor() {
                       {regenerateMutation.isPending ? (
                         <>
                           <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-                          Traduction...
+                          {t("formTranslationEditor.buttons.translating")}
                         </>
                       ) : (
                         <>
                           <Sparkles className="w-4 h-4 mr-2" />
-                          Relancer traduction auto
+                          {t("formTranslationEditor.buttons.regenerate")}
                         </>
                       )}
                     </Button>
@@ -239,12 +241,12 @@ export default function FormTranslationEditor() {
                       {saveMutation.isPending ? (
                         <>
                           <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-                          Sauvegarde...
+                          {t("formTranslationEditor.buttons.saving")}
                         </>
                       ) : (
                         <>
                           <Save className="w-4 h-4 mr-2" />
-                          Sauvegarder
+                          {t("formTranslationEditor.buttons.save")}
                         </>
                       )}
                     </Button>
@@ -254,10 +256,10 @@ export default function FormTranslationEditor() {
                 <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'fr' | 'es')}>
                   <TabsList className="grid w-full grid-cols-2">
                     <TabsTrigger value="fr" data-testid="tab-fr">
-                      🇫🇷 Français
+                      {t("formTranslationEditor.tabs.french")}
                     </TabsTrigger>
                     <TabsTrigger value="es" data-testid="tab-es">
-                      🇪🇸 Español
+                      {t("formTranslationEditor.tabs.spanish")}
                     </TabsTrigger>
                   </TabsList>
 
@@ -275,17 +277,17 @@ export default function FormTranslationEditor() {
                                 <div className="flex items-start justify-between gap-2">
                                   <div className="flex-1">
                                     <label className="text-sm font-medium flex items-center gap-2">
-                                      {getFieldDisplayName(key)}
+                                      {getFieldDisplayName(key, t)}
                                       {isManual && (
                                         <Badge variant="outline" className="text-xs">
                                           <Sparkles className="w-3 h-3 mr-1" />
-                                          Traduit manuellement
+                                          {t("formTranslationEditor.badges.manuallyTranslated")}
                                         </Badge>
                                       )}
                                       {hasIssue && (
                                         <Badge variant="destructive" className="text-xs">
                                           <AlertCircle className="w-3 h-3 mr-1" />
-                                          Problème
+                                          {t("formTranslationEditor.badges.issue")}
                                         </Badge>
                                       )}
                                     </label>
@@ -301,7 +303,7 @@ export default function FormTranslationEditor() {
                                     <Textarea
                                       value={translation}
                                       onChange={(e) => handleTranslationChange(lang, key, e.target.value)}
-                                      placeholder={`Traduction en ${lang === 'fr' ? 'français' : 'espagnol'}`}
+                                      placeholder={t(`formTranslationEditor.placeholders.${lang === 'fr' ? 'french' : 'spanish'}`)}
                                       rows={3}
                                       data-testid={`textarea-${lang}-${key}`}
                                     />
@@ -309,7 +311,7 @@ export default function FormTranslationEditor() {
                                     <Input
                                       value={translation}
                                       onChange={(e) => handleTranslationChange(lang, key, e.target.value)}
-                                      placeholder={`Traduction en ${lang === 'fr' ? 'français' : 'espagnol'}`}
+                                      placeholder={t(`formTranslationEditor.placeholders.${lang === 'fr' ? 'french' : 'spanish'}`)}
                                       data-testid={`input-${lang}-${key}`}
                                     />
                                   )}

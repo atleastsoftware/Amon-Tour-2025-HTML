@@ -141,12 +141,36 @@
       "actions": "Actions",
       "advanced": "Avancé"
     },
+    "colorPicker": {
+      "colorReference": "Référence couleur",
+      "colorPlaceholder": "#ffffff",
+      "inputHelp": "Tapez le code couleur ou sélectionnez une couleur prédéfinie",
+      "themeColors": "Couleurs du thème",
+      "primary": "Principale",
+      "primaryTitle": "Couleur principale du thème",
+      "secondary": "Secondaire",
+      "secondaryTitle": "Couleur secondaire du thème",
+      "heading": "Titre",
+      "headingTitle": "Couleur de titre (référence)",
+      "text": "Texte",
+      "textTitle": "Couleur de texte (référence)",
+      "background": "Fond",
+      "backgroundTitle": "Couleur de fond (référence)",
+      "preview": "Aperçu",
+      "pickerTitle": "Sélectionneur de couleur",
+      "pickerHelp": "Cliquez pour ouvrir le sélectionneur de couleur"
+    },
     "fields": {
       "blockTitle": "Titre du bloc",
+      "blockTitlePlaceholder": "Titre du bloc",
       "blockSubtitle": "Sous-titre du bloc",
+      "blockSubtitlePlaceholder": "Sous-titre du bloc",
       "blockDescription": "Description du bloc",
+      "blockDescriptionPlaceholder": "Description du bloc",
       "mainContent": "Contenu principal (supporte HTML)",
+      "mainContentPlaceholder": "Contenu principal (supporte HTML)",
       "imageUrl": "URL de l'image",
+      "imageUrlPlaceholder": "/path/to/image.jpg",
       "upload": "Uploader",
       "backgroundColor": "Couleur de fond",
       "backgroundColors": {
@@ -163,19 +187,36 @@
       },
       "textColor": "Couleur du texte",
       "ctaText": "Texte du bouton d'action",
+      "ctaTextPlaceholder": "En savoir plus",
       "ctaUrl": "URL du bouton d'action",
+      "ctaUrlPlaceholder": "/contact",
+      "ctaButtons": "Boutons d'action",
+      "buttonText": "Texte du bouton",
+      "buttonStyle": "Style du bouton",
+      "buttonStyles": {
+        "primary": "Principal",
+        "secondary": "Secondaire",
+        "outline": "Contour"
+      },
       "buttons": "Boutons",
       "newButton": "Nouveau bouton",
       "addButton": "Ajouter un bouton",
       "blockId": "Identifiant du bloc",
       "blockOrder": "Ordre du bloc",
       "isActive": "Le bloc est actif",
-      "rawConfig": "Configuration brute (JSON)"
+      "rawConfig": "Configuration brute (JSON)",
+      "rawConfigPlaceholder": "{ }",
+      "title": "Titre",
+      "subtitle": "Sous-titre",
+      "description": "Description",
+      "content": "Contenu"
     },
     "heroFields": {
       "mainTitle": "Titre principal du héros",
+      "mainTitlePlaceholder": "Titre principal du héros",
       "titleColor": "Couleur principale du titre",
       "highlightWord": "Mot du titre en seconde couleur",
+      "highlightWordPlaceholder": "Mot à colorier différemment",
       "accentColor": "Couleur accent",
       "subtitleColor": "Couleur du sous-titre",
       "countryRegion": "Pays/Région",
@@ -183,7 +224,11 @@
       "features": "Fonctionnalités",
       "iconName": "Nom de l'icône",
       "featureTitle": "Titre de la fonctionnalité",
+      "featureTitlePlaceholder": "Titre de la fonctionnalité",
       "featureDescription": "Description de la fonctionnalité",
+      "featureDescriptionPlaceholder": "Description de la fonctionnalité",
+      "newFeature": "Nouvelle fonctionnalité",
+      "newFeatureDescription": "Description de la fonctionnalité",
       "addFeature": "Ajouter une fonctionnalité",
       "formType": "Type de formulaire",
       "formTypes": {
@@ -192,6 +237,7 @@
         "newsletter": "Inscription newsletter"
       },
       "submitButtonText": "Texte du bouton d'envoi",
+      "submitButtonPlaceholder": "Envoyer le message",
       "numberOfCards": "Nombre de cartes",
       "showTourNinja": "Afficher l'intégration Tour Ninja",
       "rating": "Note",
@@ -208,21 +254,113 @@
       "separatorColor": "Couleur du séparateur",
       "backgroundColor": "Couleur de fond",
       "emailLabel": "Label Email",
+      "emailLabelValue": "Email",
       "emailValue": "Adresse Email",
+      "emailPlaceholder": "contact@example.com",
       "phoneLabel": "Label Téléphone",
+      "phoneLabelValue": "Téléphone",
       "phoneValue": "Numéro de téléphone",
+      "phonePlaceholder": "+33 1 23 45 67 89",
       "whatsappLabel": "Label WhatsApp",
+      "whatsappLabelValue": "WhatsApp",
       "whatsappValue": "Numéro WhatsApp",
+      "whatsappPlaceholder": "+33 6 12 34 56 78",
       "lineLabel": "Label Line ID",
+      "lineLabelValue": "Line ID",
       "lineValue": "Line ID",
+      "linePlaceholder": "moncompte",
       "showAboutSection": "Afficher la section \"À propos de notre entreprise\"",
       "brandName": "Nom de la marque",
+      "brandPlaceholder": "Votre Marque",
       "companyName": "Nom de l'entreprise",
+      "companyPlaceholder": "Votre Entreprise SARL",
       "tatLicense": "Licence TAT",
-      "companyDescription": "Description de l'entreprise"
+      "tatPlaceholder": "12/34567",
+      "companyDescription": "Description de l'entreprise",
+      "companyDescriptionPlaceholder": "Nous sommes un opérateur touristique agréé..."
     },
     "videoUrl": "URL de la vidéo",
     "videoUrlPlaceholder": "/path/to/video.mp4"
+  },
+  "translationEditor": {
+    "title": "Traductions des blocs de pages",
+    "subtitle": "Sélectionnez une page puis un bloc pour modifier ses traductions",
+    "loading": "Chargement...",
+    "pageBlocks": "Blocs de la page {{pageName}}",
+    "noTextToTranslate": "Aucun bloc avec du texte à traduire",
+    "save": "Sauvegarder",
+    "tabs": {
+      "french": "🇫🇷 Français",
+      "spanish": "🇪🇸 Español"
+    },
+    "badges": {
+      "manuallyEdited": "Édité manuellement",
+      "auto": "Auto"
+    },
+    "originalText": "EN:",
+    "translationPlaceholder": {
+      "french": "Traduction française",
+      "spanish": "Traduction espagnole"
+    },
+    "noTextInBlock": "Aucun texte à traduire dans ce bloc",
+    "saveSuccess": {
+      "title": "Traductions sauvegardées !",
+      "description": "Les modifications ont été enregistrées avec succès."
+    },
+    "saveError": {
+      "title": "Erreur",
+      "description": "Impossible de sauvegarder les traductions."
+    },
+    "fieldNames": {
+      "title": "Titre",
+      "subtitle": "Sous-titre",
+      "description": "Description",
+      "content": "Contenu",
+      "ctaText": "Texte du bouton",
+      "titleAccent": "Mot du titre en seconde couleur",
+      "placeholder": "Texte indicatif",
+      "introduction": "Introduction",
+      "text": "Texte",
+      "label": "Label",
+      "emailLabel": "Label email",
+      "email": "Email",
+      "phoneLabel": "Label téléphone",
+      "phone": "Téléphone",
+      "whatsappLabel": "Label WhatsApp",
+      "whatsapp": "WhatsApp",
+      "lineIdLabel": "Label LINE ID",
+      "lineId": "LINE ID",
+      "aboutTitle": "Titre à propos",
+      "companyBrand": "Marque",
+      "companyName": "Nom de société",
+      "companyLicense": "Licence",
+      "companyDescription": "Description société",
+      "buttonText": "Texte du bouton",
+      "privacyText": "Texte de confidentialité",
+      "searchPlaceholder": "Texte indicatif de recherche",
+      "tagsTitle": "Titre tags",
+      "categoriesTitle": "Titre catégories",
+      "allTagsText": "Texte tous les tags",
+      "allCategoriesText": "Texte toutes catégories",
+      "pickupTitle": "Titre ramassage",
+      "includedTitle": "Titre inclus",
+      "includedDescription": "Description inclus",
+      "notIncludedTitle": "Titre non inclus",
+      "notIncludedDescription": "Description non inclus",
+      "price": "Prix",
+      "currency": "Devise",
+      "cycle": "Période",
+      "moreText": "Texte plus",
+      "time": "Heure",
+      "location": "Lieu",
+      "button": "Bouton",
+      "item": "Élément",
+      "section": "Section",
+      "block": "Bloc",
+      "pricingCard": "Carte",
+      "pickupTime": "Horaire",
+      "miniIcon": "Mini icône"
+    }
   },
   "blockSelection": {
     "title": "Sélectionner un bloc",
@@ -399,7 +537,7 @@
     "formName": "Nom du formulaire",
     "formNamePlaceholder": "Ex: Formulaire de contact",
     "noForms": "Aucun formulaire disponible.",
-    "newField": "Nouveau champ",
+    "newField": "Nouveau champ {{type}}",
     "fieldLabel": "Label du champ",
     "fieldRequired": "Champ requis",
     "fieldType": "Type de champ",
@@ -412,14 +550,114 @@
     },
     "options": "Options",
     "addOption": "Ajouter une option",
-    "noFields": "Aucun champ ajouté. Utilisez les boutons ci-dessus pour ajouter des champs.",
+    "noFields": "Aucun champ ajouté. Cliquez sur \"Nouveau champ\" pour commencer.",
     "fieldConfig": "Configuration du champ",
     "errors": {
       "nameRequired": "Le nom du formulaire est obligatoire.",
-      "fieldsRequired": "Le formulaire doit contenir au moins un champ."
+      "fieldsRequired": "Le formulaire doit contenir au moins un champ.",
+      "savingError": "Erreur lors de la sauvegarde du formulaire."
     },
     "submit": "Envoyer",
-    "whatsappContact": "Contact via WhatsApp"
+    "whatsappContact": "Contacter via WhatsApp",
+    "fieldTypes": {
+      "text": "Texte",
+      "email": "Email",
+      "phone": "Téléphone",
+      "textarea": "Zone de texte",
+      "select": "Sélection",
+      "checkbox": "Cases à cocher",
+      "radio": "Boutons radio",
+      "file": "Fichier",
+      "date": "Date",
+      "number": "Nombre"
+    },
+    "colorPicker": {
+      "label": "Couleur",
+      "primary": "Couleur principale",
+      "secondary": "Couleur secondaire",
+      "heading": "Couleur de titre",
+      "text": "Couleur de texte",
+      "background": "Couleur de fond",
+      "colorReference": "Référence couleur : {{color}}",
+      "customColor": "Couleur personnalisée",
+      "helpText": "Cliquez sur le carré de couleur pour choisir visuellement ou sur le code couleur pour saisir directement"
+    },
+    "tabs": {
+      "informations": "Informations",
+      "builder": "Constructeur",
+      "style": "Style",
+      "settings": "Paramètres"
+    },
+    "preview": {
+      "title": "Prévisualisation",
+      "show": "Afficher la prévisualisation",
+      "hide": "Masquer la prévisualisation",
+      "noFields": "Ajoutez des champs pour voir la prévisualisation",
+      "selectOption": "Sélectionnez une option"
+    },
+    "informations": {
+      "title": "Informations générales",
+      "formTitle": "Titre",
+      "formTitlePlaceholder": "Ex : Contactez-nous",
+      "subtitle": "Sous-titre",
+      "subtitlePlaceholder": "Ex : Nous vous répondrons rapidement",
+      "headerImage": "Image d'en-tête",
+      "headerImagePlaceholder": "URL de l'image (ex : /catamaran-cruise.png)",
+      "submitButton": "Bouton de soumission",
+      "submitButtonText": "Texte du bouton",
+      "submitButtonTextDefault": "Envoyer",
+      "whatsappButton": "Ajouter un bouton WhatsApp",
+      "whatsappButtonText": "Texte au-dessus du bouton WhatsApp",
+      "whatsappButtonTextDefault": "Ou contactez-nous directement via WhatsApp"
+    },
+    "builder": {
+      "fieldsTitle": "Champs du formulaire ({{count}})",
+      "newField": "Nouveau champ",
+      "noFields": "Aucun champ ajouté. Cliquez sur \"Nouveau champ\" pour commencer.",
+      "required": "Requis",
+      "duplicate": "Dupliquer ce champ",
+      "fieldType": "Type de champ",
+      "width": "Largeur",
+      "labelField": "Label du champ",
+      "placeholder": "Placeholder",
+      "requiredField": "Champ requis",
+      "options": "Options",
+      "addOption": "Ajouter une option",
+      "option": "Option {{number}}"
+    },
+    "style": {
+      "title": "Apparence",
+      "layout": "Disposition",
+      "layouts": {
+        "columns": "Image à gauche, Formulaire à droite",
+        "columnsReversed": "Formulaire à gauche, Image à droite",
+        "header": "Image en haut, Formulaire en bas",
+        "footer": "Formulaire en haut, Image en bas"
+      },
+      "colors": "Couleurs",
+      "backgroundColor": "Couleur de fond",
+      "primaryColor": "Couleur principale",
+      "frameColor": "Couleur du cadre",
+      "titleColor": "Couleur du titre",
+      "subtitleColor": "Couleur du sous-titre",
+      "textColor": "Couleur du texte"
+    },
+    "settings": {
+      "title": "Paramètres",
+      "messages": "Messages",
+      "successMessage": "Message de succès",
+      "successMessagePlaceholder": "Merci ! Nous vous contacterons bientôt.",
+      "errorMessage": "Message d'erreur",
+      "errorMessagePlaceholder": "Une erreur est survenue. Veuillez réessayer.",
+      "emailNotification": "Envoyer une notification par email",
+      "redirectUrl": "URL de redirection après soumission",
+      "redirectUrlPlaceholder": "Ex : /merci"
+    },
+    "actions": {
+      "save": "Publier",
+      "saving": "Sauvegarde...",
+      "cancel": "Annuler"
+    }
   },
   "imageManager": {
     "upload": "Upload une image",
@@ -505,5 +743,123 @@
     "newPost": "Nouvel article",
     "editPost": "Modifier l'article",
     "noPosts": "Aucun article disponible."
+  },
+  "globalElementTranslationEditor": {
+    "title": "Traductions des éléments globaux",
+    "description": "Gérez les traductions pour les éléments globaux de votre site",
+    "loading": "Chargement...",
+    "buttons": {
+      "footer": "Footer",
+      "navigation": "Menu de Navigation",
+      "announcement": "Barre d'Annonces",
+      "popup": "Pop-up"
+    },
+    "footerSectionsTitle": "Sections du Footer",
+    "footerSections": {
+      "contactInfo": "Informations de contact",
+      "usefulLinks": "Liens utiles",
+      "socialMedia": "Réseaux sociaux",
+      "newsletterConfig": "Configuration newsletter",
+      "copyrightConfig": "Configuration copyright"
+    },
+    "tabs": {
+      "french": "🇫🇷 Français",
+      "spanish": "🇪🇸 Español"
+    },
+    "badges": {
+      "manuallyEdited": "Édité manuellement",
+      "autoTranslated": "Auto-traduit"
+    },
+    "placeholders": {
+      "french": "Traduction française",
+      "spanish": "Traduction espagnole"
+    },
+    "emptyStates": {
+      "popupNotConfigured": "Pop-up non configuré",
+      "popupNotConfiguredDescription": "Activez le pop-up dans le dashboard pour gérer ses traductions"
+    },
+    "toasts": {
+      "saveSuccess": {
+        "title": "Traductions sauvegardées !",
+        "description": "Les modifications ont été enregistrées avec succès."
+      },
+      "saveError": {
+        "title": "Erreur",
+        "description": "Impossible de sauvegarder les traductions."
+      }
+    },
+    "fieldNames": {
+      "title": "Titre",
+      "text": "Texte",
+      "message": "Message",
+      "description": "Description",
+      "linkText": "Texte du lien",
+      "linkUrl": "URL du lien",
+      "ctaText": "Texte du bouton",
+      "ctaUrl": "URL du bouton",
+      "email": "Email",
+      "phone": "Téléphone",
+      "whatsapp": "WhatsApp",
+      "lineId": "LINE ID",
+      "address": "Adresse",
+      "emailLabel": "Label email",
+      "phoneLabel": "Label téléphone",
+      "buttonText": "Texte du bouton",
+      "placeholder": "Texte indicatif",
+      "successMessage": "Message de succès",
+      "errorMessage": "Message d'erreur",
+      "name": "Nom"
+    }
+  },
+  "formTranslationEditor": {
+    "title": "Traductions des formulaires",
+    "description": "Gérez les traductions de vos formulaires personnalisés",
+    "loading": "Chargement...",
+    "noForms": "Aucun formulaire disponible.",
+    "buttons": {
+      "save": "Sauvegarder",
+      "saving": "Sauvegarde...",
+      "regenerate": "Relancer traduction auto",
+      "translating": "Traduction..."
+    },
+    "tabs": {
+      "french": "🇫🇷 Français",
+      "spanish": "🇪🇸 Español"
+    },
+    "badges": {
+      "manuallyTranslated": "Traduit manuellement",
+      "issue": "Problème"
+    },
+    "placeholders": {
+      "french": "Traduction en français",
+      "spanish": "Traduction en espagnol"
+    },
+    "toasts": {
+      "saveSuccess": {
+        "title": "Traductions sauvegardées",
+        "description": "Les traductions du formulaire ont été mises à jour."
+      },
+      "saveError": {
+        "title": "Erreur",
+        "description": "Impossible de sauvegarder: {{error}}"
+      },
+      "regenerateSuccess": {
+        "title": "Traductions régénérées",
+        "description": "Les traductions automatiques ont été mises à jour avec succès."
+      },
+      "regenerateError": {
+        "title": "Erreur de traduction",
+        "description": "Impossible de régénérer les traductions: {{error}}"
+      }
+    },
+    "fieldNames": {
+      "formName": "Nom du formulaire",
+      "description": "Description",
+      "submitButton": "Bouton d'envoi",
+      "successMessage": "Message de succès",
+      "errorMessage": "Message d'erreur",
+      "fieldLabel": "Champ {{number}} - Label",
+      "fieldPlaceholder": "Champ {{number}} - Placeholder"
+    }
   }
 }

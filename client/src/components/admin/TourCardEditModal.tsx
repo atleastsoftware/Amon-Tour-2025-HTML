@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Badge } from "@/components/ui/badge";
 import { X, Plus } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useUITranslation } from "@/hooks/useUITranslation";
 
 import type { TourCard } from "@shared/schema";
 
@@ -25,6 +26,7 @@ export default function TourCardEditModal({
   onClose, 
   onSave 
 }: TourCardEditModalProps) {
+  const { t } = useUITranslation();
   const { toast } = useToast();
   const [formData, setFormData] = useState<TourCardData>({
     id: "",
@@ -305,7 +307,7 @@ export default function TourCardEditModal({
         <DialogFooter>
           <Button variant="outline" onClick={onClose}>Cancel</Button>
           <Button onClick={handleSave} disabled={isLoading}>
-            {isLoading ? "Saving..." : "Save"}
+            {isLoading ? t('tourCard.form.saving') : t('tourCard.form.save')}
           </Button>
         </DialogFooter>
       </DialogContent>

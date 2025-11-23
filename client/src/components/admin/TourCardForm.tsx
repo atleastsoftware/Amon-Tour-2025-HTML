@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Upload, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
+import { useUITranslation } from "@/hooks/useUITranslation";
 
 interface TourCardData {
   title: string;
@@ -24,6 +25,7 @@ interface TourCardFormProps {
 }
 
 export default function TourCardForm({ onSuccess }: TourCardFormProps) {
+  const { t } = useUITranslation();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<TourCardData>({
@@ -92,8 +94,8 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
           if (title) {
             // Notifier l'utilisateur que le titre a été rempli automatiquement
             toast({
-              title: "Titre auto-rempli",
-              description: "Le titre a été automatiquement généré à partir du lien.",
+              title: t('tourCard.form.autoFillTitle'),
+              description: t('tourCard.form.autoFillDescription'),
               duration: 3000
             });
             
@@ -187,8 +189,8 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
     
     if (!formData.title) {
       toast({
-        title: "Erreur",
-        description: "Le titre est obligatoire",
+        title: t('tourCard.form.errors.titleRequired'),
+        description: t('tourCard.form.errors.titleRequired'),
         variant: "destructive"
       });
       return;
@@ -196,8 +198,8 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
     
     if (!formData.customLink) {
       toast({
-        title: "Erreur",
-        description: "Le lien personnalisé est obligatoire",
+        title: t('tourCard.form.errors.titleRequired'),
+        description: t('tourCard.form.errors.linkRequired'),
         variant: "destructive"
       });
       return;
@@ -205,8 +207,8 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
     
     if (selectedFiles.length === 0) {
       toast({
-        title: "Erreur",
-        description: "Veuillez ajouter au moins une image",
+        title: t('tourCard.form.errors.titleRequired'),
+        description: t('tourCard.form.errors.photosRequired'),
         variant: "destructive"
       });
       return;
@@ -241,8 +243,8 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
         } catch (uploadError) {
           console.error("Error uploading image:", uploadError);
           toast({
-            title: "Erreur d'upload",
-            description: "Une erreur est survenue lors de l'upload de l'image",
+            title: t('tourCard.form.errors.uploadError'),
+            description: t('tourCard.form.errors.uploadErrorDescription'),
             variant: "destructive"
           });
           setIsLoading(false);
@@ -277,8 +279,8 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
         }
         
         toast({
-          title: "Succès",
-          description: "Fiche de tour créée avec succès"
+          title: t('tourCard.form.success.created'),
+          description: t('tourCard.form.success.createdDescription')
         });
         
         // Reset form
@@ -312,8 +314,8 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
       } catch (createError) {
         console.error("Error creating tour card:", createError);
         toast({
-          title: "Erreur",
-          description: "Une erreur est survenue lors de la création de la fiche",
+          title: t('tourCard.form.errors.titleRequired'),
+          description: t('tourCard.form.errors.createErrorDescription'),
           variant: "destructive"
         });
       }
@@ -321,8 +323,8 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
     } catch (error) {
       console.error("Error creating tour card:", error);
       toast({
-        title: "Erreur",
-        description: "Une erreur est survenue lors de la création de la fiche",
+        title: t('tourCard.form.errors.titleRequired'),
+        description: t('tourCard.form.errors.createErrorDescription'),
         variant: "destructive"
       });
     } finally {
@@ -344,7 +346,7 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
               name="title"
               value={formData.title}
               onChange={handleInputChange}
-              placeholder="Ex: Bangkok Food Tour"
+              placeholder={t('tourCard.form.namePlaceholder')}
               required
             />
           </div>
@@ -356,7 +358,7 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
               name="description"
               value={formData.description}
               onChange={handleInputChange}
-              placeholder="Décrivez brièvement ce tour..."
+              placeholder={t('tourCard.form.descriptionPlaceholder')}
               rows={3}
             />
           </div>
@@ -371,7 +373,7 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
                 min={0}
                 value={formData.price || ""}
                 onChange={handleInputChange}
-                placeholder="Ex: 1500"
+                placeholder={t('tourCard.form.pricePlaceholder')}
                 required
               />
             </div>
@@ -440,7 +442,7 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
               name="customLink"
               value={formData.customLink}
               onChange={handleInputChange}
-              placeholder="Ex: https://tourninja.com/tour/xxx"
+              placeholder={t('tourCard.form.customLinkPlaceholder')}
               required
             />
           </div>
@@ -454,7 +456,7 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
                   value={tagInput}
                   onChange={handleTagInputChange}
                   onKeyDown={handleTagKeyDown}
-                  placeholder="Ex: Bangkok, Phuket, Koh Samui"
+                  placeholder={t('tourCard.form.locationTagsPlaceholder')}
                 />
               </div>
               <Button 
@@ -525,8 +527,8 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
                       </p>
                       <p className="text-xs text-gray-500">
                         {previewUrls.length === 0 
-                          ? "Ajoutez jusqu'à 3 photos" 
-                          : `Ajoutez encore ${3 - previewUrls.length} photo${3 - previewUrls.length > 1 ? 's' : ''}`}
+                          ? t('tourCard.form.photosHelp') 
+                          : t('tourCard.form.photosRemaining', { count: 3 - previewUrls.length })}
                       </p>
                     </div>
                     <input
@@ -545,7 +547,7 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
           </div>
           
           <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading ? 'Génération en cours...' : 'Générer la fiche'}
+            {isLoading ? t('tourCard.form.generating') : t('tourCard.form.generate')}
           </Button>
         </form>
       </CardContent>

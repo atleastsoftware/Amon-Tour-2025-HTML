@@ -141,12 +141,36 @@
       "actions": "Acciones",
       "advanced": "Avanzado"
     },
+    "colorPicker": {
+      "colorReference": "Referencia de color",
+      "colorPlaceholder": "#ffffff",
+      "inputHelp": "Escriba el código de color o seleccione un color predefinido",
+      "themeColors": "Colores del tema",
+      "primary": "Principal",
+      "primaryTitle": "Color principal del tema",
+      "secondary": "Secundario",
+      "secondaryTitle": "Color secundario del tema",
+      "heading": "Encabezado",
+      "headingTitle": "Color de encabezado (referencia)",
+      "text": "Texto",
+      "textTitle": "Color de texto (referencia)",
+      "background": "Fondo",
+      "backgroundTitle": "Color de fondo (referencia)",
+      "preview": "Vista previa",
+      "pickerTitle": "Selector de color",
+      "pickerHelp": "Haga clic para abrir el selector de color"
+    },
     "fields": {
       "blockTitle": "Título del bloque",
+      "blockTitlePlaceholder": "Título del bloque",
       "blockSubtitle": "Subtítulo del bloque",
+      "blockSubtitlePlaceholder": "Subtítulo del bloque",
       "blockDescription": "Descripción del bloque",
+      "blockDescriptionPlaceholder": "Descripción del bloque",
       "mainContent": "Contenido principal (soporta HTML)",
+      "mainContentPlaceholder": "Contenido principal (soporta HTML)",
       "imageUrl": "URL de la imagen",
+      "imageUrlPlaceholder": "/path/to/image.jpg",
       "upload": "Subir",
       "backgroundColor": "Color de fondo",
       "backgroundColors": {
@@ -163,19 +187,36 @@
       },
       "textColor": "Color del texto",
       "ctaText": "Texto del botón de acción",
+      "ctaTextPlaceholder": "Más información",
       "ctaUrl": "URL del botón de acción",
+      "ctaUrlPlaceholder": "/contact",
+      "ctaButtons": "Botones de acción",
+      "buttonText": "Texto del botón",
+      "buttonStyle": "Estilo del botón",
+      "buttonStyles": {
+        "primary": "Principal",
+        "secondary": "Secundario",
+        "outline": "Contorno"
+      },
       "buttons": "Botones",
       "newButton": "Nuevo botón",
       "addButton": "Agregar botón",
       "blockId": "Identificador del bloque",
       "blockOrder": "Orden del bloque",
       "isActive": "El bloque está activo",
-      "rawConfig": "Configuración sin procesar (JSON)"
+      "rawConfig": "Configuración sin procesar (JSON)",
+      "rawConfigPlaceholder": "{ }",
+      "title": "Título",
+      "subtitle": "Subtítulo",
+      "description": "Descripción",
+      "content": "Contenido"
     },
     "heroFields": {
       "mainTitle": "Título principal del héroe",
+      "mainTitlePlaceholder": "Título principal del héroe",
       "titleColor": "Color del título principal",
       "highlightWord": "Palabra destacada en el título",
+      "highlightWordPlaceholder": "Palabra para colorear diferente",
       "accentColor": "Color de acento",
       "subtitleColor": "Color del subtítulo",
       "countryRegion": "País/Región",
@@ -183,7 +224,11 @@
       "features": "Características",
       "iconName": "Nombre del icono",
       "featureTitle": "Título de la característica",
+      "featureTitlePlaceholder": "Título de la característica",
       "featureDescription": "Descripción de la característica",
+      "featureDescriptionPlaceholder": "Descripción de la característica",
+      "newFeature": "Nueva característica",
+      "newFeatureDescription": "Descripción de la característica",
       "addFeature": "Agregar característica",
       "formType": "Tipo de formulario",
       "formTypes": {
@@ -192,6 +237,7 @@
         "newsletter": "Suscripción a newsletter"
       },
       "submitButtonText": "Texto del botón de envío",
+      "submitButtonPlaceholder": "Enviar mensaje",
       "numberOfCards": "Número de tarjetas",
       "showTourNinja": "Mostrar integración Tour Ninja",
       "rating": "Calificación",
@@ -208,21 +254,113 @@
       "separatorColor": "Color del separador",
       "backgroundColor": "Color de fondo",
       "emailLabel": "Etiqueta de email",
+      "emailLabelValue": "Email",
       "emailValue": "Dirección de email",
+      "emailPlaceholder": "contact@example.com",
       "phoneLabel": "Etiqueta de teléfono",
+      "phoneLabelValue": "Teléfono",
       "phoneValue": "Número de teléfono",
+      "phonePlaceholder": "+33 1 23 45 67 89",
       "whatsappLabel": "Etiqueta de WhatsApp",
+      "whatsappLabelValue": "WhatsApp",
       "whatsappValue": "Número de WhatsApp",
+      "whatsappPlaceholder": "+33 6 12 34 56 78",
       "lineLabel": "Etiqueta de Line ID",
+      "lineLabelValue": "Line ID",
       "lineValue": "Line ID",
+      "linePlaceholder": "micuenta",
       "showAboutSection": "Mostrar sección \"Acerca de nuestra empresa\"",
       "brandName": "Nombre de la marca",
+      "brandPlaceholder": "Su Marca",
       "companyName": "Nombre de la empresa",
+      "companyPlaceholder": "Su Empresa S.L.",
       "tatLicense": "Licencia TAT",
-      "companyDescription": "Descripción de la empresa"
+      "tatPlaceholder": "12/34567",
+      "companyDescription": "Descripción de la empresa",
+      "companyDescriptionPlaceholder": "Somos un operador turístico licenciado..."
     },
     "videoUrl": "URL del video",
     "videoUrlPlaceholder": "/path/to/video.mp4"
+  },
+  "translationEditor": {
+    "title": "Traducciones de bloques de páginas",
+    "subtitle": "Seleccione una página y luego un bloque para editar sus traducciones",
+    "loading": "Cargando...",
+    "pageBlocks": "Bloques de la página {{pageName}}",
+    "noTextToTranslate": "Ningún bloque con texto para traducir",
+    "save": "Guardar",
+    "tabs": {
+      "french": "🇫🇷 Francés",
+      "spanish": "🇪🇸 Español"
+    },
+    "badges": {
+      "manuallyEdited": "Editado manualmente",
+      "auto": "Auto"
+    },
+    "originalText": "EN:",
+    "translationPlaceholder": {
+      "french": "Traducción francesa",
+      "spanish": "Traducción española"
+    },
+    "noTextInBlock": "No hay texto para traducir en este bloque",
+    "saveSuccess": {
+      "title": "¡Traducciones guardadas!",
+      "description": "Los cambios se han guardado correctamente."
+    },
+    "saveError": {
+      "title": "Error",
+      "description": "No se pueden guardar las traducciones."
+    },
+    "fieldNames": {
+      "title": "Título",
+      "subtitle": "Subtítulo",
+      "description": "Descripción",
+      "content": "Contenido",
+      "ctaText": "Texto del botón",
+      "titleAccent": "Palabra destacada en el título",
+      "placeholder": "Texto indicativo",
+      "introduction": "Introducción",
+      "text": "Texto",
+      "label": "Etiqueta",
+      "emailLabel": "Etiqueta de email",
+      "email": "Email",
+      "phoneLabel": "Etiqueta de teléfono",
+      "phone": "Teléfono",
+      "whatsappLabel": "Etiqueta de WhatsApp",
+      "whatsapp": "WhatsApp",
+      "lineIdLabel": "Etiqueta de LINE ID",
+      "lineId": "LINE ID",
+      "aboutTitle": "Título acerca de",
+      "companyBrand": "Marca",
+      "companyName": "Nombre de empresa",
+      "companyLicense": "Licencia",
+      "companyDescription": "Descripción de empresa",
+      "buttonText": "Texto del botón",
+      "privacyText": "Texto de privacidad",
+      "searchPlaceholder": "Texto indicativo de búsqueda",
+      "tagsTitle": "Título de etiquetas",
+      "categoriesTitle": "Título de categorías",
+      "allTagsText": "Texto todas las etiquetas",
+      "allCategoriesText": "Texto todas las categorías",
+      "pickupTitle": "Título de recogida",
+      "includedTitle": "Título incluido",
+      "includedDescription": "Descripción incluido",
+      "notIncludedTitle": "Título no incluido",
+      "notIncludedDescription": "Descripción no incluido",
+      "price": "Precio",
+      "currency": "Moneda",
+      "cycle": "Período",
+      "moreText": "Texto más",
+      "time": "Hora",
+      "location": "Ubicación",
+      "button": "Botón",
+      "item": "Elemento",
+      "section": "Sección",
+      "block": "Bloque",
+      "pricingCard": "Tarjeta",
+      "pickupTime": "Horario",
+      "miniIcon": "Mini icono"
+    }
   },
   "blockSelection": {
     "title": "Seleccionar un bloque",
@@ -295,9 +433,19 @@
       }
     },
     "display": {
+      "bookNow": "Reservar ahora",
+      "fromPrice": "Desde {{price}}/pers.",
+      "noImage": "Sin imagen",
+      "copyLink": "Copiar enlace",
+      "copied": "Copiado",
+      "share": "Compartir",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "discover": "Descubrir {{title}}",
       "linkCopied": "Enlace copiado",
       "linkCopiedDescription": "El enlace se ha copiado al portapapeles",
-      "copyFailed": "Error al copiar el enlace",
+      "copyFailed": "Error",
+      "copyFailedDescription": "Error al copiar el enlace",
       "deleteConfirm": "¿Está seguro de que desea eliminar la tarjeta \"{{title}}\"?"
     }
   },
@@ -505,5 +653,123 @@
     "newPost": "Nueva publicación",
     "editPost": "Editar publicación",
     "noPosts": "No hay publicaciones disponibles."
+  },
+  "globalElementTranslationEditor": {
+    "title": "Traducciones de elementos globales",
+    "description": "Gestione las traducciones de los elementos globales de su sitio",
+    "loading": "Cargando...",
+    "buttons": {
+      "footer": "Footer",
+      "navigation": "Menú de Navegación",
+      "announcement": "Barra de Anuncios",
+      "popup": "Pop-up"
+    },
+    "footerSectionsTitle": "Secciones del Footer",
+    "footerSections": {
+      "contactInfo": "Información de contacto",
+      "usefulLinks": "Enlaces útiles",
+      "socialMedia": "Redes sociales",
+      "newsletterConfig": "Configuración newsletter",
+      "copyrightConfig": "Configuración copyright"
+    },
+    "tabs": {
+      "french": "🇫🇷 Francés",
+      "spanish": "🇪🇸 Español"
+    },
+    "badges": {
+      "manuallyEdited": "Editado manualmente",
+      "autoTranslated": "Traducido automáticamente"
+    },
+    "placeholders": {
+      "french": "Traducción francesa",
+      "spanish": "Traducción española"
+    },
+    "emptyStates": {
+      "popupNotConfigured": "Pop-up no configurado",
+      "popupNotConfiguredDescription": "Active el pop-up en el panel para gestionar sus traducciones"
+    },
+    "toasts": {
+      "saveSuccess": {
+        "title": "¡Traducciones guardadas!",
+        "description": "Los cambios se han guardado correctamente."
+      },
+      "saveError": {
+        "title": "Error",
+        "description": "No se pueden guardar las traducciones."
+      }
+    },
+    "fieldNames": {
+      "title": "Título",
+      "text": "Texto",
+      "message": "Mensaje",
+      "description": "Descripción",
+      "linkText": "Texto del enlace",
+      "linkUrl": "URL del enlace",
+      "ctaText": "Texto del botón",
+      "ctaUrl": "URL del botón",
+      "email": "Email",
+      "phone": "Teléfono",
+      "whatsapp": "WhatsApp",
+      "lineId": "LINE ID",
+      "address": "Dirección",
+      "emailLabel": "Etiqueta de email",
+      "phoneLabel": "Etiqueta de teléfono",
+      "buttonText": "Texto del botón",
+      "placeholder": "Texto indicativo",
+      "successMessage": "Mensaje de éxito",
+      "errorMessage": "Mensaje de error",
+      "name": "Nombre"
+    }
+  },
+  "formTranslationEditor": {
+    "title": "Traducciones de formularios",
+    "description": "Gestione las traducciones de sus formularios personalizados",
+    "loading": "Cargando...",
+    "noForms": "No hay formularios disponibles.",
+    "buttons": {
+      "save": "Guardar",
+      "saving": "Guardando...",
+      "regenerate": "Volver a ejecutar traducción automática",
+      "translating": "Traduciendo..."
+    },
+    "tabs": {
+      "french": "🇫🇷 Francés",
+      "spanish": "🇪🇸 Español"
+    },
+    "badges": {
+      "manuallyTranslated": "Traducido manualmente",
+      "issue": "Problema"
+    },
+    "placeholders": {
+      "french": "Traducción en francés",
+      "spanish": "Traducción en español"
+    },
+    "toasts": {
+      "saveSuccess": {
+        "title": "Traducciones guardadas",
+        "description": "Las traducciones del formulario se han actualizado."
+      },
+      "saveError": {
+        "title": "Error",
+        "description": "No se puede guardar: {{error}}"
+      },
+      "regenerateSuccess": {
+        "title": "Traducciones regeneradas",
+        "description": "Las traducciones automáticas se han actualizado correctamente."
+      },
+      "regenerateError": {
+        "title": "Error de traducción",
+        "description": "No se pueden regenerar las traducciones: {{error}}"
+      }
+    },
+    "fieldNames": {
+      "formName": "Nombre del formulario",
+      "description": "Descripción",
+      "submitButton": "Botón de envío",
+      "successMessage": "Mensaje de éxito",
+      "errorMessage": "Mensaje de error",
+      "fieldLabel": "Campo {{number}} - Etiqueta",
+      "fieldPlaceholder": "Campo {{number}} - Marcador de posición"
+    }
   }
 }
