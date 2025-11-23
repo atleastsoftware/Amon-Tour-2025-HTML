@@ -435,5 +435,47 @@
   },
   "navigation_menu_5": {
     "name": "Contact"
+  },
+  "footer_contact_info": {
+    "item_0_label": "Brand Introduction ",
+    "item_0_value": "Amon Tour is a brand of:",
+    "item_1_label": "Company Name",
+    "item_1_value": "Flame BB Co., Ltd.",
+    "item_2_label": "Address",
+    "item_2_value": "242 Moo1 Tombol Ao Nang\n81180 Krabi, Thailand",
+    "item_3_label": "TAT License",
+    "item_3_value": "TAT License: 34/01995",
+    "item_4_label": "Email",
+    "item_4_value": "info@amon-tour.com",
+    "item_5_label": "Operations Manager",
+    "item_5_value": "Operations manager: +66 (0)6 2574 8788",
+    "item_6_label": "Travel Advisor",
+    "item_6_value": "Travel Advisor Manager: +66 (0)8 0463 4691",
+    "item_7_label": "WhatsApp",
+    "item_7_value": "WhatsApp: +66 65 349 6445",
+    "item_8_label": "LINE ID",
+    "item_8_value": "Line ID: amontour"
+  },
+  "footer_useful_links": {
+    "item_0_text": "Our brochure",
+    "item_0_url": "/brochure",
+    "item_1_text": "Krabi Celebration",
+    "item_1_url": "/krabi-celebration",
+    "item_2_text": "Fun Garden",
+    "item_2_url": "/https://www.facebook.com/thefungardenkrabi/",
+    "item_3_text": "Villas in Krabi",
+    "item_3_url": "/villas-krabi",
+    "item_4_text": "Become Partner",
+    "item_4_url": "/become-partner",
+    "item_5_text": "Group & Corporate",
+    "item_5_url": "/group-corporate"
+  },
+  "footer_newsletter_config": {
+    "title": "Newsletter",
+    "description": "Subscribe to receive our special offers and travel tips.",
+    "button_text": "Subscribe"
+  },
+  "footer_copyright_config": {
+    "text": "© 2025 Flame BB Co., Ltd. (Amon Tour). All rights reserved."
   }
 }

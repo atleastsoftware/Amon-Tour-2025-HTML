@@ -24,9 +24,11 @@ class GlobalElementTranslationService {
     }
 
     const section = `footer_${footerSection}`;
+    console.log(`🔍 Config for ${section}:`, { hasArrayFields: !!config.arrayFields, hasSimpleFields: !!config.simpleFields });
     
     // Handle array fields (contact_info, useful_links, social_media)
     if (config.arrayFields) {
+      console.log(`📋 Processing array fields for ${section}, newValue length:`, Array.isArray(newValue) ? newValue.length : 'not an array');
       await this.translateArrayFields(
         section,
         config.arrayFields.textFields,
@@ -37,6 +39,7 @@ class GlobalElementTranslationService {
     
     // Handle simple fields (newsletter_config, copyright_config)
     if (config.simpleFields) {
+      console.log(`📋 Processing simple fields for ${section}:`, config.simpleFields);
       await this.translateSimpleFields(
         section,
         config.simpleFields,

@@ -10,6 +10,70 @@ import { eq } from "drizzle-orm";
 import { users } from "@shared/schema";
 import { migrateTours } from "./migration";
 import bcrypt from "bcrypt";
+import { globalElementTranslationService } from "./services/globalElementTranslationService";
+import { translationFileService } from "./services/translationFileService";
+
+// Function to initialize global element translations on first startup
+async function initializeGlobalElementTranslations() {
+  try {
+    // Check if translations already exist
+    const footerContactSection = await translationFileService.getSection('en', 'footer_contact_info');
+    const alreadyInitialized = footerContactSection && Object.keys(footerContactSection).length > 0;
+    
+    if (alreadyInitialized) {
+      log("Global element translations already initialized");
+      return;
+    }
+    
+    log("🔄 Initializing global element translations from dashboard data...");
+    
+    // Initialize Footer sections
+    const footerSections = ['contact_info', 'useful_links', 'social_media', 'newsletter_config', 'copyright_config'];
+    for (const subsection of footerSections) {
+      const setting = await storage.getSiteSetting('footer', subsection);
+      if (setting && setting.value) {
+        log(`📝 Initializing footer.${subsection}...`);
+        // Parse JSON value if it's a JSON string (starts with [ or {)
+        let value = setting.value;
+        if (typeof value === 'string' && (value.trim().startsWith('[') || value.trim().startsWith('{'))) {
+          try {
+            value = JSON.parse(value);
+          } catch (e) {
+            log(`⚠️  Failed to parse JSON for footer.${subsection}`);
+          }
+        }
+        await globalElementTranslationService.syncFooterTranslations(subsection, null, value);
+      } else {
+        log(`⚠️  No data found for footer.${subsection}`);
+      }
+    }
+    
+    // Initialize Navigation Menu items
+    const menuItems = await storage.getNavigationMenuItems();
+    for (const item of menuItems) {
+      await globalElementTranslationService.syncNavigationMenuTranslations(item.id, null, item);
+    }
+    
+    // Initialize Announcement Bar
+    const notificationBar = await storage.getSiteSetting('theme', 'notification_bar');
+    if (notificationBar && notificationBar.value) {
+      const value = notificationBar.type === 'json' ? JSON.parse(notificationBar.value) : notificationBar.value;
+      await globalElementTranslationService.syncAnnouncementBarTranslations(null, value);
+    }
+    
+    // Initialize Pop-up
+    const popup = await storage.getSiteSetting('theme', 'popup_settings');
+    if (popup && popup.value) {
+      const value = popup.type === 'json' ? JSON.parse(popup.value) : popup.value;
+      await globalElementTranslationService.syncPopupTranslations(null, value);
+    }
+    
+    log("✅ Global element translations initialized successfully");
+  } catch (error) {
+    log(`Error initializing global element translations: ${error}`);
+    // Non-critical error, don't stop server startup
+  }
+}
 
 // Function to ensure admin user exists
 async function ensureAdminUser() {
@@ -164,6 +228,9 @@ app.use((req, res, next) => {
         if (app.get("env") === "development") {
           await migrateTours();
         }
+        
+        // Initialize global element translations from dashboard data (one-time)
+        await initializeGlobalElementTranslations();
         
         log("Initialization tasks completed successfully");
         
