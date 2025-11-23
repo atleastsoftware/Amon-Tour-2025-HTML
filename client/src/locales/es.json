@@ -462,23 +462,23 @@
     "name": "Contacto"
   },
   "footer_contact_info": {
-    "item_0_label": "Brand Introduction ",
-    "item_0_value": "Amon Tour is a brand of:",
-    "item_1_label": "Company Name",
+    "item_0_label": "Introducción de la marca",
+    "item_0_value": "Amon Tour es una marca de:",
+    "item_1_label": "Nombre de la empresa",
     "item_1_value": "Flame BB Co., Ltd.",
-    "item_2_label": "Address",
-    "item_2_value": "242 Moo1 Tombol Ao Nang\n81180 Krabi, Thailand",
-    "item_3_label": "TAT License",
-    "item_3_value": "TAT License: 34/01995",
-    "item_4_label": "Email",
+    "item_2_label": "Dirección",
+    "item_2_value": "242 Moo1 Tombol Ao Nang\n81180 Krabi, Tailandia",
+    "item_3_label": "Licencia TAT",
+    "item_3_value": "Licencia TAT: 34/01995",
+    "item_4_label": "Correo electrónico",
     "item_4_value": "info@amon-tour.com",
-    "item_5_label": "Operations Manager",
-    "item_5_value": "Operations manager: +66 (0)6 2574 8788",
-    "item_6_label": "Travel Advisor",
-    "item_6_value": "Travel Advisor Manager: +66 (0)8 0463 4691",
+    "item_5_label": "Gerente de operaciones",
+    "item_5_value": "Gerente de operaciones: +66 (0)6 2574 8788",
+    "item_6_label": "Asesor de viajes",
+    "item_6_value": "Gerente asesor de viajes: +66 (0)8 0463 4691",
     "item_7_label": "WhatsApp",
     "item_7_value": "WhatsApp: +66 65 349 6445",
     "item_8_label": "LINE ID",
-    "item_8_value": "Line ID: amontour"
+    "item_8_value": "LINE ID: amontour"
   }
 }
