@@ -10,7 +10,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient } from "@/lib/queryClient";
-import { Globe, Save, Menu, MessageSquare, Bell, Lock, RefreshCw } from "lucide-react";
+import { Globe, Save, Menu, MessageSquare, Bell, Lock, RefreshCw, Sparkles } from "lucide-react";
 
 // Map translation keys to user-friendly names
 function getFieldDisplayName(key: string): string {
