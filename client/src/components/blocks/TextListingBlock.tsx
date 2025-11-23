@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 interface TextListingBlockProps {
   block: {
@@ -18,14 +19,24 @@ interface TextListingBlockProps {
 
 export default function TextListingBlock({ block }: TextListingBlockProps) {
   const config = block.configuration ?? {};
-  const title = config.title ?? "Titre de la section";
-  const subtitle = config.subtitle ?? "Description de votre listing";
+  const { t } = useTranslation();
+  const section = `text_listing_${block.id}`;
+  
+  const title = t(section, 'title', config.title) || "Titre de la section";
+  const subtitle = t(section, 'subtitle', config.subtitle) || "Description de votre listing";
   const allItems = config.items ?? [
     { label: "1", description: "Description de votre element" },
     { label: "2", description: "Description de votre element" },
   ];
-  // Filtrer les items vides (sans label ni description)
-  const items = allItems.filter(item => item.label || item.description);
+  
+  // Translate items
+  const items = allItems
+    .map((item, index) => ({
+      label: t(section, `items_${index}_label`, item.label) || item.label,
+      description: t(section, `items_${index}_description`, item.description) || item.description
+    }))
+    .filter(item => item.label || item.description);
+    
   const titleColor = config.titleColor ?? "#1f2937";
   const subtitleColor = config.subtitleColor ?? "#374151";
   const labelColor = config.labelColor ?? "#084F6E";

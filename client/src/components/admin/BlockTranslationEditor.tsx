@@ -12,43 +12,28 @@ import { useToast } from "@/hooks/use-toast";
 import { queryClient } from "@/lib/queryClient";
 import { Globe, Save, FileText, Lock, Sparkles, AlertCircle, RefreshCw, CheckCircle } from "lucide-react";
 
-// Block type name mapping for display
+// Block type name mapping for display - Must match editor names exactly
 const BLOCK_TYPE_NAMES: Record<string, string> = {
   hero: "Hero Section",
   header_page: "Header Page",
-  text: "Text",
   text_section: "Text Section",
-  text_image: "Text + Image",
-  about_2col: "About 2 Columns",
-  search_bar_tours: "Search Bar Tours",
-  features_3col: "Features 3 Columns",
-  testimonials: "Testimonials",
+  text_image: "Text + Images",
+  search_bar_tours: "Search Bar: Tours",
   contact: "Contact",
-  contact_cards: "Contact Cards",
-  contact_info: "Contact Info",
-  custom_form: "Custom Form",
   form: "Form",
-  cta_banner: "CTA Banner",
-  cta_section: "CTA Section",
-  gallery: "Gallery",
-  video_section: "Video Section",
-  newsletter: "Newsletter",
-  pdf_download: "PDF Download",
-  interests: "Interests",
-  popular_experiences: "Popular Experiences",
-  custom_tour_form: "Custom Tour Form",
-  tour_ninja_section: "Tour Ninja Section",
-  why_choose_us: "Why Choose Us",
-  who_we_are: "Who We Are",
-  blog_search: "Blog Search",
+  popular_experiences: "Text + Icones",
+  custom_tour_form: "Text + Buttons",
+  tour_ninja_section: "Text + Icones",
+  why_choose_us: "Text + Icones",
+  who_we_are: "Text + Icones",
+  blog_search: "Search Bar: Blog",
   text_listing: "Text + Listing",
   text_pricing: "Text + Pricing",
   text_video: "Text + Video",
   text_gallery: "Text + Gallery",
-  cards_grid: "Cards Grid",
-  card_grid: "Card Grid",
-  search_bar: "Search Bar",
-  search_module: "Search Module"
+  card_grid_date: "Card Grid Date",
+  card_grid_price: "Card Grid Price",
+  card_grid: "Card Grid Price"
 };
 
 function getBlockDisplayName(blockType: string): string {

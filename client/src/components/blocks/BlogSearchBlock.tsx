@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 interface BlogSearchBlockProps {
   block: {
@@ -63,6 +64,9 @@ interface BlogTag {
 
 export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
   const config = block.configuration || {};
+  const { t } = useTranslation();
+  const section = `blog_search_${block.id}`;
+  
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedTag, setSelectedTag] = useState("");
@@ -109,7 +113,7 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
               <Input
                 type="text"
-                placeholder={config.searchPlaceholder ?? "Rechercher des articles..."}
+                placeholder={t(section, 'search_placeholder', config.searchPlaceholder) || "Rechercher des articles..."}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10"
@@ -123,7 +127,7 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
             {tags.length > 0 && (
               <div>
                 <h3 className="text-sm font-medium text-gray-700 mb-3">
-                  {config.tagsTitle ?? "Tags"}
+                  {t(section, 'tags_title', config.tagsTitle) || "Tags"}
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   <Button
@@ -137,7 +141,7 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
                       borderColor: config.tagButtonColor ?? '#3BA8AF'
                     }}
                   >
-                    {config.allTagsText ?? "Tous les tags"}
+                    {t(section, 'all_tags_text', config.allTagsText) || "Tous les tags"}
                   </Button>
                   {tags.slice(0, 8).map((tag) => (
                     <Button
@@ -163,7 +167,7 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
             {/* Categories Row */}
             <div>
               <h3 className="text-sm font-medium text-gray-700 mb-3">
-                {config.categoriesTitle ?? "Catégories"}
+                {t(section, 'categories_title', config.categoriesTitle) || "Catégories"}
               </h3>
               <div className="flex flex-wrap gap-2">
                 <Button
@@ -177,7 +181,7 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
                     borderColor: config.categoryButtonColor ?? '#084F6E'
                   }}
                 >
-                  {config.allCategoriesText ?? "Toutes les catégories"}
+                  {t(section, 'all_categories_text', config.allCategoriesText) || "Toutes les catégories"}
                 </Button>
                 {categories.map((category) => (
                   <Button

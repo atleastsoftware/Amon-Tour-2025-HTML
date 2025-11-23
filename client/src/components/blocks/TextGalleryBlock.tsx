@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 interface TextGalleryBlockProps {
   block: {
@@ -20,9 +21,11 @@ interface TextGalleryBlockProps {
 
 export default function TextGalleryBlock({ block }: TextGalleryBlockProps) {
   const config = block.configuration || {};
+  const { t } = useTranslation();
+  const section = `text_gallery_${block.id}`;
   
-  const title = config.title ?? "Titre de la galerie";
-  const subtitle = config.subtitle ?? "Description pour votre galerie d'images";
+  const title = t(section, 'title', config.title) || "Titre de la galerie";
+  const subtitle = t(section, 'subtitle', config.subtitle) || "Description pour votre galerie d'images";
   const titleColor = config.titleColor ?? "#333333";
   const subtitleColor = config.subtitleColor ?? "#666666";
   const dividerColor = config.dividerColor ?? "#3BA8AF";

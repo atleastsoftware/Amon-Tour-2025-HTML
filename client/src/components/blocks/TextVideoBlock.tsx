@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Play } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 interface TextVideoBlockProps {
   block: {
@@ -20,9 +21,11 @@ interface TextVideoBlockProps {
 
 export default function TextVideoBlock({ block }: TextVideoBlockProps) {
   const config = block.configuration || {};
+  const { t } = useTranslation();
+  const section = `text_video_${block.id}`;
   
-  const title = config.title ?? "Titre de la vidéo";
-  const subtitle = config.subtitle ?? "Description pour votre section vidéo";
+  const title = t(section, 'title', config.title) || "Titre de la vidéo";
+  const subtitle = t(section, 'subtitle', config.subtitle) || "Description pour votre section vidéo";
   const titleColor = config.titleColor ?? "#333333";
   const subtitleColor = config.subtitleColor ?? "#666666";
   const dividerColor = config.dividerColor ?? "#3BA8AF";

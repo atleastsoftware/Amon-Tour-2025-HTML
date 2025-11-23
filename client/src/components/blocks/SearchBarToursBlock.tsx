@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { MapPin, Clock, ExternalLink, Search } from "lucide-react";
 import { useTourNinjaWithCustomImages, type TourNinjaTour } from "@/hooks/useTourNinja";
 import { useIframe } from "@/contexts/IframeContext";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 // Fonction helper pour convertir hex en rgba
 const hexToRgba = (hex: string, alpha: number): string => {
@@ -19,6 +20,9 @@ const hexToRgba = (hex: string, alpha: number): string => {
 };
 
 interface SearchBarToursBlockProps {
+  block?: {
+    id: number;
+  };
   configuration: {
     filtersTitle?: string;
     searchPlaceholder?: string;
@@ -32,13 +36,15 @@ interface SearchBarToursBlockProps {
   };
 }
 
-export default function SearchBarToursBlock({ configuration }: SearchBarToursBlockProps) {
+export default function SearchBarToursBlock({ block, configuration }: SearchBarToursBlockProps) {
   const { tours, isLoading } = useTourNinjaWithCustomImages();
   const { openIframe } = useIframe();
+  const { t } = useTranslation();
+  const section = block ? `search_bar_tours_${block.id}` : 'search_bar_tours';
 
-  // Configuration
-  const filtersTitle = configuration.filtersTitle ?? 'Filters';
-  const searchPlaceholder = configuration.searchPlaceholder ?? 'Search for a tour...';
+  // Configuration with translation
+  const filtersTitle = t(section, 'filters_title', configuration.filtersTitle) || 'Filters';
+  const searchPlaceholder = t(section, 'search_placeholder', configuration.searchPlaceholder) || 'Search for a tour...';
   const filtersTextColor = configuration.filtersTextColor ?? '#333333';
   const filtersBgColor = configuration.filtersBgColor ?? '#ffffff';
   const cardsColor = configuration.cardsColor ?? '#084F6E';
