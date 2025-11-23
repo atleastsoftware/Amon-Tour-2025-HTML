@@ -7,6 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import logoAmon from "@/assets/logo-amon.png";
 import LanguageSelector from "@/components/LanguageSelector";
 import { useTranslation } from "@/contexts/TranslationContext";
+import { useGlobalElementTranslations } from "@/hooks/useGlobalElementTranslations";
 
 type NavLinkProps = {
   href: string;
@@ -55,6 +56,7 @@ export default function Header() {
   // Get translations
   const { translations, currentLanguage } = useTranslation();
   const nav = translations.nav;
+  const { translateValue } = useGlobalElementTranslations();
 
   // Fetch navigation menu items from database
   const { data: menuItems = [] } = useQuery<any[]>({
@@ -62,22 +64,11 @@ export default function Header() {
     staleTime: 5 * 60 * 1000 // 5 minutes
   });
 
-  // Map menu item names to translations based on URL
+  // Translate menu item names using dynamic translations
   const getTranslatedMenuName = useCallback((item: any) => {
-    // Map URLs to translation keys
-    const urlToTranslation: { [key: string]: string } = {
-      '/': nav.home,
-      '/tours': nav.tours,
-      '/experiences': nav.experiences,
-      '/cruise': nav.cruise,
-      '/custom-tour': nav.customTrip,
-      '/blog': nav.blog,
-      '/contact': nav.contact
-    };
-    
-    // Return translated name if available, otherwise fallback to database name
-    return urlToTranslation[item.url] || item.name;
-  }, [nav, currentLanguage]);
+    const section = `navigation_menu_${item.id}`;
+    return translateValue(section, 'name', item.name);
+  }, [translateValue]);
 
   // Fetch theme settings for notification bar
   const { data: themeSettings } = useQuery({
@@ -94,9 +85,15 @@ export default function Header() {
   const notificationSettings = Array.isArray(themeSettings) 
     ? themeSettings.find((s: any) => s.key === 'notification_bar')?.value 
     : null;
-  const notificationConfig = notificationSettings 
+  const notificationConfigParsed = notificationSettings 
     ? (typeof notificationSettings === 'string' ? JSON.parse(notificationSettings) : notificationSettings) 
     : { enabled: true, text: "Welcome to the new Amon Tour website! This site is currently in a testing phase, so a few issues may still occur. For any reference, the previous site remains accessible at www.amon-tour.fr. Thank you for your understanding", background_color: "#3BA8AF", text_color: "#ffffff" };
+  
+  // Translate announcement bar text
+  const notificationConfig = {
+    ...notificationConfigParsed,
+    text: translateValue('announcement_bar', 'text', notificationConfigParsed.text || '')
+  };
   
   // Fetch logo settings
   const logoSettings = Array.isArray(headerSettings) 
