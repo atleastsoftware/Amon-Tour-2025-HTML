@@ -5386,8 +5386,9 @@ Crawl-delay: 1`;
   // Get all global element translations (Footer, Navigation Menu, Announcement Bar, Pop-up)
   app.get("/api/admin/global-element-translations", requireAuth, async (req, res) => {
     try {
-      // Check if we need to initialize translations
-      const needsInit = !(await translationFileService.getSection('en', 'footer_contact_info'));
+      // Check if we need to initialize translations - verify if section exists and has content
+      const footerContactSection = await translationFileService.getSection('en', 'footer_contact_info');
+      const needsInit = !footerContactSection || Object.keys(footerContactSection).length === 0;
       
       if (needsInit) {
         console.log('🔄 Auto-initializing global element translations...');
