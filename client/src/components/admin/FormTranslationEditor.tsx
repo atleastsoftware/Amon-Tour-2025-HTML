@@ -97,6 +97,29 @@ export default function FormTranslationEditor() {
     }
   });
 
+  // Regenerate mutation
+  const regenerateMutation = useMutation({
+    mutationFn: async () => {
+      if (!selectedFormId) return;
+      
+      await apiRequest('POST', `/api/admin/form-translations/${selectedFormId}/regenerate`, {});
+    },
+    onSuccess: () => {
+      toast({
+        title: "✅ Traductions régénérées",
+        description: "Les traductions automatiques ont été mises à jour avec succès."
+      });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/forms-with-translations'] });
+    },
+    onError: (error) => {
+      toast({
+        title: "❌ Erreur de traduction",
+        description: `Impossible de régénérer les traductions: ${error}`,
+        variant: "destructive"
+      });
+    }
+  });
+
   const handleSave = () => {
     saveMutation.mutate();
   };
@@ -189,23 +212,43 @@ export default function FormTranslationEditor() {
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-semibold">{selectedForm.name}</h3>
-                  <Button
-                    onClick={handleSave}
-                    disabled={saveMutation.isPending}
-                    data-testid="button-save-form-translations"
-                  >
-                    {saveMutation.isPending ? (
-                      <>
-                        <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-                        Sauvegarde...
-                      </>
-                    ) : (
-                      <>
-                        <Save className="w-4 h-4 mr-2" />
-                        Sauvegarder
-                      </>
-                    )}
-                  </Button>
+                  <div className="flex gap-2">
+                    <Button
+                      variant="outline"
+                      onClick={() => regenerateMutation.mutate()}
+                      disabled={regenerateMutation.isPending}
+                      data-testid="button-regenerate-translations"
+                    >
+                      {regenerateMutation.isPending ? (
+                        <>
+                          <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                          Traduction...
+                        </>
+                      ) : (
+                        <>
+                          <Sparkles className="w-4 h-4 mr-2" />
+                          Relancer traduction auto
+                        </>
+                      )}
+                    </Button>
+                    <Button
+                      onClick={handleSave}
+                      disabled={saveMutation.isPending}
+                      data-testid="button-save-form-translations"
+                    >
+                      {saveMutation.isPending ? (
+                        <>
+                          <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                          Sauvegarde...
+                        </>
+                      ) : (
+                        <>
+                          <Save className="w-4 h-4 mr-2" />
+                          Sauvegarder
+                        </>
+                      )}
+                    </Button>
+                  </div>
                 </div>
 
                 <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'fr' | 'es')}>

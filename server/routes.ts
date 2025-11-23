@@ -5755,6 +5755,118 @@ Crawl-delay: 1`;
     }
   });
 
+  // Regenerate translations for a specific form (auto-translate non-manually-edited fields)
+  app.post("/api/admin/form-translations/:formId/regenerate", requireAuth, async (req, res) => {
+    try {
+      const formId = parseInt(req.params.formId);
+      
+      if (isNaN(formId)) {
+        return res.status(400).json({ message: "Invalid form ID" });
+      }
+      
+      // Get form data
+      const { customForms } = await import('../shared/schema');
+      const forms = await db.select().from(customForms).where(eq(customForms.id, formId));
+      const form = forms[0];
+      
+      if (!form) {
+        return res.status(404).json({ message: "Form not found" });
+      }
+      
+      const { formTranslationService } = await import('./services/formTranslationService');
+      const { autoTranslationService } = await import('./services/autoTranslationService');
+      
+      // Extract translatable fields
+      const extractedFields = formTranslationService.extractTranslatableFields(form);
+      const englishTranslations = extractedFields;
+      
+      const currentTranslations = form.translations || { en: {}, fr: {}, es: {} };
+      const currentMeta = form.translationsMeta || { fr: {}, es: {} };
+      
+      const updatedTranslations = {
+        en: englishTranslations,
+        fr: { ...currentTranslations.fr },
+        es: { ...currentTranslations.es }
+      };
+      
+      let translatedCount = 0;
+      let skippedCount = 0;
+      
+      // Translate each field for both languages
+      for (const [key, enValue] of Object.entries(englishTranslations)) {
+        if (!enValue || typeof enValue !== 'string') continue;
+        
+        // Check if manually edited
+        const frManuallyEdited = currentMeta.fr?.[key]?.isManuallyEdited === true;
+        const esManuallyEdited = currentMeta.es?.[key]?.isManuallyEdited === true;
+        
+        const frValue = currentTranslations.fr?.[key] || '';
+        const esValue = currentTranslations.es?.[key] || '';
+        
+        // Determine which languages need translation
+        const frNeedsTranslation = !frManuallyEdited && (!frValue || frValue.trim() === '' || frValue === enValue);
+        const esNeedsTranslation = !esManuallyEdited && (!esValue || esValue.trim() === '' || esValue === enValue);
+        
+        if (!frNeedsTranslation && !esNeedsTranslation) {
+          continue;
+        }
+        
+        try {
+          console.log(`🌍 Translating form field: ${key}...`);
+          const translations = await autoTranslationService.translateToAllLanguages(enValue, 'en');
+          
+          if (frNeedsTranslation) {
+            updatedTranslations.fr[key] = translations.fr;
+            translatedCount++;
+            console.log(`✅ Translated FR: ${key}`);
+          } else {
+            skippedCount++;
+          }
+          
+          if (esNeedsTranslation) {
+            updatedTranslations.es[key] = translations.es;
+            translatedCount++;
+            console.log(`✅ Translated ES: ${key}`);
+          } else {
+            skippedCount++;
+          }
+          
+          // Add small delay to avoid rate limits
+          await new Promise(resolve => setTimeout(resolve, 500));
+          
+        } catch (error) {
+          console.error(`❌ Failed to translate ${key}:`, error);
+          // Keep existing values on error
+          if (frNeedsTranslation) {
+            updatedTranslations.fr[key] = frValue || enValue;
+          }
+          if (esNeedsTranslation) {
+            updatedTranslations.es[key] = esValue || enValue;
+          }
+        }
+      }
+      
+      // Save updated translations (preserve manual edit metadata)
+      await db.update(customForms)
+        .set({ 
+          translations: updatedTranslations,
+          translationsMeta: currentMeta  // Keep existing metadata
+        })
+        .where(eq(customForms.id, formId));
+      
+      res.json({ 
+        message: `Regeneration complete: ${translatedCount} fields translated, ${skippedCount} skipped (manual edits)`,
+        summary: {
+          translated: translatedCount,
+          skipped: skippedCount
+        }
+      });
+    } catch (error) {
+      console.error("Error regenerating form translations:", error);
+      res.status(500).json({ message: "Failed to regenerate translations", error: String(error) });
+    }
+  });
+
   // Analyze translations to find missing, empty, or English text
   app.get("/api/admin/translation-analysis", requireAuth, async (req, res) => {
     try {
