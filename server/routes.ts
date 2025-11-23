@@ -5386,6 +5386,45 @@ Crawl-delay: 1`;
   // Get all global element translations (Footer, Navigation Menu, Announcement Bar, Pop-up)
   app.get("/api/admin/global-element-translations", requireAuth, async (req, res) => {
     try {
+      // Check if we need to initialize translations
+      const needsInit = !(await translationFileService.getSection('en', 'footer_contact_info'));
+      
+      if (needsInit) {
+        console.log('🔄 Auto-initializing global element translations...');
+        
+        // Initialize Footer sections
+        const footerSections = ['contact_info', 'useful_links', 'social_media', 'newsletter_config', 'copyright_config'];
+        for (const subsection of footerSections) {
+          const setting = await storage.getSiteSetting('footer', subsection);
+          if (setting && setting.value) {
+            const value = setting.type === 'json' ? JSON.parse(setting.value) : setting.value;
+            await globalElementTranslationService.syncFooterTranslations(subsection, null, value);
+          }
+        }
+        
+        // Initialize Navigation Menu items
+        const menuItems = await storage.getNavigationMenuItems();
+        for (const item of menuItems) {
+          await globalElementTranslationService.syncNavigationMenuTranslations(item.id, null, item);
+        }
+        
+        // Initialize Announcement Bar
+        const notificationBar = await storage.getSiteSetting('theme', 'notification_bar');
+        if (notificationBar && notificationBar.value) {
+          const value = notificationBar.type === 'json' ? JSON.parse(notificationBar.value) : notificationBar.value;
+          await globalElementTranslationService.syncAnnouncementBarTranslations(null, value);
+        }
+        
+        // Initialize Pop-up
+        const popup = await storage.getSiteSetting('theme', 'popup_settings');
+        if (popup && popup.value) {
+          const value = popup.type === 'json' ? JSON.parse(popup.value) : popup.value;
+          await globalElementTranslationService.syncPopupTranslations(null, value);
+        }
+        
+        console.log('✅ Auto-initialization complete');
+      }
+      
       const elements: any = {};
       
       // 1. Footer - 5 sections

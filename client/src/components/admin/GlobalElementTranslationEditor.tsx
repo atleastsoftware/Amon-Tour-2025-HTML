@@ -10,7 +10,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient } from "@/lib/queryClient";
-import { Globe, Save, Menu, MessageSquare, Bell, Lock, Sparkles, RefreshCw } from "lucide-react";
+import { Globe, Save, Menu, MessageSquare, Bell, Lock, RefreshCw } from "lucide-react";
 
 // Map translation keys to user-friendly names
 function getFieldDisplayName(key: string): string {
@@ -91,32 +91,6 @@ export default function GlobalElementTranslationEditor() {
     queryKey: ['/api/admin/global-element-translations'],
   });
 
-  // Mutation to initialize global element translations
-  const initializeTranslationsMutation = useMutation({
-    mutationFn: async () => {
-      const res = await fetch('/api/admin/migrate-global-translations', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include'
-      });
-      if (!res.ok) throw new Error('Failed to initialize translations');
-      return res.json();
-    },
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/global-element-translations'] });
-      toast({
-        title: "Traductions initialisées !",
-        description: `${data.count} sections ont été créées avec succès.`,
-      });
-    },
-    onError: () => {
-      toast({
-        title: "Erreur",
-        description: "Impossible d'initialiser les traductions.",
-        variant: "destructive",
-      });
-    },
-  });
 
   // Find selected element
   const getSelectedElementData = (): GlobalElement | null => {
@@ -239,21 +213,6 @@ export default function GlobalElementTranslationEditor() {
             <CardDescription>
               Sélectionnez un élément pour gérer ses traductions
             </CardDescription>
-            <div className="mt-4">
-              <Button
-                onClick={() => initializeTranslationsMutation.mutate()}
-                disabled={initializeTranslationsMutation.isPending}
-                variant="outline"
-                className="w-full gap-2"
-                data-testid="button-initialize-translations"
-              >
-                <Sparkles className="h-4 w-4" />
-                {initializeTranslationsMutation.isPending ? "Initialisation..." : "Initialiser les traductions"}
-              </Button>
-              <p className="text-xs text-muted-foreground mt-2">
-                Créer les sections de traduction à partir des données actuelles
-              </p>
-            </div>
           </CardHeader>
           <CardContent>
             <ScrollArea className="h-[600px] pr-4">

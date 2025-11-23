@@ -156,23 +156,19 @@ class GlobalElementTranslationService {
       console.log(`⚠️  ${section}.${translationKey} has manual edits - preserving them`);
     }
     
-    console.log(`🔄 Translating ${section}.${translationKey}...`);
+    console.log(`📝 Creating translation keys for ${section}.${translationKey}...`);
     
     try {
-      const translations = await autoTranslationService.translateToAllLanguages(englishValue, 'en');
+      // Get existing translations if they exist
+      const existingFr = await translationFileService.getTranslationValue(section, translationKey, 'fr');
+      const existingEs = await translationFileService.getTranslationValue(section, translationKey, 'es');
       
-      // Only update translations that haven't been manually edited
-      const finalTranslations: any = { en: englishValue };
-      if (!frManuallyEdited) {
-        finalTranslations.fr = translations.fr;
-      } else {
-        finalTranslations.fr = await translationFileService.getTranslationValue(section, translationKey, 'fr') || translations.fr;
-      }
-      if (!esManuallyEdited) {
-        finalTranslations.es = translations.es;
-      } else {
-        finalTranslations.es = await translationFileService.getTranslationValue(section, translationKey, 'es') || translations.es;
-      }
+      // Create translations (use English text for now if no translation exists)
+      const finalTranslations: any = { 
+        en: englishValue,
+        fr: frManuallyEdited && existingFr ? existingFr : englishValue,
+        es: esManuallyEdited && existingEs ? existingEs : englishValue
+      };
       
       await translationFileService.updateTranslations({
         section,
@@ -181,9 +177,9 @@ class GlobalElementTranslationService {
         isManualEdit: false
       });
       
-      console.log(`✅ ${section}.${translationKey} translations updated (FR: ${frManuallyEdited ? 'preserved' : 'auto'}, ES: ${esManuallyEdited ? 'preserved' : 'auto'})`);
+      console.log(`✅ ${section}.${translationKey} translation keys created`);
     } catch (error) {
-      console.error(`⚠️  ${section}.${translationKey} translation failed:`, error);
+      console.error(`⚠️  ${section}.${translationKey} key creation failed:`, error);
     }
   }
 
