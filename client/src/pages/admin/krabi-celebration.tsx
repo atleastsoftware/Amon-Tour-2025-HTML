@@ -73,14 +73,14 @@ export default function AdminKrabiCelebration() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/krabi-celebration"] });
       toast({
-        title: "Succès",
-        description: "Demande marquée comme lue",
+        title: t('common.success'),
+        description: t('krabiCelebration.markAsReadSuccess'),
       });
     },
     onError: () => {
       toast({
-        title: "Erreur",
-        description: "Impossible de marquer la demande comme lue",
+        title: t('common.error'),
+        description: t('krabiCelebration.markAsReadError'),
         variant: "destructive",
       });
     },
@@ -94,14 +94,14 @@ export default function AdminKrabiCelebration() {
       queryClient.invalidateQueries({ queryKey: ["/api/krabi-celebration"] });
       setSelectedRequest(null);
       toast({
-        title: "Succès",
-        description: "Demande supprimée avec succès",
+        title: t('common.success'),
+        description: t('krabiCelebration.deleteSuccess'),
       });
     },
     onError: () => {
       toast({
-        title: "Erreur",
-        description: "Impossible de supprimer la demande",
+        title: t('common.error'),
+        description: t('krabiCelebration.deleteError'),
         variant: "destructive",
       });
     },
@@ -123,7 +123,7 @@ export default function AdminKrabiCelebration() {
             <div className="flex items-center justify-center h-96">
               <div className="text-center">
                 <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
-                <p className="mt-4 text-gray-600">Chargement...</p>
+                <p className="mt-4 text-gray-600">{t('common.loading')}</p>
               </div>
             </div>
           </div>
@@ -158,13 +158,13 @@ export default function AdminKrabiCelebration() {
                   className="flex items-center gap-2"
                 >
                   <ArrowLeft className="h-4 w-4" />
-                  Back
+                  {t('common.back')}
                 </Button>
                 <div className="flex items-center gap-3">
                   <PartyPopper className="h-8 w-8 text-pink-600" />
                   <div>
-                    <h1 className="text-3xl font-heading text-gray-900">Krabi Celebration</h1>
-                    <p className="text-gray-600">Demandes d'événements spéciaux</p>
+                    <h1 className="text-3xl font-heading text-gray-900">{t('krabiCelebration.title')}</h1>
+                    <p className="text-gray-600">{t('krabiCelebration.subtitle')}</p>
                   </div>
                 </div>
               </div>
@@ -172,7 +172,7 @@ export default function AdminKrabiCelebration() {
               <div className="flex items-center gap-4">
                 {unreadCount > 0 && (
                   <Badge variant="destructive" className="flex items-center gap-1">
-                    {unreadCount} non lue{unreadCount > 1 ? 's' : ''}
+                    {t('krabiCelebration.unreadBadge', { count: unreadCount })}
                   </Badge>
                 )}
                 <Button
@@ -180,34 +180,34 @@ export default function AdminKrabiCelebration() {
                   onClick={() => setShowUnreadOnly(!showUnreadOnly)}
                   className="flex items-center gap-2"
                 >
-                  {showUnreadOnly ? "View all" : "Unread only"}
+                  {showUnreadOnly ? t('krabiCelebration.viewAll') : t('krabiCelebration.unreadOnly')}
                 </Button>
               </div>
             </div>
 
             <Card>
               <CardHeader>
-                <CardTitle>Demandes reçues ({requests.length})</CardTitle>
+                <CardTitle>{t('krabiCelebration.requestsReceived', { count: requests.length })}</CardTitle>
               </CardHeader>
               <CardContent>
                 {requests.length === 0 ? (
                   <div className="text-center py-8">
                     <PartyPopper className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                     <p className="text-gray-500">
-                      {showUnreadOnly ? "Aucune demande non lue" : "Aucune demande reçue"}
+                      {showUnreadOnly ? t('krabiCelebration.noUnreadRequests') : t('krabiCelebration.noRequests')}
                     </p>
                   </div>
                 ) : (
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>Statut</TableHead>
-                        <TableHead>Nom</TableHead>
-                        <TableHead>Type de célébration</TableHead>
-                        <TableHead>Invités</TableHead>
-                        <TableHead>Date</TableHead>
-                        <TableHead>Reçu le</TableHead>
-                        <TableHead>Actions</TableHead>
+                        <TableHead>{t('krabiCelebration.tableHeaders.status')}</TableHead>
+                        <TableHead>{t('krabiCelebration.tableHeaders.name')}</TableHead>
+                        <TableHead>{t('krabiCelebration.tableHeaders.celebrationType')}</TableHead>
+                        <TableHead>{t('krabiCelebration.tableHeaders.guests')}</TableHead>
+                        <TableHead>{t('krabiCelebration.tableHeaders.date')}</TableHead>
+                        <TableHead>{t('krabiCelebration.tableHeaders.receivedOn')}</TableHead>
+                        <TableHead>{t('krabiCelebration.tableHeaders.actions')}</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -215,14 +215,14 @@ export default function AdminKrabiCelebration() {
                         <TableRow key={request.id}>
                           <TableCell>
                             {!request.read ? (
-                              <Badge variant="destructive">Nouveau</Badge>
+                              <Badge variant="destructive">{t('krabiCelebration.statusNew')}</Badge>
                             ) : (
-                              <Badge variant="secondary">Lu</Badge>
+                              <Badge variant="secondary">{t('krabiCelebration.statusRead')}</Badge>
                             )}
                           </TableCell>
                           <TableCell className="font-medium">{request.name}</TableCell>
                           <TableCell>{request.celebrationType}</TableCell>
-                          <TableCell>{request.guests} personnes</TableCell>
+                          <TableCell>{t('krabiCelebration.peopleCount', { count: request.guests })}</TableCell>
                           <TableCell>{request.date}</TableCell>
                           <TableCell>
                             {new Date(request.createdAt).toLocaleDateString('fr-FR')}
@@ -270,10 +270,10 @@ export default function AdminKrabiCelebration() {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <PartyPopper className="h-5 w-5 text-pink-600" />
-              Demande Krabi Celebration
+              {t('krabiCelebration.dialogTitle')}
             </DialogTitle>
             <DialogDescription>
-              Détails de la demande d'événement spécial
+              {t('krabiCelebration.dialogDescription')}
             </DialogDescription>
           </DialogHeader>
           
@@ -281,30 +281,30 @@ export default function AdminKrabiCelebration() {
             <div className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Nom du contact</label>
+                  <label className="text-sm font-medium text-gray-700">{t('krabiCelebration.fields.contactName')}</label>
                   <p className="text-gray-900">{selectedRequest.name}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Email</label>
+                  <label className="text-sm font-medium text-gray-700">{t('krabiCelebration.fields.email')}</label>
                   <p className="text-gray-900">{selectedRequest.email}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">WhatsApp</label>
-                  <p className="text-gray-900">{selectedRequest.whatsapp || 'Non renseigné'}</p>
+                  <label className="text-sm font-medium text-gray-700">{t('krabiCelebration.fields.whatsapp')}</label>
+                  <p className="text-gray-900">{selectedRequest.whatsapp || t('krabiCelebration.notProvided')}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Type de célébration</label>
+                  <label className="text-sm font-medium text-gray-700">{t('krabiCelebration.fields.celebrationType')}</label>
                   <p className="text-gray-900">{selectedRequest.celebrationType}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Nombre d'invités</label>
+                  <label className="text-sm font-medium text-gray-700">{t('krabiCelebration.fields.guests')}</label>
                   <p className="text-gray-900 flex items-center gap-1">
                     <Users className="h-4 w-4" />
-                    {selectedRequest.guests} personnes
+                    {t('krabiCelebration.peopleCount', { count: selectedRequest.guests })}
                   </p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Date souhaitée</label>
+                  <label className="text-sm font-medium text-gray-700">{t('krabiCelebration.fields.date')}</label>
                   <p className="text-gray-900 flex items-center gap-1">
                     <Calendar className="h-4 w-4" />
                     {selectedRequest.date}
@@ -312,7 +312,7 @@ export default function AdminKrabiCelebration() {
                 </div>
                 {selectedRequest.budget && (
                   <div>
-                    <label className="text-sm font-medium text-gray-700">Budget</label>
+                    <label className="text-sm font-medium text-gray-700">{t('krabiCelebration.fields.budget')}</label>
                     <p className="text-gray-900 flex items-center gap-1">
                       <DollarSign className="h-4 w-4" />
                       {selectedRequest.budget}
@@ -323,7 +323,7 @@ export default function AdminKrabiCelebration() {
               
               {selectedRequest.description && (
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Description</label>
+                  <label className="text-sm font-medium text-gray-700">{t('krabiCelebration.fields.description')}</label>
                   <p className="text-gray-900 bg-gray-50 p-3 rounded-lg mt-1">
                     {selectedRequest.description}
                   </p>
@@ -332,7 +332,7 @@ export default function AdminKrabiCelebration() {
               
               <div className="flex items-center justify-between pt-4 border-t">
                 <p className="text-sm text-gray-500">
-                  Reçu le {new Date(selectedRequest.createdAt).toLocaleString('fr-FR')}
+                  {t('krabiCelebration.receivedOn')} {new Date(selectedRequest.createdAt).toLocaleString('fr-FR')}
                 </p>
                 <div className="flex gap-2">
                   <Button
@@ -340,12 +340,12 @@ export default function AdminKrabiCelebration() {
                     onClick={() => window.open(`mailto:${selectedRequest.email}?subject=Votre demande Krabi Celebration&body=Bonjour ${selectedRequest.name},%0D%0A%0D%0ANous avons bien reçu votre demande pour ${selectedRequest.celebrationType}.%0D%0A%0D%0ACordialement,%0D%0AÉquipe Amon Tour`)}
                   >
                     <Mail className="h-4 w-4 mr-2" />
-                    Répondre par email
+                    {t('krabiCelebration.replyByEmail')}
                   </Button>
                   {!selectedRequest.read && (
                     <Button onClick={() => markAsReadMutation.mutate(selectedRequest.id)}>
                       <CheckCircle2 className="h-4 w-4 mr-2" />
-                      Marquer comme lu
+                      {t('krabiCelebration.markAsRead')}
                     </Button>
                   )}
                 </div>

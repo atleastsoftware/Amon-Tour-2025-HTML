@@ -10,6 +10,7 @@ import { LogOut, ChevronLeft, Plus, Calendar, Edit, Trash2, AlertTriangle, Calen
 import { useIsAuthenticated, useLogout } from "@/lib/auth";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { useUITranslation } from "@/hooks/useUITranslation";
 import { Button } from "@/components/ui/button";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
 import { 
@@ -60,34 +61,44 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tour, TourAvailability } from "@shared/schema";
 import { formatTHB } from "@/lib/utils";
 
-// Schéma pour les disponibilités individuelles
-const availabilitySchema = z.object({
-  tourId: z.number().min(1, "Un tour est requis"),
+const getAvailabilitySchema = (t: (key: string) => string) => z.object({
+  tourId: z.number().min(1, t('availabilityManager.validation.tourRequired')),
   date: z.date({
-    required_error: "Une date est requise",
-    invalid_type_error: "Format de date invalide",
+    required_error: t('availabilityManager.validation.dateRequired'),
+    invalid_type_error: t('availabilityManager.validation.dateInvalid'),
   }),
-  maxCapacity: z.number().min(1, "Capacité minimum: 1").max(100, "Capacité maximum: 100"),
-  price: z.number().min(0, "Prix minimum: 0").optional(),
+  maxCapacity: z.number().min(1, t('availabilityManager.validation.capacityMin')).max(100, t('availabilityManager.validation.capacityMax')),
+  price: z.number().min(0, t('availabilityManager.validation.priceMin')).optional(),
 });
 
-// Schéma pour la création en masse de disponibilités
-const bulkAvailabilitySchema = z.object({
-  tourId: z.number().min(1, "Un tour est requis"),
-  numberOfMonths: z.number().min(1, "Minimum 1 mois").max(12, "Maximum 12 mois").default(3),
-  maxCapacity: z.number().min(1, "Capacité minimum: 1").max(100, "Capacité maximum: 100"),
-  price: z.number().min(0, "Prix minimum: 0").optional(),
+const getBulkAvailabilitySchema = (t: (key: string) => string) => z.object({
+  tourId: z.number().min(1, t('availabilityManager.validation.tourRequired')),
+  numberOfMonths: z.number().min(1, t('availabilityManager.validation.monthsMin')).max(12, t('availabilityManager.validation.monthsMax')).default(3),
+  maxCapacity: z.number().min(1, t('availabilityManager.validation.capacityMin')).max(100, t('availabilityManager.validation.capacityMax')),
+  price: z.number().min(0, t('availabilityManager.validation.priceMin')).optional(),
   enableAllDays: z.boolean().default(true),
 });
 
-type AvailabilityFormValues = z.infer<typeof availabilitySchema>;
-type BulkAvailabilityFormValues = z.infer<typeof bulkAvailabilitySchema>;
+type AvailabilityFormValues = {
+  tourId: number;
+  date: Date;
+  maxCapacity: number;
+  price?: number;
+};
+type BulkAvailabilityFormValues = {
+  tourId: number;
+  numberOfMonths: number;
+  maxCapacity: number;
+  price?: number;
+  enableAllDays: boolean;
+};
 
 export default function AvailabilityManager() {
   const { isAuthenticated } = useIsAuthenticated();
   const logout = useLogout();
   const [, navigate] = useLocation();
   const { toast } = useToast();
+  const { t } = useUITranslation();
   const queryClient = useQueryClient();
   
   const [selectedTourId, setSelectedTourId] = useState<number>(0);
@@ -98,7 +109,9 @@ export default function AvailabilityManager() {
   const [selectedAvailability, setSelectedAvailability] = useState<TourAvailability | null>(null);
   const [isCreatingBulk, setIsCreatingBulk] = useState(false);
   
-  // Formulaire pour créer/modifier une disponibilité
+  const availabilitySchema = getAvailabilitySchema(t);
+  const bulkAvailabilitySchema = getBulkAvailabilitySchema(t);
+  
   const form = useForm<AvailabilityFormValues>({
     resolver: zodResolver(availabilitySchema),
     defaultValues: {
@@ -109,7 +122,6 @@ export default function AvailabilityManager() {
     },
   });
   
-  // Formulaire pour créer des disponibilités en masse
   const bulkForm = useForm<BulkAvailabilityFormValues>({
     resolver: zodResolver(bulkAvailabilitySchema),
     defaultValues: {
@@ -144,8 +156,8 @@ export default function AvailabilityManager() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [`/api/tours/${selectedTourId}/availabilities`] });
       toast({
-        title: "Disponibilité créée",
-        description: "La disponibilité a été ajoutée avec succès."
+        title: t('availabilityManager.createSuccess'),
+        description: t('availabilityManager.createSuccessDescription')
       });
       setIsCreateDialogOpen(false);
       form.reset();
@@ -153,8 +165,8 @@ export default function AvailabilityManager() {
     onError: (error: any) => {
       toast({
         variant: "destructive",
-        title: "Erreur",
-        description: error.message || "Une erreur est survenue lors de la création de la disponibilité."
+        title: t('common.error'),
+        description: error.message || t('availabilityManager.createError')
       });
     }
   });
@@ -191,7 +203,7 @@ export default function AvailabilityManager() {
           const result = await response.json();
           results.push(result);
         } catch (error) {
-          console.error(`Erreur lors de la création pour ${format(date, 'yyyy-MM-dd')}:`, error);
+          console.error(`Error creating availability for ${format(date, 'yyyy-MM-dd')}:`, error);
         }
       }
       
@@ -201,8 +213,8 @@ export default function AvailabilityManager() {
     onSuccess: (results) => {
       queryClient.invalidateQueries({ queryKey: [`/api/tours/${selectedTourId}/availabilities`] });
       toast({
-        title: "Disponibilités créées",
-        description: `${results.length} disponibilités ont été ajoutées avec succès.`
+        title: t('availabilityManager.bulkCreateSuccess'),
+        description: t('availabilityManager.bulkCreateSuccessDescription', { count: results.length })
       });
       setIsBulkCreateDialogOpen(false);
       bulkForm.reset();
@@ -211,8 +223,8 @@ export default function AvailabilityManager() {
       setIsCreatingBulk(false);
       toast({
         variant: "destructive",
-        title: "Erreur",
-        description: error.message || "Une erreur est survenue lors de la création des disponibilités."
+        title: t('common.error'),
+        description: error.message || t('availabilityManager.bulkCreateError')
       });
     }
   });
@@ -229,8 +241,8 @@ export default function AvailabilityManager() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [`/api/tours/${selectedTourId}/availabilities`] });
       toast({
-        title: "Disponibilité mise à jour",
-        description: "La disponibilité a été modifiée avec succès."
+        title: t('availabilityManager.updateSuccess'),
+        description: t('availabilityManager.updateSuccessDescription')
       });
       setIsEditDialogOpen(false);
       setSelectedAvailability(null);
@@ -238,8 +250,8 @@ export default function AvailabilityManager() {
     onError: (error: any) => {
       toast({
         variant: "destructive",
-        title: "Erreur",
-        description: error.message || "Une erreur est survenue lors de la modification de la disponibilité."
+        title: t('common.error'),
+        description: error.message || t('availabilityManager.updateError')
       });
     }
   });
@@ -252,8 +264,8 @@ export default function AvailabilityManager() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [`/api/tours/${selectedTourId}/availabilities`] });
       toast({
-        title: "Disponibilité supprimée",
-        description: "La disponibilité a été supprimée avec succès."
+        title: t('availabilityManager.deleteSuccess'),
+        description: t('availabilityManager.deleteSuccessDescription')
       });
       setIsDeleteDialogOpen(false);
       setSelectedAvailability(null);
@@ -261,8 +273,8 @@ export default function AvailabilityManager() {
     onError: (error: any) => {
       toast({
         variant: "destructive",
-        title: "Erreur",
-        description: error.message || "Une erreur est survenue lors de la suppression de la disponibilité."
+        title: t('common.error'),
+        description: error.message || t('availabilityManager.deleteError')
       });
     }
   });
@@ -372,7 +384,7 @@ export default function AvailabilityManager() {
               </div>
             </Link>
             <div className="hidden md:block text-sm px-3 py-1 bg-primary-dark rounded">
-              Gestion des disponibilités
+              {t('availabilityManager.title')}
             </div>
           </div>
           
@@ -384,12 +396,12 @@ export default function AvailabilityManager() {
               onClick={handleLogout}
             >
               <LogOut className="mr-2 h-4 w-4" />
-              Déconnexion
+              {t('availabilityManager.logout')}
             </Button>
             <Link href="/admin/dashboard">
               <span className="text-white hover:text-gray-200 transition-colors cursor-pointer">
                 <ChevronLeft className="mr-2 h-4 w-4 inline" />
-                Retour au tableau de bord
+                {t('availabilityManager.backToDashboard')}
               </span>
             </Link>
           </div>
@@ -398,14 +410,14 @@ export default function AvailabilityManager() {
       
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="font-heading font-bold text-3xl mb-2">Gestion des disponibilités</h1>
-          <p className="text-gray-600">Gérez les dates disponibles pour chaque tour, ainsi que leurs prix et capacités.</p>
+          <h1 className="font-heading font-bold text-3xl mb-2">{t('availabilityManager.title')}</h1>
+          <p className="text-gray-600">{t('availabilityManager.subtitle')}</p>
         </div>
         
         <Card className="mb-8">
           <CardHeader>
-            <CardTitle>Sélectionnez un tour</CardTitle>
-            <CardDescription>Choisissez un tour pour voir et gérer ses disponibilités</CardDescription>
+            <CardTitle>{t('availabilityManager.selectTour')}</CardTitle>
+            <CardDescription>{t('availabilityManager.selectTourDescription')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -414,11 +426,11 @@ export default function AvailabilityManager() {
                 onValueChange={(value) => setSelectedTourId(parseInt(value))}
               >
                 <SelectTrigger className="w-full sm:w-[300px]">
-                  <SelectValue placeholder="Sélectionnez un tour" />
+                  <SelectValue placeholder={t('availabilityManager.selectTourPlaceholder')} />
                 </SelectTrigger>
                 <SelectContent>
                   {isToursLoading ? (
-                    <SelectItem value="loading" disabled>Chargement des tours...</SelectItem>
+                    <SelectItem value="loading" disabled>{t('availabilityManager.loadingTours')}</SelectItem>
                   ) : tours && tours.length > 0 ? (
                     tours.map(tour => (
                       <SelectItem key={tour.id} value={tour.id.toString()}>
@@ -426,7 +438,7 @@ export default function AvailabilityManager() {
                       </SelectItem>
                     ))
                   ) : (
-                    <SelectItem value="empty" disabled>Aucun tour disponible</SelectItem>
+                    <SelectItem value="empty" disabled>{t('availabilityManager.noToursAvailable')}</SelectItem>
                   )}
                 </SelectContent>
               </Select>
@@ -438,7 +450,7 @@ export default function AvailabilityManager() {
                   disabled={!selectedTourId}
                 >
                   <CalendarRange className="h-4 w-4 mr-2" />
-                  Ajouter en masse
+                  {t('availabilityManager.addInBulk')}
                 </Button>
                 
                 <Button 
@@ -447,7 +459,7 @@ export default function AvailabilityManager() {
                   disabled={!selectedTourId}
                 >
                   <Plus className="h-4 w-4 mr-2" />
-                  Ajouter une disponibilité
+                  {t('availabilityManager.addAvailability')}
                 </Button>
               </div>
             </div>
@@ -458,14 +470,14 @@ export default function AvailabilityManager() {
           <Card>
             <CardHeader>
               <CardTitle>
-                Disponibilités
+                {t('availabilityManager.availabilities')}
                 {tours?.find(t => t.id === selectedTourId) && (
                   <span className="text-gray-600 font-normal">
-                    {" "}pour {tours.find(t => t.id === selectedTourId)?.title}
+                    {" "}{t('availabilityManager.availabilitiesFor', { title: tours.find(t => t.id === selectedTourId)?.title })}
                   </span>
                 )}
               </CardTitle>
-              <CardDescription>Liste des dates disponibles pour ce tour</CardDescription>
+              <CardDescription>{t('availabilityManager.availabilityList')}</CardDescription>
             </CardHeader>
             <CardContent>
               {isAvailabilitiesLoading ? (
@@ -477,12 +489,12 @@ export default function AvailabilityManager() {
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>Date</TableHead>
-                        <TableHead>Capacité</TableHead>
-                        <TableHead>Réservations actuelles</TableHead>
-                        <TableHead>Places restantes</TableHead>
-                        <TableHead>Prix spécifique</TableHead>
-                        <TableHead className="text-right">Actions</TableHead>
+                        <TableHead>{t('availabilityManager.tableHeaders.date')}</TableHead>
+                        <TableHead>{t('availabilityManager.tableHeaders.capacity')}</TableHead>
+                        <TableHead>{t('availabilityManager.tableHeaders.currentBookings')}</TableHead>
+                        <TableHead>{t('availabilityManager.tableHeaders.remainingSpots')}</TableHead>
+                        <TableHead>{t('availabilityManager.tableHeaders.specificPrice')}</TableHead>
+                        <TableHead className="text-right">{t('availabilityManager.tableHeaders.actions')}</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -494,7 +506,7 @@ export default function AvailabilityManager() {
                           <TableRow key={availability.id} className={isInPast ? "bg-gray-100" : ""}>
                             <TableCell className={isInPast ? "text-gray-500" : ""}>
                               {format(new Date(availability.date), 'dd MMMM yyyy', { locale: fr })}
-                              {isInPast && <span className="ml-2 text-xs text-gray-400">(passé)</span>}
+                              {isInPast && <span className="ml-2 text-xs text-gray-400">{t('availabilityManager.past')}</span>}
                             </TableCell>
                             <TableCell>{availability.maxCapacity}</TableCell>
                             <TableCell>{availability.currentBookings}</TableCell>
@@ -502,7 +514,7 @@ export default function AvailabilityManager() {
                               {remainingSpots <= 0 ? (
                                 <span className="text-[hsl(var(--destructive))] font-semibold flex items-center">
                                   <AlertTriangle className="h-4 w-4 mr-1" />
-                                  Complet
+                                  {t('availabilityManager.full')}
                                 </span>
                               ) : remainingSpots <= 3 ? (
                                 <span className="text-[hsl(var(--warning))] font-semibold">
@@ -544,10 +556,10 @@ export default function AvailabilityManager() {
               ) : (
                 <div className="text-center py-8">
                   <Calendar className="h-12 w-12 text-gray-400 mx-auto mb-2" />
-                  <p className="text-gray-500 mb-4">Aucune disponibilité pour ce tour.</p>
+                  <p className="text-gray-500 mb-4">{t('availabilityManager.noAvailabilities')}</p>
                   <Button onClick={() => setIsCreateDialogOpen(true)}>
                     <Plus className="h-4 w-4 mr-2" />
-                    Ajouter la première disponibilité
+                    {t('availabilityManager.addFirstAvailability')}
                   </Button>
                 </div>
               )}
@@ -555,9 +567,9 @@ export default function AvailabilityManager() {
           </Card>
         ) : (
           <div className="text-center py-12 bg-white rounded-lg shadow-sm">
-            <h3 className="font-heading font-semibold text-xl mb-2">Sélectionnez un tour</h3>
+            <h3 className="font-heading font-semibold text-xl mb-2">{t('availabilityManager.selectTourPrompt')}</h3>
             <p className="text-gray-500">
-              Veuillez sélectionner un tour dans la liste ci-dessus pour gérer ses disponibilités.
+              {t('availabilityManager.selectTourPromptDescription')}
             </p>
           </div>
         )}
@@ -567,9 +579,9 @@ export default function AvailabilityManager() {
       <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
-            <DialogTitle>Ajouter une nouvelle disponibilité</DialogTitle>
+            <DialogTitle>{t('availabilityManager.createDialogTitle')}</DialogTitle>
             <DialogDescription>
-              Créez une nouvelle date disponible pour ce tour. Les clients pourront réserver à cette date.
+              {t('availabilityManager.createDialogDescription')}
             </DialogDescription>
           </DialogHeader>
           
@@ -580,7 +592,7 @@ export default function AvailabilityManager() {
                 name="date"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Date</FormLabel>
+                    <FormLabel>{t('availabilityManager.fields.date')}</FormLabel>
                     <CalendarComponent
                       mode="single"
                       selected={field.value}
@@ -590,7 +602,7 @@ export default function AvailabilityManager() {
                       locale={fr}
                     />
                     <FormDescription>
-                      Sélectionnez la date à laquelle le tour sera disponible.
+                      {t('availabilityManager.fields.dateDescription')}
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -602,17 +614,18 @@ export default function AvailabilityManager() {
                 name="maxCapacity"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Capacité maximale</FormLabel>
+                    <FormLabel>{t('availabilityManager.fields.capacity')}</FormLabel>
                     <FormControl>
                       <Input 
                         type="number" 
-                        min={1} 
+                        min={1}
+                        placeholder={t('availabilityManager.fields.capacityPlaceholder')}
                         {...field}
                         onChange={(e) => field.onChange(parseInt(e.target.value))}
                       />
                     </FormControl>
                     <FormDescription>
-                      Nombre maximum de personnes pouvant participer à ce tour.
+                      {t('availabilityManager.fields.capacityDescription')}
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -624,18 +637,18 @@ export default function AvailabilityManager() {
                 name="price"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Prix spécifique (optionnel)</FormLabel>
+                    <FormLabel>{t('availabilityManager.fields.price')}</FormLabel>
                     <FormControl>
                       <Input 
                         type="number" 
                         min={0} 
-                        placeholder="Laisser vide pour utiliser le prix par défaut du tour"
+                        placeholder={t('availabilityManager.fields.priceDescription')}
                         value={field.value === undefined ? "" : field.value}
                         onChange={(e) => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)}
                       />
                     </FormControl>
                     <FormDescription>
-                      Définissez un prix spécifique pour cette date (si différent du prix par défaut).
+                      {t('availabilityManager.fields.priceDescription')}
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -648,10 +661,10 @@ export default function AvailabilityManager() {
                   variant="outline" 
                   onClick={() => setIsCreateDialogOpen(false)}
                 >
-                  Cancel
+                  {t('common.cancel')}
                 </Button>
                 <Button type="submit" disabled={createAvailability.isPending}>
-                  {createAvailability.isPending ? "Creating..." : "Create availability"}
+                  {createAvailability.isPending ? t('availabilityManager.creating') : t('availabilityManager.create')}
                 </Button>
               </DialogFooter>
             </form>
@@ -663,9 +676,9 @@ export default function AvailabilityManager() {
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
-            <DialogTitle>Modifier la disponibilité</DialogTitle>
+            <DialogTitle>{t('availabilityManager.editDialogTitle')}</DialogTitle>
             <DialogDescription>
-              Modifiez les détails de cette disponibilité.
+              {t('availabilityManager.editDialogDescription')}
             </DialogDescription>
           </DialogHeader>
           
@@ -676,7 +689,7 @@ export default function AvailabilityManager() {
                 name="date"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Date</FormLabel>
+                    <FormLabel>{t('availabilityManager.fields.date')}</FormLabel>
                     <CalendarComponent
                       mode="single"
                       selected={field.value}
@@ -695,19 +708,20 @@ export default function AvailabilityManager() {
                 name="maxCapacity"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Capacité maximale</FormLabel>
+                    <FormLabel>{t('availabilityManager.fields.capacity')}</FormLabel>
                     <FormControl>
                       <Input 
                         type="number" 
-                        min={selectedAvailability?.currentBookings || 1} 
+                        min={selectedAvailability?.currentBookings || 1}
+                        placeholder={t('availabilityManager.fields.capacityPlaceholder')}
                         {...field}
                         onChange={(e) => field.onChange(parseInt(e.target.value))}
                       />
                     </FormControl>
                     <FormDescription>
                       {selectedAvailability?.currentBookings
-                        ? `Minimum: ${selectedAvailability.currentBookings} (nombre de réservations actuelles)`
-                        : "Nombre maximum de personnes pouvant participer à ce tour"}
+                        ? `Minimum: ${selectedAvailability.currentBookings} (current bookings)`
+                        : t('availabilityManager.fields.capacityDescription')}
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -719,18 +733,18 @@ export default function AvailabilityManager() {
                 name="price"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Prix spécifique (optionnel)</FormLabel>
+                    <FormLabel>{t('availabilityManager.fields.price')}</FormLabel>
                     <FormControl>
                       <Input 
                         type="number" 
                         min={0} 
-                        placeholder="Laisser vide pour utiliser le prix par défaut du tour"
+                        placeholder={t('availabilityManager.fields.priceDescription')}
                         value={field.value === undefined ? "" : field.value}
                         onChange={(e) => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)}
                       />
                     </FormControl>
                     <FormDescription>
-                      Définissez un prix spécifique pour cette date (si différent du prix par défaut).
+                      {t('availabilityManager.fields.priceDescription')}
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -743,10 +757,10 @@ export default function AvailabilityManager() {
                   variant="outline" 
                   onClick={() => setIsEditDialogOpen(false)}
                 >
-                  Cancel
+                  {t('common.cancel')}
                 </Button>
                 <Button type="submit" disabled={updateAvailability.isPending}>
-                  {updateAvailability.isPending ? "Mise à jour..." : "Mettre à jour"}
+                  {updateAvailability.isPending ? t('common.saving') : t('availabilityManager.update')}
                 </Button>
               </DialogFooter>
             </form>
@@ -758,15 +772,14 @@ export default function AvailabilityManager() {
       <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
         <DialogContent className="sm:max-w-[450px]">
           <DialogHeader>
-            <DialogTitle>Confirm deletion</DialogTitle>
+            <DialogTitle>{t('availabilityManager.deleteDialogTitle')}</DialogTitle>
             <DialogDescription>
-              Êtes-vous sûr de vouloir supprimer cette disponibilité ?
+              {t('availabilityManager.deleteDialogDescription')}
               {selectedAvailability?.currentBookings !== undefined && selectedAvailability.currentBookings > 0 && (
                 <div className="mt-2 p-3 bg-[hsl(var(--warning)/0.1)] text-[hsl(var(--warning))] rounded-md flex items-start">
                   <AlertTriangle className="h-5 w-5 mr-2 flex-shrink-0 mt-0.5 text-[hsl(var(--warning))]" />
                   <span>
-                    Attention : Cette disponibilité a déjà <strong>{selectedAvailability.currentBookings} réservation(s)</strong>.
-                    La suppression affectera ces réservations existantes.
+                    {t('availabilityManager.deleteDialogWarning')}
                   </span>
                 </div>
               )}
@@ -775,8 +788,8 @@ export default function AvailabilityManager() {
           
           {selectedAvailability && (
             <div className="py-4 px-2">
-              <p className="mb-2"><strong>Date :</strong> {format(new Date(selectedAvailability.date), 'dd MMMM yyyy', { locale: fr })}</p>
-              <p><strong>Capacité :</strong> {selectedAvailability.maxCapacity} personnes</p>
+              <p className="mb-2"><strong>{t('availabilityManager.fields.date')}:</strong> {format(new Date(selectedAvailability.date), 'dd MMMM yyyy', { locale: fr })}</p>
+              <p><strong>{t('availabilityManager.fields.capacity')}:</strong> {selectedAvailability.maxCapacity} {t('common.people', { defaultValue: 'people' })}</p>
             </div>
           )}
           
@@ -786,14 +799,14 @@ export default function AvailabilityManager() {
               variant="outline" 
               onClick={() => setIsDeleteDialogOpen(false)}
             >
-              Cancel
+              {t('common.cancel')}
             </Button>
             <Button 
               variant="destructive" 
               onClick={confirmDelete} 
               disabled={deleteAvailability.isPending}
             >
-              {deleteAvailability.isPending ? "Suppression..." : "Supprimer"}
+              {deleteAvailability.isPending ? t('common.deleting') : t('common.delete')}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -803,9 +816,9 @@ export default function AvailabilityManager() {
       <Dialog open={isBulkCreateDialogOpen} onOpenChange={setIsBulkCreateDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Create bulk availabilities</DialogTitle>
+            <DialogTitle>{t('availabilityManager.bulkCreateDialogTitle')}</DialogTitle>
             <DialogDescription>
-              Activez tous les jours pour les prochains mois en un seul clic.
+              {t('availabilityManager.bulkCreateDialogDescription')}
             </DialogDescription>
           </DialogHeader>
           
@@ -816,7 +829,7 @@ export default function AvailabilityManager() {
                 name="tourId"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Tour</FormLabel>
+                    <FormLabel>{t('common.tour', { defaultValue: 'Tour' })}</FormLabel>
                     <Select
                       disabled={true}
                       value={selectedTourId.toString()}
@@ -825,7 +838,7 @@ export default function AvailabilityManager() {
                       }}
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Sélectionner un tour" />
+                        <SelectValue placeholder={t('availabilityManager.selectTourPlaceholder')} />
                       </SelectTrigger>
                       <SelectContent>
                         {tours?.map(tour => (
@@ -845,26 +858,26 @@ export default function AvailabilityManager() {
                 name="numberOfMonths"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Durée (nombre de mois)</FormLabel>
+                    <FormLabel>{t('availabilityManager.fields.numberOfMonths')}</FormLabel>
                     <div className="flex items-center">
                       <Select
                         value={field.value.toString()}
                         onValueChange={(value) => field.onChange(parseInt(value))}
                       >
                         <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Sélectionner une durée" />
+                          <SelectValue placeholder={t('availabilityManager.fields.numberOfMonthsPlaceholder')} />
                         </SelectTrigger>
                         <SelectContent>
                           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((month) => (
                             <SelectItem key={month} value={month.toString()}>
-                              {month} {month === 1 ? 'mois' : 'mois'}
+                              {month} {month === 1 ? 'month' : 'months'}
                             </SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
                     </div>
                     <FormDescription>
-                      Disponibilités créées à partir d'aujourd'hui pour le nombre de mois sélectionné
+                      {t('availabilityManager.fields.numberOfMonthsDescription')}
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -877,9 +890,9 @@ export default function AvailabilityManager() {
                 render={({ field }) => (
                   <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
                     <div className="space-y-0.5">
-                      <FormLabel>Activer tous les jours</FormLabel>
+                      <FormLabel>{t('availabilityManager.fields.enableAllDays')}</FormLabel>
                       <FormDescription>
-                        Tous les jours seront disponibles pour ce tour
+                        {t('availabilityManager.fields.enableAllDaysDescription')}
                       </FormDescription>
                     </div>
                     <FormControl>
@@ -898,12 +911,13 @@ export default function AvailabilityManager() {
                 name="maxCapacity"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Capacité maximale</FormLabel>
+                    <FormLabel>{t('availabilityManager.fields.capacity')}</FormLabel>
                     <FormControl>
                       <Input
                         type="number"
                         min={1}
                         max={100}
+                        placeholder={t('availabilityManager.fields.capacityPlaceholder')}
                         {...field}
                         onChange={e => field.onChange(parseInt(e.target.value))}
                       />
@@ -918,12 +932,12 @@ export default function AvailabilityManager() {
                 name="price"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Prix spécifique (optionnel)</FormLabel>
+                    <FormLabel>{t('availabilityManager.fields.price')}</FormLabel>
                     <FormControl>
                       <Input
                         type="number"
                         min={0}
-                        placeholder="Laisser vide pour utiliser le prix par défaut"
+                        placeholder={t('availabilityManager.fields.priceDescription')}
                         {...field}
                         value={field.value || ""}
                         onChange={e => {
@@ -933,7 +947,7 @@ export default function AvailabilityManager() {
                       />
                     </FormControl>
                     <FormDescription>
-                      Si laissé vide, le prix par défaut du tour sera utilisé
+                      {t('availabilityManager.fields.priceDescription')}
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -946,13 +960,13 @@ export default function AvailabilityManager() {
                   variant="outline"
                   onClick={() => setIsBulkCreateDialogOpen(false)}
                 >
-                  Cancel
+                  {t('common.cancel')}
                 </Button>
                 <Button 
                   type="submit"
                   disabled={createBulkAvailabilities.isPending || isCreatingBulk}
                 >
-                  {createBulkAvailabilities.isPending || isCreatingBulk ? "Creating..." : "Create availabilities"}
+                  {createBulkAvailabilities.isPending || isCreatingBulk ? t('availabilityManager.creating') : t('availabilityManager.create')}
                 </Button>
               </DialogFooter>
             </form>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useIsAuthenticated } from "@/lib/auth";
+import { useUITranslation } from "@/hooks/useUITranslation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -54,6 +55,7 @@ export default function AdminPartnershipRequests() {
   const { isAuthenticated, isLoading } = useIsAuthenticated();
   const [, setLocation] = useLocation();
   const { toast } = useToast();
+  const { t } = useUITranslation();
   const queryClient = useQueryClient();
   const [selectedRequest, setSelectedRequest] = useState<PartnershipRequest | null>(null);
   const [showUnreadOnly, setShowUnreadOnly] = useState(false);
@@ -70,14 +72,14 @@ export default function AdminPartnershipRequests() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/partnership-requests"] });
       toast({
-        title: "Succès",
-        description: "Demande marquée comme lue",
+        title: t('common.success'),
+        description: t('partnershipRequests.markAsReadSuccess'),
       });
     },
     onError: () => {
       toast({
-        title: "Erreur",
-        description: "Impossible de marquer la demande comme lue",
+        title: t('common.error'),
+        description: t('partnershipRequests.markAsReadError'),
         variant: "destructive",
       });
     },
@@ -91,14 +93,14 @@ export default function AdminPartnershipRequests() {
       queryClient.invalidateQueries({ queryKey: ["/api/partnership-requests"] });
       setSelectedRequest(null);
       toast({
-        title: "Succès",
-        description: "Demande supprimée avec succès",
+        title: t('common.success'),
+        description: t('partnershipRequests.deleteSuccess'),
       });
     },
     onError: () => {
       toast({
-        title: "Erreur",
-        description: "Impossible de supprimer la demande",
+        title: t('common.error'),
+        description: t('partnershipRequests.deleteError'),
         variant: "destructive",
       });
     },
@@ -120,7 +122,7 @@ export default function AdminPartnershipRequests() {
             <div className="flex items-center justify-center h-96">
               <div className="text-center">
                 <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
-                <p className="mt-4 text-gray-600">Chargement...</p>
+                <p className="mt-4 text-gray-600">{t('common.loading')}</p>
               </div>
             </div>
           </div>
@@ -155,13 +157,13 @@ export default function AdminPartnershipRequests() {
                   className="flex items-center gap-2"
                 >
                   <ArrowLeft className="h-4 w-4" />
-                  Back
+                  {t('common.back')}
                 </Button>
                 <div className="flex items-center gap-3">
                   <Handshake className="h-8 w-8 text-primary" />
                   <div>
-                    <h1 className="text-3xl font-heading text-gray-900">Demandes de partenariat</h1>
-                    <p className="text-gray-600">Propositions de collaboration</p>
+                    <h1 className="text-3xl font-heading text-gray-900">{t('partnershipRequests.title')}</h1>
+                    <p className="text-gray-600">{t('partnershipRequests.subtitle')}</p>
                   </div>
                 </div>
               </div>
@@ -169,7 +171,7 @@ export default function AdminPartnershipRequests() {
               <div className="flex items-center gap-4">
                 {unreadCount > 0 && (
                   <Badge variant="destructive" className="flex items-center gap-1">
-                    {unreadCount} non lue{unreadCount > 1 ? 's' : ''}
+                    {t('partnershipRequests.unreadBadge', { count: unreadCount })}
                   </Badge>
                 )}
                 <Button
@@ -177,34 +179,34 @@ export default function AdminPartnershipRequests() {
                   onClick={() => setShowUnreadOnly(!showUnreadOnly)}
                   className="flex items-center gap-2"
                 >
-                  {showUnreadOnly ? "View all" : "Unread only"}
+                  {showUnreadOnly ? t('partnershipRequests.viewAll') : t('partnershipRequests.unreadOnly')}
                 </Button>
               </div>
             </div>
 
             <Card>
               <CardHeader>
-                <CardTitle>Demandes reçues ({requests.length})</CardTitle>
+                <CardTitle>{t('partnershipRequests.requestsReceived', { count: requests.length })}</CardTitle>
               </CardHeader>
               <CardContent>
                 {requests.length === 0 ? (
                   <div className="text-center py-8">
                     <Handshake className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                     <p className="text-gray-500">
-                      {showUnreadOnly ? "Aucune demande non lue" : "Aucune demande reçue"}
+                      {showUnreadOnly ? t('partnershipRequests.noUnreadRequests') : t('partnershipRequests.noRequests')}
                     </p>
                   </div>
                 ) : (
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>Statut</TableHead>
-                        <TableHead>Contact</TableHead>
-                        <TableHead>Entreprise</TableHead>
-                        <TableHead>Type d'activité</TableHead>
-                        <TableHead>Site web</TableHead>
-                        <TableHead>Reçu le</TableHead>
-                        <TableHead>Actions</TableHead>
+                        <TableHead>{t('partnershipRequests.tableHeaders.status')}</TableHead>
+                        <TableHead>{t('partnershipRequests.tableHeaders.contact')}</TableHead>
+                        <TableHead>{t('partnershipRequests.tableHeaders.company')}</TableHead>
+                        <TableHead>{t('partnershipRequests.tableHeaders.activityType')}</TableHead>
+                        <TableHead>{t('partnershipRequests.tableHeaders.website')}</TableHead>
+                        <TableHead>{t('partnershipRequests.tableHeaders.receivedOn')}</TableHead>
+                        <TableHead>{t('partnershipRequests.tableHeaders.actions')}</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -212,9 +214,9 @@ export default function AdminPartnershipRequests() {
                         <TableRow key={request.id}>
                           <TableCell>
                             {!request.read ? (
-                              <Badge variant="destructive">Nouveau</Badge>
+                              <Badge variant="destructive">{t('partnershipRequests.statusNew')}</Badge>
                             ) : (
-                              <Badge variant="secondary">Lu</Badge>
+                              <Badge variant="secondary">{t('partnershipRequests.statusRead')}</Badge>
                             )}
                           </TableCell>
                           <TableCell className="font-medium">{request.contactName}</TableCell>
@@ -231,7 +233,7 @@ export default function AdminPartnershipRequests() {
                                 {request.website}
                               </a>
                             ) : (
-                              <span className="text-gray-400">Non renseigné</span>
+                              <span className="text-gray-400">{t('partnershipRequests.notProvided')}</span>
                             )}
                           </TableCell>
                           <TableCell>
@@ -280,10 +282,10 @@ export default function AdminPartnershipRequests() {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Handshake className="h-5 w-5 text-primary" />
-              Demande de partenariat
+              {t('partnershipRequests.dialogTitle')}
             </DialogTitle>
             <DialogDescription>
-              Détails de la proposition de collaboration
+              {t('partnershipRequests.dialogDescription')}
             </DialogDescription>
           </DialogHeader>
           
@@ -291,34 +293,34 @@ export default function AdminPartnershipRequests() {
             <div className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Nom du contact</label>
+                  <label className="text-sm font-medium text-gray-700">{t('partnershipRequests.fields.contactName')}</label>
                   <p className="text-gray-900">{selectedRequest.contactName}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Email</label>
+                  <label className="text-sm font-medium text-gray-700">{t('partnershipRequests.fields.email')}</label>
                   <p className="text-gray-900">{selectedRequest.email}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Nom de l'entreprise</label>
+                  <label className="text-sm font-medium text-gray-700">{t('partnershipRequests.fields.companyName')}</label>
                   <p className="text-gray-900 flex items-center gap-1">
                     <Building className="h-4 w-4" />
                     {selectedRequest.companyName}
                   </p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Type de partenariat</label>
+                  <label className="text-sm font-medium text-gray-700">{t('partnershipRequests.fields.partnershipType')}</label>
                   <p className="text-gray-900 flex items-center gap-1">
                     <Briefcase className="h-4 w-4" />
                     {selectedRequest.partnershipType}
                   </p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Téléphone</label>
-                  <p className="text-gray-900">{selectedRequest.phone || 'Non renseigné'}</p>
+                  <label className="text-sm font-medium text-gray-700">{t('partnershipRequests.fields.phone')}</label>
+                  <p className="text-gray-900">{selectedRequest.phone || t('partnershipRequests.notProvided')}</p>
                 </div>
                 {selectedRequest.website && (
                   <div className="col-span-2">
-                    <label className="text-sm font-medium text-gray-700">Site web</label>
+                    <label className="text-sm font-medium text-gray-700">{t('partnershipRequests.fields.website')}</label>
                     <p className="text-gray-900">
                       <a 
                         href={selectedRequest.website} 
@@ -336,7 +338,7 @@ export default function AdminPartnershipRequests() {
               
               {selectedRequest.description && (
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Description du projet</label>
+                  <label className="text-sm font-medium text-gray-700">{t('partnershipRequests.fields.projectDescription')}</label>
                   <p className="text-gray-900 bg-gray-50 p-3 rounded-lg mt-1">
                     {selectedRequest.description}
                   </p>
@@ -345,7 +347,7 @@ export default function AdminPartnershipRequests() {
               
               <div className="flex items-center justify-between pt-4 border-t">
                 <p className="text-sm text-gray-500">
-                  Reçu le {new Date(selectedRequest.createdAt).toLocaleString('fr-FR')}
+                  {t('partnershipRequests.receivedOn')} {new Date(selectedRequest.createdAt).toLocaleString('fr-FR')}
                 </p>
                 <div className="flex gap-2">
                   <Button
@@ -353,12 +355,12 @@ export default function AdminPartnershipRequests() {
                     onClick={() => window.open(`mailto:${selectedRequest.email}?subject=Votre demande de partenariat&body=Bonjour ${selectedRequest.contactName},%0D%0A%0D%0ANous avons bien reçu votre proposition de partenariat pour ${selectedRequest.companyName}.%0D%0A%0D%0ACordialement,%0D%0AÉquipe Amon Tour`)}
                   >
                     <Mail className="h-4 w-4 mr-2" />
-                    Répondre par email
+                    {t('partnershipRequests.replyByEmail')}
                   </Button>
                   {!selectedRequest.read && (
                     <Button onClick={() => markAsReadMutation.mutate(selectedRequest.id)}>
                       <CheckCircle2 className="h-4 w-4 mr-2" />
-                      Marquer comme lu
+                      {t('partnershipRequests.markAsRead')}
                     </Button>
                   )}
                 </div>

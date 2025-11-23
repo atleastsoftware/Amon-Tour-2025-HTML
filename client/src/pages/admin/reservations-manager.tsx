@@ -7,6 +7,7 @@ import { LogOut, ChevronLeft, Check, X, Info, AlertTriangle, Eye, Download } fro
 import { useIsAuthenticated, useLogout } from "@/lib/auth";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { useUITranslation } from "@/hooks/useUITranslation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { 
@@ -48,6 +49,7 @@ export default function ReservationsManager() {
   const logout = useLogout();
   const [, navigate] = useLocation();
   const { toast } = useToast();
+  const { t } = useUITranslation();
   const queryClient = useQueryClient();
   
   const [selectedTab, setSelectedTab] = useState<string>("all");
@@ -81,8 +83,8 @@ export default function ReservationsManager() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/reservations"] });
       toast({
-        title: "Statut mis à jour",
-        description: "Le statut de la réservation a été modifié avec succès."
+        title: t('reservationsManager.statusUpdateSuccess'),
+        description: t('reservationsManager.statusUpdateDescription')
       });
       setIsStatusDialogOpen(false);
       setSelectedReservation(null);
@@ -90,8 +92,8 @@ export default function ReservationsManager() {
     onError: (error: any) => {
       toast({
         variant: "destructive",
-        title: "Erreur",
-        description: error.message || "Une erreur est survenue lors de la modification du statut."
+        title: t('common.error'),
+        description: error.message || t('reservationsManager.statusUpdateError')
       });
     }
   });
@@ -146,15 +148,15 @@ export default function ReservationsManager() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "pending":
-        return <Badge variant="outline" className="bg-[hsl(var(--warning)/0.1)] text-[hsl(var(--warning))] border-[hsl(var(--warning)/0.2)]">En attente</Badge>;
+        return <Badge variant="outline" className="bg-[hsl(var(--warning)/0.1)] text-[hsl(var(--warning))] border-[hsl(var(--warning)/0.2)]">{t('reservationsManager.statusPending')}</Badge>;
       case "confirmed":
-        return <Badge variant="outline" className="bg-[hsl(var(--success)/0.1)] text-[hsl(var(--success))] border-[hsl(var(--success)/0.2)]">Confirmée</Badge>;
+        return <Badge variant="outline" className="bg-[hsl(var(--success)/0.1)] text-[hsl(var(--success))] border-[hsl(var(--success)/0.2)]">{t('reservationsManager.statusConfirmed')}</Badge>;
       case "cancelled":
-        return <Badge variant="outline" className="bg-[hsl(var(--destructive)/0.1)] text-[hsl(var(--destructive))] border-[hsl(var(--destructive)/0.2)]">Annulée</Badge>;
+        return <Badge variant="outline" className="bg-[hsl(var(--destructive)/0.1)] text-[hsl(var(--destructive))] border-[hsl(var(--destructive)/0.2)]">{t('reservationsManager.statusCancelled')}</Badge>;
       case "completed":
-        return <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20">Terminée</Badge>;
+        return <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20">{t('reservationsManager.statusCompleted')}</Badge>;
       default:
-        return <Badge variant="outline">Inconnu</Badge>;
+        return <Badge variant="outline">{t('reservationsManager.statusUnknown')}</Badge>;
     }
   };
   
@@ -180,7 +182,7 @@ export default function ReservationsManager() {
               </div>
             </Link>
             <div className="hidden md:block text-sm px-3 py-1 bg-primary-dark rounded">
-              Gestion des réservations
+              {t('reservationsManager.title')}
             </div>
           </div>
           
@@ -192,12 +194,12 @@ export default function ReservationsManager() {
               onClick={handleLogout}
             >
               <LogOut className="mr-2 h-4 w-4" />
-              Logout
+              {t('reservationsManager.logout')}
             </Button>
             <Link href="/admin/dashboard">
               <span className="text-white hover:text-gray-200 transition-colors cursor-pointer">
                 <ChevronLeft className="mr-2 h-4 w-4 inline" />
-                Back to dashboard
+                {t('reservationsManager.backToDashboard')}
               </span>
             </Link>
           </div>
@@ -206,21 +208,21 @@ export default function ReservationsManager() {
       
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="font-heading font-bold text-3xl mb-2">Gestion des réservations</h1>
-          <p className="text-gray-600">Consultez et gérez toutes les réservations de tours.</p>
+          <h1 className="font-heading font-bold text-3xl mb-2">{t('reservationsManager.title')}</h1>
+          <p className="text-gray-600">{t('reservationsManager.subtitle')}</p>
         </div>
         
         <Card>
           <CardHeader>
             <div className="flex flex-col md:flex-row justify-between">
               <div>
-                <CardTitle>Réservations</CardTitle>
-                <CardDescription>Liste des réservations de tours</CardDescription>
+                <CardTitle>{t('reservationsManager.title')}</CardTitle>
+                <CardDescription>{t('reservationsManager.subtitle')}</CardDescription>
               </div>
               <div className="mt-4 md:mt-0">
                 <Button variant="outline" className="mr-2" disabled>
                   <Download className="h-4 w-4 mr-2" />
-                  Exporter
+                  {t('reservationsManager.export')}
                 </Button>
               </div>
             </div>
@@ -228,11 +230,11 @@ export default function ReservationsManager() {
           <CardContent>
             <Tabs defaultValue="all" value={selectedTab} onValueChange={setSelectedTab}>
               <TabsList className="mb-6">
-                <TabsTrigger value="all">Toutes</TabsTrigger>
-                <TabsTrigger value="pending">En attente</TabsTrigger>
-                <TabsTrigger value="confirmed">Confirmées</TabsTrigger>
-                <TabsTrigger value="completed">Terminées</TabsTrigger>
-                <TabsTrigger value="cancelled">Annulées</TabsTrigger>
+                <TabsTrigger value="all">{t('reservationsManager.tabs.all')}</TabsTrigger>
+                <TabsTrigger value="pending">{t('reservationsManager.tabs.pending')}</TabsTrigger>
+                <TabsTrigger value="confirmed">{t('reservationsManager.tabs.confirmed')}</TabsTrigger>
+                <TabsTrigger value="completed">{t('reservationsManager.tabs.completed')}</TabsTrigger>
+                <TabsTrigger value="cancelled">{t('reservationsManager.tabs.cancelled')}</TabsTrigger>
               </TabsList>
               
               <TabsContent value={selectedTab}>
@@ -245,14 +247,14 @@ export default function ReservationsManager() {
                     <Table>
                       <TableHeader>
                         <TableRow>
-                          <TableHead>ID</TableHead>
-                          <TableHead>Tour</TableHead>
-                          <TableHead>Client</TableHead>
-                          <TableHead>Date</TableHead>
-                          <TableHead>Personnes</TableHead>
-                          <TableHead>Montant</TableHead>
-                          <TableHead>Statut</TableHead>
-                          <TableHead className="text-right">Actions</TableHead>
+                          <TableHead>{t('reservationsManager.tableHeaders.id')}</TableHead>
+                          <TableHead>{t('reservationsManager.tableHeaders.tour')}</TableHead>
+                          <TableHead>{t('reservationsManager.tableHeaders.customer')}</TableHead>
+                          <TableHead>{t('reservationsManager.tableHeaders.date')}</TableHead>
+                          <TableHead>{t('reservationsManager.tableHeaders.people')}</TableHead>
+                          <TableHead>{t('reservationsManager.tableHeaders.amount')}</TableHead>
+                          <TableHead>{t('reservationsManager.tableHeaders.status')}</TableHead>
+                          <TableHead className="text-right">{t('reservationsManager.tableHeaders.actions')}</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
@@ -270,32 +272,32 @@ export default function ReservationsManager() {
                             <TableCell className="text-right">
                               <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                  <Button variant="outline" size="sm">Actions</Button>
+                                  <Button variant="outline" size="sm">{t('reservationsManager.tableHeaders.actions')}</Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent>
                                   <DropdownMenuItem onClick={() => openDetailsDialog(reservation)}>
                                     <Eye className="h-4 w-4 mr-2" />
-                                    View details
+                                    {t('reservationsManager.viewDetails')}
                                   </DropdownMenuItem>
                                   
                                   {reservation.status === "pending" && (
                                     <DropdownMenuItem onClick={() => openStatusDialog(reservation, "confirmed")}>
                                       <Check className="h-4 w-4 mr-2 text-green-600" />
-                                      Confirm
+                                      {t('reservationsManager.confirm')}
                                     </DropdownMenuItem>
                                   )}
                                   
                                   {reservation.status === "confirmed" && (
                                     <DropdownMenuItem onClick={() => openStatusDialog(reservation, "completed")}>
                                       <Check className="h-4 w-4 mr-2 text-blue-600" />
-                                      Mark as completed
+                                      {t('reservationsManager.markAsCompleted')}
                                     </DropdownMenuItem>
                                   )}
                                   
                                   {(reservation.status === "pending" || reservation.status === "confirmed") && (
                                     <DropdownMenuItem onClick={() => openStatusDialog(reservation, "cancelled")}>
                                       <X className="h-4 w-4 mr-2 text-destructive" />
-                                      Cancel
+                                      {t('reservationsManager.cancel')}
                                     </DropdownMenuItem>
                                   )}
                                 </DropdownMenuContent>
@@ -310,8 +312,8 @@ export default function ReservationsManager() {
                   <div className="text-center py-8">
                     <p className="text-gray-500">
                       {selectedTab === "all"
-                        ? "Aucune réservation disponible."
-                        : `Aucune réservation avec le statut "${selectedTab}".`}
+                        ? t('reservationsManager.noReservations')
+                        : t('reservationsManager.noReservationsWithStatus', { status: selectedTab })}
                     </p>
                   </div>
                 )}
@@ -325,9 +327,9 @@ export default function ReservationsManager() {
       <Dialog open={isDetailsDialogOpen} onOpenChange={setIsDetailsDialogOpen}>
         <DialogContent className="sm:max-w-[550px]">
           <DialogHeader>
-            <DialogTitle>Détails de la réservation</DialogTitle>
+            <DialogTitle>{t('reservationsManager.detailsDialogTitle')}</DialogTitle>
             <DialogDescription>
-              Informations complètes sur la réservation
+              {t('reservationsManager.detailsDialogDescription')}
             </DialogDescription>
           </DialogHeader>
           
@@ -335,67 +337,67 @@ export default function ReservationsManager() {
             <div className="space-y-4 py-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <h4 className="font-semibold text-sm text-gray-500 mb-1">Numéro de réservation</h4>
+                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('reservationsManager.fields.reservationNumber')}</h4>
                   <p className="font-mono">#{selectedReservation.id}</p>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-sm text-gray-500 mb-1">Statut</h4>
+                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('reservationsManager.fields.status')}</h4>
                   <p>{getStatusBadge(selectedReservation.status)}</p>
                 </div>
               </div>
               
               <div className="pt-2">
-                <h4 className="font-semibold text-sm text-gray-500 mb-1">Tour</h4>
+                <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('reservationsManager.fields.tour')}</h4>
                 <p className="font-medium">{getTourTitle(selectedReservation.tourId)}</p>
               </div>
               
               <div className="pt-2">
-                <h4 className="font-semibold text-sm text-gray-500 mb-1">Informations client</h4>
+                <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('reservationsManager.fields.customerInfo')}</h4>
                 <div className="space-y-1">
-                  <p><span className="font-medium">Nom :</span> {selectedReservation.customerName}</p>
-                  <p><span className="font-medium">Email :</span> {selectedReservation.customerEmail}</p>
-                  <p><span className="font-medium">Téléphone :</span> {selectedReservation.customerPhone}</p>
+                  <p><span className="font-medium">{t('reservationsManager.fields.name')} :</span> {selectedReservation.customerName}</p>
+                  <p><span className="font-medium">{t('reservationsManager.fields.email')} :</span> {selectedReservation.customerEmail}</p>
+                  <p><span className="font-medium">{t('reservationsManager.fields.phone')} :</span> {selectedReservation.customerPhone}</p>
                 </div>
               </div>
               
               <div className="grid grid-cols-2 gap-4 pt-2">
                 <div>
-                  <h4 className="font-semibold text-sm text-gray-500 mb-1">Nombre de personnes</h4>
+                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('reservationsManager.fields.numberOfPeople')}</h4>
                   <p>{selectedReservation.numberOfPeople}</p>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-sm text-gray-500 mb-1">Montant total</h4>
+                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('reservationsManager.fields.totalAmount')}</h4>
                   <p className="font-semibold">{formatTHB(selectedReservation.totalAmount)}</p>
                 </div>
               </div>
               
               {selectedReservation.specialRequests && (
                 <div className="pt-2">
-                  <h4 className="font-semibold text-sm text-gray-500 mb-1">Demandes spéciales</h4>
+                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('reservationsManager.fields.specialRequests')}</h4>
                   <p className="p-3 bg-gray-50 rounded-md">{selectedReservation.specialRequests}</p>
                 </div>
               )}
               
               {selectedReservation.stripePaymentIntentId && (
                 <div className="pt-2">
-                  <h4 className="font-semibold text-sm text-gray-500 mb-1">Informations de paiement</h4>
+                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('reservationsManager.fields.paymentInfo')}</h4>
                   <div className="space-y-1">
-                    <p><span className="font-medium">ID Stripe :</span> {selectedReservation.stripePaymentIntentId}</p>
-                    <p><span className="font-medium">Client Stripe :</span> {selectedReservation.stripeCustomerId}</p>
+                    <p><span className="font-medium">{t('reservationsManager.fields.stripeId')} :</span> {selectedReservation.stripePaymentIntentId}</p>
+                    <p><span className="font-medium">{t('reservationsManager.fields.stripeCustomer')} :</span> {selectedReservation.stripeCustomerId}</p>
                   </div>
                 </div>
               )}
               
               <div className="grid grid-cols-2 gap-4 pt-2">
                 <div>
-                  <h4 className="font-semibold text-sm text-gray-500 mb-1">Date de création</h4>
+                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('reservationsManager.fields.createdOn')}</h4>
                   <p>
                     {selectedReservation.createdAt && 
                       format(new Date(selectedReservation.createdAt), 'dd/MM/yyyy à HH:mm', { locale: fr })}
                   </p>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-sm text-gray-500 mb-1">Dernière mise à jour</h4>
+                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('reservationsManager.fields.lastUpdated')}</h4>
                   <p>
                     {selectedReservation.updatedAt && 
                       format(new Date(selectedReservation.updatedAt), 'dd/MM/yyyy à HH:mm', { locale: fr })}
@@ -420,7 +422,7 @@ export default function ReservationsManager() {
                     }}
                   >
                     <X className="h-4 w-4 mr-1" />
-                    Cancel
+                    {t('reservationsManager.cancel')}
                   </Button>
                 )}
               </div>
@@ -436,7 +438,7 @@ export default function ReservationsManager() {
                     }}
                   >
                     <Check className="h-4 w-4 mr-1" />
-                    Confirm
+                    {t('reservationsManager.confirm')}
                   </Button>
                 )}
                 
@@ -444,7 +446,7 @@ export default function ReservationsManager() {
                   variant="outline" 
                   onClick={() => setIsDetailsDialogOpen(false)}
                 >
-                  Fermer
+                  {t('reservationsManager.close')}
                 </Button>
               </div>
             </div>
@@ -456,11 +458,11 @@ export default function ReservationsManager() {
       <Dialog open={isStatusDialogOpen} onOpenChange={setIsStatusDialogOpen}>
         <DialogContent className="sm:max-w-[450px]">
           <DialogHeader>
-            <DialogTitle>Modifier le statut de la réservation</DialogTitle>
+            <DialogTitle>{t('reservationsManager.statusDialogTitle')}</DialogTitle>
             <DialogDescription>
-              {selectedStatus === "confirmed" && "Confirm this reservation?"}
-              {selectedStatus === "cancelled" && "Cancel this reservation?"}
-              {selectedStatus === "completed" && "Marquer cette réservation comme terminée ?"}
+              {selectedStatus === "confirmed" && t('reservationsManager.statusDialogConfirmDescription')}
+              {selectedStatus === "cancelled" && t('reservationsManager.statusDialogCancelDescription')}
+              {selectedStatus === "completed" && t('reservationsManager.statusDialogCompletedDescription')}
             </DialogDescription>
           </DialogHeader>
           
@@ -468,22 +470,21 @@ export default function ReservationsManager() {
             <div className="py-4">
               <div className="flex items-center mb-4">
                 <div className="w-2 h-2 rounded-full mr-2 bg-blue-500"></div>
-                <div className="font-medium">Réservation #{selectedReservation.id}</div>
+                <div className="font-medium">{t('reservationsManager.reservation')} #{selectedReservation.id}</div>
               </div>
               
               <div className="space-y-2">
-                <p><span className="font-medium">Tour :</span> {getTourTitle(selectedReservation.tourId)}</p>
-                <p><span className="font-medium">Client :</span> {selectedReservation.customerName}</p>
-                <p><span className="font-medium">Statut actuel :</span> {getStatusBadge(selectedReservation.status)}</p>
-                <p><span className="font-medium">Nouveau statut :</span> {getStatusBadge(selectedStatus)}</p>
+                <p><span className="font-medium">{t('reservationsManager.fields.tour')} :</span> {getTourTitle(selectedReservation.tourId)}</p>
+                <p><span className="font-medium">{t('reservationsManager.fields.customerInfo')} :</span> {selectedReservation.customerName}</p>
+                <p><span className="font-medium">{t('reservationsManager.currentStatus')} :</span> {getStatusBadge(selectedReservation.status)}</p>
+                <p><span className="font-medium">{t('reservationsManager.newStatus')} :</span> {getStatusBadge(selectedStatus)}</p>
               </div>
               
               {selectedStatus === "cancelled" && (
                 <div className="mt-4 p-3 bg-destructive/10 text-destructive rounded-md flex items-start">
                   <AlertTriangle className="h-5 w-5 mr-2 flex-shrink-0 mt-0.5 text-destructive" />
                   <span>
-                    Attention : L'annulation d'une réservation est définitive. 
-                    Le client sera notifié et pourra recevoir un remboursement si applicable.
+                    {t('reservationsManager.cancelWarning')}
                   </span>
                 </div>
               )}
@@ -496,7 +497,7 @@ export default function ReservationsManager() {
               variant="outline" 
               onClick={() => setIsStatusDialogOpen(false)}
             >
-              Cancel
+              {t('reservationsManager.close')}
             </Button>
             
             <Button 
@@ -504,10 +505,10 @@ export default function ReservationsManager() {
               onClick={confirmStatusChange} 
               disabled={updateReservationStatus.isPending}
             >
-              {updateReservationStatus.isPending ? "Updating..." : (
-                selectedStatus === "confirmed" ? "Confirm" : 
-                selectedStatus === "cancelled" ? "Cancel reservation" : 
-                "Mark as completed"
+              {updateReservationStatus.isPending ? t('reservationsManager.updating') : (
+                selectedStatus === "confirmed" ? t('reservationsManager.confirm') : 
+                selectedStatus === "cancelled" ? t('reservationsManager.cancelReservation') : 
+                t('reservationsManager.markAsCompleted')
               )}
             </Button>
           </DialogFooter>

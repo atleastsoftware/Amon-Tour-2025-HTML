@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useIsAuthenticated } from "@/lib/auth";
 import { useToast } from "@/hooks/use-toast";
+import { useUITranslation } from "@/hooks/useUITranslation";
 import { apiRequest } from "@/lib/queryClient";
 import { Tour, insertTourSchema } from "@shared/schema";
 import { z } from "zod";
@@ -35,10 +36,10 @@ import { ArrowLeft } from "lucide-react";
 import { Link } from "wouter";
 import { ImageUpload } from "@/components/ui/image-upload";
 
-// Extended schema with validation
+// Extended schema with validation - note: validation messages will be translated in the component
 const tourFormSchema = insertTourSchema
   .extend({
-    price: z.coerce.number().min(1, { message: "Price must be greater than 0" }),
+    price: z.coerce.number().min(1),
     childPrice: z.coerce.number().optional(),
   });
 
@@ -52,6 +53,7 @@ export default function TourForm() {
   
   const { isAuthenticated, isLoading: authLoading } = useIsAuthenticated();
   const { toast } = useToast();
+  const { t } = useUITranslation();
   const queryClient = useQueryClient();
   const [isSubmitting, setIsSubmitting] = useState(false);
   
@@ -107,16 +109,16 @@ export default function TourForm() {
         // Update existing tour
         await apiRequest("PUT", `/api/tours/${tourId}`, data);
         toast({
-          title: "Tour updated",
-          description: "The tour has been successfully updated.",
+          title: t('tourForm.tourUpdated'),
+          description: t('tourForm.tourUpdatedDescription'),
           variant: "default",
         });
       } else {
         // Create new tour
         await apiRequest("POST", "/api/tours", data);
         toast({
-          title: "Tour created",
-          description: "The new tour has been successfully created.",
+          title: t('tourForm.tourCreated'),
+          description: t('tourForm.tourCreatedDescription'),
           variant: "default",
         });
       }
@@ -129,8 +131,8 @@ export default function TourForm() {
       setLocation("/admin/dashboard");
     } catch (error) {
       toast({
-        title: "Error",
-        description: "There was a problem saving the tour.",
+        title: t('tourForm.error'),
+        description: t('tourForm.errorDescription'),
         variant: "destructive",
       });
     } finally {
@@ -156,17 +158,17 @@ export default function TourForm() {
         <Link href="/admin/dashboard">
           <span className="inline-flex items-center text-primary hover:text-primary-dark mb-6 cursor-pointer">
             <ArrowLeft className="mr-2 h-5 w-5" />
-            Back to dashboard
+            {t('tourForm.backToDashboard')}
           </span>
         </Link>
         
         <Card className="max-w-4xl mx-auto">
           <CardHeader>
-            <CardTitle>{tourId ? "Edit tour" : "Add new tour"}</CardTitle>
+            <CardTitle>{tourId ? t('tourForm.editTour') : t('tourForm.addNewTour')}</CardTitle>
             <CardDescription>
               {tourId 
-                ? "Modify information for the existing tour."
-                : "Create a new tour to be displayed on the website."}
+                ? t('tourForm.editDescription')
+                : t('tourForm.addDescription')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -177,12 +179,12 @@ export default function TourForm() {
                   name="title"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Title</FormLabel>
+                      <FormLabel>{t('tourForm.fields.title')}</FormLabel>
                       <FormControl>
-                        <Input placeholder="Ex: Bangkok Essential" {...field} />
+                        <Input placeholder={t('tourForm.fields.titlePlaceholder')} {...field} />
                       </FormControl>
                       <FormDescription>
-                        The main title of the tour.
+                        {t('tourForm.fields.titleDescription')}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -195,12 +197,12 @@ export default function TourForm() {
                     name="duration"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Duration</FormLabel>
+                        <FormLabel>{t('tourForm.fields.duration')}</FormLabel>
                         <FormControl>
-                          <Input placeholder="Ex: 3 days" {...field} />
+                          <Input placeholder={t('tourForm.fields.durationPlaceholder')} {...field} />
                         </FormControl>
                         <FormDescription>
-                          Duration of the tour (ex: 3 days, 5 days, etc.)
+                          {t('tourForm.fields.durationDescription')}
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -212,12 +214,12 @@ export default function TourForm() {
                     name="price"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Adult Price (THB)</FormLabel>
+                        <FormLabel>{t('tourForm.fields.adultPrice')}</FormLabel>
                         <FormControl>
-                          <Input type="number" min="0" placeholder="Ex: 10000" {...field} />
+                          <Input type="number" min="0" placeholder={t('tourForm.fields.adultPricePlaceholder')} {...field} />
                         </FormControl>
                         <FormDescription>
-                          Adult price in Thai Baht (without the ฿ symbol)
+                          {t('tourForm.fields.adultPriceDescription')}
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -230,12 +232,12 @@ export default function TourForm() {
                   name="childPrice"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Child Price (THB) - Optional</FormLabel>
+                      <FormLabel>{t('tourForm.fields.childPrice')}</FormLabel>
                       <FormControl>
                         <Input 
                           type="number" 
                           min="0" 
-                          placeholder="Ex: 5000" 
+                          placeholder={t('tourForm.fields.childPricePlaceholder')}
                           value={field.value || ''}
                           onChange={(e) => {
                             const value = e.target.value ? parseInt(e.target.value) : undefined;
@@ -244,7 +246,7 @@ export default function TourForm() {
                         />
                       </FormControl>
                       <FormDescription>
-                        Special price for children in Thai Baht (leave empty if there is no special child price)
+                        {t('tourForm.fields.childPriceDescription')}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -256,16 +258,16 @@ export default function TourForm() {
                   name="shortDescription"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Short Description</FormLabel>
+                      <FormLabel>{t('tourForm.fields.shortDescription')}</FormLabel>
                       <FormControl>
                         <Textarea 
-                          placeholder="Brief description of the tour (visible on cards)"
+                          placeholder={t('tourForm.fields.shortDescriptionPlaceholder')}
                           rows={2}
                           {...field} 
                         />
                       </FormControl>
                       <FormDescription>
-                        A short description that will appear on tour cards (max. 150 characters).
+                        {t('tourForm.fields.shortDescriptionDescription')}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -277,16 +279,16 @@ export default function TourForm() {
                   name="description"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Full Description</FormLabel>
+                      <FormLabel>{t('tourForm.fields.fullDescription')}</FormLabel>
                       <FormControl>
                         <Textarea 
-                          placeholder="Detailed description of the tour"
+                          placeholder={t('tourForm.fields.fullDescriptionPlaceholder')}
                           rows={6}
                           {...field} 
                         />
                       </FormControl>
                       <FormDescription>
-                        Detailed description of the tour that will appear on the details page.
+                        {t('tourForm.fields.fullDescriptionDescription')}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -298,23 +300,23 @@ export default function TourForm() {
                   name="imageUrl"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Tour Image</FormLabel>
+                      <FormLabel>{t('tourForm.fields.tourImage')}</FormLabel>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                           <FormControl>
                             <Input 
-                              placeholder="https://example.com/image.jpg" 
+                              placeholder={t('tourForm.fields.imageUrlPlaceholder')}
                               {...field} 
                               className="mb-2"
                             />
                           </FormControl>
                           <FormDescription>
-                            Enter a URL for the main tour image, or use the uploader to the right.
+                            {t('tourForm.fields.imageUrlDescription')}
                           </FormDescription>
                         </div>
                         <div>
                           <div className="border rounded-md p-4 bg-gray-50">
-                            <p className="text-sm font-medium mb-2">Upload an image</p>
+                            <p className="text-sm font-medium mb-2">{t('tourForm.fields.uploadImage')}</p>
                             {isAuthenticated ? (
                               <ImageUpload 
                                 currentImage={field.value}
@@ -322,7 +324,7 @@ export default function TourForm() {
                               />
                             ) : (
                               <div className="text-amber-600 p-4 text-sm">
-                                Authentication required to upload images. Please use the URL field instead.
+                                {t('tourForm.fields.authRequired')}
                               </div>
                             )}
                           </div>
@@ -338,12 +340,12 @@ export default function TourForm() {
                   name="tourNinjaUrl"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>TOUR NINJA URL</FormLabel>
+                      <FormLabel>{t('tourForm.fields.tourNinjaUrl')}</FormLabel>
                       <FormControl>
-                        <Input placeholder="https://tourninja.com/tour/xyz" {...field} />
+                        <Input placeholder={t('tourForm.fields.tourNinjaUrlPlaceholder')} {...field} />
                       </FormControl>
                       <FormDescription>
-                        The external link to the booking page on TOUR NINJA.
+                        {t('tourForm.fields.tourNinjaUrlDescription')}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -362,9 +364,9 @@ export default function TourForm() {
                         />
                       </FormControl>
                       <div className="space-y-1 leading-none">
-                        <FormLabel>Featured Tour</FormLabel>
+                        <FormLabel>{t('tourForm.fields.featuredTour')}</FormLabel>
                         <FormDescription>
-                          Check this box to highlight this tour on the home page.
+                          {t('tourForm.fields.featuredTourDescription')}
                         </FormDescription>
                       </div>
                     </FormItem>
@@ -377,15 +379,15 @@ export default function TourForm() {
                     variant="outline"
                     onClick={() => setLocation("/admin/dashboard")}
                   >
-                    Cancel
+                    {t('tourForm.cancel')}
                   </Button>
                   <Button 
                     type="submit"
                     disabled={isSubmitting}
                   >
                     {isSubmitting 
-                      ? "Saving..." 
-                      : tourId ? "Update" : "Create tour"}
+                      ? t('tourForm.saving')
+                      : tourId ? t('tourForm.update') : t('tourForm.createTour')}
                   </Button>
                 </div>
               </form>
