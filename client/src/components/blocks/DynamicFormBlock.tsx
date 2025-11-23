@@ -10,6 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { FormInput } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 // System colors for form
 const SYSTEM_COLORS = {
@@ -41,6 +42,7 @@ export default function DynamicFormBlock({
   isPreview = false
 }: DynamicFormBlockProps) {
   const { toast } = useToast();
+  const { currentLanguage } = useTranslation();
   const [formValues, setFormValues] = useState<Record<string, any>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   
@@ -54,6 +56,13 @@ export default function DynamicFormBlock({
 
   const resolveColor = (colorValue: string) => {
     return SYSTEM_COLORS[colorValue as keyof typeof SYSTEM_COLORS] || colorValue;
+  };
+
+  // Get translated text from form translations
+  const getTranslation = (key: string, fallback: string = ''): string => {
+    if (!formData?.translations) return fallback;
+    const lang = currentLanguage || 'en';
+    return formData.translations[lang]?.[key] || formData.translations.en?.[key] || fallback;
   };
 
   // Initialize flatpickr for date inputs
@@ -169,8 +178,8 @@ export default function DynamicFormBlock({
       await apiRequest("POST", "/api/custom-tour-requests", requestData);
       
       toast({
-        title: "Request Sent!",
-        description: "We'll contact you shortly to discuss your custom trip.",
+        title: getTranslation('success_message', "Request Sent!"),
+        description: getTranslation('success_message', "We'll contact you shortly to discuss your custom trip."),
         variant: "default",
       });
       
@@ -186,8 +195,8 @@ export default function DynamicFormBlock({
     } catch (error) {
       console.error("Form submission error:", error);
       toast({
-        title: "Error",
-        description: "Failed to send your request. Please try again.",
+        title: getTranslation('error_message', "Error"),
+        description: getTranslation('error_message', "Failed to send your request. Please try again."),
         variant: "destructive",
       });
     } finally {
@@ -210,10 +219,14 @@ export default function DynamicFormBlock({
     });
   };
 
-  const renderField = (field: any) => {
+  const renderField = (field: any, fieldIndex: number) => {
     const fieldStyle = {
       marginBottom: `${field.style?.marginBottom || 16}px`
     };
+
+    // Get translated label and placeholder
+    const translatedLabel = getTranslation(`field_${fieldIndex}_label`, field.label);
+    const translatedPlaceholder = getTranslation(`field_${fieldIndex}_placeholder`, field.placeholder);
 
     switch (field.type) {
       case 'text':
@@ -223,10 +236,10 @@ export default function DynamicFormBlock({
         return (
           <div className="w-full" style={fieldStyle}>
             <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
-              {field.label}{field.required ? ' *' : ''}
+              {translatedLabel}{field.required ? ' *' : ''}
             </Label>
             <Input 
-              placeholder={field.placeholder} 
+              placeholder={translatedPlaceholder} 
               type={field.type} 
               value={formValues[field.id] || ''} 
               onChange={(e) => handleInputChange(field.id, e.target.value)}
@@ -239,10 +252,10 @@ export default function DynamicFormBlock({
         return (
           <div className="w-full" style={fieldStyle}>
             <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
-              {field.label}{field.required ? ' *' : ''}
+              {translatedLabel}{field.required ? ' *' : ''}
             </Label>
             <Textarea 
-              placeholder={field.placeholder} 
+              placeholder={translatedPlaceholder} 
               rows={4} 
               value={formValues[field.id] || ''} 
               onChange={(e) => handleInputChange(field.id, e.target.value)}
@@ -255,16 +268,19 @@ export default function DynamicFormBlock({
         return (
           <div className="w-full" style={fieldStyle}>
             <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
-              {field.label}{field.required ? ' *' : ''}
+              {translatedLabel}{field.required ? ' *' : ''}
             </Label>
             <Select value={formValues[field.id]} onValueChange={(value) => handleInputChange(field.id, value)}>
               <SelectTrigger style={{ color: resolveColor(formData.textColor) }}>
-                <SelectValue placeholder={field.placeholder || "Select an option"} />
+                <SelectValue placeholder={translatedPlaceholder || "Select an option"} />
               </SelectTrigger>
               <SelectContent>
-                {field.options?.map((option: string, index: number) => (
-                  <SelectItem key={index} value={option}>{option}</SelectItem>
-                ))}
+                {field.options?.map((option: string, optionIndex: number) => {
+                  const translatedOption = getTranslation(`field_${fieldIndex}_option_${optionIndex}`, option);
+                  return (
+                    <SelectItem key={optionIndex} value={option}>{translatedOption}</SelectItem>
+                  );
+                })}
               </SelectContent>
             </Select>
           </div>
@@ -274,30 +290,33 @@ export default function DynamicFormBlock({
         return (
           <div className="w-full" style={fieldStyle}>
             <Label className="mb-4 block" style={{ color: resolveColor(formData.textColor) }}>
-              {field.label}{field.required ? ' *' : ''}
+              {translatedLabel}{field.required ? ' *' : ''}
             </Label>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-              {field.options?.map((option: string, index: number) => (
-                <div key={index} className="flex flex-row items-start space-x-3 space-y-0">
-                  <Checkbox 
-                    id={`${field.id}-${index}`} 
-                    className="mt-1 checkbox-custom" 
-                    checked={(formValues[field.id] || []).includes(option)}
-                    onCheckedChange={(checked) => handleCheckboxChange(field.id, option, checked as boolean)}
-                    style={{ 
-                      '--checkbox-color': resolveColor(formData.primaryColor),
-                      accentColor: resolveColor(formData.primaryColor)
-                    } as React.CSSProperties}
-                  />
-                  <Label 
-                    htmlFor={`${field.id}-${index}`} 
-                    className="text-sm font-normal cursor-pointer leading-5"
-                    style={{ color: resolveColor(formData.textColor) }}
-                  >
-                    {option}
-                  </Label>
-                </div>
-              ))}
+              {field.options?.map((option: string, optionIndex: number) => {
+                const translatedOption = getTranslation(`field_${fieldIndex}_option_${optionIndex}`, option);
+                return (
+                  <div key={optionIndex} className="flex flex-row items-start space-x-3 space-y-0">
+                    <Checkbox 
+                      id={`${field.id}-${optionIndex}`} 
+                      className="mt-1 checkbox-custom" 
+                      checked={(formValues[field.id] || []).includes(option)}
+                      onCheckedChange={(checked) => handleCheckboxChange(field.id, option, checked as boolean)}
+                      style={{ 
+                        '--checkbox-color': resolveColor(formData.primaryColor),
+                        accentColor: resolveColor(formData.primaryColor)
+                      } as React.CSSProperties}
+                    />
+                    <Label 
+                      htmlFor={`${field.id}-${optionIndex}`} 
+                      className="text-sm font-normal cursor-pointer leading-5"
+                      style={{ color: resolveColor(formData.textColor) }}
+                    >
+                      {translatedOption}
+                    </Label>
+                  </div>
+                );
+              })}
             </div>
           </div>
         );
@@ -306,20 +325,23 @@ export default function DynamicFormBlock({
         return (
           <div className="w-full" style={fieldStyle}>
             <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
-              {field.label}{field.required ? ' *' : ''}
+              {translatedLabel}{field.required ? ' *' : ''}
             </Label>
             <div className="space-y-2">
-              {field.options?.map((option: string, index: number) => (
-                <div key={index} className="flex items-center space-x-2">
-                  <input 
-                    type="radio" 
-                    name={field.id} 
-                    id={`${field.id}-${index}`}
-                    style={{ accentColor: resolveColor(formData.primaryColor) }}
-                  />
-                  <Label htmlFor={`${field.id}-${index}`} style={{ color: resolveColor(formData.textColor) }}>{option}</Label>
-                </div>
-              ))}
+              {field.options?.map((option: string, optionIndex: number) => {
+                const translatedOption = getTranslation(`field_${fieldIndex}_option_${optionIndex}`, option);
+                return (
+                  <div key={optionIndex} className="flex items-center space-x-2">
+                    <input 
+                      type="radio" 
+                      name={field.id} 
+                      id={`${field.id}-${optionIndex}`}
+                      style={{ accentColor: resolveColor(formData.primaryColor) }}
+                    />
+                    <Label htmlFor={`${field.id}-${optionIndex}`} style={{ color: resolveColor(formData.textColor) }}>{translatedOption}</Label>
+                  </div>
+                );
+              })}
             </div>
           </div>
         );
@@ -328,7 +350,7 @@ export default function DynamicFormBlock({
         return (
           <div className="w-full" style={fieldStyle}>
             <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
-              {field.label}{field.required ? ' *' : ''}
+              {translatedLabel}{field.required ? ' *' : ''}
             </Label>
             <Input type="file" style={{ color: resolveColor(formData.textColor) }} />
           </div>
@@ -338,10 +360,10 @@ export default function DynamicFormBlock({
         return (
           <div className="w-full" style={fieldStyle}>
             <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
-              {field.label}{field.required ? ' *' : ''}
+              {translatedLabel}{field.required ? ' *' : ''}
             </Label>
             <Input 
-              placeholder={field.placeholder || "Select trip dates"} 
+              placeholder={translatedPlaceholder || "Select trip dates"} 
               value={formValues[field.id] || ''}
               readOnly 
               className="cursor-pointer flatpickr-input" 
@@ -427,14 +449,14 @@ export default function DynamicFormBlock({
                       className="font-heading font-bold text-4xl mb-3"
                       style={{ color: resolveColor(formData.titleColor) }}
                     >
-                      {formData.title || 'Titre du formulaire'}
+                      {getTranslation('title', formData.title || 'Titre du formulaire')}
                     </h3>
                     {formData.subtitle && (
                       <p 
                         className="max-w-md"
                         style={{ color: resolveColor(formData.subtitleColor) }}
                       >
-                        {formData.subtitle}
+                        {getTranslation('subtitle', formData.subtitle)}
                       </p>
                     )}
                   </div>
@@ -462,7 +484,7 @@ export default function DynamicFormBlock({
                       
                       return (
                         <div key={field.id || index} className={colSpan}>
-                          {renderField(field)}
+                          {renderField(field, index)}
                         </div>
                       );
                     })}
@@ -478,7 +500,7 @@ export default function DynamicFormBlock({
                       }}
                       className="w-full px-8 py-3 rounded-md font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      {isSubmitting ? 'Sending...' : (formData.settings?.submitButtonText || 'Envoyer')}
+                      {isSubmitting ? getTranslation('submit_button_text', 'Sending...') : getTranslation('submit_button_text', formData.settings?.submitButtonText || 'Envoyer')}
                     </button>
                     
                   </div>
@@ -486,7 +508,7 @@ export default function DynamicFormBlock({
                   {formData.settings?.whatsappButtonEnabled && (
                     <div className="mt-4 pt-4 border-t border-gray-200">
                       <p className="text-center text-sm text-gray-600 mb-3">
-                        {formData.settings?.whatsappButtonText || 'Or contact us directly via WhatsApp'}
+                        {getTranslation('whatsapp_button_text', formData.settings?.whatsappButtonText || 'Or contact us directly via WhatsApp')}
                       </p>
                       <a
                         href="https://wa.me/66653496445?text=Hello%20Amon%20Tour,%20I%20would%20like%20to%20inquire%20about%20a%20custom%20tour."
@@ -526,7 +548,7 @@ export default function DynamicFormBlock({
                     
                     return (
                       <div key={field.id || index} className={colSpan}>
-                        {renderField(field)}
+                        {renderField(field, index)}
                       </div>
                     );
                   })}
@@ -542,13 +564,13 @@ export default function DynamicFormBlock({
                     }}
                     className="w-full px-8 py-3 rounded-md font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {isSubmitting ? 'Sending...' : (formData.settings?.submitButtonText || 'Envoyer')}
+                    {isSubmitting ? getTranslation('submit_button_text', 'Sending...') : getTranslation('submit_button_text', formData.settings?.submitButtonText || 'Envoyer')}
                   </button>
                   
                   {formData.settings?.whatsappButtonEnabled && (
                     <div className="mt-4 pt-4 border-t border-gray-200">
                       <p className="text-center text-sm text-gray-600 mb-3">
-                        {formData.settings?.whatsappButtonText || 'Or contact us directly via WhatsApp'}
+                        {getTranslation('whatsapp_button_text', formData.settings?.whatsappButtonText || 'Or contact us directly via WhatsApp')}
                       </p>
                       <a
                         href="https://wa.me/66653496445?text=Hello%20Amon%20Tour,%20I%20would%20like%20to%20inquire%20about%20a%20custom%20tour."
@@ -615,7 +637,7 @@ export default function DynamicFormBlock({
                       
                       return (
                         <div key={field.id || index} className={colSpan}>
-                          {renderField(field)}
+                          {renderField(field, index)}
                         </div>
                       );
                     })}
@@ -631,7 +653,7 @@ export default function DynamicFormBlock({
                       }}
                       className="w-full px-8 py-3 rounded-md font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      {isSubmitting ? 'Sending...' : (formData.settings?.submitButtonText || 'Envoyer')}
+                      {isSubmitting ? getTranslation('submit_button_text', 'Sending...') : getTranslation('submit_button_text', formData.settings?.submitButtonText || 'Envoyer')}
                     </button>
                     
                   </div>
@@ -639,7 +661,7 @@ export default function DynamicFormBlock({
                   {formData.settings?.whatsappButtonEnabled && (
                     <div className="mt-4 pt-4 border-t border-gray-200">
                       <p className="text-center text-sm text-gray-600 mb-3">
-                        {formData.settings?.whatsappButtonText || 'Or contact us directly via WhatsApp'}
+                        {getTranslation('whatsapp_button_text', formData.settings?.whatsappButtonText || 'Or contact us directly via WhatsApp')}
                       </p>
                       <a
                         href="https://wa.me/66653496445?text=Hello%20Amon%20Tour,%20I%20would%20like%20to%20inquire%20about%20a%20custom%20tour."
