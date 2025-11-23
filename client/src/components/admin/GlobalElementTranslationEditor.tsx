@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -93,8 +93,8 @@ export default function GlobalElementTranslationEditor() {
   });
 
 
-  // Find selected element
-  const getSelectedElementData = (): GlobalElement | null => {
+  // Find selected element - memoized to prevent unnecessary re-renders
+  const selectedElementData = useMemo((): GlobalElement | null => {
     if (!selectedElement || !elements) return null;
 
     if (selectedElement.type === 'footer') {
@@ -133,9 +133,7 @@ export default function GlobalElementTranslationEditor() {
       return elements.popup;
     }
     return null;
-  };
-
-  const selectedElementData = getSelectedElementData();
+  }, [selectedElement, elements]);
 
   // Update edited translations when an element is selected
   useEffect(() => {
@@ -144,7 +142,7 @@ export default function GlobalElementTranslationEditor() {
     } else {
       setEditedTranslations(null);
     }
-  }, [selectedElementData]);
+  }, [selectedElement?.type, selectedElement?.identifier]);
 
   // Mutation to save translations
   const saveTranslationsMutation = useMutation({

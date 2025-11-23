@@ -37,25 +37,6 @@ export default function AdminTranslation() {
 
   return (
     <div className="min-h-screen bg-muted/30">
-      {/* Simple header without translation context */}
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setLocation('/')}
-              className="flex items-center gap-2"
-            >
-              <Home className="h-4 w-4" />
-              Accueil
-            </Button>
-          </div>
-          <h2 className="text-lg font-semibold">Gestion des Traductions</h2>
-          <div className="w-24"></div>
-        </div>
-      </header>
-
       <div className="pt-8 pb-16">
         <div className="container mx-auto px-4 max-w-7xl">
           <motion.div

@@ -5736,6 +5736,25 @@ Crawl-delay: 1`;
     }
   });
 
+  // Initialize translations for a specific form
+  app.post("/api/admin/form-translations/:formId/initialize", requireAuth, async (req, res) => {
+    try {
+      const formId = parseInt(req.params.formId);
+      
+      if (isNaN(formId)) {
+        return res.status(400).json({ message: "Invalid form ID" });
+      }
+      
+      const { formTranslationService } = await import('./services/formTranslationService');
+      await formTranslationService.initializeFormTranslations(formId);
+      
+      res.json({ message: "Form translations initialized successfully" });
+    } catch (error) {
+      console.error("Error initializing form translations:", error);
+      res.status(500).json({ message: "Failed to initialize translations", error: String(error) });
+    }
+  });
+
   // Analyze translations to find missing, empty, or English text
   app.get("/api/admin/translation-analysis", requireAuth, async (req, res) => {
     try {

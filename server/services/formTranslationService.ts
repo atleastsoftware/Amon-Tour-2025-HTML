@@ -1,5 +1,5 @@
-import { db } from "@db";
-import { customForms, type FormField, type FormSettings } from "@shared/schema";
+import { db } from "../db";
+import { customForms, type FormField, type FormSettings } from "../../shared/schema";
 import { eq } from "drizzle-orm";
 import { autoTranslationService } from "./autoTranslationService";
 
