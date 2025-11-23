@@ -798,6 +798,15 @@ export const customForms = pgTable("custom_forms", {
   textColor: text("text_color").default("#333333"),
   fields: json("fields").$type<FormField[]>().notNull().default([]),
   settings: json("settings").$type<FormSettings>().default({}),
+  translations: json("translations").$type<{
+    en: Record<string, string>;
+    fr: Record<string, string>;
+    es: Record<string, string>;
+  }>().default({ en: {}, fr: {}, es: {} }),
+  translationsMeta: json("translations_meta").$type<{
+    fr?: Record<string, { isManuallyEdited?: boolean }>;
+    es?: Record<string, { isManuallyEdited?: boolean }>;
+  }>().default({}),
   isActive: boolean("is_active").default(true),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
