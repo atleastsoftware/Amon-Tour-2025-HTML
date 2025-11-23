@@ -2557,59 +2557,6 @@ export default function AdminAppearance() {
           </div>
         </div>
 
-        {/* TEMPORARY: One-time Translation Migration Button */}
-        {!migrationResult?.summary && (
-          <div className="bg-yellow-50 border-2 border-yellow-400 rounded-lg p-4 mb-6">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
-              <div>
-                <h3 className="font-semibold text-yellow-900 mb-1 flex items-center gap-2">
-                  <Database className="w-5 h-5" />
-                  Migration des traductions (une seule fois)
-                </h3>
-                <p className="text-sm text-yellow-800">
-                  Clique sur ce bouton pour générer les traductions automatiques des blocs existants.
-                  Cette action est nécessaire une seule fois. Après, toutes les modifications seront automatiques.
-                </p>
-              </div>
-              <Button
-                onClick={runTranslationMigration}
-                disabled={isMigrating}
-                className="bg-yellow-600 hover:bg-yellow-700 text-white whitespace-nowrap"
-                data-testid="button-migrate-translations"
-              >
-                {isMigrating ? (
-                  <>
-                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2" />
-                    Migration en cours...
-                  </>
-                ) : (
-                  'Lancer la migration'
-                )}
-              </Button>
-            </div>
-            
-            {/* Show result after migration */}
-            {migrationResult && (
-              <div className="mt-4 p-3 bg-white rounded border border-yellow-300">
-                {migrationResult.error ? (
-                  <div className="text-red-600">
-                    <strong>Erreur:</strong> {migrationResult.error}
-                  </div>
-                ) : (
-                  <div className="text-green-700">
-                    <strong>✓ Migration terminée!</strong>
-                    <div className="text-sm mt-1">
-                      • Blocs traités: {migrationResult.summary.processed}<br/>
-                      • Blocs ignorés: {migrationResult.summary.skipped}<br/>
-                      • Total: {migrationResult.summary.total}
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-        )}
-
         {/* Main Navigation */}
         <Tabs value={activeCategory} onValueChange={setActiveCategory} className="space-y-6">
           <TabsList className="grid w-full grid-cols-3 h-auto">
