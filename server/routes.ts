@@ -5383,6 +5383,164 @@ Crawl-delay: 1`;
     }
   });
   
+  // Get all global element translations (Footer, Navigation Menu, Announcement Bar, Pop-up)
+  app.get("/api/admin/global-element-translations", requireAuth, async (req, res) => {
+    try {
+      const elements: any = {};
+      
+      // 1. Footer - 5 sections
+      const footerSections = ['contact_info', 'useful_links', 'social_media', 'newsletter_config', 'copyright_config'];
+      const footerTranslations: any = {};
+      
+      for (const subsection of footerSections) {
+        const section = `footer_${subsection}`;
+        const enData = await translationFileService.getSection('en', section);
+        const frData = await translationFileService.getSection('fr', section);
+        const esData = await translationFileService.getSection('es', section);
+        const frMeta = await translationFileService.getSectionMetadata(section, 'fr');
+        const esMeta = await translationFileService.getSectionMetadata(section, 'es');
+        
+        footerTranslations[subsection] = {
+          section,
+          translations: {
+            en: enData || {},
+            fr: frData || {},
+            es: esData || {}
+          },
+          translationsMeta: {
+            fr: frMeta || {},
+            es: esMeta || {}
+          }
+        };
+      }
+      elements.footer = footerTranslations;
+      
+      // 2. Navigation Menu
+      const menuItems = await storage.getNavigationMenuItems();
+      const menuTranslations = await Promise.all(menuItems.map(async (item: any) => {
+        const section = `navigation_menu_${item.id}`;
+        const enData = await translationFileService.getSection('en', section);
+        const frData = await translationFileService.getSection('fr', section);
+        const esData = await translationFileService.getSection('es', section);
+        const frMeta = await translationFileService.getSectionMetadata(section, 'fr');
+        const esMeta = await translationFileService.getSectionMetadata(section, 'es');
+        
+        return {
+          id: item.id,
+          name: item.name,
+          section,
+          translations: {
+            en: enData || { name: item.name },
+            fr: frData || {},
+            es: esData || {}
+          },
+          translationsMeta: {
+            fr: frMeta || {},
+            es: esMeta || {}
+          }
+        };
+      }));
+      elements.navigationMenu = menuTranslations;
+      
+      // 3. Announcement Bar
+      const announcementBarSection = 'announcement_bar';
+      const abEnData = await translationFileService.getSection('en', announcementBarSection);
+      const abFrData = await translationFileService.getSection('fr', announcementBarSection);
+      const abEsData = await translationFileService.getSection('es', announcementBarSection);
+      const abFrMeta = await translationFileService.getSectionMetadata(announcementBarSection, 'fr');
+      const abEsMeta = await translationFileService.getSectionMetadata(announcementBarSection, 'es');
+      
+      elements.announcementBar = {
+        section: announcementBarSection,
+        translations: {
+          en: abEnData || {},
+          fr: abFrData || {},
+          es: abEsData || {}
+        },
+        translationsMeta: {
+          fr: abFrMeta || {},
+          es: abEsMeta || {}
+        }
+      };
+      
+      // 4. Pop-up
+      const popupSection = 'popup';
+      const popEnData = await translationFileService.getSection('en', popupSection);
+      const popFrData = await translationFileService.getSection('fr', popupSection);
+      const popEsData = await translationFileService.getSection('es', popupSection);
+      const popFrMeta = await translationFileService.getSectionMetadata(popupSection, 'fr');
+      const popEsMeta = await translationFileService.getSectionMetadata(popupSection, 'es');
+      
+      elements.popup = {
+        section: popupSection,
+        translations: {
+          en: popEnData || {},
+          fr: popFrData || {},
+          es: popEsData || {}
+        },
+        translationsMeta: {
+          fr: popFrMeta || {},
+          es: popEsMeta || {}
+        }
+      };
+      
+      res.json(elements);
+    } catch (error) {
+      console.error("Error fetching global element translations:", error);
+      res.status(500).json({ message: "Failed to fetch global element translations", error: String(error) });
+    }
+  });
+  
+  // Update translations for a specific global element
+  app.put("/api/admin/global-element-translations/:elementType/:identifier", requireAuth, async (req, res) => {
+    try {
+      const { elementType, identifier } = req.params;
+      const { translations } = req.body; // { en: {...}, fr: {...}, es: {...} }
+      
+      if (!translations || typeof translations !== 'object') {
+        return res.status(400).json({ message: "Invalid translations data" });
+      }
+      
+      let section: string;
+      
+      // Determine section based on element type
+      if (elementType === 'footer') {
+        section = `footer_${identifier}`;
+      } else if (elementType === 'navigationMenu') {
+        section = `navigation_menu_${identifier}`;
+      } else if (elementType === 'announcementBar') {
+        section = 'announcement_bar';
+      } else if (elementType === 'popup') {
+        section = 'popup';
+      } else {
+        return res.status(400).json({ message: "Invalid element type" });
+      }
+      
+      // Update translations for each language
+      for (const [lang, langTranslations] of Object.entries(translations)) {
+        if (lang === 'en' || lang === 'fr' || lang === 'es') {
+          for (const [key, value] of Object.entries(langTranslations as Record<string, string>)) {
+            await translationFileService.updateTranslations({
+              section,
+              key,
+              translations: {
+                en: lang === 'en' ? value : translations.en?.[key] || '',
+                fr: lang === 'fr' ? value : translations.fr?.[key] || '',
+                es: lang === 'es' ? value : translations.es?.[key] || ''
+              },
+              isManualEdit: true  // Mark as manually edited
+            });
+          }
+        }
+      }
+      
+      res.json({ message: "Translations updated successfully" });
+    } catch (error) {
+      console.error("Error updating global element translations:", error);
+      res.status(500).json({ message: "Failed to update global element translations", error: String(error) });
+    }
+  });
+  
   // Update translations for a specific block
   app.put("/api/admin/block-translations/:blockId", requireAuth, async (req, res) => {
     try {

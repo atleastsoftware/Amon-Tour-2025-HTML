@@ -1,14 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
 import { useIsAuthenticated } from "@/lib/auth";
 import BlockTranslationEditor from "@/components/admin/BlockTranslationEditor";
+import GlobalElementTranslationEditor from "@/components/admin/GlobalElementTranslationEditor";
 import { motion } from "framer-motion";
 import { ArrowLeft, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function AdminTranslation() {
   const { isAuthenticated, isLoading } = useIsAuthenticated();
   const [, setLocation] = useLocation();
+  const [activeTab, setActiveTab] = useState<string>("blocks");
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
@@ -65,27 +68,45 @@ export default function AdminTranslation() {
                 variant="outline"
                 onClick={() => setLocation('/admin')}
                 className="flex items-center gap-2"
+                data-testid="button-back-to-admin"
               >
                 <ArrowLeft className="h-4 w-4" />
                 Retour
               </Button>
               <div>
                 <h1 className="text-3xl font-heading font-bold text-foreground">
-                  Gestion des Traductions par Bloc
+                  Gestion des Traductions
                 </h1>
                 <p className="text-muted-foreground mt-2">
-                  Édite et corrige les traductions automatiques pour chaque bloc de contenu
+                  Gérez les traductions pour les blocs de contenu et les éléments globaux du site
                 </p>
               </div>
             </div>
 
-            {/* Block Translation Editor Component */}
+            {/* Translation Editor Tabs */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <BlockTranslationEditor />
+              <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+                <TabsList className="grid w-full grid-cols-2 mb-6">
+                  <TabsTrigger value="blocks" data-testid="tab-page-blocks">
+                    📄 Blocs de Pages
+                  </TabsTrigger>
+                  <TabsTrigger value="global" data-testid="tab-global-elements">
+                    🌍 Éléments Globaux
+                  </TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="blocks">
+                  <BlockTranslationEditor />
+                </TabsContent>
+
+                <TabsContent value="global">
+                  <GlobalElementTranslationEditor />
+                </TabsContent>
+              </Tabs>
             </motion.div>
           </motion.div>
         </div>
