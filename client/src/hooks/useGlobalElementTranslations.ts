@@ -27,7 +27,7 @@ export function useGlobalElementTranslations(): UseGlobalElementResult {
     const loadTranslations = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(`/translations/${currentLanguage}.json`);
+        const response = await fetch(`/api/translations/${currentLanguage}`);
         if (response.ok) {
           const data = await response.json();
           setTranslations(data);

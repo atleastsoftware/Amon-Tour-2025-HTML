@@ -5952,6 +5952,22 @@ Crawl-delay: 1`;
     }
   });
 
+  // Serve translation files for global elements
+  app.get("/api/translations/:lang", async (req, res) => {
+    try {
+      const { lang } = req.params;
+      if (!['en', 'fr', 'es'].includes(lang)) {
+        return res.status(400).json({ message: "Unsupported language" });
+      }
+      
+      const translations = await translationFileService.readTranslationFile(lang);
+      res.json(translations);
+    } catch (error) {
+      console.error(`Error serving translation file for ${req.params.lang}:`, error);
+      res.status(500).json({ message: "Failed to load translations", error: String(error) });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
