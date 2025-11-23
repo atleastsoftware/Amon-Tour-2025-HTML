@@ -456,7 +456,7 @@
     "name": "Voyage personnalisé"
   },
   "navigation_menu_4": {
-    "name": "Blogue"
+    "name": "Blog"
   },
   "navigation_menu_5": {
     "name": "Contact"
@@ -627,6 +627,36 @@
         "isManuallyEdited": true
       },
       "buttons_1_text": {
+        "isManuallyEdited": true
+      }
+    },
+    "navigation_menu_1": {
+      "name": {
+        "isManuallyEdited": true
+      }
+    },
+    "navigation_menu_2": {
+      "name": {
+        "isManuallyEdited": true
+      }
+    },
+    "navigation_menu_3": {
+      "name": {
+        "isManuallyEdited": true
+      }
+    },
+    "navigation_menu_4": {
+      "name": {
+        "isManuallyEdited": true
+      }
+    },
+    "navigation_menu_5": {
+      "name": {
+        "isManuallyEdited": true
+      }
+    },
+    "navigation_menu_8": {
+      "name": {
         "isManuallyEdited": true
       }
     }
