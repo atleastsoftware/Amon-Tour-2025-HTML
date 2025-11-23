@@ -16,9 +16,10 @@ class AutoTranslationService {
   
   private async getTranslateModule() {
     if (!this.translateModule) {
-      this.translateModule = await import('@vitalets/google-translate-api');
+      const module = await import('@vitalets/google-translate-api');
+      this.translateModule = module.translate || module.default || module;
     }
-    return this.translateModule.default || this.translateModule;
+    return this.translateModule;
   }
   
   async translateText(

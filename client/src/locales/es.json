@@ -417,5 +417,23 @@
   "popular_experiences_247": {
     "title": "Experiencias exclusivas",
     "subtitle": "Explore nuestras mejores experiencias en Krabi, todas garantizadas fuera de lo común: excursiones marítimas privadas y semiprivadas, excursiones terrestres únicas (kayak a través de manglares, cascadas, selva tropical, árboles centenarios, templos, cuevas kársticas, piscinas naturales) y paquetes exclusivos de 2 días / 1 noche."
+  },
+  "navigation_menu_1": {
+    "name": "Home"
+  },
+  "navigation_menu_2": {
+    "name": "Experiences"
+  },
+  "navigation_menu_3": {
+    "name": "Custom Trip"
+  },
+  "navigation_menu_8": {
+    "name": "Cruise"
+  },
+  "navigation_menu_4": {
+    "name": "Blog"
+  },
+  "navigation_menu_5": {
+    "name": "Contact"
   }
 }

@@ -417,5 +417,23 @@
   "popular_experiences_247": {
     "title": "Our exclusive experiences",
     "subtitle": "Explore our finest experiences in Krabi, all guaranteed off the beaten path: private and semi-private sea tours, unique land excursions (kayaking through mangroves, waterfalls, tropical jungle, centuries-old trees, temples, karst caves, natural pools), and exclusive 2-day / 1-night packages."
+  },
+  "navigation_menu_1": {
+    "name": "Home"
+  },
+  "navigation_menu_2": {
+    "name": "Experiences"
+  },
+  "navigation_menu_3": {
+    "name": "Custom Trip"
+  },
+  "navigation_menu_8": {
+    "name": "Cruise"
+  },
+  "navigation_menu_4": {
+    "name": "Blog"
+  },
+  "navigation_menu_5": {
+    "name": "Contact"
   }
 }
