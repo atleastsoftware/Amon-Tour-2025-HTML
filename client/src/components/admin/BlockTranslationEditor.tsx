@@ -16,6 +16,41 @@ function getBlockDisplayName(blockType: string): string {
   return BLOCK_TYPE_LABELS[blockType] || blockType;
 }
 
+function getSortedFieldKeys(keys: string[]): string[] {
+  // Define preferred order for common fields
+  const fieldOrder = [
+    'title',
+    'title_accent',  // Mot du titre en seconde couleur - right after title
+    'subtitle',
+    'description',
+    'content',
+    'introduction',
+    'cta_text',
+    'button_text',
+    'placeholder',
+    'search_placeholder',
+  ];
+
+  // Separate keys into ordered and unordered
+  const orderedKeys: string[] = [];
+  const unorderedKeys: string[] = [];
+
+  for (const key of keys) {
+    const orderIndex = fieldOrder.indexOf(key);
+    if (orderIndex !== -1) {
+      orderedKeys.push(key);
+    } else {
+      unorderedKeys.push(key);
+    }
+  }
+
+  // Sort ordered keys by their position in fieldOrder
+  orderedKeys.sort((a, b) => fieldOrder.indexOf(a) - fieldOrder.indexOf(b));
+
+  // Return ordered keys first, then unordered keys
+  return [...orderedKeys, ...unorderedKeys];
+}
+
 function getFieldDisplayName(key: string): string {
   const simpleFields: Record<string, string> = {
     'title': 'Titre',
@@ -320,7 +355,8 @@ export default function BlockTranslationEditor() {
                       <ScrollArea className="h-[600px] pr-4">
                         <div className="space-y-4">
                           {Object.keys(editedTranslations.en).length > 0 ? (
-                            Object.entries(editedTranslations.en).map(([key, enValue]) => {
+                            getSortedFieldKeys(Object.keys(editedTranslations.en)).map((key) => {
+                              const enValue = editedTranslations.en[key];
                               const translatedValue = editedTranslations[lang][key] || '';
                               const isLongText = enValue.length > 100 || enValue.includes('\n') || translatedValue.includes('\n');
                               const isManuallyEdited = selectedBlock?.translationsMeta?.[lang]?.[key]?.isManuallyEdited === true;
