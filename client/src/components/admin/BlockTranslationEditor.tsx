@@ -301,7 +301,7 @@ export default function BlockTranslationEditor() {
             </CardDescription>
           </CardHeader>
         <CardContent className="p-0">
-          <div className="max-h-[calc(100vh-16rem)] overflow-y-auto">
+          <div>
             <Accordion type="single" collapsible className="w-full">
               {pages.map(page => (
                 <AccordionItem key={page.id} value={`page-${page.id}`}>
