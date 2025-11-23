@@ -9,9 +9,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient } from "@/lib/queryClient";
-import { Globe, Save, Menu, MessageSquare, Bell, Lock, Sparkles } from "lucide-react";
+import { Globe, Save, Lock, Sparkles } from "lucide-react";
 
-// Map translation keys to user-friendly names
 function getFieldDisplayName(key: string): string {
   const simpleFields: Record<string, string> = {
     'title': 'Titre',
@@ -91,38 +90,36 @@ interface GlobalElements {
   popup: GlobalElement;
 }
 
-type ElementCategory = 'footer' | 'navigation' | 'announcement' | 'popup';
+type ElementType = 'footer' | 'navigation' | 'announcement' | 'popup';
 
 export default function GlobalElementTranslationEditor() {
   const { toast } = useToast();
-  const [selectedCategory, setSelectedCategory] = useState<ElementCategory>('footer');
+  const [selectedElementType, setSelectedElementType] = useState<ElementType | null>(null);
   const [selectedFooterSection, setSelectedFooterSection] = useState<string | null>(null);
   const [editedTranslations, setEditedTranslations] = useState<ElementTranslations | null>(null);
   const [activeTab, setActiveTab] = useState<'fr' | 'es'>('fr');
 
-  // Fetch all global element translations
   const { data: elements, isLoading } = useQuery<GlobalElements>({
     queryKey: ['/api/admin/global-element-translations'],
   });
 
-  // Auto-select first footer section when footer category is selected
+  // Auto-select first footer section when footer is selected
   useEffect(() => {
-    if (selectedCategory === 'footer' && elements?.footer && !selectedFooterSection) {
+    if (selectedElementType === 'footer' && elements?.footer && !selectedFooterSection) {
       const firstSection = Object.keys(elements.footer)[0];
       if (firstSection) {
         setSelectedFooterSection(firstSection);
       }
     }
-  }, [selectedCategory, elements?.footer, selectedFooterSection]);
+  }, [selectedElementType, elements?.footer, selectedFooterSection]);
 
   // Find selected element data
   const selectedElementData = useMemo((): GlobalElement | null => {
     if (!elements) return null;
 
-    if (selectedCategory === 'footer' && selectedFooterSection) {
+    if (selectedElementType === 'footer' && selectedFooterSection) {
       return elements.footer[selectedFooterSection] || null;
-    } else if (selectedCategory === 'navigation') {
-      // Combine all navigation menu items
+    } else if (selectedElementType === 'navigation') {
       const combined: GlobalElement = {
         section: 'navigation_menu',
         name: 'Menu de Navigation',
@@ -145,13 +142,13 @@ export default function GlobalElementTranslationEditor() {
       });
       
       return combined;
-    } else if (selectedCategory === 'announcement') {
+    } else if (selectedElementType === 'announcement') {
       return elements.announcementBar;
-    } else if (selectedCategory === 'popup') {
+    } else if (selectedElementType === 'popup') {
       return elements.popup;
     }
     return null;
-  }, [selectedCategory, selectedFooterSection, elements]);
+  }, [selectedElementType, selectedFooterSection, elements]);
 
   // Update edited translations when element changes
   useEffect(() => {
@@ -160,7 +157,7 @@ export default function GlobalElementTranslationEditor() {
     } else {
       setEditedTranslations(null);
     }
-  }, [selectedCategory, selectedFooterSection]);
+  }, [selectedElementType, selectedFooterSection]);
 
   // Mutation to save translations
   const saveTranslationsMutation = useMutation({
@@ -170,16 +167,16 @@ export default function GlobalElementTranslationEditor() {
       let type = '';
       let identifier = '';
       
-      if (selectedCategory === 'footer' && selectedFooterSection) {
+      if (selectedElementType === 'footer' && selectedFooterSection) {
         type = 'footer';
         identifier = selectedFooterSection;
-      } else if (selectedCategory === 'navigation') {
+      } else if (selectedElementType === 'navigation') {
         type = 'navigationMenu';
         identifier = 'all';
-      } else if (selectedCategory === 'announcement') {
+      } else if (selectedElementType === 'announcement') {
         type = 'announcementBar';
         identifier = 'main';
-      } else if (selectedCategory === 'popup') {
+      } else if (selectedElementType === 'popup') {
         type = 'popup';
         identifier = 'main';
       }
@@ -226,109 +223,124 @@ export default function GlobalElementTranslationEditor() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-96">
-        <div className="text-muted-foreground">Chargement des traductions...</div>
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Globe className="w-5 h-5" />
+            Traductions des éléments globaux
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-muted-foreground">Chargement...</p>
+        </CardContent>
+      </Card>
     );
   }
 
   return (
     <div className="space-y-4">
-      {/* Category Tabs */}
-      <Tabs value={selectedCategory} onValueChange={(value) => {
-        setSelectedCategory(value as ElementCategory);
-        setSelectedFooterSection(null);
-      }}>
-        <TabsList className="w-full justify-start h-auto flex-wrap">
-          <TabsTrigger value="footer" data-testid="tab-footer" className="gap-2">
-            <Globe className="w-4 h-4" />
-            Footer
-          </TabsTrigger>
-          <TabsTrigger value="navigation" data-testid="tab-navigation" className="gap-2">
-            <Menu className="w-4 h-4" />
-            Menu de Navigation
-          </TabsTrigger>
-          <TabsTrigger value="announcement" data-testid="tab-announcement" className="gap-2">
-            <Bell className="w-4 h-4" />
-            Barre d'Annonces
-          </TabsTrigger>
-          <TabsTrigger value="popup" data-testid="tab-popup" className="gap-2">
-            <MessageSquare className="w-4 h-4" />
-            Pop-up
-          </TabsTrigger>
-        </TabsList>
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Globe className="w-5 h-5" />
+            Traductions des éléments globaux
+          </CardTitle>
+          <CardDescription>
+            Gérez les traductions pour les éléments globaux de votre site
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {/* Element type selector */}
+            <div className="flex flex-wrap gap-2">
+              <Button
+                variant={selectedElementType === 'footer' ? "default" : "outline"}
+                onClick={() => {
+                  setSelectedElementType('footer');
+                  setSelectedFooterSection(null);
+                }}
+                data-testid="button-select-footer"
+              >
+                Footer
+              </Button>
+              <Button
+                variant={selectedElementType === 'navigation' ? "default" : "outline"}
+                onClick={() => setSelectedElementType('navigation')}
+                data-testid="button-select-navigation"
+              >
+                Menu de Navigation
+              </Button>
+              <Button
+                variant={selectedElementType === 'announcement' ? "default" : "outline"}
+                onClick={() => setSelectedElementType('announcement')}
+                data-testid="button-select-announcement"
+              >
+                Barre d'Annonces
+              </Button>
+              <Button
+                variant={selectedElementType === 'popup' ? "default" : "outline"}
+                onClick={() => setSelectedElementType('popup')}
+                data-testid="button-select-popup"
+              >
+                Pop-up
+              </Button>
+            </div>
 
-        {/* Footer Category Content */}
-        <TabsContent value="footer" className="space-y-4 mt-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Sections du Footer</CardTitle>
-              <CardDescription>
-                Sélectionnez une section pour modifier ses traductions
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                {elements?.footer && Object.keys(elements.footer).map(footerKey => (
-                  <button
-                    key={footerKey}
-                    onClick={() => setSelectedFooterSection(footerKey)}
-                    className={`p-4 border-2 rounded-lg text-left transition-all ${
-                      selectedFooterSection === footerKey
-                        ? 'border-primary bg-primary/10 shadow-md'
-                        : 'border-border hover:border-primary/50 hover:shadow'
-                    }`}
-                    data-testid={`button-select-footer-${footerKey}`}
-                  >
-                    <div className="font-semibold">
+            {/* Footer subsection selector */}
+            {selectedElementType === 'footer' && elements?.footer && (
+              <div className="space-y-3">
+                <h3 className="text-sm font-semibold text-muted-foreground">Sections du Footer</h3>
+                <div className="flex flex-wrap gap-2">
+                  {Object.keys(elements.footer).map(footerKey => (
+                    <Button
+                      key={footerKey}
+                      variant={selectedFooterSection === footerKey ? "default" : "outline"}
+                      onClick={() => setSelectedFooterSection(footerKey)}
+                      data-testid={`button-select-footer-${footerKey}`}
+                    >
                       {getFooterSectionLabel(footerKey)}
-                    </div>
-                  </button>
-                ))}
+                    </Button>
+                  ))}
+                </div>
               </div>
-            </CardContent>
-          </Card>
+            )}
 
-          {selectedFooterSection && selectedElementData && editedTranslations && (
-            <Card>
-              <CardHeader>
+            {/* Translation Editor */}
+            {selectedElementData && editedTranslations && Object.keys(selectedElementData.translations.en).length > 0 && (
+              <div className="space-y-4 pt-4 border-t">
                 <div className="flex items-center justify-between">
-                  <div>
-                    <CardTitle className="text-lg">
-                      {getFooterSectionLabel(selectedFooterSection)}
-                    </CardTitle>
-                    <CardDescription>
-                      Gérez les traductions pour cette section
-                    </CardDescription>
-                  </div>
+                  <h3 className="text-lg font-semibold">
+                    {selectedElementType === 'footer' && selectedFooterSection && getFooterSectionLabel(selectedFooterSection)}
+                    {selectedElementType === 'navigation' && "Menu de Navigation"}
+                    {selectedElementType === 'announcement' && "Barre d'Annonces"}
+                    {selectedElementType === 'popup' && "Pop-up"}
+                  </h3>
                   <Button
                     onClick={handleSaveTranslations}
                     disabled={saveTranslationsMutation.isPending}
-                    data-testid="button-save-translations"
+                    data-testid="button-save-global-translations"
                   >
-                    <Save className="h-4 w-4 mr-2" />
-                    {saveTranslationsMutation.isPending ? "Sauvegarde..." : "Sauvegarder"}
+                    <Save className="w-4 h-4 mr-2" />
+                    Sauvegarder
                   </Button>
                 </div>
-              </CardHeader>
-              <CardContent>
+
                 <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as 'fr' | 'es')}>
                   <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="fr" data-testid="tab-french">
+                    <TabsTrigger value="fr" data-testid="tab-fr">
                       🇫🇷 Français
                     </TabsTrigger>
-                    <TabsTrigger value="es" data-testid="tab-spanish">
+                    <TabsTrigger value="es" data-testid="tab-es">
                       🇪🇸 Español
                     </TabsTrigger>
                   </TabsList>
 
-                  {['fr', 'es'].map((lang) => (
-                    <TabsContent key={lang} value={lang} className="mt-4">
+                  {(['fr', 'es'] as const).map(lang => (
+                    <TabsContent key={lang} value={lang}>
                       <ScrollArea className="h-[600px] pr-4">
                         <div className="space-y-4">
                           {Object.keys(selectedElementData.translations.en)
                             .filter((key) => {
-                              // Filter out URL fields in useful_links section
                               if (selectedFooterSection === 'useful_links') {
                                 return !key.toLowerCase().includes('url');
                               }
@@ -336,49 +348,49 @@ export default function GlobalElementTranslationEditor() {
                             })
                             .map((key) => {
                             const englishValue = selectedElementData.translations.en[key];
-                            const translatedValue = editedTranslations?.[lang as 'fr' | 'es'][key] || '';
-                            const isManuallyEdited = selectedElementData.translationsMeta?.[lang as 'fr' | 'es']?.[key]?.isManuallyEdited;
+                            const translatedValue = editedTranslations?.[lang][key] || '';
+                            const isManuallyEdited = selectedElementData.translationsMeta?.[lang]?.[key]?.isManuallyEdited;
                             const isLongText = englishValue && englishValue.length > 100;
 
                             return (
                               <div key={key} className="space-y-2 p-4 border rounded-lg">
                                 <div className="flex items-center justify-between">
-                                  <label className="text-sm font-medium">
+                                  <label className="text-sm font-medium flex items-center gap-2">
                                     {getFieldDisplayName(key)}
+                                    {isManuallyEdited ? (
+                                      <Badge variant="outline" className="text-xs">
+                                        <Lock className="h-3 w-3 mr-1" />
+                                        Édité manuellement
+                                      </Badge>
+                                    ) : (
+                                      translatedValue && (
+                                        <Badge variant="secondary" className="text-xs">
+                                          <Sparkles className="h-3 w-3 mr-1" />
+                                          Auto-traduit
+                                        </Badge>
+                                      )
+                                    )}
                                   </label>
-                                  {isManuallyEdited && (
-                                    <Badge variant="outline" className="text-xs">
-                                      <Lock className="h-3 w-3 mr-1" />
-                                      Édité manuellement
-                                    </Badge>
-                                  )}
-                                  {!isManuallyEdited && translatedValue && (
-                                    <Badge variant="secondary" className="text-xs">
-                                      <Sparkles className="h-3 w-3 mr-1" />
-                                      Auto-traduit
-                                    </Badge>
-                                  )}
                                 </div>
 
-                                <div className="text-sm text-gray-600 bg-gray-50 dark:bg-gray-900 p-2 rounded">
-                                  <span className="font-medium">EN:</span> {englishValue}
+                                <div className="text-xs text-muted-foreground bg-muted p-2 rounded">
+                                  <strong>EN:</strong> {englishValue}
                                 </div>
 
                                 {isLongText ? (
                                   <Textarea
                                     value={translatedValue}
-                                    onChange={(e) => handleUpdateTranslation(lang as 'fr' | 'es', key, e.target.value)}
-                                    placeholder={`Traduction ${lang.toUpperCase()}`}
+                                    onChange={(e) => handleUpdateTranslation(lang, key, e.target.value)}
+                                    placeholder={`Traduction ${lang === 'fr' ? 'française' : 'espagnole'}`}
                                     rows={4}
-                                    className="resize-none"
                                     data-testid={`textarea-${key}-${lang}`}
                                   />
                                 ) : (
                                   <Input
                                     type="text"
                                     value={translatedValue}
-                                    onChange={(e) => handleUpdateTranslation(lang as 'fr' | 'es', key, e.target.value)}
-                                    placeholder={`Traduction ${lang.toUpperCase()}`}
+                                    onChange={(e) => handleUpdateTranslation(lang, key, e.target.value)}
+                                    placeholder={`Traduction ${lang === 'fr' ? 'française' : 'espagnole'}`}
                                     data-testid={`input-${key}-${lang}`}
                                   />
                                 )}
@@ -390,132 +402,20 @@ export default function GlobalElementTranslationEditor() {
                     </TabsContent>
                   ))}
                 </Tabs>
-              </CardContent>
-            </Card>
-          )}
-        </TabsContent>
+              </div>
+            )}
 
-        {/* Other Categories Content */}
-        {['navigation', 'announcement', 'popup'].map((category) => (
-          <TabsContent key={category} value={category} className="space-y-4 mt-4">
-            {selectedElementData && Object.keys(selectedElementData.translations.en).length === 0 ? (
-              <Card>
-                <CardContent className="py-12 text-center">
-                  {category === 'popup' ? (
-                    <>
-                      <MessageSquare className="h-12 w-12 mx-auto text-gray-300 mb-4" />
-                      <p className="text-gray-500 font-medium">Pop-up non configuré</p>
-                      <p className="text-sm text-gray-400 mt-2">Activez le pop-up dans le dashboard pour gérer ses traductions</p>
-                    </>
-                  ) : (
-                    <>
-                      <Globe className="h-12 w-12 mx-auto text-gray-300 mb-4" />
-                      <p className="text-gray-500">Aucune traduction disponible</p>
-                    </>
-                  )}
-                </CardContent>
-              </Card>
-            ) : selectedElementData && editedTranslations ? (
-              <Card>
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <CardTitle className="text-lg">
-                        {category === 'navigation' && "Menu de Navigation"}
-                        {category === 'announcement' && "Barre d'Annonces"}
-                        {category === 'popup' && "Pop-up"}
-                      </CardTitle>
-                      <CardDescription>
-                        Gérez les traductions pour cet élément
-                      </CardDescription>
-                    </div>
-                    <Button
-                      onClick={handleSaveTranslations}
-                      disabled={saveTranslationsMutation.isPending}
-                      data-testid="button-save-translations"
-                    >
-                      <Save className="h-4 w-4 mr-2" />
-                      {saveTranslationsMutation.isPending ? "Sauvegarde..." : "Sauvegarder"}
-                    </Button>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as 'fr' | 'es')}>
-                    <TabsList className="grid w-full grid-cols-2">
-                      <TabsTrigger value="fr" data-testid="tab-french">
-                        🇫🇷 Français
-                      </TabsTrigger>
-                      <TabsTrigger value="es" data-testid="tab-spanish">
-                        🇪🇸 Español
-                      </TabsTrigger>
-                    </TabsList>
-
-                    {['fr', 'es'].map((lang) => (
-                      <TabsContent key={lang} value={lang} className="mt-4">
-                        <ScrollArea className="h-[600px] pr-4">
-                          <div className="space-y-4">
-                            {Object.keys(selectedElementData.translations.en).map((key) => {
-                              const englishValue = selectedElementData.translations.en[key];
-                              const translatedValue = editedTranslations?.[lang as 'fr' | 'es'][key] || '';
-                              const isManuallyEdited = selectedElementData.translationsMeta?.[lang as 'fr' | 'es']?.[key]?.isManuallyEdited;
-                              const isLongText = englishValue && englishValue.length > 100;
-
-                              return (
-                                <div key={key} className="space-y-2 p-4 border rounded-lg">
-                                  <div className="flex items-center justify-between">
-                                    <label className="text-sm font-medium">
-                                      {getFieldDisplayName(key)}
-                                    </label>
-                                    {isManuallyEdited && (
-                                      <Badge variant="outline" className="text-xs">
-                                        <Lock className="h-3 w-3 mr-1" />
-                                        Édité manuellement
-                                      </Badge>
-                                    )}
-                                    {!isManuallyEdited && translatedValue && (
-                                      <Badge variant="secondary" className="text-xs">
-                                        <Sparkles className="h-3 w-3 mr-1" />
-                                        Auto-traduit
-                                      </Badge>
-                                    )}
-                                  </div>
-
-                                  <div className="text-sm text-gray-600 bg-gray-50 dark:bg-gray-900 p-2 rounded">
-                                    <span className="font-medium">EN:</span> {englishValue}
-                                  </div>
-
-                                  {isLongText ? (
-                                    <Textarea
-                                      value={translatedValue}
-                                      onChange={(e) => handleUpdateTranslation(lang as 'fr' | 'es', key, e.target.value)}
-                                      placeholder={`Traduction ${lang.toUpperCase()}`}
-                                      rows={4}
-                                      className="resize-none"
-                                      data-testid={`textarea-${key}-${lang}`}
-                                    />
-                                  ) : (
-                                    <Input
-                                      type="text"
-                                      value={translatedValue}
-                                      onChange={(e) => handleUpdateTranslation(lang as 'fr' | 'es', key, e.target.value)}
-                                      placeholder={`Traduction ${lang.toUpperCase()}`}
-                                      data-testid={`input-${key}-${lang}`}
-                                    />
-                                  )}
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </ScrollArea>
-                      </TabsContent>
-                    ))}
-                  </Tabs>
-                </CardContent>
-              </Card>
-            ) : null}
-          </TabsContent>
-        ))}
-      </Tabs>
+            {/* Empty state for popup */}
+            {selectedElementType === 'popup' && selectedElementData && Object.keys(selectedElementData.translations.en).length === 0 && (
+              <div className="text-center py-12 text-muted-foreground">
+                <Globe className="h-12 w-12 mx-auto text-gray-300 mb-4" />
+                <p className="font-medium">Pop-up non configuré</p>
+                <p className="text-sm mt-2">Activez le pop-up dans le dashboard pour gérer ses traductions</p>
+              </div>
+            )}
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
