@@ -350,7 +350,7 @@ export default function GlobalElementTranslationEditor() {
                             const englishValue = selectedElementData.translations.en[key];
                             const translatedValue = editedTranslations?.[lang][key] || '';
                             const isManuallyEdited = selectedElementData.translationsMeta?.[lang]?.[key]?.isManuallyEdited;
-                            const isLongText = englishValue && englishValue.length > 100;
+                            const isLongText = (englishValue && englishValue.length > 100) || (englishValue && englishValue.includes('\n')) || translatedValue.includes('\n');
 
                             return (
                               <div key={key} className="space-y-2 p-4 border rounded-lg">
@@ -373,7 +373,7 @@ export default function GlobalElementTranslationEditor() {
                                   </label>
                                 </div>
 
-                                <div className="text-xs text-muted-foreground bg-muted p-2 rounded">
+                                <div className="text-xs text-muted-foreground bg-muted p-2 rounded" style={{ whiteSpace: 'pre-line' }}>
                                   <strong>EN:</strong> {englishValue}
                                 </div>
 
@@ -382,7 +382,7 @@ export default function GlobalElementTranslationEditor() {
                                     value={translatedValue}
                                     onChange={(e) => handleUpdateTranslation(lang, key, e.target.value)}
                                     placeholder={`Traduction ${lang === 'fr' ? 'française' : 'espagnole'}`}
-                                    rows={4}
+                                    rows={Math.max(4, (translatedValue.match(/\n/g) || []).length + 2)}
                                     data-testid={`textarea-${key}-${lang}`}
                                   />
                                 ) : (

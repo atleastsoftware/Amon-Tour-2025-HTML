@@ -322,7 +322,7 @@ export default function BlockTranslationEditor() {
                           {Object.keys(editedTranslations.en).length > 0 ? (
                             Object.entries(editedTranslations.en).map(([key, enValue]) => {
                               const translatedValue = editedTranslations[lang][key] || '';
-                              const isLongText = enValue.length > 100;
+                              const isLongText = enValue.length > 100 || enValue.includes('\n') || translatedValue.includes('\n');
                               const isManuallyEdited = selectedBlock?.translationsMeta?.[lang]?.[key]?.isManuallyEdited === true;
 
                               return (
@@ -351,7 +351,7 @@ export default function BlockTranslationEditor() {
                                     </label>
                                   </div>
                                   
-                                  <div className="text-xs text-muted-foreground bg-muted p-2 rounded">
+                                  <div className="text-xs text-muted-foreground bg-muted p-2 rounded" style={{ whiteSpace: 'pre-line' }}>
                                     <strong>EN:</strong> {enValue}
                                   </div>
 
@@ -360,7 +360,7 @@ export default function BlockTranslationEditor() {
                                       value={translatedValue}
                                       onChange={(e) => handleTranslationChange(lang, key, e.target.value)}
                                       placeholder={`Traduction ${lang === 'fr' ? 'française' : 'espagnole'}`}
-                                      rows={4}
+                                      rows={Math.max(4, (translatedValue.match(/\n/g) || []).length + 2)}
                                       data-testid={`textarea-${lang}-${key}`}
                                     />
                                   ) : (
