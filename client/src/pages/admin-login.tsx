@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { useUITranslation } from "@/hooks/useUITranslation";
 
 export default function AdminLogin() {
   const [username, setUsername] = useState("");
@@ -16,14 +17,15 @@ export default function AdminLogin() {
   const login = useLogin();
   const [, setLocation] = useLocation();
   const { toast } = useToast();
+  const { t } = useUITranslation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!username || !password) {
       toast({
-        title: "Erreur",
-        description: "Veuillez remplir tous les champs",
+        title: t('common.error'),
+        description: t('login.errors.required'),
         variant: "destructive",
       });
       return;
@@ -32,17 +34,16 @@ export default function AdminLogin() {
     try {
       await login.mutateAsync({ username, password });
       toast({
-        title: "Succès",
-        description: "Connexion réussie",
+        title: t('login.success.title'),
+        description: t('login.success.description'),
       });
-      // Rediriger après un court délai pour permettre au toast de s'afficher
       setTimeout(() => {
         setLocation("/admin");
       }, 1000);
     } catch (error) {
       toast({
-        title: "Erreur",
-        description: "Identifiants incorrects",
+        title: t('common.error'),
+        description: t('login.errors.invalid'),
         variant: "destructive",
       });
     }
@@ -61,15 +62,15 @@ export default function AdminLogin() {
           >
             <Card>
               <CardHeader>
-                <CardTitle className="text-2xl font-heading">Administration</CardTitle>
+                <CardTitle className="text-2xl font-heading">{t('login.title')}</CardTitle>
                 <CardDescription>
-                  Connectez-vous pour accéder à l'espace administrateur
+                  {t('login.subtitle')}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="username">Nom d'utilisateur</Label>
+                    <Label htmlFor="username">{t('login.username')}</Label>
                     <Input
                       id="username"
                       type="text"
@@ -79,7 +80,7 @@ export default function AdminLogin() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="password">Mot de passe</Label>
+                    <Label htmlFor="password">{t('login.password')}</Label>
                     <Input
                       id="password"
                       type="password"
@@ -93,12 +94,12 @@ export default function AdminLogin() {
                     className="w-full" 
                     disabled={login.isPending}
                   >
-                    {login.isPending ? "Connexion en cours..." : "Se connecter"}
+                    {login.isPending ? t('common.loading') : t('login.loginButton')}
                   </Button>
                 </form>
               </CardContent>
               <CardFooter className="flex justify-center text-sm text-muted-foreground">
-                Accès réservé aux administrateurs
+                {t('login.footer')}
               </CardFooter>
             </Card>
           </motion.div>
