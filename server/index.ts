@@ -278,6 +278,27 @@ app.use((req, res, next) => {
         // Initialize global element translations from dashboard data (one-time)
         await initializeGlobalElementTranslations();
         
+        // Initialize form translations for any forms without translations
+        const { customForms } = await import('../shared/schema');
+        const { formTranslationService } = await import('./services/formTranslationService');
+        const forms = await db.select().from(customForms);
+        
+        for (const form of forms) {
+          const translations = form.translations as any;
+          // Check if translations are empty or not initialized
+          if (!translations || !translations.en || Object.keys(translations.en).length === 0) {
+            log(`🔄 Initializing translations for form: ${form.name}`);
+            try {
+              await formTranslationService.initializeFormTranslations(form.id);
+              log(`✅ Form ${form.name} translations initialized`);
+            } catch (error) {
+              log(`❌ Failed to initialize translations for form ${form.name}:`, String(error));
+            }
+          } else {
+            log(`✅ Form ${form.name} translations already exist`);
+          }
+        }
+        
         log("Initialization tasks completed successfully");
         
         // Pre-load Tour Ninja tours asynchronously AFTER server is ready
