@@ -10,34 +10,11 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient } from "@/lib/queryClient";
-import { Globe, Save, FileText, Lock, Sparkles, AlertCircle, RefreshCw, CheckCircle } from "lucide-react";
-
-// Block type name mapping for display - Must match editor names exactly
-const BLOCK_TYPE_NAMES: Record<string, string> = {
-  hero: "Hero Section",
-  header_page: "Header Page",
-  text_section: "Text Section",
-  text_image: "Text + Images",
-  search_bar_tours: "Search Bar: Tours",
-  contact: "Contact",
-  form: "Form",
-  popular_experiences: "Text + Icones",
-  custom_tour_form: "Text + Buttons",
-  tour_ninja_section: "Text + Icones",
-  why_choose_us: "Text + Icones",
-  who_we_are: "Text + Icones",
-  blog_search: "Search Bar: Blog",
-  text_listing: "Text + Listing",
-  text_pricing: "Text + Pricing",
-  text_video: "Text + Video",
-  text_gallery: "Text + Gallery",
-  card_grid_date: "Card Grid Date",
-  card_grid_price: "Card Grid Price",
-  card_grid: "Card Grid Price"
-};
+import { Globe, Save, FileText, Lock, Sparkles, AlertCircle, RefreshCw, CheckCircle, EyeOff } from "lucide-react";
+import { BLOCK_TYPE_LABELS } from "./BlockSelectionPopup";
 
 function getBlockDisplayName(blockType: string): string {
-  return BLOCK_TYPE_NAMES[blockType] || blockType;
+  return BLOCK_TYPE_LABELS[blockType] || blockType;
 }
 
 // Map translation keys to user-friendly French field names
@@ -401,6 +378,7 @@ export default function BlockTranslationEditor() {
                       {page.blocks.map(block => {
                         const isSelected = block.id === selectedBlockId;
                         const hasTranslations = Object.keys(block.translations.en).length > 0;
+                        const isHidden = !block.isActive;
                         
                         return (
                           <button
@@ -409,7 +387,7 @@ export default function BlockTranslationEditor() {
                             onClick={() => setSelectedBlockId(block.id)}
                             className={`w-full p-3 text-left hover:bg-muted/50 transition-colors ${
                               isSelected ? 'bg-primary/10 border-l-4 border-primary' : ''
-                            }`}
+                            } ${isHidden ? 'opacity-50' : ''}`}
                           >
                             <div className="flex items-start justify-between gap-2">
                               <div className="flex-1 min-w-0">
@@ -421,10 +399,16 @@ export default function BlockTranslationEditor() {
                                     {block.title}
                                   </div>
                                 )}
-                                <div className="flex gap-2 mt-2">
+                                <div className="flex gap-2 mt-2 flex-wrap">
                                   <Badge variant="outline" className="text-xs">
                                     #{block.blockOrder}
                                   </Badge>
+                                  {isHidden && (
+                                    <Badge variant="secondary" className="text-xs bg-gray-400 text-white flex items-center gap-1">
+                                      <EyeOff className="w-3 h-3" />
+                                      Masqué
+                                    </Badge>
+                                  )}
                                   {hasTranslations ? (
                                     <Badge variant="default" className="text-xs bg-green-500">
                                       {Object.keys(block.translations.en).length} champs

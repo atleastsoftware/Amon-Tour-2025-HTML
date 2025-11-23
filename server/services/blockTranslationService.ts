@@ -106,13 +106,13 @@ export class BlockTranslationService {
   }
 
   private async translateArrayFields(
-    arrayConfigs: Array<{ arrayKey: string; textFields: string[] }>,
+    arrayConfigs: Array<{ arrayKey: string; textFields: string[]; nestedArrays?: Array<{ arrayKey: string; textFields: string[] }> }>,
     oldConfig: BlockConfig,
     newConfig: BlockConfig,
     section: string
   ): Promise<void> {
     for (const arrayConfig of arrayConfigs) {
-      const { arrayKey, textFields } = arrayConfig;
+      const { arrayKey, textFields, nestedArrays } = arrayConfig;
       const newArray = Array.isArray(newConfig[arrayKey]) ? newConfig[arrayKey] : [];
       const oldArray = Array.isArray(oldConfig[arrayKey]) ? oldConfig[arrayKey] : [];
       
@@ -171,59 +171,68 @@ export class BlockTranslationService {
           }
         }
         
-        // Handle nested miniIcons for iconBlocks (features_3col, why_choose_us)
-        if (arrayKey === 'iconBlocks' && Array.isArray(newItem.miniIcons)) {
-          const oldMiniIcons = Array.isArray(oldItem?.miniIcons) ? oldItem.miniIcons : [];
-          
-          for (let j = 0; j < newItem.miniIcons.length; j++) {
-            const newMiniIcon = newItem.miniIcons[j];
-            const oldMiniIcon = oldMiniIcons[j];
+        // Handle nested arrays (e.g., miniIcons inside iconBlocks)
+        if (nestedArrays && nestedArrays.length > 0) {
+          for (const nestedConfig of nestedArrays) {
+            const nestedArrayKey = nestedConfig.arrayKey;
+            const nestedTextFields = nestedConfig.textFields;
             
-            if (newMiniIcon?.text && typeof newMiniIcon.text === 'string') {
-              const oldMiniText = oldMiniIcon?.text;
-              const newMiniText = newMiniIcon.text;
+            if (Array.isArray(newItem[nestedArrayKey])) {
+              const oldNestedArray = Array.isArray(oldItem?.[nestedArrayKey]) ? oldItem[nestedArrayKey] : [];
               
-              const hasChanged = await autoTranslationService.detectTextChange(oldMiniText, newMiniText);
-              const translationKey = `icon_blocks_${i}_mini_icons_${j}_text`;
-              const needsTranslation = hasChanged || !(await translationFileService.translationExists(section, translationKey));
-              
-              if (needsTranslation) {
-                // Check if manually edited
-                const frManuallyEdited = await translationFileService.isManuallyEdited(section, translationKey, 'fr');
-                const esManuallyEdited = await translationFileService.isManuallyEdited(section, translationKey, 'es');
+              for (let j = 0; j < newItem[nestedArrayKey].length; j++) {
+                const newNestedItem = newItem[nestedArrayKey][j];
+                const oldNestedItem = oldNestedArray[j];
                 
-                if (frManuallyEdited || esManuallyEdited) {
-                  console.log(`⚠️ ${section}.${translationKey} has manual edits - preserving them`);
-                }
-                
-                console.log(`🔄 Translating ${section}.${translationKey}...`);
-                
-                try {
-                  const translations = await autoTranslationService.translateToAllLanguages(newMiniText, 'en');
+                for (const nestedFieldName of nestedTextFields) {
+                  const oldNestedValue = oldNestedItem?.[nestedFieldName];
+                  const newNestedValue = newNestedItem?.[nestedFieldName];
                   
-                  // Only update translations that haven't been manually edited
-                  const finalTranslations: any = { en: newMiniText };
-                  if (!frManuallyEdited) {
-                    finalTranslations.fr = translations.fr;
-                  } else {
-                    finalTranslations.fr = await translationFileService.getTranslationValue(section, translationKey, 'fr') || translations.fr;
+                  if (!newNestedValue || typeof newNestedValue !== 'string') continue;
+                  
+                  const hasChanged = await autoTranslationService.detectTextChange(oldNestedValue, newNestedValue);
+                  const translationKey = `${this.camelToSnakeCase(arrayKey)}_${i}_${this.camelToSnakeCase(nestedArrayKey)}_${j}_${this.camelToSnakeCase(nestedFieldName)}`;
+                  const needsTranslation = hasChanged || !(await translationFileService.translationExists(section, translationKey));
+                  
+                  if (needsTranslation) {
+                    // Check if manually edited
+                    const frManuallyEdited = await translationFileService.isManuallyEdited(section, translationKey, 'fr');
+                    const esManuallyEdited = await translationFileService.isManuallyEdited(section, translationKey, 'es');
+                    
+                    if (frManuallyEdited || esManuallyEdited) {
+                      console.log(`⚠️ ${section}.${translationKey} has manual edits - preserving them`);
+                    }
+                    
+                    console.log(`🔄 Translating ${section}.${translationKey}...`);
+                    
+                    try {
+                      const translations = await autoTranslationService.translateToAllLanguages(newNestedValue, 'en');
+                      
+                      // Only update translations that haven't been manually edited
+                      const finalTranslations: any = { en: newNestedValue };
+                      if (!frManuallyEdited) {
+                        finalTranslations.fr = translations.fr;
+                      } else {
+                        finalTranslations.fr = await translationFileService.getTranslationValue(section, translationKey, 'fr') || translations.fr;
+                      }
+                      if (!esManuallyEdited) {
+                        finalTranslations.es = translations.es;
+                      } else {
+                        finalTranslations.es = await translationFileService.getTranslationValue(section, translationKey, 'es') || translations.es;
+                      }
+                      
+                      await translationFileService.updateTranslations({
+                        section,
+                        key: translationKey,
+                        translations: finalTranslations,
+                        isManualEdit: false
+                      });
+                      
+                      console.log(`✅ ${section}.${translationKey} translations updated (FR: ${frManuallyEdited ? 'preserved' : 'auto'}, ES: ${esManuallyEdited ? 'preserved' : 'auto'})`);
+                    } catch (error) {
+                      console.error(`⚠️ ${section}.${translationKey} translation failed:`, error);
+                    }
                   }
-                  if (!esManuallyEdited) {
-                    finalTranslations.es = translations.es;
-                  } else {
-                    finalTranslations.es = await translationFileService.getTranslationValue(section, translationKey, 'es') || translations.es;
-                  }
-                  
-                  await translationFileService.updateTranslations({
-                    section,
-                    key: translationKey,
-                    translations: finalTranslations,
-                    isManualEdit: false
-                  });
-                  
-                  console.log(`✅ ${section}.${translationKey} translations updated (FR: ${frManuallyEdited ? 'preserved' : 'auto'}, ES: ${esManuallyEdited ? 'preserved' : 'auto'})`);
-                } catch (error) {
-                  console.error(`⚠️ ${section}.${translationKey} translation failed:`, error);
                 }
               }
             }

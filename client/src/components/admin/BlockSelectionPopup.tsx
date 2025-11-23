@@ -13,10 +13,29 @@ export interface BlockType {
   preview: JSX.Element;
 }
 
+// Export block type labels for use across the app (translation editor, etc.)
+export const BLOCK_TYPE_LABELS: Record<string, string> = {
+  hero: 'Hero Section',
+  header_page: 'Header Page',
+  text: 'Text + Buttons',
+  popular_experiences: 'Card Grid Date',
+  custom_tour_form: 'Form',
+  tour_ninja_section: 'Card Grid Price',
+  why_choose_us: 'Text + Icones',
+  who_we_are: 'Text + Images',
+  search_bar_tours: 'Search Bar: Tours',
+  contact: 'Contact',
+  blog_search: 'Search Bar: Blog',
+  text_gallery: 'Text + Gallery',
+  text_video: 'Text + Video',
+  text_listing: 'Text + Listing',
+  text_pricing: 'Text + Pricing',
+};
+
 export const blockTypes: BlockType[] = [
   {
     type: 'hero',
-    label: 'Hero Section',
+    label: BLOCK_TYPE_LABELS.hero,
     description: 'Grande bannière d\'accueil avec titre, sous-titre et boutons CTA',
     icon: Home,
     preview: (
@@ -41,7 +60,7 @@ export const blockTypes: BlockType[] = [
   },
   {
     type: 'header_page',
-    label: 'Header Page',
+    label: BLOCK_TYPE_LABELS.header_page,
     description: 'En-tête de page avec titre, sous-titre et image de fond',
     icon: Home,
     preview: (
@@ -58,7 +77,7 @@ export const blockTypes: BlockType[] = [
   },
   {
     type: 'text',
-    label: 'Text + Buttons',
+    label: BLOCK_TYPE_LABELS.text,
     description: 'Section de texte avec titre, contenu et boutons d\'action',
     icon: FileText,
     preview: (
@@ -81,7 +100,7 @@ export const blockTypes: BlockType[] = [
   },
   {
     type: 'popular_experiences',
-    label: 'Card Grid Date',
+    label: BLOCK_TYPE_LABELS.popular_experiences,
     description: 'Grille de cartes avec badges de durée',
     icon: Calendar,
     preview: (
@@ -112,7 +131,7 @@ export const blockTypes: BlockType[] = [
   },
   {
     type: 'custom_tour_form',
-    label: 'Form',
+    label: BLOCK_TYPE_LABELS.custom_tour_form,
     description: 'Formulaire avec image et champs personnalisables',
     icon: FormInput,
     preview: (
@@ -138,7 +157,7 @@ export const blockTypes: BlockType[] = [
   },
   {
     type: 'tour_ninja_section',
-    label: 'Card Grid Price',
+    label: BLOCK_TYPE_LABELS.tour_ninja_section,
     description: 'Grille de cartes avec badges de prix',
     icon: DollarSign,
     preview: (
@@ -169,7 +188,7 @@ export const blockTypes: BlockType[] = [
   },
   {
     type: 'why_choose_us',
-    label: 'Text + Icones',
+    label: BLOCK_TYPE_LABELS.why_choose_us,
     description: 'Section avec icônes, titres et descriptions',
     icon: Sparkles,
     preview: (
@@ -203,7 +222,7 @@ export const blockTypes: BlockType[] = [
   },
   {
     type: 'who_we_are',
-    label: 'Text + Images',
+    label: BLOCK_TYPE_LABELS.who_we_are,
     description: 'Section avec contenu texte et images',
     icon: Image,
     preview: (
@@ -239,7 +258,7 @@ export const blockTypes: BlockType[] = [
   },
   {
     type: 'search_bar_tours',
-    label: 'Search bar: Tours',
+    label: BLOCK_TYPE_LABELS.search_bar_tours,
     description: 'Barre de recherche avec filtres et grille de tours',
     icon: Search,
     preview: (
@@ -272,7 +291,7 @@ export const blockTypes: BlockType[] = [
   },
   {
     type: 'contact',
-    label: 'Contact',
+    label: BLOCK_TYPE_LABELS.contact,
     description: 'Section de contact avec email, téléphone, WhatsApp et Line ID',
     icon: Mail,
     preview: (
@@ -321,7 +340,7 @@ export const blockTypes: BlockType[] = [
   },
   {
     type: 'blog_search',
-    label: 'Search Bar: Blog',
+    label: BLOCK_TYPE_LABELS.blog_search,
     description: 'Barre de recherche avec filtres par tags et catégories pour le blog',
     icon: Search,
     preview: (
@@ -362,7 +381,7 @@ export const blockTypes: BlockType[] = [
   },
   {
     type: 'text_gallery',
-    label: 'Text + Gallery',
+    label: BLOCK_TYPE_LABELS.text_gallery,
     description: 'Section avec titre et galerie d\'images (carousel)',
     icon: Images,
     preview: (
@@ -388,7 +407,7 @@ export const blockTypes: BlockType[] = [
   },
   {
     type: 'text_video',
-    label: 'Text + Video',
+    label: BLOCK_TYPE_LABELS.text_video,
     description: 'Section avec titre et vidéo intégrée (YouTube/Vimeo)',
     icon: Video,
     preview: (
@@ -412,7 +431,7 @@ export const blockTypes: BlockType[] = [
   },
   {
     type: 'text_listing',
-    label: 'Text + Listing',
+    label: BLOCK_TYPE_LABELS.text_listing,
     description: 'Section avec titre et liste d\'items (label + description)',
     icon: List,
     preview: (
@@ -441,7 +460,7 @@ export const blockTypes: BlockType[] = [
   },
   {
     type: 'text_pricing',
-    label: 'Text + Pricing',
+    label: BLOCK_TYPE_LABELS.text_pricing,
     description: 'Section avec titre et cartes de tarification saisonnière',
     icon: DollarSign,
     preview: (
