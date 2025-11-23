@@ -382,6 +382,10 @@ export default function BlockTranslationEditor() {
                         const hasTranslations = Object.keys(block.translations.en).length > 0;
                         const isHidden = !block.isActive;
                         
+                        // Check if this block has translation issues
+                        const blockIssues = analysisData?.issues?.filter((issue: any) => issue.blockId === block.id) || [];
+                        const hasIssues = blockIssues.length > 0;
+                        
                         return (
                           <button
                             key={block.id}
@@ -393,8 +397,11 @@ export default function BlockTranslationEditor() {
                           >
                             <div className="flex items-start justify-between gap-2">
                               <div className="flex-1 min-w-0">
-                                <div className="font-medium text-sm mb-1">
+                                <div className="font-medium text-sm mb-1 flex items-center gap-1">
                                   {getBlockDisplayName(block.blockType)}
+                                  {hasIssues && (
+                                    <AlertCircle className="w-4 h-4 text-orange-500" title={`${blockIssues.length} problème(s) de traduction`} />
+                                  )}
                                 </div>
                                 {block.title && (
                                   <div className="text-xs text-muted-foreground truncate">
@@ -409,6 +416,12 @@ export default function BlockTranslationEditor() {
                                     <Badge variant="secondary" className="text-xs bg-gray-400 text-white flex items-center gap-1">
                                       <EyeOff className="w-3 h-3" />
                                       Masqué
+                                    </Badge>
+                                  )}
+                                  {hasIssues && (
+                                    <Badge variant="destructive" className="text-xs flex items-center gap-1">
+                                      <AlertCircle className="w-3 h-3" />
+                                      {blockIssues.length} problème{blockIssues.length > 1 ? 's' : ''}
                                     </Badge>
                                   )}
                                   {hasTranslations ? (
