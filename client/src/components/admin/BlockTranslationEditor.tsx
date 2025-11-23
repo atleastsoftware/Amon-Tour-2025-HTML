@@ -23,7 +23,7 @@ function getFieldDisplayName(key: string): string {
     'description': 'Description',
     'content': 'Contenu',
     'cta_text': 'Texte du bouton',
-    'title_accent': 'Texte en accent',
+    'title_accent': 'Mot du titre en seconde couleur',
     'placeholder': 'Texte indicatif',
     'introduction': 'Introduction',
     'text': 'Texte',
