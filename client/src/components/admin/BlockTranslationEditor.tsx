@@ -369,13 +369,15 @@ export default function BlockTranslationEditor() {
                     <div className="flex items-center justify-between w-full pr-2">
                       <span className="font-semibold">{page.pageName}</span>
                       <Badge variant="outline" className="ml-2">
-                        {page.blocks.length}
+                        {page.blocks.filter(block => Object.keys(block.translations.en).length > 0).length}
                       </Badge>
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="pb-0">
                     <div className="divide-y">
-                      {page.blocks.map(block => {
+                      {page.blocks
+                        .filter(block => Object.keys(block.translations.en).length > 0)
+                        .map(block => {
                         const isSelected = block.id === selectedBlockId;
                         const hasTranslations = Object.keys(block.translations.en).length > 0;
                         const isHidden = !block.isActive;
