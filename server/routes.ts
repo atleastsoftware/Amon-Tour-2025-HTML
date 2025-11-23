@@ -5507,9 +5507,44 @@ Crawl-delay: 1`;
         return res.status(400).json({ message: "Invalid translations data" });
       }
       
+      // Handle combined navigation menu (identifier === 'all')
+      if (elementType === 'navigationMenu' && identifier === 'all') {
+        // Decompose combined translations back to individual menu items
+        // Format: item_1_name, item_2_name, etc.
+        const itemTranslations: Record<number, { en: string, fr: string, es: string }> = {};
+        
+        for (const [lang, langTranslations] of Object.entries(translations)) {
+          if (lang === 'en' || lang === 'fr' || lang === 'es') {
+            for (const [key, value] of Object.entries(langTranslations as Record<string, string>)) {
+              // Extract item ID from key like "item_1_name"
+              const match = key.match(/^item_(\d+)_name$/);
+              if (match) {
+                const itemId = parseInt(match[1]);
+                if (!itemTranslations[itemId]) {
+                  itemTranslations[itemId] = { en: '', fr: '', es: '' };
+                }
+                itemTranslations[itemId][lang] = value;
+              }
+            }
+          }
+        }
+        
+        // Save each item individually
+        for (const [itemId, itemTrans] of Object.entries(itemTranslations)) {
+          await translationFileService.updateTranslations({
+            section: `navigation_menu_${itemId}`,
+            key: 'name',
+            translations: itemTrans,
+            isManualEdit: true
+          });
+        }
+        
+        return res.json({ message: "Navigation menu translations updated successfully" });
+      }
+      
+      // Handle other element types normally
       let section: string;
       
-      // Determine section based on element type
       if (elementType === 'footer') {
         section = `footer_${identifier}`;
       } else if (elementType === 'navigationMenu') {

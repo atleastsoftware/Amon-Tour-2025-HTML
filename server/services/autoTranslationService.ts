@@ -1,5 +1,3 @@
-import { HttpsProxyAgent } from 'https-proxy-agent';
-
 export interface TranslationResult {
   translatedText: string;
   sourceLanguage: string;
@@ -44,10 +42,7 @@ class AutoTranslationService {
         
         const result = await translate(textWithPlaceholder, { 
           from: sourceLanguage, 
-          to: targetLanguage,
-          fetchOptions: {
-            agent: new HttpsProxyAgent('http://proxy:3128')
-          }
+          to: targetLanguage
         });
         
         let translatedText = result.text;
@@ -70,10 +65,7 @@ class AutoTranslationService {
         
         const result = await translate(cleanText, { 
           from: sourceLanguage, 
-          to: targetLanguage,
-          fetchOptions: {
-            agent: new HttpsProxyAgent('http://proxy:3128')
-          }
+          to: targetLanguage
         });
         
         const translatedText = result.text;

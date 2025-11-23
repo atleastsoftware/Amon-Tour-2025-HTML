@@ -166,12 +166,38 @@ class GlobalElementTranslationService {
       const existingFr = await translationFileService.getTranslationValue(section, translationKey, 'fr');
       const existingEs = await translationFileService.getTranslationValue(section, translationKey, 'es');
       
-      // Create translations (use English text for now if no translation exists)
+      // Prepare translations - use auto-translation for missing translations
       const finalTranslations: any = { 
-        en: englishValue,
-        fr: frManuallyEdited && existingFr ? existingFr : englishValue,
-        es: esManuallyEdited && existingEs ? existingEs : englishValue
+        en: englishValue
       };
+      
+      // French translation
+      if (frManuallyEdited && existingFr) {
+        finalTranslations.fr = existingFr;
+      } else {
+        try {
+          console.log(`🌍 Auto-translating to French...`);
+          const frResult = await autoTranslationService.translateText(englishValue, 'fr', 'en');
+          finalTranslations.fr = frResult.translatedText;
+        } catch (error) {
+          console.error(`⚠️  Auto-translation to FR failed, using English:`, error);
+          finalTranslations.fr = englishValue;
+        }
+      }
+      
+      // Spanish translation
+      if (esManuallyEdited && existingEs) {
+        finalTranslations.es = existingEs;
+      } else {
+        try {
+          console.log(`🌍 Auto-translating to Spanish...`);
+          const esResult = await autoTranslationService.translateText(englishValue, 'es', 'en');
+          finalTranslations.es = esResult.translatedText;
+        } catch (error) {
+          console.error(`⚠️  Auto-translation to ES failed, using English:`, error);
+          finalTranslations.es = englishValue;
+        }
+      }
       
       await translationFileService.updateTranslations({
         section,

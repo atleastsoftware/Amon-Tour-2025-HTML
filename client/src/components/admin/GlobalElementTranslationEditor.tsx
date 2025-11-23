@@ -99,7 +99,33 @@ export default function GlobalElementTranslationEditor() {
     if (selectedElement.type === 'footer') {
       return elements.footer[selectedElement.identifier] || null;
     } else if (selectedElement.type === 'navigationMenu') {
-      return elements.navigationMenu.find(item => item.id?.toString() === selectedElement.identifier) || null;
+      if (selectedElement.identifier === 'all') {
+        // Combine all navigation menu items into one object
+        const combined: GlobalElement = {
+          section: 'navigation_menu',
+          name: 'Menu de Navigation',
+          translations: { en: {}, fr: {}, es: {} },
+          translationsMeta: { fr: {}, es: {} }
+        };
+        
+        elements.navigationMenu.forEach(item => {
+          const prefix = `item_${item.id}_`;
+          combined.translations.en[`${prefix}name`] = item.translations.en.name || '';
+          combined.translations.fr[`${prefix}name`] = item.translations.fr.name || '';
+          combined.translations.es[`${prefix}name`] = item.translations.es.name || '';
+          
+          if (item.translationsMeta?.fr?.name?.isManuallyEdited) {
+            combined.translationsMeta!.fr![`${prefix}name`] = { isManuallyEdited: true };
+          }
+          if (item.translationsMeta?.es?.name?.isManuallyEdited) {
+            combined.translationsMeta!.es![`${prefix}name`] = { isManuallyEdited: true };
+          }
+        });
+        
+        return combined;
+      } else {
+        return elements.navigationMenu.find(item => item.id?.toString() === selectedElement.identifier) || null;
+      }
     } else if (selectedElement.type === 'announcementBar') {
       return elements.announcementBar;
     } else if (selectedElement.type === 'popup') {
@@ -193,12 +219,14 @@ export default function GlobalElementTranslationEditor() {
     const labels: Record<string, string> = {
       'contact_info': 'Informations de Contact',
       'useful_links': 'Liens Utiles',
-      'social_media': 'Réseaux Sociaux',
       'newsletter_config': 'Configuration Newsletter',
       'copyright_config': 'Configuration Copyright'
     };
     return labels[key] || key;
   };
+
+  // Filter out social_media section
+  const visibleFooterSections = Object.keys(elements.footer).filter(key => key !== 'social_media');
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -224,7 +252,7 @@ export default function GlobalElementTranslationEditor() {
                     <h3 className="font-semibold text-sm">Footer</h3>
                   </div>
                   <div className="space-y-1 ml-6">
-                    {Object.keys(elements.footer).map((footerKey) => (
+                    {visibleFooterSections.map((footerKey) => (
                       <Button
                         key={footerKey}
                         variant={selectedElement?.type === 'footer' && selectedElement?.identifier === footerKey ? "default" : "ghost"}
@@ -238,24 +266,21 @@ export default function GlobalElementTranslationEditor() {
                   </div>
                 </div>
 
-                {/* Navigation Menu */}
+                {/* Navigation Menu - Combined */}
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <Menu className="h-4 w-4 text-green-600" />
                     <h3 className="font-semibold text-sm">Menu de Navigation</h3>
                   </div>
-                  <div className="space-y-1 ml-6">
-                    {elements.navigationMenu.map((item) => (
-                      <Button
-                        key={item.id}
-                        variant={selectedElement?.type === 'navigationMenu' && selectedElement?.identifier === item.id?.toString() ? "default" : "ghost"}
-                        className="w-full justify-start text-sm"
-                        onClick={() => setSelectedElement({ type: 'navigationMenu', identifier: item.id?.toString() || '' })}
-                        data-testid={`button-select-menu-${item.id}`}
-                      >
-                        {item.name}
-                      </Button>
-                    ))}
+                  <div className="ml-6">
+                    <Button
+                      variant={selectedElement?.type === 'navigationMenu' ? "default" : "ghost"}
+                      className="w-full justify-start text-sm"
+                      onClick={() => setSelectedElement({ type: 'navigationMenu', identifier: 'all' })}
+                      data-testid="button-select-navigation-menu"
+                    >
+                      Tous les éléments ({elements.navigationMenu.length})
+                    </Button>
                   </div>
                 </div>
 
