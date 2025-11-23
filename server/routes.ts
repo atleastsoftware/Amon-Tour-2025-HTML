@@ -40,6 +40,7 @@ import rateLimit from "express-rate-limit";
 import { autoTranslationService } from "./services/autoTranslationService";
 import { translationFileService } from "./services/translationFileService";
 import { blockTranslationService } from "./services/blockTranslationService";
+import { globalElementTranslationService } from "./services/globalElementTranslationService";
 
 // Initialize default legal pages on startup
 async function initializeDefaultLegalPages() {
@@ -3068,7 +3069,34 @@ Crawl-delay: 1`;
         return res.status(400).json({ message: "Value is required" });
       }
 
+      // Get old value for translation comparison
+      const oldSetting = await storage.getSiteSetting(section, key);
+      const oldValue = oldSetting?.value ? (oldSetting.type === 'json' ? JSON.parse(oldSetting.value) : oldSetting.value) : null;
+      
+      // Update the setting
       const setting = await storage.updateSiteSetting(section, key, value);
+      if (!setting) {
+        return res.status(404).json({ message: "Setting not found" });
+      }
+      
+      // Synchronize translations for global elements
+      const newValue = setting.type === 'json' ? JSON.parse(value) : value;
+      
+      // Footer sections (contact_info, useful_links, social_media, newsletter_config, copyright_config)
+      if (section === 'footer' && key) {
+        await globalElementTranslationService.syncFooterTranslations(key, oldValue, newValue);
+      }
+      
+      // Announcement Bar
+      if (section === 'theme' && key === 'notification_bar') {
+        await globalElementTranslationService.syncAnnouncementBarTranslations(oldValue, newValue);
+      }
+      
+      // Pop-up
+      if (section === 'theme' && key === 'popup_settings') {
+        await globalElementTranslationService.syncPopupTranslations(oldValue, newValue);
+      }
+      
       res.json(setting);
     } catch (error) {
       console.error("Error updating site setting:", error);
@@ -4921,6 +4949,10 @@ Crawl-delay: 1`;
     try {
       const itemData = insertNavigationMenuItemSchema.parse(req.body);
       const item = await storage.createNavigationMenuItem(itemData);
+      
+      // Synchronize translations for new menu item
+      await globalElementTranslationService.syncNavigationMenuTranslations(item.id, null, item);
+      
       res.status(201).json(item);
     } catch (error: any) {
       console.error("Error creating navigation menu item:", error);
@@ -4939,10 +4971,16 @@ Crawl-delay: 1`;
         return res.status(400).json({ message: "Invalid item ID" });
       }
 
+      // Get old menu item for translation comparison
+      const oldItem = await storage.getNavigationMenuItem(id);
+      
       const item = await storage.updateNavigationMenuItem(id, req.body);
       if (!item) {
         return res.status(404).json({ message: "Navigation menu item not found" });
       }
+
+      // Synchronize translations for updated menu item
+      await globalElementTranslationService.syncNavigationMenuTranslations(id, oldItem, item);
 
       res.json(item);
     } catch (error) {
