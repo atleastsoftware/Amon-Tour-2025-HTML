@@ -6163,6 +6163,46 @@ Crawl-delay: 1`;
     }
   });
 
+  // Automatic translation endpoint: Translate block changes when saved
+  app.post("/api/admin/translate", requireAuth, async (req, res) => {
+    try {
+      const { oldBlock, newBlock, pageSlug } = req.body;
+      
+      if (!newBlock || !newBlock.id) {
+        return res.status(400).json({ message: "Invalid block data" });
+      }
+      
+      console.log(`🔄 Auto-translating block ${newBlock.id} (${newBlock.blockType})...`);
+      
+      const oldConfig = oldBlock?.configuration || {};
+      const newConfig = newBlock.configuration || {};
+      
+      // Trigger automatic translation
+      await blockTranslationService.translateBlockChanges(
+        newBlock.blockType,
+        newBlock.id,
+        newBlock.identifier,
+        oldConfig,
+        newConfig
+      );
+      
+      console.log(`✅ Block ${newBlock.id} auto-translation completed`);
+      
+      res.json({ 
+        success: true,
+        message: "Translations updated successfully" 
+      });
+    } catch (error) {
+      console.error("Error in auto-translation:", error);
+      // Don't return error status - translation failure shouldn't block the update
+      res.json({ 
+        success: false,
+        message: "Translation failed but update succeeded",
+        error: String(error)
+      });
+    }
+  });
+
   // Migration endpoint: Generate translations for all existing blocks
   app.post("/api/admin/migrate-block-translations", requireAuth, async (req, res) => {
     try {
