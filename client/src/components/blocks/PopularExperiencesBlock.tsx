@@ -32,6 +32,15 @@ export default function PopularExperiencesBlock({
   
   console.log('🎯 [PopularExperiencesBlock] Rendering with language:', currentLanguage);
   
+  // Helper to display duration in the correct language
+  const formatDuration = (duration: number) => {
+    const dayWord = currentLanguage === 'fr' ? 'jour' : 
+                   currentLanguage === 'es' ? 'día' : 'day';
+    const daysWord = currentLanguage === 'fr' ? 'jours' : 
+                    currentLanguage === 'es' ? 'días' : 'days';
+    return `${duration} ${duration > 1 ? daysWord : dayWord}`;
+  };
+  
   // Use translations as fallback if no title/subtitle provided
   const displayTitle = title || tours.featured;
   const displaySubtitle = subtitle || tours.description;
@@ -204,7 +213,7 @@ export default function PopularExperiencesBlock({
                     )}
                     <div className="absolute top-4 right-4">
                       <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-full text-xs">
-                        {tour.duration || '1'} jour{(tour.duration && Number(tour.duration) > 1) ? 's' : ''}
+                        {formatDuration(Number(tour.duration) || 1)}
                       </span>
                     </div>
                   </div>
@@ -287,7 +296,7 @@ export default function PopularExperiencesBlock({
                 >
                   <div className="absolute top-4 right-4 z-20">
                     <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-full text-xs">
-                      {index % 2 + 1} jour{index % 2 > 0 ? 's' : ''}
+                      {formatDuration(index % 2 + 1)}
                     </span>
                   </div>
                 </div>

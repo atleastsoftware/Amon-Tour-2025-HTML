@@ -39,9 +39,18 @@ interface SearchBarToursBlockProps {
 export default function SearchBarToursBlock({ block, configuration }: SearchBarToursBlockProps) {
   const { tours, isLoading } = useTourNinjaWithCustomImages();
   const { openIframe } = useIframe();
-  const { translations } = useTranslation();
+  const { translations, currentLanguage } = useTranslation();
   const section = block ? `search_bar_tours_${block.id}` : 'search_bar_tours';
   const blockTranslations = translations[section] || {};
+  
+  // Helper to display duration in the correct language
+  const formatDuration = (duration: number) => {
+    const dayWord = currentLanguage === 'fr' ? 'jour' : 
+                   currentLanguage === 'es' ? 'día' : 'day';
+    const daysWord = currentLanguage === 'fr' ? 'jours' : 
+                    currentLanguage === 'es' ? 'días' : 'days';
+    return `${duration} ${duration > 1 ? daysWord : dayWord}`;
+  };
 
   // Configuration with translation
   const filtersTitle = blockTranslations.filters_title || configuration.filtersTitle || 'Filters';
@@ -238,7 +247,7 @@ export default function SearchBarToursBlock({ block, configuration }: SearchBarT
                 <SelectItem value="all">All durations</SelectItem>
                 {filterOptions.durations.map(duration => (
                   <SelectItem key={duration} value={duration.toString()}>
-                    {duration} day{Number(duration) > 1 ? 's' : ''}
+                    {formatDuration(Number(duration))}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -306,7 +315,7 @@ export default function SearchBarToursBlock({ block, configuration }: SearchBarT
                     <div className="absolute top-4 right-4">
                       <Badge variant="secondary" className="bg-white/90 text-gray-800">
                         <Clock className="h-3 w-3 mr-1" />
-                        {tour.duration} day{Number(tour.duration) > 1 ? 's' : ''}
+                        {formatDuration(Number(tour.duration))}
                       </Badge>
                     </div>
                   </div>
