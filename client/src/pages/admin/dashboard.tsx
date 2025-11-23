@@ -6,6 +6,7 @@ import { Tour, CustomTourRequest, ContactMessage } from "@shared/schema";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { formatTHB } from "@/lib/utils";
+import { useUITranslation } from "@/hooks/useUITranslation";
 
 import {
   Card,
@@ -46,6 +47,7 @@ export default function Dashboard() {
   const logout = useLogout();
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const { t } = useUITranslation();
   
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [tourToDelete, setTourToDelete] = useState<Tour | null>(null);
@@ -85,8 +87,8 @@ export default function Dashboard() {
       await apiRequest("DELETE", `/api/tours/${tourToDelete.id}`);
       
       toast({
-        title: "Tour deleted",
-        description: `"${tourToDelete.title}" has been successfully deleted.`,
+        title: t('dashboard.tourManagement.deleteSuccess.title'),
+        description: t('dashboard.tourManagement.deleteSuccess.description', { title: tourToDelete.title }),
         variant: "default",
       });
       
@@ -95,8 +97,8 @@ export default function Dashboard() {
       setTourToDelete(null);
     } catch (error) {
       toast({
-        title: "Error",
-        description: "A problem occurred while deleting the tour.",
+        title: t('dashboard.tourManagement.deleteError.title'),
+        description: t('dashboard.tourManagement.deleteError.description'),
         variant: "destructive",
       });
     }
@@ -127,7 +129,7 @@ export default function Dashboard() {
               </div>
             </Link>
             <div className="hidden md:block text-sm px-3 py-1 bg-primary-dark rounded">
-              Admin Dashboard
+              {t('common.adminDashboard')}
             </div>
           </div>
           
@@ -139,12 +141,12 @@ export default function Dashboard() {
               onClick={handleLogout}
             >
               <LogOut className="mr-2 h-4 w-4" />
-              Logout
+              {t('common.logout')}
             </Button>
             <Link href="/">
               <span className="text-white hover:text-gray-200 transition-colors cursor-pointer">
                 <ChevronLeft className="mr-2 h-4 w-4 inline" />
-                Back to website
+                {t('common.backToWebsite')}
               </span>
             </Link>
           </div>
@@ -153,15 +155,15 @@ export default function Dashboard() {
       
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="font-heading font-bold text-3xl mb-2">Dashboard</h1>
-          <p className="text-gray-600">Manage your website and view customer requests.</p>
+          <h1 className="font-heading font-bold text-3xl mb-2">{t('dashboard.title')}</h1>
+          <p className="text-gray-600">{t('dashboard.subtitle')}</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-xl">Tours</CardTitle>
-              <CardDescription>Total number of tours</CardDescription>
+              <CardTitle className="text-xl">{t('dashboard.stats.tours')}</CardTitle>
+              <CardDescription>{t('dashboard.stats.toursDescription')}</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-bold">{tours?.length || 0}</p>
@@ -170,8 +172,8 @@ export default function Dashboard() {
           
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-xl">Custom Requests</CardTitle>
-              <CardDescription>Total number of requests</CardDescription>
+              <CardTitle className="text-xl">{t('dashboard.stats.customRequests')}</CardTitle>
+              <CardDescription>{t('dashboard.stats.customRequestsDescription')}</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-bold">{customTourRequests?.length || 0}</p>
@@ -180,8 +182,8 @@ export default function Dashboard() {
           
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-xl">Messages</CardTitle>
-              <CardDescription>Total number of messages</CardDescription>
+              <CardTitle className="text-xl">{t('dashboard.stats.messages')}</CardTitle>
+              <CardDescription>{t('dashboard.stats.messagesDescription')}</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-bold">{contactMessages?.length || 0}</p>
@@ -191,22 +193,22 @@ export default function Dashboard() {
         
         <Tabs defaultValue="tours">
           <TabsList className="mb-6">
-            <TabsTrigger value="tours">Tours</TabsTrigger>
-            <TabsTrigger value="requests">Custom Requests</TabsTrigger>
-            <TabsTrigger value="messages">Messages</TabsTrigger>
-            <TabsTrigger value="reservations">Reservations</TabsTrigger>
+            <TabsTrigger value="tours">{t('dashboard.tabs.tours')}</TabsTrigger>
+            <TabsTrigger value="requests">{t('dashboard.tabs.requests')}</TabsTrigger>
+            <TabsTrigger value="messages">{t('dashboard.tabs.messages')}</TabsTrigger>
+            <TabsTrigger value="reservations">{t('dashboard.tabs.reservations')}</TabsTrigger>
           </TabsList>
           
           <TabsContent value="tours">
             <Card>
               <CardHeader>
                 <div className="flex justify-between items-center">
-                  <CardTitle>Tour Management</CardTitle>
+                  <CardTitle>{t('dashboard.tourManagement.title')}</CardTitle>
                   <Link href="/admin/tour-form">
                     <span>
                       <Button>
                         <Plus className="mr-2 h-4 w-4" />
-                        Add Tour
+                        {t('dashboard.tourManagement.addTour')}
                       </Button>
                     </span>
                   </Link>
@@ -222,11 +224,11 @@ export default function Dashboard() {
                     <Table>
                       <TableHeader>
                         <TableRow>
-                          <TableHead>Title</TableHead>
-                          <TableHead>Duration</TableHead>
-                          <TableHead>Price</TableHead>
-                          <TableHead>Featured</TableHead>
-                          <TableHead className="text-right">Actions</TableHead>
+                          <TableHead>{t('dashboard.tourManagement.tableHeaders.title')}</TableHead>
+                          <TableHead>{t('dashboard.tourManagement.tableHeaders.duration')}</TableHead>
+                          <TableHead>{t('dashboard.tourManagement.tableHeaders.price')}</TableHead>
+                          <TableHead>{t('dashboard.tourManagement.tableHeaders.featured')}</TableHead>
+                          <TableHead className="text-right">{t('common.edit')}</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
@@ -264,10 +266,10 @@ export default function Dashboard() {
                   </div>
                 ) : (
                   <div className="text-center py-8">
-                    <p className="text-gray-500">No tours available.</p>
+                    <p className="text-gray-500">{t('dashboard.tourManagement.empty')}</p>
                     <Link href="/admin/tour-form">
                       <span className="text-primary hover:underline mt-2 inline-block cursor-pointer">
-                        Add your first tour
+                        {t('dashboard.tourManagement.empty')}
                       </span>
                     </Link>
                   </div>
@@ -279,7 +281,7 @@ export default function Dashboard() {
           <TabsContent value="requests">
             <Card>
               <CardHeader>
-                <CardTitle>Custom Tour Requests</CardTitle>
+                <CardTitle>{t('dashboard.customTourRequests.title')}</CardTitle>
               </CardHeader>
               <CardContent>
                 {requestsLoading ? (
@@ -301,9 +303,9 @@ export default function Dashboard() {
                       <TableBody>
                         {customTourRequests.map((request) => (
                           <TableRow key={request.id}>
-                            <TableCell className="font-medium">{request.name}</TableCell>
+                            <TableCell className="font-medium">{request.fullName}</TableCell>
                             <TableCell>{request.email}</TableCell>
-                            <TableCell>{request.travelers}</TableCell>
+                            <TableCell>{request.numberOfAdults + request.numberOfKids}</TableCell>
                             <TableCell>{request.duration}</TableCell>
                             <TableCell>
                               {request.createdAt ? new Date(request.createdAt).toLocaleDateString() : '-'}
@@ -315,7 +317,7 @@ export default function Dashboard() {
                   </div>
                 ) : (
                   <div className="text-center py-8">
-                    <p className="text-gray-500">No custom tour requests available.</p>
+                    <p className="text-gray-500">{t('dashboard.customTourRequests.empty')}</p>
                   </div>
                 )}
               </CardContent>
@@ -325,7 +327,7 @@ export default function Dashboard() {
           <TabsContent value="messages">
             <Card>
               <CardHeader>
-                <CardTitle>Contact Messages</CardTitle>
+                <CardTitle>{t('dashboard.contactMessages.title')}</CardTitle>
               </CardHeader>
               <CardContent>
                 {messagesLoading ? (
@@ -359,7 +361,7 @@ export default function Dashboard() {
                   </div>
                 ) : (
                   <div className="text-center py-8">
-                    <p className="text-gray-500">No contact messages available.</p>
+                    <p className="text-gray-500">{t('dashboard.contactMessages.empty')}</p>
                   </div>
                 )}
               </CardContent>
@@ -369,30 +371,30 @@ export default function Dashboard() {
           <TabsContent value="reservations">
             <Card>
               <CardHeader>
-                <CardTitle>Reservation Management</CardTitle>
+                <CardTitle>{t('dashboard.reservations.title')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   <div className="bg-white p-6 rounded-md shadow-sm">
-                    <h3 className="font-heading font-semibold text-xl mb-4">Tour Availability</h3>
+                    <h3 className="font-heading font-semibold text-xl mb-4">{t('dashboard.reservations.title')}</h3>
                     <p className="text-gray-600 mb-4">
-                      Manage the availability dates, capacity, and pricing for your tours. Allow customers to book specific dates.
+                      {t('dashboard.reservations.description')}
                     </p>
                     <Link href="/admin/availability-manager">
                       <Button>
-                        Manage Availabilities
+                        {t('dashboard.reservations.manageAvailabilities')}
                       </Button>
                     </Link>
                   </div>
                   
                   <div className="bg-white p-6 rounded-md shadow-sm">
-                    <h3 className="font-heading font-semibold text-xl mb-4">Reservations</h3>
+                    <h3 className="font-heading font-semibold text-xl mb-4">{t('dashboard.reservations.title')}</h3>
                     <p className="text-gray-600 mb-4">
-                      View and manage customer reservations. Confirm bookings, update status, and view payment information.
+                      {t('dashboard.reservations.viewDescription')}
                     </p>
                     <Link href="/admin/reservations-manager">
                       <Button>
-                        Manage Reservations
+                        {t('dashboard.reservations.manageReservations')}
                       </Button>
                     </Link>
                   </div>
@@ -407,17 +409,17 @@ export default function Dashboard() {
       <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Confirm Deletion</DialogTitle>
+            <DialogTitle>{t('common.delete')}</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete the tour "{tourToDelete?.title}"? This action cannot be undone.
+              {t('dashboard.tourManagement.deleteConfirm', { title: tourToDelete?.title || '' })}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button variant="outline" onClick={() => setDeleteDialogOpen(false)}>
-              Cancel
+              {t('common.cancel')}
             </Button>
             <Button variant="destructive" onClick={deleteTour}>
-              Delete
+              {t('common.delete')}
             </Button>
           </DialogFooter>
         </DialogContent>
