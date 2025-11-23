@@ -827,6 +827,10 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                 'grid-cols-1 md:grid-cols-3'
               }`}>
                 {iconBlocks.map((feature: any, index: number) => {
+                  // Get translated values for iconBlock fields
+                  const featureTitle = getDynamicTranslation(block.blockType, block.id, `icon_blocks_${index}_title`, feature.title || '');
+                  const featureDescription = getDynamicTranslation(block.blockType, block.id, `icon_blocks_${index}_description`, feature.description || '');
+                  
                   if (iconStyle === 'minimalist') {
                     return (
                       <motion.div 
@@ -851,8 +855,8 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                             <i className={`${feature.mainIcon} text-2xl`}></i>
                           )}
                         </div>
-                        <h3 className="font-heading font-bold text-xl mb-3">{feature.title}</h3>
-                        <p className="text-gray-600">{feature.description}</p>
+                        <h3 className="font-heading font-bold text-xl mb-3">{featureTitle}</h3>
+                        <p className="text-gray-600">{featureDescription}</p>
                         
                         {feature.miniIcons && feature.miniIcons.length > 0 && (
                           <div className={`mt-4 grid gap-4 ${
@@ -860,20 +864,24 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                             feature.miniIcons.length === 2 ? 'grid-cols-2 justify-items-center max-w-[200px] mx-auto' : 
                             'grid-cols-3'
                           }`}>
-                            {feature.miniIcons.slice(0, 3).map((miniIcon: any, miniIndex: number) => (
-                              <div key={miniIndex} className="flex flex-col items-center">
-                                <div 
-                                  className="w-10 h-10 rounded-full flex items-center justify-center mb-1"
-                                  style={{ 
-                                    backgroundColor: hexToRgba(feature.iconColor || '#084F6E', 0.06),
-                                    color: feature.iconColor || '#084F6E' 
-                                  }}
-                                >
-                                  <i className={`${miniIcon.icon || 'fas fa-question'} text-sm`}></i>
+                            {feature.miniIcons.slice(0, 3).map((miniIcon: any, miniIndex: number) => {
+                              const miniIconText = getDynamicTranslation(block.blockType, block.id, `icon_blocks_${index}_mini_icons_${miniIndex}_text`, miniIcon.text || '');
+                              
+                              return (
+                                <div key={miniIndex} className="flex flex-col items-center">
+                                  <div 
+                                    className="w-10 h-10 rounded-full flex items-center justify-center mb-1"
+                                    style={{ 
+                                      backgroundColor: hexToRgba(feature.iconColor || '#084F6E', 0.06),
+                                      color: feature.iconColor || '#084F6E' 
+                                    }}
+                                  >
+                                    <i className={`${miniIcon.icon || 'fas fa-question'} text-sm`}></i>
+                                  </div>
+                                  <span className="text-xs text-center">{miniIconText}</span>
                                 </div>
-                                <span className="text-xs text-center">{miniIcon.text}</span>
-                              </div>
-                            ))}
+                              );
+                            })}
                           </div>
                         )}
                       </motion.div>
@@ -906,8 +914,8 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                           <i className={`${feature.mainIcon} text-white text-2xl`}></i>
                         )}
                       </motion.div>
-                      <h3 className="font-heading font-bold text-xl mb-2">{feature.title}</h3>
-                      <p className="text-gray-600 mb-4">{feature.description}</p>
+                      <h3 className="font-heading font-bold text-xl mb-2">{featureTitle}</h3>
+                      <p className="text-gray-600 mb-4">{featureDescription}</p>
                       
                       {feature.miniIcons && feature.miniIcons.length > 0 && (
                         <motion.div 
@@ -921,23 +929,27 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                           viewport={{ once: true }}
                           transition={{ delay: 0.2 }}
                         >
-                          {feature.miniIcons.slice(0, 3).map((miniIcon: any, miniIndex: number) => (
-                            <motion.div 
-                              key={miniIndex}
-                              className="flex flex-col items-center"
-                              whileHover={{ y: -5 }}
-                            >
-                              <div 
-                                className="w-10 h-10 rounded-full flex items-center justify-center mb-1"
-                                style={{ 
-                                  backgroundColor: hexToRgba(feature.iconColor || '#084F6E', 0.1) 
-                                }}
+                          {feature.miniIcons.slice(0, 3).map((miniIcon: any, miniIndex: number) => {
+                            const miniIconText = getDynamicTranslation(block.blockType, block.id, `icon_blocks_${index}_mini_icons_${miniIndex}_text`, miniIcon.text || '');
+                            
+                            return (
+                              <motion.div 
+                                key={miniIndex}
+                                className="flex flex-col items-center"
+                                whileHover={{ y: -5 }}
                               >
-                                <i className={`${miniIcon.icon || 'fas fa-question'} text-sm`} style={{ color: feature.iconColor || '#084F6E' }}></i>
-                              </div>
-                              <span className="text-xs text-center">{miniIcon.text}</span>
-                            </motion.div>
-                          ))}
+                                <div 
+                                  className="w-10 h-10 rounded-full flex items-center justify-center mb-1"
+                                  style={{ 
+                                    backgroundColor: hexToRgba(feature.iconColor || '#084F6E', 0.1) 
+                                  }}
+                                >
+                                  <i className={`${miniIcon.icon || 'fas fa-question'} text-sm`} style={{ color: feature.iconColor || '#084F6E' }}></i>
+                                </div>
+                                <span className="text-xs text-center">{miniIconText}</span>
+                              </motion.div>
+                            );
+                          })}
                         </motion.div>
                       )}
                     </motion.div>

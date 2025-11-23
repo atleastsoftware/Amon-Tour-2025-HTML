@@ -54,7 +54,13 @@ export const TRANSLATABLE_BLOCK_FIELDS: Record<string, TranslatableFieldConfig> 
     arrayFields: [
       {
         arrayKey: 'iconBlocks',
-        textFields: ['title', 'description']
+        textFields: ['title', 'description'],
+        nestedArrays: [
+          {
+            arrayKey: 'miniIcons',
+            textFields: ['text']
+          }
+        ]
       }
     ]
   },

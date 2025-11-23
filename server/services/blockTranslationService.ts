@@ -289,7 +289,7 @@ export class BlockTranslationService {
     // Extract array fields (buttons, sections, items, etc.)
     if (translatableConfig.arrayFields) {
       for (const arrayConfig of translatableConfig.arrayFields) {
-        const { arrayKey, textFields } = arrayConfig;
+        const { arrayKey, textFields, nestedArrays } = arrayConfig;
         const array = Array.isArray(blockContent?.[arrayKey]) ? blockContent[arrayKey] : [];
         
         for (let i = 0; i < array.length; i++) {
@@ -303,13 +303,24 @@ export class BlockTranslationService {
             }
           }
           
-          // Special handling for nested miniIcons in iconBlocks (for features_3col, why_choose_us)
-          if (arrayKey === 'iconBlocks' && Array.isArray(item.miniIcons)) {
-            for (let j = 0; j < item.miniIcons.length; j++) {
-              const miniIcon = item.miniIcons[j];
-              if (typeof miniIcon.text === 'string' && miniIcon.text.trim()) {
-                const translationKey = `icon_blocks_${i}_mini_icons_${j}_text`;
-                extractedFields[translationKey] = miniIcon.text;
+          // Handle nested arrays (e.g., miniIcons in iconBlocks)
+          if (nestedArrays && nestedArrays.length > 0) {
+            for (const nestedConfig of nestedArrays) {
+              const nestedArrayKey = nestedConfig.arrayKey;
+              const nestedTextFields = nestedConfig.textFields;
+              
+              if (Array.isArray(item[nestedArrayKey])) {
+                for (let j = 0; j < item[nestedArrayKey].length; j++) {
+                  const nestedItem = item[nestedArrayKey][j];
+                  
+                  for (const nestedFieldName of nestedTextFields) {
+                    const nestedValue = nestedItem?.[nestedFieldName];
+                    if (typeof nestedValue === 'string' && nestedValue.trim()) {
+                      const translationKey = `${this.camelToSnakeCase(arrayKey)}_${i}_${this.camelToSnakeCase(nestedArrayKey)}_${j}_${this.camelToSnakeCase(nestedFieldName)}`;
+                      extractedFields[translationKey] = nestedValue;
+                    }
+                  }
+                }
               }
             }
           }
