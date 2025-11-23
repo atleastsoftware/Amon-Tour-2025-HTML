@@ -5,6 +5,7 @@ import NewsletterSubscription from "@/components/newsletter/NewsletterSubscripti
 import logoA from "@/assets/logo-a.png";
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from '@/contexts/TranslationContext';
+import { useGlobalElementTranslations } from '@/hooks/useGlobalElementTranslations';
 import { 
   Facebook, 
   Instagram, 
@@ -138,6 +139,7 @@ function renderContactInfo(item: any) {
 export default function Footer() {
   const { translations } = useTranslation();
   const footer = translations.footer;
+  const { translateValue, translateArray } = useGlobalElementTranslations();
   
   // Fetch dynamic footer content
   const { data: siteSettings } = useQuery({
@@ -152,11 +154,32 @@ export default function Footer() {
   const newsletterConfigRaw = Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.key === 'newsletter_config')?.value : null;
   const copyrightConfigRaw = Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.key === 'copyright_config')?.value : null;
   
-  const contactInfo = contactInfoRaw ? (typeof contactInfoRaw === 'string' ? JSON.parse(contactInfoRaw) : contactInfoRaw) : [];
-  const usefulLinks = usefulLinksRaw ? (typeof usefulLinksRaw === 'string' ? JSON.parse(usefulLinksRaw) : usefulLinksRaw) : [];
+  // Parse and translate contact info
+  const contactInfoParsed = contactInfoRaw ? (typeof contactInfoRaw === 'string' ? JSON.parse(contactInfoRaw) : contactInfoRaw) : [];
+  const contactInfo = translateArray('footer_contact_info', contactInfoParsed, ['value']);
+  
+  // Parse and translate useful links
+  const usefulLinksParsed = usefulLinksRaw ? (typeof usefulLinksRaw === 'string' ? JSON.parse(usefulLinksRaw) : usefulLinksRaw) : [];
+  const usefulLinks = translateArray('footer_useful_links', usefulLinksParsed, ['text']);
+  
+  // Parse social media (no translation needed for URLs)
   const socialMedia = socialMediaRaw ? (typeof socialMediaRaw === 'string' ? JSON.parse(socialMediaRaw) : socialMediaRaw) : [];
-  const newsletterConfig = newsletterConfigRaw ? (typeof newsletterConfigRaw === 'string' ? JSON.parse(newsletterConfigRaw) : newsletterConfigRaw) : {};
-  const copyrightConfig = copyrightConfigRaw ? (typeof copyrightConfigRaw === 'string' ? JSON.parse(copyrightConfigRaw) : copyrightConfigRaw) : { text: '© 2025 Flame BB Co., Ltd. (Amon Tour). All rights reserved.', enabled: true };
+  
+  // Parse and translate newsletter config
+  const newsletterConfigParsed = newsletterConfigRaw ? (typeof newsletterConfigRaw === 'string' ? JSON.parse(newsletterConfigRaw) : newsletterConfigRaw) : {};
+  const newsletterConfig = {
+    ...newsletterConfigParsed,
+    title: translateValue('footer_newsletter_config', 'title', newsletterConfigParsed.title || ''),
+    description: translateValue('footer_newsletter_config', 'description', newsletterConfigParsed.description || ''),
+    privacyText: translateValue('footer_newsletter_config', 'privacy_text', newsletterConfigParsed.privacyText || '')
+  };
+  
+  // Parse and translate copyright config
+  const copyrightConfigParsed = copyrightConfigRaw ? (typeof copyrightConfigRaw === 'string' ? JSON.parse(copyrightConfigRaw) : copyrightConfigRaw) : { text: '© 2025 Flame BB Co., Ltd. (Amon Tour). All rights reserved.', enabled: true };
+  const copyrightConfig = {
+    ...copyrightConfigParsed,
+    text: translateValue('footer_copyright_config', 'text', copyrightConfigParsed.text || '')
+  };
   
   // Footer logo settings
   const logoSettingsRaw = Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.key === 'logo_settings')?.value : null;
