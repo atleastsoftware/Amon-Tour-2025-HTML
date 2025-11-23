@@ -238,7 +238,7 @@
     "line_id": "amontour",
     "about_title": "Sobre nuestra compañía",
     "company_brand": "Amon Tour es una marca de:",
-    "company_name": "Llama BB Co., Ltd.",
+    "company_name": "Flame BB Co., Ltd.",
     "company_license": "34/01995",
     "company_description": "Somos un operador turístico con licencia con sede en Ao Nang, Krabi, especializado en experiencias locales auténticas y servicios de viaje personalizados."
   },
@@ -418,8 +418,23 @@
     "title": "Experiencias exclusivas",
     "subtitle": "Explore nuestras mejores experiencias en Krabi, todas garantizadas fuera de lo común: excursiones marítimas privadas y semiprivadas, excursiones terrestres únicas (kayak a través de manglares, cascadas, selva tropical, árboles centenarios, templos, cuevas kársticas, piscinas naturales) y paquetes exclusivos de 2 días / 1 noche."
   },
+  "navigation_menu_1": {
+    "name": "Home"
+  },
+  "navigation_menu_2": {
+    "name": "Experiences"
+  },
+  "navigation_menu_3": {
+    "name": "Custom Trip"
+  },
   "navigation_menu_8": {
     "name": "Cruise"
+  },
+  "navigation_menu_4": {
+    "name": "Blog"
+  },
+  "navigation_menu_5": {
+    "name": "Contact"
   },
   "footer_contact_info": {
     "item_0_label": "Brand Introduction ",
@@ -455,30 +470,15 @@
     "item_5_text": "Group & Corporate",
     "item_5_url": "/group-corporate"
   },
-  "announcement_bar": {
-    "text": "¡Bienvenidos al nuevo sitio web de Amon Tour! Este sitio se encuentra actualmente en una fase de prueba, por lo que aún pueden ocurrir algunos problemas. Para cualquier referencia, el sitio anterior permanece accesible en www.amon-tour.fr. Gracias por tu comprensión"
-  },
   "footer_newsletter_config": {
-    "title": "Hoja informativa",
-    "description": "Suscríbete para recibir nuestras ofertas especiales y consejos de viaje.",
-    "button_text": "Suscribir"
+    "title": "Newsletter",
+    "description": "Subscribe to receive our special offers and travel tips.",
+    "button_text": "Subscribe"
   },
   "footer_copyright_config": {
-    "text": "© 2025 Flame BB Co., Ltd. (Amon Tour). Reservados todos los derechos."
+    "text": "© 2025 Flame BB Co., Ltd. (Amon Tour). All rights reserved."
   },
-  "navigation_menu_1": {
-    "name": "Hogar"
-  },
-  "navigation_menu_2": {
-    "name": "Experiencias"
-  },
-  "navigation_menu_3": {
-    "name": "Viaje personalizado"
-  },
-  "navigation_menu_4": {
-    "name": "Blog"
-  },
-  "navigation_menu_5": {
-    "name": "Contacto"
+  "announcement_bar": {
+    "text": "¡Bienvenidos al nuevo sitio web de Amon Tour! Este sitio se encuentra actualmente en una fase de prueba, por lo que aún pueden ocurrir algunos problemas. Para cualquier referencia, el sitio anterior permanece accesible en www.amon-tour.fr. Gracias por tu comprensión"
   }
 }

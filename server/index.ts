@@ -18,13 +18,20 @@ async function initializeGlobalElementTranslations() {
   try {
     log("🔄 Initializing global element translations from dashboard data...");
     
-    // Initialize Footer sections (check if already done)
-    const footerContactSection = await translationFileService.getSection('en', 'footer_contact_info');
-    const footerAlreadyInitialized = footerContactSection && Object.keys(footerContactSection).length > 0;
-    
-    if (!footerAlreadyInitialized) {
-      const footerSections = ['contact_info', 'useful_links', 'social_media', 'newsletter_config', 'copyright_config'];
-      for (const subsection of footerSections) {
+    // Initialize each Footer section independently
+    const footerSections = ['contact_info', 'useful_links', 'social_media', 'newsletter_config', 'copyright_config'];
+    for (const subsection of footerSections) {
+      const sectionKey = `footer_${subsection}`;
+      const existingEN = await translationFileService.getSection('en', sectionKey);
+      const existingFR = await translationFileService.getSection('fr', sectionKey);
+      const existingES = await translationFileService.getSection('es', sectionKey);
+      
+      // Initialize if ANY language is missing
+      const needsInit = !existingEN || Object.keys(existingEN).length === 0 ||
+                        !existingFR || Object.keys(existingFR).length === 0 ||
+                        !existingES || Object.keys(existingES).length === 0;
+      
+      if (needsInit) {
         const setting = await storage.getSiteSetting('footer', subsection);
         if (setting && setting.value) {
           log(`📝 Initializing footer.${subsection}...`);
@@ -41,15 +48,30 @@ async function initializeGlobalElementTranslations() {
         } else {
           log(`⚠️  No data found for footer.${subsection}`);
         }
+      } else {
+        log(`✅ footer.${subsection} already initialized`);
       }
+    }
+    
+    // Initialize Navigation Menu items independently
+    const menuItems = await storage.getNavigationMenuItems();
+    for (const item of menuItems) {
+      const sectionKey = `navigation_menu_${item.id}`;
+      const existingEN = await translationFileService.getSection('en', sectionKey);
+      const existingFR = await translationFileService.getSection('fr', sectionKey);
+      const existingES = await translationFileService.getSection('es', sectionKey);
       
-      // Initialize Navigation Menu items
-      const menuItems = await storage.getNavigationMenuItems();
-      for (const item of menuItems) {
+      // Initialize if ANY language is missing
+      const needsInit = !existingEN || Object.keys(existingEN).length === 0 ||
+                        !existingFR || Object.keys(existingFR).length === 0 ||
+                        !existingES || Object.keys(existingES).length === 0;
+      
+      if (needsInit) {
+        log(`📝 Initializing navigation menu item ${item.id}...`);
         await globalElementTranslationService.syncNavigationMenuTranslations(item.id, null, item);
+      } else {
+        log(`✅ Navigation menu item ${item.id} already initialized`);
       }
-    } else {
-      log("✅ Footer and Navigation Menu already initialized");
     }
     
     // Initialize Announcement Bar (always check, independent of footer)
