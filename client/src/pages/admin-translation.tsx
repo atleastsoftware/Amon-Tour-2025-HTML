@@ -3,6 +3,7 @@ import { useLocation } from "wouter";
 import { useIsAuthenticated } from "@/lib/auth";
 import BlockTranslationEditor from "@/components/admin/BlockTranslationEditor";
 import GlobalElementTranslationEditor from "@/components/admin/GlobalElementTranslationEditor";
+import FormTranslationEditor from "@/components/admin/FormTranslationEditor";
 import { motion } from "framer-motion";
 import { ArrowLeft, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -78,7 +79,7 @@ export default function AdminTranslation() {
                   Gestion des Traductions
                 </h1>
                 <p className="text-muted-foreground mt-2">
-                  Gérez les traductions pour les blocs de contenu et les éléments globaux du site
+                  Gérez les traductions pour les blocs de contenu, les éléments globaux et les formulaires
                 </p>
               </div>
             </div>
@@ -90,12 +91,15 @@ export default function AdminTranslation() {
               transition={{ duration: 0.5, delay: 0.1 }}
             >
               <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                <TabsList className="grid w-full grid-cols-2 mb-6">
+                <TabsList className="grid w-full grid-cols-3 mb-6">
                   <TabsTrigger value="blocks" data-testid="tab-page-blocks">
                     📄 Blocs de Pages
                   </TabsTrigger>
                   <TabsTrigger value="global" data-testid="tab-global-elements">
                     🌍 Éléments Globaux
+                  </TabsTrigger>
+                  <TabsTrigger value="forms" data-testid="tab-forms">
+                    📝 Formulaires
                   </TabsTrigger>
                 </TabsList>
 
@@ -105,6 +109,10 @@ export default function AdminTranslation() {
 
                 <TabsContent value="global">
                   <GlobalElementTranslationEditor />
+                </TabsContent>
+
+                <TabsContent value="forms">
+                  <FormTranslationEditor />
                 </TabsContent>
               </Tabs>
             </motion.div>
