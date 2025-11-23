@@ -5653,6 +5653,66 @@ Crawl-delay: 1`;
     }
   });
 
+  // Get all forms with their translations
+  app.get("/api/admin/forms-with-translations", requireAuth, async (req, res) => {
+    try {
+      const { customForms } = await import('../shared/schema');
+      
+      const forms = await db.select().from(customForms).orderBy(customForms.name);
+      
+      res.json(forms);
+    } catch (error) {
+      console.error("Error fetching forms with translations:", error);
+      res.status(500).json({ message: "Failed to fetch forms", error: String(error) });
+    }
+  });
+
+  // Update translations for a specific form
+  app.put("/api/admin/form-translations/:formId", requireAuth, async (req, res) => {
+    try {
+      const formId = parseInt(req.params.formId);
+      const { translations } = req.body; // { en: {...}, fr: {...}, es: {...} }
+      
+      if (!translations || typeof translations !== 'object') {
+        return res.status(400).json({ message: "Invalid translations data" });
+      }
+      
+      const { customForms } = await import('../shared/schema');
+      const form = await db.select().from(customForms).where(eq(customForms.id, formId)).limit(1);
+      
+      if (!form || form.length === 0) {
+        return res.status(404).json({ message: "Form not found" });
+      }
+      
+      // Get current translations meta
+      const currentMeta = form[0].translationsMeta as any || {};
+      const updatedMeta = { ...currentMeta };
+      
+      // Mark all modified translations as manually edited
+      for (const lang of ['fr', 'es']) {
+        if (translations[lang]) {
+          if (!updatedMeta[lang]) updatedMeta[lang] = {};
+          for (const key of Object.keys(translations[lang])) {
+            updatedMeta[lang][key] = { isManuallyEdited: true };
+          }
+        }
+      }
+      
+      // Update form translations in database
+      await db.update(customForms)
+        .set({ 
+          translations,
+          translationsMeta: updatedMeta
+        })
+        .where(eq(customForms.id, formId));
+      
+      res.json({ message: "Translations updated successfully" });
+    } catch (error) {
+      console.error("Error updating form translations:", error);
+      res.status(500).json({ message: "Failed to update translations", error: String(error) });
+    }
+  });
+
   // Analyze translations to find missing, empty, or English text
   app.get("/api/admin/translation-analysis", requireAuth, async (req, res) => {
     try {
