@@ -154,6 +154,7 @@ export default function BlockTranslationEditor() {
   const [analysisData, setAnalysisData] = useState<any>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isRegenerating, setIsRegenerating] = useState(false);
+  const [activeTab, setActiveTab] = useState<'fr' | 'es'>('fr');
 
   // Fetch all pages with their blocks and translations
   const { data: pages = [], isLoading } = useQuery<Page[]>({
@@ -415,7 +416,7 @@ export default function BlockTranslationEditor() {
         </CardHeader>
         <CardContent>
           {selectedBlock && editedTranslations ? (
-            <Tabs defaultValue="fr" className="w-full">
+            <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as 'fr' | 'es')} className="w-full">
               <TabsList className="grid w-full grid-cols-2 mb-4">
                 <TabsTrigger value="fr">Français</TabsTrigger>
                 <TabsTrigger value="es">Espagnol</TabsTrigger>
@@ -423,8 +424,8 @@ export default function BlockTranslationEditor() {
 
               {(['fr', 'es'] as const).map(lang => (
                 <TabsContent key={lang} value={lang} className="space-y-4">
-                  <div className="max-h-[calc(100vh-20rem)] overflow-y-auto">
-                    <div className="space-y-4 pr-4">
+                  <div>
+                    <div className="space-y-4">
                       {Object.keys(editedTranslations.en).length > 0 ? (
                         Object.entries(editedTranslations.en).map(([key, enValue]) => {
                           const translatedValue = editedTranslations[lang][key] || '';

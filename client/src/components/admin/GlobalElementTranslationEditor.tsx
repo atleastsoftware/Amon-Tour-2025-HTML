@@ -85,6 +85,7 @@ export default function GlobalElementTranslationEditor() {
   const { toast } = useToast();
   const [selectedElement, setSelectedElement] = useState<{type: string; identifier: string} | null>(null);
   const [editedTranslations, setEditedTranslations] = useState<ElementTranslations | null>(null);
+  const [activeTab, setActiveTab] = useState<'fr' | 'es'>('fr');
 
   // Fetch all global element translations
   const { data: elements, isLoading } = useQuery<GlobalElements>({
@@ -369,7 +370,7 @@ export default function GlobalElementTranslationEditor() {
               </div>
             </CardHeader>
             <CardContent>
-              <Tabs defaultValue="fr" className="w-full">
+              <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as 'fr' | 'es')} className="w-full">
                 <TabsList className="grid w-full grid-cols-2">
                   <TabsTrigger value="fr" data-testid="tab-french">
                     🇫🇷 Français
@@ -380,8 +381,8 @@ export default function GlobalElementTranslationEditor() {
                 </TabsList>
 
                 {['fr', 'es'].map((lang) => (
-                  <TabsContent key={lang} value={lang} className="space-y-4">
-                    <ScrollArea className="h-[500px] pr-4">
+                  <TabsContent key={lang} value={lang} className="space-y-4 mt-4">
+                    <div>
                       <div className="space-y-4">
                         {Object.keys(selectedElementData.translations.en)
                           .filter((key) => {
@@ -446,7 +447,7 @@ export default function GlobalElementTranslationEditor() {
                           );
                         })}
                       </div>
-                    </ScrollArea>
+                    </div>
                   </TabsContent>
                 ))}
               </Tabs>

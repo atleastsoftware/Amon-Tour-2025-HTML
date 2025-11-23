@@ -376,7 +376,7 @@
     "included_title": "Incluido en el precio",
     "included_description": "Traslados (bajo petición), tarifas del parque nacional (dependiendo del itinerario), cerveza, vino, licores. Almuerzo y cena (cocina tailandesa): 500 Baht por persona por comida. Por favor, háganos saber sus preferencias y aprovisionaremos el barco en consecuencia.",
     "not_included_title": "No incluido en el precio",
-    "not_included_description": "Alquiler de barcos con capitán, asistente y guía profesional de habla inglesa, combustible, bote semirrígido para 5 a 6 personas con motor de 18 HP, barbacoa, equipo de pesca y tabla de remo, fruta fresca, refrescos, agua. Desayuno (té, café, tostadas, tortilla). [[NUEVA LÍNEA]]  [[NUEVA LÍNEA]]",
+    "not_included_description": "Alquiler de barcos con capitán, asistente y guía profesional de habla inglesa, combustible, bote semirrígido para 5 a 6 personas con motor de 18 HP, barbacoa, equipo de pesca y tabla de remo, fruta fresca, refrescos, agua. Desayuno (té, café, tostadas, tortilla).",
     "pricing_cards_0_title": "Muy alta temporada",
     "pricing_cards_0_subtitle": "Tasas de periodo pico",
     "pricing_cards_0_price": "39.000",
@@ -409,10 +409,10 @@
     "pickup_times_2_price": "+1.000 Baht",
     "pickup_times_3_time": "8:45",
     "pickup_times_3_location": "de Ao Nang",
-    "pickup_times_3_price": "Cuota extra",
+    "pickup_times_3_price": "Sin tarifa adicional",
     "pickup_times_4_time": "9:00",
     "pickup_times_4_location": "de Railay",
-    "pickup_times_4_price": "Cuota extra"
+    "pickup_times_4_price": "Sin tarifa adicional"
   },
   "popular_experiences_247": {
     "title": "Experiencias exclusivas",
@@ -583,6 +583,33 @@
         "isManuallyEdited": true
       },
       "pickup_times_1_price": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_2_time": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_2_location": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_2_price": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_3_time": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_3_location": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_3_price": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_4_time": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_4_location": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_4_price": {
         "isManuallyEdited": true
       }
     }

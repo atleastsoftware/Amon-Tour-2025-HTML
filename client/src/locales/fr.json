@@ -409,10 +409,10 @@
     "pickup_times_2_price": "+1 000 bahts",
     "pickup_times_3_time": "8:45",
     "pickup_times_3_location": "d'Ao Nang",
-    "pickup_times_3_price": "Supplément",
+    "pickup_times_3_price": "Pas de frais supplémentaires",
     "pickup_times_4_time": "9:00",
     "pickup_times_4_location": "de Railay",
-    "pickup_times_4_price": "Supplément"
+    "pickup_times_4_price": "Pas de frais supplémentaires"
   },
   "popular_experiences_247": {
     "title": "Expériences uniques",
@@ -583,6 +583,33 @@
         "isManuallyEdited": true
       },
       "pickup_times_1_price": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_2_time": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_2_location": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_2_price": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_3_time": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_3_location": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_3_price": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_4_time": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_4_location": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_4_price": {
         "isManuallyEdited": true
       }
     }
