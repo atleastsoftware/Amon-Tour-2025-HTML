@@ -484,5 +484,10 @@
   "text_436": {
     "title": "new test text number two",
     "description": "little test number two"
+  },
+  "_meta": {
+    "hero_199": {
+      "subtitle": {}
+    }
   }
 }

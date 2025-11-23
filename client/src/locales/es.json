@@ -244,7 +244,7 @@
   },
   "hero_199": {
     "title": "Tus experiencias \nexclusivas en \nKrabi - TAILANDIA",
-    "subtitle": "Descubre lugares increíbles lejos del turismo de masas en Krabi.\nY también Khao Sok, Koh Mook y muchos más destinos. prueba",
+    "subtitle": "Descubre lugares increíbles alejados del turismo de masas en Krabi.\nY también Khao Sok, Koh Mook y muchos destinos más.",
     "title_accent": "Krabi -",
     "buttons_0_text": "Ver nuestras ofertas",
     "buttons_1_text": "Personaliza tu viaje"
@@ -615,9 +615,6 @@
     },
     "hero_199": {
       "title": {
-        "isManuallyEdited": true
-      },
-      "subtitle": {
         "isManuallyEdited": true
       },
       "title_accent": {

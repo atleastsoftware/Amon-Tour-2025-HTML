@@ -1,0 +1,509 @@
+{
+  "common": {
+    "success": "Success",
+    "error": "Error",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saving": "Saving...",
+    "delete": "Delete",
+    "deleting": "Deleting...",
+    "edit": "Edit",
+    "add": "Add",
+    "loading": "Loading...",
+    "confirm": "Confirm",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "search": "Search",
+    "filter": "Filter",
+    "yes": "Yes",
+    "no": "No",
+    "required": "Required",
+    "optional": "Optional",
+    "viewSite": "View Site Appearance",
+    "logout": "Logout",
+    "backToWebsite": "Back to website",
+    "adminDashboard": "Admin Dashboard"
+  },
+  "login": {
+    "title": "Administration",
+    "subtitle": "Log in to access the admin area",
+    "username": "Username",
+    "password": "Password",
+    "loginButton": "Log in",
+    "footer": "Administrator access only",
+    "errors": {
+      "required": "Please fill in all fields",
+      "invalid": "Incorrect credentials"
+    },
+    "success": {
+      "title": "Success",
+      "description": "Login successful"
+    }
+  },
+  "dashboard": {
+    "title": "Administration",
+    "subtitle": "Centralized management panel",
+    "stats": {
+      "tours": "Tours",
+      "toursDescription": "Total number of tours",
+      "customRequests": "Custom Requests",
+      "customRequestsDescription": "Manage custom tour requests",
+      "messages": "Messages",
+      "messagesDescription": "Total number of messages",
+      "krabiCelebration": "Krabi Celebration",
+      "krabiCelebrationDescription": "Special event requests",
+      "partnerships": "Partnerships",
+      "partnershipsDescription": "Collaboration proposals",
+      "groupsEntreprises": "Groups & Corporate",
+      "groupsEntreprisesDescription": "Group and corporate requests",
+      "blogManagement": "Blog Management",
+      "blogManagementDescription": "Manage articles and content",
+      "newsletter": "Newsletter",
+      "newsletterDescription": "Manage subscribers and campaigns"
+    },
+    "tabs": {
+      "tours": "Tours",
+      "requests": "Custom Requests",
+      "messages": "Messages",
+      "reservations": "Reservations"
+    },
+    "tourManagement": {
+      "title": "Tour Management",
+      "addTour": "Add Tour",
+      "tableHeaders": {
+        "title": "Title",
+        "duration": "Duration",
+        "price": "Price",
+        "featured": "Featured"
+      },
+      "empty": "Add your first tour",
+      "deleteConfirm": "Are you sure you want to delete the tour \"{{title}}\"? This action cannot be undone.",
+      "deleteSuccess": {
+        "title": "Tour deleted",
+        "description": "\"{{title}}\" has been successfully deleted."
+      },
+      "deleteError": {
+        "title": "Error",
+        "description": "A problem occurred while deleting the tour."
+      }
+    },
+    "customTourRequests": {
+      "title": "Custom tour requests",
+      "empty": "No custom tour requests available."
+    },
+    "contactMessages": {
+      "title": "Contact messages",
+      "empty": "No contact messages available."
+    },
+    "reservations": {
+      "title": "Reservations",
+      "description": "Manage the availability dates, capacity, and pricing for your tours. Allow customers to book specific dates.",
+      "manageAvailabilities": "Manage Availabilities",
+      "manageReservations": "Manage Reservations",
+      "viewDescription": "View and manage customer reservations. Confirm bookings, update status, and view payment information."
+    }
+  },
+  "appearance": {
+    "title": "Site Appearance",
+    "subtitle": "Manage your site's appearance and content",
+    "selectPage": "Select a page",
+    "selectBlock": "Select a block",
+    "noBlocks": "No blocks available",
+    "addBlock": "Add block",
+    "addTemplate": "Add template",
+    "preview": "Preview",
+    "edit": "Edit",
+    "translate": "Translate",
+    "delete": "Delete",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "duplicate": "Duplicate",
+    "translationEditor": "Translation editor",
+    "selectPageAndBlock": "Select a page then a block to edit its translations",
+    "globalTranslations": "Global element translations",
+    "autoTranslationConfig": "Auto-translation configuration based on IP geolocation",
+    "saveSuccess": {
+      "title": "Success",
+      "description": "Changes have been saved successfully."
+    },
+    "saveError": {
+      "title": "Error",
+      "description": "Unable to save translations."
+    }
+  },
+  "blockEditor": {
+    "title": "Configure Block: {{type}}",
+    "tabs": {
+      "content": "Content",
+      "style": "Style",
+      "actions": "Actions",
+      "advanced": "Advanced"
+    },
+    "fields": {
+      "blockTitle": "Block title",
+      "blockSubtitle": "Block subtitle",
+      "blockDescription": "Block description",
+      "mainContent": "Main content (supports HTML)",
+      "imageUrl": "Image URL",
+      "upload": "Upload",
+      "backgroundColor": "Background color",
+      "backgroundColors": {
+        "white": "White",
+        "gray": "Gray",
+        "primaryBlue": "Primary Blue",
+        "secondaryGold": "Secondary Gold",
+        "dark": "Dark"
+      },
+      "layout": "Layout",
+      "layouts": {
+        "textLeftImageRight": "Text Left, Image Right",
+        "imageLeftTextRight": "Image Left, Text Right"
+      },
+      "textColor": "Text color",
+      "ctaText": "Call-to-Action Text",
+      "ctaUrl": "Call-to-Action URL",
+      "buttons": "Buttons",
+      "newButton": "New button",
+      "addButton": "Add button",
+      "blockId": "Block identifier",
+      "blockOrder": "Block order",
+      "isActive": "Block is active",
+      "rawConfig": "Raw configuration (JSON)"
+    },
+    "heroFields": {
+      "mainTitle": "Hero main title",
+      "titleColor": "Main title color",
+      "highlightWord": "Highlighted word in title",
+      "accentColor": "Accent color",
+      "subtitleColor": "Subtitle color",
+      "countryRegion": "Country/Region",
+      "countryRegionPlaceholder": "e.g. in Krabi",
+      "features": "Features",
+      "iconName": "Icon name",
+      "featureTitle": "Feature title",
+      "featureDescription": "Feature description",
+      "addFeature": "Add feature",
+      "formType": "Form type",
+      "formTypes": {
+        "contact": "Contact form",
+        "customTour": "Custom tour form",
+        "newsletter": "Newsletter signup"
+      },
+      "submitButtonText": "Submit button text",
+      "numberOfCards": "Number of cards",
+      "showTourNinja": "Show Tour Ninja integration",
+      "rating": "Rating",
+      "reviewCount": "Review count",
+      "showGoogleReviews": "Show Google Reviews widget"
+    },
+    "contactFields": {
+      "title": "Title",
+      "titlePlaceholder": "Contact us",
+      "subtitle": "Subtitle",
+      "subtitlePlaceholder": "We are here to help you...",
+      "titleColor": "Title color",
+      "subtitleColor": "Subtitle color",
+      "separatorColor": "Separator color",
+      "backgroundColor": "Background color",
+      "emailLabel": "Email label",
+      "emailValue": "Email address",
+      "phoneLabel": "Phone label",
+      "phoneValue": "Phone number",
+      "whatsappLabel": "WhatsApp label",
+      "whatsappValue": "WhatsApp number",
+      "lineLabel": "Line ID label",
+      "lineValue": "Line ID",
+      "showAboutSection": "Show \"About our company\" section",
+      "brandName": "Brand name",
+      "companyName": "Company name",
+      "tatLicense": "TAT License",
+      "companyDescription": "Company description"
+    },
+    "videoUrl": "Video URL",
+    "videoUrlPlaceholder": "/path/to/video.mp4"
+  },
+  "blockSelection": {
+    "title": "Select a block",
+    "cancel": "Cancel",
+    "add": "Add",
+    "types": {
+      "hero": "Hero",
+      "headerPage": "Page header",
+      "text": "Text",
+      "popularExperiences": "Popular experiences",
+      "customTourForm": "Custom tour form",
+      "tourNinjaSection": "Tour Ninja section",
+      "whyChooseUs": "Why choose us",
+      "whoWeAre": "Who we are",
+      "searchBarTours": "Tour search bar",
+      "contact": "Contact",
+      "blogSearch": "Blog search",
+      "textGallery": "Text gallery",
+      "textVideo": "Text video",
+      "textListing": "Text listing",
+      "textPricing": "Text pricing"
+    }
+  },
+  "templateSelection": {
+    "title": "Select a template",
+    "cancel": "Cancel",
+    "addTemplate": "Add template"
+  },
+  "tourCard": {
+    "form": {
+      "title": "Create tour card",
+      "editTitle": "Edit tour card",
+      "name": "Tour / Stay name *",
+      "namePlaceholder": "E.g.: Bangkok Food Tour",
+      "description": "Description (optional)",
+      "descriptionPlaceholder": "Briefly describe this tour...",
+      "priceFrom": "Price from *",
+      "pricePlaceholder": "E.g.: 1500",
+      "currency": "Currency",
+      "cardType": "Card type *",
+      "cardTypes": {
+        "tour": "Tour",
+        "tourDescription": "Guided excursions",
+        "experience": "Experience",
+        "experienceDescription": "Activities & Discoveries"
+      },
+      "customLink": "Custom link (Tour Ninja) *",
+      "customLinkPlaceholder": "E.g.: https://tourninja.com/tour/xxx",
+      "locationTags": "Location tags",
+      "locationTagsPlaceholder": "E.g.: Bangkok, Phuket, Koh Samui",
+      "addTag": "Add",
+      "photos": "Photos (1 to 3) *",
+      "photosHelp": "Add up to 3 photos",
+      "photosRemaining": "Add {{count}} more photo(s)",
+      "clickToAdd": "Click to add",
+      "generating": "Generating...",
+      "generate": "Generate card",
+      "save": "Save",
+      "errors": {
+        "titleRequired": "Title is required",
+        "linkRequired": "Custom link is required",
+        "photosRequired": "Please add at least one image",
+        "uploadError": "An error occurred while uploading the image",
+        "createError": "An error occurred while creating the card",
+        "updateError": "An error occurred during update"
+      },
+      "success": {
+        "created": "Tour card created successfully",
+        "updated": "Tour card updated successfully"
+      }
+    },
+    "display": {
+      "linkCopied": "Link copied",
+      "linkCopiedDescription": "The link has been copied to the clipboard",
+      "copyFailed": "Failed to copy link",
+      "deleteConfirm": "Are you sure you want to delete the card \"{{title}}\"?"
+    }
+  },
+  "requests": {
+    "common": {
+      "unread": "unread",
+      "unreadPlural": "unread",
+      "noUnread": "No unread requests",
+      "noRequests": "No requests received",
+      "new": "New",
+      "read": "Read",
+      "notProvided": "Not provided",
+      "receivedOn": "Received on",
+      "replyByEmail": "Reply by email",
+      "markAsRead": "Mark as read",
+      "markReadSuccess": "Request marked as read",
+      "markReadError": "Unable to mark request as read",
+      "deleteSuccess": "Request deleted successfully",
+      "deleteError": "Unable to delete request"
+    },
+    "partnerships": {
+      "title": "Partnership Requests",
+      "subtitle": "Collaboration proposals"
+    },
+    "krabiCelebration": {
+      "title": "Krabi Celebration",
+      "subtitle": "Special event requests"
+    },
+    "groups": {
+      "title": "Groups & Corporate",
+      "subtitle": "Group and corporate requests",
+      "company": "Company/Organization",
+      "participants": "Number of participants",
+      "participantsUnit": "people",
+      "budget": "Budget",
+      "travelDates": "Desired travel dates",
+      "noDates": "Not specified",
+      "specialRequirements": "Special requirements"
+    }
+  },
+  "reservations": {
+    "title": "Reservation Management",
+    "subtitle": "View and manage all reservations",
+    "filters": {
+      "all": "All",
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "cancelled": "Cancelled",
+      "completed": "Completed"
+    },
+    "table": {
+      "reservationNumber": "Reservation #",
+      "tour": "Tour",
+      "customer": "Customer",
+      "date": "Date",
+      "status": "Status",
+      "amount": "Amount",
+      "actions": "Actions"
+    },
+    "details": {
+      "reservationNumber": "Reservation number",
+      "status": "Status",
+      "tour": "Tour",
+      "tourUnknown": "Unknown",
+      "tourId": "Tour #{{id}}",
+      "customerInfo": "Customer information",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "totalAmount": "Total amount",
+      "specialRequests": "Special requests",
+      "paymentInfo": "Payment information",
+      "stripePaymentId": "Stripe ID",
+      "stripeCustomerId": "Stripe Customer",
+      "createdAt": "Created at",
+      "updatedAt": "Last updated"
+    },
+    "actions": {
+      "view": "View details",
+      "cancel": "Cancel reservation",
+      "complete": "Mark as completed",
+      "changeStatus": "Change reservation status",
+      "confirmReservation": "Confirm this reservation?",
+      "cancelReservation": "Cancel this reservation?",
+      "completeReservation": "Mark this reservation as completed?",
+      "cancelWarning": "Warning: Cancelling a reservation is final. The customer will be notified and may receive a refund if applicable."
+    },
+    "statusLabels": {
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "cancelled": "Cancelled",
+      "completed": "Completed",
+      "currentStatus": "Current status",
+      "newStatus": "New status"
+    }
+  },
+  "formBuilder": {
+    "title": "Form builder",
+    "formName": "Form name",
+    "formNamePlaceholder": "E.g.: Contact form",
+    "noForms": "No forms available.",
+    "newField": "New field",
+    "fieldLabel": "Field label",
+    "fieldRequired": "Required field",
+    "fieldType": "Field type",
+    "fieldWidth": "Width",
+    "widths": {
+      "full": "Full width",
+      "half": "Half width",
+      "third": "Third (1/3)",
+      "twoThirds": "Two thirds (2/3)"
+    },
+    "options": "Options",
+    "addOption": "Add option",
+    "noFields": "No fields added. Use the buttons above to add fields.",
+    "fieldConfig": "Field configuration",
+    "errors": {
+      "nameRequired": "Form name is required.",
+      "fieldsRequired": "Form must contain at least one field."
+    },
+    "submit": "Submit",
+    "whatsappContact": "Contact via WhatsApp"
+  },
+  "imageManager": {
+    "upload": "Upload an image",
+    "delete": "Delete",
+    "add": "Add an image"
+  },
+  "urlInput": {
+    "label": "URL",
+    "placeholder": "Type \"/\" to select a site page",
+    "pages": {
+      "home": "Home",
+      "tours": "Tours",
+      "experiences": "Experiences",
+      "tourCards": "Tour Cards",
+      "accommodations": "Accommodations",
+      "customTour": "Custom Tour",
+      "externalAccommodations": "External Accommodations",
+      "krabiCelebration": "Krabi Celebration",
+      "partnership": "Become a Partner",
+      "groups": "Groups & Corporate",
+      "brochure": "Brochure",
+      "villas": "Krabi Villas",
+      "contact": "Contact",
+      "blog": "Blog",
+      "legal": "Legal Notice",
+      "privacy": "Privacy Policy",
+      "terms": "Terms & Conditions"
+    }
+  },
+  "translation": {
+    "loading": "Loading...",
+    "globalElements": "Global element translations",
+    "autoTranslationConfig": "Auto-translation configuration based on IP geolocation",
+    "save": "Save",
+    "french": "French",
+    "spanish": "Spanish",
+    "manuallyEdited": "Manually edited",
+    "autoTranslated": "Auto-translated",
+    "noContent": "No text to translate in this block",
+    "fieldNames": {
+      "title": "Title",
+      "text": "Text",
+      "message": "Message",
+      "description": "Description",
+      "linkText": "Link text",
+      "linkUrl": "Link URL",
+      "buttonText": "Button text",
+      "buttonUrl": "Button URL",
+      "email": "Email",
+      "phone": "Phone",
+      "whatsapp": "WhatsApp",
+      "lineId": "LINE ID",
+      "address": "Address",
+      "emailLabel": "Email label",
+      "phoneLabel": "Phone label",
+      "submitText": "Button text",
+      "placeholder": "Placeholder text",
+      "successMessage": "Success message",
+      "errorMessage": "Error message",
+      "name": "Name"
+    },
+    "technicalDetails": "Technical details",
+    "detectedCountries": "Detected countries",
+    "triggerMethods": "Trigger methods",
+    "htmlAttribute": "HTML attribute translate=\"yes\"",
+    "metaTags": "Meta tags for translation suggestions",
+    "modernApis": "Modern APIs",
+    "fallback": "Fallback Google Translate Widget if available",
+    "storage": "Storage",
+    "performance": "Performance"
+  },
+  "newsletter": {
+    "title": "Newsletter Management",
+    "subtitle": "Manage subscribers and campaigns",
+    "subscribers": "Subscribers",
+    "totalSubscribers": "Total subscribers",
+    "export": "Export",
+    "noSubscribers": "No subscribers yet."
+  },
+  "blog": {
+    "title": "Blog Management",
+    "subtitle": "Manage articles and content",
+    "newPost": "New post",
+    "editPost": "Edit post",
+    "noPosts": "No posts available."
+  }
+}
