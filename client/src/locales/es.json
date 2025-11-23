@@ -477,5 +477,8 @@
   },
   "footer_copyright_config": {
     "text": "© 2025 Flame BB Co., Ltd. (Amon Tour). All rights reserved."
+  },
+  "announcement_bar": {
+    "text": "Welcome to the new Amon Tour website! This site is currently in a testing phase, so a few issues may still occur. For any reference, the previous site remains accessible at www.amon-tour.fr. Thank you for your understanding"
   }
 }
