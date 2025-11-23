@@ -8,6 +8,10 @@ export interface TranslationUpdate {
     [language: string]: string;
   };
   isManualEdit?: boolean;
+  resetManualFlags?: {
+    fr?: boolean;
+    es?: boolean;
+  };
 }
 
 class TranslationFileService {
@@ -49,18 +53,38 @@ class TranslationFileService {
         
         translations[update.section][update.key] = update.translations[language];
         
+        // Initialize _meta if needed
+        if (!translations._meta) {
+          translations._meta = {};
+        }
+        if (!translations._meta[update.section]) {
+          translations._meta[update.section] = {};
+        }
+        if (!translations._meta[update.section][update.key]) {
+          translations._meta[update.section][update.key] = {};
+        }
+        
         // Mark as manually edited if specified (for fr and es only)
         if (update.isManualEdit && (language === 'fr' || language === 'es')) {
-          if (!translations._meta) {
-            translations._meta = {};
-          }
-          if (!translations._meta[update.section]) {
-            translations._meta[update.section] = {};
-          }
-          if (!translations._meta[update.section][update.key]) {
-            translations._meta[update.section][update.key] = {};
-          }
           translations._meta[update.section][update.key].isManuallyEdited = true;
+        }
+        
+        // Remove manual flag if requested (for automatic re-translations)
+        if (update.resetManualFlags && (language === 'fr' || language === 'es')) {
+          const shouldReset = update.resetManualFlags[language as 'fr' | 'es'];
+          if (shouldReset) {
+            delete translations._meta[update.section][update.key].isManuallyEdited;
+            // Clean up empty objects
+            if (Object.keys(translations._meta[update.section][update.key]).length === 0) {
+              delete translations._meta[update.section][update.key];
+            }
+            if (Object.keys(translations._meta[update.section]).length === 0) {
+              delete translations._meta[update.section];
+            }
+            if (Object.keys(translations._meta).length === 0) {
+              delete translations._meta;
+            }
+          }
         }
         
         await this.writeTranslationFile(language, translations);

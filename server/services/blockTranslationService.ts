@@ -94,7 +94,11 @@ export class BlockTranslationService {
             section,
             key: translationKey,
             translations: finalTranslations,
-            isManualEdit: false  // This is automatic translation
+            isManualEdit: false,  // This is automatic translation
+            resetManualFlags: {
+              fr: !frManuallyEdited,  // Reset FR flag if it wasn't manually edited
+              es: !esManuallyEdited   // Reset ES flag if it wasn't manually edited
+            }
           });
           
           console.log(`✅ ${section}.${translationKey} translations updated (FR: ${frManuallyEdited ? 'preserved' : 'auto'}, ES: ${esManuallyEdited ? 'preserved' : 'auto'})`);
@@ -161,7 +165,11 @@ export class BlockTranslationService {
                 section,
                 key: translationKey,
                 translations: finalTranslations,
-                isManualEdit: false
+                isManualEdit: false,
+                resetManualFlags: {
+                  fr: !frManuallyEdited,
+                  es: !esManuallyEdited
+                }
               });
               
               console.log(`✅ ${section}.${translationKey} translations updated (FR: ${frManuallyEdited ? 'preserved' : 'auto'}, ES: ${esManuallyEdited ? 'preserved' : 'auto'})`);
@@ -225,7 +233,11 @@ export class BlockTranslationService {
                         section,
                         key: translationKey,
                         translations: finalTranslations,
-                        isManualEdit: false
+                        isManualEdit: false,
+                        resetManualFlags: {
+                          fr: !frManuallyEdited,
+                          es: !esManuallyEdited
+                        }
                       });
                       
                       console.log(`✅ ${section}.${translationKey} translations updated (FR: ${frManuallyEdited ? 'preserved' : 'auto'}, ES: ${esManuallyEdited ? 'preserved' : 'auto'})`);
