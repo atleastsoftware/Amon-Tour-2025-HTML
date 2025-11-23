@@ -375,7 +375,15 @@ export default function GlobalElementTranslationEditor() {
                   <TabsContent key={lang} value={lang} className="space-y-4">
                     <ScrollArea className="h-[500px] pr-4">
                       <div className="space-y-4">
-                        {Object.keys(selectedElementData.translations.en).map((key) => {
+                        {Object.keys(selectedElementData.translations.en)
+                          .filter((key) => {
+                            // Filter out URL fields in useful_links section
+                            if (selectedElement?.type === 'footer' && selectedElement?.identifier === 'useful_links') {
+                              return !key.toLowerCase().includes('url');
+                            }
+                            return true;
+                          })
+                          .map((key) => {
                           const englishValue = selectedElementData.translations.en[key];
                           const translatedValue = editedTranslations?.[lang as 'fr' | 'es'][key] || '';
                           const isManuallyEdited = selectedElementData.translationsMeta?.[lang as 'fr' | 'es']?.[key]?.isManuallyEdited;
