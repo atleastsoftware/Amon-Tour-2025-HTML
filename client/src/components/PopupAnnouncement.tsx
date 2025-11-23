@@ -4,24 +4,35 @@ import { useQuery } from '@tanstack/react-query';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useGlobalElementTranslations } from '@/hooks/useGlobalElementTranslations';
 
 export default function PopupAnnouncement() {
   const [isOpen, setIsOpen] = useState(false);
   const [hasClosedThisSession, setHasClosedThisSession] = useState(false);
   const [email, setEmail] = useState('');
+  const { translateValue } = useGlobalElementTranslations();
 
   const { data: settings } = useQuery({
     queryKey: ['/api/public/theme-settings'],
   });
 
   const popupSettingsRaw = Array.isArray(settings) ? settings.find((s: any) => s.key === 'popup_settings')?.value : null;
-  const popupConfig = popupSettingsRaw ? (typeof popupSettingsRaw === 'string' ? JSON.parse(popupSettingsRaw) : popupSettingsRaw) : {
+  const popupConfigParsed = popupSettingsRaw ? (typeof popupSettingsRaw === 'string' ? JSON.parse(popupSettingsRaw) : popupSettingsRaw) : {
     enabled: false,
     type: 'newsletter',
     title: 'Subscribe to our Newsletter',
     description: 'Get the latest updates and offers',
     button_text: 'Subscribe',
     delay: 5000
+  };
+  
+  // Translate popup config
+  const popupConfig = {
+    ...popupConfigParsed,
+    title: translateValue('popup', 'title', popupConfigParsed.title || ''),
+    description: translateValue('popup', 'description', popupConfigParsed.description || ''),
+    button_text: translateValue('popup', 'button_text', popupConfigParsed.button_text || ''),
+    email_placeholder: translateValue('popup', 'email_placeholder', 'Entrez votre email')
   };
 
   useEffect(() => {
@@ -72,7 +83,7 @@ export default function PopupAnnouncement() {
           <form onSubmit={handleSubmit} className="space-y-4 mt-4">
             <Input
               type="email"
-              placeholder="Entrez votre email"
+              placeholder={popupConfig.email_placeholder}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
