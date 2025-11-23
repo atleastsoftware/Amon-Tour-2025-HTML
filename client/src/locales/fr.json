@@ -421,26 +421,6 @@
   "navigation_menu_8": {
     "name": "Cruise"
   },
-  "footer_contact_info": {
-    "item_0_label": "Brand Introduction ",
-    "item_0_value": "Amon Tour is a brand of:",
-    "item_1_label": "Company Name",
-    "item_1_value": "Flame BB Co., Ltd.",
-    "item_2_label": "Address",
-    "item_2_value": "242 Moo1 Tombol Ao Nang\n81180 Krabi, Thailand",
-    "item_3_label": "TAT License",
-    "item_3_value": "TAT License: 34/01995",
-    "item_4_label": "Email",
-    "item_4_value": "info@amon-tour.com",
-    "item_5_label": "Operations Manager",
-    "item_5_value": "Operations manager: +66 (0)6 2574 8788",
-    "item_6_label": "Travel Advisor",
-    "item_6_value": "Travel Advisor Manager: +66 (0)8 0463 4691",
-    "item_7_label": "WhatsApp",
-    "item_7_value": "WhatsApp: +66 65 349 6445",
-    "item_8_label": "LINE ID",
-    "item_8_value": "Line ID: amontour"
-  },
   "footer_useful_links": {
     "item_0_text": "Our brochure",
     "item_0_url": "/brochure",
@@ -480,5 +460,25 @@
   },
   "navigation_menu_5": {
     "name": "Contact"
+  },
+  "footer_contact_info": {
+    "item_0_label": "Brand Introduction ",
+    "item_0_value": "Amon Tour is a brand of:",
+    "item_1_label": "Company Name",
+    "item_1_value": "Flame BB Co., Ltd.",
+    "item_2_label": "Address",
+    "item_2_value": "242 Moo1 Tombol Ao Nang\n81180 Krabi, Thailand",
+    "item_3_label": "TAT License",
+    "item_3_value": "TAT License: 34/01995",
+    "item_4_label": "Email",
+    "item_4_value": "info@amon-tour.com",
+    "item_5_label": "Operations Manager",
+    "item_5_value": "Operations manager: +66 (0)6 2574 8788",
+    "item_6_label": "Travel Advisor",
+    "item_6_value": "Travel Advisor Manager: +66 (0)8 0463 4691",
+    "item_7_label": "WhatsApp",
+    "item_7_value": "WhatsApp: +66 65 349 6445",
+    "item_8_label": "LINE ID",
+    "item_8_value": "Line ID: amontour"
   }
 }
