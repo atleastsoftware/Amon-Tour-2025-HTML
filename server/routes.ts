@@ -5952,6 +5952,67 @@ Crawl-delay: 1`;
     }
   });
 
+  // Initialize global element translations from database
+  app.post("/api/admin/migrate-global-translations", requireAuth, async (req, res) => {
+    try {
+      console.log('🚀 Starting global element translations migration...');
+      let count = 0;
+      
+      // 1. Footer sections
+      const footerSections = ['contact_info', 'useful_links', 'social_media', 'newsletter_config', 'copyright_config'];
+      for (const subsection of footerSections) {
+        const setting = await storage.getSiteSetting('footer', subsection);
+        if (setting && setting.value) {
+          const value = setting.type === 'json' ? JSON.parse(setting.value) : setting.value;
+          await globalElementTranslationService.syncFooterTranslations(subsection, null, value);
+          count++;
+          console.log(`✅ Initialized footer_${subsection}`);
+        }
+      }
+      
+      // 2. Navigation Menu items
+      const menuItems = await storage.getNavigationMenuItems();
+      for (const item of menuItems) {
+        await globalElementTranslationService.syncNavigationMenuTranslations(item.id, null, item);
+        count++;
+        console.log(`✅ Initialized navigation_menu_${item.id}`);
+      }
+      
+      // 3. Announcement Bar
+      const notificationBar = await storage.getSiteSetting('theme', 'notification_bar');
+      if (notificationBar && notificationBar.value) {
+        const value = notificationBar.type === 'json' ? JSON.parse(notificationBar.value) : notificationBar.value;
+        await globalElementTranslationService.syncAnnouncementBarTranslations(null, value);
+        count++;
+        console.log(`✅ Initialized announcement_bar`);
+      }
+      
+      // 4. Pop-up
+      const popup = await storage.getSiteSetting('theme', 'popup_settings');
+      if (popup && popup.value) {
+        const value = popup.type === 'json' ? JSON.parse(popup.value) : popup.value;
+        await globalElementTranslationService.syncPopupTranslations(null, value);
+        count++;
+        console.log(`✅ Initialized popup`);
+      }
+      
+      console.log(`\n🎉 Migration completed! Initialized ${count} global element sections`);
+      
+      res.json({
+        success: true,
+        message: 'Global element translations initialized successfully',
+        count
+      });
+    } catch (error) {
+      console.error("Error migrating global element translations:", error);
+      res.status(500).json({
+        success: false,
+        message: "Failed to migrate global element translations",
+        error: String(error)
+      });
+    }
+  });
+  
   // Serve translation files for global elements
   app.get("/api/translations/:lang", async (req, res) => {
     try {
