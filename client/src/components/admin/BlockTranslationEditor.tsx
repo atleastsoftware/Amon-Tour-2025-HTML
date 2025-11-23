@@ -400,7 +400,7 @@ export default function BlockTranslationEditor() {
                                 <div className="font-medium text-sm mb-1 flex items-center gap-1">
                                   {getBlockDisplayName(block.blockType)}
                                   {hasIssues && (
-                                    <AlertCircle className="w-4 h-4 text-orange-500" title={`${blockIssues.length} problème(s) de traduction`} />
+                                    <AlertCircle className="w-4 h-4 text-orange-500" />
                                   )}
                                 </div>
                                 {block.title && (
