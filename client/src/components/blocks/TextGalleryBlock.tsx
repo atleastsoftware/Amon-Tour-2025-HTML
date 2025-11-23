@@ -21,11 +21,12 @@ interface TextGalleryBlockProps {
 
 export default function TextGalleryBlock({ block }: TextGalleryBlockProps) {
   const config = block.configuration || {};
-  const { t } = useTranslation();
+  const { translations } = useTranslation();
   const section = `text_gallery_${block.id}`;
+  const blockTranslations = translations[section] || {};
   
-  const title = t(section, 'title', config.title) || "Titre de la galerie";
-  const subtitle = t(section, 'subtitle', config.subtitle) || "Description pour votre galerie d'images";
+  const title = blockTranslations.title || config.title || "Titre de la galerie";
+  const subtitle = blockTranslations.subtitle || config.subtitle || "Description pour votre galerie d'images";
   const titleColor = config.titleColor ?? "#333333";
   const subtitleColor = config.subtitleColor ?? "#666666";
   const dividerColor = config.dividerColor ?? "#3BA8AF";

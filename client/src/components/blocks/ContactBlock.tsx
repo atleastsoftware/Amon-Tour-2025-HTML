@@ -32,31 +32,32 @@ interface ContactBlockProps {
 
 export default function ContactBlock({ block }: ContactBlockProps) {
   const config = block.configuration || {};
-  const { t } = useTranslation();
+  const { translations } = useTranslation();
   const section = `contact_${block.id}`;
+  const blockTranslations = translations[section] || {};
   
-  const title = t(section, 'title', config.title) || "Titre principal";
-  const subtitle = t(section, 'subtitle', config.subtitle) || "Description pour votre section de contact";
+  const title = blockTranslations.title || config.title || "Titre principal";
+  const subtitle = blockTranslations.subtitle || config.subtitle || "Description pour votre section de contact";
   const titleColor = config.titleColor ?? "#333333";
   const subtitleColor = config.subtitleColor ?? "#666666";
   const dividerColor = config.dividerColor ?? "#3BA8AF";
   const backgroundColor = config.backgroundColor ?? "#ffffff";
   
-  const email = t(section, 'email', config.email) || "contact@example.com";
-  const emailLabel = t(section, 'email_label', config.emailLabel) || "Email";
-  const phone = t(section, 'phone', config.phone) || "+ 22 222 222 222";
-  const phoneLabel = t(section, 'phone_label', config.phoneLabel) || "Téléphone";
-  const whatsapp = t(section, 'whatsapp', config.whatsapp) || "+ 22 222 222 222";
-  const whatsappLabel = t(section, 'whatsapp_label', config.whatsappLabel) || "WhatsApp";
-  const lineId = t(section, 'line_id', config.lineId) || "moncompte";
-  const lineIdLabel = t(section, 'line_id_label', config.lineIdLabel) || "Line ID";
+  const email = blockTranslations.email || config.email || "contact@example.com";
+  const emailLabel = blockTranslations.email_label || config.emailLabel || "Email";
+  const phone = blockTranslations.phone || config.phone || "+ 22 222 222 222";
+  const phoneLabel = blockTranslations.phone_label || config.phoneLabel || "Téléphone";
+  const whatsapp = blockTranslations.whatsapp || config.whatsapp || "+ 22 222 222 222";
+  const whatsappLabel = blockTranslations.whatsapp_label || config.whatsappLabel || "WhatsApp";
+  const lineId = blockTranslations.line_id || config.lineId || "moncompte";
+  const lineIdLabel = blockTranslations.line_id_label || config.lineIdLabel || "Line ID";
   
   const showAboutCompany = config.showAboutCompany ?? true;
-  const aboutTitle = t(section, 'about_title', config.aboutTitle) || "À propos de notre entreprise";
-  const companyBrand = t(section, 'company_brand', config.companyBrand) || "Nom de la marque";
-  const companyName = t(section, 'company_name', config.companyName) || "Votre Adresse";
-  const companyLicense = t(section, 'company_license', config.companyLicense) || "00/00000";
-  const companyDescription = t(section, 'company_description', config.companyDescription) || "";
+  const aboutTitle = blockTranslations.about_title || config.aboutTitle || "À propos de notre entreprise";
+  const companyBrand = blockTranslations.company_brand || config.companyBrand || "Nom de la marque";
+  const companyName = blockTranslations.company_name || config.companyName || "Votre Adresse";
+  const companyLicense = blockTranslations.company_license || config.companyLicense || "00/00000";
+  const companyDescription = blockTranslations.company_description || config.companyDescription || "";
 
   return (
     <section className="py-20" style={{ backgroundColor }}>

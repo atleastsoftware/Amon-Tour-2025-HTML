@@ -19,11 +19,12 @@ interface TextListingBlockProps {
 
 export default function TextListingBlock({ block }: TextListingBlockProps) {
   const config = block.configuration ?? {};
-  const { t } = useTranslation();
+  const { translations } = useTranslation();
   const section = `text_listing_${block.id}`;
+  const blockTranslations = translations[section] || {};
   
-  const title = t(section, 'title', config.title) || "Titre de la section";
-  const subtitle = t(section, 'subtitle', config.subtitle) || "Description de votre listing";
+  const title = blockTranslations.title || config.title || "Titre de la section";
+  const subtitle = blockTranslations.subtitle || config.subtitle || "Description de votre listing";
   const allItems = config.items ?? [
     { label: "1", description: "Description de votre element" },
     { label: "2", description: "Description de votre element" },
@@ -32,8 +33,8 @@ export default function TextListingBlock({ block }: TextListingBlockProps) {
   // Translate items
   const items = allItems
     .map((item, index) => ({
-      label: t(section, `items_${index}_label`, item.label) || item.label,
-      description: t(section, `items_${index}_description`, item.description) || item.description
+      label: blockTranslations[`items_${index}_label`] || item.label,
+      description: blockTranslations[`items_${index}_description`] || item.description
     }))
     .filter(item => item.label || item.description);
     

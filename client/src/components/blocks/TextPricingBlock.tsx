@@ -46,11 +46,12 @@ interface TextPricingBlockProps {
 
 export default function TextPricingBlock({ block }: TextPricingBlockProps) {
   const config = block.configuration ?? {};
-  const { t } = useTranslation();
+  const { translations } = useTranslation();
   const section = `text_pricing_${block.id}`;
+  const blockTranslations = translations[section] || {};
   
-  const title = t(section, 'title', config.title) || "Titre de la section";
-  const subtitle = t(section, 'subtitle', config.subtitle) || "Description de vos tarifs";
+  const title = blockTranslations.title || config.title || "Titre de la section";
+  const subtitle = blockTranslations.subtitle || config.subtitle || "Description de vos tarifs";
   
   const defaultCards = [
     {
@@ -87,13 +88,13 @@ export default function TextPricingBlock({ block }: TextPricingBlockProps) {
   
   const pricingCards = (config.pricingCards ?? defaultCards).map((card, index) => ({
     ...card,
-    title: t(section, `pricing_cards_${index}_title`, card.title) || card.title,
-    subtitle: t(section, `pricing_cards_${index}_subtitle`, card.subtitle) || card.subtitle,
-    price: t(section, `pricing_cards_${index}_price`, card.price) || card.price,
-    currency: t(section, `pricing_cards_${index}_currency`, card.currency) || card.currency,
-    cycle: t(section, `pricing_cards_${index}_cycle`, card.cycle) || card.cycle,
-    label: t(section, `pricing_cards_${index}_label`, card.label) || card.label,
-    moreText: t(section, `pricing_cards_${index}_more_text`, card.moreText) || card.moreText,
+    title: blockTranslations[`pricing_cards_${index}_title`] || card.title,
+    subtitle: blockTranslations[`pricing_cards_${index}_subtitle`] || card.subtitle,
+    price: blockTranslations[`pricing_cards_${index}_price`] || card.price,
+    currency: blockTranslations[`pricing_cards_${index}_currency`] || card.currency,
+    cycle: blockTranslations[`pricing_cards_${index}_cycle`] || card.cycle,
+    label: blockTranslations[`pricing_cards_${index}_label`] || card.label,
+    moreText: blockTranslations[`pricing_cards_${index}_more_text`] || card.moreText,
   }));
   
   const titleColor = config.titleColor ?? "#1F2937";
@@ -101,20 +102,20 @@ export default function TextPricingBlock({ block }: TextPricingBlockProps) {
   const dividerColor = config.dividerColor ?? "#3BA8AF";
   const backgroundColor = config.backgroundColor ?? "#ffffff";
   const showPickupSection = config.showPickupSection ?? false;
-  const pickupTitle = t(section, 'pickup_title', config.pickupTitle) || "Options supplémentaires";
+  const pickupTitle = blockTranslations.pickup_title || config.pickupTitle || "Options supplémentaires";
   
   const pickupTimes = (config.pickupTimes ?? []).map((pickup, index) => ({
     ...pickup,
-    time: t(section, `pickup_times_${index}_time`, pickup.time) || pickup.time,
-    location: t(section, `pickup_times_${index}_location`, pickup.location) || pickup.location,
-    price: t(section, `pickup_times_${index}_price`, pickup.price) || pickup.price,
+    time: blockTranslations[`pickup_times_${index}_time`] || pickup.time,
+    location: blockTranslations[`pickup_times_${index}_location`] || pickup.location,
+    price: blockTranslations[`pickup_times_${index}_price`] || pickup.price,
   }));
   
-  const includedTitle = t(section, 'included_title', config.includedTitle) || "Included in Price";
-  const includedDescription = t(section, 'included_description', config.includedDescription) || "";
+  const includedTitle = blockTranslations.included_title || config.includedTitle || "Included in Price";
+  const includedDescription = blockTranslations.included_description || config.includedDescription || "";
   const includedLogoColor = config.includedLogoColor ?? "#3BA8AF";
-  const notIncludedTitle = t(section, 'not_included_title', config.notIncludedTitle) || "Not Included in Price";
-  const notIncludedDescription = t(section, 'not_included_description', config.notIncludedDescription) || "";
+  const notIncludedTitle = blockTranslations.not_included_title || config.notIncludedTitle || "Not Included in Price";
+  const notIncludedDescription = blockTranslations.not_included_description || config.notIncludedDescription || "";
   const notIncludedLogoColor = config.notIncludedLogoColor ?? "#3BA8AF";
 
   return (

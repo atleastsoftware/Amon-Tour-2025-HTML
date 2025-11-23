@@ -21,11 +21,12 @@ interface TextVideoBlockProps {
 
 export default function TextVideoBlock({ block }: TextVideoBlockProps) {
   const config = block.configuration || {};
-  const { t } = useTranslation();
+  const { translations } = useTranslation();
   const section = `text_video_${block.id}`;
+  const blockTranslations = translations[section] || {};
   
-  const title = t(section, 'title', config.title) || "Titre de la vidéo";
-  const subtitle = t(section, 'subtitle', config.subtitle) || "Description pour votre section vidéo";
+  const title = blockTranslations.title || config.title || "Titre de la vidéo";
+  const subtitle = blockTranslations.subtitle || config.subtitle || "Description pour votre section vidéo";
   const titleColor = config.titleColor ?? "#333333";
   const subtitleColor = config.subtitleColor ?? "#666666";
   const dividerColor = config.dividerColor ?? "#3BA8AF";

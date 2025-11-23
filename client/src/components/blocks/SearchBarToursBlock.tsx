@@ -39,12 +39,13 @@ interface SearchBarToursBlockProps {
 export default function SearchBarToursBlock({ block, configuration }: SearchBarToursBlockProps) {
   const { tours, isLoading } = useTourNinjaWithCustomImages();
   const { openIframe } = useIframe();
-  const { t } = useTranslation();
+  const { translations } = useTranslation();
   const section = block ? `search_bar_tours_${block.id}` : 'search_bar_tours';
+  const blockTranslations = translations[section] || {};
 
   // Configuration with translation
-  const filtersTitle = t(section, 'filters_title', configuration.filtersTitle) || 'Filters';
-  const searchPlaceholder = t(section, 'search_placeholder', configuration.searchPlaceholder) || 'Search for a tour...';
+  const filtersTitle = blockTranslations.filters_title || configuration.filtersTitle || 'Filters';
+  const searchPlaceholder = blockTranslations.search_placeholder || configuration.searchPlaceholder || 'Search for a tour...';
   const filtersTextColor = configuration.filtersTextColor ?? '#333333';
   const filtersBgColor = configuration.filtersBgColor ?? '#ffffff';
   const cardsColor = configuration.cardsColor ?? '#084F6E';
