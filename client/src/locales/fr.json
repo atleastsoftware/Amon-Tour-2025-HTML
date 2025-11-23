@@ -480,5 +480,111 @@
     "item_7_value": "WhatsApp : +66 65 349 6445",
     "item_8_label": "LINE ID",
     "item_8_value": "LINE ID : amontour"
+  },
+  "_meta": {
+    "text_pricing_373": {
+      "title": {
+        "isManuallyEdited": true
+      },
+      "subtitle": {
+        "isManuallyEdited": true
+      },
+      "pickup_title": {
+        "isManuallyEdited": true
+      },
+      "included_title": {
+        "isManuallyEdited": true
+      },
+      "included_description": {
+        "isManuallyEdited": true
+      },
+      "not_included_title": {
+        "isManuallyEdited": true
+      },
+      "not_included_description": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_0_title": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_0_subtitle": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_0_price": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_0_currency": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_0_cycle": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_0_label": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_0_more_text": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_1_title": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_1_subtitle": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_1_price": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_1_currency": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_1_cycle": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_1_label": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_1_more_text": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_2_title": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_2_subtitle": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_2_price": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_2_currency": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_2_cycle": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_2_label": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_2_more_text": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_0_time": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_0_location": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_0_price": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_1_time": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_1_location": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_1_price": {
+        "isManuallyEdited": true
+      }
+    }
   }
 }
