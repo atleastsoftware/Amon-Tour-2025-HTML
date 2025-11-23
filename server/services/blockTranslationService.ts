@@ -330,6 +330,40 @@ export class BlockTranslationService {
 
     return extractedFields;
   }
+
+  /**
+   * Get all translations for a block from the JSON files
+   * Returns translations in database format: { en: {}, fr: {}, es: {} }
+   */
+  async getBlockTranslationsFromFiles(blockType: string, blockId: number, blockContent: any): Promise<{
+    en: Record<string, string>;
+    fr: Record<string, string>;
+    es: Record<string, string>;
+  }> {
+    const section = this.getSectionFromBlockId(blockType, blockId);
+    const englishFields = this.extractAllTranslatableFields(blockType, blockContent);
+    
+    const translations = {
+      en: englishFields,
+      fr: {} as Record<string, string>,
+      es: {} as Record<string, string>
+    };
+
+    // Read translations from JSON files for each key
+    for (const key of Object.keys(englishFields)) {
+      try {
+        const frValue = await translationFileService.getTranslationValue(section, key, 'fr');
+        const esValue = await translationFileService.getTranslationValue(section, key, 'es');
+        
+        if (frValue) translations.fr[key] = frValue;
+        if (esValue) translations.es[key] = esValue;
+      } catch (error) {
+        console.error(`Error reading translation for ${section}.${key}:`, error);
+      }
+    }
+
+    return translations;
+  }
 }
 
 export const blockTranslationService = new BlockTranslationService();

@@ -4687,6 +4687,7 @@ Crawl-delay: 1`;
         const newConfig = validatedData.configuration;
         
         try {
+          // Translate changes to JSON files
           await blockTranslationService.translateBlockChanges(
             oldBlock.blockType,
             id,
@@ -4694,6 +4695,28 @@ Crawl-delay: 1`;
             oldConfig,
             newConfig
           );
+          
+          // Sync translations from JSON files to database
+          const updatedTranslations = await blockTranslationService.getBlockTranslationsFromFiles(
+            oldBlock.blockType,
+            id,
+            newConfig
+          );
+          
+          // Also get translation metadata
+          const translationFileService = (await import('./services/translationFileService')).translationFileService;
+          const section = `${oldBlock.blockType}_${id}`;
+          const frMeta = await translationFileService.getSectionMetadata(section, 'fr');
+          const esMeta = await translationFileService.getSectionMetadata(section, 'es');
+          
+          // Update the validatedData with synced translations
+          validatedData.translations = updatedTranslations;
+          validatedData.translationsMeta = {
+            fr: frMeta,
+            es: esMeta
+          };
+          
+          console.log(`✅ Synced translations from JSON to database for block ${id}`);
         } catch (error) {
           console.error(`⚠️ Block translation failed for ${oldBlock.blockType}:`, error);
         }
