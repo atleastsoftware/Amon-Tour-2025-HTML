@@ -5773,12 +5773,41 @@ Crawl-delay: 1`;
         return res.status(404).json({ message: "Form not found" });
       }
       
-      const { formTranslationService } = await import('./services/formTranslationService');
       const { autoTranslationService } = await import('./services/autoTranslationService');
       
-      // Extract translatable fields
-      const extractedFields = formTranslationService.extractTranslatableFields(form);
-      const englishTranslations = extractedFields;
+      // Extract translatable fields manually
+      const englishTranslations: Record<string, string> = {};
+      englishTranslations['title'] = form.title;
+      if (form.subtitle) englishTranslations['subtitle'] = form.subtitle;
+      if (form.description) englishTranslations['description'] = form.description;
+      
+      const fields = form.fields as any[];
+      fields.forEach((field, index) => {
+        const prefix = `field_${index}_`;
+        englishTranslations[`${prefix}label`] = field.label;
+        if (field.placeholder) {
+          englishTranslations[`${prefix}placeholder`] = field.placeholder;
+        }
+        if (field.options && field.options.length > 0) {
+          field.options.forEach((option: string, optionIndex: number) => {
+            englishTranslations[`${prefix}option_${optionIndex}`] = option;
+          });
+        }
+      });
+      
+      const settings = form.settings as any;
+      if (settings.submitButtonText) {
+        englishTranslations['submit_button_text'] = settings.submitButtonText;
+      }
+      if (settings.successMessage) {
+        englishTranslations['success_message'] = settings.successMessage;
+      }
+      if (settings.errorMessage) {
+        englishTranslations['error_message'] = settings.errorMessage;
+      }
+      if (settings.whatsappButtonText) {
+        englishTranslations['whatsapp_button_text'] = settings.whatsappButtonText;
+      }
       
       const currentTranslations = form.translations || { en: {}, fr: {}, es: {} };
       const currentMeta = form.translationsMeta || { fr: {}, es: {} };
