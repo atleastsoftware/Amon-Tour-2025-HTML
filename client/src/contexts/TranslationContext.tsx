@@ -80,8 +80,18 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
       setCurrentLanguage(language);
       document.documentElement.lang = language;
       
+      // Save to localStorage for admin UI to detect
+      localStorage.setItem('preferred-language', language);
+      
       // Load translations instantly from static files
       await translateContent(language);
+      
+      // Dispatch custom event to notify admin UI components
+      console.log('📢 Dispatching admin-language-changed event with language:', language);
+      const event = new CustomEvent('admin-language-changed', { 
+        detail: { language } 
+      });
+      window.dispatchEvent(event);
       
       console.log('✅ Language changed successfully to:', language);
     } catch (error) {
