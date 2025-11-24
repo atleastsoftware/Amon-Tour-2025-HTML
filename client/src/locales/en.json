@@ -485,6 +485,329 @@
     "title": "new test text number two",
     "description": "little test number two"
   },
+  "admin": {
+    "login": {
+      "title": "Administration Login",
+      "subtitle": "Access the management dashboard",
+      "username": "Username",
+      "password": "Password",
+      "loginButton": "Log in",
+      "footer": "Access reserved for administrators only",
+      "success": {
+        "title": "Login successful",
+        "description": "Redirecting to dashboard..."
+      },
+      "errors": {
+        "required": "Please fill in all fields",
+        "invalid": "Invalid credentials"
+      }
+    },
+    "dashboard": {
+      "title": "Administration",
+      "subtitle": "Centralized management dashboard",
+      "logout": "Logout",
+      "sections": {
+        "customTours": {
+          "title": "Custom tour requests",
+          "description": "Manage custom tour requests"
+        },
+        "krabiCelebration": {
+          "title": "Krabi Celebration",
+          "description": "Special event requests"
+        },
+        "partnership": {
+          "title": "Partnership requests",
+          "description": "Collaboration proposals"
+        },
+        "groups": {
+          "title": "Groups & Corporate",
+          "description": "Group and corporate requests"
+        },
+        "blog": {
+          "title": "Blog management",
+          "description": "Create and edit articles"
+        },
+        "newsletter": {
+          "title": "Newsletter",
+          "description": "Manage newsletter subscriptions"
+        },
+        "tourCards": {
+          "title": "Tour cards",
+          "description": "Create and manage tour cards"
+        },
+        "messages": {
+          "title": "Contact messages",
+          "description": "View and respond to messages"
+        },
+        "settings": {
+          "title": "Settings",
+          "description": "Configuration and preferences"
+        }
+      }
+    },
+    "customTours": {
+      "title": "Custom Tour Requests",
+      "backToAdmin": "Back to Admin",
+      "exportCSV": "Export CSV",
+      "searchPlaceholder": "Search by name or email...",
+      "filterByStatus": "Filter by status",
+      "allStatus": "All Status",
+      "statusNew": "New",
+      "statusInProgress": "In Progress",
+      "statusArchived": "Archived",
+      "requestsCount": "Tour Requests ({count})",
+      "loadingRequests": "Loading requests...",
+      "noRequests": "No requests found.",
+      "tableHeaders": {
+        "name": "Name",
+        "contact": "Contact",
+        "travelers": "Travelers",
+        "datesDuration": "Dates/Duration",
+        "status": "Status",
+        "date": "Date",
+        "actions": "Actions"
+      },
+      "dates": "Dates:",
+      "duration": "Duration:",
+      "notSpecified": "Not specified",
+      "days": "days",
+      "deleteConfirm": "Are you sure you want to delete this request?",
+      "requestDetails": "Request Details",
+      "fullName": "Full Name",
+      "email": "Email",
+      "phone": "Phone",
+      "adults": "Adults",
+      "kids": "Kids",
+      "tripDates": "Trip Dates",
+      "tripTiming": "Trip Timing",
+      "tripTypes": "Trip Types",
+      "noTripTypes": "No trip types selected",
+      "destinations": "Destinations",
+      "noDestinations": "No destinations selected",
+      "message": "Message",
+      "submitted": "Submitted",
+      "success": {
+        "statusUpdated": "Status updated successfully",
+        "requestDeleted": "Request deleted successfully",
+        "dataExported": "Data exported successfully"
+      },
+      "errors": {
+        "exportFailed": "Failed to export data"
+      }
+    },
+    "krabiCelebration": {
+      "title": "Krabi Celebration",
+      "subtitle": "Special event requests",
+      "unreadBadge": "{count} new",
+      "viewAll": "View all",
+      "unreadOnly": "Unread only",
+      "requestsReceived": "Requests received ({count})",
+      "noRequests": "No requests yet.",
+      "noUnreadRequests": "No unread requests.",
+      "tableHeaders": {
+        "status": "Status",
+        "name": "Name",
+        "celebrationType": "Celebration Type",
+        "guests": "Guests",
+        "date": "Date",
+        "receivedOn": "Received on",
+        "actions": "Actions"
+      },
+      "statusNew": "New",
+      "statusRead": "Read",
+      "peopleCount": "{count} people",
+      "dialogTitle": "Celebration Request Details",
+      "dialogDescription": "View all information about this special event request",
+      "fields": {
+        "contactName": "Contact Name",
+        "email": "Email",
+        "whatsapp": "WhatsApp",
+        "celebrationType": "Celebration Type",
+        "guests": "Number of Guests",
+        "date": "Event Date",
+        "budget": "Budget",
+        "description": "Description"
+      },
+      "notProvided": "Not provided",
+      "receivedOn": "Received on",
+      "replyByEmail": "Reply by email",
+      "markAsRead": "Mark as read",
+      "markAsReadSuccess": "Request marked as read",
+      "markAsReadError": "Failed to mark as read",
+      "deleteSuccess": "Request deleted successfully",
+      "deleteError": "Failed to delete request"
+    },
+    "partnershipRequests": {
+      "title": "Partnership Requests",
+      "subtitle": "Collaboration proposals",
+      "unreadBadge": "{count} new",
+      "viewAll": "View all",
+      "unreadOnly": "Unread only",
+      "requestsReceived": "Requests received ({count})",
+      "noRequests": "No requests yet.",
+      "noUnreadRequests": "No unread requests.",
+      "tableHeaders": {
+        "status": "Status",
+        "contact": "Contact",
+        "company": "Company",
+        "activityType": "Activity Type",
+        "website": "Website",
+        "receivedOn": "Received on",
+        "actions": "Actions"
+      },
+      "statusNew": "New",
+      "statusRead": "Read",
+      "dialogTitle": "Partnership Request Details",
+      "dialogDescription": "View all information about this partnership proposal",
+      "fields": {
+        "contactName": "Contact Name",
+        "email": "Email",
+        "companyName": "Company Name",
+        "partnershipType": "Partnership Type",
+        "phone": "Phone",
+        "website": "Website",
+        "projectDescription": "Project Description"
+      },
+      "notProvided": "Not provided",
+      "receivedOn": "Received on",
+      "replyByEmail": "Reply by email",
+      "markAsRead": "Mark as read",
+      "markAsReadSuccess": "Request marked as read",
+      "markAsReadError": "Failed to mark as read",
+      "deleteSuccess": "Request deleted successfully",
+      "deleteError": "Failed to delete request"
+    },
+    "groupRequests": {
+      "title": "Groups & Corporate",
+      "subtitle": "Group and corporate travel requests",
+      "unreadBadge": "{count} new",
+      "viewAll": "View all",
+      "unreadOnly": "Unread only",
+      "requestsReceived": "Requests received ({count})",
+      "noRequests": "No requests yet.",
+      "noUnreadRequests": "No unread requests.",
+      "tableHeaders": {
+        "status": "Status",
+        "contact": "Contact",
+        "company": "Company",
+        "participants": "Participants",
+        "travelDates": "Travel Dates",
+        "receivedOn": "Received on",
+        "actions": "Actions"
+      },
+      "statusNew": "New",
+      "statusRead": "Read",
+      "peopleCount": "{count} people",
+      "notSpecified": "Not specified",
+      "dialogTitle": "Group Travel Request Details",
+      "dialogDescription": "View all information about this group travel request",
+      "fields": {
+        "contactName": "Contact Name",
+        "email": "Email",
+        "company": "Company/Organization",
+        "phone": "Phone",
+        "participants": "Number of Participants",
+        "budget": "Budget",
+        "travelDates": "Travel Dates",
+        "specialRequirements": "Special Requirements"
+      },
+      "notProvided": "Not provided",
+      "receivedOn": "Received on",
+      "replyByEmail": "Reply by email",
+      "markAsRead": "Mark as read",
+      "markAsReadSuccess": "Request marked as read",
+      "markAsReadError": "Failed to mark as read",
+      "deleteSuccess": "Request deleted successfully",
+      "deleteError": "Failed to delete request"
+    },
+    "tourCard": {
+      "form": {
+        "title": "Create a tour card",
+        "nameLabel": "Tour / stay name *",
+        "namePlaceholder": "e.g. Krabi Island Hopping",
+        "descriptionLabel": "Description (optional)",
+        "descriptionPlaceholder": "Brief description of the tour...",
+        "priceLabel": "Price from *",
+        "pricePlaceholder": "0",
+        "currencyLabel": "Currency",
+        "typeLabel": "Card type *",
+        "tour": "Tour",
+        "tourSubtitle": "Guided excursions",
+        "experience": "Stay/Experience",
+        "experienceSubtitle": "Activities & Discoveries",
+        "customLinkLabel": "Custom link (Tour Ninja) *",
+        "customLinkPlaceholder": "https://...",
+        "locationTagsLabel": "Location Tags",
+        "locationTagsPlaceholder": "e.g. Krabi, Phi Phi...",
+        "addButton": "Add",
+        "photosLabel": "Photos (1 to 3) *",
+        "preview": "Preview",
+        "mainPhoto": "Main photo",
+        "clickToAdd": "Click to add",
+        "dragDrop": "or drag and drop",
+        "photosHelp": "PNG, JPG up to 10MB (1 to 3 photos)",
+        "photosRemaining": "{count} more photo(s) can be added",
+        "generate": "Create tour card",
+        "generating": "Creating...",
+        "autoFillTitle": "Title auto-filled",
+        "autoFillDescription": "The title was extracted from the URL",
+        "errors": {
+          "titleRequired": "Title is required",
+          "linkRequired": "Custom link is required",
+          "photosRequired": "At least one photo is required",
+          "uploadError": "Upload error",
+          "uploadErrorDescription": "Failed to upload one or more images",
+          "createErrorDescription": "Failed to create tour card"
+        },
+        "success": {
+          "created": "Tour card created",
+          "createdDescription": "The tour card has been successfully created"
+        }
+      }
+    },
+    "translationEditor": {
+      "title": "Block Translations Editor",
+      "subtitle": "Manage French and Spanish translations for all page blocks",
+      "loading": "Loading translations...",
+      "save": "Save translations",
+      "pageBlocks": "{pageName} - Blocks",
+      "noTextToTranslate": "No translatable text in this page",
+      "noTextInBlock": "This block contains no translatable text",
+      "tabs": {
+        "french": "French",
+        "spanish": "Spanish"
+      },
+      "originalText": "Original (English):",
+      "translationPlaceholder": {
+        "fr": "French translation...",
+        "es": "Spanish translation..."
+      },
+      "saveSuccess": {
+        "title": "Saved",
+        "description": "Translations saved successfully"
+      },
+      "saveError": {
+        "title": "Error",
+        "description": "Failed to save translations"
+      }
+    },
+    "common": {
+      "back": "Back",
+      "loading": "Loading...",
+      "success": "Success",
+      "error": "Error",
+      "delete": "Delete",
+      "edit": "Edit",
+      "save": "Save",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "actions": "Actions",
+      "viewDetails": "View details",
+      "new": "New",
+      "processing": "Processing...",
+      "noResults": "No results found"
+    }
+  },
   "_meta": {
     "hero_199": {
       "subtitle": {}

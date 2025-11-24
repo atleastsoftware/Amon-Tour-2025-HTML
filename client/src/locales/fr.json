@@ -481,6 +481,329 @@
     "item_8_label": "LINE ID",
     "item_8_value": "LINE ID : amontour"
   },
+  "admin": {
+    "login": {
+      "title": "Connexion Administration",
+      "subtitle": "Accédez au tableau de bord de gestion",
+      "username": "Nom d'utilisateur",
+      "password": "Mot de passe",
+      "loginButton": "Se connecter",
+      "footer": "Accès réservé aux administrateurs uniquement",
+      "success": {
+        "title": "Connexion réussie",
+        "description": "Redirection vers le tableau de bord..."
+      },
+      "errors": {
+        "required": "Veuillez remplir tous les champs",
+        "invalid": "Identifiants invalides"
+      }
+    },
+    "dashboard": {
+      "title": "Administration",
+      "subtitle": "Panneau de gestion centralisé",
+      "logout": "Déconnexion",
+      "sections": {
+        "customTours": {
+          "title": "Demandes de circuits personnalisés",
+          "description": "Gérer les demandes de circuits personnalisés"
+        },
+        "krabiCelebration": {
+          "title": "Krabi Celebration",
+          "description": "Demandes d'événements spéciaux"
+        },
+        "partnership": {
+          "title": "Demandes de partenariat",
+          "description": "Propositions de collaboration"
+        },
+        "groups": {
+          "title": "Groupes & Entreprises",
+          "description": "Demandes de groupes et d'entreprises"
+        },
+        "blog": {
+          "title": "Gestion du blog",
+          "description": "Créer et modifier des articles"
+        },
+        "newsletter": {
+          "title": "Newsletter",
+          "description": "Gérer les abonnements à la newsletter"
+        },
+        "tourCards": {
+          "title": "Fiches circuits",
+          "description": "Créer et gérer les fiches circuits"
+        },
+        "messages": {
+          "title": "Messages de contact",
+          "description": "Voir et répondre aux messages"
+        },
+        "settings": {
+          "title": "Paramètres",
+          "description": "Configuration et préférences"
+        }
+      }
+    },
+    "customTours": {
+      "title": "Demandes de circuits personnalisés",
+      "backToAdmin": "Retour à l'administration",
+      "exportCSV": "Exporter en CSV",
+      "searchPlaceholder": "Rechercher par nom ou e-mail...",
+      "filterByStatus": "Filtrer par statut",
+      "allStatus": "Tous les statuts",
+      "statusNew": "Nouveau",
+      "statusInProgress": "En cours",
+      "statusArchived": "Archivé",
+      "requestsCount": "Demandes de circuits ({count})",
+      "loadingRequests": "Chargement des demandes...",
+      "noRequests": "Aucune demande trouvée.",
+      "tableHeaders": {
+        "name": "Nom",
+        "contact": "Contact",
+        "travelers": "Voyageurs",
+        "datesDuration": "Dates/Durée",
+        "status": "Statut",
+        "date": "Date",
+        "actions": "Actions"
+      },
+      "dates": "Dates :",
+      "duration": "Durée :",
+      "notSpecified": "Non spécifié",
+      "days": "jours",
+      "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cette demande ?",
+      "requestDetails": "Détails de la demande",
+      "fullName": "Nom complet",
+      "email": "E-mail",
+      "phone": "Téléphone",
+      "adults": "Adultes",
+      "kids": "Enfants",
+      "tripDates": "Dates du voyage",
+      "tripTiming": "Timing du voyage",
+      "tripTypes": "Types de voyage",
+      "noTripTypes": "Aucun type de voyage sélectionné",
+      "destinations": "Destinations",
+      "noDestinations": "Aucune destination sélectionnée",
+      "message": "Message",
+      "submitted": "Soumis",
+      "success": {
+        "statusUpdated": "Statut mis à jour avec succès",
+        "requestDeleted": "Demande supprimée avec succès",
+        "dataExported": "Données exportées avec succès"
+      },
+      "errors": {
+        "exportFailed": "Échec de l'exportation des données"
+      }
+    },
+    "krabiCelebration": {
+      "title": "Krabi Celebration",
+      "subtitle": "Demandes d'événements spéciaux",
+      "unreadBadge": "{count} nouveau(x)",
+      "viewAll": "Tout voir",
+      "unreadOnly": "Non lus uniquement",
+      "requestsReceived": "Demandes reçues ({count})",
+      "noRequests": "Aucune demande pour le moment.",
+      "noUnreadRequests": "Aucune demande non lue.",
+      "tableHeaders": {
+        "status": "Statut",
+        "name": "Nom",
+        "celebrationType": "Type de célébration",
+        "guests": "Invités",
+        "date": "Date",
+        "receivedOn": "Reçu le",
+        "actions": "Actions"
+      },
+      "statusNew": "Nouveau",
+      "statusRead": "Lu",
+      "peopleCount": "{count} personne(s)",
+      "dialogTitle": "Détails de la demande de célébration",
+      "dialogDescription": "Voir toutes les informations sur cette demande d'événement spécial",
+      "fields": {
+        "contactName": "Nom du contact",
+        "email": "E-mail",
+        "whatsapp": "WhatsApp",
+        "celebrationType": "Type de célébration",
+        "guests": "Nombre d'invités",
+        "date": "Date de l'événement",
+        "budget": "Budget",
+        "description": "Description"
+      },
+      "notProvided": "Non fourni",
+      "receivedOn": "Reçu le",
+      "replyByEmail": "Répondre par e-mail",
+      "markAsRead": "Marquer comme lu",
+      "markAsReadSuccess": "Demande marquée comme lue",
+      "markAsReadError": "Échec du marquage comme lu",
+      "deleteSuccess": "Demande supprimée avec succès",
+      "deleteError": "Échec de la suppression de la demande"
+    },
+    "partnershipRequests": {
+      "title": "Demandes de partenariat",
+      "subtitle": "Propositions de collaboration",
+      "unreadBadge": "{count} nouveau(x)",
+      "viewAll": "Tout voir",
+      "unreadOnly": "Non lus uniquement",
+      "requestsReceived": "Demandes reçues ({count})",
+      "noRequests": "Aucune demande pour le moment.",
+      "noUnreadRequests": "Aucune demande non lue.",
+      "tableHeaders": {
+        "status": "Statut",
+        "contact": "Contact",
+        "company": "Entreprise",
+        "activityType": "Type d'activité",
+        "website": "Site web",
+        "receivedOn": "Reçu le",
+        "actions": "Actions"
+      },
+      "statusNew": "Nouveau",
+      "statusRead": "Lu",
+      "dialogTitle": "Détails de la demande de partenariat",
+      "dialogDescription": "Voir toutes les informations sur cette proposition de partenariat",
+      "fields": {
+        "contactName": "Nom du contact",
+        "email": "E-mail",
+        "companyName": "Nom de l'entreprise",
+        "partnershipType": "Type de partenariat",
+        "phone": "Téléphone",
+        "website": "Site web",
+        "projectDescription": "Description du projet"
+      },
+      "notProvided": "Non fourni",
+      "receivedOn": "Reçu le",
+      "replyByEmail": "Répondre par e-mail",
+      "markAsRead": "Marquer comme lu",
+      "markAsReadSuccess": "Demande marquée comme lue",
+      "markAsReadError": "Échec du marquage comme lu",
+      "deleteSuccess": "Demande supprimée avec succès",
+      "deleteError": "Échec de la suppression de la demande"
+    },
+    "groupRequests": {
+      "title": "Groupes & Entreprises",
+      "subtitle": "Demandes de voyage de groupe et d'entreprise",
+      "unreadBadge": "{count} nouveau(x)",
+      "viewAll": "Tout voir",
+      "unreadOnly": "Non lus uniquement",
+      "requestsReceived": "Demandes reçues ({count})",
+      "noRequests": "Aucune demande pour le moment.",
+      "noUnreadRequests": "Aucune demande non lue.",
+      "tableHeaders": {
+        "status": "Statut",
+        "contact": "Contact",
+        "company": "Entreprise",
+        "participants": "Participants",
+        "travelDates": "Dates de voyage",
+        "receivedOn": "Reçu le",
+        "actions": "Actions"
+      },
+      "statusNew": "Nouveau",
+      "statusRead": "Lu",
+      "peopleCount": "{count} personne(s)",
+      "notSpecified": "Non spécifié",
+      "dialogTitle": "Détails de la demande de voyage de groupe",
+      "dialogDescription": "Voir toutes les informations sur cette demande de voyage de groupe",
+      "fields": {
+        "contactName": "Nom du contact",
+        "email": "E-mail",
+        "company": "Entreprise/Organisation",
+        "phone": "Téléphone",
+        "participants": "Nombre de participants",
+        "budget": "Budget",
+        "travelDates": "Dates de voyage",
+        "specialRequirements": "Exigences spéciales"
+      },
+      "notProvided": "Non fourni",
+      "receivedOn": "Reçu le",
+      "replyByEmail": "Répondre par e-mail",
+      "markAsRead": "Marquer comme lu",
+      "markAsReadSuccess": "Demande marquée comme lue",
+      "markAsReadError": "Échec du marquage comme lu",
+      "deleteSuccess": "Demande supprimée avec succès",
+      "deleteError": "Échec de la suppression de la demande"
+    },
+    "tourCard": {
+      "form": {
+        "title": "Créer une fiche circuit",
+        "nameLabel": "Nom du circuit / séjour *",
+        "namePlaceholder": "ex. Excursion aux îles de Krabi",
+        "descriptionLabel": "Description (optionnel)",
+        "descriptionPlaceholder": "Brève description du circuit...",
+        "priceLabel": "Prix à partir de *",
+        "pricePlaceholder": "0",
+        "currencyLabel": "Devise",
+        "typeLabel": "Type de fiche *",
+        "tour": "Circuit",
+        "tourSubtitle": "Excursions guidées",
+        "experience": "Séjour/Expérience",
+        "experienceSubtitle": "Activités & Découvertes",
+        "customLinkLabel": "Lien personnalisé (Tour Ninja) *",
+        "customLinkPlaceholder": "https://...",
+        "locationTagsLabel": "Tags de localisation",
+        "locationTagsPlaceholder": "ex. Krabi, Phi Phi...",
+        "addButton": "Ajouter",
+        "photosLabel": "Photos (1 à 3) *",
+        "preview": "Aperçu",
+        "mainPhoto": "Photo principale",
+        "clickToAdd": "Cliquer pour ajouter",
+        "dragDrop": "ou glisser-déposer",
+        "photosHelp": "PNG, JPG jusqu'à 10 Mo (1 à 3 photos)",
+        "photosRemaining": "{count} photo(s) supplémentaire(s) peuvent être ajoutées",
+        "generate": "Créer la fiche circuit",
+        "generating": "Création en cours...",
+        "autoFillTitle": "Titre auto-rempli",
+        "autoFillDescription": "Le titre a été extrait de l'URL",
+        "errors": {
+          "titleRequired": "Le titre est requis",
+          "linkRequired": "Le lien personnalisé est requis",
+          "photosRequired": "Au moins une photo est requise",
+          "uploadError": "Erreur de téléchargement",
+          "uploadErrorDescription": "Échec du téléchargement d'une ou plusieurs images",
+          "createErrorDescription": "Échec de la création de la fiche circuit"
+        },
+        "success": {
+          "created": "Fiche circuit créée",
+          "createdDescription": "La fiche circuit a été créée avec succès"
+        }
+      }
+    },
+    "translationEditor": {
+      "title": "Éditeur de traductions de blocs",
+      "subtitle": "Gérer les traductions françaises et espagnoles pour tous les blocs de page",
+      "loading": "Chargement des traductions...",
+      "save": "Enregistrer les traductions",
+      "pageBlocks": "{pageName} - Blocs",
+      "noTextToTranslate": "Aucun texte à traduire dans cette page",
+      "noTextInBlock": "Ce bloc ne contient aucun texte à traduire",
+      "tabs": {
+        "french": "Français",
+        "spanish": "Espagnol"
+      },
+      "originalText": "Original (Anglais) :",
+      "translationPlaceholder": {
+        "fr": "Traduction française...",
+        "es": "Traduction espagnole..."
+      },
+      "saveSuccess": {
+        "title": "Enregistré",
+        "description": "Traductions enregistrées avec succès"
+      },
+      "saveError": {
+        "title": "Erreur",
+        "description": "Échec de l'enregistrement des traductions"
+      }
+    },
+    "common": {
+      "back": "Retour",
+      "loading": "Chargement...",
+      "success": "Succès",
+      "error": "Erreur",
+      "delete": "Supprimer",
+      "edit": "Modifier",
+      "save": "Enregistrer",
+      "cancel": "Annuler",
+      "confirm": "Confirmer",
+      "actions": "Actions",
+      "viewDetails": "Voir les détails",
+      "new": "Nouveau",
+      "processing": "Traitement en cours...",
+      "noResults": "Aucun résultat trouvé"
+    }
+  },
   "_meta": {
     "text_pricing_373": {
       "title": {
