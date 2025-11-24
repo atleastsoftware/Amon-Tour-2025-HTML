@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Upload, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
-import { useUITranslation } from "@/hooks/useUITranslation";
+import { useTranslationSection } from "@/contexts/TranslationContext";
 
 interface TourCardData {
   title: string;
@@ -25,7 +25,7 @@ interface TourCardFormProps {
 }
 
 export default function TourCardForm({ onSuccess }: TourCardFormProps) {
-  const { t } = useUITranslation();
+  const t = useTranslationSection('admin');
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<TourCardData>({
@@ -34,7 +34,7 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
     price: 0,
     currency: "THB",
     customLink: "",
-    type: "tour", // Définir "tour" comme valeur par défaut au lieu de "experience"
+    type: "tour",
     images: [],
     tags: []
   });
@@ -47,55 +47,43 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
   ) => {
     const { name, value } = e.target;
     
-    // Si le champ modifié est le lien personnalisé, on tente d'extraire un titre à partir de l'URL
     if (name === "customLink" && value) {
       try {
-        // Extraction du dernier segment de l'URL (après le dernier slash)
         let urlSlug = value.trim();
         
-        // Si le lien se termine par un slash, on le supprime
         if (urlSlug.endsWith('/')) {
           urlSlug = urlSlug.slice(0, -1);
         }
         
-        // Gestion des différents formats d'URL (avec ou sans protocole)
         if (!urlSlug.includes('://') && !urlSlug.startsWith('/')) {
           urlSlug = 'https://' + urlSlug;
         }
         
-        // Tenter de parser l'URL
         let pathSegments;
         try {
           const url = new URL(urlSlug);
           pathSegments = url.pathname.split('/').filter(segment => segment);
         } catch (e) {
-          // Si l'URL est invalide, on utilise simplement la méthode de découpage par slash
           pathSegments = urlSlug.split('/').filter(segment => segment);
         }
         
-        // Prendre le dernier segment du chemin
         const lastSegment = pathSegments.length > 0 ? pathSegments[pathSegments.length - 1] : '';
         
         if (lastSegment) {
-          // Convertir les tirets et underscore en espaces et mettre en majuscule la première lettre de chaque mot
           const title = lastSegment
-            .replace(/-|_/g, ' ')  // Remplacer les tirets et underscore par des espaces
+            .replace(/-|_/g, ' ')
             .split(' ')
             .map(word => {
-              // Ignorer les mots vides
               if (!word) return '';
               return word.charAt(0).toUpperCase() + word.slice(1);
             })
-            .filter(word => word)  // Filtrer les mots vides
+            .filter(word => word)
             .join(' ');
           
-          // Mise à jour du formulaire avec le nouveau titre extrait
-          // On remplace toujours le titre, même s'il n'est pas vide
           if (title) {
-            // Notifier l'utilisateur que le titre a été rempli automatiquement
             toast({
-              title: t('tourCard.form.autoFillTitle'),
-              description: t('tourCard.form.autoFillDescription'),
+              title: t.tourCard?.form?.autoFillTitle || "Title auto-filled",
+              description: t.tourCard?.form?.autoFillDescription || "The title was extracted from the URL",
               duration: 3000
             });
             
@@ -108,11 +96,10 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
           }
         }
       } catch (error) {
-        console.error("Erreur lors de l'extraction du titre depuis l'URL:", error);
+        console.error("Error extracting title from URL:", error);
       }
     }
     
-    // Comportement normal pour les autres champs
     setFormData({
       ...formData,
       [name]: name === "price" ? parseFloat(value) || 0 : value
@@ -189,8 +176,8 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
     
     if (!formData.title) {
       toast({
-        title: t('tourCard.form.errors.titleRequired'),
-        description: t('tourCard.form.errors.titleRequired'),
+        title: t.tourCard?.form?.errors?.titleRequired || "Title is required",
+        description: t.tourCard?.form?.errors?.titleRequired || "Title is required",
         variant: "destructive"
       });
       return;
@@ -198,8 +185,8 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
     
     if (!formData.customLink) {
       toast({
-        title: t('tourCard.form.errors.titleRequired'),
-        description: t('tourCard.form.errors.linkRequired'),
+        title: t.tourCard?.form?.errors?.linkRequired || "Link is required",
+        description: t.tourCard?.form?.errors?.linkRequired || "Custom link is required",
         variant: "destructive"
       });
       return;
@@ -207,8 +194,8 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
     
     if (selectedFiles.length === 0) {
       toast({
-        title: t('tourCard.form.errors.titleRequired'),
-        description: t('tourCard.form.errors.photosRequired'),
+        title: t.tourCard?.form?.errors?.photosRequired || "Photos required",
+        description: t.tourCard?.form?.errors?.photosRequired || "At least one photo is required",
         variant: "destructive"
       });
       return;
@@ -243,8 +230,8 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
         } catch (uploadError) {
           console.error("Error uploading image:", uploadError);
           toast({
-            title: t('tourCard.form.errors.uploadError'),
-            description: t('tourCard.form.errors.uploadErrorDescription'),
+            title: t.tourCard?.form?.errors?.uploadError || "Upload error",
+            description: t.tourCard?.form?.errors?.uploadErrorDescription || "Failed to upload one or more images",
             variant: "destructive"
           });
           setIsLoading(false);
@@ -279,8 +266,8 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
         }
         
         toast({
-          title: t('tourCard.form.success.created'),
-          description: t('tourCard.form.success.createdDescription')
+          title: t.tourCard?.form?.success?.created || "Tour card created",
+          description: t.tourCard?.form?.success?.createdDescription || "The tour card has been successfully created"
         });
         
         // Reset form
@@ -290,7 +277,7 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
           price: 0,
           currency: "THB",
           customLink: "",
-          type: "experience",
+          type: "tour",
           images: [],
           tags: []
         });
@@ -305,7 +292,7 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
           price: typeof createdCard.price === 'number' ? createdCard.price : 0,
           currency: createdCard.currency || "THB",
           customLink: createdCard.customLink || "",
-          type: createdCard.type || "experience",
+          type: createdCard.type || "tour",
           images: Array.isArray(createdCard.images) ? createdCard.images : [],
           tags: Array.isArray(createdCard.tags) ? createdCard.tags : []
         };
@@ -314,8 +301,8 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
       } catch (createError) {
         console.error("Error creating tour card:", createError);
         toast({
-          title: t('tourCard.form.errors.titleRequired'),
-          description: t('tourCard.form.errors.createErrorDescription'),
+          title: t.tourCard?.form?.errors?.createErrorDescription || "Creation error",
+          description: t.tourCard?.form?.errors?.createErrorDescription || "Failed to create tour card",
           variant: "destructive"
         });
       }
@@ -323,8 +310,8 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
     } catch (error) {
       console.error("Error creating tour card:", error);
       toast({
-        title: t('tourCard.form.errors.titleRequired'),
-        description: t('tourCard.form.errors.createErrorDescription'),
+        title: t.tourCard?.form?.errors?.createErrorDescription || "Creation error",
+        description: t.tourCard?.form?.errors?.createErrorDescription || "Failed to create tour card",
         variant: "destructive"
       });
     } finally {
@@ -333,39 +320,41 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
   };
 
   return (
-    <Card>
+    <Card data-testid="tour-card-form">
       <CardHeader>
-        <CardTitle>Créer une fiche de tour</CardTitle>
+        <CardTitle>{t.tourCard?.form?.title || "Create a tour card"}</CardTitle>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4" data-testid="form-tour-card">
           <div>
-            <Label htmlFor="title">Nom du séjour / tour *</Label>
+            <Label htmlFor="title">{t.tourCard?.form?.nameLabel || "Stay/Tour name *"}</Label>
             <Input 
               id="title"
               name="title"
               value={formData.title}
               onChange={handleInputChange}
-              placeholder={t('tourCard.form.namePlaceholder')}
+              placeholder={t.tourCard?.form?.namePlaceholder || "Enter the name..."}
               required
+              data-testid="input-title"
             />
           </div>
           
           <div>
-            <Label htmlFor="description">Description (optionnelle)</Label>
+            <Label htmlFor="description">{t.tourCard?.form?.descriptionLabel || "Description (optional)"}</Label>
             <Textarea
               id="description"
               name="description"
               value={formData.description}
               onChange={handleInputChange}
-              placeholder={t('tourCard.form.descriptionPlaceholder')}
+              placeholder={t.tourCard?.form?.descriptionPlaceholder || "Brief description..."}
               rows={3}
+              data-testid="textarea-description"
             />
           </div>
           
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="price">Prix à partir de *</Label>
+              <Label htmlFor="price">{t.tourCard?.form?.priceLabel || "Price from *"}</Label>
               <Input
                 id="price"
                 name="price"
@@ -373,19 +362,21 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
                 min={0}
                 value={formData.price || ""}
                 onChange={handleInputChange}
-                placeholder={t('tourCard.form.pricePlaceholder')}
+                placeholder={t.tourCard?.form?.pricePlaceholder || "0"}
                 required
+                data-testid="input-price"
               />
             </div>
             
             <div>
-              <Label htmlFor="currency">Devise</Label>
+              <Label htmlFor="currency">{t.tourCard?.form?.currencyLabel || "Currency"}</Label>
               <select
                 id="currency"
                 name="currency"
                 value={formData.currency}
                 onChange={handleInputChange}
                 className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                data-testid="select-currency"
               >
                 <option value="THB">THB</option>
                 <option value="EUR">EUR</option>
@@ -395,7 +386,7 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
           </div>
           
           <div>
-            <Label htmlFor="type">Type de fiche *</Label>
+            <Label htmlFor="type">{t.tourCard?.form?.typeLabel || "Card type *"}</Label>
             <div className="grid grid-cols-2 gap-4 mt-2">
               <button
                 type="button"
@@ -403,15 +394,16 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
                 className={`p-4 border rounded-md flex flex-col items-center justify-center gap-2 ${formData.type === "tour" 
                   ? "border-primary bg-primary/10" 
                   : "border-gray-200 hover:border-gray-300"}`}
+                data-testid="button-type-tour"
               >
                 <div className={`text-2xl ${formData.type === "tour" ? "text-primary" : "text-gray-500"}`}>
                   🚌
                 </div>
                 <span className={`font-medium ${formData.type === "tour" ? "text-primary" : "text-gray-700"}`}>
-                  Tour
+                  {t.tourCard?.form?.tour || "Tour"}
                 </span>
                 <span className="text-xs text-gray-500">
-                  Excursions guidées
+                  {t.tourCard?.form?.tourSubtitle || "Guided excursions"}
                 </span>
               </button>
               
@@ -421,34 +413,36 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
                 className={`p-4 border rounded-md flex flex-col items-center justify-center gap-2 ${formData.type === "experience" 
                   ? "border-primary bg-primary/10" 
                   : "border-gray-200 hover:border-gray-300"}`}
+                data-testid="button-type-experience"
               >
                 <div className={`text-2xl ${formData.type === "experience" ? "text-primary" : "text-gray-500"}`}>
                   ✨
                 </div>
                 <span className={`font-medium ${formData.type === "experience" ? "text-primary" : "text-gray-700"}`}>
-                  Séjour
+                  {t.tourCard?.form?.experience || "Stay/Experience"}
                 </span>
                 <span className="text-xs text-gray-500">
-                  Activités & Découvertes
+                  {t.tourCard?.form?.experienceSubtitle || "Activities & Discoveries"}
                 </span>
               </button>
             </div>
           </div>
           
           <div>
-            <Label htmlFor="customLink">Lien personnalisé (Tour Ninja) *</Label>
+            <Label htmlFor="customLink">{t.tourCard?.form?.customLinkLabel || "Custom link (Tour Ninja) *"}</Label>
             <Input
               id="customLink"
               name="customLink"
               value={formData.customLink}
               onChange={handleInputChange}
-              placeholder={t('tourCard.form.customLinkPlaceholder')}
+              placeholder={t.tourCard?.form?.customLinkPlaceholder || "https://..."}
               required
+              data-testid="input-custom-link"
             />
           </div>
           
           <div>
-            <Label htmlFor="tags">Location Tags</Label>
+            <Label htmlFor="tags">{t.tourCard?.form?.locationTagsLabel || "Location Tags"}</Label>
             <div className="flex items-start gap-2">
               <div className="flex-grow">
                 <Input
@@ -456,30 +450,34 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
                   value={tagInput}
                   onChange={handleTagInputChange}
                   onKeyDown={handleTagKeyDown}
-                  placeholder={t('tourCard.form.locationTagsPlaceholder')}
+                  placeholder={t.tourCard?.form?.locationTagsPlaceholder || "e.g. Krabi, Phi Phi..."}
+                  data-testid="input-tag"
                 />
               </div>
               <Button 
                 type="button" 
                 onClick={addTag}
                 variant="outline"
+                data-testid="button-add-tag"
               >
-                Add
+                {t.tourCard?.form?.addButton || "Add"}
               </Button>
             </div>
             
             {formData.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 mt-2">
+              <div className="flex flex-wrap gap-2 mt-2" data-testid="tags-list">
                 {formData.tags.map((tag, index) => (
                   <div 
                     key={index} 
                     className="flex items-center gap-1 px-2 py-1 bg-primary/10 text-primary rounded-md"
+                    data-testid={`tag-${index}`}
                   >
                     <span>{tag}</span>
                     <button
                       type="button"
                       onClick={() => removeTag(tag)}
                       className="text-primary hover:text-primary/80"
+                      data-testid={`button-remove-tag-${index}`}
                     >
                       <X className="h-3 w-3" />
                     </button>
@@ -490,23 +488,24 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
           </div>
           
           <div>
-            <Label>Photos (1 à 3) *</Label>
+            <Label>{t.tourCard?.form?.photosLabel || "Photos (1 to 3) *"}</Label>
             <div className="mt-2 space-y-4">
               {previewUrls.length > 0 && (
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-3 gap-4" data-testid="photos-preview">
                   {previewUrls.map((url, index) => (
-                    <div key={index} className="relative aspect-video rounded-md overflow-hidden border">
-                      <img src={url} alt={`Aperçu ${index + 1}`} className="w-full h-full object-cover" />
+                    <div key={index} className="relative aspect-video rounded-md overflow-hidden border" data-testid={`photo-preview-${index}`}>
+                      <img src={url} alt={`${t.tourCard?.form?.preview || "Preview"} ${index + 1}`} className="w-full h-full object-cover" />
                       <button
                         type="button"
                         onClick={() => removeImage(index)}
                         className="absolute top-2 right-2 bg-white bg-opacity-80 rounded-full p-1 hover:bg-opacity-100 transition-all"
+                        data-testid={`button-remove-photo-${index}`}
                       >
                         <X className="h-4 w-4 text-[hsl(var(--destructive))]" />
                       </button>
                       {index === 0 && (
                         <span className="absolute bottom-2 left-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">
-                          Photo principale
+                          {t.tourCard?.form?.mainPhoto || "Main photo"}
                         </span>
                       )}
                     </div>
@@ -519,16 +518,17 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
                   <label
                     htmlFor="dropzone-file"
                     className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100"
+                    data-testid="label-upload-photos"
                   >
                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
                       <Upload className="w-8 h-8 mb-3 text-gray-400" />
                       <p className="mb-2 text-sm text-gray-500">
-                        <span className="font-semibold">Cliquez pour ajouter</span> ou glissez-déposez
+                        <span className="font-semibold">{t.tourCard?.form?.clickToAdd || "Click to add"}</span> {t.tourCard?.form?.dragDrop || "or drag and drop"}
                       </p>
                       <p className="text-xs text-gray-500">
                         {previewUrls.length === 0 
-                          ? t('tourCard.form.photosHelp') 
-                          : t('tourCard.form.photosRemaining', { count: 3 - previewUrls.length })}
+                          ? (t.tourCard?.form?.photosHelp || "PNG, JPG up to 10MB (1 to 3 photos)")
+                          : (t.tourCard?.form?.photosRemaining?.replace('{count}', String(3 - previewUrls.length)) || `${3 - previewUrls.length} more photo(s) can be added`)}
                       </p>
                     </div>
                     <input
@@ -539,6 +539,7 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
                       accept="image/*"
                       multiple={previewUrls.length < 2}
                       onChange={handleFileChange}
+                      data-testid="input-upload-photos"
                     />
                   </label>
                 </div>
@@ -546,8 +547,8 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
             </div>
           </div>
           
-          <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading ? t('tourCard.form.generating') : t('tourCard.form.generate')}
+          <Button type="submit" className="w-full" disabled={isLoading} data-testid="button-submit">
+            {isLoading ? (t.tourCard?.form?.generating || "Creating...") : (t.tourCard?.form?.generate || "Create tour card")}
           </Button>
         </form>
       </CardContent>

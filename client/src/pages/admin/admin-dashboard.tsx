@@ -18,12 +18,14 @@ import {
   PartyPopper,
   Handshake,
   UsersIcon,
-  Newspaper,
+  Newsletter,
   Settings,
   LogOut 
 } from "lucide-react";
+import { useTranslationSection } from "@/contexts/TranslationContext";
 
 export default function AdminDashboard() {
+  const admin = useTranslationSection('admin');
   const { isAuthenticated, isLoading: authLoading } = useIsAuthenticated();
   const [, setLocation] = useLocation();
   const logout = useLogout();
@@ -69,72 +71,81 @@ export default function AdminDashboard() {
 
   const adminSections = [
     {
-      title: "Demandes personnalisées",
-      description: "Gérer les demandes de tours sur mesure",
+      title: admin.dashboard?.sections?.customTours?.title || "Custom tour requests",
+      description: admin.dashboard?.sections?.customTours?.description || "Manage custom tour requests",
       icon: <Calendar className="h-6 w-6" />,
       path: "/admin/custom-tours",
       color: "from-primary to-primary/80",
-      unreadCount: customTourUnread?.length || 0
+      unreadCount: customTourUnread?.length || 0,
+      testId: "card-custom-tours"
     },
     {
-      title: "Krabi Celebration",
-      description: "Demandes d'événements spéciaux",
+      title: admin.dashboard?.sections?.krabiCelebration?.title || "Krabi Celebration",
+      description: admin.dashboard?.sections?.krabiCelebration?.description || "Special event requests",
       icon: <PartyPopper className="h-6 w-6" />,
       path: "/admin/krabi-celebration",
       color: "from-secondary to-secondary/80",
-      unreadCount: krabiUnread?.length || 0
+      unreadCount: krabiUnread?.length || 0,
+      testId: "card-krabi-celebration"
     },
     {
-      title: "Demandes de partenariat",
-      description: "Propositions de collaboration",
+      title: admin.dashboard?.sections?.partnershipRequests?.title || "Partnership requests",
+      description: admin.dashboard?.sections?.partnershipRequests?.description || "Collaboration proposals",
       icon: <Handshake className="h-6 w-6" />,
       path: "/admin/partnership-requests",
       color: "from-primary/70 to-primary",
-      unreadCount: partnershipUnread?.length || 0
+      unreadCount: partnershipUnread?.length || 0,
+      testId: "card-partnership-requests"
     },
     {
-      title: "Groupes & Entreprises",
-      description: "Demandes de groupes et corporates",
+      title: admin.dashboard?.sections?.groupRequests?.title || "Groups & Companies",
+      description: admin.dashboard?.sections?.groupRequests?.description || "Group and corporate requests",
       icon: <UsersIcon className="h-6 w-6" />,
       path: "/admin/group-requests",
       color: "from-warning to-warning/80",
-      unreadCount: groupUnread?.length || 0
+      unreadCount: groupUnread?.length || 0,
+      testId: "card-group-requests"
     },
     {
-      title: "Gestion du blog",
-      description: "Créer et modifier les articles",
+      title: admin.dashboard?.sections?.blogManagement?.title || "Blog management",
+      description: admin.dashboard?.sections?.blogManagement?.description || "Create and edit articles",
       icon: <BookOpen className="h-6 w-6" />,
       path: "/admin/blog",
-      color: "from-primary/60 to-primary/80"
+      color: "from-primary/60 to-primary/80",
+      testId: "card-blog-management"
     },
     {
-      title: "Newsletter",
-      description: "Gérer les abonnements newsletter",
-      icon: <Newspaper className="h-6 w-6" />,
+      title: admin.dashboard?.sections?.newsletter?.title || "Newsletter",
+      description: admin.dashboard?.sections?.newsletter?.description || "Manage newsletter subscriptions",
+      icon: <Newsletter className="h-6 w-6" />,
       path: "/admin/newsletter", 
       color: "from-[hsl(var(--warning))] to-[hsl(var(--warning)/0.8)]",
-      unreadCount: newsletterUnconfirmed?.length || 0
+      unreadCount: newsletterUnconfirmed?.length || 0,
+      testId: "card-newsletter"
     },
     {
-      title: "Cartes de tours",
-      description: "Créer et gérer les cartes de présentation",
+      title: admin.dashboard?.sections?.tourCards?.title || "Tour cards",
+      description: admin.dashboard?.sections?.tourCards?.description || "Create and manage tour presentation cards",
       icon: <ImagePlus className="h-6 w-6" />,
       path: "/tour-card-builder",
-      color: "from-secondary/80 to-secondary"
+      color: "from-secondary/80 to-secondary",
+      testId: "card-tour-cards"
     },
     {
-      title: "Messages de contact",
-      description: "Consulter et répondre aux messages",
+      title: admin.dashboard?.sections?.contactMessages?.title || "Contact messages",
+      description: admin.dashboard?.sections?.contactMessages?.description || "View and respond to messages",
       icon: <Mail className="h-6 w-6" />,
       path: "/admin/messages",
-      color: "from-[hsl(var(--success))] to-[hsl(var(--success)/0.8)]"
+      color: "from-[hsl(var(--success))] to-[hsl(var(--success)/0.8)]",
+      testId: "card-contact-messages"
     },
     {
-      title: "Paramètres",
-      description: "Configuration et préférences",
+      title: admin.dashboard?.sections?.settings?.title || "Settings",
+      description: admin.dashboard?.sections?.settings?.description || "Configuration and preferences",
       icon: <Settings className="h-6 w-6" />,
       path: "/admin/settings",
-      color: "from-muted-foreground to-muted-foreground/80"
+      color: "from-muted-foreground to-muted-foreground/80",
+      testId: "card-settings"
     }
   ];
 
@@ -150,12 +161,21 @@ export default function AdminDashboard() {
           >
             <div className="flex justify-between items-center mb-8">
               <div>
-                <h1 className="text-3xl font-heading font-bold text-foreground">Administration</h1>
-                <p className="text-muted-foreground mt-2">Panneau de gestion centralisé</p>
+                <h1 className="text-3xl font-heading font-bold text-foreground" data-testid="text-dashboard-title">
+                  {admin.dashboard?.title || "Administration"}
+                </h1>
+                <p className="text-muted-foreground mt-2" data-testid="text-dashboard-subtitle">
+                  {admin.dashboard?.subtitle || "Centralized management dashboard"}
+                </p>
               </div>
-              <Button variant="outline" onClick={handleLogout} className="flex items-center gap-2">
+              <Button 
+                variant="outline" 
+                onClick={handleLogout} 
+                className="flex items-center gap-2"
+                data-testid="button-logout"
+              >
                 <LogOut className="h-4 w-4" />
-                Déconnexion
+                {admin.dashboard?.logout || "Logout"}
               </Button>
             </div>
 
@@ -173,6 +193,7 @@ export default function AdminDashboard() {
                       background: `linear-gradient(135deg, ${section.color.split(' ')[1]} 0%, ${section.color.split(' ')[3]} 100%)`
                     }}
                     onClick={() => setLocation(section.path)}
+                    data-testid={section.testId}
                   >
                     {section.unreadCount > 0 && (
                       <Badge 

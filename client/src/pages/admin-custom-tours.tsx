@@ -43,6 +43,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
+import { useTranslationSection } from "@/contexts/TranslationContext";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
@@ -70,24 +71,26 @@ export default function AdminCustomTours() {
   const [searchQuery, setSearchQuery] = useState("");
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const admin = useTranslationSection('admin');
+  const home = useTranslationSection('home');
 
   // Mapping for trip types and destinations display
   const tripTypeLabels: Record<string, string> = {
-    "culture": "Culture & History",
-    "nature": "Nature & Adventure", 
-    "beaches": "Beaches & Islands",
-    "family": "Family trip",
-    "group": "Group trip",
-    "wedding": "Wedding & Honeymoon"
+    "culture": home?.cultureHistory || "Culture & History",
+    "nature": home?.natureAdventure || "Nature & Adventure", 
+    "beaches": home?.beachesIslands || "Beaches & Islands",
+    "family": home?.familyTrip || "Family trip",
+    "group": home?.groupTrip || "Group trip",
+    "wedding": home?.weddingHoneymoon || "Wedding & Honeymoon"
   };
 
   const destinationLabels: Record<string, string> = {
-    "khaosok": "Khao Sok",
-    "krabi": "Krabi",
-    "kohmook": "Koh Mook",
-    "bangkok": "Bangkok", 
-    "chiangmai": "Chiang Mai",
-    "others": "Others destinations"
+    "khaosok": home?.khaoSok || "Khao Sok",
+    "krabi": home?.krabi || "Krabi",
+    "kohmook": home?.kohMook || "Koh Mook",
+    "bangkok": home?.bangkok || "Bangkok", 
+    "chiangmai": home?.chiangMai || "Chiang Mai",
+    "others": home?.othersDestinations || "Others destinations"
   };
 
   // Fetch custom tour requests
@@ -129,7 +132,10 @@ export default function AdminCustomTours() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/custom-tour"] });
-      toast({ title: "Success", description: "Status updated successfully" });
+      toast({ 
+        title: "Success", 
+        description: admin.customTours?.success?.statusUpdated || "Status updated successfully" 
+      });
       setSelectedRequest(null);
     },
     onError: (error: Error) => {
@@ -158,7 +164,10 @@ export default function AdminCustomTours() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/custom-tour"] });
-      toast({ title: "Success", description: "Request deleted successfully" });
+      toast({ 
+        title: "Success", 
+        description: admin.customTours?.success?.requestDeleted || "Request deleted successfully" 
+      });
     },
     onError: (error: Error) => {
       toast({ 
@@ -180,7 +189,7 @@ export default function AdminCustomTours() {
       });
       
       if (!response.ok) {
-        throw new Error("Failed to export data");
+        throw new Error(admin.customTours?.errors?.exportFailed || "Failed to export data");
       }
       
       const blob = await response.blob();
@@ -193,7 +202,10 @@ export default function AdminCustomTours() {
       a.click();
       window.URL.revokeObjectURL(url);
       
-      toast({ title: "Success", description: "Data exported successfully" });
+      toast({ 
+        title: "Success", 
+        description: admin.customTours?.success?.dataExported || "Data exported successfully" 
+      });
     } catch (error: any) {
       toast({ 
         title: "Error", 
@@ -204,7 +216,7 @@ export default function AdminCustomTours() {
   };
 
   const handleDelete = (id: number) => {
-    if (confirm("Are you sure you want to delete this request?")) {
+    if (confirm(admin.customTours?.deleteConfirm || "Are you sure you want to delete this request?")) {
       deleteRequestMutation.mutate(id);
     }
   };
@@ -212,11 +224,11 @@ export default function AdminCustomTours() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'new':
-        return <Badge className="bg-green-100 text-green-800">New</Badge>;
+        return <Badge className="bg-green-100 text-green-800">{admin.customTours?.statusNew || "New"}</Badge>;
       case 'in_progress':
-        return <Badge className="bg-blue-100 text-blue-800">In Progress</Badge>;
+        return <Badge className="bg-blue-100 text-blue-800">{admin.customTours?.statusInProgress || "In Progress"}</Badge>;
       case 'archived':
-        return <Badge className="bg-gray-100 text-gray-800">Archived</Badge>;
+        return <Badge className="bg-gray-100 text-gray-800">{admin.customTours?.statusArchived || "Archived"}</Badge>;
       default:
         return <Badge>{status}</Badge>;
     }
@@ -229,7 +241,7 @@ export default function AdminCustomTours() {
   return (
     <>
       <SEO 
-        title="Custom Tour Requests - Admin" 
+        title={admin.customTours?.title || "Custom Tour Requests - Admin"} 
         description="Manage custom tour requests and inquiries"
       />
       <Header />
@@ -240,16 +252,18 @@ export default function AdminCustomTours() {
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-4">
               <Link href="/admin">
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" data-testid="button-back-to-admin">
                   <ArrowLeft className="h-4 w-4 mr-2" />
-                  Back to Admin
+                  {admin.customTours?.backToAdmin || "Back to Admin"}
                 </Button>
               </Link>
-              <h1 className="text-3xl font-bold text-gray-900">Custom Tour Requests</h1>
+              <h1 className="text-3xl font-bold text-gray-900">
+                {admin.customTours?.title || "Custom Tour Requests"}
+              </h1>
             </div>
-            <Button onClick={handleExport}>
+            <Button onClick={handleExport} data-testid="button-export-csv">
               <Download className="h-4 w-4 mr-2" />
-              Export CSV
+              {admin.customTours?.exportCSV || "Export CSV"}
             </Button>
           </div>
 
@@ -261,23 +275,32 @@ export default function AdminCustomTours() {
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                     <Input
-                      placeholder="Search by name or email..."
+                      placeholder={admin.customTours?.searchPlaceholder || "Search by name or email..."}
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       className="pl-10"
+                      data-testid="input-search"
                     />
                   </div>
                 </div>
                 <div className="w-full md:w-48">
                   <Select value={statusFilter} onValueChange={setStatusFilter}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Filter by status" />
+                    <SelectTrigger data-testid="select-status-filter">
+                      <SelectValue placeholder={admin.customTours?.filterByStatus || "Filter by status"} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">All Status</SelectItem>
-                      <SelectItem value="new">New</SelectItem>
-                      <SelectItem value="in_progress">In Progress</SelectItem>
-                      <SelectItem value="archived">Archived</SelectItem>
+                      <SelectItem value="all" data-testid="select-item-all-status">
+                        {admin.customTours?.allStatus || "All Status"}
+                      </SelectItem>
+                      <SelectItem value="new" data-testid="select-item-new">
+                        {admin.customTours?.statusNew || "New"}
+                      </SelectItem>
+                      <SelectItem value="in_progress" data-testid="select-item-in-progress">
+                        {admin.customTours?.statusInProgress || "In Progress"}
+                      </SelectItem>
+                      <SelectItem value="archived" data-testid="select-item-archived">
+                        {admin.customTours?.statusArchived || "Archived"}
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -288,47 +311,53 @@ export default function AdminCustomTours() {
           {/* Requests Table */}
           <Card>
             <CardHeader>
-              <CardTitle>Tour Requests ({requests.length})</CardTitle>
+              <CardTitle data-testid="text-requests-count">
+                {admin.customTours?.requestsCount?.replace('{count}', requests.length.toString()) || `Tour Requests (${requests.length})`}
+              </CardTitle>
             </CardHeader>
             <CardContent>
               {isLoading ? (
-                <div className="text-center py-8">Loading requests...</div>
+                <div className="text-center py-8" data-testid="text-loading">
+                  {admin.customTours?.loadingRequests || "Loading requests..."}
+                </div>
               ) : requests.length === 0 ? (
-                <div className="text-center py-8 text-gray-500">
-                  No requests found.
+                <div className="text-center py-8 text-gray-500" data-testid="text-no-requests">
+                  {admin.customTours?.noRequests || "No requests found."}
                 </div>
               ) : (
                 <div className="overflow-x-auto">
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>Name</TableHead>
-                        <TableHead>Contact</TableHead>
-                        <TableHead>Travelers</TableHead>
-                        <TableHead>Dates/Duration</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead>Date</TableHead>
-                        <TableHead>Actions</TableHead>
+                        <TableHead>{admin.customTours?.tableHeaders?.name || "Name"}</TableHead>
+                        <TableHead>{admin.customTours?.tableHeaders?.contact || "Contact"}</TableHead>
+                        <TableHead>{admin.customTours?.tableHeaders?.travelers || "Travelers"}</TableHead>
+                        <TableHead>{admin.customTours?.tableHeaders?.datesDuration || "Dates/Duration"}</TableHead>
+                        <TableHead>{admin.customTours?.tableHeaders?.status || "Status"}</TableHead>
+                        <TableHead>{admin.customTours?.tableHeaders?.date || "Date"}</TableHead>
+                        <TableHead>{admin.customTours?.tableHeaders?.actions || "Actions"}</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {requests.map((request) => (
-                        <TableRow key={request.id}>
-                          <TableCell className="font-medium">{request.fullName}</TableCell>
+                        <TableRow key={request.id} data-testid={`row-request-${request.id}`}>
+                          <TableCell className="font-medium" data-testid={`text-name-${request.id}`}>
+                            {request.fullName}
+                          </TableCell>
                           <TableCell>
                             <div className="space-y-1">
-                              <div className="flex items-center text-sm">
+                              <div className="flex items-center text-sm" data-testid={`text-email-${request.id}`}>
                                 <Mail className="h-3 w-3 mr-1" />
                                 {request.email}
                               </div>
-                              <div className="flex items-center text-sm">
+                              <div className="flex items-center text-sm" data-testid={`text-phone-${request.id}`}>
                                 <Phone className="h-3 w-3 mr-1" />
                                 {request.phoneNumber}
                               </div>
                             </div>
                           </TableCell>
                           <TableCell>
-                            <div className="flex items-center text-sm">
+                            <div className="flex items-center text-sm" data-testid={`text-travelers-${request.id}`}>
                               <Users className="h-3 w-3 mr-1" />
                               {request.numberOfAdults}A
                               {request.numberOfKids > 0 && `, ${request.numberOfKids}K`}
@@ -336,25 +365,32 @@ export default function AdminCustomTours() {
                           </TableCell>
                           <TableCell>
                             {request.tripDates ? (
-                              <div className="text-sm">
-                                <span className="text-gray-600">Dates:</span> {request.tripDates}
+                              <div className="text-sm" data-testid={`text-dates-${request.id}`}>
+                                <span className="text-gray-600">{admin.customTours?.dates || "Dates:"}</span> {request.tripDates}
                               </div>
                             ) : request.duration ? (
-                              <div className="text-sm">
-                                <span className="text-gray-600">Duration:</span> {request.duration} days
+                              <div className="text-sm" data-testid={`text-duration-${request.id}`}>
+                                <span className="text-gray-600">{admin.customTours?.duration || "Duration:"}</span> {request.duration} {admin.customTours?.days || "days"}
                               </div>
                             ) : (
-                              <span className="text-gray-400">Not specified</span>
+                              <span className="text-gray-400" data-testid={`text-not-specified-${request.id}`}>
+                                {admin.customTours?.notSpecified || "Not specified"}
+                              </span>
                             )}
                           </TableCell>
-                          <TableCell>{getStatusBadge(request.status)}</TableCell>
-                          <TableCell>{formatDate(request.createdAt)}</TableCell>
+                          <TableCell data-testid={`text-status-${request.id}`}>
+                            {getStatusBadge(request.status)}
+                          </TableCell>
+                          <TableCell data-testid={`text-date-${request.id}`}>
+                            {formatDate(request.createdAt)}
+                          </TableCell>
                           <TableCell>
                             <div className="flex gap-2">
                               <Button
                                 size="sm"
                                 variant="outline"
                                 onClick={() => setSelectedRequest(request)}
+                                data-testid={`button-view-${request.id}`}
                               >
                                 <Eye className="h-4 w-4" />
                               </Button>
@@ -363,6 +399,7 @@ export default function AdminCustomTours() {
                                 variant="outline"
                                 onClick={() => handleDelete(request.id)}
                                 disabled={deleteRequestMutation.isPending}
+                                data-testid={`button-delete-${request.id}`}
                               >
                                 <Trash2 className="h-4 w-4" />
                               </Button>
@@ -383,7 +420,7 @@ export default function AdminCustomTours() {
       <Dialog open={!!selectedRequest} onOpenChange={() => setSelectedRequest(null)}>
         <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>Request Details</DialogTitle>
+            <DialogTitle>{admin.customTours?.requestDetails || "Request Details"}</DialogTitle>
           </DialogHeader>
           
           {selectedRequest && (
@@ -391,33 +428,41 @@ export default function AdminCustomTours() {
               {/* Contact Info */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Full Name</label>
-                  <p className="text-lg">{selectedRequest.fullName}</p>
+                  <label className="text-sm font-medium text-gray-700">
+                    {admin.customTours?.fullName || "Full Name"}
+                  </label>
+                  <p className="text-lg" data-testid="text-detail-full-name">{selectedRequest.fullName}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Status</label>
-                  <div className="mt-1">{getStatusBadge(selectedRequest.status)}</div>
+                  <label className="text-sm font-medium text-gray-700">
+                    {admin.customTours?.tableHeaders?.status || "Status"}
+                  </label>
+                  <div className="mt-1" data-testid="text-detail-status">{getStatusBadge(selectedRequest.status)}</div>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Email</label>
+                  <label className="text-sm font-medium text-gray-700">
+                    {admin.customTours?.email || "Email"}
+                  </label>
                   <div className="flex items-center gap-2 mt-1">
-                    <p>{selectedRequest.email}</p>
+                    <p data-testid="text-detail-email">{selectedRequest.email}</p>
                     <a href={`mailto:${selectedRequest.email}`}>
-                      <Button size="sm" variant="outline">
+                      <Button size="sm" variant="outline" data-testid="button-email">
                         <Mail className="h-4 w-4" />
                       </Button>
                     </a>
                   </div>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Phone</label>
+                  <label className="text-sm font-medium text-gray-700">
+                    {admin.customTours?.phone || "Phone"}
+                  </label>
                   <div className="flex items-center gap-2 mt-1">
-                    <p>{selectedRequest.phoneNumber}</p>
+                    <p data-testid="text-detail-phone">{selectedRequest.phoneNumber}</p>
                     <a href={`tel:${selectedRequest.phoneNumber}`}>
-                      <Button size="sm" variant="outline">
+                      <Button size="sm" variant="outline" data-testid="button-call">
                         <Phone className="h-4 w-4" />
                       </Button>
                     </a>
@@ -428,12 +473,16 @@ export default function AdminCustomTours() {
               {/* Trip Details */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Adults</label>
-                  <p className="text-lg">{selectedRequest.numberOfAdults}</p>
+                  <label className="text-sm font-medium text-gray-700">
+                    {admin.customTours?.adults || "Adults"}
+                  </label>
+                  <p className="text-lg" data-testid="text-detail-adults">{selectedRequest.numberOfAdults}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Kids</label>
-                  <p className="text-lg">{selectedRequest.numberOfKids}</p>
+                  <label className="text-sm font-medium text-gray-700">
+                    {admin.customTours?.kids || "Kids"}
+                  </label>
+                  <p className="text-lg" data-testid="text-detail-kids">{selectedRequest.numberOfKids}</p>
                 </div>
               </div>
 
@@ -441,28 +490,40 @@ export default function AdminCustomTours() {
               <div className="space-y-3">
                 {selectedRequest.tripDates && (
                   <div>
-                    <label className="text-sm font-medium text-gray-700">Trip Dates</label>
-                    <p className="text-lg">{selectedRequest.tripDates}</p>
+                    <label className="text-sm font-medium text-gray-700">
+                      {admin.customTours?.tripDates || "Trip Dates"}
+                    </label>
+                    <p className="text-lg" data-testid="text-detail-trip-dates">{selectedRequest.tripDates}</p>
                   </div>
                 )}
                 {selectedRequest.duration && (
                   <div>
-                    <label className="text-sm font-medium text-gray-700">Duration</label>
-                    <p className="text-lg">{selectedRequest.duration} days</p>
+                    <label className="text-sm font-medium text-gray-700">
+                      {admin.customTours?.duration || "Duration"}
+                    </label>
+                    <p className="text-lg" data-testid="text-detail-duration">
+                      {selectedRequest.duration} {admin.customTours?.days || "days"}
+                    </p>
                   </div>
                 )}
                 {!selectedRequest.tripDates && !selectedRequest.duration && (
                   <div>
-                    <label className="text-sm font-medium text-gray-700">Trip Timing</label>
-                    <p className="text-gray-500">Not specified</p>
+                    <label className="text-sm font-medium text-gray-700">
+                      {admin.customTours?.tripTiming || "Trip Timing"}
+                    </label>
+                    <p className="text-gray-500" data-testid="text-detail-timing-not-specified">
+                      {admin.customTours?.notSpecified || "Not specified"}
+                    </p>
                   </div>
                 )}
               </div>
 
               {/* Trip Types */}
               <div>
-                <label className="text-sm font-medium text-gray-700">Trip Types</label>
-                <div className="flex flex-wrap gap-2 mt-1">
+                <label className="text-sm font-medium text-gray-700">
+                  {admin.customTours?.tripTypes || "Trip Types"}
+                </label>
+                <div className="flex flex-wrap gap-2 mt-1" data-testid="text-detail-trip-types">
                   {selectedRequest.tripTypes && selectedRequest.tripTypes.length > 0 ? (
                     selectedRequest.tripTypes.map((tripType, index) => (
                       <Badge key={index} variant="secondary">
@@ -470,15 +531,19 @@ export default function AdminCustomTours() {
                       </Badge>
                     ))
                   ) : (
-                    <span className="text-gray-500 text-sm">No trip types selected</span>
+                    <span className="text-gray-500 text-sm">
+                      {admin.customTours?.noTripTypes || "No trip types selected"}
+                    </span>
                   )}
                 </div>
               </div>
 
               {/* Destinations */}
               <div>
-                <label className="text-sm font-medium text-gray-700">Destinations</label>
-                <div className="flex flex-wrap gap-2 mt-1">
+                <label className="text-sm font-medium text-gray-700">
+                  {admin.customTours?.destinations || "Destinations"}
+                </label>
+                <div className="flex flex-wrap gap-2 mt-1" data-testid="text-detail-destinations">
                   {selectedRequest.destinations && selectedRequest.destinations.length > 0 ? (
                     selectedRequest.destinations.map((destination, index) => (
                       <Badge key={index} variant="outline">
@@ -486,23 +551,29 @@ export default function AdminCustomTours() {
                       </Badge>
                     ))
                   ) : (
-                    <span className="text-gray-500 text-sm">No destinations selected</span>
+                    <span className="text-gray-500 text-sm">
+                      {admin.customTours?.noDestinations || "No destinations selected"}
+                    </span>
                   )}
                 </div>
               </div>
 
               {/* Message */}
               <div>
-                <label className="text-sm font-medium text-gray-700">Message</label>
+                <label className="text-sm font-medium text-gray-700">
+                  {admin.customTours?.message || "Message"}
+                </label>
                 <div className="mt-1 p-3 bg-gray-50 rounded-md">
-                  <p className="whitespace-pre-wrap">{selectedRequest.message}</p>
+                  <p className="whitespace-pre-wrap" data-testid="text-detail-message">{selectedRequest.message}</p>
                 </div>
               </div>
 
               {/* Created Date */}
               <div>
-                <label className="text-sm font-medium text-gray-700">Submitted</label>
-                <p>{formatDate(selectedRequest.createdAt)}</p>
+                <label className="text-sm font-medium text-gray-700">
+                  {admin.customTours?.submitted || "Submitted"}
+                </label>
+                <p data-testid="text-detail-submitted">{formatDate(selectedRequest.createdAt)}</p>
               </div>
 
               {/* Actions */}
@@ -513,26 +584,26 @@ export default function AdminCustomTours() {
                     updateStatusMutation.mutate({ id: selectedRequest.id, status })
                   }
                 >
-                  <SelectTrigger className="w-48">
+                  <SelectTrigger className="w-48" data-testid="select-update-status">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="new">
+                    <SelectItem value="new" data-testid="select-item-status-new">
                       <div className="flex items-center">
                         <CheckCircle className="h-4 w-4 mr-2 text-green-600" />
-                        New
+                        {admin.customTours?.statusNew || "New"}
                       </div>
                     </SelectItem>
-                    <SelectItem value="in_progress">
+                    <SelectItem value="in_progress" data-testid="select-item-status-in-progress">
                       <div className="flex items-center">
                         <Clock className="h-4 w-4 mr-2 text-blue-600" />
-                        In Progress
+                        {admin.customTours?.statusInProgress || "In Progress"}
                       </div>
                     </SelectItem>
-                    <SelectItem value="archived">
+                    <SelectItem value="archived" data-testid="select-item-status-archived">
                       <div className="flex items-center">
                         <Archive className="h-4 w-4 mr-2 text-gray-600" />
-                        Archived
+                        {admin.customTours?.statusArchived || "Archived"}
                       </div>
                     </SelectItem>
                   </SelectContent>

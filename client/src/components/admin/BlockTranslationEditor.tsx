@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/hooks/use-toast";
-import { useUITranslation } from '@/hooks/useUITranslation';
+import { useTranslationSection } from '@/contexts/TranslationContext';
 import { queryClient } from "@/lib/queryClient";
 import { FileText, Save, Lock, Sparkles, AlertCircle, EyeOff } from "lucide-react";
 import { BLOCK_TYPE_LABELS } from "./BlockSelectionPopup";
@@ -52,49 +52,49 @@ function getSortedFieldKeys(keys: string[]): string[] {
   return [...orderedKeys, ...unorderedKeys];
 }
 
-function getFieldDisplayName(key: string, t: (key: string) => string): string {
+function getFieldDisplayName(key: string, t: any): string {
   const simpleFields: Record<string, string> = {
-    'title': t('translationEditor.fieldNames.title'),
-    'subtitle': t('translationEditor.fieldNames.subtitle'),
-    'description': t('translationEditor.fieldNames.description'),
-    'content': t('translationEditor.fieldNames.content'),
-    'cta_text': t('translationEditor.fieldNames.ctaText'),
-    'title_accent': t('translationEditor.fieldNames.titleAccent'),
-    'placeholder': t('translationEditor.fieldNames.placeholder'),
-    'introduction': t('translationEditor.fieldNames.introduction'),
-    'text': t('translationEditor.fieldNames.text'),
-    'label': t('translationEditor.fieldNames.label'),
-    'email_label': t('translationEditor.fieldNames.emailLabel'),
-    'email': t('translationEditor.fieldNames.email'),
-    'phone_label': t('translationEditor.fieldNames.phoneLabel'),
-    'phone': t('translationEditor.fieldNames.phone'),
-    'whatsapp_label': t('translationEditor.fieldNames.whatsappLabel'),
-    'whatsapp': t('translationEditor.fieldNames.whatsapp'),
-    'line_id_label': t('translationEditor.fieldNames.lineIdLabel'),
-    'line_id': t('translationEditor.fieldNames.lineId'),
-    'about_title': t('translationEditor.fieldNames.aboutTitle'),
-    'company_brand': t('translationEditor.fieldNames.companyBrand'),
-    'company_name': t('translationEditor.fieldNames.companyName'),
-    'company_license': t('translationEditor.fieldNames.companyLicense'),
-    'company_description': t('translationEditor.fieldNames.companyDescription'),
-    'button_text': t('translationEditor.fieldNames.buttonText'),
-    'privacy_text': t('translationEditor.fieldNames.privacyText'),
-    'search_placeholder': t('translationEditor.fieldNames.searchPlaceholder'),
-    'tags_title': t('translationEditor.fieldNames.tagsTitle'),
-    'categories_title': t('translationEditor.fieldNames.categoriesTitle'),
-    'all_tags_text': t('translationEditor.fieldNames.allTagsText'),
-    'all_categories_text': t('translationEditor.fieldNames.allCategoriesText'),
-    'pickup_title': t('translationEditor.fieldNames.pickupTitle'),
-    'included_title': t('translationEditor.fieldNames.includedTitle'),
-    'included_description': t('translationEditor.fieldNames.includedDescription'),
-    'not_included_title': t('translationEditor.fieldNames.notIncludedTitle'),
-    'not_included_description': t('translationEditor.fieldNames.notIncludedDescription'),
-    'price': t('translationEditor.fieldNames.price'),
-    'currency': t('translationEditor.fieldNames.currency'),
-    'cycle': t('translationEditor.fieldNames.cycle'),
-    'more_text': t('translationEditor.fieldNames.moreText'),
-    'time': t('translationEditor.fieldNames.time'),
-    'location': t('translationEditor.fieldNames.location')
+    'title': t?.fieldNames?.title || 'Title',
+    'subtitle': t?.fieldNames?.subtitle || 'Subtitle',
+    'description': t?.fieldNames?.description || 'Description',
+    'content': t?.fieldNames?.content || 'Content',
+    'cta_text': t?.fieldNames?.ctaText || 'CTA Text',
+    'title_accent': t?.fieldNames?.titleAccent || 'Title Accent',
+    'placeholder': t?.fieldNames?.placeholder || 'Placeholder',
+    'introduction': t?.fieldNames?.introduction || 'Introduction',
+    'text': t?.fieldNames?.text || 'Text',
+    'label': t?.fieldNames?.label || 'Label',
+    'email_label': t?.fieldNames?.emailLabel || 'Email Label',
+    'email': t?.fieldNames?.email || 'Email',
+    'phone_label': t?.fieldNames?.phoneLabel || 'Phone Label',
+    'phone': t?.fieldNames?.phone || 'Phone',
+    'whatsapp_label': t?.fieldNames?.whatsappLabel || 'WhatsApp Label',
+    'whatsapp': t?.fieldNames?.whatsapp || 'WhatsApp',
+    'line_id_label': t?.fieldNames?.lineIdLabel || 'Line ID Label',
+    'line_id': t?.fieldNames?.lineId || 'Line ID',
+    'about_title': t?.fieldNames?.aboutTitle || 'About Title',
+    'company_brand': t?.fieldNames?.companyBrand || 'Company Brand',
+    'company_name': t?.fieldNames?.companyName || 'Company Name',
+    'company_license': t?.fieldNames?.companyLicense || 'Company License',
+    'company_description': t?.fieldNames?.companyDescription || 'Company Description',
+    'button_text': t?.fieldNames?.buttonText || 'Button Text',
+    'privacy_text': t?.fieldNames?.privacyText || 'Privacy Text',
+    'search_placeholder': t?.fieldNames?.searchPlaceholder || 'Search Placeholder',
+    'tags_title': t?.fieldNames?.tagsTitle || 'Tags Title',
+    'categories_title': t?.fieldNames?.categoriesTitle || 'Categories Title',
+    'all_tags_text': t?.fieldNames?.allTagsText || 'All Tags Text',
+    'all_categories_text': t?.fieldNames?.allCategoriesText || 'All Categories Text',
+    'pickup_title': t?.fieldNames?.pickupTitle || 'Pickup Title',
+    'included_title': t?.fieldNames?.includedTitle || 'Included Title',
+    'included_description': t?.fieldNames?.includedDescription || 'Included Description',
+    'not_included_title': t?.fieldNames?.notIncludedTitle || 'Not Included Title',
+    'not_included_description': t?.fieldNames?.notIncludedDescription || 'Not Included Description',
+    'price': t?.fieldNames?.price || 'Price',
+    'currency': t?.fieldNames?.currency || 'Currency',
+    'cycle': t?.fieldNames?.cycle || 'Cycle',
+    'more_text': t?.fieldNames?.moreText || 'More Text',
+    'time': t?.fieldNames?.time || 'Time',
+    'location': t?.fieldNames?.location || 'Location'
   };
 
   if (simpleFields[key]) {
@@ -105,7 +105,7 @@ function getFieldDisplayName(key: string, t: (key: string) => string): string {
   if (nestedIconMatch) {
     const blockIndex = parseInt(nestedIconMatch[1]) + 1;
     const iconIndex = parseInt(nestedIconMatch[2]) + 1;
-    return `${t('translationEditor.fieldNames.block')} ${blockIndex} - ${t('translationEditor.fieldNames.miniIcon')} ${iconIndex}`;
+    return `${t?.fieldNames?.block || 'Block'} ${blockIndex} - ${t?.fieldNames?.miniIcon || 'Mini Icon'} ${iconIndex}`;
   }
 
   const arrayMatch = key.match(/^(.+)_(\d+)_(.+)$/);
@@ -115,13 +115,13 @@ function getFieldDisplayName(key: string, t: (key: string) => string): string {
     const fieldName = arrayMatch[3];
 
     const arrayNames: Record<string, string> = {
-      'buttons': t('translationEditor.fieldNames.button'),
-      'items': t('translationEditor.fieldNames.item'),
-      'sections': t('translationEditor.fieldNames.section'),
-      'icon_blocks': t('translationEditor.fieldNames.block'),
-      'pricing_cards': t('translationEditor.fieldNames.pricingCard'),
-      'pickup_times': t('translationEditor.fieldNames.pickupTime'),
-      'mini_icons': t('translationEditor.fieldNames.miniIcon')
+      'buttons': t?.fieldNames?.button || 'Button',
+      'items': t?.fieldNames?.item || 'Item',
+      'sections': t?.fieldNames?.section || 'Section',
+      'icon_blocks': t?.fieldNames?.block || 'Block',
+      'pricing_cards': t?.fieldNames?.pricingCard || 'Pricing Card',
+      'pickup_times': t?.fieldNames?.pickupTime || 'Pickup Time',
+      'mini_icons': t?.fieldNames?.miniIcon || 'Mini Icon'
     };
 
     const displayArrayName = arrayNames[arrayName] || arrayName;
@@ -169,7 +169,7 @@ interface Page {
 }
 
 export default function BlockTranslationEditor() {
-  const { t } = useUITranslation();
+  const t = useTranslationSection('admin');
   const { toast } = useToast();
   const [selectedPageId, setSelectedPageId] = useState<number | null>(null);
   const [selectedBlockId, setSelectedBlockId] = useState<number | null>(null);
@@ -214,14 +214,14 @@ export default function BlockTranslationEditor() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/blocks-with-translations'] });
       toast({
-        title: t('translationEditor.saveSuccess.title'),
-        description: t('translationEditor.saveSuccess.description'),
+        title: t?.translationEditor?.saveSuccess?.title || 'Saved',
+        description: t?.translationEditor?.saveSuccess?.description || 'Translations saved successfully',
       });
     },
     onError: () => {
       toast({
-        title: t('translationEditor.saveError.title'),
-        description: t('translationEditor.saveError.description'),
+        title: t?.translationEditor?.saveError?.title || 'Error',
+        description: t?.translationEditor?.saveError?.description || 'Failed to save translations',
         variant: "destructive",
       });
     },
@@ -250,13 +250,13 @@ export default function BlockTranslationEditor() {
     return (
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="flex items-center gap-2" data-testid="card-title-translation-editor">
             <FileText className="w-5 h-5" />
-            {t('translationEditor.title')}
+            {t?.translationEditor?.title || 'Block Translations Editor'}
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground">{t('translationEditor.loading')}</p>
+          <p className="text-muted-foreground" data-testid="text-loading">{t?.translationEditor?.loading || 'Loading translations...'}</p>
         </CardContent>
       </Card>
     );
@@ -266,12 +266,12 @@ export default function BlockTranslationEditor() {
     <div className="space-y-4">
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="flex items-center gap-2" data-testid="card-title-translation-editor">
             <FileText className="w-5 h-5" />
-            {t('translationEditor.title')}
+            {t?.translationEditor?.title || 'Block Translations Editor'}
           </CardTitle>
-          <CardDescription>
-            {t('translationEditor.subtitle')}
+          <CardDescription data-testid="card-description-translation-editor">
+            {t?.translationEditor?.subtitle || 'Manage French and Spanish translations for all page blocks'}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -296,8 +296,8 @@ export default function BlockTranslationEditor() {
             {/* Block selector for selected page */}
             {selectedPage && (
               <div className="space-y-3">
-                <h3 className="text-sm font-semibold text-muted-foreground">
-                  {t('translationEditor.pageBlocks', { pageName: selectedPage.pageName })}
+                <h3 className="text-sm font-semibold text-muted-foreground" data-testid="heading-page-blocks">
+                  {(t?.translationEditor?.pageBlocks?.replace('{pageName}', selectedPage.pageName)) || `${selectedPage.pageName} - Blocks`}
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {selectedPage.blocks
@@ -316,13 +316,13 @@ export default function BlockTranslationEditor() {
                         >
                           {getBlockDisplayName(block.blockType)}
                           {block.title && ` - ${block.title.substring(0, 20)}`}
-                          {isHidden && <EyeOff className="w-3 h-3 ml-2" />}
+                          {isHidden && <EyeOff className="w-3 h-3 ml-2" data-testid="icon-hidden-block" />}
                         </Button>
                       );
                     })}
                 </div>
                 {selectedPage.blocks.filter(block => Object.keys(block.translations.en).length > 0).length === 0 && (
-                  <p className="text-sm text-muted-foreground">{t('translationEditor.noTextToTranslate')}</p>
+                  <p className="text-sm text-muted-foreground" data-testid="text-no-translatable-text">{t?.translationEditor?.noTextToTranslate || 'No translatable text in this page'}</p>
                 )}
               </div>
             )}
@@ -331,29 +331,29 @@ export default function BlockTranslationEditor() {
             {selectedBlockId && selectedBlock && editedTranslations && (
               <div className="space-y-4 pt-4 border-t">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-semibold">{getBlockDisplayName(selectedBlock.blockType)}</h3>
+                  <h3 className="text-lg font-semibold" data-testid="heading-selected-block">{getBlockDisplayName(selectedBlock.blockType)}</h3>
                   <Button
                     onClick={handleSaveTranslations}
                     disabled={saveTranslationsMutation.isPending}
                     data-testid="button-save-block-translations"
                   >
                     <Save className="w-4 h-4 mr-2" />
-                    {t('translationEditor.save')}
+                    {t?.translationEditor?.save || 'Save translations'}
                   </Button>
                 </div>
 
                 <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as 'fr' | 'es')}>
                   <TabsList className="grid w-full grid-cols-2">
                     <TabsTrigger value="fr" data-testid="tab-fr">
-                      {t('translationEditor.tabs.french')}
+                      {t?.translationEditor?.tabs?.french || 'French'}
                     </TabsTrigger>
                     <TabsTrigger value="es" data-testid="tab-es">
-                      {t('translationEditor.tabs.spanish')}
+                      {t?.translationEditor?.tabs?.spanish || 'Spanish'}
                     </TabsTrigger>
                   </TabsList>
 
                   {(['fr', 'es'] as const).map(lang => (
-                    <TabsContent key={lang} value={lang}>
+                    <TabsContent key={lang} value={lang} data-testid={`tab-content-${lang}`}>
                       <ScrollArea className="h-[600px] pr-4">
                         <div className="space-y-4">
                           {Object.keys(editedTranslations.en).length > 0 ? (
@@ -371,33 +371,34 @@ export default function BlockTranslationEditor() {
                                       ? 'border-amber-400 bg-amber-50/50 dark:bg-amber-950/20' 
                                       : 'border-border'
                                   }`}
+                                  data-testid={`field-container-${lang}-${key}`}
                                 >
                                   <div className="flex items-center justify-between">
-                                    <label className="text-sm font-medium flex items-center gap-2">
-                                      {getFieldDisplayName(key, t)}
+                                    <label className="text-sm font-medium flex items-center gap-2" data-testid={`label-${lang}-${key}`}>
+                                      {getFieldDisplayName(key, t?.translationEditor)}
                                       {isManuallyEdited ? (
-                                        <Badge variant="secondary" className="text-xs bg-amber-500 text-white flex items-center gap-1">
+                                        <Badge variant="secondary" className="text-xs bg-amber-500 text-white flex items-center gap-1" data-testid={`badge-manually-edited-${lang}-${key}`}>
                                           <Lock className="w-3 h-3" />
-                                          {t('translationEditor.badges.manuallyEdited')}
+                                          {t?.translationEditor?.badges?.manuallyEdited || 'Manually Edited'}
                                         </Badge>
                                       ) : (
-                                        <Badge variant="outline" className="text-xs flex items-center gap-1">
+                                        <Badge variant="outline" className="text-xs flex items-center gap-1" data-testid={`badge-auto-${lang}-${key}`}>
                                           <Sparkles className="w-3 h-3" />
-                                          {t('translationEditor.badges.auto')}
+                                          {t?.translationEditor?.badges?.auto || 'Auto'}
                                         </Badge>
                                       )}
                                     </label>
                                   </div>
                                   
-                                  <div className="text-xs text-muted-foreground bg-muted p-2 rounded" style={{ whiteSpace: 'pre-line' }}>
-                                    <strong>{t('translationEditor.originalText')}</strong> {enValue}
+                                  <div className="text-xs text-muted-foreground bg-muted p-2 rounded" style={{ whiteSpace: 'pre-line' }} data-testid={`original-text-${lang}-${key}`}>
+                                    <strong>{t?.translationEditor?.originalText || 'Original (English):'}</strong> {enValue}
                                   </div>
 
                                   {isLongText ? (
                                     <Textarea
                                       value={translatedValue}
                                       onChange={(e) => handleTranslationChange(lang, key, e.target.value)}
-                                      placeholder={t(`translationEditor.translationPlaceholder.${lang}`)}
+                                      placeholder={t?.translationEditor?.translationPlaceholder?.[lang] || (lang === 'fr' ? 'French translation...' : 'Spanish translation...')}
                                       rows={Math.max(4, (translatedValue.match(/\n/g) || []).length + 2)}
                                       data-testid={`textarea-${lang}-${key}`}
                                     />
@@ -405,7 +406,7 @@ export default function BlockTranslationEditor() {
                                     <Input
                                       value={translatedValue}
                                       onChange={(e) => handleTranslationChange(lang, key, e.target.value)}
-                                      placeholder={t(`translationEditor.translationPlaceholder.${lang}`)}
+                                      placeholder={t?.translationEditor?.translationPlaceholder?.[lang] || (lang === 'fr' ? 'French translation...' : 'Spanish translation...')}
                                       data-testid={`input-${lang}-${key}`}
                                     />
                                   )}
@@ -413,8 +414,8 @@ export default function BlockTranslationEditor() {
                               );
                             })
                           ) : (
-                            <p className="text-center py-12 text-muted-foreground">
-                              {t('translationEditor.noTextInBlock')}
+                            <p className="text-center py-12 text-muted-foreground" data-testid="text-no-text-in-block">
+                              {t?.translationEditor?.noTextInBlock || 'This block contains no translatable text'}
                             </p>
                           )}
                         </div>
