@@ -47,7 +47,10 @@ export default function Dashboard() {
   const logout = useLogout();
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  
+  // UI translations hook - force cache refresh
   const { t } = useUITranslation();
+  console.log('🚀 Dashboard component loaded - UI translation system active');
   
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [tourToDelete, setTourToDelete] = useState<Tour | null>(null);
