@@ -6,7 +6,8 @@ type UITranslations = {
 };
 
 export function useUITranslation() {
-  const { currentLanguage } = useTranslation();
+  const translationContext = useTranslation();
+  const currentLanguage = translationContext?.currentLanguage || 'en';
   const [translations, setTranslations] = useState<UITranslations>({});
   const [isLoading, setIsLoading] = useState(true);
 
@@ -44,20 +45,29 @@ export function useUITranslation() {
   }, [currentLanguage]);
 
   const t = (key: string, params?: Record<string, string | number>): string => {
+    // If translations are still loading, return the key
+    if (isLoading || Object.keys(translations).length === 0) {
+      console.debug(`⏳ [useUITranslation] Translations still loading, returning key: ${key}`);
+      return key;
+    }
+    
     const keys = key.split('.');
     let value: any = translations;
+    
+    console.debug(`🔍 [useUITranslation] Looking for key: ${key} in translations:`, Object.keys(translations));
     
     for (const k of keys) {
       if (value && typeof value === 'object' && k in value) {
         value = value[k];
       } else {
-        console.warn(`Translation key not found: ${key}`);
+        console.warn(`⚠️ [useUITranslation] Translation key not found: ${key} (failed at segment: ${k})`);
+        console.warn(`⚠️ [useUITranslation] Available keys at this level:`, value && typeof value === 'object' ? Object.keys(value) : 'not an object');
         return key;
       }
     }
     
     if (typeof value !== 'string') {
-      console.warn(`Translation value is not a string: ${key}`);
+      console.warn(`⚠️ [useUITranslation] Translation value is not a string: ${key}, got type: ${typeof value}`);
       return key;
     }
     
@@ -67,6 +77,7 @@ export function useUITranslation() {
       }, value);
     }
     
+    console.debug(`✅ [useUITranslation] Found translation for ${key}: ${value}`);
     return value;
   };
 
