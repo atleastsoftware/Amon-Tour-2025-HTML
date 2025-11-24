@@ -11,13 +11,15 @@ export function useUITranslation() {
   const [translations, setTranslations] = useState<UITranslations>({});
   const [isLoading, setIsLoading] = useState(true);
 
-  console.log(`🟢 [useUITranslation] Hook initialized with language: ${currentLanguage}`);
+  console.log(`🟢🟢🟢 [useUITranslation] Hook RE-RENDER with language: ${currentLanguage}`);
 
   useEffect(() => {
+    console.log(`🔄🔄🔄 [useUITranslation] useEffect TRIGGERED! Language changed to: ${currentLanguage}`);
+    
     const loadTranslations = async () => {
       try {
         setIsLoading(true);
-        console.log(`🔵 [useUITranslation] Loading UI translations for language: ${currentLanguage}`);
+        console.log(`🔵🔵🔵 [useUITranslation] START Loading UI translations for language: ${currentLanguage}`);
         
         const url = `/locales/ui.${currentLanguage}.json`;
         console.log(`🔵 [useUITranslation] Fetching from URL: ${url}`);
@@ -29,15 +31,17 @@ export function useUITranslation() {
         }
         
         const data = await response.json();
-        console.log(`✅ [useUITranslation] Successfully loaded ${Object.keys(data).length} translation sections for ${currentLanguage}`);
+        console.log(`✅✅✅ [useUITranslation] Successfully loaded ${Object.keys(data).length} translation sections for ${currentLanguage}`);
         console.log(`✅ [useUITranslation] Available sections:`, Object.keys(data));
         
         setTranslations(data);
+        console.log(`✅✅✅ [useUITranslation] Translations STATE UPDATED for ${currentLanguage}`);
       } catch (error) {
-        console.error(`❌ [useUITranslation] Failed to load UI translations for ${currentLanguage}:`, error);
+        console.error(`❌❌❌ [useUITranslation] Failed to load UI translations for ${currentLanguage}:`, error);
         setTranslations({});
       } finally {
         setIsLoading(false);
+        console.log(`✅ [useUITranslation] Loading completed, isLoading set to false`);
       }
     };
 
