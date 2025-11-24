@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { useUITranslation } from '@/hooks/useUITranslation';
+import { useTranslationSection } from '@/hooks/useTranslationSection';
 
 // CSS personnalisé pour les checkboxes
 const checkboxStyles = `
@@ -152,7 +152,7 @@ interface ColorPickerProps {
 }
 
 function ColorPicker({ value, onChange, label }: ColorPickerProps) {
-  const { t } = useUITranslation();
+  const { t } = useTranslationSection('admin');
   const [isEditingCustom, setIsEditingCustom] = useState(false);
   const [customInput, setCustomInput] = useState('');
   const currentColorValue = value || '#ffffff';
@@ -310,7 +310,7 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
 }
 
 export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuilderProps) {
-  const { t } = useUITranslation();
+  const { t } = useTranslationSection('admin');
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState<'informations' | 'builder' | 'style' | 'settings'>('informations');
   const [showPreview, setShowPreview] = useState(true);
@@ -1101,15 +1101,16 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         <div className="flex border-b p-4 pb-0">
           <div className="flex">
             {[
-              { id: 'informations', label: 'Informations', icon: FormInput },
-              { id: 'builder', label: 'Constructeur', icon: Layout },
-              { id: 'style', label: 'Style', icon: Palette },
-              { id: 'settings', label: 'Paramètres', icon: Settings }
+              { id: 'informations', label: t('formBuilder.tabs.informations') || 'Information', icon: FormInput },
+              { id: 'builder', label: t('formBuilder.tabs.builder') || 'Builder', icon: Layout },
+              { id: 'style', label: t('formBuilder.tabs.style') || 'Style', icon: Palette },
+              { id: 'settings', label: t('formBuilder.tabs.settings') || 'Settings', icon: Settings }
             ].map(tab => {
               const Icon = tab.icon;
               return (
                 <button
                   key={tab.id}
+                  data-testid={`tab-${tab.id}`}
                   onClick={() => setActiveTab(tab.id as any)}
                   className={`flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 ${
                     activeTab === tab.id
@@ -1131,33 +1132,36 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
               {/* Form Basic Info */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-sm">Informations générales</CardTitle>
+                  <CardTitle className="text-sm" data-testid="title-general-info">{t('formBuilder.informations.generalInfo') || 'General Information'}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
-                    <Label>Titre</Label>
+                    <Label data-testid="label-title">{t('formBuilder.informations.title') || 'Title'}</Label>
                     <Input
+                      data-testid="input-title"
                       value={formData.title}
                       onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
-                      placeholder="Ex: Contactez-nous"
+                      placeholder={t('formBuilder.informations.titlePlaceholder') || 'e.g., Contact Us'}
                     />
                   </div>
                   <div>
-                    <Label>Sous-titre</Label>
+                    <Label data-testid="label-subtitle">{t('formBuilder.informations.subtitle') || 'Subtitle'}</Label>
                     <Textarea
+                      data-testid="input-subtitle"
                       value={formData.subtitle || ''}
                       onChange={(e) => setFormData(prev => ({ ...prev, subtitle: e.target.value }))}
-                      placeholder="Ex: Nous vous répondrons rapidement"
+                      placeholder={t('formBuilder.informations.subtitlePlaceholder') || "e.g., We'll get back to you quickly"}
                       rows={2}
                     />
                   </div>
                   <div>
-                    <Label>Image d'en-tête</Label>
+                    <Label data-testid="label-header-image">{t('formBuilder.informations.headerImage') || 'Header Image'}</Label>
                     <div className="flex gap-2 items-center">
                       <Input
+                        data-testid="input-header-image"
                         value={formData.headerImage || ''}
                         onChange={(e) => setFormData(prev => ({ ...prev, headerImage: e.target.value }))}
-                        placeholder="URL de l'image (ex: /catamaran-cruise.png)"
+                        placeholder={t('formBuilder.informations.headerImagePlaceholder') || 'Image URL (e.g., /catamaran-cruise.png)'}
                         className="flex-1"
                       />
                       <Button 
@@ -1192,13 +1196,14 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
               {/* Submit Button Settings */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-sm">Bouton de soumission</CardTitle>
+                  <CardTitle className="text-sm" data-testid="title-submit-button">{t('formBuilder.informations.submitButton') || 'Submit Button'}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
-                    <Label>Texte du bouton</Label>
+                    <Label data-testid="label-button-text">{t('formBuilder.informations.submitButtonText') || 'Button Text'}</Label>
                     <Input
-                      value={formData.settings.submitButtonText || t('formBuilder.informations.submitButtonTextDefault')}
+                      data-testid="input-submit-button-text"
+                      value={formData.settings.submitButtonText || t('formBuilder.informations.submitButtonTextDefault') || 'Submit'}
                       onChange={(e) => setFormData(prev => ({
                         ...prev,
                         settings: { ...prev.settings, submitButtonText: e.target.value }
@@ -1209,6 +1214,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                   <div className="flex items-center gap-2 pt-2">
                     <Checkbox
                       id="whatsapp-button-enabled"
+                      data-testid="checkbox-whatsapp-enabled"
                       checked={formData.settings.whatsappButtonEnabled || false}
                       onCheckedChange={(checked) => setFormData(prev => ({
                         ...prev,
@@ -1216,26 +1222,27 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                           ...prev.settings, 
                           whatsappButtonEnabled: checked as boolean,
                           whatsappButtonText: checked && !prev.settings.whatsappButtonText 
-                            ? 'Or contact us directly via WhatsApp' 
+                            ? t('formBuilder.informations.whatsappButtonTextDefault') || 'Or contact us directly via WhatsApp' 
                             : prev.settings.whatsappButtonText
                         }
                       }))}
                     />
-                    <Label htmlFor="whatsapp-button-enabled" className="cursor-pointer">
-                      Ajouter un bouton WhatsApp
+                    <Label htmlFor="whatsapp-button-enabled" className="cursor-pointer" data-testid="label-whatsapp-button">
+                      {t('formBuilder.informations.addWhatsappButton') || 'Add WhatsApp Button'}
                     </Label>
                   </div>
 
                   {formData.settings.whatsappButtonEnabled && (
                     <div>
-                      <Label>Texte au-dessus du bouton WhatsApp</Label>
+                      <Label data-testid="label-whatsapp-text">{t('formBuilder.informations.whatsappButtonText') || 'Text Above WhatsApp Button'}</Label>
                       <Input
-                        value={formData.settings.whatsappButtonText || 'Or contact us directly via WhatsApp'}
+                        data-testid="input-whatsapp-text"
+                        value={formData.settings.whatsappButtonText || t('formBuilder.informations.whatsappButtonTextDefault') || 'Or contact us directly via WhatsApp'}
                         onChange={(e) => setFormData(prev => ({
                           ...prev,
                           settings: { ...prev.settings, whatsappButtonText: e.target.value }
                         }))}
-                        placeholder="Or contact us directly via WhatsApp"
+                        placeholder={t('formBuilder.informations.whatsappButtonTextDefault') || 'Or contact us directly via WhatsApp'}
                       />
                     </div>
                   )}
@@ -1251,21 +1258,22 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                 <Card data-fields-section>
                   <CardHeader>
                     <div className="flex items-center justify-between">
-                      <CardTitle className="text-sm">Champs du formulaire ({formData.fields.length})</CardTitle>
+                      <CardTitle className="text-sm" data-testid="title-form-fields">{t('formBuilder.builder.formFields') || 'Form Fields'} ({formData.fields.length})</CardTitle>
                       <Button
+                        data-testid="button-add-field"
                         size="sm"
                         onClick={() => addField('text')}
                         className="h-8"
                       >
                         <Plus className="h-4 w-4 mr-2" />
-                        Nouveau champ
+                        {t('formBuilder.builder.newField') || 'New Field'}
                       </Button>
                     </div>
                   </CardHeader>
                   <CardContent className="fields-container">
                     {formData.fields.length === 0 ? (
-                      <p className="text-gray-500 text-sm py-4 text-center">
-                        Aucun champ ajouté. Cliquez sur "Nouveau champ" pour commencer.
+                      <p className="text-gray-500 text-sm py-4 text-center" data-testid="text-no-fields">
+                        {t('formBuilder.builder.noFields') || 'No fields added. Click "New Field" to get started.'}
                       </p>
                     ) : (
                       <Reorder.Group values={formData.fields} onReorder={reorderFields}>
@@ -1280,11 +1288,12 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                                       <Badge variant="outline" className="text-xs">
                                         {FIELD_TYPES.find(t => t.type === field.type)?.label}
                                       </Badge>
-                                      {field.required && <Badge variant="destructive" className="text-xs">Requis</Badge>}
+                                      {field.required && <Badge variant="destructive" className="text-xs" data-testid="badge-required">{t('formBuilder.builder.required') || 'Required'}</Badge>}
                                       <span className="font-medium text-sm">{field.label}</span>
                                     </div>
                                     <div className="flex gap-1">
                                       <Button
+                                        data-testid={`button-edit-field-${field.id}`}
                                         size="sm"
                                         variant="ghost"
                                         onClick={(e) => {
@@ -1296,6 +1305,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                                         <Edit className="h-3 w-3" />
                                       </Button>
                                       <Button
+                                        data-testid={`button-duplicate-field-${field.id}`}
                                         size="sm"
                                         variant="ghost"
                                         onClick={(e) => {
@@ -1303,7 +1313,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                                           duplicateField(field.id);
                                         }}
                                         className="h-6 w-6 p-0"
-                                        title="Dupliquer ce champ"
+                                        title={t('formBuilder.builder.duplicate') || 'Duplicate this field'}
                                       >
                                         <Copy className="h-3 w-3" />
                                       </Button>
@@ -1326,12 +1336,12 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                                     <div className="mt-3 pt-3 border-t space-y-4">
                                       {/* Type de champ */}
                                       <div>
-                                        <Label className="text-xs font-medium">Type de champ</Label>
+                                        <Label className="text-xs font-medium" data-testid="label-field-type">{t('formBuilder.builder.fieldType') || 'Field Type'}</Label>
                                         <Select
                                           value={field.type}
                                           onValueChange={(value) => updateField(field.id, { type: value as any })}
                                         >
-                                          <SelectTrigger className="h-8">
+                                          <SelectTrigger className="h-8" data-testid="select-field-type">
                                             <SelectValue />
                                           </SelectTrigger>
                                           <SelectContent>
@@ -1349,21 +1359,21 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
 
                                       {/* Largeur */}
                                       <div>
-                                        <Label className="text-xs font-medium">Largeur</Label>
+                                        <Label className="text-xs font-medium" data-testid="label-width">{t('formBuilder.builder.width') || 'Width'}</Label>
                                         <Select
                                           value={field.style?.width || 'full'}
                                           onValueChange={(value) => updateField(field.id, {
                                             style: { ...field.style, width: value as any }
                                           })}
                                         >
-                                          <SelectTrigger className="h-8">
+                                          <SelectTrigger className="h-8" data-testid="select-width">
                                             <SelectValue />
                                           </SelectTrigger>
                                           <SelectContent>
-                                            <SelectItem value="full">Pleine largeur</SelectItem>
-                                            <SelectItem value="half">Demi-largeur</SelectItem>
-                                            <SelectItem value="third">Tiers (1/3)</SelectItem>
-                                            <SelectItem value="twothirds">Deux tiers (2/3)</SelectItem>
+                                            <SelectItem value="full">{t('formBuilder.builder.widthFull') || 'Full Width'}</SelectItem>
+                                            <SelectItem value="half">{t('formBuilder.builder.widthHalf') || 'Half Width'}</SelectItem>
+                                            <SelectItem value="third">{t('formBuilder.builder.widthThird') || 'Third (1/3)'}</SelectItem>
+                                            <SelectItem value="twothirds">{t('formBuilder.builder.widthTwoThirds') || 'Two Thirds (2/3)'}</SelectItem>
                                           </SelectContent>
                                         </Select>
                                       </div>
@@ -1371,8 +1381,9 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                                       {/* Configuration basique */}
                                       <div className="grid grid-cols-1 gap-3">
                                         <div>
-                                          <Label className="text-xs font-medium">Label du champ</Label>
+                                          <Label className="text-xs font-medium" data-testid="label-field-label">{t('formBuilder.builder.fieldLabel') || 'Field Label'}</Label>
                                           <Input
+                                            data-testid="input-field-label"
                                             value={field.label}
                                             onChange={(e) => updateField(field.id, { label: e.target.value })}
                                             className="h-8"
@@ -1380,8 +1391,9 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                                         </div>
                                         
                                         <div>
-                                          <Label className="text-xs font-medium">Placeholder</Label>
+                                          <Label className="text-xs font-medium" data-testid="label-placeholder">{t('formBuilder.builder.placeholder') || 'Placeholder'}</Label>
                                           <Input
+                                            data-testid="input-placeholder"
                                             value={field.placeholder || ''}
                                             onChange={(e) => updateField(field.id, { placeholder: e.target.value })}
                                             className="h-8"
@@ -1390,16 +1402,17 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                                         
                                         <div className="flex items-center space-x-2">
                                           <Switch
+                                            data-testid="switch-required"
                                             checked={field.required}
                                             onCheckedChange={(checked) => updateField(field.id, { required: checked })}
                                           />
-                                          <Label className="text-xs font-medium">Champ requis</Label>
+                                          <Label className="text-xs font-medium" data-testid="label-required-field">{t('formBuilder.builder.requiredField') || 'Required Field'}</Label>
                                         </div>
                                         
                                         {/* Options pour select, checkbox, radio */}
                                         {(field.type === 'select' || field.type === 'checkbox' || field.type === 'radio') && (
                                           <div>
-                                            <Label className="text-xs font-medium">Options</Label>
+                                            <Label className="text-xs font-medium" data-testid="label-options">{t('formBuilder.builder.options') || 'Options'}</Label>
                                             <div className="space-y-2">
                                               {field.options?.map((option, index) => (
                                                 <div key={index} className="flex gap-2">

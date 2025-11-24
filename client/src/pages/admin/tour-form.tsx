@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useIsAuthenticated } from "@/lib/auth";
 import { useToast } from "@/hooks/use-toast";
-import { useUITranslation } from "@/hooks/useUITranslation";
+import { useTranslationSection } from "@/contexts/TranslationContext";
 import { apiRequest } from "@/lib/queryClient";
 import { Tour, insertTourSchema } from "@shared/schema";
 import { z } from "zod";
@@ -53,7 +53,7 @@ export default function TourForm() {
   
   const { isAuthenticated, isLoading: authLoading } = useIsAuthenticated();
   const { toast } = useToast();
-  const { t } = useUITranslation();
+  const admin = useTranslationSection('admin');
   const queryClient = useQueryClient();
   const [isSubmitting, setIsSubmitting] = useState(false);
   
@@ -109,16 +109,16 @@ export default function TourForm() {
         // Update existing tour
         await apiRequest("PUT", `/api/tours/${tourId}`, data);
         toast({
-          title: t('tourForm.tourUpdated'),
-          description: t('tourForm.tourUpdatedDescription'),
+          title: admin.tourForm?.tourUpdated || "Tour Updated",
+          description: admin.tourForm?.tourUpdatedDescription || "The tour has been successfully updated",
           variant: "default",
         });
       } else {
         // Create new tour
         await apiRequest("POST", "/api/tours", data);
         toast({
-          title: t('tourForm.tourCreated'),
-          description: t('tourForm.tourCreatedDescription'),
+          title: admin.tourForm?.tourCreated || "Tour Created",
+          description: admin.tourForm?.tourCreatedDescription || "The new tour has been successfully created",
           variant: "default",
         });
       }
@@ -131,8 +131,8 @@ export default function TourForm() {
       setLocation("/admin/dashboard");
     } catch (error) {
       toast({
-        title: t('tourForm.error'),
-        description: t('tourForm.errorDescription'),
+        title: admin.tourForm?.error || "Error",
+        description: admin.tourForm?.errorDescription || "Failed to save the tour. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -156,19 +156,19 @@ export default function TourForm() {
     <div className="min-h-screen bg-neutral-light py-8">
       <div className="container mx-auto px-4">
         <Link href="/admin/dashboard">
-          <span className="inline-flex items-center text-primary hover:text-primary-dark mb-6 cursor-pointer">
+          <span data-testid="link-back-to-dashboard" className="inline-flex items-center text-primary hover:text-primary-dark mb-6 cursor-pointer">
             <ArrowLeft className="mr-2 h-5 w-5" />
-            {t('tourForm.backToDashboard')}
+            {admin.tourForm?.backToDashboard || "Back to Dashboard"}
           </span>
         </Link>
         
-        <Card className="max-w-4xl mx-auto">
+        <Card className="max-w-4xl mx-auto" data-testid="card-tour-form">
           <CardHeader>
-            <CardTitle>{tourId ? t('tourForm.editTour') : t('tourForm.addNewTour')}</CardTitle>
-            <CardDescription>
+            <CardTitle data-testid="text-tour-form-title">{tourId ? admin.tourForm?.editTour || "Edit Tour" : admin.tourForm?.addNewTour || "Add New Tour"}</CardTitle>
+            <CardDescription data-testid="text-tour-form-description">
               {tourId 
-                ? t('tourForm.editDescription')
-                : t('tourForm.addDescription')}
+                ? admin.tourForm?.editDescription || "Update the information for this tour"
+                : admin.tourForm?.addDescription || "Fill in the details to create a new tour"}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -179,12 +179,12 @@ export default function TourForm() {
                   name="title"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('tourForm.fields.title')}</FormLabel>
+                      <FormLabel>{admin.tourForm?.fields?.title || "Tour Title"}</FormLabel>
                       <FormControl>
-                        <Input placeholder={t('tourForm.fields.titlePlaceholder')} {...field} />
+                        <Input data-testid="input-tour-title" placeholder={admin.tourForm?.fields?.titlePlaceholder || "e.g. Island Hopping Adventure"} {...field} />
                       </FormControl>
                       <FormDescription>
-                        {t('tourForm.fields.titleDescription')}
+                        {admin.tourForm?.fields?.titleDescription || "The main title of the tour"}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -197,12 +197,12 @@ export default function TourForm() {
                     name="duration"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('tourForm.fields.duration')}</FormLabel>
+                        <FormLabel>{admin.tourForm?.fields?.duration || "Duration"}</FormLabel>
                         <FormControl>
-                          <Input placeholder={t('tourForm.fields.durationPlaceholder')} {...field} />
+                          <Input data-testid="input-duration" placeholder={admin.tourForm?.fields?.durationPlaceholder || "e.g. Full day (8 hours)"} {...field} />
                         </FormControl>
                         <FormDescription>
-                          {t('tourForm.fields.durationDescription')}
+                          {admin.tourForm?.fields?.durationDescription || "How long the tour lasts"}
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -214,12 +214,12 @@ export default function TourForm() {
                     name="price"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('tourForm.fields.adultPrice')}</FormLabel>
+                        <FormLabel>{admin.tourForm?.fields?.adultPrice || "Adult Price"}</FormLabel>
                         <FormControl>
-                          <Input type="number" min="0" placeholder={t('tourForm.fields.adultPricePlaceholder')} {...field} />
+                          <Input data-testid="input-adult-price" type="number" min="0" placeholder={admin.tourForm?.fields?.adultPricePlaceholder || "2500"} {...field} />
                         </FormControl>
                         <FormDescription>
-                          {t('tourForm.fields.adultPriceDescription')}
+                          {admin.tourForm?.fields?.adultPriceDescription || "Price per adult in THB"}
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -232,12 +232,13 @@ export default function TourForm() {
                   name="childPrice"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('tourForm.fields.childPrice')}</FormLabel>
+                      <FormLabel>{admin.tourForm?.fields?.childPrice || "Child Price (optional)"}</FormLabel>
                       <FormControl>
                         <Input 
+                          data-testid="input-child-price"
                           type="number" 
                           min="0" 
-                          placeholder={t('tourForm.fields.childPricePlaceholder')}
+                          placeholder={admin.tourForm?.fields?.childPricePlaceholder || "1500"}
                           value={field.value || ''}
                           onChange={(e) => {
                             const value = e.target.value ? parseInt(e.target.value) : undefined;
@@ -246,7 +247,7 @@ export default function TourForm() {
                         />
                       </FormControl>
                       <FormDescription>
-                        {t('tourForm.fields.childPriceDescription')}
+                        {admin.tourForm?.fields?.childPriceDescription || "Price per child in THB (leave empty if same as adult)"}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -258,16 +259,17 @@ export default function TourForm() {
                   name="shortDescription"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('tourForm.fields.shortDescription')}</FormLabel>
+                      <FormLabel>{admin.tourForm?.fields?.shortDescription || "Short Description"}</FormLabel>
                       <FormControl>
                         <Textarea 
-                          placeholder={t('tourForm.fields.shortDescriptionPlaceholder')}
+                          data-testid="textarea-short-description"
+                          placeholder={admin.tourForm?.fields?.shortDescriptionPlaceholder || "A brief overview of the tour..."}
                           rows={2}
                           {...field} 
                         />
                       </FormControl>
                       <FormDescription>
-                        {t('tourForm.fields.shortDescriptionDescription')}
+                        {admin.tourForm?.fields?.shortDescriptionDescription || "Brief summary shown in tour cards"}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -279,16 +281,17 @@ export default function TourForm() {
                   name="description"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('tourForm.fields.fullDescription')}</FormLabel>
+                      <FormLabel>{admin.tourForm?.fields?.fullDescription || "Full Description"}</FormLabel>
                       <FormControl>
                         <Textarea 
-                          placeholder={t('tourForm.fields.fullDescriptionPlaceholder')}
+                          data-testid="textarea-full-description"
+                          placeholder={admin.tourForm?.fields?.fullDescriptionPlaceholder || "Detailed description of the tour, including highlights and what's included..."}
                           rows={6}
                           {...field} 
                         />
                       </FormControl>
                       <FormDescription>
-                        {t('tourForm.fields.fullDescriptionDescription')}
+                        {admin.tourForm?.fields?.fullDescriptionDescription || "Detailed information about the tour"}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -300,31 +303,32 @@ export default function TourForm() {
                   name="imageUrl"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('tourForm.fields.tourImage')}</FormLabel>
+                      <FormLabel>{admin.tourForm?.fields?.tourImage || "Tour Image"}</FormLabel>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                           <FormControl>
                             <Input 
-                              placeholder={t('tourForm.fields.imageUrlPlaceholder')}
+                              data-testid="input-image-url"
+                              placeholder={admin.tourForm?.fields?.imageUrlPlaceholder || "https://example.com/image.jpg"}
                               {...field} 
                               className="mb-2"
                             />
                           </FormControl>
                           <FormDescription>
-                            {t('tourForm.fields.imageUrlDescription')}
+                            {admin.tourForm?.fields?.imageUrlDescription || "Direct URL to the tour image, or use the upload feature below"}
                           </FormDescription>
                         </div>
                         <div>
                           <div className="border rounded-md p-4 bg-gray-50">
-                            <p className="text-sm font-medium mb-2">{t('tourForm.fields.uploadImage')}</p>
+                            <p className="text-sm font-medium mb-2">{admin.tourForm?.fields?.uploadImage || "Upload Image"}</p>
                             {isAuthenticated ? (
                               <ImageUpload 
                                 currentImage={field.value}
                                 onUploadComplete={(url) => field.onChange(url)}
                               />
                             ) : (
-                              <div className="text-amber-600 p-4 text-sm">
-                                {t('tourForm.fields.authRequired')}
+                              <div data-testid="text-auth-required" className="text-amber-600 p-4 text-sm">
+                                {admin.tourForm?.fields?.authRequired || "Authentication required to upload images"}
                               </div>
                             )}
                           </div>
@@ -340,12 +344,12 @@ export default function TourForm() {
                   name="tourNinjaUrl"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('tourForm.fields.tourNinjaUrl')}</FormLabel>
+                      <FormLabel>{admin.tourForm?.fields?.tourNinjaUrl || "TourNinja URL (optional)"}</FormLabel>
                       <FormControl>
-                        <Input placeholder={t('tourForm.fields.tourNinjaUrlPlaceholder')} {...field} />
+                        <Input data-testid="input-tour-ninja-url" placeholder={admin.tourForm?.fields?.tourNinjaUrlPlaceholder || "https://www.tourninja.io/details/..."} {...field} />
                       </FormControl>
                       <FormDescription>
-                        {t('tourForm.fields.tourNinjaUrlDescription')}
+                        {admin.tourForm?.fields?.tourNinjaUrlDescription || "Link to the TourNinja booking page"}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -359,14 +363,15 @@ export default function TourForm() {
                     <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                       <FormControl>
                         <Checkbox
+                          data-testid="checkbox-featured"
                           checked={field.value || false}
                           onCheckedChange={field.onChange}
                         />
                       </FormControl>
                       <div className="space-y-1 leading-none">
-                        <FormLabel>{t('tourForm.fields.featuredTour')}</FormLabel>
+                        <FormLabel>{admin.tourForm?.fields?.featuredTour || "Featured Tour"}</FormLabel>
                         <FormDescription>
-                          {t('tourForm.fields.featuredTourDescription')}
+                          {admin.tourForm?.fields?.featuredTourDescription || "Display this tour prominently on the homepage"}
                         </FormDescription>
                       </div>
                     </FormItem>
@@ -375,19 +380,21 @@ export default function TourForm() {
                 
                 <div className="flex justify-end space-x-2">
                   <Button
+                    data-testid="button-cancel"
                     type="button"
                     variant="outline"
                     onClick={() => setLocation("/admin/dashboard")}
                   >
-                    {t('tourForm.cancel')}
+                    {admin.tourForm?.cancel || "Cancel"}
                   </Button>
                   <Button 
+                    data-testid="button-submit"
                     type="submit"
                     disabled={isSubmitting}
                   >
                     {isSubmitting 
-                      ? t('tourForm.saving')
-                      : tourId ? t('tourForm.update') : t('tourForm.createTour')}
+                      ? admin.tourForm?.saving || "Saving..."
+                      : tourId ? admin.tourForm?.update || "Update Tour" : admin.tourForm?.createTour || "Create Tour"}
                   </Button>
                 </div>
               </form>

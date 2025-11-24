@@ -7,7 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Badge } from "@/components/ui/badge";
 import { X, Plus } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { useUITranslation } from "@/hooks/useUITranslation";
+import { useTranslationSection } from "@/contexts/TranslationContext";
 
 import type { TourCard } from "@shared/schema";
 
@@ -26,7 +26,7 @@ export default function TourCardEditModal({
   onClose, 
   onSave 
 }: TourCardEditModalProps) {
-  const { t } = useUITranslation();
+  const t = useTranslationSection<any>('admin');
   const { toast } = useToast();
   const [formData, setFormData] = useState<TourCardData>({
     id: "",
@@ -43,7 +43,6 @@ export default function TourCardEditModal({
   const [tagInput, setTagInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  // Mettre à jour le formulaire quand le tourCard change
   useEffect(() => {
     if (tourCard) {
       setFormData({
@@ -72,7 +71,6 @@ export default function TourCardEditModal({
     });
   };
 
-  // Gestion des tags
   const handleTagInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTagInput(e.target.value);
   };
@@ -106,8 +104,8 @@ export default function TourCardEditModal({
   const handleSave = async () => {
     if (!formData.title) {
       toast({
-        title: "Erreur",
-        description: "Le titre est obligatoire",
+        title: t.tourCard?.edit?.errors?.titleRequired || "Error",
+        description: t.tourCard?.edit?.errors?.titleRequired || "Title is required",
         variant: "destructive"
       });
       return;
@@ -115,8 +113,8 @@ export default function TourCardEditModal({
     
     if (!formData.customLink) {
       toast({
-        title: "Erreur",
-        description: "Le lien personnalisé est obligatoire",
+        title: t.tourCard?.edit?.errors?.linkRequired || "Error",
+        description: t.tourCard?.edit?.errors?.linkRequired || "Custom link is required",
         variant: "destructive"
       });
       return;
@@ -140,18 +138,18 @@ export default function TourCardEditModal({
       const updatedCard = await updateResponse.json();
       
       toast({
-        title: "Succès",
-        description: "Fiche de tour mise à jour avec succès"
+        title: t.tourCard?.edit?.success?.updated || "Success",
+        description: t.tourCard?.edit?.success?.updatedDescription || "Tour card updated successfully"
       });
       
       onSave(updatedCard);
       onClose();
       
     } catch (error) {
-      console.error("Erreur lors de la mise à jour de la fiche:", error);
+      console.error("Error updating tour card:", error);
       toast({
-        title: "Erreur",
-        description: "Une erreur est survenue lors de la mise à jour",
+        title: t.tourCard?.edit?.errors?.titleRequired || "Error",
+        description: t.tourCard?.edit?.errors?.updateFailed || "An error occurred during update",
         variant: "destructive"
       });
     } finally {
@@ -161,39 +159,41 @@ export default function TourCardEditModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto" data-testid="dialog-edit-tour-card">
         <DialogHeader>
-          <DialogTitle>Modifier la fiche de tour</DialogTitle>
+          <DialogTitle data-testid="text-dialog-title">{t.tourCard?.edit?.title || "Edit Tour Card"}</DialogTitle>
         </DialogHeader>
         
         <div className="py-4 space-y-4">
           <div>
-            <Label htmlFor="title">Nom du séjour / tour *</Label>
+            <Label htmlFor="title" data-testid="label-title">{t.tourCard?.edit?.nameLabel || "Tour / stay name *"}</Label>
             <Input 
               id="title"
               name="title"
               value={formData.title}
               onChange={handleInputChange}
-              placeholder="Ex: Bangkok Food Tour"
+              placeholder={t.tourCard?.edit?.namePlaceholder || "e.g. Bangkok Food Tour"}
               required
+              data-testid="input-title"
             />
           </div>
           
           <div>
-            <Label htmlFor="description">Description</Label>
+            <Label htmlFor="description" data-testid="label-description">{t.tourCard?.edit?.descriptionLabel || "Description"}</Label>
             <Textarea
               id="description"
               name="description"
               value={formData.description || ""}
               onChange={handleInputChange}
-              placeholder="Décrivez brièvement ce tour..."
+              placeholder={t.tourCard?.edit?.descriptionPlaceholder || "Briefly describe this tour..."}
               rows={3}
+              data-testid="textarea-description"
             />
           </div>
           
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="price">Prix à partir de *</Label>
+              <Label htmlFor="price" data-testid="label-price">{t.tourCard?.edit?.priceLabel || "Price from *"}</Label>
               <Input
                 id="price"
                 name="price"
@@ -201,19 +201,21 @@ export default function TourCardEditModal({
                 min={0}
                 value={formData.price || ""}
                 onChange={handleInputChange}
-                placeholder="Ex: 1500"
+                placeholder={t.tourCard?.edit?.pricePlaceholder || "e.g. 1500"}
                 required
+                data-testid="input-price"
               />
             </div>
             
             <div>
-              <Label htmlFor="currency">Devise</Label>
+              <Label htmlFor="currency" data-testid="label-currency">{t.tourCard?.edit?.currencyLabel || "Currency"}</Label>
               <select
                 id="currency"
                 name="currency"
                 value={formData.currency}
                 onChange={handleInputChange}
                 className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                data-testid="select-currency"
               >
                 <option value="THB">THB</option>
                 <option value="EUR">EUR</option>
@@ -223,7 +225,7 @@ export default function TourCardEditModal({
           </div>
           
           <div>
-            <Label htmlFor="type">Type de fiche *</Label>
+            <Label htmlFor="type" data-testid="label-type">{t.tourCard?.edit?.typeLabel || "Card type *"}</Label>
             <div className="grid grid-cols-2 gap-4 mt-2">
               <button
                 type="button"
@@ -231,9 +233,10 @@ export default function TourCardEditModal({
                 className={`p-2 border rounded-md flex flex-col items-center justify-center gap-1 ${formData.type === "tour" 
                   ? "border-primary bg-primary/10" 
                   : "border-gray-200 hover:border-gray-300"}`}
+                data-testid="button-type-tour"
               >
                 <span className={`font-medium ${formData.type === "tour" ? "text-primary" : "text-gray-700"}`}>
-                  Tour
+                  {t.tourCard?.edit?.tour || "Tour"}
                 </span>
               </button>
               
@@ -243,28 +246,30 @@ export default function TourCardEditModal({
                 className={`p-2 border rounded-md flex flex-col items-center justify-center gap-1 ${formData.type === "experience" 
                   ? "border-primary bg-primary/10" 
                   : "border-gray-200 hover:border-gray-300"}`}
+                data-testid="button-type-experience"
               >
                 <span className={`font-medium ${formData.type === "experience" ? "text-primary" : "text-gray-700"}`}>
-                  Expérience
+                  {t.tourCard?.edit?.experience || "Experience"}
                 </span>
               </button>
             </div>
           </div>
           
           <div>
-            <Label htmlFor="customLink">Lien personnalisé (Tour Ninja) *</Label>
+            <Label htmlFor="customLink" data-testid="label-custom-link">{t.tourCard?.edit?.customLinkLabel || "Custom link (Tour Ninja) *"}</Label>
             <Input
               id="customLink"
               name="customLink"
               value={formData.customLink}
               onChange={handleInputChange}
-              placeholder="Ex: https://tourninja.com/tour/xxx"
+              placeholder={t.tourCard?.edit?.customLinkPlaceholder || "e.g. https://tourninja.com/tour/xxx"}
               required
+              data-testid="input-custom-link"
             />
           </div>
           
           <div>
-            <Label htmlFor="tags">Tags de localisation</Label>
+            <Label htmlFor="tags" data-testid="label-tags">{t.tourCard?.edit?.locationTagsLabel || "Location Tags"}</Label>
             <div className="flex items-start gap-2">
               <div className="flex-grow">
                 <Input
@@ -272,7 +277,8 @@ export default function TourCardEditModal({
                   value={tagInput}
                   onChange={handleTagInputChange}
                   onKeyDown={handleTagKeyDown}
-                  placeholder="Ex: Bangkok, Phuket, Koh Samui"
+                  placeholder={t.tourCard?.edit?.locationTagsPlaceholder || "e.g. Bangkok, Phuket, Koh Samui"}
+                  data-testid="input-tag"
                 />
               </div>
               <Button 
@@ -280,20 +286,22 @@ export default function TourCardEditModal({
                 onClick={addTag}
                 variant="outline"
                 size="icon"
+                data-testid="button-add-tag"
               >
                 <Plus className="h-4 w-4" />
               </Button>
             </div>
             
             {formData.tags && formData.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 mt-2">
+              <div className="flex flex-wrap gap-2 mt-2" data-testid="div-tags">
                 {formData.tags.map((tag, index) => (
-                  <Badge key={index} variant="secondary" className="flex items-center gap-1 px-2 py-1">
+                  <Badge key={index} variant="secondary" className="flex items-center gap-1 px-2 py-1" data-testid={`badge-tag-${index}`}>
                     {tag}
                     <button
                       type="button"
                       onClick={() => removeTag(tag)}
                       className="text-muted-foreground hover:text-foreground"
+                      data-testid={`button-remove-tag-${index}`}
                     >
                       <X className="h-3 w-3" />
                     </button>
@@ -305,9 +313,9 @@ export default function TourCardEditModal({
         </div>
         
         <DialogFooter>
-          <Button variant="outline" onClick={onClose}>Cancel</Button>
-          <Button onClick={handleSave} disabled={isLoading}>
-            {isLoading ? t('tourCard.form.saving') : t('tourCard.form.save')}
+          <Button variant="outline" onClick={onClose} data-testid="button-cancel">{t.tourCard?.edit?.cancel || "Cancel"}</Button>
+          <Button onClick={handleSave} disabled={isLoading} data-testid="button-save">
+            {isLoading ? (t.tourCard?.edit?.saving || "Saving...") : (t.tourCard?.edit?.save || "Save Changes")}
           </Button>
         </DialogFooter>
       </DialogContent>

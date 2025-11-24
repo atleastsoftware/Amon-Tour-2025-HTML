@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Plus, X, Upload } from 'lucide-react';
-import { useUITranslation } from '@/hooks/useUITranslation';
+import { useTranslationSection } from '@/hooks/useTranslationSection';
 
 import type { PageBlock } from '../../../../shared/schema';
 
@@ -40,7 +40,7 @@ interface ColorPickerProps {
 }
 
 function ColorPicker({ value, onChange }: ColorPickerProps) {
-  const { t } = useUITranslation();
+  const { t } = useTranslationSection('admin');
   
   const getColorValue = (colorName: string) => {
     return SYSTEM_COLORS[colorName as keyof typeof SYSTEM_COLORS] || colorName;
@@ -177,7 +177,7 @@ function ColorPicker({ value, onChange }: ColorPickerProps) {
 }
 
 export function BlockConfigModal({ open, onOpenChange, block, onSave }: BlockConfigModalProps) {
-  const { t } = useUITranslation();
+  const { t } = useTranslationSection('admin');
   const [config, setConfig] = useState<any>({});
   const [activeTab, setActiveTab] = useState('content');
 

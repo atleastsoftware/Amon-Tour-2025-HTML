@@ -7,7 +7,7 @@ import { LogOut, ChevronLeft, Check, X, Info, AlertTriangle, Eye, Download } fro
 import { useIsAuthenticated, useLogout } from "@/lib/auth";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { useUITranslation } from "@/hooks/useUITranslation";
+import { useTranslationSection } from "@/contexts/TranslationContext";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { 
@@ -49,7 +49,7 @@ export default function ReservationsManager() {
   const logout = useLogout();
   const [, navigate] = useLocation();
   const { toast } = useToast();
-  const { t } = useUITranslation();
+  const admin = useTranslationSection('admin');
   const queryClient = useQueryClient();
   
   const [selectedTab, setSelectedTab] = useState<string>("all");
@@ -83,8 +83,8 @@ export default function ReservationsManager() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/reservations"] });
       toast({
-        title: t('reservationsManager.statusUpdateSuccess'),
-        description: t('reservationsManager.statusUpdateDescription')
+        title: admin.reservationsManager?.statusUpdateSuccess || "Status Updated",
+        description: admin.reservationsManager?.statusUpdateDescription || "The reservation status has been updated successfully"
       });
       setIsStatusDialogOpen(false);
       setSelectedReservation(null);
@@ -92,8 +92,8 @@ export default function ReservationsManager() {
     onError: (error: any) => {
       toast({
         variant: "destructive",
-        title: t('common.error'),
-        description: error.message || t('reservationsManager.statusUpdateError')
+        title: admin.common?.error || "Error",
+        description: error.message || admin.reservationsManager?.statusUpdateError || "Failed to update reservation status"
       });
     }
   });
@@ -148,15 +148,15 @@ export default function ReservationsManager() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "pending":
-        return <Badge variant="outline" className="bg-[hsl(var(--warning)/0.1)] text-[hsl(var(--warning))] border-[hsl(var(--warning)/0.2)]">{t('reservationsManager.statusPending')}</Badge>;
+        return <Badge data-testid="badge-status-pending" variant="outline" className="bg-[hsl(var(--warning)/0.1)] text-[hsl(var(--warning))] border-[hsl(var(--warning)/0.2)]">{admin.reservationsManager?.statusPending || "Pending"}</Badge>;
       case "confirmed":
-        return <Badge variant="outline" className="bg-[hsl(var(--success)/0.1)] text-[hsl(var(--success))] border-[hsl(var(--success)/0.2)]">{t('reservationsManager.statusConfirmed')}</Badge>;
+        return <Badge data-testid="badge-status-confirmed" variant="outline" className="bg-[hsl(var(--success)/0.1)] text-[hsl(var(--success))] border-[hsl(var(--success)/0.2)]">{admin.reservationsManager?.statusConfirmed || "Confirmed"}</Badge>;
       case "cancelled":
-        return <Badge variant="outline" className="bg-[hsl(var(--destructive)/0.1)] text-[hsl(var(--destructive))] border-[hsl(var(--destructive)/0.2)]">{t('reservationsManager.statusCancelled')}</Badge>;
+        return <Badge data-testid="badge-status-cancelled" variant="outline" className="bg-[hsl(var(--destructive)/0.1)] text-[hsl(var(--destructive))] border-[hsl(var(--destructive)/0.2)]">{admin.reservationsManager?.statusCancelled || "Cancelled"}</Badge>;
       case "completed":
-        return <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20">{t('reservationsManager.statusCompleted')}</Badge>;
+        return <Badge data-testid="badge-status-completed" variant="outline" className="bg-primary/10 text-primary border-primary/20">{admin.reservationsManager?.statusCompleted || "Completed"}</Badge>;
       default:
-        return <Badge variant="outline">{t('reservationsManager.statusUnknown')}</Badge>;
+        return <Badge data-testid="badge-status-unknown" variant="outline">{admin.reservationsManager?.statusUnknown || "Unknown"}</Badge>;
     }
   };
   
@@ -181,25 +181,26 @@ export default function ReservationsManager() {
                 <span className="text-white font-heading font-bold text-xl ml-1">Tour</span>
               </div>
             </Link>
-            <div className="hidden md:block text-sm px-3 py-1 bg-primary-dark rounded">
-              {t('reservationsManager.title')}
+            <div data-testid="badge-section-title" className="hidden md:block text-sm px-3 py-1 bg-primary-dark rounded">
+              {admin.reservationsManager?.title || "Reservations Manager"}
             </div>
           </div>
           
           <div className="flex items-center space-x-4">
             <Button 
+              data-testid="button-logout"
               variant="outline" 
               size="sm" 
               className="text-white border-white hover:bg-primary-dark"
               onClick={handleLogout}
             >
               <LogOut className="mr-2 h-4 w-4" />
-              {t('reservationsManager.logout')}
+              {admin.reservationsManager?.logout || "Logout"}
             </Button>
             <Link href="/admin/dashboard">
-              <span className="text-white hover:text-gray-200 transition-colors cursor-pointer">
+              <span data-testid="link-back-to-dashboard" className="text-white hover:text-gray-200 transition-colors cursor-pointer">
                 <ChevronLeft className="mr-2 h-4 w-4 inline" />
-                {t('reservationsManager.backToDashboard')}
+                {admin.reservationsManager?.backToDashboard || "Back to Dashboard"}
               </span>
             </Link>
           </div>
@@ -208,33 +209,33 @@ export default function ReservationsManager() {
       
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="font-heading font-bold text-3xl mb-2">{t('reservationsManager.title')}</h1>
-          <p className="text-gray-600">{t('reservationsManager.subtitle')}</p>
+          <h1 data-testid="text-page-title" className="font-heading font-bold text-3xl mb-2">{admin.reservationsManager?.title || "Reservations Manager"}</h1>
+          <p data-testid="text-page-subtitle" className="text-gray-600">{admin.reservationsManager?.subtitle || "View and manage tour reservations"}</p>
         </div>
         
-        <Card>
+        <Card data-testid="card-reservations">
           <CardHeader>
             <div className="flex flex-col md:flex-row justify-between">
               <div>
-                <CardTitle>{t('reservationsManager.title')}</CardTitle>
-                <CardDescription>{t('reservationsManager.subtitle')}</CardDescription>
+                <CardTitle data-testid="text-card-title">{admin.reservationsManager?.title || "Reservations Manager"}</CardTitle>
+                <CardDescription data-testid="text-card-description">{admin.reservationsManager?.subtitle || "View and manage tour reservations"}</CardDescription>
               </div>
               <div className="mt-4 md:mt-0">
-                <Button variant="outline" className="mr-2" disabled>
+                <Button data-testid="button-export" variant="outline" className="mr-2" disabled>
                   <Download className="h-4 w-4 mr-2" />
-                  {t('reservationsManager.export')}
+                  {admin.reservationsManager?.export || "Export CSV"}
                 </Button>
               </div>
             </div>
           </CardHeader>
           <CardContent>
-            <Tabs defaultValue="all" value={selectedTab} onValueChange={setSelectedTab}>
+            <Tabs data-testid="tabs-reservations" defaultValue="all" value={selectedTab} onValueChange={setSelectedTab}>
               <TabsList className="mb-6">
-                <TabsTrigger value="all">{t('reservationsManager.tabs.all')}</TabsTrigger>
-                <TabsTrigger value="pending">{t('reservationsManager.tabs.pending')}</TabsTrigger>
-                <TabsTrigger value="confirmed">{t('reservationsManager.tabs.confirmed')}</TabsTrigger>
-                <TabsTrigger value="completed">{t('reservationsManager.tabs.completed')}</TabsTrigger>
-                <TabsTrigger value="cancelled">{t('reservationsManager.tabs.cancelled')}</TabsTrigger>
+                <TabsTrigger data-testid="tab-all" value="all">{admin.reservationsManager?.tabs?.all || "All"}</TabsTrigger>
+                <TabsTrigger data-testid="tab-pending" value="pending">{admin.reservationsManager?.tabs?.pending || "Pending"}</TabsTrigger>
+                <TabsTrigger data-testid="tab-confirmed" value="confirmed">{admin.reservationsManager?.tabs?.confirmed || "Confirmed"}</TabsTrigger>
+                <TabsTrigger data-testid="tab-completed" value="completed">{admin.reservationsManager?.tabs?.completed || "Completed"}</TabsTrigger>
+                <TabsTrigger data-testid="tab-cancelled" value="cancelled">{admin.reservationsManager?.tabs?.cancelled || "Cancelled"}</TabsTrigger>
               </TabsList>
               
               <TabsContent value={selectedTab}>
@@ -244,17 +245,17 @@ export default function ReservationsManager() {
                   </div>
                 ) : filteredReservations.length > 0 ? (
                   <div className="overflow-x-auto">
-                    <Table>
+                    <Table data-testid="table-reservations">
                       <TableHeader>
                         <TableRow>
-                          <TableHead>{t('reservationsManager.tableHeaders.id')}</TableHead>
-                          <TableHead>{t('reservationsManager.tableHeaders.tour')}</TableHead>
-                          <TableHead>{t('reservationsManager.tableHeaders.customer')}</TableHead>
-                          <TableHead>{t('reservationsManager.tableHeaders.date')}</TableHead>
-                          <TableHead>{t('reservationsManager.tableHeaders.people')}</TableHead>
-                          <TableHead>{t('reservationsManager.tableHeaders.amount')}</TableHead>
-                          <TableHead>{t('reservationsManager.tableHeaders.status')}</TableHead>
-                          <TableHead className="text-right">{t('reservationsManager.tableHeaders.actions')}</TableHead>
+                          <TableHead data-testid="header-id">{admin.reservationsManager?.tableHeaders?.id || "ID"}</TableHead>
+                          <TableHead data-testid="header-tour">{admin.reservationsManager?.tableHeaders?.tour || "Tour"}</TableHead>
+                          <TableHead data-testid="header-customer">{admin.reservationsManager?.tableHeaders?.customer || "Customer"}</TableHead>
+                          <TableHead data-testid="header-date">{admin.reservationsManager?.tableHeaders?.date || "Date"}</TableHead>
+                          <TableHead data-testid="header-people">{admin.reservationsManager?.tableHeaders?.people || "People"}</TableHead>
+                          <TableHead data-testid="header-amount">{admin.reservationsManager?.tableHeaders?.amount || "Amount"}</TableHead>
+                          <TableHead data-testid="header-status">{admin.reservationsManager?.tableHeaders?.status || "Status"}</TableHead>
+                          <TableHead data-testid="header-actions" className="text-right">{admin.reservationsManager?.tableHeaders?.actions || "Actions"}</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
@@ -272,32 +273,32 @@ export default function ReservationsManager() {
                             <TableCell className="text-right">
                               <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                  <Button variant="outline" size="sm">{t('reservationsManager.tableHeaders.actions')}</Button>
+                                  <Button data-testid={`button-actions-${reservation.id}`} variant="outline" size="sm">{admin.reservationsManager?.tableHeaders?.actions || "Actions"}</Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent>
-                                  <DropdownMenuItem onClick={() => openDetailsDialog(reservation)}>
+                                  <DropdownMenuItem data-testid={`menu-view-${reservation.id}`} onClick={() => openDetailsDialog(reservation)}>
                                     <Eye className="h-4 w-4 mr-2" />
-                                    {t('reservationsManager.viewDetails')}
+                                    {admin.reservationsManager?.viewDetails || "View Details"}
                                   </DropdownMenuItem>
                                   
                                   {reservation.status === "pending" && (
-                                    <DropdownMenuItem onClick={() => openStatusDialog(reservation, "confirmed")}>
+                                    <DropdownMenuItem data-testid={`menu-confirm-${reservation.id}`} onClick={() => openStatusDialog(reservation, "confirmed")}>
                                       <Check className="h-4 w-4 mr-2 text-green-600" />
-                                      {t('reservationsManager.confirm')}
+                                      {admin.reservationsManager?.confirm || "Confirm"}
                                     </DropdownMenuItem>
                                   )}
                                   
                                   {reservation.status === "confirmed" && (
-                                    <DropdownMenuItem onClick={() => openStatusDialog(reservation, "completed")}>
+                                    <DropdownMenuItem data-testid={`menu-complete-${reservation.id}`} onClick={() => openStatusDialog(reservation, "completed")}>
                                       <Check className="h-4 w-4 mr-2 text-blue-600" />
-                                      {t('reservationsManager.markAsCompleted')}
+                                      {admin.reservationsManager?.markAsCompleted || "Mark as Completed"}
                                     </DropdownMenuItem>
                                   )}
                                   
                                   {(reservation.status === "pending" || reservation.status === "confirmed") && (
-                                    <DropdownMenuItem onClick={() => openStatusDialog(reservation, "cancelled")}>
+                                    <DropdownMenuItem data-testid={`menu-cancel-${reservation.id}`} onClick={() => openStatusDialog(reservation, "cancelled")}>
                                       <X className="h-4 w-4 mr-2 text-destructive" />
-                                      {t('reservationsManager.cancel')}
+                                      {admin.reservationsManager?.cancel || "Cancel"}
                                     </DropdownMenuItem>
                                   )}
                                 </DropdownMenuContent>
@@ -309,11 +310,11 @@ export default function ReservationsManager() {
                     </Table>
                   </div>
                 ) : (
-                  <div className="text-center py-8">
+                  <div data-testid="text-no-reservations" className="text-center py-8">
                     <p className="text-gray-500">
                       {selectedTab === "all"
-                        ? t('reservationsManager.noReservations')
-                        : t('reservationsManager.noReservationsWithStatus', { status: selectedTab })}
+                        ? admin.reservationsManager?.noReservations || "No reservations found."
+                        : (admin.reservationsManager?.noReservationsWithStatus || "No {{status}} reservations found.").replace('{{status}}', selectedTab)}
                     </p>
                   </div>
                 )}
@@ -325,11 +326,11 @@ export default function ReservationsManager() {
       
       {/* Modal de détails de réservation */}
       <Dialog open={isDetailsDialogOpen} onOpenChange={setIsDetailsDialogOpen}>
-        <DialogContent className="sm:max-w-[550px]">
+        <DialogContent data-testid="dialog-reservation-details" className="sm:max-w-[550px]">
           <DialogHeader>
-            <DialogTitle>{t('reservationsManager.detailsDialogTitle')}</DialogTitle>
-            <DialogDescription>
-              {t('reservationsManager.detailsDialogDescription')}
+            <DialogTitle data-testid="text-details-title">{admin.reservationsManager?.detailsDialogTitle || "Reservation Details"}</DialogTitle>
+            <DialogDescription data-testid="text-details-description">
+              {admin.reservationsManager?.detailsDialogDescription || "Complete information about this reservation"}
             </DialogDescription>
           </DialogHeader>
           
@@ -337,68 +338,68 @@ export default function ReservationsManager() {
             <div className="space-y-4 py-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('reservationsManager.fields.reservationNumber')}</h4>
-                  <p className="font-mono">#{selectedReservation.id}</p>
+                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{admin.reservationsManager?.fields?.reservationNumber || "Reservation Number"}</h4>
+                  <p data-testid="text-reservation-number" className="font-mono">#{selectedReservation.id}</p>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('reservationsManager.fields.status')}</h4>
+                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{admin.reservationsManager?.fields?.status || "Status"}</h4>
                   <p>{getStatusBadge(selectedReservation.status)}</p>
                 </div>
               </div>
               
               <div className="pt-2">
-                <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('reservationsManager.fields.tour')}</h4>
-                <p className="font-medium">{getTourTitle(selectedReservation.tourId)}</p>
+                <h4 className="font-semibold text-sm text-gray-500 mb-1">{admin.reservationsManager?.fields?.tour || "Tour"}</h4>
+                <p data-testid="text-tour-title" className="font-medium">{getTourTitle(selectedReservation.tourId)}</p>
               </div>
               
               <div className="pt-2">
-                <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('reservationsManager.fields.customerInfo')}</h4>
+                <h4 className="font-semibold text-sm text-gray-500 mb-1">{admin.reservationsManager?.fields?.customerInfo || "Customer Information"}</h4>
                 <div className="space-y-1">
-                  <p><span className="font-medium">{t('reservationsManager.fields.name')} :</span> {selectedReservation.customerName}</p>
-                  <p><span className="font-medium">{t('reservationsManager.fields.email')} :</span> {selectedReservation.customerEmail}</p>
-                  <p><span className="font-medium">{t('reservationsManager.fields.phone')} :</span> {selectedReservation.customerPhone}</p>
+                  <p data-testid="text-customer-name"><span className="font-medium">{admin.reservationsManager?.fields?.name || "Name"} :</span> {selectedReservation.customerName}</p>
+                  <p data-testid="text-customer-email"><span className="font-medium">{admin.reservationsManager?.fields?.email || "Email"} :</span> {selectedReservation.customerEmail}</p>
+                  <p data-testid="text-customer-phone"><span className="font-medium">{admin.reservationsManager?.fields?.phone || "Phone"} :</span> {selectedReservation.customerPhone}</p>
                 </div>
               </div>
               
               <div className="grid grid-cols-2 gap-4 pt-2">
                 <div>
-                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('reservationsManager.fields.numberOfPeople')}</h4>
-                  <p>{selectedReservation.numberOfPeople}</p>
+                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{admin.reservationsManager?.fields?.numberOfPeople || "Number of People"}</h4>
+                  <p data-testid="text-number-of-people">{selectedReservation.numberOfPeople}</p>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('reservationsManager.fields.totalAmount')}</h4>
-                  <p className="font-semibold">{formatTHB(selectedReservation.totalAmount)}</p>
+                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{admin.reservationsManager?.fields?.totalAmount || "Total Amount"}</h4>
+                  <p data-testid="text-total-amount" className="font-semibold">{formatTHB(selectedReservation.totalAmount)}</p>
                 </div>
               </div>
               
               {selectedReservation.specialRequests && (
                 <div className="pt-2">
-                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('reservationsManager.fields.specialRequests')}</h4>
-                  <p className="p-3 bg-gray-50 rounded-md">{selectedReservation.specialRequests}</p>
+                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{admin.reservationsManager?.fields?.specialRequests || "Special Requests"}</h4>
+                  <p data-testid="text-special-requests" className="p-3 bg-gray-50 rounded-md">{selectedReservation.specialRequests}</p>
                 </div>
               )}
               
               {selectedReservation.stripePaymentIntentId && (
                 <div className="pt-2">
-                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('reservationsManager.fields.paymentInfo')}</h4>
+                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{admin.reservationsManager?.fields?.paymentInfo || "Payment Information"}</h4>
                   <div className="space-y-1">
-                    <p><span className="font-medium">{t('reservationsManager.fields.stripeId')} :</span> {selectedReservation.stripePaymentIntentId}</p>
-                    <p><span className="font-medium">{t('reservationsManager.fields.stripeCustomer')} :</span> {selectedReservation.stripeCustomerId}</p>
+                    <p data-testid="text-stripe-payment-id"><span className="font-medium">{admin.reservationsManager?.fields?.stripeId || "Stripe Payment ID"} :</span> {selectedReservation.stripePaymentIntentId}</p>
+                    <p data-testid="text-stripe-customer-id"><span className="font-medium">{admin.reservationsManager?.fields?.stripeCustomer || "Stripe Customer ID"} :</span> {selectedReservation.stripeCustomerId}</p>
                   </div>
                 </div>
               )}
               
               <div className="grid grid-cols-2 gap-4 pt-2">
                 <div>
-                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('reservationsManager.fields.createdOn')}</h4>
-                  <p>
+                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{admin.reservationsManager?.fields?.createdOn || "Created On"}</h4>
+                  <p data-testid="text-created-on">
                     {selectedReservation.createdAt && 
                       format(new Date(selectedReservation.createdAt), 'dd/MM/yyyy à HH:mm', { locale: fr })}
                   </p>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('reservationsManager.fields.lastUpdated')}</h4>
-                  <p>
+                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{admin.reservationsManager?.fields?.lastUpdated || "Last Updated"}</h4>
+                  <p data-testid="text-last-updated">
                     {selectedReservation.updatedAt && 
                       format(new Date(selectedReservation.updatedAt), 'dd/MM/yyyy à HH:mm', { locale: fr })}
                   </p>
@@ -414,6 +415,7 @@ export default function ReservationsManager() {
                  selectedReservation.status !== "cancelled" && 
                  selectedReservation.status !== "completed" && (
                   <Button 
+                    data-testid="button-details-cancel"
                     variant="destructive" 
                     size="sm"
                     onClick={() => {
@@ -422,7 +424,7 @@ export default function ReservationsManager() {
                     }}
                   >
                     <X className="h-4 w-4 mr-1" />
-                    {t('reservationsManager.cancel')}
+                    {admin.reservationsManager?.cancel || "Cancel"}
                   </Button>
                 )}
               </div>
@@ -430,6 +432,7 @@ export default function ReservationsManager() {
                 {selectedReservation && 
                  selectedReservation.status === "pending" && (
                   <Button 
+                    data-testid="button-details-confirm"
                     variant="default" 
                     size="sm"
                     onClick={() => {
@@ -438,15 +441,16 @@ export default function ReservationsManager() {
                     }}
                   >
                     <Check className="h-4 w-4 mr-1" />
-                    {t('reservationsManager.confirm')}
+                    {admin.reservationsManager?.confirm || "Confirm"}
                   </Button>
                 )}
                 
                 <Button 
+                  data-testid="button-close-details"
                   variant="outline" 
                   onClick={() => setIsDetailsDialogOpen(false)}
                 >
-                  {t('reservationsManager.close')}
+                  {admin.reservationsManager?.close || "Close"}
                 </Button>
               </div>
             </div>
@@ -456,13 +460,13 @@ export default function ReservationsManager() {
       
       {/* Modal de changement de statut */}
       <Dialog open={isStatusDialogOpen} onOpenChange={setIsStatusDialogOpen}>
-        <DialogContent className="sm:max-w-[450px]">
+        <DialogContent data-testid="dialog-status-change" className="sm:max-w-[450px]">
           <DialogHeader>
-            <DialogTitle>{t('reservationsManager.statusDialogTitle')}</DialogTitle>
-            <DialogDescription>
-              {selectedStatus === "confirmed" && t('reservationsManager.statusDialogConfirmDescription')}
-              {selectedStatus === "cancelled" && t('reservationsManager.statusDialogCancelDescription')}
-              {selectedStatus === "completed" && t('reservationsManager.statusDialogCompletedDescription')}
+            <DialogTitle data-testid="text-status-dialog-title">{admin.reservationsManager?.statusDialogTitle || "Change Reservation Status"}</DialogTitle>
+            <DialogDescription data-testid="text-status-dialog-description">
+              {selectedStatus === "confirmed" && (admin.reservationsManager?.statusDialogConfirmDescription || "This will confirm the reservation and notify the customer.")}
+              {selectedStatus === "cancelled" && (admin.reservationsManager?.statusDialogCancelDescription || "This will cancel the reservation. Make sure to notify the customer.")}
+              {selectedStatus === "completed" && (admin.reservationsManager?.statusDialogCompletedDescription || "Mark this reservation as completed after the tour has taken place.")}
             </DialogDescription>
           </DialogHeader>
           
@@ -470,21 +474,21 @@ export default function ReservationsManager() {
             <div className="py-4">
               <div className="flex items-center mb-4">
                 <div className="w-2 h-2 rounded-full mr-2 bg-blue-500"></div>
-                <div className="font-medium">{t('reservationsManager.reservation')} #{selectedReservation.id}</div>
+                <div data-testid="text-reservation-id" className="font-medium">{admin.reservationsManager?.reservation || "Reservation"} #{selectedReservation.id}</div>
               </div>
               
               <div className="space-y-2">
-                <p><span className="font-medium">{t('reservationsManager.fields.tour')} :</span> {getTourTitle(selectedReservation.tourId)}</p>
-                <p><span className="font-medium">{t('reservationsManager.fields.customerInfo')} :</span> {selectedReservation.customerName}</p>
-                <p><span className="font-medium">{t('reservationsManager.currentStatus')} :</span> {getStatusBadge(selectedReservation.status)}</p>
-                <p><span className="font-medium">{t('reservationsManager.newStatus')} :</span> {getStatusBadge(selectedStatus)}</p>
+                <p><span className="font-medium">{admin.reservationsManager?.fields?.tour || "Tour"} :</span> {getTourTitle(selectedReservation.tourId)}</p>
+                <p><span className="font-medium">{admin.reservationsManager?.fields?.customerInfo || "Customer Information"} :</span> {selectedReservation.customerName}</p>
+                <p><span className="font-medium">{admin.reservationsManager?.currentStatus || "Current Status"} :</span> {getStatusBadge(selectedReservation.status)}</p>
+                <p><span className="font-medium">{admin.reservationsManager?.newStatus || "New Status"} :</span> {getStatusBadge(selectedStatus)}</p>
               </div>
               
               {selectedStatus === "cancelled" && (
                 <div className="mt-4 p-3 bg-destructive/10 text-destructive rounded-md flex items-start">
                   <AlertTriangle className="h-5 w-5 mr-2 flex-shrink-0 mt-0.5 text-destructive" />
-                  <span>
-                    {t('reservationsManager.cancelWarning')}
+                  <span data-testid="text-cancel-warning">
+                    {admin.reservationsManager?.cancelWarning || "This action will cancel the reservation. The customer will need to be notified separately."}
                   </span>
                 </div>
               )}
@@ -493,22 +497,24 @@ export default function ReservationsManager() {
           
           <DialogFooter>
             <Button 
+              data-testid="button-status-close"
               type="button" 
               variant="outline" 
               onClick={() => setIsStatusDialogOpen(false)}
             >
-              {t('reservationsManager.close')}
+              {admin.reservationsManager?.close || "Close"}
             </Button>
             
             <Button 
+              data-testid="button-status-confirm"
               variant={selectedStatus === "cancelled" ? "destructive" : "default"} 
               onClick={confirmStatusChange} 
               disabled={updateReservationStatus.isPending}
             >
-              {updateReservationStatus.isPending ? t('reservationsManager.updating') : (
-                selectedStatus === "confirmed" ? t('reservationsManager.confirm') : 
-                selectedStatus === "cancelled" ? t('reservationsManager.cancelReservation') : 
-                t('reservationsManager.markAsCompleted')
+              {updateReservationStatus.isPending ? (admin.reservationsManager?.updating || "Updating...") : (
+                selectedStatus === "confirmed" ? (admin.reservationsManager?.confirm || "Confirm") : 
+                selectedStatus === "cancelled" ? (admin.reservationsManager?.cancel || "Cancel") : 
+                (admin.reservationsManager?.markAsCompleted || "Mark as Completed")
               )}
             </Button>
           </DialogFooter>

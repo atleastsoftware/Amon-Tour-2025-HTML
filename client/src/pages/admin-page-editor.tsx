@@ -11,9 +11,9 @@ import TourNinjaCard from '@/components/tour/TourNinjaCard';
 import URLInput from '@/components/admin/URLInput';
 import ImageManager from '@/components/admin/ImageManager';
 import { useTourNinja } from '@/hooks/useTourNinja';
-import { useUITranslation } from '@/hooks/useUITranslation';
+import { useTranslationSection } from '@/hooks/useTranslationSection';
 
-// Couleurs principales du thème
+// Main theme colors
 const THEME_COLORS = {
   primary: '#084F6E',
   secondary: '#3BA8AF',
@@ -21,10 +21,10 @@ const THEME_COLORS = {
   text: '#374151',
   background: '#ffffff',
   secondaryLight: 'rgba(59, 168, 175, 0.1)',
-  secondaryHover: '#2e8a91' // Version plus foncée pour hover
+  secondaryHover: '#2e8a91' // Darker version for hover
 };
 
-// Fonction helper pour convertir hex en rgba
+// Helper function to convert hex to rgba
 const hexToRgba = (hex: string, alpha: number): string => {
   const cleanHex = hex.replace('#', '');
   const r = parseInt(cleanHex.substring(0, 2), 16);
@@ -33,7 +33,7 @@ const hexToRgba = (hex: string, alpha: number): string => {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 };
 
-// Composant ColorPicker compact avec sélecteur natif + cases rapides
+// Compact ColorPicker component with native selector + quick color boxes
 interface ColorPickerProps {
   value: string;
   onChange: (value: string) => void;
@@ -41,16 +41,16 @@ interface ColorPickerProps {
 }
 
 function ColorPicker({ value, onChange, label }: ColorPickerProps) {
-  const { t } = useUITranslation();
+  const { t } = useTranslationSection('admin');
   const [isEditingCustom, setIsEditingCustom] = useState(false);
   const [customInput, setCustomInput] = useState('');
   const currentColorValue = value || '#ffffff';
 
-  // Fonction pour convertir RGB en HEX si nécessaire
+  // Function to convert RGB to HEX if necessary
   const ensureHexFormat = (color: string): string => {
     if (color.startsWith('#')) return color.toLowerCase();
     
-    // Si c'est en format RGB, convertir en HEX
+    // If it's in RGB format, convert to HEX
     const rgbMatch = color.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
     if (rgbMatch) {
       const [, r, g, b] = rgbMatch;
@@ -90,8 +90,8 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
         setIsEditingCustom(false);
         break;
       case 'custom':
-        // Ne pas activer automatiquement le mode édition
-        // Rester sur le dropdown avec le code couleur cliquable
+        // Do not automatically activate edit mode
+        // Stay on dropdown with clickable color code
         setIsEditingCustom(false);
         break;
     }
@@ -101,14 +101,14 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
     const inputValue = e.target.value;
     setCustomInput(inputValue);
     
-    // Valider et appliquer si c'est un hex valide
+    // Validate and apply if it's a valid hex
     if (/^#[0-9A-F]{6}$/i.test(inputValue)) {
       onChange(inputValue);
     }
   };
 
   const handleCustomInputBlur = () => {
-    // Appliquer la couleur même si pas parfaitement valide, mais corriger le format
+    // Apply color even if not perfectly valid, but correct the format
     if (customInput.startsWith('#') && customInput.length >= 4) {
       const correctedColor = ensureHexFormat(customInput);
       onChange(correctedColor);
@@ -133,12 +133,13 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
       {label && <Label className="text-sm font-medium">{label}</Label>}
       
       <div className="flex items-center gap-2">
-        {/* Cadre de couleur personnalisable à gauche */}
+        {/* Customizable color box on the left */}
         <div className="relative">
           <div 
             className="w-8 h-8 rounded border border-gray-300 cursor-pointer relative overflow-hidden hover:border-gray-400 transition-colors"
             style={{ backgroundColor: currentColorValue }}
-            title={t('pageEditor.colorPicker.clickToCustomize')}
+            title={t('pageEditor.colorPicker.clickToCustomize') || 'Click to customize color'}
+            data-testid="color-picker-box"
           >
             <input
               type="color"
@@ -149,12 +150,13 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
           </div>
         </div>
 
-        {/* Dropdown avec les 3 options OU champ de saisie directe */}
+        {/* Dropdown with options OR direct input field */}
         {isEditingCustom ? (
           <Input
             value={customInput}
             onChange={handleCustomInputChange}
             onBlur={handleCustomInputBlur}
+            data-testid="color-picker-custom-input"
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 handleCustomInputBlur();
@@ -170,31 +172,31 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
           />
         ) : (
           <Select value={getCurrentOption()} onValueChange={handleOptionSelect}>
-            <SelectTrigger className="flex-1">
+            <SelectTrigger className="flex-1" data-testid="color-picker-select">
               <SelectValue>
-                {getCurrentOption() === 'primary' && t('pageEditor.colorPicker.primaryColor')}
-                {getCurrentOption() === 'secondary' && t('pageEditor.colorPicker.secondaryColor')}
-                {getCurrentOption() === 'heading' && t('pageEditor.colorPicker.headingColor')}
-                {getCurrentOption() === 'text' && t('pageEditor.colorPicker.textColor')}
-                {getCurrentOption() === 'background' && t('pageEditor.colorPicker.backgroundColor')}
-                {getCurrentOption() === 'custom' && t('pageEditor.colorPicker.colorReference', { color: displayValue })}
+                {getCurrentOption() === 'primary' && (t('pageEditor.colorPicker.primaryColor') || 'Primary Color')}
+                {getCurrentOption() === 'secondary' && (t('pageEditor.colorPicker.secondaryColor') || 'Secondary Color')}
+                {getCurrentOption() === 'heading' && (t('pageEditor.colorPicker.headingColor') || 'Heading Color')}
+                {getCurrentOption() === 'text' && (t('pageEditor.colorPicker.textColor') || 'Text Color')}
+                {getCurrentOption() === 'background' && (t('pageEditor.colorPicker.backgroundColor') || 'Background Color')}
+                {getCurrentOption() === 'custom' && `Color: ${displayValue}`}
               </SelectValue>
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="custom">{t('pageEditor.colorPicker.colorReference', { color: '' }).replace(': ', '')}</SelectItem>
-              <SelectItem value="primary">{t('pageEditor.colorPicker.primaryColor')}</SelectItem>
-              <SelectItem value="secondary">{t('pageEditor.colorPicker.secondaryColor')}</SelectItem>
-              <SelectItem value="heading">{t('pageEditor.colorPicker.headingColor')}</SelectItem>
-              <SelectItem value="text">{t('pageEditor.colorPicker.textColor')}</SelectItem>
-              <SelectItem value="background">{t('pageEditor.colorPicker.backgroundColor')}</SelectItem>
+              <SelectItem value="custom">Color:</SelectItem>
+              <SelectItem value="primary">{t('pageEditor.colorPicker.primaryColor') || 'Primary Color'}</SelectItem>
+              <SelectItem value="secondary">{t('pageEditor.colorPicker.secondaryColor') || 'Secondary Color'}</SelectItem>
+              <SelectItem value="heading">{t('pageEditor.colorPicker.headingColor') || 'Heading Color'}</SelectItem>
+              <SelectItem value="text">{t('pageEditor.colorPicker.textColor') || 'Text Color'}</SelectItem>
+              <SelectItem value="background">{t('pageEditor.colorPicker.backgroundColor') || 'Background Color'}</SelectItem>
             </SelectContent>
           </Select>
         )}
       </div>
       
-      {/* Phrase explicative */}
+      {/* Explanatory text */}
       <p className="text-xs text-gray-500 mt-1">
-        {t('pageEditor.colorPicker.helpText')}
+        {t('pageEditor.colorPicker.helpText') || 'Click the color box to use the color picker, or select a theme color from the dropdown'}
       </p>
     </div>
   );
@@ -212,7 +214,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from '@/hooks/use-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// Fonction utilitaire pour le scroll automatique avec offset
+// Utility function for automatic scroll with offset
 const scrollToElement = (elementId: string, behavior: ScrollBehavior = 'smooth', offset = -80) => {
   const element = document.getElementById(elementId);
   if (element) {
@@ -224,7 +226,7 @@ const scrollToElement = (elementId: string, behavior: ScrollBehavior = 'smooth',
       behavior: behavior
     });
   } else {
-    console.warn(`Element avec ID "${elementId}" non trouvé pour le scroll`);
+    console.warn(`Element with ID "${elementId}" not found for scroll`);
   }
 };
 
@@ -245,12 +247,12 @@ import TourNinjaSection from '@/components/tour/TourNinjaSection';
 
 // Helper function to get readable block type names
 const getBlockDisplayName = (block: PageBlock): string => {
-  // Cas spécifique pour expats_welcome : afficher "Text" au lieu de "Text + Images"
+  // Specific case for expats_welcome: display "Text" instead of "Text + Images"
   if (block.identifier === 'expats_welcome') {
     return 'Text';
   }
   
-  // Si c'est un card_grid, utiliser l'identifier pour distinguer les types
+  // If it's a card_grid, use identifier to distinguish types
   if (block.blockType === 'card_grid') {
     const cardGridNames: { [key: string]: string } = {
       'popular_experiences': 'Card Grid Date',
@@ -259,12 +261,12 @@ const getBlockDisplayName = (block: PageBlock): string => {
     return cardGridNames[block.identifier] || 'Card Grid';
   }
   
-  // Pour les formulaires personnalisés, toujours afficher "Form"
+  // For custom forms, always display "Form"
   if (block.blockType === 'custom_tour_form') {
     return 'Form';
   }
   
-  // Sinon utiliser le blockType normal
+  // Otherwise use the normal blockType
   const blockNames: { [key: string]: string } = {
     'video_hero': 'Hero Section',
     'hero': 'Hero Section',
@@ -350,7 +352,7 @@ interface DynamicFormBlockPreviewProps {
 }
 
 function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitleColor, dividerColor, backgroundColor }: DynamicFormBlockPreviewProps) {
-  const { t } = useUITranslation();
+  const { t } = useTranslationSection('admin');
   const { data: formData, isLoading } = useQuery<any>({
     queryKey: ['/api/admin/custom-forms', formId],
     queryFn: () => formId ? fetch(`/api/admin/custom-forms/${formId}`).then(res => res.json()) : null,
@@ -953,8 +955,8 @@ function FormSelector({ selectedFormId, onFormSelect, pageSlug, blockId }: FormS
 
 // Real Component Previews - Using ACTUAL website components only
 const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: PageBlock; isFullscreen: boolean; liveConfiguration?: any }) => {
-  // Appeler tous les hooks au niveau du composant (règle de React)
-  const { t } = useUITranslation();
+  // Call all hooks at component level (React rule)
+  const { t } = useTranslationSection('admin');
   const { tours: tourNinjaTours, isLoading: tourNinjaLoading } = useTourNinja();
   
   const getActualComponent = () => {
@@ -2857,7 +2859,7 @@ const BlockEditDropdown = ({
   pageSlug?: string; 
   onPreviewUpdate?: (config: any) => void;
 }) => {
-  const { t } = useUITranslation();
+  const { t } = useTranslationSection('admin');
   const [formData, setFormData] = useState(block.configuration || {});
   
   // Récupérer les tours Tour Ninja pour la sélection manuelle

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
-import { GripVertical, Trash2, Plus, Upload } from 'lucide-react';
+import { GripVertical, Trash2, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useUITranslation } from '@/hooks/useUITranslation';
+import { useTranslationSection } from '@/contexts/TranslationContext';
 
 interface ImageManagerProps {
   images: string[];
@@ -11,7 +11,7 @@ interface ImageManagerProps {
 }
 
 export default function ImageManager({ images, onChange }: ImageManagerProps) {
-  const { t } = useUITranslation();
+  const t = useTranslationSection<any>('admin');
   const [imageUrls, setImageUrls] = useState<string[]>(images || []);
 
   const handleAddImage = () => {
@@ -62,7 +62,7 @@ export default function ImageManager({ images, onChange }: ImageManagerProps) {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4" data-testid="div-image-manager">
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="images">
           {(provided) => (
@@ -76,10 +76,13 @@ export default function ImageManager({ images, onChange }: ImageManagerProps) {
                       className={`flex items-center gap-2 p-3 rounded-lg border ${
                         snapshot.isDragging ? 'bg-accent border-primary' : 'bg-background'
                       }`}
+                      data-testid={`div-image-${index}`}
                     >
                       <div
                         {...provided.dragHandleProps}
                         className="cursor-grab active:cursor-grabbing text-muted-foreground hover:text-foreground"
+                        title={t.imageManager?.dragToReorder || "Drag to reorder"}
+                        data-testid={`handle-drag-${index}`}
                       >
                         <GripVertical className="w-5 h-5" />
                       </div>
@@ -88,6 +91,7 @@ export default function ImageManager({ images, onChange }: ImageManagerProps) {
                         value={url}
                         onChange={(e) => handleUpdateImage(index, e.target.value)}
                         className="flex-1"
+                        data-testid={`input-image-url-${index}`}
                       />
 
                       <Button
@@ -96,7 +100,8 @@ export default function ImageManager({ images, onChange }: ImageManagerProps) {
                         size="icon"
                         onClick={() => handleUpload(index)}
                         className="border-2 border-dashed border-gray-400 hover:border-primary hover:bg-accent"
-                        title={t("imageManager.upload")}
+                        title={t.imageManager?.upload || "Upload image"}
+                        data-testid={`button-upload-${index}`}
                       >
                         <Plus className="w-4 h-4" />
                       </Button>
@@ -107,7 +112,8 @@ export default function ImageManager({ images, onChange }: ImageManagerProps) {
                         size="icon"
                         onClick={() => handleRemoveImage(index)}
                         className="text-destructive hover:text-destructive hover:bg-destructive/10"
-                        title={t("imageManager.delete")}
+                        title={t.imageManager?.delete || "Delete image"}
+                        data-testid={`button-delete-${index}`}
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>
@@ -126,9 +132,10 @@ export default function ImageManager({ images, onChange }: ImageManagerProps) {
         variant="outline"
         onClick={handleAddImage}
         className="w-full"
+        data-testid="button-add-image"
       >
         <Plus className="w-4 h-4 mr-2" />
-        {t("imageManager.add")}
+        {t.imageManager?.add || "Add image"}
       </Button>
     </div>
   );

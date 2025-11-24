@@ -10,7 +10,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { FileText, Save, RefreshCw, Sparkles, AlertCircle } from "lucide-react";
-import { useUITranslation } from "@/hooks/useUITranslation";
+import { useTranslationSection } from "@/hooks/useTranslationSection";
 
 interface CustomForm {
   id: number;
@@ -54,7 +54,7 @@ function getFieldDisplayName(key: string, t: (key: string, params?: any) => stri
 }
 
 export default function FormTranslationEditor() {
-  const { t } = useUITranslation();
+  const { t } = useTranslationSection('admin');
   const { toast } = useToast();
   const [selectedFormId, setSelectedFormId] = useState<number | null>(null);
   const [editedTranslations, setEditedTranslations] = useState<any>(null);

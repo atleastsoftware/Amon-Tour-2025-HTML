@@ -12,7 +12,7 @@ import {
 import TourCardEditModal from "./TourCardEditModal";
 import { useToast } from "@/hooks/use-toast";
 import { formatTHB } from "@/lib/utils";
-import { useUITranslation } from "@/hooks/useUITranslation";
+import { useTranslationSection } from "@/contexts/TranslationContext";
 
 import type { TourCard } from "@shared/schema";
 
@@ -25,7 +25,7 @@ interface TourCardDisplayProps {
 }
 
 export default function TourCardDisplay({ tourCard, onDelete, onUpdate }: TourCardDisplayProps) {
-  const { t } = useUITranslation();
+  const t = useTranslationSection<any>('admin');
   const { toast } = useToast();
   const [copied, setCopied] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -45,21 +45,19 @@ export default function TourCardDisplay({ tourCard, onDelete, onUpdate }: TourCa
   
   const copyLink = async () => {
     try {
-      // In a real app, this would be the shareable link to the tour card page
-      // For now, we'll just copy the custom link
       await navigator.clipboard.writeText(tourCard.customLink);
       setCopied(true);
       toast({
-        title: t('tourCard.display.linkCopied'),
-        description: t('tourCard.display.linkCopiedDescription')
+        title: t.tourCard?.display?.linkCopied || "Link copied",
+        description: t.tourCard?.display?.linkCopiedDescription || "The link has been copied to clipboard"
       });
       
       setTimeout(() => setCopied(false), 2000);
     } catch (error) {
       console.error('Failed to copy link:', error);
       toast({
-        title: t('tourCard.display.copyFailed'),
-        description: t('tourCard.display.copyFailedDescription'),
+        title: t.tourCard?.display?.copyFailed || "Copy failed",
+        description: t.tourCard?.display?.copyFailedDescription || "Failed to copy link to clipboard",
         variant: "destructive"
       });
     }
@@ -70,7 +68,7 @@ export default function TourCardDisplay({ tourCard, onDelete, onUpdate }: TourCa
       if (navigator.share) {
         await navigator.share({
           title: tourCard.title,
-          text: tourCard.description || t('tourCard.display.discover', { title: tourCard.title }),
+          text: tourCard.description || (t.tourCard?.display?.discover?.replace('{{title}}', tourCard.title) || `Discover ${tourCard.title}`),
           url: tourCard.customLink
         });
       } else {
@@ -78,13 +76,13 @@ export default function TourCardDisplay({ tourCard, onDelete, onUpdate }: TourCa
       }
     } catch (error) {
       console.error('Error sharing:', error);
-      // If sharing fails, fallback to copying link
       await copyLink();
     }
   };
   
   const handleDelete = () => {
-    if (window.confirm(t('tourCard.display.deleteConfirm', { title: tourCard.title }))) {
+    const confirmMessage = t.tourCard?.display?.deleteConfirm?.replace('{{title}}', tourCard.title) || `Are you sure you want to delete "${tourCard.title}"?`;
+    if (window.confirm(confirmMessage)) {
       onDelete && onDelete(tourCard.id);
     }
   };
@@ -97,38 +95,40 @@ export default function TourCardDisplay({ tourCard, onDelete, onUpdate }: TourCa
 
   return (
     <>
-      <Card className="overflow-hidden flex flex-col h-full">
+      <Card className="overflow-hidden flex flex-col h-full" data-testid={`card-tour-${tourCard.id}`}>
         <div className="relative aspect-video">
         {tourCard.images.length > 0 ? (
           <img 
             src={tourCard.images[0]} 
             alt={tourCard.title} 
             className="w-full h-full object-cover"
+            data-testid={`img-tour-${tourCard.id}`}
           />
         ) : (
-          <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-            <span className="text-gray-400">Aucune image</span>
+          <div className="w-full h-full bg-gray-200 flex items-center justify-center" data-testid="div-no-image">
+            <span className="text-gray-400">{t.tourCard?.display?.noImage || "No image"}</span>
           </div>
         )}
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
-          <h3 className="text-white font-semibold text-lg line-clamp-1">{tourCard.title}</h3>
-          <p className="text-white/90 font-medium">
-            {t('tourCard.display.fromPrice', { price: formatPrice(tourCard.price, tourCard.currency) })}
+          <h3 className="text-white font-semibold text-lg line-clamp-1" data-testid={`text-tour-title-${tourCard.id}`}>{tourCard.title}</h3>
+          <p className="text-white/90 font-medium" data-testid={`text-tour-price-${tourCard.id}`}>
+            {(t.tourCard?.display?.fromPrice?.replace('{{price}}', formatPrice(tourCard.price, tourCard.currency)) || `From ${formatPrice(tourCard.price, tourCard.currency)}`)}
           </p>
         </div>
       </div>
       
       <CardContent className="p-4 flex flex-col flex-grow">
         {tourCard.description && (
-          <p className="text-gray-600 line-clamp-2 text-sm mb-4">{tourCard.description}</p>
+          <p className="text-gray-600 line-clamp-2 text-sm mb-4" data-testid={`text-tour-description-${tourCard.id}`}>{tourCard.description}</p>
         )}
         
         <div className="mt-auto space-y-2">
           <Button 
             className="w-full" 
             onClick={() => window.open(tourCard.customLink, '_blank')}
+            data-testid={`button-book-${tourCard.id}`}
           >
-            Book now <ExternalLink className="ml-2 h-4 w-4" />
+            {t.tourCard?.display?.bookNow || "Book now"} <ExternalLink className="ml-2 h-4 w-4" />
           </Button>
           
           <div className="flex gap-2">
@@ -136,27 +136,29 @@ export default function TourCardDisplay({ tourCard, onDelete, onUpdate }: TourCa
               variant="outline" 
               className="flex-1"
               onClick={copyLink}
+              data-testid={`button-copy-${tourCard.id}`}
             >
               {copied ? <Check className="mr-1 h-4 w-4" /> : <Copy className="mr-1 h-4 w-4" />}
-              {copied ? t('tourCard.display.copied') : t('tourCard.display.copyLink')}
+              {copied ? (t.tourCard?.display?.copied || "Copied") : (t.tourCard?.display?.copyLink || "Copy link")}
             </Button>
             
             <Button 
               variant="outline"
               onClick={shareCard}
+              data-testid={`button-share-${tourCard.id}`}
             >
               <Share2 className="h-4 w-4" />
-              <span className="sr-only">Partager</span>
+              <span className="sr-only">{t.tourCard?.display?.share || "Share"}</span>
             </Button>
             
-            {/* Bouton d'édition */}
             {onUpdate && (
               <Button 
                 variant="outline"
                 onClick={() => setIsEditModalOpen(true)}
+                data-testid={`button-edit-${tourCard.id}`}
               >
                 <Edit className="h-4 w-4 text-primary" />
-                <span className="sr-only">Modifier</span>
+                <span className="sr-only">{t.tourCard?.display?.edit || "Edit"}</span>
               </Button>
             )}
             
@@ -164,9 +166,10 @@ export default function TourCardDisplay({ tourCard, onDelete, onUpdate }: TourCa
               <Button 
                 variant="outline"
                 onClick={handleDelete}
+                data-testid={`button-delete-${tourCard.id}`}
               >
                 <Trash className="h-4 w-4 text-[hsl(var(--destructive))]" />
-                <span className="sr-only">Supprimer</span>
+                <span className="sr-only">{t.tourCard?.display?.delete || "Delete"}</span>
               </Button>
             )}
           </div>
@@ -174,7 +177,6 @@ export default function TourCardDisplay({ tourCard, onDelete, onUpdate }: TourCa
       </CardContent>
     </Card>
     
-    {/* Modal d'édition */}
     {onUpdate && (
       <TourCardEditModal
         tourCard={tourCard}

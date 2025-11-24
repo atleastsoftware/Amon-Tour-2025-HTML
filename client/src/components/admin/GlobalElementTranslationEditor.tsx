@@ -10,7 +10,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient } from "@/lib/queryClient";
 import { Globe, Save, Lock, Sparkles } from "lucide-react";
-import { useUITranslation } from "@/hooks/useUITranslation";
+import { useTranslationSection } from "@/hooks/useTranslationSection";
 
 function getFieldDisplayName(key: string, t: (key: string) => string): string {
   const simpleFieldKeys: Record<string, string> = {
@@ -94,7 +94,7 @@ interface GlobalElements {
 type ElementType = 'footer' | 'navigation' | 'announcement' | 'popup';
 
 export default function GlobalElementTranslationEditor() {
-  const { t } = useUITranslation();
+  const { t } = useTranslationSection('admin');
   const { toast } = useToast();
   const [selectedElementType, setSelectedElementType] = useState<ElementType | null>(null);
   const [selectedFooterSection, setSelectedFooterSection] = useState<string | null>(null);
