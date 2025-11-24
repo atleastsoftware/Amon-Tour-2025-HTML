@@ -47,14 +47,12 @@ export function useUITranslation() {
   const t = (key: string, params?: Record<string, string | number>): string => {
     // If translations are still loading, return the key
     if (isLoading || Object.keys(translations).length === 0) {
-      console.debug(`⏳ [useUITranslation] Translations still loading, returning key: ${key}`);
+      console.log(`⏳ [useUITranslation] Translations still loading, returning key: ${key}`);
       return key;
     }
     
     const keys = key.split('.');
     let value: any = translations;
-    
-    console.debug(`🔍 [useUITranslation] Looking for key: ${key} in translations:`, Object.keys(translations));
     
     for (const k of keys) {
       if (value && typeof value === 'object' && k in value) {
@@ -77,7 +75,6 @@ export function useUITranslation() {
       }, value);
     }
     
-    console.debug(`✅ [useUITranslation] Found translation for ${key}: ${value}`);
     return value;
   };
 
