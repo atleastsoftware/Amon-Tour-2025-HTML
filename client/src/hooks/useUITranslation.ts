@@ -10,6 +10,8 @@ export function useUITranslation() {
   const [translations, setTranslations] = useState<UITranslations>({});
   const [isLoading, setIsLoading] = useState(true);
 
+  console.log(`🟢 [useUITranslation] Hook initialized with language: ${currentLanguage}`);
+
   useEffect(() => {
     const loadTranslations = async () => {
       try {
