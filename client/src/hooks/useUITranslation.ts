@@ -7,12 +7,26 @@ type UITranslations = {
 
 export function useUITranslation() {
   const translationContext = useTranslation();
-  const currentLanguage = translationContext?.currentLanguage || 'en';
+  const contextLanguage = translationContext?.currentLanguage || 'en';
+  
+  // Force re-render when language changes by using a local state
+  const [currentLanguage, setCurrentLanguage] = useState(contextLanguage);
   const [translations, setTranslations] = useState<UITranslations>({});
   const [isLoading, setIsLoading] = useState(true);
 
   console.log(`🟢🟢🟢 [useUITranslation] Hook RE-RENDER with language: ${currentLanguage}`);
 
+  // Synchronize with context language changes
+  useEffect(() => {
+    console.log(`🔄 [useUITranslation] Context language is: ${contextLanguage}, current is: ${currentLanguage}`);
+    
+    if (contextLanguage !== currentLanguage) {
+      console.log(`🔄🔄🔄 [useUITranslation] FORCING language update from ${currentLanguage} to ${contextLanguage}`);
+      setCurrentLanguage(contextLanguage);
+    }
+  }, [contextLanguage]);
+
+  // Load translations when language changes
   useEffect(() => {
     console.log(`🔄🔄🔄 [useUITranslation] useEffect TRIGGERED! Language changed to: ${currentLanguage}`);
     
