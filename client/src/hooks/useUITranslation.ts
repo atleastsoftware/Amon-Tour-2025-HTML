@@ -14,11 +14,24 @@ export function useUITranslation() {
     const loadTranslations = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch(`/locales/ui.${currentLanguage}.json`);
+        console.log(`🔵 [useUITranslation] Loading UI translations for language: ${currentLanguage}`);
+        
+        const url = `/locales/ui.${currentLanguage}.json`;
+        console.log(`🔵 [useUITranslation] Fetching from URL: ${url}`);
+        
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
         const data = await response.json();
+        console.log(`✅ [useUITranslation] Successfully loaded ${Object.keys(data).length} translation sections for ${currentLanguage}`);
+        console.log(`✅ [useUITranslation] Available sections:`, Object.keys(data));
+        
         setTranslations(data);
       } catch (error) {
-        console.error(`Failed to load UI translations for ${currentLanguage}:`, error);
+        console.error(`❌ [useUITranslation] Failed to load UI translations for ${currentLanguage}:`, error);
         setTranslations({});
       } finally {
         setIsLoading(false);
