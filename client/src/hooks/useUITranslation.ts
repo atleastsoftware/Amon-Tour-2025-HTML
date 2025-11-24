@@ -1,41 +1,51 @@
 import { useState, useEffect } from 'react';
-import { useTranslation } from '@/contexts/TranslationContext';
 
 type UITranslations = {
   [key: string]: any;
 };
 
 export function useUITranslation() {
-  const translationContext = useTranslation();
-  const contextLanguage = translationContext?.currentLanguage || 'en';
+  // Get initial language from localStorage
+  const getInitialLanguage = () => {
+    const saved = localStorage.getItem('preferred-language');
+    return saved && ['en', 'fr', 'es'].includes(saved) ? saved : 'en';
+  };
   
-  // Force re-render when language changes by using a local state
-  const [currentLanguage, setCurrentLanguage] = useState(contextLanguage);
+  const [currentLanguage, setCurrentLanguage] = useState(getInitialLanguage());
   const [translations, setTranslations] = useState<UITranslations>({});
   const [isLoading, setIsLoading] = useState(true);
 
-  console.log(`🟢🟢🟢 [useUITranslation] Hook RE-RENDER with language: ${currentLanguage}`);
+  console.log(`🟢🟢🟢 [useUITranslation] Hook RENDER with language: ${currentLanguage}`);
 
-  // Synchronize with context language changes
+  // Listen to custom language change events
   useEffect(() => {
-    console.log(`🔄 [useUITranslation] Context language is: ${contextLanguage}, current is: ${currentLanguage}`);
+    console.log(`👂 [useUITranslation] Setting up event listener for admin-language-changed`);
     
-    if (contextLanguage !== currentLanguage) {
-      console.log(`🔄🔄🔄 [useUITranslation] FORCING language update from ${currentLanguage} to ${contextLanguage}`);
-      setCurrentLanguage(contextLanguage);
-    }
-  }, [contextLanguage]);
+    const handleLanguageChange = (event: Event) => {
+      const customEvent = event as CustomEvent<{ language: string }>;
+      const newLanguage = customEvent.detail.language;
+      console.log(`📢📢📢 [useUITranslation] Received admin-language-changed event! New language: ${newLanguage}`);
+      setCurrentLanguage(newLanguage);
+    };
+    
+    window.addEventListener('admin-language-changed', handleLanguageChange);
+    
+    return () => {
+      console.log(`🔇 [useUITranslation] Removing event listener`);
+      window.removeEventListener('admin-language-changed', handleLanguageChange);
+    };
+  }, []);
 
   // Load translations when language changes
   useEffect(() => {
-    console.log(`🔄🔄🔄 [useUITranslation] useEffect TRIGGERED! Language changed to: ${currentLanguage}`);
+    console.log(`🔄🔄🔄 [useUITranslation] Language changed to: ${currentLanguage}, LOADING translations...`);
     
     const loadTranslations = async () => {
       try {
         setIsLoading(true);
-        console.log(`🔵🔵🔵 [useUITranslation] START Loading UI translations for language: ${currentLanguage}`);
+        console.log(`🔵🔵🔵 [useUITranslation] START Loading UI translations for: ${currentLanguage}`);
         
-        const url = `/locales/ui.${currentLanguage}.json`;
+        const url = `/locales/ui.${currentLanguage}.json?t=${Date.now()}`;
         console.log(`🔵 [useUITranslation] Fetching from URL: ${url}`);
         
         const response = await fetch(url);
