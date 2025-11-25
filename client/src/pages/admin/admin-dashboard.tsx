@@ -33,7 +33,6 @@ export default function AdminDashboard() {
   const sections = dashboard?.sections || {};
   const common = adminT?.common || {};
   
-  console.log('🔍 AdminDashboard render - currentLanguage:', currentLanguage, 'dashboard:', dashboard);
   const [, setLocation] = useLocation();
   const logout = useLogout();
 
@@ -181,7 +180,6 @@ export default function AdminDashboard() {
                 <p className="text-muted-foreground mt-2" data-testid="text-dashboard-subtitle">
                   {dashboard?.subtitle || "Centralized management dashboard"}
                 </p>
-                <p className="text-xs text-red-500">DEBUG: Current language = {currentLanguage}</p>
               </div>
               <Button 
                 variant="outline" 

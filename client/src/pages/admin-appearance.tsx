@@ -271,7 +271,7 @@ interface HeroEditData {
 import { useLocation } from 'wouter';
 import { motion } from 'framer-motion';
 import logoAmon from "@/assets/logo-amon.png";
-import { useAdminTranslation } from "@/hooks/useAdminTranslation";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 interface PageConfiguration {
   id: number;
@@ -1545,7 +1545,23 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs, update
 }
 
 export default function AdminAppearance() {
-  const { t } = useAdminTranslation();
+  const { translations } = useTranslation();
+  const t = {
+    appearance: {
+      title: translations?.admin?.appearance?.title || "Site Appearance",
+      subtitle: translations?.admin?.appearance?.subtitle || "Customize your website appearance",
+      backToAdmin: translations?.admin?.appearance?.backToAdmin || "Back to Admin",
+      tabs: {
+        theme: translations?.admin?.appearance?.tabs?.theme || "Theme",
+        pages: translations?.admin?.appearance?.tabs?.pages || "Pages",
+        footer: translations?.admin?.appearance?.tabs?.footer || "Footer"
+      },
+      theme: {
+        title: translations?.admin?.appearance?.theme?.title || "Theme Settings",
+        subtitle: translations?.admin?.appearance?.theme?.subtitle || "Customize colors and styles"
+      }
+    }
+  };
   const [, setLocation] = useLocation();
   const [activeCategory, setActiveCategory] = useState<string>('theme');
   const [selectedPage, setSelectedPage] = useState<string>('navigation-menu');

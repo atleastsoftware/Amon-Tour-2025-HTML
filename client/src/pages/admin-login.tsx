@@ -72,7 +72,6 @@ export default function AdminLogin() {
                 <CardDescription>
                   {loginT?.subtitle || "Access the management dashboard"}
                 </CardDescription>
-                <p className="text-xs text-red-500 mt-2">DEBUG: Current language = {currentLanguage}</p>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
