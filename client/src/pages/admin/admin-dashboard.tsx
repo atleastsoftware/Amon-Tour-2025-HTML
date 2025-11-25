@@ -28,8 +28,11 @@ export default function AdminDashboard() {
   const { t, language } = useAdminTranslation();
   const { isAuthenticated, isLoading: authLoading } = useIsAuthenticated();
   
-  // Debug: show current language in console
-  console.log('🔍 AdminDashboard render - language:', language, 'title:', t.dashboard.title);
+  const dashboard = t?.dashboard || {};
+  const sections = dashboard?.sections || {};
+  const common = t?.common || {};
+  
+  console.log('🔍 AdminDashboard render - language:', language, 't:', t);
   const [, setLocation] = useLocation();
   const logout = useLogout();
 
@@ -69,12 +72,12 @@ export default function AdminDashboard() {
     setLocation('/');
   };
 
-  if (authLoading) return <div className="container mx-auto p-8 text-center">{t.common.loading}</div>;
+  if (authLoading) return <div className="container mx-auto p-8 text-center">{common?.loading || "Loading..."}</div>;
 
   const adminSections = [
     {
-      title: t.dashboard.sections.customTours.title,
-      description: t.dashboard.sections.customTours.description,
+      title: sections?.customTours?.title || "Custom Tour Requests",
+      description: sections?.customTours?.description || "Manage custom tour requests",
       icon: <Calendar className="h-6 w-6" />,
       path: "/admin/custom-tours",
       color: "from-primary to-primary/80",
@@ -82,8 +85,8 @@ export default function AdminDashboard() {
       testId: "card-custom-tours"
     },
     {
-      title: t.dashboard.sections.krabiCelebration.title,
-      description: t.dashboard.sections.krabiCelebration.description,
+      title: sections?.krabiCelebration?.title || "Krabi Celebration",
+      description: sections?.krabiCelebration?.description || "Special event requests",
       icon: <PartyPopper className="h-6 w-6" />,
       path: "/admin/krabi-celebration",
       color: "from-secondary to-secondary/80",
@@ -91,8 +94,8 @@ export default function AdminDashboard() {
       testId: "card-krabi-celebration"
     },
     {
-      title: t.dashboard.sections.partnershipRequests.title,
-      description: t.dashboard.sections.partnershipRequests.description,
+      title: sections?.partnershipRequests?.title || sections?.partnership?.title || "Partnership Requests",
+      description: sections?.partnershipRequests?.description || sections?.partnership?.description || "Collaboration proposals",
       icon: <Handshake className="h-6 w-6" />,
       path: "/admin/partnership-requests",
       color: "from-primary/70 to-primary",
@@ -100,8 +103,8 @@ export default function AdminDashboard() {
       testId: "card-partnership-requests"
     },
     {
-      title: t.dashboard.sections.groupRequests.title,
-      description: t.dashboard.sections.groupRequests.description,
+      title: sections?.groupRequests?.title || sections?.groups?.title || "Groups & Companies",
+      description: sections?.groupRequests?.description || sections?.groups?.description || "Group and corporate requests",
       icon: <UsersIcon className="h-6 w-6" />,
       path: "/admin/group-requests",
       color: "from-warning to-warning/80",
@@ -109,16 +112,16 @@ export default function AdminDashboard() {
       testId: "card-group-requests"
     },
     {
-      title: t.dashboard.sections.blogManagement.title,
-      description: t.dashboard.sections.blogManagement.description,
+      title: sections?.blogManagement?.title || sections?.blog?.title || "Blog Management",
+      description: sections?.blogManagement?.description || sections?.blog?.description || "Create and edit articles",
       icon: <BookOpen className="h-6 w-6" />,
       path: "/admin/blog",
       color: "from-primary/60 to-primary/80",
       testId: "card-blog-management"
     },
     {
-      title: t.dashboard.sections.newsletter.title,
-      description: t.dashboard.sections.newsletter.description,
+      title: sections?.newsletter?.title || "Newsletter",
+      description: sections?.newsletter?.description || "Manage newsletter subscriptions",
       icon: <Mail className="h-6 w-6" />,
       path: "/admin/newsletter", 
       color: "from-[hsl(var(--warning))] to-[hsl(var(--warning)/0.8)]",
@@ -126,32 +129,32 @@ export default function AdminDashboard() {
       testId: "card-newsletter"
     },
     {
-      title: t.dashboard.sections.tourCards.title,
-      description: t.dashboard.sections.tourCards.description,
+      title: sections?.tourCards?.title || "Tour Cards",
+      description: sections?.tourCards?.description || "Create and manage tour cards",
       icon: <ImagePlus className="h-6 w-6" />,
       path: "/tour-card-builder",
       color: "from-secondary/80 to-secondary",
       testId: "card-tour-cards"
     },
     {
-      title: t.dashboard.sections.contactMessages.title,
-      description: t.dashboard.sections.contactMessages.description,
+      title: sections?.contactMessages?.title || sections?.messages?.title || "Contact Messages",
+      description: sections?.contactMessages?.description || sections?.messages?.description || "View and respond to messages",
       icon: <Mail className="h-6 w-6" />,
       path: "/admin/messages",
       color: "from-[hsl(var(--success))] to-[hsl(var(--success)/0.8)]",
       testId: "card-contact-messages"
     },
     {
-      title: t.appearance.title,
-      description: t.appearance.subtitle,
+      title: t?.appearance?.title || "Site Appearance",
+      description: t?.appearance?.subtitle || "Customize site appearance",
       icon: <Palette className="h-6 w-6" />,
       path: "/admin-appearance",
       color: "from-purple-500 to-purple-600",
       testId: "card-appearance"
     },
     {
-      title: t.dashboard.sections.settings.title,
-      description: t.dashboard.sections.settings.description,
+      title: sections?.settings?.title || "Settings",
+      description: sections?.settings?.description || "Configuration and preferences",
       icon: <Settings className="h-6 w-6" />,
       path: "/admin/settings",
       color: "from-muted-foreground to-muted-foreground/80",
@@ -172,10 +175,10 @@ export default function AdminDashboard() {
             <div className="flex justify-between items-center mb-8">
               <div>
                 <h1 className="text-3xl font-heading font-bold text-foreground" data-testid="text-dashboard-title">
-                  {t.dashboard.title}
+                  {dashboard?.title || "Administration"}
                 </h1>
                 <p className="text-muted-foreground mt-2" data-testid="text-dashboard-subtitle">
-                  {t.dashboard.subtitle}
+                  {dashboard?.subtitle || "Centralized management dashboard"}
                 </p>
                 <p className="text-xs text-red-500">DEBUG: Current language = {language}</p>
               </div>
@@ -186,7 +189,7 @@ export default function AdminDashboard() {
                 data-testid="button-logout"
               >
                 <LogOut className="h-4 w-4" />
-                {t.dashboard.logout}
+                {dashboard?.logout || "Logout"}
               </Button>
             </div>
 

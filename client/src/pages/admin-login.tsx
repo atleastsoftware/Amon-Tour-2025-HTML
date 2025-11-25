@@ -17,15 +17,18 @@ export default function AdminLogin() {
   const login = useLogin();
   const [, setLocation] = useLocation();
   const { toast } = useToast();
-  const { t } = useAdminTranslation();
+  const { t, language } = useAdminTranslation();
+  
+  const loginT = t?.login || {};
+  const commonT = t?.common || {};
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!username || !password) {
       toast({
-        title: t.common.error,
-        description: t.login.errors.required,
+        title: commonT?.error || "Error",
+        description: loginT?.errors?.required || "Please fill in all fields",
         variant: "destructive",
       });
       return;
@@ -34,16 +37,16 @@ export default function AdminLogin() {
     try {
       await login.mutateAsync({ username, password });
       toast({
-        title: t.login.success.title,
-        description: t.login.success.description,
+        title: loginT?.success?.title || "Login successful",
+        description: loginT?.success?.description || "Redirecting to dashboard...",
       });
       setTimeout(() => {
         setLocation("/admin");
       }, 1000);
     } catch (error) {
       toast({
-        title: t.common.error,
-        description: t.login.errors.invalid,
+        title: commonT?.error || "Error",
+        description: loginT?.errors?.invalid || "Invalid credentials",
         variant: "destructive",
       });
     }
@@ -63,17 +66,18 @@ export default function AdminLogin() {
             <Card>
               <CardHeader>
                 <CardTitle className="text-2xl font-heading">
-                  {t.login.title}
+                  {loginT?.title || "Administration Login"}
                 </CardTitle>
                 <CardDescription>
-                  {t.login.subtitle}
+                  {loginT?.subtitle || "Access the management dashboard"}
                 </CardDescription>
+                <p className="text-xs text-red-500 mt-2">DEBUG: Current language = {language}</p>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="username">
-                      {t.login.username}
+                      {loginT?.username || "Username"}
                     </Label>
                     <Input
                       id="username"
@@ -86,7 +90,7 @@ export default function AdminLogin() {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="password">
-                      {t.login.password}
+                      {loginT?.password || "Password"}
                     </Label>
                     <Input
                       id="password"
@@ -103,12 +107,12 @@ export default function AdminLogin() {
                     disabled={login.isPending}
                     data-testid="button-login"
                   >
-                    {login.isPending ? t.common.loading : t.login.loginButton}
+                    {login.isPending ? (commonT?.loading || "Loading...") : (loginT?.loginButton || "Log in")}
                   </Button>
                 </form>
               </CardContent>
               <CardFooter className="flex justify-center text-sm text-muted-foreground">
-                {t.login.footer}
+                {loginT?.footer || "Access reserved for administrators only"}
               </CardFooter>
             </Card>
           </motion.div>

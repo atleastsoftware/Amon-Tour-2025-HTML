@@ -806,6 +806,47 @@
       }
     },
     "dashboard": {
+      "title": "Administration",
+      "subtitle": "Centralized management dashboard",
+      "logout": "Logout",
+      "sections": {
+        "customTours": {
+          "title": "Custom Tour Requests",
+          "description": "Manage custom tour requests"
+        },
+        "krabiCelebration": {
+          "title": "Krabi Celebration",
+          "description": "Special event requests"
+        },
+        "partnershipRequests": {
+          "title": "Partnership Requests",
+          "description": "Collaboration proposals"
+        },
+        "groupRequests": {
+          "title": "Groups & Companies",
+          "description": "Group and corporate requests"
+        },
+        "blogManagement": {
+          "title": "Blog Management",
+          "description": "Create and edit articles"
+        },
+        "newsletter": {
+          "title": "Newsletter",
+          "description": "Manage newsletter subscriptions"
+        },
+        "tourCards": {
+          "title": "Tour Cards",
+          "description": "Create and manage tour cards"
+        },
+        "contactMessages": {
+          "title": "Contact Messages",
+          "description": "View and respond to messages"
+        },
+        "settings": {
+          "title": "Settings",
+          "description": "Configuration and preferences"
+        }
+      },
       "stats": {
         "tours": "Total Tours",
         "toursDescription": "Published tour experiences",
@@ -856,6 +897,33 @@
         "viewDescription": "View and manage all tour reservations and bookings.",
         "manageReservations": "Manage Reservations"
       }
+    },
+    "login": {
+      "title": "Administration Login",
+      "subtitle": "Access the management dashboard",
+      "username": "Username",
+      "password": "Password",
+      "loginButton": "Log in",
+      "footer": "Access reserved for administrators only",
+      "success": {
+        "title": "Login successful",
+        "description": "Redirecting to dashboard..."
+      },
+      "errors": {
+        "required": "Please fill in all fields",
+        "invalid": "Invalid credentials"
+      }
+    },
+    "common": {
+      "loading": "Loading...",
+      "error": "Error",
+      "success": "Success",
+      "save": "Save",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "edit": "Edit",
+      "add": "Add",
+      "back": "Back"
     }
   },
   "_meta": {
