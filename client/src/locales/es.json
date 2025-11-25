@@ -585,6 +585,22 @@
         "saving": "Guardando...",
         "loading": "Cargando...",
         "clickToEdit": "Clic para editar..."
+      },
+      "navigation": {
+        "menuItems": "Elementos del menú",
+        "addItem": "Añadir elemento",
+        "noItems": "No hay elementos de menú. Haz clic en \"Añadir elemento\" para empezar.",
+        "editItem": "Editar elemento",
+        "itemName": "Nombre del elemento",
+        "itemUrl": "URL",
+        "openIn": "Abrir en",
+        "sameTab": "Misma pestaña",
+        "newTab": "Nueva pestaña",
+        "itemVisible": "Elemento visible",
+        "parentItem": "Elemento padre",
+        "noParent": "Sin padre (nivel superior)",
+        "success": "Éxito",
+        "error": "Error"
       }
     },
     "dashboard": {

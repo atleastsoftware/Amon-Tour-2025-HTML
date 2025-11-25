@@ -892,6 +892,22 @@
         "saving": "Saving...",
         "loading": "Loading...",
         "clickToEdit": "Click to edit..."
+      },
+      "navigation": {
+        "menuItems": "Menu Items",
+        "addItem": "Add Item",
+        "noItems": "No menu items. Click \"Add Item\" to start.",
+        "editItem": "Edit Item",
+        "itemName": "Item Name",
+        "itemUrl": "URL",
+        "openIn": "Open in",
+        "sameTab": "Same Tab",
+        "newTab": "New Tab",
+        "itemVisible": "Item Visible",
+        "parentItem": "Parent Item",
+        "noParent": "No Parent (Top Level)",
+        "success": "Success",
+        "error": "Error"
       }
     },
     "dashboard": {

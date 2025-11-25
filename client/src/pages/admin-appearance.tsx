@@ -167,6 +167,14 @@ function EditableField({
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(value);
   const [isSaving, setIsSaving] = useState(false);
+  const { translations } = useTranslation();
+  
+  const toastMessages = {
+    saved: translations?.admin?.appearance?.theme?.saved || "Saved successfully!",
+    error: translations?.admin?.appearance?.theme?.error || "Error saving",
+    saving: translations?.admin?.appearance?.common?.saving || "Saving...",
+    save: translations?.admin?.appearance?.common?.save || "Save"
+  };
 
   const handleSave = async () => {
     if (editValue === value) {
@@ -178,9 +186,9 @@ function EditableField({
     try {
       await onSave(editValue);
       setIsEditing(false);
-      toast({ title: "Sauvegardé avec succès!" });
+      toast({ title: toastMessages.saved });
     } catch (error) {
-      toast({ title: "Erreur lors de la sauvegarde", variant: "destructive" });
+      toast({ title: toastMessages.error, variant: "destructive" });
     } finally {
       setIsSaving(false);
     }
@@ -239,7 +247,7 @@ function EditableField({
               disabled={isSaving}
               className="h-8"
             >
-              {isSaving ? 'Sauvegarde...' : 'Sauvegarder'}
+              {isSaving ? toastMessages.saving : toastMessages.save}
             </Button>
             <Button
               size="sm"
@@ -248,7 +256,7 @@ function EditableField({
               disabled={isSaving}
               className="h-8"
             >
-              Annuler
+              {translations?.admin?.appearance?.common?.cancel || "Cancel"}
             </Button>
           </div>
         </div>
@@ -261,7 +269,7 @@ function EditableField({
             <span className="text-sm text-gray-500 mr-1">{prefix}</span>
           )}
           <span className={`text-sm text-gray-900 ${className}`}>
-            {value || placeholder || 'Cliquez pour modifier...'}
+            {value || placeholder || (translations?.admin?.appearance?.common?.clickToEdit || 'Click to edit...')}
           </span>
           <Edit className="w-3 h-3 ml-auto text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" />
         </div>
@@ -1644,6 +1652,22 @@ export default function AdminAppearance() {
         saving: adminAppearance?.common?.saving || "Saving...",
         loading: adminAppearance?.common?.loading || "Loading...",
         clickToEdit: adminAppearance?.common?.clickToEdit || "Click to edit..."
+      },
+      navigation: {
+        menuItems: adminAppearance?.navigation?.menuItems || "Menu Items",
+        addItem: adminAppearance?.navigation?.addItem || "Add Item",
+        noItems: adminAppearance?.navigation?.noItems || "No menu items. Click \"Add Item\" to start.",
+        editItem: adminAppearance?.navigation?.editItem || "Edit Item",
+        itemName: adminAppearance?.navigation?.itemName || "Item Name",
+        itemUrl: adminAppearance?.navigation?.itemUrl || "URL",
+        openIn: adminAppearance?.navigation?.openIn || "Open in",
+        sameTab: adminAppearance?.navigation?.sameTab || "Same Tab",
+        newTab: adminAppearance?.navigation?.newTab || "New Tab",
+        itemVisible: adminAppearance?.navigation?.itemVisible || "Item Visible",
+        parentItem: adminAppearance?.navigation?.parentItem || "Parent Item",
+        noParent: adminAppearance?.navigation?.noParent || "No Parent (Top Level)",
+        success: adminAppearance?.navigation?.success || "Success",
+        error: adminAppearance?.navigation?.error || "Error"
       }
     }
   };
@@ -1695,7 +1719,7 @@ export default function AdminAppearance() {
       setTempTypography(null);
       queryClient.invalidateQueries({ queryKey: ['/api/public/theme-settings'] });
       queryClient.invalidateQueries({ queryKey: ['/api/admin/site-settings'] });
-      toast({ title: "Typography sauvegardée !", description: "Les polices ont été appliquées au site." });
+      toast({ title: t.appearance.theme.saved });
     }
   };
 
@@ -1711,7 +1735,7 @@ export default function AdminAppearance() {
       setTempColors(null);
       queryClient.invalidateQueries({ queryKey: ['/api/public/theme-settings'] });
       queryClient.invalidateQueries({ queryKey: ['/api/admin/site-settings'] });
-      toast({ title: "Couleurs sauvegardées !", description: "La palette de couleurs a été appliquée au site." });
+      toast({ title: t.appearance.theme.saved });
     }
   };
 
@@ -1723,7 +1747,7 @@ export default function AdminAppearance() {
       setTempButtonStyles(null);
       queryClient.invalidateQueries({ queryKey: ['/api/public/theme-settings'] });
       queryClient.invalidateQueries({ queryKey: ['/api/admin/site-settings'] });
-      toast({ title: "Styles de boutons sauvegardés !", description: "Les nouveaux styles ont été appliqués." });
+      toast({ title: t.appearance.theme.saved });
     }
   };
 
@@ -1735,7 +1759,7 @@ export default function AdminAppearance() {
       setTempLogoSettings(null);
       queryClient.invalidateQueries({ queryKey: ['/api/public/theme-settings'] });
       queryClient.invalidateQueries({ queryKey: ['/api/admin/site-settings'] });
-      toast({ title: "Logos sauvegardés !", description: "Les nouveaux logos ont été appliqués au site." });
+      toast({ title: t.appearance.theme.saved });
     }
   };
 
@@ -1747,7 +1771,7 @@ export default function AdminAppearance() {
       setTempNotificationBar(null);
       queryClient.invalidateQueries({ queryKey: ['/api/public/theme-settings'] });
       queryClient.invalidateQueries({ queryKey: ['/api/admin/site-settings'] });
-      toast({ title: "Barre d'annonce sauvegardée !", description: "Les paramètres ont été appliqués." });
+      toast({ title: t.appearance.theme.saved });
     }
   };
 
@@ -1759,7 +1783,7 @@ export default function AdminAppearance() {
       setTempPopupSettings(null);
       queryClient.invalidateQueries({ queryKey: ['/api/public/theme-settings'] });
       queryClient.invalidateQueries({ queryKey: ['/api/admin/site-settings'] });
-      toast({ title: "Pop-up sauvegardée !", description: "Les paramètres de pop-up ont été appliqués." });
+      toast({ title: t.appearance.theme.saved });
     }
   };
 
@@ -4546,12 +4570,11 @@ function NavigationMenuManager({ pageConfigs, navigationMenuItems }: { pageConfi
       queryClient.invalidateQueries({ queryKey: ['/api/admin/navigation-menu'] });
       setIsDialogOpen(false);
       setEditingItem(null);
-      toast({ title: "Success", description: "Menu item created successfully" });
+      toast({ title: t.appearance.theme.saved });
     },
     onError: () => {
       toast({ 
-        title: "Error", 
-        description: "Failed to create menu item",
+        title: t.appearance.navigation.error, 
         variant: "destructive" 
       });
     },
@@ -4573,12 +4596,11 @@ function NavigationMenuManager({ pageConfigs, navigationMenuItems }: { pageConfi
       queryClient.invalidateQueries({ queryKey: ['/api/admin/navigation-menu'] });
       setIsDialogOpen(false);
       setEditingItem(null);
-      toast({ title: "Success", description: "Menu item updated successfully" });
+      toast({ title: t.appearance.theme.saved });
     },
     onError: () => {
       toast({ 
-        title: "Error", 
-        description: "Failed to update menu item",
+        title: t.appearance.navigation.error, 
         variant: "destructive" 
       });
     },
@@ -4596,12 +4618,11 @@ function NavigationMenuManager({ pageConfigs, navigationMenuItems }: { pageConfi
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/navigation-menu'] });
-      toast({ title: "Success", description: "Menu item deleted successfully" });
+      toast({ title: t.appearance.theme.saved });
     },
     onError: () => {
       toast({ 
-        title: "Error", 
-        description: "Failed to delete menu item",
+        title: t.appearance.navigation.error, 
         variant: "destructive" 
       });
     },
@@ -4624,8 +4645,7 @@ function NavigationMenuManager({ pageConfigs, navigationMenuItems }: { pageConfi
     },
     onError: () => {
       toast({ 
-        title: "Error", 
-        description: "Failed to reorder menu item",
+        title: t.appearance.navigation.error, 
         variant: "destructive" 
       });
     },
@@ -4676,7 +4696,7 @@ function NavigationMenuManager({ pageConfigs, navigationMenuItems }: { pageConfi
       }
     }
     queryClient.invalidateQueries({ queryKey: ['/api/admin/navigation-menu'] });
-    toast({ title: "Succès", description: "Éléments de menu corrigés en anglais" });
+    toast({ title: t.appearance.theme.saved });
   };
 
   // Auto-correct French items on load
@@ -4717,7 +4737,7 @@ function NavigationMenuManager({ pageConfigs, navigationMenuItems }: { pageConfi
               onClick={async () => {
                 // Save functionality would go here
                 setHasUnsavedChanges(false);
-                toast({ title: "Succès", description: "Modifications sauvegardées" });
+                toast({ title: t.appearance.theme.saved });
               }}
               className="flex items-center gap-2"
             >
@@ -4736,7 +4756,7 @@ function NavigationMenuManager({ pageConfigs, navigationMenuItems }: { pageConfi
           className="flex items-center gap-2"
         >
           <Plus className="w-4 h-4" />
-          Ajouter élément
+          {t.appearance.navigation.addItem}
         </Button>
       </div>
 
@@ -4745,16 +4765,16 @@ function NavigationMenuManager({ pageConfigs, navigationMenuItems }: { pageConfi
       <div>
         <h3 className="text-lg font-semibold flex items-center gap-2 mb-4">
           <Menu className="w-5 h-5" />
-          Éléments du menu ({menuItems.length})
+          {t.appearance.navigation.menuItems} ({menuItems.length})
         </h3>
         {isLoading ? (
           <div className="text-center py-8">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-secondary mx-auto mb-4"></div>
-            <p className="text-gray-500">Chargement...</p>
+            <p className="text-gray-500">{t.appearance.common.loading}</p>
           </div>
         ) : organizedItems.length === 0 ? (
           <div className="text-center py-8 text-gray-500">
-            Aucun élément de menu. Cliquez sur "Ajouter élément" pour commencer.
+            {t.appearance.navigation.noItems}
           </div>
         ) : (
           <div className="space-y-2">
