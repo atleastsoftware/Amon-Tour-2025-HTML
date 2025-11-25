@@ -9,7 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { useAdminTranslation } from "@/hooks/useAdminTranslation";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function AdminLogin() {
   const [username, setUsername] = useState("");
@@ -17,10 +17,11 @@ export default function AdminLogin() {
   const login = useLogin();
   const [, setLocation] = useLocation();
   const { toast } = useToast();
-  const { t, language } = useAdminTranslation();
+  const { translations, currentLanguage } = useTranslation();
   
-  const loginT = t?.login || {};
-  const commonT = t?.common || {};
+  const adminT = translations?.admin || {};
+  const loginT = adminT?.login || {};
+  const commonT = adminT?.common || {};
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,7 +72,7 @@ export default function AdminLogin() {
                 <CardDescription>
                   {loginT?.subtitle || "Access the management dashboard"}
                 </CardDescription>
-                <p className="text-xs text-red-500 mt-2">DEBUG: Current language = {language}</p>
+                <p className="text-xs text-red-500 mt-2">DEBUG: Current language = {currentLanguage}</p>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">

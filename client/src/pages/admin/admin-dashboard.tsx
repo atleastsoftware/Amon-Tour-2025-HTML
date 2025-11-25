@@ -22,17 +22,18 @@ import {
   LogOut,
   Palette
 } from "lucide-react";
-import { useAdminTranslation } from "@/hooks/useAdminTranslation";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function AdminDashboard() {
-  const { t, language } = useAdminTranslation();
+  const { translations, currentLanguage } = useTranslation();
   const { isAuthenticated, isLoading: authLoading } = useIsAuthenticated();
   
-  const dashboard = t?.dashboard || {};
+  const adminT = translations?.admin || {};
+  const dashboard = adminT?.dashboard || {};
   const sections = dashboard?.sections || {};
-  const common = t?.common || {};
+  const common = adminT?.common || {};
   
-  console.log('🔍 AdminDashboard render - language:', language, 't:', t);
+  console.log('🔍 AdminDashboard render - currentLanguage:', currentLanguage, 'dashboard:', dashboard);
   const [, setLocation] = useLocation();
   const logout = useLogout();
 
@@ -145,8 +146,8 @@ export default function AdminDashboard() {
       testId: "card-contact-messages"
     },
     {
-      title: t?.appearance?.title || "Site Appearance",
-      description: t?.appearance?.subtitle || "Customize site appearance",
+      title: adminT?.appearance?.title || "Site Appearance",
+      description: adminT?.appearance?.subtitle || "Customize site appearance",
       icon: <Palette className="h-6 w-6" />,
       path: "/admin-appearance",
       color: "from-purple-500 to-purple-600",
@@ -180,7 +181,7 @@ export default function AdminDashboard() {
                 <p className="text-muted-foreground mt-2" data-testid="text-dashboard-subtitle">
                   {dashboard?.subtitle || "Centralized management dashboard"}
                 </p>
-                <p className="text-xs text-red-500">DEBUG: Current language = {language}</p>
+                <p className="text-xs text-red-500">DEBUG: Current language = {currentLanguage}</p>
               </div>
               <Button 
                 variant="outline" 
