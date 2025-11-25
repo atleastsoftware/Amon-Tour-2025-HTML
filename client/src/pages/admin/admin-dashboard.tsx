@@ -25,8 +25,11 @@ import {
 import { useAdminTranslation } from "@/hooks/useAdminTranslation";
 
 export default function AdminDashboard() {
-  const { t } = useAdminTranslation();
+  const { t, language } = useAdminTranslation();
   const { isAuthenticated, isLoading: authLoading } = useIsAuthenticated();
+  
+  // Debug: show current language in console
+  console.log('🔍 AdminDashboard render - language:', language, 'title:', t.dashboard.title);
   const [, setLocation] = useLocation();
   const logout = useLogout();
 
@@ -174,6 +177,7 @@ export default function AdminDashboard() {
                 <p className="text-muted-foreground mt-2" data-testid="text-dashboard-subtitle">
                   {t.dashboard.subtitle}
                 </p>
+                <p className="text-xs text-red-500">DEBUG: Current language = {language}</p>
               </div>
               <Button 
                 variant="outline" 

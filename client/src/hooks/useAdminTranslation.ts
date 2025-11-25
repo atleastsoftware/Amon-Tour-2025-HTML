@@ -698,8 +698,14 @@ export function useAdminTranslation() {
   // Use the main translation context to get the current language
   const { currentLanguage } = useTranslation();
   
+  // Debug log to trace language changes
+  console.log('🔍 useAdminTranslation - currentLanguage from context:', currentLanguage);
+  
   // Ensure we have a valid language
   const language = (['en', 'fr', 'es'].includes(currentLanguage) ? currentLanguage : 'en') as Language;
+  
+  console.log('🔍 useAdminTranslation - resolved language:', language);
+  console.log('🔍 useAdminTranslation - translation sample:', adminTranslations[language]?.dashboard?.title);
   
   const t: AdminTranslations = adminTranslations[language] || adminTranslations.en;
 
