@@ -8,6 +8,7 @@ import { ArrowLeft, Plus, Edit, Trash2, Eye, FileText } from 'lucide-react';
 import { AdminGuard } from '@/components/AdminGuard';
 import { AddPageModal } from '@/components/AddPageModal';
 import AdminPageEditor from '@/pages/admin-page-editor';
+import { useTranslationSection } from '@/hooks/useTranslationSection';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -35,8 +36,8 @@ function AdminEditorPageContent() {
   const [, setLocation] = useLocation();
   const searchString = useSearch();
   const [isAddPageModalOpen, setIsAddPageModalOpen] = useState(false);
+  const { t } = useTranslationSection('admin');
 
-  // Récupérer toutes les pages depuis la base de données
   const { data: pageConfigs = [], isLoading, error } = useQuery<PageConfiguration[]>({
     queryKey: ['/api/admin/page-configurations'],
     queryFn: () => fetch('/api/admin/page-configurations').then(res => {
@@ -129,9 +130,9 @@ function AdminEditorPageContent() {
             <div className="w-full sm:w-auto">
               <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2 sm:gap-3">
                 <FileText className="h-6 w-6 sm:h-7 sm:w-7 text-blue-600 flex-shrink-0" />
-                <span className="truncate">Éditeur de Pages</span>
+                <span className="truncate">{t?.editor?.pageEditor?.listTitle || "Pages Editor"}</span>
               </h1>
-              <p className="text-sm sm:text-base text-gray-600">Gérez le contenu et la structure de vos pages web</p>
+              <p className="text-sm sm:text-base text-gray-600">{t?.editor?.pageEditor?.listDescription || "Manage your website content and page structure"}</p>
             </div>
             <Button 
               variant="outline" 
@@ -139,7 +140,7 @@ function AdminEditorPageContent() {
               className="flex items-center gap-2 w-full sm:w-auto"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span>Retour à Gestion de Contenu</span>
+              <span>{t?.editor?.backToContentManagement || "Back to Content Management"}</span>
             </Button>
           </div>
         </div>
@@ -148,7 +149,7 @@ function AdminEditorPageContent() {
         {isLoading && (
           <div className="text-center py-12">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-secondary mx-auto mb-4"></div>
-            <p className="text-gray-500">Chargement des pages...</p>
+            <p className="text-gray-500">{t?.common?.loading || "Loading..."}</p>
           </div>
         )}
 
@@ -156,7 +157,7 @@ function AdminEditorPageContent() {
         {error && (
           <Card className="bg-red-50 border-red-200">
             <CardContent className="p-6 text-center">
-              <p className="text-red-600">Erreur lors du chargement des pages</p>
+              <p className="text-red-600">{t?.common?.error || "Error"}</p>
             </CardContent>
           </Card>
         )}
@@ -167,13 +168,13 @@ function AdminEditorPageContent() {
           {/* Page d'accueil (Home) - Non supprimable */}
           {homePage && (
             <div>
-              <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Page d'accueil</h2>
+              <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">{t?.editor?.pageEditor?.homePage || "HOME PAGE"}</h2>
               <Card className="bg-white border border-gray-200 hover:border-blue-300 transition-colors">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
                       <h3 className="text-lg font-semibold text-gray-900">
-                        {homePage.title || 'Page sans titre'}
+                        {homePage.title || 'Home'}
                       </h3>
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                         homePage.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
@@ -190,7 +191,7 @@ function AdminEditorPageContent() {
                         className="flex items-center gap-1"
                       >
                         <Eye className="h-4 w-4" />
-                        Voir
+                        {t?.editor?.view || "View"}
                       </Button>
                       
                       <Button
@@ -200,7 +201,7 @@ function AdminEditorPageContent() {
                         className="flex items-center gap-1 bg-blue-50 border-blue-200 hover:bg-blue-100"
                       >
                         <Edit className="h-4 w-4" />
-                        Modifier
+                        {t?.editor?.edit || "Edit"}
                       </Button>
                     </div>
                   </div>
@@ -216,14 +217,14 @@ function AdminEditorPageContent() {
               className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2"
             >
               <Plus className="h-4 w-4" />
-              Ajouter une page
+              {t?.editor?.pageEditor?.addPage || "Add a page"}
             </Button>
           </div>
 
           {/* Pages principales */}
           {mainPages.length > 0 && (
             <div>
-              <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Pages principales</h2>
+              <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">{t?.editor?.pageEditor?.mainPages || "MAIN PAGES"}</h2>
               <div className="space-y-4">
                 {mainPages.map((page) => (
                   <Card key={page.id} className="bg-white border border-gray-200 hover:border-blue-300 transition-colors">
@@ -231,7 +232,7 @@ function AdminEditorPageContent() {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
                           <h3 className="text-lg font-semibold text-gray-900">
-                            {page.title || 'Page sans titre'}
+                            {page.title || 'Untitled'}
                           </h3>
                           <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                             page.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
@@ -249,7 +250,7 @@ function AdminEditorPageContent() {
                             data-testid={`button-view-${page.id}`}
                           >
                             <Eye className="h-4 w-4" />
-                            Voir
+                            {t?.editor?.view || "View"}
                           </Button>
                           
                           <Button
@@ -260,7 +261,7 @@ function AdminEditorPageContent() {
                             data-testid={`button-edit-${page.id}`}
                           >
                             <Edit className="h-4 w-4" />
-                            Modifier
+                            {t?.editor?.edit || "Edit"}
                           </Button>
                           
                           <AlertDialog>
@@ -272,23 +273,23 @@ function AdminEditorPageContent() {
                                 data-testid={`button-delete-${page.id}`}
                               >
                                 <Trash2 className="h-4 w-4" />
-                                Supprimer
+                                {t?.editor?.delete || "Delete"}
                               </Button>
                             </AlertDialogTrigger>
                             <AlertDialogContent>
                               <AlertDialogHeader>
-                                <AlertDialogTitle>Êtes-vous sûr de supprimer cette page ?</AlertDialogTitle>
+                                <AlertDialogTitle>{t?.common?.confirmDelete || "Are you sure you want to delete this page?"}</AlertDialogTitle>
                                 <AlertDialogDescription>
-                                  Cette action est irréversible. La page "{page.title}" sera définitivement supprimée.
+                                  {t?.common?.deleteWarning || "This action cannot be undone."} "{page.title}"
                                 </AlertDialogDescription>
                               </AlertDialogHeader>
                               <AlertDialogFooter>
-                                <AlertDialogCancel>Annuler</AlertDialogCancel>
+                                <AlertDialogCancel>{t?.editor?.cancel || "Cancel"}</AlertDialogCancel>
                                 <AlertDialogAction 
                                   onClick={() => handleDeletePage(page.id)}
                                   className="bg-red-600 hover:bg-red-700"
                                 >
-                                  Supprimer
+                                  {t?.editor?.delete || "Delete"}
                                 </AlertDialogAction>
                               </AlertDialogFooter>
                             </AlertDialogContent>
@@ -305,7 +306,7 @@ function AdminEditorPageContent() {
           {/* Pages secondaires */}
           {secondaryPages.length > 0 && (
             <div>
-              <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Pages secondaires</h2>
+              <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">{t?.editor?.pageEditor?.secondaryPages || "SECONDARY PAGES"}</h2>
               <div className="space-y-4">
                 {secondaryPages.map((page) => (
                   <Card key={page.id} className="bg-white border border-gray-200 hover:border-blue-300 transition-colors">
@@ -313,7 +314,7 @@ function AdminEditorPageContent() {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
                           <h3 className="text-lg font-semibold text-gray-900">
-                            {page.title || 'Page sans titre'}
+                            {page.title || 'Untitled'}
                           </h3>
                           <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                             page.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
@@ -331,7 +332,7 @@ function AdminEditorPageContent() {
                             data-testid={`button-view-${page.id}`}
                           >
                             <Eye className="h-4 w-4" />
-                            Voir
+                            {t?.editor?.view || "View"}
                           </Button>
                           
                           <Button
@@ -342,7 +343,7 @@ function AdminEditorPageContent() {
                             data-testid={`button-edit-${page.id}`}
                           >
                             <Edit className="h-4 w-4" />
-                            Modifier
+                            {t?.editor?.edit || "Edit"}
                           </Button>
                           
                           <AlertDialog>
@@ -354,23 +355,23 @@ function AdminEditorPageContent() {
                                 data-testid={`button-delete-${page.id}`}
                               >
                                 <Trash2 className="h-4 w-4" />
-                                Supprimer
+                                {t?.editor?.delete || "Delete"}
                               </Button>
                             </AlertDialogTrigger>
                             <AlertDialogContent>
                               <AlertDialogHeader>
-                                <AlertDialogTitle>Êtes-vous sûr de supprimer cette page ?</AlertDialogTitle>
+                                <AlertDialogTitle>{t?.common?.confirmDelete || "Are you sure you want to delete this page?"}</AlertDialogTitle>
                                 <AlertDialogDescription>
-                                  Cette action est irréversible. La page "{page.title}" sera définitivement supprimée.
+                                  {t?.common?.deleteWarning || "This action cannot be undone."} "{page.title}"
                                 </AlertDialogDescription>
                               </AlertDialogHeader>
                               <AlertDialogFooter>
-                                <AlertDialogCancel>Annuler</AlertDialogCancel>
+                                <AlertDialogCancel>{t?.editor?.cancel || "Cancel"}</AlertDialogCancel>
                                 <AlertDialogAction 
                                   onClick={() => handleDeletePage(page.id)}
                                   className="bg-red-600 hover:bg-red-700"
                                 >
-                                  Supprimer
+                                  {t?.editor?.delete || "Delete"}
                                 </AlertDialogAction>
                               </AlertDialogFooter>
                             </AlertDialogContent>
@@ -394,13 +395,13 @@ function AdminEditorPageContent() {
                 <Plus className="h-12 w-12 mx-auto" />
               </div>
               <h3 className="text-lg font-medium text-gray-900 mb-2">
-                Aucune page créée
+                {t?.common?.noResults || "No pages created"}
               </h3>
               <p className="text-gray-500 mb-6">
-                Commencez par créer votre première page
+                {t?.editor?.pageEditor?.addPage || "Start by creating your first page"}
               </p>
               <Button onClick={handleAddPage} className="bg-blue-600 hover:bg-blue-700">
-                Créer ma première page
+                {t?.editor?.pageEditor?.addPage || "Add a page"}
               </Button>
             </CardContent>
           </Card>
