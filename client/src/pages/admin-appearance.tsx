@@ -1546,19 +1546,78 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs, update
 
 export default function AdminAppearance() {
   const { translations } = useTranslation();
+  const adminAppearance = translations?.admin?.appearance || {};
   const t = {
     appearance: {
-      title: translations?.admin?.appearance?.title || "Site Appearance",
-      subtitle: translations?.admin?.appearance?.subtitle || "Customize your website appearance",
-      backToAdmin: translations?.admin?.appearance?.backToAdmin || "Back to Admin",
+      title: adminAppearance?.title || "Site Appearance",
+      subtitle: adminAppearance?.description || "Customize your website appearance",
+      backToAdmin: adminAppearance?.backToAdmin || "Back to Admin",
       tabs: {
-        theme: translations?.admin?.appearance?.tabs?.theme || "Theme",
-        pages: translations?.admin?.appearance?.tabs?.pages || "Pages",
-        footer: translations?.admin?.appearance?.tabs?.footer || "Footer"
+        theme: adminAppearance?.tabs?.theme || "Theme",
+        pages: adminAppearance?.tabs?.pages || "Pages",
+        footer: adminAppearance?.tabs?.footer || "Footer"
       },
       theme: {
-        title: translations?.admin?.appearance?.theme?.title || "Theme Settings",
-        subtitle: translations?.admin?.appearance?.theme?.subtitle || "Customize colors and styles"
+        title: adminAppearance?.theme?.title || "Theme Settings",
+        subtitle: adminAppearance?.theme?.subtitle || "Customize colors and styles",
+        colors: adminAppearance?.theme?.colors || "Colors",
+        typography: adminAppearance?.theme?.typography || "Typography",
+        buttons: adminAppearance?.theme?.buttons || "Buttons",
+        logos: adminAppearance?.theme?.logos || "Logos",
+        notificationBar: adminAppearance?.theme?.notificationBar || "Notification Bar",
+        popup: adminAppearance?.theme?.popup || "Popup",
+        baseColors: adminAppearance?.theme?.baseColors || "Base Colors",
+        baseColorsDesc: adminAppearance?.theme?.baseColorsDesc || "Base site colors and style references",
+        primaryColor: adminAppearance?.theme?.primaryColor || "Primary Color",
+        secondaryColor: adminAppearance?.theme?.secondaryColor || "Secondary Color",
+        headingColor: adminAppearance?.theme?.headingColor || "Heading Color",
+        textColor: adminAppearance?.theme?.textColor || "Text Color",
+        backgroundColor: adminAppearance?.theme?.backgroundColor || "Background Color",
+        colorReference: adminAppearance?.theme?.colorReference || "Color Reference",
+        customColor: adminAppearance?.theme?.customColor || "Custom Color",
+        saveColors: adminAppearance?.theme?.saveColors || "Save Colors",
+        saveTypography: adminAppearance?.theme?.saveTypography || "Save Typography",
+        saveButtons: adminAppearance?.theme?.saveButtons || "Save Buttons",
+        saveLogos: adminAppearance?.theme?.saveLogos || "Save Logos",
+        saveNotificationBar: adminAppearance?.theme?.saveNotificationBar || "Save Notification Bar",
+        savePopup: adminAppearance?.theme?.savePopup || "Save Popup",
+        saved: adminAppearance?.theme?.saved || "Saved successfully!",
+        error: adminAppearance?.theme?.error || "Error saving"
+      },
+      footer: {
+        title: adminAppearance?.footer?.title || "Footer Settings",
+        contactInfo: adminAppearance?.footer?.contactInfo || "Contact Information",
+        contactInfoDesc: adminAppearance?.footer?.contactInfoDesc || "Manage footer contact details",
+        usefulLinks: adminAppearance?.footer?.usefulLinks || "Useful Links",
+        usefulLinksDesc: adminAppearance?.footer?.usefulLinksDesc || "Manage footer navigation links",
+        socialMedia: adminAppearance?.footer?.socialMedia || "Social Media",
+        socialMediaDesc: adminAppearance?.footer?.socialMediaDesc || "Manage social media links",
+        newsletter: adminAppearance?.footer?.newsletter || "Newsletter",
+        newsletterDesc: adminAppearance?.footer?.newsletterDesc || "Configure newsletter section",
+        copyright: adminAppearance?.footer?.copyright || "Copyright",
+        copyrightDesc: adminAppearance?.footer?.copyrightDesc || "Configure copyright text",
+        addContactInfo: adminAppearance?.footer?.addContactInfo || "Add contact information",
+        addLink: adminAppearance?.footer?.addLink || "Add link",
+        addSocialMedia: adminAppearance?.footer?.addSocialMedia || "Add social media",
+        moveUp: adminAppearance?.footer?.moveUp || "Move up",
+        moveDown: adminAppearance?.footer?.moveDown || "Move down",
+        delete: adminAppearance?.footer?.delete || "Delete",
+        label: adminAppearance?.footer?.label || "Label",
+        value: adminAppearance?.footer?.value || "Value",
+        style: adminAppearance?.footer?.style || "Display Style",
+        url: adminAppearance?.footer?.url || "URL",
+        icon: adminAppearance?.footer?.icon || "Icon",
+        preview: adminAppearance?.footer?.preview || "Preview on website"
+      },
+      common: {
+        save: adminAppearance?.common?.save || "Save",
+        cancel: adminAppearance?.common?.cancel || "Cancel",
+        edit: adminAppearance?.common?.edit || "Edit",
+        delete: adminAppearance?.common?.delete || "Delete",
+        add: adminAppearance?.common?.add || "Add",
+        saving: adminAppearance?.common?.saving || "Saving...",
+        loading: adminAppearance?.common?.loading || "Loading...",
+        clickToEdit: adminAppearance?.common?.clickToEdit || "Click to edit..."
       }
     }
   };
@@ -2657,13 +2716,13 @@ export default function AdminAppearance() {
                         <Palette className="w-4 h-4" />
                         Référence couleur
                       </CardTitle>
-                      <CardDescription>Couleurs de base du site et références de style pour les sélecteurs de couleur</CardDescription>
+                      <CardDescription>{t.appearance.theme.baseColorsDesc}</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
                       {/* Ligne 1: Couleur principale + Couleur secondaire */}
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <Label htmlFor="primary-color">Couleur principale</Label>
+                          <Label htmlFor="primary-color">{t.appearance.theme.primaryColor}</Label>
                           <div className="flex items-center gap-2 mt-2">
                             <div className="relative">
                               <div 
@@ -2688,7 +2747,7 @@ export default function AdminAppearance() {
                           </div>
                         </div>
                         <div>
-                          <Label htmlFor="secondary-color">Couleur secondaire</Label>
+                          <Label htmlFor="secondary-color">{t.appearance.theme.secondaryColor}</Label>
                           <div className="flex items-center gap-2 mt-2">
                             <div className="relative">
                               <div 
