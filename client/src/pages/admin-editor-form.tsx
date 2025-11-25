@@ -10,6 +10,7 @@ import FormBuilder from '@/components/admin/FormBuilder';
 import { useToast } from '@/hooks/use-toast';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
+import { useTranslationSection } from '@/hooks/useTranslationSection';
 
 interface FormData {
   id?: number;
@@ -42,6 +43,7 @@ export default function AdminEditorForm() {
   const [newFormName, setNewFormName] = useState('');
   const [navigationContext, setNavigationContext] = useState<any>(null);
   const queryClient = useQueryClient();
+  const { t } = useTranslationSection('admin');
 
   // Charger le contexte de navigation depuis sessionStorage
   useEffect(() => {
@@ -851,9 +853,9 @@ export default function AdminEditorForm() {
             <div className="w-full sm:w-auto">
               <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2 sm:gap-3">
                 <FormInput className="h-6 w-6 sm:h-7 sm:w-7 text-[hsl(var(--warning))] flex-shrink-0" />
-                <span className="truncate">Éditeur de Formulaires</span>
+                <span className="truncate">{t?.editor?.formEditor?.listTitle || "Form Editor"}</span>
               </h1>
-              <p className="text-sm sm:text-base text-gray-600">Créez et gérez des formulaires personnalisés avec champs dynamiques</p>
+              <p className="text-sm sm:text-base text-gray-600">{t?.editor?.formEditor?.listDescription || "Create and manage custom forms with dynamic fields"}</p>
             </div>
             <Button 
               variant="outline" 
@@ -861,7 +863,7 @@ export default function AdminEditorForm() {
               className="flex items-center gap-2 w-full sm:w-auto"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span>Retour à Gestion de Contenu</span>
+              <span>{t?.editor?.backToContentManagement || "Back to Content Management"}</span>
             </Button>
           </div>
         </div>
@@ -873,7 +875,7 @@ export default function AdminEditorForm() {
             className="bg-[hsl(var(--warning))] hover:bg-[hsl(var(--warning)/0.9)] text-white flex items-center gap-2"
           >
             <Plus className="h-4 w-4" />
-            Ajouter un formulaire
+            {t?.editor?.formEditor?.addForm || "Add a form"}
           </Button>
         </div>
 
@@ -882,7 +884,7 @@ export default function AdminEditorForm() {
           {loading ? (
             <div className="text-center py-8">
               <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[hsl(var(--warning))]"></div>
-              <p className="mt-2 text-gray-500">Chargement des formulaires...</p>
+              <p className="mt-2 text-gray-500">{t?.common?.loading || "Loading..."}</p>
             </div>
           ) : (
             <>
@@ -911,7 +913,7 @@ export default function AdminEditorForm() {
                             className="flex items-center gap-1"
                           >
                             <Edit className="h-4 w-4" />
-                            Modifier
+                            {t?.editor?.edit || "Edit"}
                           </Button>
                           
                           <Button
@@ -921,7 +923,7 @@ export default function AdminEditorForm() {
                             className="flex items-center gap-1 text-primary hover:text-primary/80"
                           >
                             <Copy className="h-4 w-4" />
-                            Dupliquer
+                            {t?.editor?.duplicate || "Duplicate"}
                           </Button>
                           
                           {form.id && (
@@ -932,7 +934,7 @@ export default function AdminEditorForm() {
                               className="flex items-center gap-1 text-[hsl(var(--destructive))] hover:text-[hsl(var(--destructive)/0.8)]"
                             >
                               <Trash2 className="h-4 w-4" />
-                              Supprimer
+                              {t?.editor?.delete || "Delete"}
                             </Button>
                           )}
                         </div>
@@ -950,17 +952,17 @@ export default function AdminEditorForm() {
                       <Plus className="h-6 w-6 text-gray-400" />
                     </div>
                     <h3 className="text-lg font-medium text-gray-900 mb-2">
-                      Aucun formulaire créé
+                      {t?.common?.noResults || "No forms created"}
                     </h3>
                     <p className="text-gray-500 text-center mb-4">
-                      Commencez par créer votre premier formulaire personnalisé avec des champs dynamiques
+                      {t?.editor?.formEditor?.listDescription || "Create your first custom form with dynamic fields"}
                     </p>
                     <Button 
                       onClick={handleAddForm}
                       className="bg-[hsl(var(--warning))] hover:bg-[hsl(var(--warning)/0.9)] text-white"
                     >
                       <Plus className="h-4 w-4 mr-2" />
-                      Créer mon premier formulaire
+                      {t?.editor?.formEditor?.addForm || "Add a form"}
                     </Button>
                   </CardContent>
                 </Card>
@@ -973,15 +975,15 @@ export default function AdminEditorForm() {
         <Dialog open={showTitleDialog} onOpenChange={setShowTitleDialog}>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Créer un nouveau formulaire</DialogTitle>
+              <DialogTitle>{t?.editor?.formEditor?.addForm || "Create a new form"}</DialogTitle>
               <DialogDescription>
-                Entrez le nom de votre nouveau formulaire. Vous pourrez personnaliser tous les autres éléments par la suite.
+                {t?.common?.enterName || "Enter the name of your new form. You can customize all other elements later."}
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="name" className="text-right">
-                  Nom
+                  {t?.common?.name || "Name"}
                 </Label>
                 <Input
                   id="name"
@@ -999,13 +1001,13 @@ export default function AdminEditorForm() {
             </div>
             <DialogFooter>
               <Button variant="outline" onClick={() => setShowTitleDialog(false)}>
-                Annuler
+                {t?.editor?.cancel || "Cancel"}
               </Button>
               <Button 
                 onClick={handleCreateFormWithTitle}
                 disabled={!newFormName.trim()}
               >
-                Créer le formulaire
+                {t?.editor?.add || "Create form"}
               </Button>
             </DialogFooter>
           </DialogContent>
