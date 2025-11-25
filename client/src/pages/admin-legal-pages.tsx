@@ -13,6 +13,7 @@ import { ArrowLeft, Plus, Edit, Trash2, FileText, Eye, Scale, Bold, Italic, Alig
 import { motion } from 'framer-motion';
 import { apiRequest } from '@/lib/queryClient';
 import { useIsAuthenticated } from '@/lib/auth';
+import { useTranslationSection } from '@/hooks/useTranslationSection';
 
 interface LegalPage {
   id: number;
@@ -48,6 +49,7 @@ export default function AdminLegalPages() {
     content: '',
   });
   const contentEditableRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslationSection('admin');
 
   // Redirect to login if not authenticated
   useEffect(() => {
@@ -413,10 +415,10 @@ export default function AdminLegalPages() {
             <div className="w-full sm:w-auto">
               <h1 className="text-xl sm:text-2xl font-bold text-foreground mb-2 flex items-center gap-2 sm:gap-3">
                 <Scale className="h-6 w-6 sm:h-7 sm:w-7 text-[hsl(var(--success))] flex-shrink-0" />
-                <span className="truncate">Éditeur de mention légal</span>
+                <span className="truncate">{t?.editor?.legalEditor?.listTitle || "Legal Pages Editor"}</span>
               </h1>
               <p className="text-sm sm:text-base text-muted-foreground">
-                Gérez les pages légales de votre site (mentions légales, CGV, confidentialité)
+                {t?.editor?.legalEditor?.listDescription || "Manage your site's legal pages (legal notice, terms, privacy policy)"}
               </p>
             </div>
             <Button 
@@ -425,7 +427,7 @@ export default function AdminLegalPages() {
               className="flex items-center gap-2 w-full sm:w-auto"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span>Retour</span>
+              <span>{t?.editor?.backToContentManagement || "Back"}</span>
             </Button>
           </div>
         </div>
@@ -433,12 +435,12 @@ export default function AdminLegalPages() {
 
         {/* Legal Pages List */}
         {isLoading ? (
-          <div className="text-center py-8">Chargement...</div>
+          <div className="text-center py-8">{t?.common?.loading || "Loading..."}</div>
         ) : legalPages.length === 0 ? (
           <Card>
             <CardContent className="py-8 text-center">
               <FileText className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
-              <p className="text-muted-foreground">Aucune page légale. Créez-en une pour commencer.</p>
+              <p className="text-muted-foreground">{t?.common?.noResults || "No legal pages. Create one to get started."}</p>
             </CardContent>
           </Card>
         ) : (
@@ -473,7 +475,7 @@ export default function AdminLegalPages() {
                           data-testid={`button-view-${page.id}`}
                         >
                           <Eye className="w-4 h-4" />
-                          Voir
+                          {t?.editor?.view || "View"}
                         </Button>
                         <Button
                           variant={editingPageId === page.id ? "default" : "outline"}
@@ -483,7 +485,7 @@ export default function AdminLegalPages() {
                           data-testid={`button-edit-${page.id}`}
                         >
                           <Edit className="w-4 h-4" />
-                          {editingPageId === page.id ? 'Fermer' : 'Modifier'}
+                          {editingPageId === page.id ? (t?.common?.close || 'Close') : (t?.editor?.edit || 'Edit')}
                         </Button>
                       </div>
                     </div>
@@ -492,7 +494,7 @@ export default function AdminLegalPages() {
                     {editingPageId === page.id && (
                       <div className="mt-6 pt-6 border-t space-y-4">
                         <div className="space-y-2">
-                          <Label htmlFor={`title-${page.id}`}>Titre</Label>
+                          <Label htmlFor={`title-${page.id}`}>{t?.common?.title || "Title"}</Label>
                           <Input
                             id={`title-${page.id}`}
                             value={formData.title}
@@ -501,7 +503,7 @@ export default function AdminLegalPages() {
                         </div>
 
                         <div className="space-y-2">
-                          <Label>Contenu</Label>
+                          <Label>{t?.common?.content || "Content"}</Label>
                           
                           {/* Formatting Toolbar */}
                           <div className="border rounded-lg p-2 bg-muted/50 flex flex-wrap gap-1">
@@ -510,7 +512,7 @@ export default function AdminLegalPages() {
                               variant="ghost"
                               size="sm"
                               onClick={() => insertHeading(2)}
-                              title="Titre 2"
+                              title={t?.editor?.legalEditor?.heading2 || "Heading 2"}
                             >
                               <Heading1 className="w-4 h-4" />
                             </Button>
@@ -519,7 +521,7 @@ export default function AdminLegalPages() {
                               variant="ghost"
                               size="sm"
                               onClick={() => insertHeading(3)}
-                              title="Titre 3"
+                              title={t?.editor?.legalEditor?.heading3 || "Heading 3"}
                             >
                               <Heading2 className="w-4 h-4" />
                             </Button>
@@ -529,7 +531,7 @@ export default function AdminLegalPages() {
                               variant="ghost"
                               size="sm"
                               onClick={insertBold}
-                              title="Gras"
+                              title={t?.editor?.legalEditor?.bold || "Bold"}
                             >
                               <Bold className="w-4 h-4" />
                             </Button>
@@ -538,7 +540,7 @@ export default function AdminLegalPages() {
                               variant="ghost"
                               size="sm"
                               onClick={insertItalic}
-                              title="Italique"
+                              title={t?.editor?.legalEditor?.italic || "Italic"}
                             >
                               <Italic className="w-4 h-4" />
                             </Button>
@@ -548,7 +550,7 @@ export default function AdminLegalPages() {
                               variant="ghost"
                               size="sm"
                               onClick={insertAlignLeft}
-                              title="Aligner à gauche"
+                              title={t?.editor?.legalEditor?.alignLeft || "Align left"}
                             >
                               <AlignLeft className="w-4 h-4" />
                             </Button>
@@ -557,7 +559,7 @@ export default function AdminLegalPages() {
                               variant="ghost"
                               size="sm"
                               onClick={insertAlignCenter}
-                              title="Centrer"
+                              title={t?.editor?.legalEditor?.alignCenter || "Center"}
                             >
                               <AlignCenter className="w-4 h-4" />
                             </Button>
@@ -566,7 +568,7 @@ export default function AdminLegalPages() {
                               variant="ghost"
                               size="sm"
                               onClick={insertAlignRight}
-                              title="Aligner à droite"
+                              title={t?.editor?.legalEditor?.alignRight || "Align right"}
                             >
                               <AlignRight className="w-4 h-4" />
                             </Button>
@@ -576,7 +578,7 @@ export default function AdminLegalPages() {
                               variant="ghost"
                               size="sm"
                               onClick={insertBulletList}
-                              title="Liste à puces"
+                              title={t?.editor?.legalEditor?.bulletList || "Bullet list"}
                             >
                               <List className="w-4 h-4" />
                             </Button>
@@ -591,7 +593,7 @@ export default function AdminLegalPages() {
                             suppressContentEditableWarning
                           />
                           <p className="text-xs text-muted-foreground">
-                            Cliquez dans la zone ci-dessus pour éditer. Sélectionnez du texte et utilisez les boutons de formatage.
+                            {t?.editor?.legalEditor?.editorHelp || "Click in the area above to edit. Select text and use the formatting buttons."}
                           </p>
                         </div>
 
@@ -603,13 +605,13 @@ export default function AdminLegalPages() {
                               setFormData({ title: '', content: '' });
                             }}
                           >
-                            Annuler
+                            {t?.editor?.cancel || "Cancel"}
                           </Button>
                           <Button 
                             onClick={handleUpdatePage}
                             disabled={updatePageMutation.isPending}
                           >
-                            {updatePageMutation.isPending ? 'Enregistrement...' : 'Enregistrer'}
+                            {updatePageMutation.isPending ? (t?.common?.saving || 'Saving...') : (t?.editor?.save || 'Save')}
                           </Button>
                         </div>
                       </div>
@@ -626,36 +628,36 @@ export default function AdminLegalPages() {
                 <DialogTrigger asChild>
                   <Button className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white">
                     <Plus className="w-4 h-4" />
-                    Créer une page légale
+                    {t?.editor?.legalEditor?.addPage || "Create a legal page"}
                   </Button>
                 </DialogTrigger>
                 <DialogContent>
                   <DialogHeader>
-                    <DialogTitle>Créer une nouvelle page légale</DialogTitle>
+                    <DialogTitle>{t?.editor?.legalEditor?.addPage || "Create a new legal page"}</DialogTitle>
                     <DialogDescription>
-                      Entrez le nom de la nouvelle page légale
+                      {t?.common?.enterName || "Enter the name of the new legal page"}
                     </DialogDescription>
                   </DialogHeader>
                   <div className="space-y-4 py-4">
                     <div className="space-y-2">
-                      <Label htmlFor="new-page-name">Nom de la page *</Label>
+                      <Label htmlFor="new-page-name">{t?.common?.name || "Page name"} *</Label>
                       <Input
                         id="new-page-name"
                         value={formData.title}
                         onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                        placeholder="Ex: Politique de cookies"
+                        placeholder="Ex: Cookie policy"
                       />
                       <p className="text-xs text-muted-foreground">
-                        L'URL sera générée automatiquement à partir du nom
+                        {t?.editor?.legalEditor?.urlAutoGenerated || "The URL will be generated automatically from the name"}
                       </p>
                     </div>
                   </div>
                   <div className="flex justify-end gap-2">
                     <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
-                      Annuler
+                      {t?.editor?.cancel || "Cancel"}
                     </Button>
                     <Button onClick={handleCreatePage} disabled={createPageMutation.isPending}>
-                      {createPageMutation.isPending ? 'Création...' : 'Créer'}
+                      {createPageMutation.isPending ? (t?.common?.creating || 'Creating...') : (t?.editor?.add || 'Create')}
                     </Button>
                   </div>
                 </DialogContent>
@@ -692,7 +694,7 @@ export default function AdminLegalPages() {
                           data-testid={`button-view-${page.id}`}
                         >
                           <Eye className="w-4 h-4" />
-                          Voir
+                          {t?.editor?.view || "View"}
                         </Button>
                         <Button
                           variant={editingPageId === page.id ? "default" : "outline"}
@@ -702,7 +704,7 @@ export default function AdminLegalPages() {
                           data-testid={`button-edit-${page.id}`}
                         >
                           <Edit className="w-4 h-4" />
-                          {editingPageId === page.id ? 'Fermer' : 'Modifier'}
+                          {editingPageId === page.id ? (t?.common?.close || 'Close') : (t?.editor?.edit || 'Edit')}
                         </Button>
                         <AlertDialog>
                           <AlertDialogTrigger asChild>
@@ -717,18 +719,18 @@ export default function AdminLegalPages() {
                           </AlertDialogTrigger>
                           <AlertDialogContent>
                             <AlertDialogHeader>
-                              <AlertDialogTitle>Confirmer la suppression</AlertDialogTitle>
+                              <AlertDialogTitle>{t?.common?.confirmDelete || "Confirm deletion"}</AlertDialogTitle>
                               <AlertDialogDescription>
-                                Voulez-vous vraiment supprimer "{page.pageName}" ? Cette action est irréversible.
+                                {t?.common?.deleteConfirmation || `Are you sure you want to delete "${page.pageName}"? This action cannot be undone.`}
                               </AlertDialogDescription>
                             </AlertDialogHeader>
                             <AlertDialogFooter>
-                              <AlertDialogCancel>Annuler</AlertDialogCancel>
+                              <AlertDialogCancel>{t?.editor?.cancel || "Cancel"}</AlertDialogCancel>
                               <AlertDialogAction
                                 onClick={() => deletePageMutation.mutate(page.id)}
                                 className="bg-destructive text-destructive-foreground"
                               >
-                                Supprimer
+                                {t?.editor?.delete || "Delete"}
                               </AlertDialogAction>
                             </AlertDialogFooter>
                           </AlertDialogContent>
@@ -740,7 +742,7 @@ export default function AdminLegalPages() {
                     {editingPageId === page.id && (
                       <div className="mt-6 pt-6 border-t space-y-4">
                         <div className="space-y-2">
-                          <Label htmlFor={`title-${page.id}`}>Titre</Label>
+                          <Label htmlFor={`title-${page.id}`}>{t?.common?.title || "Title"}</Label>
                           <Input
                             id={`title-${page.id}`}
                             value={formData.title}
@@ -749,7 +751,7 @@ export default function AdminLegalPages() {
                         </div>
 
                         <div className="space-y-2">
-                          <Label>Contenu</Label>
+                          <Label>{t?.common?.content || "Content"}</Label>
                           
                           {/* Formatting Toolbar */}
                           <div className="border rounded-lg p-2 bg-muted/50 flex flex-wrap gap-1">
@@ -758,7 +760,7 @@ export default function AdminLegalPages() {
                               variant="ghost"
                               size="sm"
                               onClick={() => insertHeading(2)}
-                              title="Titre 2"
+                              title={t?.editor?.legalEditor?.heading2 || "Heading 2"}
                             >
                               <Heading1 className="w-4 h-4" />
                             </Button>
@@ -767,7 +769,7 @@ export default function AdminLegalPages() {
                               variant="ghost"
                               size="sm"
                               onClick={() => insertHeading(3)}
-                              title="Titre 3"
+                              title={t?.editor?.legalEditor?.heading3 || "Heading 3"}
                             >
                               <Heading2 className="w-4 h-4" />
                             </Button>
@@ -777,7 +779,7 @@ export default function AdminLegalPages() {
                               variant="ghost"
                               size="sm"
                               onClick={insertBold}
-                              title="Gras"
+                              title={t?.editor?.legalEditor?.bold || "Bold"}
                             >
                               <Bold className="w-4 h-4" />
                             </Button>
@@ -786,7 +788,7 @@ export default function AdminLegalPages() {
                               variant="ghost"
                               size="sm"
                               onClick={insertItalic}
-                              title="Italique"
+                              title={t?.editor?.legalEditor?.italic || "Italic"}
                             >
                               <Italic className="w-4 h-4" />
                             </Button>
@@ -796,7 +798,7 @@ export default function AdminLegalPages() {
                               variant="ghost"
                               size="sm"
                               onClick={insertAlignLeft}
-                              title="Aligner à gauche"
+                              title={t?.editor?.legalEditor?.alignLeft || "Align left"}
                             >
                               <AlignLeft className="w-4 h-4" />
                             </Button>
@@ -805,7 +807,7 @@ export default function AdminLegalPages() {
                               variant="ghost"
                               size="sm"
                               onClick={insertAlignCenter}
-                              title="Centrer"
+                              title={t?.editor?.legalEditor?.alignCenter || "Center"}
                             >
                               <AlignCenter className="w-4 h-4" />
                             </Button>
@@ -814,7 +816,7 @@ export default function AdminLegalPages() {
                               variant="ghost"
                               size="sm"
                               onClick={insertAlignRight}
-                              title="Aligner à droite"
+                              title={t?.editor?.legalEditor?.alignRight || "Align right"}
                             >
                               <AlignRight className="w-4 h-4" />
                             </Button>
@@ -824,7 +826,7 @@ export default function AdminLegalPages() {
                               variant="ghost"
                               size="sm"
                               onClick={insertBulletList}
-                              title="Liste à puces"
+                              title={t?.editor?.legalEditor?.bulletList || "Bullet list"}
                             >
                               <List className="w-4 h-4" />
                             </Button>
@@ -839,7 +841,7 @@ export default function AdminLegalPages() {
                             suppressContentEditableWarning
                           />
                           <p className="text-xs text-muted-foreground">
-                            Cliquez dans la zone ci-dessus pour éditer. Sélectionnez du texte et utilisez les boutons de formatage.
+                            {t?.editor?.legalEditor?.editorHelp || "Click in the area above to edit. Select text and use the formatting buttons."}
                           </p>
                         </div>
 
@@ -851,13 +853,13 @@ export default function AdminLegalPages() {
                               setFormData({ title: '', content: '' });
                             }}
                           >
-                            Annuler
+                            {t?.editor?.cancel || "Cancel"}
                           </Button>
                           <Button 
                             onClick={handleUpdatePage}
                             disabled={updatePageMutation.isPending}
                           >
-                            {updatePageMutation.isPending ? 'Enregistrement...' : 'Enregistrer'}
+                            {updatePageMutation.isPending ? (t?.common?.saving || 'Saving...') : (t?.editor?.save || 'Save')}
                           </Button>
                         </div>
                       </div>
