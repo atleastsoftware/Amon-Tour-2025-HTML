@@ -18,40 +18,39 @@ import {
   PartyPopper,
   Handshake,
   UsersIcon,
-  Newsletter,
   Settings,
-  LogOut 
+  LogOut,
+  Palette
 } from "lucide-react";
-import { useTranslationSection } from "@/contexts/TranslationContext";
+import { useAdminTranslation } from "@/hooks/useAdminTranslation";
 
 export default function AdminDashboard() {
-  const admin = useTranslationSection('admin');
+  const { t } = useAdminTranslation();
   const { isAuthenticated, isLoading: authLoading } = useIsAuthenticated();
   const [, setLocation] = useLocation();
   const logout = useLogout();
 
-  // Fetch unread counts for notifications
-  const { data: krabiUnread = [] } = useQuery({
+  const { data: krabiUnread = [] } = useQuery<any[]>({
     queryKey: ["/api/krabi-celebration", { read: false }],
     enabled: isAuthenticated,
   });
 
-  const { data: partnershipUnread = [] } = useQuery({
+  const { data: partnershipUnread = [] } = useQuery<any[]>({
     queryKey: ["/api/partnership-requests", { read: false }],
     enabled: isAuthenticated,
   });
 
-  const { data: groupUnread = [] } = useQuery({
+  const { data: groupUnread = [] } = useQuery<any[]>({
     queryKey: ["/api/group-requests", { read: false }],
     enabled: isAuthenticated,
   });
 
-  const { data: customTourUnread = [] } = useQuery({
+  const { data: customTourUnread = [] } = useQuery<any[]>({
     queryKey: ["/api/custom-tour-requests", { status: "new" }],
     enabled: isAuthenticated,
   });
 
-  const { data: newsletterUnconfirmed = [] } = useQuery({
+  const { data: newsletterUnconfirmed = [] } = useQuery<any[]>({
     queryKey: ["/api/admin/newsletter/subscriptions", { confirmed: false }],
     enabled: isAuthenticated,
   });
@@ -67,12 +66,12 @@ export default function AdminDashboard() {
     setLocation('/');
   };
 
-  if (authLoading) return <div className="container mx-auto p-8 text-center">Loading...</div>;
+  if (authLoading) return <div className="container mx-auto p-8 text-center">{t.common.loading}</div>;
 
   const adminSections = [
     {
-      title: admin.dashboard?.sections?.customTours?.title || "Custom tour requests",
-      description: admin.dashboard?.sections?.customTours?.description || "Manage custom tour requests",
+      title: t.dashboard.sections.customTours.title,
+      description: t.dashboard.sections.customTours.description,
       icon: <Calendar className="h-6 w-6" />,
       path: "/admin/custom-tours",
       color: "from-primary to-primary/80",
@@ -80,8 +79,8 @@ export default function AdminDashboard() {
       testId: "card-custom-tours"
     },
     {
-      title: admin.dashboard?.sections?.krabiCelebration?.title || "Krabi Celebration",
-      description: admin.dashboard?.sections?.krabiCelebration?.description || "Special event requests",
+      title: t.dashboard.sections.krabiCelebration.title,
+      description: t.dashboard.sections.krabiCelebration.description,
       icon: <PartyPopper className="h-6 w-6" />,
       path: "/admin/krabi-celebration",
       color: "from-secondary to-secondary/80",
@@ -89,8 +88,8 @@ export default function AdminDashboard() {
       testId: "card-krabi-celebration"
     },
     {
-      title: admin.dashboard?.sections?.partnershipRequests?.title || "Partnership requests",
-      description: admin.dashboard?.sections?.partnershipRequests?.description || "Collaboration proposals",
+      title: t.dashboard.sections.partnershipRequests.title,
+      description: t.dashboard.sections.partnershipRequests.description,
       icon: <Handshake className="h-6 w-6" />,
       path: "/admin/partnership-requests",
       color: "from-primary/70 to-primary",
@@ -98,8 +97,8 @@ export default function AdminDashboard() {
       testId: "card-partnership-requests"
     },
     {
-      title: admin.dashboard?.sections?.groupRequests?.title || "Groups & Companies",
-      description: admin.dashboard?.sections?.groupRequests?.description || "Group and corporate requests",
+      title: t.dashboard.sections.groupRequests.title,
+      description: t.dashboard.sections.groupRequests.description,
       icon: <UsersIcon className="h-6 w-6" />,
       path: "/admin/group-requests",
       color: "from-warning to-warning/80",
@@ -107,41 +106,49 @@ export default function AdminDashboard() {
       testId: "card-group-requests"
     },
     {
-      title: admin.dashboard?.sections?.blogManagement?.title || "Blog management",
-      description: admin.dashboard?.sections?.blogManagement?.description || "Create and edit articles",
+      title: t.dashboard.sections.blogManagement.title,
+      description: t.dashboard.sections.blogManagement.description,
       icon: <BookOpen className="h-6 w-6" />,
       path: "/admin/blog",
       color: "from-primary/60 to-primary/80",
       testId: "card-blog-management"
     },
     {
-      title: admin.dashboard?.sections?.newsletter?.title || "Newsletter",
-      description: admin.dashboard?.sections?.newsletter?.description || "Manage newsletter subscriptions",
-      icon: <Newsletter className="h-6 w-6" />,
+      title: t.dashboard.sections.newsletter.title,
+      description: t.dashboard.sections.newsletter.description,
+      icon: <Mail className="h-6 w-6" />,
       path: "/admin/newsletter", 
       color: "from-[hsl(var(--warning))] to-[hsl(var(--warning)/0.8)]",
       unreadCount: newsletterUnconfirmed?.length || 0,
       testId: "card-newsletter"
     },
     {
-      title: admin.dashboard?.sections?.tourCards?.title || "Tour cards",
-      description: admin.dashboard?.sections?.tourCards?.description || "Create and manage tour presentation cards",
+      title: t.dashboard.sections.tourCards.title,
+      description: t.dashboard.sections.tourCards.description,
       icon: <ImagePlus className="h-6 w-6" />,
       path: "/tour-card-builder",
       color: "from-secondary/80 to-secondary",
       testId: "card-tour-cards"
     },
     {
-      title: admin.dashboard?.sections?.contactMessages?.title || "Contact messages",
-      description: admin.dashboard?.sections?.contactMessages?.description || "View and respond to messages",
+      title: t.dashboard.sections.contactMessages.title,
+      description: t.dashboard.sections.contactMessages.description,
       icon: <Mail className="h-6 w-6" />,
       path: "/admin/messages",
       color: "from-[hsl(var(--success))] to-[hsl(var(--success)/0.8)]",
       testId: "card-contact-messages"
     },
     {
-      title: admin.dashboard?.sections?.settings?.title || "Settings",
-      description: admin.dashboard?.sections?.settings?.description || "Configuration and preferences",
+      title: t.appearance.title,
+      description: t.appearance.subtitle,
+      icon: <Palette className="h-6 w-6" />,
+      path: "/admin-appearance",
+      color: "from-purple-500 to-purple-600",
+      testId: "card-appearance"
+    },
+    {
+      title: t.dashboard.sections.settings.title,
+      description: t.dashboard.sections.settings.description,
       icon: <Settings className="h-6 w-6" />,
       path: "/admin/settings",
       color: "from-muted-foreground to-muted-foreground/80",
@@ -162,10 +169,10 @@ export default function AdminDashboard() {
             <div className="flex justify-between items-center mb-8">
               <div>
                 <h1 className="text-3xl font-heading font-bold text-foreground" data-testid="text-dashboard-title">
-                  {admin.dashboard?.title || "Administration"}
+                  {t.dashboard.title}
                 </h1>
                 <p className="text-muted-foreground mt-2" data-testid="text-dashboard-subtitle">
-                  {admin.dashboard?.subtitle || "Centralized management dashboard"}
+                  {t.dashboard.subtitle}
                 </p>
               </div>
               <Button 
@@ -175,14 +182,14 @@ export default function AdminDashboard() {
                 data-testid="button-logout"
               >
                 <LogOut className="h-4 w-4" />
-                {admin.dashboard?.logout || "Logout"}
+                {t.dashboard.logout}
               </Button>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {adminSections.map((section, index) => (
                 <motion.div
-                  key={section.title}
+                  key={section.path}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -195,7 +202,7 @@ export default function AdminDashboard() {
                     onClick={() => setLocation(section.path)}
                     data-testid={section.testId}
                   >
-                    {section.unreadCount > 0 && (
+                    {section.unreadCount && section.unreadCount > 0 && (
                       <Badge 
                         variant="destructive" 
                         className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0 flex items-center justify-center text-xs z-10"
