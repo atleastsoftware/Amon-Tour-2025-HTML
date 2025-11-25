@@ -936,6 +936,27 @@
       "new": "Nuevo",
       "processing": "Procesando...",
       "noResults": "No se encontraron resultados"
+    },
+    "editor": {
+      "title": "Gestión de Contenido",
+      "description": "Gestiona fácilmente el contenido de tu sitio web con nuestras herramientas de edición profesionales",
+      "backToAppearance": "Volver a Apariencia del sitio",
+      "accessEditor": "Acceder al editor",
+      "pages": "Páginas",
+      "legalPages": "Páginas legales",
+      "forms": "Formularios",
+      "pageEditor": {
+        "title": "Editor de página",
+        "description": "Crear, editar, eliminar contenido de bloques de cada página"
+      },
+      "legalEditor": {
+        "title": "Editor de avisos legales",
+        "description": "Crear y gestionar páginas legales (avisos, T&C, privacidad)"
+      },
+      "formEditor": {
+        "title": "Editor de formularios",
+        "description": "Crear y gestionar formularios personalizados con campos dinámicos"
+      }
     }
   },
   "_meta": {

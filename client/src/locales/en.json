@@ -1058,6 +1058,27 @@
       "edit": "Edit",
       "add": "Add",
       "back": "Back"
+    },
+    "editor": {
+      "title": "Content Management",
+      "description": "Easily manage your website content with our professional editing tools",
+      "backToAppearance": "Back to Site Appearance",
+      "accessEditor": "Access Editor",
+      "pages": "Pages",
+      "legalPages": "Legal Pages",
+      "forms": "Forms",
+      "pageEditor": {
+        "title": "Page Editor",
+        "description": "Create, edit, delete block content for each page"
+      },
+      "legalEditor": {
+        "title": "Legal Notice Editor",
+        "description": "Create and manage legal pages (notices, T&C, privacy)"
+      },
+      "formEditor": {
+        "title": "Form Editor",
+        "description": "Create and manage custom forms with dynamic fields"
+      }
     }
   },
   "_meta": {
