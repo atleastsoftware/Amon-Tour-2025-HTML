@@ -15,6 +15,9 @@ import { toast } from '@/hooks/use-toast';
 import { Edit, Plus, Trash2, Move, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Palette, Layout, Image, Type, FileText, MapPin, Mail, Users, Download, Star, Camera, ArrowLeft, Search, Video, Bell, MousePointer, Globe, Menu, Clock, Link, CheckCircle, AlertCircle, Database, Trash } from 'lucide-react';
 import RealBlockPreview from '@/components/admin/RealBlockPreview';
 import { AddPageModal } from '@/components/AddPageModal';
+import { useTranslation } from '@/contexts/TranslationContext';
+import { useLocation } from 'wouter';
+import { motion } from 'framer-motion';
 
 // Composant ColorPicker pour sélectionner les couleurs
 interface ColorPickerProps {
@@ -31,6 +34,17 @@ interface ColorPickerProps {
 }
 
 function ColorPicker({ value, onChange, label, themeColors }: ColorPickerProps) {
+  const { translations } = useTranslation();
+  const adminAppearance = translations?.admin?.appearance;
+  
+  const labels = {
+    primary: adminAppearance?.theme?.primaryColor || 'Primary Color',
+    secondary: adminAppearance?.theme?.secondaryColor || 'Secondary Color',
+    heading: adminAppearance?.theme?.headingColor || 'Heading Color',
+    text: adminAppearance?.theme?.textColor || 'Text Color',
+    background: adminAppearance?.theme?.backgroundColor || 'Background Color',
+    colorReference: adminAppearance?.theme?.colorReference || 'Color Reference'
+  };
   const currentColorValue = value || '#ffffff';
 
   const ensureHexFormat = (color: string): string => {
@@ -106,21 +120,21 @@ function ColorPicker({ value, onChange, label, themeColors }: ColorPickerProps) 
         <Select value={getCurrentOption()} onValueChange={handleOptionSelect}>
           <SelectTrigger className="flex-1">
             <SelectValue>
-              {getCurrentOption() === 'primary' && 'Couleur principale'}
-              {getCurrentOption() === 'secondary' && 'Couleur secondaire'}
-              {getCurrentOption() === 'heading' && 'Couleur de titre'}
-              {getCurrentOption() === 'text' && 'Couleur de texte'}
-              {getCurrentOption() === 'background' && 'Couleur de fond'}
-              {getCurrentOption() === 'custom' && `Référence couleur`}
+              {getCurrentOption() === 'primary' && labels.primary}
+              {getCurrentOption() === 'secondary' && labels.secondary}
+              {getCurrentOption() === 'heading' && labels.heading}
+              {getCurrentOption() === 'text' && labels.text}
+              {getCurrentOption() === 'background' && labels.background}
+              {getCurrentOption() === 'custom' && labels.colorReference}
             </SelectValue>
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="custom">Référence couleur</SelectItem>
-            <SelectItem value="primary">Couleur principale</SelectItem>
-            <SelectItem value="secondary">Couleur secondaire</SelectItem>
-            <SelectItem value="heading">Couleur de titre</SelectItem>
-            <SelectItem value="text">Couleur de texte</SelectItem>
-            <SelectItem value="background">Couleur de fond</SelectItem>
+            <SelectItem value="custom">{labels.colorReference}</SelectItem>
+            <SelectItem value="primary">{labels.primary}</SelectItem>
+            <SelectItem value="secondary">{labels.secondary}</SelectItem>
+            <SelectItem value="heading">{labels.heading}</SelectItem>
+            <SelectItem value="text">{labels.text}</SelectItem>
+            <SelectItem value="background">{labels.background}</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -268,10 +282,6 @@ interface HeroEditData {
   button2Text: string;
   button2Url: string;
 }
-import { useLocation } from 'wouter';
-import { motion } from 'framer-motion';
-import logoAmon from "@/assets/logo-amon.png";
-import { useTranslation } from "@/contexts/TranslationContext";
 
 interface PageConfiguration {
   id: number;
@@ -1560,8 +1570,17 @@ export default function AdminAppearance() {
       theme: {
         title: adminAppearance?.theme?.title || "Theme Settings",
         subtitle: adminAppearance?.theme?.subtitle || "Customize colors and styles",
+        design: adminAppearance?.theme?.design || "Design",
+        elements: adminAppearance?.theme?.elements || "Elements",
+        branding: adminAppearance?.theme?.branding || "Branding",
         colors: adminAppearance?.theme?.colors || "Colors",
         typography: adminAppearance?.theme?.typography || "Typography",
+        buttonStyles: adminAppearance?.theme?.buttonStyles || "Button Styles",
+        announcementBar: adminAppearance?.theme?.announcementBar || "Announcement Bar",
+        popupAnnouncement: adminAppearance?.theme?.popupAnnouncement || "Popup Announcement",
+        logoFavicon: adminAppearance?.theme?.logoFavicon || "Logo & Favicon",
+        seoMetadata: adminAppearance?.theme?.seoMetadata || "SEO & Metadata",
+        otherColors: adminAppearance?.theme?.otherColors || "Other Colors",
         buttons: adminAppearance?.theme?.buttons || "Buttons",
         logos: adminAppearance?.theme?.logos || "Logos",
         notificationBar: adminAppearance?.theme?.notificationBar || "Notification Bar",
@@ -1581,8 +1600,15 @@ export default function AdminAppearance() {
         saveLogos: adminAppearance?.theme?.saveLogos || "Save Logos",
         saveNotificationBar: adminAppearance?.theme?.saveNotificationBar || "Save Notification Bar",
         savePopup: adminAppearance?.theme?.savePopup || "Save Popup",
+        saveChanges: adminAppearance?.theme?.saveChanges || "Save changes",
         saved: adminAppearance?.theme?.saved || "Saved successfully!",
-        error: adminAppearance?.theme?.error || "Error saving"
+        error: adminAppearance?.theme?.error || "Error saving",
+        enableNotificationBar: adminAppearance?.theme?.enableNotificationBar || "Enable notification bar",
+        notificationText: adminAppearance?.theme?.notificationText || "Notification text",
+        enableScrolling: adminAppearance?.theme?.enableScrolling || "Enable scrolling (ideal for long texts)",
+        enableNewsletter: adminAppearance?.theme?.enableNewsletter || "Enable newsletter",
+        enableCopyright: adminAppearance?.theme?.enableCopyright || "Enable copyright",
+        saving: adminAppearance?.theme?.saving || "Saving..."
       },
       footer: {
         title: adminAppearance?.footer?.title || "Footer Settings",
@@ -1621,6 +1647,7 @@ export default function AdminAppearance() {
       }
     }
   };
+  
   const [, setLocation] = useLocation();
   const [activeCategory, setActiveCategory] = useState<string>('theme');
   const [selectedPage, setSelectedPage] = useState<string>('navigation-menu');
@@ -2280,18 +2307,18 @@ export default function AdminAppearance() {
 
   // Group theme sections by category
   const themeCategories = {
-    'Design': [
-      { key: 'colors', name: 'Couleurs', icon: 'Palette' },
-      { key: 'typography', name: 'Typographie', icon: 'Type' }
+    [t.appearance.theme.design]: [
+      { key: 'colors', name: t.appearance.theme.colors, icon: 'Palette' },
+      { key: 'typography', name: t.appearance.theme.typography, icon: 'Type' }
     ],
-    'Éléments': [
-      { key: 'button-styles', name: 'Styles de boutons', icon: 'MousePointer' },
-      { key: 'announcements', name: 'Barre d\'annonces', icon: 'Bell' },
-      { key: 'backgrounds', name: 'Annonce pop-up', icon: 'Bell' }
+    [t.appearance.theme.elements]: [
+      { key: 'button-styles', name: t.appearance.theme.buttonStyles, icon: 'MousePointer' },
+      { key: 'announcements', name: t.appearance.theme.announcementBar, icon: 'Bell' },
+      { key: 'backgrounds', name: t.appearance.theme.popupAnnouncement, icon: 'Bell' }
     ],
-    'Image de marque': [
-      { key: 'logo-favicon', name: 'Logo & Favicon', icon: 'Image' },
-      { key: 'seo-metadata', name: 'SEO & Métadonnées', icon: 'Globe' }
+    [t.appearance.theme.branding]: [
+      { key: 'logo-favicon', name: t.appearance.theme.logoFavicon, icon: 'Image' },
+      { key: 'seo-metadata', name: t.appearance.theme.seoMetadata, icon: 'Globe' }
     ]
   };
 
@@ -2714,7 +2741,7 @@ export default function AdminAppearance() {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                         <Palette className="w-4 h-4" />
-                        Référence couleur
+                        {t.appearance.theme.colorReference}
                       </CardTitle>
                       <CardDescription>{t.appearance.theme.baseColorsDesc}</CardDescription>
                     </CardHeader>
@@ -2869,11 +2896,11 @@ export default function AdminAppearance() {
                         </div>
                       </div>
                       
-                      {/* Autres couleurs */}
+                      {/* Other colors */}
                       <div className="mt-6 pt-6 border-t border-gray-200">
                         <CardTitle className="flex items-center gap-2 text-base sm:text-lg mb-4">
                           <Palette className="w-4 h-4" />
-                          Autres couleurs
+                          {t.appearance.theme.otherColors}
                         </CardTitle>
                         <div className="space-y-4">
                           {/* Menu */}
@@ -2987,7 +3014,7 @@ export default function AdminAppearance() {
                           disabled={!tempColors}
                           className="bg-secondary hover:bg-secondary/90"
                         >
-                          💾 Sauvegarder Couleurs
+                          💾 {t.appearance.theme.saveColors}
                         </Button>
                       </div>
                     </CardContent>
@@ -3000,9 +3027,9 @@ export default function AdminAppearance() {
                       <CardHeader>
                         <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                           <Bell className="w-4 h-4" />
-                          Barre d'annonces
+                          {t.appearance.theme.announcementBar}
                         </CardTitle>
-                        <CardDescription>Barre de notification en haut</CardDescription>
+                        <CardDescription>{t.appearance.theme.notificationBar}</CardDescription>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div className="flex items-center space-x-2">
@@ -3013,10 +3040,10 @@ export default function AdminAppearance() {
                               setTempNotificationBar((prev: any) => ({ ...prev, enabled: checked }));
                             }}
                           />
-                          <Label htmlFor="notification-enabled">Activer la barre de notification</Label>
+                          <Label htmlFor="notification-enabled">{t.appearance.theme.enableNotificationBar}</Label>
                         </div>
                         <div>
-                          <Label>Texte de notification</Label>
+                          <Label>{t.appearance.theme.notificationText}</Label>
                           <Input
                             value={tempNotificationBar?.text ?? JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text": "L\'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr"}').text}
                             onChange={(e) => {
@@ -3035,7 +3062,7 @@ export default function AdminAppearance() {
                                 setTempNotificationBar((prev: any) => ({ ...prev, scrolling: checked }));
                               }}
                             />
-                            <Label htmlFor="notification-scrolling">Activer défilement (idéal pour textes longs)</Label>
+                            <Label htmlFor="notification-scrolling">{t.appearance.theme.enableScrolling}</Label>
                           </div>
                           
                           {(tempNotificationBar?.scrolling ?? JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"scrolling": false}').scrolling) && (
@@ -3123,7 +3150,7 @@ export default function AdminAppearance() {
                             disabled={!tempNotificationBar}
                             className="bg-secondary hover:bg-secondary/90"
                           >
-                            💾 Sauvegarder Announcement Bar
+                            💾 {t.appearance.theme.saveNotificationBar}
                           </Button>
                         </div>
                         
@@ -3176,7 +3203,7 @@ export default function AdminAppearance() {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                         <Type className="w-4 h-4" />
-                        Typographie
+                        {t.appearance.theme.typography}
                       </CardTitle>
                       <CardDescription>Familles de polices et styles de texte</CardDescription>
                     </CardHeader>
@@ -3288,7 +3315,7 @@ export default function AdminAppearance() {
                           disabled={!tempTypography}
                           className="bg-secondary hover:bg-secondary/90"
                         >
-                          💾 Sauvegarder Typography
+                          💾 {t.appearance.theme.saveTypography}
                         </Button>
                       </div>
                       
@@ -3399,7 +3426,7 @@ export default function AdminAppearance() {
                           disabled={!tempButtonStyles}
                           className="bg-secondary hover:bg-secondary/90"
                         >
-                          💾 Sauvegarder Button Styles
+                          💾 {t.appearance.theme.saveButtons}
                         </Button>
                       </div>
                       
@@ -3658,7 +3685,7 @@ export default function AdminAppearance() {
                           disabled={!tempLogoSettings}
                           className="bg-secondary hover:bg-secondary/90"
                         >
-                          💾 Sauvegarder Logo Settings
+                          💾 {t.appearance.theme.saveLogos}
                         </Button>
                       </div>
                       
@@ -3822,7 +3849,7 @@ export default function AdminAppearance() {
                           disabled={!tempPopupSettings}
                           className="bg-secondary hover:bg-secondary/90"
                         >
-                          💾 Sauvegarder Pop-up Settings
+                          💾 {t.appearance.theme.savePopup}
                         </Button>
                       </div>
                       
@@ -4695,7 +4722,7 @@ function NavigationMenuManager({ pageConfigs, navigationMenuItems }: { pageConfi
               className="flex items-center gap-2"
             >
               <Download className="w-4 h-4" />
-              Sauvegarder les modifications
+              {t.appearance.theme.saveChanges}
             </Button>
           )}
         </div>
@@ -5427,13 +5454,13 @@ function RealBlocksEditor({
                       variant="outline"
                       onClick={() => setEditingHeroBlockId(null)}
                     >
-                      Annuler
+                      {t.appearance.common.cancel}
                     </Button>
                     <Button
                       onClick={saveHeroChanges}
                       className="bg-primary hover:bg-primary/90"
                     >
-                      Sauvegarder les modifications
+                      {t.appearance.theme.saveChanges}
                     </Button>
                   </div>
                 </CardContent>
