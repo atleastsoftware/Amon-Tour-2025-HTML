@@ -972,21 +972,77 @@
       "title": "Gestión de Contenido",
       "description": "Gestiona fácilmente el contenido de tu sitio web con nuestras herramientas de edición profesionales",
       "backToAppearance": "Volver a Apariencia del sitio",
+      "backToContentManagement": "Volver a Gestión de Contenido",
       "accessEditor": "Acceder al editor",
       "pages": "Páginas",
       "legalPages": "Páginas legales",
       "forms": "Formularios",
+      "view": "Ver",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "duplicate": "Duplicar",
+      "add": "Añadir",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "close": "Cerrar",
+      "back": "Volver",
+      "visible": "Visible",
+      "viewPage": "Ver página",
       "pageEditor": {
         "title": "Editor de página",
-        "description": "Crear, editar, eliminar contenido de bloques de cada página"
+        "description": "Crear, editar, eliminar contenido de bloques de cada página",
+        "listTitle": "Editor de Páginas",
+        "listDescription": "Gestiona el contenido y la estructura de tus páginas web",
+        "blockEditorTitle": "Editor de página",
+        "blockEditorDescription": "Cada bloque reproduce exactamente la sección correspondiente de tu sitio web",
+        "insertBlockHere": "Insertar un bloque aquí",
+        "homePage": "PÁGINA DE INICIO",
+        "mainPages": "PÁGINAS PRINCIPALES",
+        "secondaryPages": "PÁGINAS SECUNDARIAS",
+        "addPage": "Añadir una página"
       },
       "legalEditor": {
         "title": "Editor de avisos legales",
-        "description": "Crear y gestionar páginas legales (avisos, T&C, privacidad)"
+        "description": "Crear y gestionar páginas legales (avisos, T&C, privacidad)",
+        "listTitle": "Editor de avisos legales",
+        "listDescription": "Gestiona las páginas legales de tu sitio (avisos legales, T&C, privacidad)",
+        "createLegalPage": "Crear una página legal",
+        "titleLabel": "Título",
+        "contentLabel": "Contenido"
       },
       "formEditor": {
         "title": "Editor de formularios",
-        "description": "Crear y gestionar formularios personalizados con campos dinámicos"
+        "description": "Crear y gestionar formularios personalizados con campos dinámicos",
+        "listTitle": "Editor de Formularios",
+        "listDescription": "Crea y gestiona formularios personalizados con campos dinámicos",
+        "addForm": "Añadir un formulario",
+        "formBuilder": "Constructor de formularios",
+        "formName": "Nombre del formulario:"
+      },
+      "blockTypes": {
+        "cardGridDate": "Card Grid Date",
+        "cardGridDateDesc": "Cuadrícula de tarjetas con insignias de duración",
+        "cardGridPrice": "Card Grid Price",
+        "cardGridPriceDesc": "Cuadrícula de tarjetas con insignias de precio",
+        "contact": "Contacto",
+        "contactDesc": "Sección de contacto con email, teléfono, WhatsApp y Line ID",
+        "form": "Formulario",
+        "formDesc": "Formulario con imagen y campos personalizables",
+        "gallery": "Galería",
+        "galleryDesc": "Tarjetas de testimonios desplazables",
+        "hero": "Hero",
+        "heroDesc": "Sección hero con video y botones de llamada a la acción",
+        "iconGrid": "Cuadrícula de iconos",
+        "iconGridDesc": "Cuadrícula de iconos con descripciones de texto",
+        "searchModule": "Módulo de búsqueda",
+        "searchModuleDesc": "Módulo de búsqueda y filtrado de tours",
+        "textImage": "Texto e Imagen",
+        "textImageDesc": "Sección de texto con imagen opcional"
+      },
+      "blockSelection": {
+        "title": "Añadir un bloque",
+        "preview": "Vista previa",
+        "selectBlockToPreview": "Selecciona un tipo de bloque para ver la vista previa"
       }
     }
   },
