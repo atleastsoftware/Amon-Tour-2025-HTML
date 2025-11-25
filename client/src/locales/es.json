@@ -600,7 +600,22 @@
         "parentItem": "Elemento padre",
         "noParent": "Sin padre (nivel superior)",
         "success": "Éxito",
-        "error": "Error"
+        "error": "Error",
+        "description": "Gestiona los elementos del menú de navegación de tu sitio. Arrastra y suelta para reordenar. Nota: El enlace \"Inicio\" (/) se gestiona automáticamente - solo aparece cuando no estás en la página de inicio."
+      },
+      "pageManagement": {
+        "slugUrl": "Slug/URL Externa",
+        "notModifiable": "(no modificable)",
+        "externalLinkCheck": "Marque si es un enlace externo (redirección a una URL completa)",
+        "notLinked": "Esta página aún no está vinculada a otras secciones del sitio",
+        "pageId": "ID de página:",
+        "publicUrl": "URL pública:",
+        "createdAt": "Creada el:",
+        "modifiedAt": "Modificada el:",
+        "mainPage": "Página principal",
+        "secondaryPage": "Página secundaria",
+        "viewPage": "Ver página",
+        "editPage": "Editar página"
       }
     },
     "dashboard": {

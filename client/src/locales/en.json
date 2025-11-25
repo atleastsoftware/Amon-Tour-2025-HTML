@@ -907,7 +907,22 @@
         "parentItem": "Parent Item",
         "noParent": "No Parent (Top Level)",
         "success": "Success",
-        "error": "Error"
+        "error": "Error",
+        "description": "Manage the navigation menu items of your site. Drag and drop to reorder. Note: The \"Home\" link (/) is managed automatically - it only appears when not on the home page."
+      },
+      "pageManagement": {
+        "slugUrl": "Slug/External URL",
+        "notModifiable": "(not modifiable)",
+        "externalLinkCheck": "Check if this is an external link (redirect to a full URL)",
+        "notLinked": "This page is not yet linked to other sections of the site",
+        "pageId": "Page ID:",
+        "publicUrl": "Public URL:",
+        "createdAt": "Created on:",
+        "modifiedAt": "Modified on:",
+        "mainPage": "Main page",
+        "secondaryPage": "Secondary page",
+        "viewPage": "View page",
+        "editPage": "Edit page"
       }
     },
     "dashboard": {

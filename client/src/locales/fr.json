@@ -600,7 +600,22 @@
         "parentItem": "Élément parent",
         "noParent": "Aucun parent (niveau supérieur)",
         "success": "Succès",
-        "error": "Erreur"
+        "error": "Erreur",
+        "description": "Gérez les éléments du menu de navigation de votre site. Glissez-déposez pour réorganiser. Note : Le lien \"Accueil\" (/) est géré automatiquement - il apparaît uniquement quand on n'est pas sur la page d'accueil."
+      },
+      "pageManagement": {
+        "slugUrl": "Slug/URL Externe",
+        "notModifiable": "(non modifiable)",
+        "externalLinkCheck": "Cochez si c'est un lien externe (redirection vers une URL complète)",
+        "notLinked": "Cette page n'est pas encore rattachée à d'autres sections du site",
+        "pageId": "ID Page :",
+        "publicUrl": "URL publique :",
+        "createdAt": "Créée le :",
+        "modifiedAt": "Modifiée le :",
+        "mainPage": "Page principale",
+        "secondaryPage": "Page secondaire",
+        "viewPage": "Voir la page",
+        "editPage": "Éditer la page"
       }
     },
     "dashboard": {

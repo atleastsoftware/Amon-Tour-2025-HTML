@@ -1375,11 +1375,11 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs, update
               type="text"
             />
             <div>
-              <label className="text-sm font-medium text-gray-700 mb-2 block">Slug/URL Externe</label>
+              <label className="text-sm font-medium text-gray-700 mb-2 block">{t.appearance.pageManagement.slugUrl}</label>
               {currentPageConfig.pageSlug === 'home' ? (
                 <div className="min-h-[40px] p-2 bg-gray-100 border rounded flex items-center cursor-not-allowed">
                   <span className="text-sm text-gray-600 font-mono">/</span>
-                  <span className="ml-auto text-xs text-gray-500">(non modifiable)</span>
+                  <span className="ml-auto text-xs text-gray-500">{t.appearance.pageManagement.notModifiable}</span>
                 </div>
               ) : (
                 <EditableField
@@ -1404,7 +1404,7 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs, update
                   className="h-4 w-4 rounded border-gray-300 text-secondary focus:ring-secondary cursor-pointer"
                 />
                 <label htmlFor="isExternalUrl" className="text-xs text-gray-500 cursor-pointer">
-                  Cochez si c'est un lien externe (redirection vers une URL complète)
+                  {t.appearance.pageManagement.externalLinkCheck}
                 </label>
               </div>
             </div>
@@ -1506,7 +1506,7 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs, update
           ) : (
             <div className="text-center py-4 text-gray-500">
               <AlertCircle className="w-8 h-8 mx-auto mb-2 text-gray-400" />
-              <p className="text-sm">Cette page n'est pas encore rattachée à d'autres sections du site</p>
+              <p className="text-sm">{t.appearance.pageManagement.notLinked}</p>
             </div>
           )}
         </CardContent>
@@ -1527,13 +1527,13 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs, update
         <CardContent className="space-y-4">
           {/* Ligne 1: ID Page */}
           <div className="flex justify-between items-center py-3 border-b border-gray-100">
-            <span className="font-medium text-gray-700">ID Page:</span>
+            <span className="font-medium text-gray-700">{t.appearance.pageManagement.pageId}</span>
             <code className="text-gray-600 bg-gray-100 px-2 py-1 rounded text-sm">{currentPageConfig.id}</code>
           </div>
           
           {/* Ligne 2: URL publique */}
           <div className="flex justify-between items-center py-3 border-b border-gray-100">
-            <span className="font-medium text-gray-700">URL publique:</span>
+            <span className="font-medium text-gray-700">{t.appearance.pageManagement.publicUrl}</span>
             <a 
               href={selectedPage === 'home' ? '/' : `/${selectedPage}`} 
               target="_blank" 
@@ -1547,13 +1547,13 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs, update
           
           {/* Ligne 3: Créée le */}
           <div className="flex justify-between items-center py-3 border-b border-gray-100">
-            <span className="font-medium text-gray-700">Créée le:</span>
+            <span className="font-medium text-gray-700">{t.appearance.pageManagement.createdAt}</span>
             <span className="text-gray-600 text-sm">{formatDate(new Date(currentPageConfig.createdAt))}</span>
           </div>
           
           {/* Ligne 4: Modifiée le */}
           <div className="flex justify-between items-center py-3">
-            <span className="font-medium text-gray-700">Modifiée le:</span>
+            <span className="font-medium text-gray-700">{t.appearance.pageManagement.modifiedAt}</span>
             <span className="text-gray-600 text-sm">{formatDate(new Date(currentPageConfig.updatedAt || currentPageConfig.createdAt))}</span>
           </div>
         </CardContent>
@@ -1667,7 +1667,22 @@ export default function AdminAppearance() {
         parentItem: adminAppearance?.navigation?.parentItem || "Parent Item",
         noParent: adminAppearance?.navigation?.noParent || "No Parent (Top Level)",
         success: adminAppearance?.navigation?.success || "Success",
-        error: adminAppearance?.navigation?.error || "Error"
+        error: adminAppearance?.navigation?.error || "Error",
+        description: adminAppearance?.navigation?.description || "Manage the navigation menu items of your site. Drag and drop to reorder. Note: The \"Home\" link (/) is managed automatically - it only appears when not on the home page."
+      },
+      pageManagement: {
+        slugUrl: adminAppearance?.pageManagement?.slugUrl || "Slug/External URL",
+        notModifiable: adminAppearance?.pageManagement?.notModifiable || "(not modifiable)",
+        externalLinkCheck: adminAppearance?.pageManagement?.externalLinkCheck || "Check if this is an external link (redirect to a full URL)",
+        notLinked: adminAppearance?.pageManagement?.notLinked || "This page is not yet linked to other sections of the site",
+        pageId: adminAppearance?.pageManagement?.pageId || "Page ID:",
+        publicUrl: adminAppearance?.pageManagement?.publicUrl || "Public URL:",
+        createdAt: adminAppearance?.pageManagement?.createdAt || "Created on:",
+        modifiedAt: adminAppearance?.pageManagement?.modifiedAt || "Modified on:",
+        mainPage: adminAppearance?.pageManagement?.mainPage || "Main page",
+        secondaryPage: adminAppearance?.pageManagement?.secondaryPage || "Secondary page",
+        viewPage: adminAppearance?.pageManagement?.viewPage || "View page",
+        editPage: adminAppearance?.pageManagement?.editPage || "Edit page"
       }
     }
   };
@@ -4042,11 +4057,11 @@ export default function AdminAppearance() {
                       </CardTitle>
                       <CardDescription>
                         {selectedPage === 'navigation-menu' 
-                          ? 'Gérez les éléments du menu de navigation de votre site. Glissez-déposez pour réorganiser. Note : Le lien "Home" (/) est géré automatiquement - il apparaît uniquement quand on n\'est pas sur la page d\'accueil.'
+                          ? t.appearance.navigation.description
                           : (() => {
                               const currentPageConfig = pageConfigs.find(p => p.pageSlug === selectedPage);
-                              const pageType = currentPageConfig?.pageType === 'main' ? 'principale' : 'secondaire';
-                              return `Page ${pageType} • /${selectedPage}`;
+                              const pageType = currentPageConfig?.pageType === 'main' ? t.appearance.pageManagement.mainPage : t.appearance.pageManagement.secondaryPage;
+                              return `${pageType} • /${selectedPage}`;
                             })()
                         }
                       </CardDescription>
@@ -4062,11 +4077,10 @@ export default function AdminAppearance() {
                             }}
                           >
                             <Eye className="w-4 h-4 mr-2" />
-                            Voir la page
+                            {t.appearance.pageManagement.viewPage}
                           </Button>
                           <Button
                             onClick={() => {
-                              // Rediriger vers l'éditeur approprié selon le type de page
                               const currentPageConfig = pageConfigs.find(p => p.pageSlug === selectedPage);
                               const isLegalPage = currentPageConfig?.pageType === 'legal';
                               
@@ -4078,7 +4092,7 @@ export default function AdminAppearance() {
                             }}
                           >
                             <Edit className="w-4 h-4 mr-2" />
-                            Éditer la page
+                            {t.appearance.pageManagement.editPage}
                           </Button>
                           {selectedPage !== 'home' && !['legal-notice', 'privacy-policy', 'terms-conditions'].includes(selectedPage) && (
                             <AlertDialog>
