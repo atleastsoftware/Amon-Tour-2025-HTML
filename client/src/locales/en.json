@@ -856,7 +856,13 @@
         "enableScrolling": "Enable scrolling (ideal for long texts)",
         "enableNewsletter": "Enable newsletter",
         "enableCopyright": "Enable copyright",
-        "saving": "Saving..."
+        "saving": "Saving...",
+        "textMenu": "Menu Text",
+        "backgroundMenu": "Menu Background",
+        "textFooter": "Footer Text",
+        "backgroundFooter": "Footer Background",
+        "errorColor": "Error Color",
+        "successColor": "Success Color"
       },
       "footer": {
         "title": "Footer Settings",

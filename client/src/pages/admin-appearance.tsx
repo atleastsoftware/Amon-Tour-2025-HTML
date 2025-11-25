@@ -1288,6 +1288,23 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs, update
   pageConfigs: PageConfiguration[];
   updatePageConfigMutation: any;
 }) {
+  const { translations } = useTranslation();
+  const adminAppearance = translations?.admin?.appearance || {};
+  const t = {
+    appearance: {
+      pageManagement: {
+        slugUrl: adminAppearance?.pageManagement?.slugUrl || "Slug/External URL",
+        notModifiable: adminAppearance?.pageManagement?.notModifiable || "(not modifiable)",
+        externalLinkCheck: adminAppearance?.pageManagement?.externalLinkCheck || "Check if this is an external link (redirect to a full URL)",
+        notLinked: adminAppearance?.pageManagement?.notLinked || "This page is not yet linked to other sections of the site",
+        pageId: adminAppearance?.pageManagement?.pageId || "Page ID:",
+        publicUrl: adminAppearance?.pageManagement?.publicUrl || "Public URL:",
+        createdAt: adminAppearance?.pageManagement?.createdAt || "Created on:",
+        modifiedAt: adminAppearance?.pageManagement?.modifiedAt || "Modified on:"
+      }
+    }
+  };
+  
   const currentPageConfig = pageConfigs.find(p => p.pageSlug === selectedPage);
   
   if (!currentPageConfig) {
@@ -1616,7 +1633,13 @@ export default function AdminAppearance() {
         enableScrolling: adminAppearance?.theme?.enableScrolling || "Enable scrolling (ideal for long texts)",
         enableNewsletter: adminAppearance?.theme?.enableNewsletter || "Enable newsletter",
         enableCopyright: adminAppearance?.theme?.enableCopyright || "Enable copyright",
-        saving: adminAppearance?.theme?.saving || "Saving..."
+        saving: adminAppearance?.theme?.saving || "Saving...",
+        textMenu: adminAppearance?.theme?.textMenu || "Menu Text",
+        backgroundMenu: adminAppearance?.theme?.backgroundMenu || "Menu Background",
+        textFooter: adminAppearance?.theme?.textFooter || "Footer Text",
+        backgroundFooter: adminAppearance?.theme?.backgroundFooter || "Footer Background",
+        errorColor: adminAppearance?.theme?.errorColor || "Error Color",
+        successColor: adminAppearance?.theme?.successColor || "Success Color"
       },
       footer: {
         title: adminAppearance?.footer?.title || "Footer Settings",
@@ -2945,7 +2968,7 @@ export default function AdminAppearance() {
                           {/* Menu */}
                           <div className="grid grid-cols-2 gap-4">
                             <ColorPicker 
-                              label="Text Menu"
+                              label={t.appearance.theme.textMenu}
                               value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textMenu": "#374151"}')).textMenu || '#374151'}
                               onChange={(value) => {
                                 const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
@@ -2960,7 +2983,7 @@ export default function AdminAppearance() {
                               }}
                             />
                             <ColorPicker 
-                              label="Background Menu"
+                              label={t.appearance.theme.backgroundMenu}
                               value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundMenu": "#ffffff"}')).backgroundMenu || '#ffffff'}
                               onChange={(value) => {
                                 const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
@@ -2979,7 +3002,7 @@ export default function AdminAppearance() {
                           {/* Footer */}
                           <div className="grid grid-cols-2 gap-4">
                             <ColorPicker 
-                              label="Text Footer"
+                              label={t.appearance.theme.textFooter}
                               value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff"}')).textFooter || '#ffffff'}
                               onChange={(value) => {
                                 const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
@@ -2994,7 +3017,7 @@ export default function AdminAppearance() {
                               }}
                             />
                             <ColorPicker 
-                              label="Background Footer"
+                              label={t.appearance.theme.backgroundFooter}
                               value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundFooter": "#000000"}')).backgroundFooter || '#000000'}
                               onChange={(value) => {
                                 const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
@@ -3013,7 +3036,7 @@ export default function AdminAppearance() {
                           {/* Error & Success */}
                           <div className="grid grid-cols-2 gap-4">
                             <ColorPicker 
-                              label="Error Color"
+                              label={t.appearance.theme.errorColor}
                               value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"error": "#ef4444"}')).error || '#ef4444'}
                               onChange={(value) => {
                                 const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
@@ -3028,7 +3051,7 @@ export default function AdminAppearance() {
                               }}
                             />
                             <ColorPicker 
-                              label="Success Color"
+                              label={t.appearance.theme.successColor}
                               value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}')).success || '#10b981'}
                               onChange={(value) => {
                                 const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
@@ -3742,7 +3765,7 @@ export default function AdminAppearance() {
                               <div className="flex items-center justify-center h-20 bg-gray-50 rounded pl-4">
                                 {JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo ? (
                                   <img 
-                                    src={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo.startsWith('/src/') ? logoAmon : JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo}
+                                    src={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo}
                                     alt="Header Logo" 
                                     style={{ 
                                       maxHeight: '60px',
@@ -3761,7 +3784,7 @@ export default function AdminAppearance() {
                               <div className="flex items-center justify-center h-20 bg-gray-800 rounded pl-4">
                                 {JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo ? (
                                   <img 
-                                    src={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo.startsWith('/src/') ? logoAmon : JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo}
+                                    src={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo}
                                     alt="Footer Logo" 
                                     style={{ 
                                       maxHeight: '60px',
@@ -3780,7 +3803,7 @@ export default function AdminAppearance() {
                               <div className="flex items-center justify-center h-20 bg-gray-100 rounded pl-4">
                                 {(tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon) ? (
                                   <img 
-                                    src={(tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon).startsWith('/src/') ? logoAmon : (tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon)}
+                                    src={tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon}
                                     alt="Favicon" 
                                     style={{ 
                                       height: tempLogoSettings?.favicon_size || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon_size": "32px"}').favicon_size,
@@ -4455,6 +4478,36 @@ export default function AdminAppearance() {
 
 // Navigation Menu Manager Component
 function NavigationMenuManager({ pageConfigs, navigationMenuItems }: { pageConfigs?: PageConfiguration[]; navigationMenuItems?: NavigationMenuItem[] }) {
+  const { translations } = useTranslation();
+  const adminAppearance = translations?.admin?.appearance || {};
+  const t = {
+    appearance: {
+      theme: {
+        saved: adminAppearance?.theme?.saved || "Saved successfully!",
+        saveChanges: adminAppearance?.theme?.saveChanges || "Save changes"
+      },
+      common: {
+        loading: adminAppearance?.common?.loading || "Loading..."
+      },
+      navigation: {
+        menuItems: adminAppearance?.navigation?.menuItems || "Menu Items",
+        addItem: adminAppearance?.navigation?.addItem || "Add Item",
+        noItems: adminAppearance?.navigation?.noItems || "No menu items. Click \"Add Item\" to start.",
+        editItem: adminAppearance?.navigation?.editItem || "Edit Item",
+        itemName: adminAppearance?.navigation?.itemName || "Item Name",
+        itemUrl: adminAppearance?.navigation?.itemUrl || "URL",
+        openIn: adminAppearance?.navigation?.openIn || "Open in",
+        sameTab: adminAppearance?.navigation?.sameTab || "Same Tab",
+        newTab: adminAppearance?.navigation?.newTab || "New Tab",
+        itemVisible: adminAppearance?.navigation?.itemVisible || "Item Visible",
+        parentItem: adminAppearance?.navigation?.parentItem || "Parent Item",
+        noParent: adminAppearance?.navigation?.noParent || "No Parent (Top Level)",
+        success: adminAppearance?.navigation?.success || "Success",
+        error: adminAppearance?.navigation?.error || "Error"
+      }
+    }
+  };
+  
   const queryClient = useQueryClient();
   const [editingItem, setEditingItem] = useState<NavigationMenuItem | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -5189,6 +5242,19 @@ function RealBlocksEditor({
   saveHeroChanges: () => Promise<void>;
   handleEditHero: (blockId: number) => void;
 }) {
+  const { translations } = useTranslation();
+  const adminAppearance = translations?.admin?.appearance || {};
+  const t = {
+    appearance: {
+      theme: {
+        saveChanges: adminAppearance?.theme?.saveChanges || "Save changes"
+      },
+      common: {
+        cancel: adminAppearance?.common?.cancel || "Cancel"
+      }
+    }
+  };
+  
   const queryClient = useQueryClient();
 
   // Mutations pour les opérations sur les blocs

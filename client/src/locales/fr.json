@@ -549,7 +549,13 @@
         "enableScrolling": "Activer défilement (idéal pour textes longs)",
         "enableNewsletter": "Activer la newsletter",
         "enableCopyright": "Activer le copyright",
-        "saving": "Sauvegarde..."
+        "saving": "Sauvegarde...",
+        "textMenu": "Texte du menu",
+        "backgroundMenu": "Fond du menu",
+        "textFooter": "Texte du pied de page",
+        "backgroundFooter": "Fond du pied de page",
+        "errorColor": "Couleur d'erreur",
+        "successColor": "Couleur de succès"
       },
       "footer": {
         "title": "Paramètres du pied de page",
