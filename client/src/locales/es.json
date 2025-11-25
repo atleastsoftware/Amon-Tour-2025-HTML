@@ -498,6 +498,10 @@
         "invalid": "Credenciales inválidas"
       }
     },
+    "appearance": {
+      "title": "Apariencia del sitio",
+      "description": "Personalizar colores y tema"
+    },
     "dashboard": {
       "title": "Administración",
       "subtitle": "Panel de gestión centralizado",

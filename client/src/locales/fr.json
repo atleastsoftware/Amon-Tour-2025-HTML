@@ -498,6 +498,10 @@
         "invalid": "Identifiants invalides"
       }
     },
+    "appearance": {
+      "title": "Apparence du site",
+      "description": "Personnaliser les couleurs et le thème"
+    },
     "dashboard": {
       "title": "Administration",
       "subtitle": "Panneau de gestion centralisé",

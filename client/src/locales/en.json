@@ -805,6 +805,10 @@
         "previewDescription": "This is how the block will appear on the page"
       }
     },
+    "appearance": {
+      "title": "Site Appearance",
+      "description": "Customize site colors and theme"
+    },
     "dashboard": {
       "title": "Administration",
       "subtitle": "Centralized management dashboard",
