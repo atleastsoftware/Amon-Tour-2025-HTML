@@ -838,6 +838,14 @@
           "title": "Tour Cards",
           "description": "Create and manage tour cards"
         },
+        "tourNinjaImages": {
+          "title": "Tour Ninja Images",
+          "description": "Replace Tour Ninja images with your own"
+        },
+        "translations": {
+          "title": "Translation Management",
+          "description": "Fix and customize translations"
+        },
         "contactMessages": {
           "title": "Contact Messages",
           "description": "View and respond to messages"

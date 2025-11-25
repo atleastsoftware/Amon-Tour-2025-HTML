@@ -25,37 +25,49 @@ import {
   Globe,
   Palette
 } from "lucide-react";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function Admin() {
+  const { translations, currentLanguage } = useTranslation();
   const { isAuthenticated, isLoading: authLoading } = useIsAuthenticated();
+  
+  // Get admin translations with fallbacks
+  const adminT = translations?.admin || {};
+  const dashboard = adminT?.dashboard || {};
+  const sections = dashboard?.sections || {};
   const [, setLocation] = useLocation();
   const logout = useLogout();
 
   // Fetch unread counts for notifications
-  const { data: krabiUnread = [] } = useQuery({
+  const { data: krabiUnreadData = [] } = useQuery<unknown[]>({
     queryKey: ["/api/krabi-celebration", { read: false }],
     enabled: isAuthenticated,
   });
+  const krabiUnread = Array.isArray(krabiUnreadData) ? krabiUnreadData : [];
 
-  const { data: partnershipUnread = [] } = useQuery({
+  const { data: partnershipUnreadData = [] } = useQuery<unknown[]>({
     queryKey: ["/api/partnership-requests", { read: false }],
     enabled: isAuthenticated,
   });
+  const partnershipUnread = Array.isArray(partnershipUnreadData) ? partnershipUnreadData : [];
 
-  const { data: groupUnread = [] } = useQuery({
+  const { data: groupUnreadData = [] } = useQuery<unknown[]>({
     queryKey: ["/api/group-requests", { read: false }],
     enabled: isAuthenticated,
   });
+  const groupUnread = Array.isArray(groupUnreadData) ? groupUnreadData : [];
 
-  const { data: customTourUnread = [] } = useQuery({
+  const { data: customTourUnreadData = [] } = useQuery<unknown[]>({
     queryKey: ["/api/custom-tour-requests", { status: "new" }],
     enabled: isAuthenticated,
   });
+  const customTourUnread = Array.isArray(customTourUnreadData) ? customTourUnreadData : [];
 
-  const { data: newsletterUnconfirmed = [] } = useQuery({
+  const { data: newsletterUnconfirmedData = [] } = useQuery<unknown[]>({
     queryKey: ["/api/admin/newsletter/subscriptions", { confirmed: false }],
     enabled: isAuthenticated,
   });
+  const newsletterUnconfirmed = Array.isArray(newsletterUnconfirmedData) ? newsletterUnconfirmedData : [];
 
   useEffect(() => {
     if (!authLoading && !isAuthenticated) {
@@ -68,7 +80,7 @@ export default function Admin() {
     setLocation('/');
   };
 
-  if (authLoading) return <div className="container mx-auto p-8 text-center">Loading...</div>;
+  if (authLoading) return <div className="container mx-auto p-8 text-center">{adminT?.common?.loading || "Loading..."}</div>;
 
   return (
     <>
@@ -82,8 +94,8 @@ export default function Admin() {
           >
             <div className="flex justify-between items-center mb-8">
               <div>
-                <h1 className="text-3xl font-heading font-bold text-gray-900">Administration</h1>
-                <p className="text-gray-600 mt-2">Panneau de gestion centralisé</p>
+                <h1 className="text-3xl font-heading font-bold text-gray-900">{dashboard?.title || "Administration"}</h1>
+                <p className="text-gray-600 mt-2">{dashboard?.subtitle || "Centralized management dashboard"}</p>
               </div>
               <div className="flex items-center gap-3">
                 <Button 
@@ -92,17 +104,17 @@ export default function Admin() {
                   className="flex items-center gap-2"
                 >
                   <Palette className="h-4 w-4" />
-                  Apparence du site
+                  {adminT?.appearance?.title || "Site Appearance"}
                 </Button>
                 <Button variant="outline" onClick={handleLogout} className="flex items-center gap-2">
                   <LogOut className="h-4 w-4" />
-                  Déconnexion
+                  {dashboard?.logout || "Logout"}
                 </Button>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* Demandes personnalisées */}
+              {/* Custom Tour Requests */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -126,13 +138,13 @@ export default function Admin() {
                         <Calendar className="h-6 w-6" />
                       </div>
                       <div>
-                        <CardTitle className="text-lg font-heading">Demandes personnalisées</CardTitle>
+                        <CardTitle className="text-lg font-heading">{sections?.customTours?.title || "Custom Tour Requests"}</CardTitle>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="text-white/90">
                     <CardDescription className="text-white/80">
-                      Gérer les demandes de tours sur mesure
+                      {sections?.customTours?.description || "Manage custom tour requests"}
                     </CardDescription>
                   </CardContent>
                 </Card>
@@ -162,19 +174,19 @@ export default function Admin() {
                         <PartyPopper className="h-6 w-6" />
                       </div>
                       <div>
-                        <CardTitle className="text-lg font-heading">Krabi Celebration</CardTitle>
+                        <CardTitle className="text-lg font-heading">{sections?.krabiCelebration?.title || "Krabi Celebration"}</CardTitle>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="text-white/90">
                     <CardDescription className="text-white/80">
-                      Demandes d'événements spéciaux
+                      {sections?.krabiCelebration?.description || "Special event requests"}
                     </CardDescription>
                   </CardContent>
                 </Card>
               </motion.div>
 
-              {/* Partenariats */}
+              {/* Partnership Requests */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -198,19 +210,19 @@ export default function Admin() {
                         <Handshake className="h-6 w-6" />
                       </div>
                       <div>
-                        <CardTitle className="text-lg font-heading">Partenariats</CardTitle>
+                        <CardTitle className="text-lg font-heading">{sections?.partnershipRequests?.title || "Partnership Requests"}</CardTitle>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="text-white/90">
                     <CardDescription className="text-white/80">
-                      Propositions de collaboration
+                      {sections?.partnershipRequests?.description || "Collaboration proposals"}
                     </CardDescription>
                   </CardContent>
                 </Card>
               </motion.div>
 
-              {/* Groupes & Entreprises */}
+              {/* Groups & Companies */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -234,13 +246,13 @@ export default function Admin() {
                         <UsersIcon className="h-6 w-6" />
                       </div>
                       <div>
-                        <CardTitle className="text-lg font-heading">Groupes & Entreprises</CardTitle>
+                        <CardTitle className="text-lg font-heading">{sections?.groupRequests?.title || "Groups & Companies"}</CardTitle>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="text-white/90">
                     <CardDescription className="text-white/80">
-                      Demandes de groupes et corporates
+                      {sections?.groupRequests?.description || "Group and corporate requests"}
                     </CardDescription>
                   </CardContent>
                 </Card>
@@ -262,13 +274,13 @@ export default function Admin() {
                         <BookOpen className="h-6 w-6" />
                       </div>
                       <div>
-                        <CardTitle className="text-lg font-heading">Gestion du blog</CardTitle>
+                        <CardTitle className="text-lg font-heading">{sections?.blogManagement?.title || "Blog Management"}</CardTitle>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="text-white/90">
                     <CardDescription className="text-white/80">
-                      Créer et modifier les articles
+                      {sections?.blogManagement?.description || "Create and edit articles"}
                     </CardDescription>
                   </CardContent>
                 </Card>
@@ -298,19 +310,19 @@ export default function Admin() {
                         <Newspaper className="h-6 w-6" />
                       </div>
                       <div>
-                        <CardTitle className="text-lg font-heading">Newsletter</CardTitle>
+                        <CardTitle className="text-lg font-heading">{sections?.newsletter?.title || "Newsletter"}</CardTitle>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="text-white/90">
                     <CardDescription className="text-white/80">
-                      Gérer les abonnements newsletter
+                      {sections?.newsletter?.description || "Manage newsletter subscriptions"}
                     </CardDescription>
                   </CardContent>
                 </Card>
               </motion.div>
 
-              {/* Images Tour Ninja */}
+              {/* Tour Ninja Images */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -326,19 +338,19 @@ export default function Admin() {
                         <Image className="h-6 w-6" />
                       </div>
                       <div>
-                        <CardTitle className="text-lg font-heading">Images Tour Ninja</CardTitle>
+                        <CardTitle className="text-lg font-heading">{sections?.tourNinjaImages?.title || "Tour Ninja Images"}</CardTitle>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="text-white/90">
                     <CardDescription className="text-white/80">
-                      Remplacer les images Tour Ninja par vos images
+                      {sections?.tourNinjaImages?.description || "Replace Tour Ninja images with your own"}
                     </CardDescription>
                   </CardContent>
                 </Card>
               </motion.div>
 
-              {/* Traduction Automatique */}
+              {/* Translation Management */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -354,19 +366,19 @@ export default function Admin() {
                         <Globe className="h-6 w-6" />
                       </div>
                       <div>
-                        <CardTitle className="text-lg font-heading">Gestion des Traductions</CardTitle>
+                        <CardTitle className="text-lg font-heading">{sections?.translations?.title || "Translation Management"}</CardTitle>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="text-white/90">
                     <CardDescription className="text-white/80">
-                      Corriger et personnaliser les traductions
+                      {sections?.translations?.description || "Fix and customize translations"}
                     </CardDescription>
                   </CardContent>
                 </Card>
               </motion.div>
 
-              {/* Cartes de tours */}
+              {/* Tour Cards */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -382,13 +394,13 @@ export default function Admin() {
                         <ImagePlus className="h-6 w-6" />
                       </div>
                       <div>
-                        <CardTitle className="text-lg font-heading">Cartes de tours</CardTitle>
+                        <CardTitle className="text-lg font-heading">{sections?.tourCards?.title || "Tour Cards"}</CardTitle>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="text-white/90">
                     <CardDescription className="text-white/80">
-                      Créer et gérer les cartes de présentation
+                      {sections?.tourCards?.description || "Create and manage presentation cards"}
                     </CardDescription>
                   </CardContent>
                 </Card>

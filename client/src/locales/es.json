@@ -531,6 +531,14 @@
           "title": "Fichas de tours",
           "description": "Crear y gestionar fichas de tours"
         },
+        "tourNinjaImages": {
+          "title": "Imágenes de Tour Ninja",
+          "description": "Reemplazar imágenes de Tour Ninja con las suyas"
+        },
+        "translations": {
+          "title": "Gestión de traducciones",
+          "description": "Corregir y personalizar traducciones"
+        },
         "messages": {
           "title": "Mensajes de contacto",
           "description": "Ver y responder mensajes"

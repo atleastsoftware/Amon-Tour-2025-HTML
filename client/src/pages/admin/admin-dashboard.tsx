@@ -28,6 +28,11 @@ export default function AdminDashboard() {
   const { translations, currentLanguage } = useTranslation();
   const { isAuthenticated, isLoading: authLoading } = useIsAuthenticated();
   
+  // Debug: log current translations state
+  console.log('🎯 AdminDashboard - currentLanguage:', currentLanguage);
+  console.log('🎯 AdminDashboard - translations.admin:', translations?.admin);
+  console.log('🎯 AdminDashboard - dashboard title:', translations?.admin?.dashboard?.title);
+  
   const adminT = translations?.admin || {};
   const dashboard = adminT?.dashboard || {};
   const sections = dashboard?.sections || {};

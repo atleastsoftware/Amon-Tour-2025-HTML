@@ -531,6 +531,14 @@
           "title": "Fiches circuits",
           "description": "Créer et gérer les fiches circuits"
         },
+        "tourNinjaImages": {
+          "title": "Images Tour Ninja",
+          "description": "Remplacer les images Tour Ninja par vos images"
+        },
+        "translations": {
+          "title": "Gestion des Traductions",
+          "description": "Corriger et personnaliser les traductions"
+        },
         "messages": {
           "title": "Messages de contact",
           "description": "Voir et répondre aux messages"
