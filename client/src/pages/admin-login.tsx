@@ -9,7 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { useTranslationSection } from "@/contexts/TranslationContext";
+import { useAdminTranslation } from "@/hooks/useAdminTranslation";
 
 export default function AdminLogin() {
   const [username, setUsername] = useState("");
@@ -17,15 +17,15 @@ export default function AdminLogin() {
   const login = useLogin();
   const [, setLocation] = useLocation();
   const { toast } = useToast();
-  const admin = useTranslationSection('admin');
+  const { t } = useAdminTranslation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!username || !password) {
       toast({
-        title: admin.common?.error || "Error",
-        description: admin.login?.errors?.required || "Please fill in all fields",
+        title: t.common.error,
+        description: t.login.errors.required,
         variant: "destructive",
       });
       return;
@@ -34,16 +34,16 @@ export default function AdminLogin() {
     try {
       await login.mutateAsync({ username, password });
       toast({
-        title: admin.login?.success?.title || "Login successful",
-        description: admin.login?.success?.description || "Redirecting to dashboard...",
+        title: t.login.success.title,
+        description: t.login.success.description,
       });
       setTimeout(() => {
         setLocation("/admin");
       }, 1000);
     } catch (error) {
       toast({
-        title: admin.common?.error || "Error",
-        description: admin.login?.errors?.invalid || "Invalid credentials",
+        title: t.common.error,
+        description: t.login.errors.invalid,
         variant: "destructive",
       });
     }
@@ -63,17 +63,17 @@ export default function AdminLogin() {
             <Card>
               <CardHeader>
                 <CardTitle className="text-2xl font-heading">
-                  {admin.login?.title || "Administration Login"}
+                  {t.login.title}
                 </CardTitle>
                 <CardDescription>
-                  {admin.login?.subtitle || "Access the management dashboard"}
+                  {t.login.subtitle}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="username">
-                      {admin.login?.username || "Username"}
+                      {t.login.username}
                     </Label>
                     <Input
                       id="username"
@@ -86,7 +86,7 @@ export default function AdminLogin() {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="password">
-                      {admin.login?.password || "Password"}
+                      {t.login.password}
                     </Label>
                     <Input
                       id="password"
@@ -103,15 +103,12 @@ export default function AdminLogin() {
                     disabled={login.isPending}
                     data-testid="button-login"
                   >
-                    {login.isPending 
-                      ? (admin.common?.loading || "Loading...") 
-                      : (admin.login?.loginButton || "Log in")
-                    }
+                    {login.isPending ? t.common.loading : t.login.loginButton}
                   </Button>
                 </form>
               </CardContent>
               <CardFooter className="flex justify-center text-sm text-muted-foreground">
-                {admin.login?.footer || "Access reserved for administrators only"}
+                {t.login.footer}
               </CardFooter>
             </Card>
           </motion.div>
