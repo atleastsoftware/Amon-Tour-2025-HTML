@@ -691,22 +691,68 @@ const adminTranslations = {
 type Language = 'en' | 'fr' | 'es';
 type AdminTranslations = typeof adminTranslations.en;
 
-// Import the translation context hook
-import { useTranslation } from '@/contexts/TranslationContext';
+import { useState, useEffect, useCallback } from 'react';
+
+function getLanguageFromStorage(): Language {
+  if (typeof window === 'undefined') return 'en';
+  const saved = localStorage.getItem('preferred-language');
+  if (saved && ['en', 'fr', 'es'].includes(saved)) {
+    return saved as Language;
+  }
+  return 'en';
+}
 
 export function useAdminTranslation() {
-  // Use the main translation context to get the current language
-  const { currentLanguage } = useTranslation();
-  
-  // Debug log to trace language changes
-  console.log('🔍 useAdminTranslation - currentLanguage from context:', currentLanguage);
-  
-  // Ensure we have a valid language
-  const language = (['en', 'fr', 'es'].includes(currentLanguage) ? currentLanguage : 'en') as Language;
-  
-  console.log('🔍 useAdminTranslation - resolved language:', language);
-  console.log('🔍 useAdminTranslation - translation sample:', adminTranslations[language]?.dashboard?.title);
-  
+  const [language, setLanguage] = useState<Language>(getLanguageFromStorage);
+  const [, forceUpdate] = useState(0);
+
+  const checkAndUpdateLanguage = useCallback(() => {
+    const currentLang = getLanguageFromStorage();
+    setLanguage(prev => {
+      if (prev !== currentLang) {
+        console.log('🔄 Language changed:', prev, '->', currentLang);
+        return currentLang;
+      }
+      return prev;
+    });
+  }, []);
+
+  useEffect(() => {
+    checkAndUpdateLanguage();
+    
+    const handleLanguageChange = () => {
+      console.log('📢 Language change event received');
+      checkAndUpdateLanguage();
+      forceUpdate(n => n + 1);
+    };
+
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === 'preferred-language') {
+        console.log('📢 Storage event for language:', e.newValue);
+        checkAndUpdateLanguage();
+        forceUpdate(n => n + 1);
+      }
+    };
+
+    window.addEventListener('languageChanged', handleLanguageChange);
+    window.addEventListener('storage', handleStorage);
+    
+    const interval = setInterval(() => {
+      const currentLang = getLanguageFromStorage();
+      if (currentLang !== language) {
+        console.log('⏰ Polling detected language change:', language, '->', currentLang);
+        setLanguage(currentLang);
+        forceUpdate(n => n + 1);
+      }
+    }, 100);
+
+    return () => {
+      window.removeEventListener('languageChanged', handleLanguageChange);
+      window.removeEventListener('storage', handleStorage);
+      clearInterval(interval);
+    };
+  }, [language, checkAndUpdateLanguage]);
+
   const t: AdminTranslations = adminTranslations[language] || adminTranslations.en;
 
   return { t, language };

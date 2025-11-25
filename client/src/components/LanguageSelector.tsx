@@ -43,6 +43,12 @@ export default function LanguageSelector() {
     try {
       console.log('🔄 Calling setLanguage with:', langCode);
       setLanguage(langCode);
+      
+      localStorage.setItem('preferred-language', langCode);
+      
+      window.dispatchEvent(new CustomEvent('languageChanged', { detail: { language: langCode } }));
+      console.log('📢 Dispatched languageChanged event');
+      
       console.log(`✅ Language change initiated to: ${langCode}`);
     } catch (error) {
       console.error('❌ Failed to switch language:', error);
