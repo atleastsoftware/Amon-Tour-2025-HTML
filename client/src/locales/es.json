@@ -621,7 +621,38 @@
         "mainPage": "Página principal",
         "secondaryPage": "Página secundaria",
         "viewPage": "Ver página",
-        "editPage": "Editar página"
+        "editPage": "Editar página",
+        "generalInfo": "Información general",
+        "metadataConfig": "Metadatos y configuración de la página",
+        "pageName": "Nombre de la página",
+        "pageType": "Tipo de página",
+        "state": "Estado",
+        "active": "Activo",
+        "seoTitle": "Título SEO",
+        "seoKeywords": "Palabras clave SEO",
+        "seoDescription": "Descripción SEO",
+        "notDefined": "No definido",
+        "pageEditor": "Editor de página",
+        "addPage": "Añadir una página",
+        "choosePageToEdit": "Elige la página a editar",
+        "manageFooterContent": "Gestionar el contenido del pie de página",
+        "technicalInfo": "Información técnica",
+        "technicalInfoDesc": "Detalles técnicos y metadatos del sistema",
+        "pageReferences": "Referencias de página",
+        "pageReferencesDesc": "Ubicaciones donde esta página está referenciada en el sitio",
+        "pageNotFound": "Configuración de página no encontrada",
+        "references": {
+          "mainNav": "Menú de navegación principal",
+          "homePage": "Página de inicio del sitio",
+          "footerLinks": "Enlaces del pie de página",
+          "specialForms": "Páginas de formularios especiales"
+        },
+        "categories": {
+          "homePage": "Página de inicio",
+          "mainPages": "Páginas principales",
+          "secondaryPages": "Páginas secundarias",
+          "legalPages": "Avisos legales"
+        }
       }
     },
     "dashboard": {

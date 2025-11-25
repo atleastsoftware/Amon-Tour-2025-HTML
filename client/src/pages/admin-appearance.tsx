@@ -417,6 +417,26 @@ function renderStylePreview(style: string, value: string): any {
 
 // Dynamic Footer Management Components
 function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSettingMutation }: any) {
+  const { translations } = useTranslation();
+  const adminAppearance = translations?.admin?.appearance || {};
+  const t = {
+    footer: {
+      contactInfo: adminAppearance?.footer?.contactInfo || "Contact Information",
+      contactInfoDesc: adminAppearance?.footer?.contactInfoDesc || "Manage footer contact details",
+      addContactInfo: adminAppearance?.footer?.addContactInfo || "Add contact information",
+      addLink: adminAppearance?.footer?.addLink || "Add link",
+      moveUp: adminAppearance?.footer?.moveUp || "Move up",
+      moveDown: adminAppearance?.footer?.moveDown || "Move down",
+      delete: adminAppearance?.footer?.delete || "Delete",
+      label: adminAppearance?.footer?.label || "Label",
+      value: adminAppearance?.footer?.value || "Value",
+      style: adminAppearance?.footer?.style || "Display Style",
+      adminLabel: adminAppearance?.footer?.adminLabel || "Admin Label (for reference)",
+      displayStyle: adminAppearance?.footer?.displayStyle || "Display Style",
+      contentLabel: adminAppearance?.footer?.contentLabel || "Content (appears on website)"
+    }
+  };
+
   const getContactInfo = () => {
     const setting = siteSettings && Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.section === 'footer' && s.key === 'contact_info') : null;
     if (setting?.value) {
@@ -482,9 +502,9 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
           <MapPin className="w-4 h-4" />
-          Informations de contact
+          {t.footer.contactInfo}
         </CardTitle>
-        <CardDescription>Gérer les détails de contact du pied de page</CardDescription>
+        <CardDescription>{t.footer.contactInfoDesc}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {contactInfo.map((item: any, index: number) => (
@@ -576,7 +596,7 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
         
         {/* Add New Contact Info */}
         <div className="border-2 border-dashed border-gray-300 p-4 rounded-lg space-y-3">
-          <h5 className="font-medium text-gray-700">Ajouter une nouvelle information de contact</h5>
+          <h5 className="font-medium text-gray-700">{t.footer.addContactInfo}</h5>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <div>
               <Label className="text-xs text-gray-500">Admin Label (for reference)</Label>
@@ -655,7 +675,7 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
           
           <Button onClick={addContactInfo} disabled={!newItem.label || !newItem.value} className="w-full">
             <Plus className="w-4 h-4 mr-2" />
-            Ajouter une information de contact
+            {t.footer.addContactInfo}
           </Button>
         </div>
       </CardContent>
@@ -1300,7 +1320,34 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs, update
         pageId: adminAppearance?.pageManagement?.pageId || "Page ID:",
         publicUrl: adminAppearance?.pageManagement?.publicUrl || "Public URL:",
         createdAt: adminAppearance?.pageManagement?.createdAt || "Created on:",
-        modifiedAt: adminAppearance?.pageManagement?.modifiedAt || "Modified on:"
+        modifiedAt: adminAppearance?.pageManagement?.modifiedAt || "Modified on:",
+        generalInfo: adminAppearance?.pageManagement?.generalInfo || "General Information",
+        metadataConfig: adminAppearance?.pageManagement?.metadataConfig || "Metadata and page configuration",
+        pageName: adminAppearance?.pageManagement?.pageName || "Page Name",
+        pageType: adminAppearance?.pageManagement?.pageType || "Page Type",
+        state: adminAppearance?.pageManagement?.state || "State",
+        active: adminAppearance?.pageManagement?.active || "Active",
+        seoTitle: adminAppearance?.pageManagement?.seoTitle || "SEO Title",
+        seoKeywords: adminAppearance?.pageManagement?.seoKeywords || "SEO Keywords",
+        seoDescription: adminAppearance?.pageManagement?.seoDescription || "SEO Description",
+        notDefined: adminAppearance?.pageManagement?.notDefined || "Not defined",
+        technicalInfo: adminAppearance?.pageManagement?.technicalInfo || "Technical Information",
+        technicalInfoDesc: adminAppearance?.pageManagement?.technicalInfoDesc || "Technical details and system metadata",
+        pageReferences: adminAppearance?.pageManagement?.pageReferences || "Page References",
+        pageReferencesDesc: adminAppearance?.pageManagement?.pageReferencesDesc || "Locations where this page is referenced on the site",
+        pageNotFound: adminAppearance?.pageManagement?.pageNotFound || "Page configuration not found",
+        references: {
+          mainNav: adminAppearance?.pageManagement?.references?.mainNav || "Main navigation menu",
+          homePage: adminAppearance?.pageManagement?.references?.homePage || "Site home page",
+          footerLinks: adminAppearance?.pageManagement?.references?.footerLinks || "Footer links",
+          specialForms: adminAppearance?.pageManagement?.references?.specialForms || "Special form pages"
+        },
+        categories: {
+          homePage: adminAppearance?.pageManagement?.categories?.homePage || "Home Page",
+          mainPages: adminAppearance?.pageManagement?.categories?.mainPages || "Main Pages",
+          secondaryPages: adminAppearance?.pageManagement?.categories?.secondaryPages || "Secondary Pages",
+          legalPages: adminAppearance?.pageManagement?.categories?.legalPages || "Legal Pages"
+        }
       }
     }
   };
@@ -1310,7 +1357,7 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs, update
   if (!currentPageConfig) {
     return (
       <div className="text-center py-12">
-        <div className="text-gray-500">Configuration de page introuvable</div>
+        <div className="text-gray-500">{t.appearance.pageManagement.pageNotFound}</div>
       </div>
     );
   }
@@ -1346,22 +1393,22 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs, update
     
     // Check if it's in main navigation
     if (['home', 'tours', 'experiences', 'stays', 'contact', 'blog'].includes(selectedPage)) {
-      references.push('Menu principal de navigation');
+      references.push(t.appearance.pageManagement.references.mainNav);
     }
     
     // Check if it's a landing page
     if (selectedPage === 'home') {
-      references.push('Page d\'accueil du site');
+      references.push(t.appearance.pageManagement.references.homePage);
     }
     
     // Check if it's linked in footer
     if (['contact', 'legal-notice', 'privacy-policy', 'terms-conditions'].includes(selectedPage)) {
-      references.push('Liens du footer');
+      references.push(t.appearance.pageManagement.references.footerLinks);
     }
     
     // Check for form redirections
     if (['krabi-celebration', 'become-partner', 'group-corporate'].includes(selectedPage)) {
-      references.push('Pages de formulaires spéciaux');
+      references.push(t.appearance.pageManagement.references.specialForms);
     }
     
     return references;
@@ -1376,17 +1423,17 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs, update
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <FileText className="w-5 h-5" />
-            Informations générales
+            {t.appearance.pageManagement.generalInfo}
           </CardTitle>
           <CardDescription>
-            Métadonnées et configuration de la page
+            {t.appearance.pageManagement.metadataConfig}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Ligne 1: Nom de la page + Slug/URL Externe */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <EditableField
-              label="Nom de la page"
+              label={t.appearance.pageManagement.pageName}
               value={currentPageConfig.pageName}
               onSave={(value) => updatePageConfigMutation.mutate({ id: currentPageConfig.id, field: 'pageName', value })}
               type="text"
@@ -1430,7 +1477,7 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs, update
           {/* Ligne 2: Type de page + État */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="text-sm font-medium text-gray-700 mb-2 block">Type de page</label>
+              <label className="text-sm font-medium text-gray-700 mb-2 block">{t.appearance.pageManagement.pageType}</label>
               <Select
                 value={currentPageConfig.pageType}
                 onValueChange={(value) => updatePageConfigMutation.mutate({ id: currentPageConfig.id, field: 'pageType', value })}
@@ -1439,19 +1486,19 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs, update
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="main">Pages principales</SelectItem>
-                  <SelectItem value="secondary">Pages secondaires</SelectItem>
-                  <SelectItem value="legal">Mentions légales</SelectItem>
+                  <SelectItem value="main">{t.appearance.pageManagement.categories.mainPages}</SelectItem>
+                  <SelectItem value="secondary">{t.appearance.pageManagement.categories.secondaryPages}</SelectItem>
+                  <SelectItem value="legal">{t.appearance.pageManagement.categories.legalPages}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-700 mb-2 block">État</label>
+              <label className="text-sm font-medium text-gray-700 mb-2 block">{t.appearance.pageManagement.state}</label>
               <div className="flex items-center justify-between p-2 bg-gray-50 rounded border h-10">
                 <div className="flex items-center gap-3">
                   <div className={`w-2 h-2 rounded-full ${currentPageConfig.isActive ? 'bg-secondary' : 'bg-gray-500'}`}></div>
                   <span className={`text-sm font-medium ${currentPageConfig.isActive ? 'text-secondary' : 'text-gray-700'}`}>
-                    {currentPageConfig.isActive ? 'Active' : 'Inactive'}
+                    {currentPageConfig.isActive ? t.appearance.pageManagement.active : 'Inactive'}
                   </span>
                 </div>
                 <Switch
@@ -1469,29 +1516,29 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs, update
           {/* Ligne 3: Titre SEO + Mots-clés SEO */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <EditableField
-              label="Titre SEO"
+              label={t.appearance.pageManagement.seoTitle}
               value={currentPageConfig.seoTitle || ''}
               onSave={(value) => updatePageConfigMutation.mutate({ id: currentPageConfig.id, field: 'seoTitle', value })}
               type="text"
-              placeholder="Non défini"
+              placeholder={t.appearance.pageManagement.notDefined}
             />
             <EditableField
-              label="Mots-clés SEO"
+              label={t.appearance.pageManagement.seoKeywords}
               value={currentPageConfig.seoKeywords || ''}
               onSave={(value) => updatePageConfigMutation.mutate({ id: currentPageConfig.id, field: 'seoKeywords', value })}
               type="text"
-              placeholder="Non défini"
+              placeholder={t.appearance.pageManagement.notDefined}
             />
           </div>
 
           {/* Ligne 4: Description SEO */}
           <div>
             <EditableField
-              label="Description SEO"
+              label={t.appearance.pageManagement.seoDescription}
               value={currentPageConfig.seoDescription || ''}
               onSave={(value) => updatePageConfigMutation.mutate({ id: currentPageConfig.id, field: 'seoDescription', value })}
               type="textarea"
-              placeholder="Non définie"
+              placeholder={t.appearance.pageManagement.notDefined}
               rows={3}
             />
           </div>
@@ -1504,10 +1551,10 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs, update
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Link className="w-5 h-5" />
-            Où cette page est rattachée
+            {t.appearance.pageManagement.pageReferences}
           </CardTitle>
           <CardDescription>
-            Emplacements où cette page est référencée dans le site
+            {t.appearance.pageManagement.pageReferencesDesc}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -1535,10 +1582,10 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs, update
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Database className="w-5 h-5" />
-            Informations techniques
+            {t.appearance.pageManagement.technicalInfo}
           </CardTitle>
           <CardDescription>
-            Détails techniques et métadonnées système
+            {t.appearance.pageManagement.technicalInfoDesc}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -1705,7 +1752,17 @@ export default function AdminAppearance() {
         mainPage: adminAppearance?.pageManagement?.mainPage || "Main page",
         secondaryPage: adminAppearance?.pageManagement?.secondaryPage || "Secondary page",
         viewPage: adminAppearance?.pageManagement?.viewPage || "View page",
-        editPage: adminAppearance?.pageManagement?.editPage || "Edit page"
+        editPage: adminAppearance?.pageManagement?.editPage || "Edit page",
+        pageEditor: adminAppearance?.pageManagement?.pageEditor || "Page Editor",
+        addPage: adminAppearance?.pageManagement?.addPage || "Add a page",
+        choosePageToEdit: adminAppearance?.pageManagement?.choosePageToEdit || "Choose the page to edit",
+        manageFooterContent: adminAppearance?.pageManagement?.manageFooterContent || "Manage footer content",
+        categories: {
+          homePage: adminAppearance?.pageManagement?.categories?.homePage || "Home Page",
+          mainPages: adminAppearance?.pageManagement?.categories?.mainPages || "Main Pages",
+          secondaryPages: adminAppearance?.pageManagement?.categories?.secondaryPages || "Secondary Pages",
+          legalPages: adminAppearance?.pageManagement?.categories?.legalPages || "Legal Pages"
+        }
       }
     }
   };
@@ -2286,23 +2343,21 @@ export default function AdminAppearance() {
   // Nouvelle logique simplifiée basée sur le champ pageType
   const getDynamicPageCategories = () => {
     if (!pageConfigs || !Array.isArray(pageConfigs)) {
-      // Fallback si les données ne sont pas encore chargées
       return {
-        'Page d\'accueil': [],
-        'Pages principales': [],
-        'Pages secondaires': [],
-        'Mentions légales': []
+        'homePage': [],
+        'mainPages': [],
+        'secondaryPages': [],
+        'legalPages': []
       };
     }
     
     const categories: Record<string, Array<{ slug: string; name: string; id: number }>> = {
-      'Page d\'accueil': [],
-      'Pages principales': [],
-      'Pages secondaires': [],
-      'Mentions légales': []
+      'homePage': [],
+      'mainPages': [],
+      'secondaryPages': [],
+      'legalPages': []
     };
 
-    // Organiser les pages selon leur pageType
     pageConfigs.forEach((page: PageConfiguration) => {
       const pageInfo = { 
         slug: page.pageSlug, 
@@ -2310,36 +2365,40 @@ export default function AdminAppearance() {
         id: page.id 
       };
       
-      // Page d'accueil séparée
       if (page.pageSlug === 'home') {
-        categories['Page d\'accueil'].push(pageInfo);
+        categories['homePage'].push(pageInfo);
         return;
       }
       
       switch (page.pageType) {
         case 'main':
-          categories['Pages principales'].push(pageInfo);
+          categories['mainPages'].push(pageInfo);
           break;
         case 'legal':
-          categories['Mentions légales'].push(pageInfo);
+          categories['legalPages'].push(pageInfo);
           break;
         case 'secondary':
         default:
-          categories['Pages secondaires'].push(pageInfo);
+          categories['secondaryPages'].push(pageInfo);
           break;
       }
     });
     
-    // Trier Pages principales
-    categories['Pages principales'].sort((a, b) => a.name.localeCompare(b.name, 'fr'));
-    
-    // Trier Pages secondaires
-    categories['Pages secondaires'].sort((a, b) => a.name.localeCompare(b.name, 'fr'));
-    
-    // Trier Mentions légales
-    categories['Mentions légales'].sort((a, b) => a.name.localeCompare(b.name, 'fr'));
+    categories['mainPages'].sort((a, b) => a.name.localeCompare(b.name));
+    categories['secondaryPages'].sort((a, b) => a.name.localeCompare(b.name));
+    categories['legalPages'].sort((a, b) => a.name.localeCompare(b.name));
 
     return categories;
+  };
+
+  const getCategoryDisplayName = (categoryKey: string) => {
+    const categoryNames: Record<string, string> = {
+      'homePage': t.appearance.pageManagement.categories.homePage,
+      'mainPages': t.appearance.pageManagement.categories.mainPages,
+      'secondaryPages': t.appearance.pageManagement.categories.secondaryPages,
+      'legalPages': t.appearance.pageManagement.categories.legalPages
+    };
+    return categoryNames[categoryKey] || categoryKey;
   };
 
   const pageCategories = getDynamicPageCategories();
@@ -3972,11 +4031,11 @@ export default function AdminAppearance() {
                     <Layout className="w-4 h-4" />
                     Pages
                   </CardTitle>
-                  <CardDescription>Choisissez la page à modifier</CardDescription>
+                  <CardDescription>{t.appearance.pageManagement.choosePageToEdit}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {/* Menu Principal - Direct Access */}
+                    {/* Main Navigation Menu - Direct Access */}
                     <div className="space-y-2">
                       <Button
                         variant={selectedPage === 'navigation-menu' ? 'default' : 'outline'}
@@ -3984,12 +4043,12 @@ export default function AdminAppearance() {
                         onClick={() => setSelectedPage('navigation-menu')}
                       >
                         <Layout className="w-4 h-4 mr-2" />
-                        Menu principal
+                        {t.appearance.navigation.menuItems}
                       </Button>
                     </div>
                     
-                    {/* Page d'accueil - Direct Access */}
-                    {pageCategories['Page d\'accueil'] && pageCategories['Page d\'accueil'].length > 0 && (
+                    {/* Home Page - Direct Access */}
+                    {pageCategories['homePage'] && pageCategories['homePage'].length > 0 && (
                       <div className="space-y-2">
                         <Button
                           variant={selectedPage === 'home' ? 'default' : 'outline'}
@@ -3997,28 +4056,28 @@ export default function AdminAppearance() {
                           onClick={() => setSelectedPage('home')}
                         >
                           <Layout className="w-4 h-4 mr-2" />
-                          Page d'accueil
+                          {getCategoryDisplayName('homePage')}
                         </Button>
                       </div>
                     )}
                     
-                    {/* Other Categories with Dropdowns (excluding Page d'accueil) */}
-                    {Object.entries(pageCategories).filter(([categoryName]) => categoryName !== 'Page d\'accueil').map(([categoryName, pages]) => (
-                      <div key={categoryName} className="space-y-2">
+                    {/* Other Categories with Dropdowns (excluding homePage) */}
+                    {Object.entries(pageCategories).filter(([categoryKey]) => categoryKey !== 'homePage').map(([categoryKey, pages]) => (
+                      <div key={categoryKey} className="space-y-2">
                         <Button
                           variant="outline"
                           className="w-full justify-start text-sm h-8"
-                          onClick={() => toggleCategory(categoryName)}
+                          onClick={() => toggleCategory(categoryKey)}
                         >
                           <Layout className="w-4 h-4 mr-2" />
-                          <span className="flex-1 text-left">{categoryName}</span>
+                          <span className="flex-1 text-left">{getCategoryDisplayName(categoryKey)}</span>
                           <ChevronDown 
                             className={`w-4 h-4 transition-transform ${
-                              expandedCategories.includes(categoryName) ? 'rotate-180' : ''
+                              expandedCategories.includes(categoryKey) ? 'rotate-180' : ''
                             }`}
                           />
                         </Button>
-                        {expandedCategories.includes(categoryName) && (
+                        {expandedCategories.includes(categoryKey) && (
                           <div className="space-y-2 ml-2">
                             {pages.map((page) => (
                               <Button
@@ -4046,7 +4105,7 @@ export default function AdminAppearance() {
                         }}
                       >
                         <Layout className="w-4 h-4 mr-2" />
-                        Éditeur de page
+                        {t.appearance.pageManagement.pageEditor}
                       </Button>
                       
                       {/* Add New Page Button */}
@@ -4056,7 +4115,7 @@ export default function AdminAppearance() {
                         onClick={() => setIsAddPageModalOpen(true)}
                       >
                         <Plus className="w-4 h-4 mr-2" />
-                        Ajouter une page
+                        {t.appearance.pageManagement.addPage}
                       </Button>
                     </div>
                     
@@ -4366,18 +4425,18 @@ export default function AdminAppearance() {
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                       <Settings className="w-4 h-4" />
-                      Pied de page
+                      {t.appearance.tabs.footer}
                     </CardTitle>
-                    <CardDescription>Gérer le contenu du pied de page</CardDescription>
+                    <CardDescription>{t.appearance.pageManagement.manageFooterContent}</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-2">
                       {[
-                        { id: 'contact-info', label: 'Informations de contact', icon: MapPin },
-                        { id: 'useful-links', label: 'Liens utiles', icon: Menu },
-                        { id: 'social-media', label: 'Réseaux sociaux', icon: Users },
-                        { id: 'newsletter', label: 'Newsletter', icon: Mail },
-                        { id: 'copyright', label: 'Copyright', icon: FileText }
+                        { id: 'contact-info', label: t.appearance.footer.contactInfo, icon: MapPin },
+                        { id: 'useful-links', label: t.appearance.footer.usefulLinks, icon: Menu },
+                        { id: 'social-media', label: t.appearance.footer.socialMedia, icon: Users },
+                        { id: 'newsletter', label: t.appearance.footer.newsletter, icon: Mail },
+                        { id: 'copyright', label: t.appearance.footer.copyright, icon: FileText }
                       ].map(({ id, label, icon: Icon }) => (
                         <Button
                           key={id}

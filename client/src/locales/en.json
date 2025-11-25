@@ -928,7 +928,38 @@
         "mainPage": "Main page",
         "secondaryPage": "Secondary page",
         "viewPage": "View page",
-        "editPage": "Edit page"
+        "editPage": "Edit page",
+        "generalInfo": "General Information",
+        "metadataConfig": "Metadata and page configuration",
+        "pageName": "Page Name",
+        "pageType": "Page Type",
+        "state": "State",
+        "active": "Active",
+        "seoTitle": "SEO Title",
+        "seoKeywords": "SEO Keywords",
+        "seoDescription": "SEO Description",
+        "notDefined": "Not defined",
+        "pageEditor": "Page Editor",
+        "addPage": "Add a page",
+        "choosePageToEdit": "Choose the page to edit",
+        "manageFooterContent": "Manage footer content",
+        "technicalInfo": "Technical Information",
+        "technicalInfoDesc": "Technical details and system metadata",
+        "pageReferences": "Page References",
+        "pageReferencesDesc": "Locations where this page is referenced on the site",
+        "pageNotFound": "Page configuration not found",
+        "references": {
+          "mainNav": "Main navigation menu",
+          "homePage": "Site home page",
+          "footerLinks": "Footer links",
+          "specialForms": "Special form pages"
+        },
+        "categories": {
+          "homePage": "Home Page",
+          "mainPages": "Main Pages",
+          "secondaryPages": "Secondary Pages",
+          "legalPages": "Legal Pages"
+        }
       }
     },
     "dashboard": {
