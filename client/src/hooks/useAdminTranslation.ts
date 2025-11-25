@@ -1,5 +1,3 @@
-import { useState, useEffect, useCallback } from 'react';
-
 const adminTranslations = {
   en: {
     dashboard: {
@@ -693,52 +691,16 @@ const adminTranslations = {
 type Language = 'en' | 'fr' | 'es';
 type AdminTranslations = typeof adminTranslations.en;
 
+// Import the translation context hook
+import { useTranslation } from '@/contexts/TranslationContext';
+
 export function useAdminTranslation() {
-  const [language, setLanguageState] = useState<Language>(() => {
-    const saved = localStorage.getItem('preferred-language');
-    return (saved as Language) || 'en';
-  });
+  // Use the main translation context to get the current language
+  const { currentLanguage } = useTranslation();
   
-  const [, forceUpdate] = useState(0);
-
-  useEffect(() => {
-    const handleLanguageChange = (event: CustomEvent<{ language: string }>) => {
-      const newLang = event.detail.language as Language;
-      console.log('🔄 Admin translation received language change:', newLang);
-      if (['en', 'fr', 'es'].includes(newLang)) {
-        setLanguageState(newLang);
-        forceUpdate(n => n + 1);
-      }
-    };
-
-    const handleStorageChange = () => {
-      const saved = localStorage.getItem('preferred-language') as Language;
-      if (saved && ['en', 'fr', 'es'].includes(saved) && saved !== language) {
-        console.log('🔄 Admin translation detected storage change:', saved);
-        setLanguageState(saved);
-        forceUpdate(n => n + 1);
-      }
-    };
-
-    window.addEventListener('admin-language-changed', handleLanguageChange as EventListener);
-    window.addEventListener('storage', handleStorageChange);
-    
-    const interval = setInterval(() => {
-      const saved = localStorage.getItem('preferred-language') as Language;
-      if (saved && ['en', 'fr', 'es'].includes(saved) && saved !== language) {
-        console.log('🔄 Admin translation polling detected change:', saved);
-        setLanguageState(saved);
-        forceUpdate(n => n + 1);
-      }
-    }, 500);
-
-    return () => {
-      window.removeEventListener('admin-language-changed', handleLanguageChange as EventListener);
-      window.removeEventListener('storage', handleStorageChange);
-      clearInterval(interval);
-    };
-  }, [language]);
-
+  // Ensure we have a valid language
+  const language = (['en', 'fr', 'es'].includes(currentLanguage) ? currentLanguage : 'en') as Language;
+  
   const t: AdminTranslations = adminTranslations[language] || adminTranslations.en;
 
   return { t, language };
