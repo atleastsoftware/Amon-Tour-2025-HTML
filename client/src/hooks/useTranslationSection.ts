@@ -41,8 +41,8 @@ export function useTranslationSection(section: string) {
       try {
         setIsLoading(true);
         
-        // Try to load from the main en.json file
-        const response = await fetch(`/locales/${currentLanguage}.json?t=${Date.now()}`);
+        // Try to load from the UI locale file
+        const response = await fetch(`/locales/ui.${currentLanguage}.json?t=${Date.now()}`);
         
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -96,5 +96,10 @@ export function useTranslationSection(section: string) {
     return value;
   };
 
-  return { t, isLoading, language: currentLanguage };
+  return { 
+    t: translations, 
+    translate: t, 
+    isLoading, 
+    language: currentLanguage 
+  };
 }
