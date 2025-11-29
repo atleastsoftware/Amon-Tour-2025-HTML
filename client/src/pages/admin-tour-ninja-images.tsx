@@ -14,10 +14,14 @@ import { TourNinjaImageOverride } from "@shared/schema";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function AdminTourNinjaImages() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const { translations } = useTranslation();
+  const t = translations?.admin?.tourNinjaImages || {};
+  const common = translations?.admin?.common || {};
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [editingOverride, setEditingOverride] = useState<TourNinjaImageOverride | null>(null);
   const [showNewDialog, setShowNewDialog] = useState(false);
@@ -77,13 +81,13 @@ export default function AdminTourNinjaImages() {
       reader.onload = (e) => setImagePreview(e.target?.result as string);
       reader.readAsDataURL(file);
       toast({
-        title: "Image sélectionnée",
-        description: `${file.name} prête à être téléchargée`,
+        title: t?.imageSelected || "Image selected",
+        description: t?.imageReadyToUpload?.replace("{filename}", file.name) || `${file.name} ready to upload`,
       });
     } else {
       toast({
-        title: "Erreur",
-        description: "Veuillez sélectionner un fichier image valide",
+        title: common?.error || "Error",
+        description: t?.pleaseSelectValidImage || "Please select a valid image file",
         variant: "destructive",
       });
     }
@@ -135,8 +139,8 @@ export default function AdminTourNinjaImages() {
       queryClient.invalidateQueries({ queryKey: ["/api/tour-ninja-image-overrides"] });
       
       toast({
-        title: "Succès",
-        description: "Image personnalisée ajoutée avec succès",
+        title: common?.success || "Success",
+        description: t?.customImageAddedSuccess || "Custom image added successfully",
       });
       setShowNewDialog(false);
       setNewOverrideForm({
@@ -153,8 +157,8 @@ export default function AdminTourNinjaImages() {
     onError: (error) => {
       console.error("❌ Create failed:", error);
       toast({
-        title: "Erreur",
-        description: "Impossible d'ajouter l'image personnalisée",
+        title: common?.error || "Error",
+        description: t?.failedToAddCustomImage || "Failed to add custom image",
         variant: "destructive",
       });
     },
@@ -217,16 +221,16 @@ export default function AdminTourNinjaImages() {
       queryClient.invalidateQueries({ queryKey: ["/api/tour-ninja-image-overrides"] });
       
       toast({
-        title: "Succès",
-        description: "Image mise à jour avec succès",
+        title: common?.success || "Success",
+        description: t?.imageUpdatedSuccess || "Image updated successfully",
       });
       setEditingOverride(null);
     },
     onError: (error) => {
       console.error("❌ Update failed:", error);
       toast({
-        title: "Erreur",
-        description: "Impossible de mettre à jour l'image",
+        title: common?.error || "Error",
+        description: t?.failedToUpdateImage || "Failed to update image",
         variant: "destructive",
       });
     },
@@ -242,14 +246,14 @@ export default function AdminTourNinjaImages() {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/tour-ninja-images"] });
       queryClient.invalidateQueries({ queryKey: ["/api/tour-ninja-image-overrides"] });
       toast({
-        title: "Succès",
-        description: "Statut de l'image modifié",
+        title: common?.success || "Success",
+        description: t?.imageStatusChanged || "Image status changed",
       });
     },
     onError: (error) => {
       toast({
-        title: "Erreur",
-        description: "Impossible de modifier le statut",
+        title: common?.error || "Error",
+        description: t?.failedToChangeStatus || "Failed to change status",
         variant: "destructive",
       });
     },
@@ -265,14 +269,14 @@ export default function AdminTourNinjaImages() {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/tour-ninja-images"] });
       queryClient.invalidateQueries({ queryKey: ["/api/tour-ninja-image-overrides"] });
       toast({
-        title: "Succès",
-        description: "Image supprimée avec succès",
+        title: common?.success || "Success",
+        description: t?.imageDeletedSuccess || "Image deleted successfully",
       });
     },
     onError: (error) => {
       toast({
-        title: "Erreur",
-        description: "Impossible de supprimer l'image",
+        title: common?.error || "Error",
+        description: t?.failedToDeleteImage || "Failed to delete image",
         variant: "destructive",
       });
     },
@@ -282,8 +286,8 @@ export default function AdminTourNinjaImages() {
     // Validation selon le type de source
     if (!newOverrideForm.tourNinjaId || !newOverrideForm.tourName) {
       toast({
-        title: "Erreur",
-        description: "Veuillez remplir tous les champs requis",
+        title: common?.error || "Error",
+        description: t?.pleaseCompleteRequiredFields || "Please complete all required fields",
         variant: "destructive",
       });
       return;
@@ -291,8 +295,8 @@ export default function AdminTourNinjaImages() {
 
     if (newOverrideForm.imageSourceType === "upload" && !newOverrideForm.image) {
       toast({
-        title: "Erreur",
-        description: "Veuillez sélectionner une image à télécharger",
+        title: common?.error || "Error",
+        description: t?.pleaseSelectImageToUpload || "Please select an image to upload",
         variant: "destructive",
       });
       return;
@@ -300,8 +304,8 @@ export default function AdminTourNinjaImages() {
 
     if (newOverrideForm.imageSourceType === "url" && !newOverrideForm.directImageUrl) {
       toast({
-        title: "Erreur",
-        description: "Veuillez saisir une URL d'image valide",
+        title: common?.error || "Error",
+        description: t?.pleaseEnterValidImageUrl || "Please enter a valid image URL",
         variant: "destructive",
       });
       return;
@@ -349,13 +353,13 @@ export default function AdminTourNinjaImages() {
       <div className="p-6">
         <div className="flex items-center justify-center h-64">
           <div className="text-center space-y-4">
-            <div className="text-lg font-medium text-[hsl(var(--destructive))]">Authentification requise</div>
-            <p className="text-gray-600">Vous devez vous connecter pour accéder à cette page.</p>
+            <div className="text-lg font-medium text-[hsl(var(--destructive))]">{t?.authenticationRequired || "Authentication required"}</div>
+            <p className="text-gray-600">{t?.pleaseLoginToAccess || "You must log in to access this page."}</p>
             <Button 
               onClick={() => window.location.href = '/admin-login'}
               className="bg-primary hover:bg-primary/90"
             >
-              Se connecter
+              {common?.login || "Log in"}
             </Button>
           </div>
         </div>
@@ -367,7 +371,7 @@ export default function AdminTourNinjaImages() {
     return (
       <div className="p-6">
         <div className="flex items-center justify-center h-64">
-          <div className="text-lg">Chargement...</div>
+          <div className="text-lg">{common?.loading || "Loading..."}</div>
         </div>
       </div>
     );
@@ -377,30 +381,30 @@ export default function AdminTourNinjaImages() {
     <div className="p-6 space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Gestion Images Tour Ninja</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t?.title || "Tour Ninja Images Management"}</h1>
           <p className="text-gray-600 mt-1">
-            Remplacez les images Tour Ninja par vos propres images personnalisées
+            {t?.description || "Replace Tour Ninja images with your own custom images"}
           </p>
         </div>
         <Dialog open={showNewDialog} onOpenChange={setShowNewDialog}>
           <DialogTrigger asChild>
             <Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary shadow-lg">
               <Sparkles className="w-4 h-4 mr-2" />
-              Ajouter Image Personnalisée
+              {t?.addCustomImage || "Add Custom Image"}
             </Button>
           </DialogTrigger>
           <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2 text-xl">
                 <Camera className="w-5 h-5 text-primary" />
-                Personnaliser Image de Tour
+                {t?.customizeTourImage || "Customize Tour Image"}
               </DialogTitle>
             </DialogHeader>
             
             <div className="space-y-6">
               {/* Tour Selection */}
               <div className="space-y-2">
-                <Label htmlFor="tour-select" className="text-sm font-medium">Sélectionner le tour</Label>
+                <Label htmlFor="tour-select" className="text-sm font-medium">{t?.selectTour || "Select Tour"}</Label>
                 <Select
                   value={newOverrideForm.tourNinjaId}
                   onValueChange={(value) => {
@@ -414,7 +418,7 @@ export default function AdminTourNinjaImages() {
                   }}
                 >
                   <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Choisir un tour..." />
+                    <SelectValue placeholder={t?.chooseTour || "Choose a tour..."} />
                   </SelectTrigger>
                   <SelectContent>
                     {tours.length > 0 ? (
@@ -436,7 +440,7 @@ export default function AdminTourNinjaImages() {
                       ))
                     ) : (
                       <SelectItem value="no-tours" disabled>
-                        Aucun tour disponible
+                        {t?.noToursAvailable || "No tours available"}
                       </SelectItem>
                     )}
                   </SelectContent>
@@ -680,7 +684,7 @@ export default function AdminTourNinjaImages() {
 
       {/* Tour Selection List */}
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold text-gray-900">Choisir un tour à personnaliser</h2>
+        <h2 className="text-xl font-semibold text-gray-900">{t?.chooseTourToCustomize || "Choose a tour to customize"}</h2>
         
         {isLoading ? (
           <div className="text-center py-8">
@@ -724,7 +728,7 @@ export default function AdminTourNinjaImages() {
                     {existingOverride && (
                       <div className="absolute top-2 right-2">
                         <Badge variant={existingOverride.isActive ? "default" : "secondary"}>
-                          {existingOverride.isActive ? "Personnalisé" : "Inactif"}
+                          {existingOverride.isActive ? (t?.customized || "Customized") : (t?.inactive || "Inactive")}
                         </Badge>
                       </div>
                     )}
@@ -733,7 +737,7 @@ export default function AdminTourNinjaImages() {
                   <CardContent className="p-4">
                     <h3 className="font-semibold text-sm mb-2 line-clamp-2">{tour.name}</h3>
                     <p className="text-xs text-gray-600 mb-3">
-                      {tour.price} {tour.currency} • {tour.duration} jour(s)
+                      {tour.price} {tour.currency} • {tour.duration} {t?.days || "day(s)"}
                     </p>
                     
                     <Button
@@ -759,7 +763,7 @@ export default function AdminTourNinjaImages() {
                       }}
                     >
                       <ImageIcon className="w-4 h-4 mr-2" />
-                      {existingOverride ? "Modifier l'image" : "Personnaliser l'image"}
+                      {existingOverride ? (t?.editImage || "Edit image") : (t?.customizeImage || "Customize image")}
                     </Button>
                   </CardContent>
                 </Card>
@@ -773,9 +777,9 @@ export default function AdminTourNinjaImages() {
                 <ImageIcon className="w-12 h-12 text-primary" />
               </div>
               <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">Aucun tour disponible</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">{t?.noToursAvailableTitle || "No tours available"}</h3>
                 <p className="text-gray-500 mb-6 max-w-md mx-auto">
-                  Impossible de charger les tours depuis Tour Ninja. Veuillez vérifier la connexion API.
+                  {t?.unableToLoadTours || "Unable to load tours from Tour Ninja. Please check the API connection."}
                 </p>
               </div>
             </div>
@@ -817,7 +821,7 @@ export default function AdminTourNinjaImages() {
                   ) : (
                     <div className="w-full h-full bg-gray-200 flex items-center justify-center">
                       <ImageIcon className="w-12 h-12 text-gray-400" />
-                      <span className="ml-2 text-sm text-gray-500">Aucune image personnalisée</span>
+                      <span className="ml-2 text-sm text-gray-500">{t?.noCustomImage || "No custom image"}</span>
                     </div>
                   )}
                 </div>
