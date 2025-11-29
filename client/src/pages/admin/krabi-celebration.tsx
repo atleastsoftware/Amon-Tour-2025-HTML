@@ -73,13 +73,13 @@ export default function AdminKrabiCelebration() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/krabi-celebration"] });
       toast({
-        title: "Success",
+        title: admin.common?.success || "Success",
         description: admin.krabiCelebration?.markAsReadSuccess || "Request marked as read",
       });
     },
     onError: () => {
       toast({
-        title: "Error",
+        title: admin.common?.error || "Error",
         description: admin.krabiCelebration?.markAsReadError || "Failed to mark as read",
         variant: "destructive",
       });
@@ -94,13 +94,13 @@ export default function AdminKrabiCelebration() {
       queryClient.invalidateQueries({ queryKey: ["/api/krabi-celebration"] });
       setSelectedRequest(null);
       toast({
-        title: "Success",
+        title: admin.common?.success || "Success",
         description: admin.krabiCelebration?.deleteSuccess || "Request deleted successfully",
       });
     },
     onError: () => {
       toast({
-        title: "Error",
+        title: admin.common?.error || "Error",
         description: admin.krabiCelebration?.deleteError || "Failed to delete request",
         variant: "destructive",
       });
@@ -123,7 +123,7 @@ export default function AdminKrabiCelebration() {
             <div className="flex items-center justify-center h-96">
               <div className="text-center">
                 <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto" data-testid="spinner"></div>
-                <p className="mt-4 text-gray-600" data-testid="text-loading">Loading...</p>
+                <p className="mt-4 text-gray-600" data-testid="text-loading">{admin.common?.loading || "Loading..."}</p>
               </div>
             </div>
           </div>
@@ -159,7 +159,7 @@ export default function AdminKrabiCelebration() {
                   data-testid="button-back"
                 >
                   <ArrowLeft className="h-4 w-4" />
-                  Back
+                  {admin.common?.back || "Back"}
                 </Button>
                 <div className="flex items-center gap-3">
                   <PartyPopper className="h-8 w-8 text-pink-600" data-testid="icon-party" />
@@ -177,7 +177,7 @@ export default function AdminKrabiCelebration() {
               <div className="flex items-center gap-4">
                 {unreadCount > 0 && (
                   <Badge variant="destructive" className="flex items-center gap-1" data-testid="badge-unread-count">
-                    {unreadCount} new
+                    {(admin.krabiCelebration?.unreadBadge || "{count} new").replace("{count}", String(unreadCount))}
                   </Badge>
                 )}
                 <Button
@@ -197,7 +197,7 @@ export default function AdminKrabiCelebration() {
             <Card data-testid="card-requests">
               <CardHeader>
                 <CardTitle data-testid="text-requests-count">
-                  Requests received ({requests.length})
+                  {(admin.krabiCelebration?.requestsReceived || "Requests received ({count})").replace("{count}", String(requests.length))}
                 </CardTitle>
               </CardHeader>
               <CardContent>
