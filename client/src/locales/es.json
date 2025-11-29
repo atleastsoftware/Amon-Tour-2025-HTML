@@ -702,6 +702,18 @@
         "settings": {
           "title": "Configuración",
           "description": "Configuración y preferencias"
+        },
+        "partnershipRequests": {
+          "title": "Solicitudes de asociación",
+          "description": "Propuestas de colaboración"
+        },
+        "groupRequests": {
+          "title": "Grupos y Empresas",
+          "description": "Solicitudes de grupos y empresas"
+        },
+        "blogManagement": {
+          "title": "Gestión del blog",
+          "description": "Crear y editar artículos"
         }
       }
     },
