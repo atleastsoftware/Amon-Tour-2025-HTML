@@ -1649,7 +1649,6 @@
       "edit": "Edit",
       "add": "Add",
       "back": "Back",
-      "backToAdmin": "Back to Admin",
       "title": "Title",
       "content": "Content",
       "name": "Name",
@@ -1659,20 +1658,7 @@
       "creating": "Creating...",
       "noResults": "No results",
       "confirmDelete": "Confirm deletion",
-      "deleteConfirmation": "Are you sure you want to delete this? This action cannot be undone.",
-      "deleteWarning": "This action cannot be undone.",
-      "actions": "Actions",
-      "status": "Status",
-      "date": "Date",
-      "created": "Created",
-      "updated": "Updated",
-      "author": "Author",
-      "category": "Category",
-      "published": "Published",
-      "draft": "Draft",
-      "view": "View",
-      "logout": "Logout",
-      "updating": "Updating..."
+      "deleteConfirmation": "Are you sure you want to delete this? This action cannot be undone."
     },
     "dashboard": {
       "title": "Administration",
@@ -1703,6 +1689,10 @@
           "title": "Newsletter",
           "description": "Manage newsletter subscriptions"
         },
+        "tourCards": {
+          "title": "Tour Cards",
+          "description": "Create and manage tour cards"
+        },
         "tourNinjaImages": {
           "title": "Tour Ninja Images",
           "description": "Replace Tour Ninja images with your own"
@@ -1711,14 +1701,221 @@
           "title": "Translation Management",
           "description": "Fix and customize translations"
         },
-        "tourCards": {
-          "title": "Tour Cards",
-          "description": "Create and manage presentation cards"
+        "contactMessages": {
+          "title": "Contact Messages",
+          "description": "View and respond to messages"
+        },
+        "settings": {
+          "title": "Settings",
+          "description": "Configuration and preferences"
         }
+      },
+      "stats": {
+        "tours": "Total Tours",
+        "toursDescription": "Published tour experiences",
+        "customRequests": "Custom Requests",
+        "customRequestsDescription": "Pending tour requests",
+        "messages": "Contact Messages",
+        "messagesDescription": "Unread messages"
+      },
+      "tabs": {
+        "tours": "Tours",
+        "requests": "Custom Requests",
+        "messages": "Messages",
+        "reservations": "Reservations"
+      },
+      "tourManagement": {
+        "title": "Tour Management",
+        "addTour": "Add New Tour",
+        "tableHeaders": {
+          "title": "Title",
+          "duration": "Duration",
+          "price": "Price",
+          "featured": "Featured",
+          "actions": "Actions"
+        },
+        "empty": "No tours found. Create your first tour to get started.",
+        "deleteSuccess": {
+          "title": "Tour Deleted",
+          "description": "Tour '{title}' has been successfully deleted."
+        },
+        "deleteError": {
+          "title": "Delete Failed",
+          "description": "Failed to delete the tour. Please try again."
+        },
+        "deleteConfirm": "Are you sure you want to delete '{title}'? This action cannot be undone."
+      },
+      "customTourRequests": {
+        "title": "Custom Tour Requests",
+        "empty": "No custom tour requests yet."
+      },
+      "contactMessages": {
+        "title": "Contact Messages",
+        "empty": "No contact messages yet."
+      },
+      "reservations": {
+        "title": "Reservations",
+        "description": "Manage tour availabilities and booking schedules.",
+        "manageAvailabilities": "Manage Availabilities",
+        "viewDescription": "View and manage all tour reservations and bookings.",
+        "manageReservations": "Manage Reservations"
       }
     },
     "appearance": {
-      "title": "Site Appearance"
+      "title": "Site Appearance",
+      "description": "Customize site colors and theme",
+      "backToAdmin": "Back to Admin",
+      "tabs": {
+        "theme": "Theme",
+        "pages": "Pages",
+        "footer": "Footer"
+      },
+      "theme": {
+        "title": "Theme Settings",
+        "subtitle": "Customize colors and styles",
+        "design": "Design",
+        "elements": "Elements",
+        "branding": "Branding",
+        "colors": "Colors",
+        "typography": "Typography",
+        "buttonStyles": "Button Styles",
+        "announcementBar": "Announcement Bar",
+        "popupAnnouncement": "Popup Announcement",
+        "logoFavicon": "Logo & Favicon",
+        "seoMetadata": "SEO & Metadata",
+        "otherColors": "Other Colors",
+        "colorReference": "Color Reference",
+        "buttons": "Buttons",
+        "logos": "Logos",
+        "notificationBar": "Notification Bar",
+        "popup": "Popup",
+        "baseColors": "Base Colors",
+        "baseColorsDesc": "Base site colors and style references for color selectors",
+        "primaryColor": "Primary Color",
+        "secondaryColor": "Secondary Color",
+        "headingColor": "Heading Color",
+        "textColor": "Text Color",
+        "backgroundColor": "Background Color",
+        "customColor": "Custom Color",
+        "saveColors": "Save Colors",
+        "saveTypography": "Save Typography",
+        "saveButtons": "Save Buttons",
+        "saveLogos": "Save Logos",
+        "saveNotificationBar": "Save Notification Bar",
+        "savePopup": "Save Popup",
+        "saveChanges": "Save changes",
+        "saved": "Saved successfully!",
+        "error": "Error saving",
+        "enableNotificationBar": "Enable notification bar",
+        "notificationText": "Notification text",
+        "enableScrolling": "Enable scrolling (ideal for long texts)",
+        "enableNewsletter": "Enable newsletter",
+        "enableCopyright": "Enable copyright",
+        "saving": "Saving...",
+        "textMenu": "Menu Text",
+        "backgroundMenu": "Menu Background",
+        "textFooter": "Footer Text",
+        "backgroundFooter": "Footer Background",
+        "errorColor": "Error Color",
+        "successColor": "Success Color"
+      },
+      "footer": {
+        "title": "Footer Settings",
+        "contactInfo": "Contact Information",
+        "contactInfoDesc": "Manage footer contact details",
+        "usefulLinks": "Useful Links",
+        "usefulLinksDesc": "Manage footer navigation links",
+        "socialMedia": "Social Media",
+        "socialMediaDesc": "Manage social media links",
+        "newsletter": "Newsletter",
+        "newsletterDesc": "Configure newsletter section",
+        "copyright": "Copyright",
+        "copyrightDesc": "Configure copyright text",
+        "addContactInfo": "Add contact information",
+        "addLink": "Add link",
+        "addSocialMedia": "Add social media",
+        "moveUp": "Move up",
+        "moveDown": "Move down",
+        "delete": "Delete",
+        "label": "Label",
+        "value": "Value",
+        "style": "Display Style",
+        "url": "URL",
+        "icon": "Icon",
+        "preview": "Preview on website"
+      },
+      "common": {
+        "save": "Save",
+        "cancel": "Cancel",
+        "edit": "Edit",
+        "delete": "Delete",
+        "add": "Add",
+        "saving": "Saving...",
+        "loading": "Loading...",
+        "clickToEdit": "Click to edit..."
+      },
+      "navigation": {
+        "menuItems": "Menu Items",
+        "addItem": "Add Item",
+        "noItems": "No menu items. Click \"Add Item\" to start.",
+        "editItem": "Edit Item",
+        "itemName": "Item Name",
+        "itemUrl": "URL",
+        "openIn": "Open in",
+        "sameTab": "Same Tab",
+        "newTab": "New Tab",
+        "itemVisible": "Item Visible",
+        "parentItem": "Parent Item",
+        "noParent": "No Parent (Top Level)",
+        "success": "Success",
+        "error": "Error",
+        "description": "Manage the navigation menu items of your site. Drag and drop to reorder. Note: The \"Home\" link (/) is managed automatically - it only appears when not on the home page."
+      },
+      "pageManagement": {
+        "slugUrl": "Slug/External URL",
+        "notModifiable": "(not modifiable)",
+        "externalLinkCheck": "Check if this is an external link (redirect to a full URL)",
+        "notLinked": "This page is not yet linked to other sections of the site",
+        "pageId": "Page ID:",
+        "publicUrl": "Public URL:",
+        "createdAt": "Created on:",
+        "modifiedAt": "Modified on:",
+        "mainPage": "Main page",
+        "secondaryPage": "Secondary page",
+        "viewPage": "View page",
+        "editPage": "Edit page",
+        "generalInfo": "General Information",
+        "metadataConfig": "Metadata and page configuration",
+        "pageName": "Page Name",
+        "pageType": "Page Type",
+        "state": "State",
+        "active": "Active",
+        "seoTitle": "SEO Title",
+        "seoKeywords": "SEO Keywords",
+        "seoDescription": "SEO Description",
+        "notDefined": "Not defined",
+        "pageEditor": "Page Editor",
+        "addPage": "Add a page",
+        "choosePageToEdit": "Choose the page to edit",
+        "manageFooterContent": "Manage footer content",
+        "technicalInfo": "Technical Information",
+        "technicalInfoDesc": "Technical details and system metadata",
+        "pageReferences": "Page References",
+        "pageReferencesDesc": "Locations where this page is referenced on the site",
+        "pageNotFound": "Page configuration not found",
+        "references": {
+          "mainNav": "Main navigation menu",
+          "homePage": "Site home page",
+          "footerLinks": "Footer links",
+          "specialForms": "Special form pages"
+        },
+        "categories": {
+          "homePage": "Home Page",
+          "mainPages": "Main Pages",
+          "secondaryPages": "Secondary Pages",
+          "legalPages": "Legal Pages"
+        }
+      }
     },
     "blog": {
       "title": "Blog Management",
@@ -1789,30 +1986,38 @@
       "language": "Language"
     },
     "tourNinjaImages": {
-      "title": "Tour Ninja Image Management",
-      "description": "Description",
+      "title": "Tour Ninja Images Management",
+      "description": "Replace Tour Ninja images with your own custom images",
       "addCustomImage": "Add Custom Image",
-      "selectTour": "Select a tour to customize",
-      "noTours": "No tours available",
-      "noToursDescription": "Unable to load tours from Tour Ninja. Please check the API connection.",
-      "customImages": "Custom Images",
-      "originalImage": "Original Image",
-      "customImage": "Custom Image",
-      "active": "Active",
+      "customizeTourImage": "Customize Tour Image",
+      "selectTour": "Select Tour",
+      "chooseTour": "Choose a tour...",
+      "noToursAvailable": "No tours available",
+      "chooseTourToCustomize": "Choose a tour to customize",
+      "customized": "Customized",
       "inactive": "Inactive",
-      "activate": "Activate",
-      "deactivate": "Deactivate",
+      "days": "day(s)",
+      "editImage": "Edit image",
+      "customizeImage": "Customize image",
+      "noToursAvailableTitle": "No tours available",
+      "unableToLoadTours": "Unable to load tours from Tour Ninja. Please check the API connection.",
+      "noCustomImage": "No custom image",
       "imageSelected": "Image selected",
-      "readyToUpload": "ready to upload",
-      "selectValidImage": "Please select a valid image file",
-      "uploadImage": "Upload Image",
-      "imageUrl": "Image URL",
-      "directUrl": "Direct URL",
-      "tourName": "Tour Name",
-      "tourId": "Tour ID",
-      "search": "Search",
-      "filterByStatus": "Filter by status",
-      "all": "All"
+      "imageReadyToUpload": "{filename} ready to upload",
+      "pleaseSelectValidImage": "Please select a valid image file",
+      "customImageAddedSuccess": "Custom image added successfully",
+      "failedToAddCustomImage": "Failed to add custom image",
+      "imageUpdatedSuccess": "Image updated successfully",
+      "failedToUpdateImage": "Failed to update image",
+      "imageStatusChanged": "Image status changed",
+      "failedToChangeStatus": "Failed to change status",
+      "imageDeletedSuccess": "Image deleted successfully",
+      "failedToDeleteImage": "Failed to delete image",
+      "pleaseCompleteRequiredFields": "Please complete all required fields",
+      "pleaseSelectImageToUpload": "Please select an image to upload",
+      "pleaseEnterValidImageUrl": "Please enter a valid image URL",
+      "authenticationRequired": "Authentication required",
+      "pleaseLoginToAccess": "You must log in to access this page."
     },
     "translation": {
       "title": "Translation Management",
@@ -1916,8 +2121,8 @@
       "legalEditor": {
         "title": "Legal Notice Editor",
         "description": "Create and manage legal pages (notices, T&C, privacy)",
-        "listTitle": "Legal Pages Editor",
-        "listDescription": "Manage your site's legal pages (legal notice, terms, privacy policy)",
+        "listTitle": "Legal Page Editor",
+        "listDescription": "Manage your site's legal pages (legal notices, T&C, privacy)",
         "createLegalPage": "Create a legal page",
         "titleLabel": "Title",
         "contentLabel": "Content",
@@ -1966,6 +2171,439 @@
         "title": "Add a block",
         "preview": "Preview",
         "selectBlockToPreview": "Select a block type to see the preview"
+      }
+    },
+    "pageEditor": {
+      "colorPicker": {
+        "clickToCustomize": "Click to customize color",
+        "primaryColor": "Primary Color",
+        "secondaryColor": "Secondary Color",
+        "headingColor": "Heading Color",
+        "textColor": "Text Color",
+        "backgroundColor": "Background Color",
+        "colorReference": "Color: {{color}}",
+        "helpText": "Click the color box to use the color picker, or select a theme color from the dropdown"
+      },
+      "formPreview": {
+        "selectOption": "Select an option",
+        "selectTripDates": "Select your trip dates",
+        "noFormSelected": "No form selected",
+        "selectFormHint": "Please select a form from the settings panel on the right",
+        "loadingForm": "Loading form...",
+        "noFieldsInForm": "No fields in this form",
+        "formNotFound": "Form not found",
+        "viewForm": "View Form",
+        "editFullForm": "Edit Complete Form",
+        "deleteForm": "Delete",
+        "formId": "Form ID {{id}}"
+      },
+      "blockPreview": {
+        "noImageSelected": "No image selected",
+        "button": "Button {{number}}",
+        "sectionTitle": "Section Title",
+        "addContent": "Add content here for your text section. You can describe your services, share your story, or present important information."
+      },
+      "blockEdit": {
+        "hero": {
+          "mainTitle": "Main Title",
+          "subtitle": "Subtitle",
+          "accentText": "Accent Text",
+          "accentTextPlaceholder": "Text to highlight in a different color",
+          "titleColor": "Title Color",
+          "accentColor": "Accent Color",
+          "subtitleColor": "Subtitle Color",
+          "buttons": "Action Buttons",
+          "addButton": "Add Button",
+          "button": "Button {{number}}",
+          "text": "Text",
+          "color": "Color",
+          "style": "Style",
+          "filled": "Filled",
+          "outline": "Outline",
+          "contentAlignment": "Content Alignment",
+          "alignmentLeft": "Left",
+          "alignmentCenter": "Center",
+          "alignmentRight": "Right",
+          "background": "Background",
+          "backgroundTypeVideo": "Video",
+          "backgroundTypeImages": "Images (Carousel)",
+          "backgroundTypeColor": "Solid Color",
+          "backgroundColor": "Background Color",
+          "videoUrl": "Video URL",
+          "imageUrls": "Image URLs"
+        },
+        "textImage": {
+          "mainTitle": "Main Title",
+          "introduction": "Introduction",
+          "introductionColor": "Introduction Color",
+          "dividerColor": "Divider Color",
+          "subsections": "Subsections",
+          "addSubsection": "Add Subsection",
+          "subsection": "Subsection {{number}}",
+          "newSubtitle": "New Subtitle",
+          "newText": "New text...",
+          "subtitle": "Subtitle",
+          "textLabel": "Text",
+          "subtitleColor": "Subtitle Color",
+          "images": "Images",
+          "addImage": "Add Image",
+          "imagePosition": "Position",
+          "positionLeft": "Left",
+          "positionRight": "Right",
+          "sectionIndex": "Section",
+          "altText": "Alt Text",
+          "buttons": "Buttons",
+          "addButton": "Add Button",
+          "buttonText": "Button Text",
+          "newButton": "New Button"
+        },
+        "headerPage": {
+          "title": "Title",
+          "subtitle": "Subtitle",
+          "icon": "Icon",
+          "iconColor": "Icon Color",
+          "actionButtons": "Action Buttons",
+          "addButton": "Add Button",
+          "button": "Button {{number}}",
+          "background": "Background",
+          "backgroundType": "Background Type",
+          "image": "Image",
+          "video": "Video",
+          "solidColor": "Solid Color",
+          "gradient": "Gradient",
+          "backgroundColorLabel": "Background Color",
+          "gradientColor1": "Color 1",
+          "gradientColor2": "Color 2",
+          "videoUrlLabel": "Video URL",
+          "imageUrlLabel": "Background Image URL",
+          "imageAlt": "Alt Text",
+          "frameSize": "Frame Size",
+          "small": "Small",
+          "large": "Large"
+        },
+        "searchBarTours": {
+          "filterBar": "Filter Bar",
+          "title": "Title",
+          "searchPlaceholder": "Search Placeholder",
+          "filtersTextColor": "Text Color",
+          "filtersBgColor": "Block Color",
+          "gridConfiguration": "Grid Configuration",
+          "adColors": "Ad Colors",
+          "columnsPerDevice": "Columns per Device",
+          "mobile": "Mobile",
+          "tablet": "Tablet",
+          "desktop": "Desktop"
+        },
+        "popularExperiences": {
+          "title": "Title",
+          "subtitle": "Subtitle",
+          "divider": "Divider",
+          "dividerColor": "Divider Color",
+          "gridConfiguration": "Grid Configuration",
+          "adColors": "Ad Colors",
+          "columnsPerDevice": "Columns per Device",
+          "numberOfAdsToDisplay": "Number of Ads to Display",
+          "showAllAds": "Show All Ads"
+        },
+        "whyChooseUs": {
+          "title": "Title",
+          "subtitle": "Subtitle",
+          "divider": "Divider",
+          "colorConfiguration": "Color Configuration",
+          "iconBlocks": "Icon Blocks",
+          "addNewBlock": "Add New Block",
+          "designStyle": "Design Style",
+          "modernCard": "Modern Card",
+          "modernCardDesc": "With frames and colored background",
+          "minimalist": "Minimalist",
+          "minimalistDesc": "Without frames, tinted colored background",
+          "block": "Block {{number}}",
+          "removeBlock": "Remove Block",
+          "mainIcon": "Main Icon",
+          "selectIconOrUrl": "Select a main icon for this block or enter an image URL",
+          "uploadCustomIcon": "Upload custom main icon",
+          "titleLabel": "Title",
+          "description": "Description",
+          "miniIcons": "Mini Icons",
+          "addMiniBlock": "Add Mini Block",
+          "medal": "Medal",
+          "iconText": "Icon Text",
+          "iconUrl": "Icon URL (optional)",
+          "newBlock": "New Block",
+          "blockDescription": "Description of this advantage block",
+          "advantage": "Advantage {{number}}",
+          "new": "New"
+        },
+        "whoWeAre": {
+          "mainTitle": "Main Title",
+          "introduction": "Introduction",
+          "dividerColor": "Divider Color",
+          "subsections": "Subsections",
+          "addSubsection": "Add Subsection",
+          "subsection": "Subsection {{number}}",
+          "subtitle": "Subtitle",
+          "textLabel": "Text",
+          "subtitleColor": "Subtitle Color",
+          "textColor": "Text Color",
+          "images": "Images",
+          "addImage": "Add Image",
+          "layoutStyle": "Layout Style",
+          "imagesOnRight": "Images on the right",
+          "imagesOnLeft": "Images on the left",
+          "buttons": "Buttons",
+          "addButton": "Add Button"
+        },
+        "textGallery": {
+          "title": "Title",
+          "subtitle": "Subtitle",
+          "dividerColor": "Divider Color",
+          "gallery": "Gallery",
+          "addImage": "Add Image",
+          "imageUrl": "Image URL",
+          "imageAlt": "Alt Text"
+        },
+        "textVideo": {
+          "title": "Title",
+          "subtitle": "Subtitle",
+          "dividerColor": "Divider Color",
+          "videoUrl": "Video URL",
+          "videoType": "Video Type",
+          "selectType": "Select type",
+          "youtube": "YouTube",
+          "vimeo": "Vimeo",
+          "directVideo": "Direct Video (MP4/WebM)"
+        },
+        "textListing": {
+          "title": "Title",
+          "subtitle": "Subtitle",
+          "dividerColor": "Divider Color",
+          "labelColor": "Label Color",
+          "listElements": "List Elements",
+          "element": "Element {{number}}",
+          "addElement": "Add Element",
+          "label": "Label",
+          "description": "Description"
+        },
+        "textPricing": {
+          "title": "Title",
+          "subtitle": "Subtitle",
+          "dividerColor": "Divider Color",
+          "pricingCards": "Pricing Cards",
+          "card": "Card {{number}}",
+          "addCard": "Add Card",
+          "cardTitle": "Title",
+          "cardSubtitle": "Subtitle",
+          "price": "Price",
+          "currency": "Currency",
+          "cycle": "Cycle",
+          "cardLabel": "Label",
+          "moreText": "More Text",
+          "headerGradientColor": "Header Gradient Color",
+          "additionalOptions": "Additional Options",
+          "pickupSectionTitle": "Pickup Section Title",
+          "allOptions": "All Options",
+          "option": "Option {{number}}",
+          "addOption": "Add Option",
+          "titleLabel": "Title",
+          "subtitleLabel": "Subtitle",
+          "supplement": "Supplement",
+          "supplementColor": "Supplement Color",
+          "includedTitle": "Included Title",
+          "includedDescription": "Included Description",
+          "includedLogoColor": "Included Logo Color",
+          "notIncludedTitle": "Not Included Title",
+          "notIncludedDescription": "Not Included Description",
+          "notIncludedLogoColor": "Not Included Logo Color"
+        },
+        "dynamicForm": {
+          "title": "Title",
+          "subtitle": "Subtitle",
+          "selectForm": "Select a Form",
+          "noFormSelected": "No form selected yet",
+          "dividerColor": "Divider Color",
+          "formColors": "Form Colors",
+          "primaryColor": "Primary Color",
+          "textColorLabel": "Text Color",
+          "buttonColorLabel": "Button Color",
+          "buttonTextColor": "Button Text Color",
+          "buttonStyle": "Button Style",
+          "solid": "Solid",
+          "outline": "Outline"
+        },
+        "text": {
+          "title": "Title",
+          "content": "Content",
+          "titleColor": "Title Color",
+          "contentColor": "Content Color"
+        }
+      },
+      "common": {
+        "title": "Title",
+        "subtitle": "Subtitle",
+        "description": "Description",
+        "add": "Add",
+        "delete": "Delete",
+        "remove": "Remove",
+        "edit": "Edit",
+        "cancel": "Cancel",
+        "save": "Save",
+        "close": "Close",
+        "color": "Color",
+        "background": "Background",
+        "backgroundColor": "Background Color",
+        "text": "Text",
+        "textColor": "Text Color",
+        "button": "Button",
+        "buttons": "Buttons",
+        "form": "Form",
+        "filled": "Filled",
+        "outline": "Outline",
+        "small": "Small",
+        "large": "Large",
+        "video": "Video",
+        "image": "Image",
+        "gradient": "Gradient",
+        "desktop": "Desktop",
+        "tablet": "Tablet",
+        "mobile": "Mobile",
+        "new": "New",
+        "mainTitle": "Main Title",
+        "dividerColor": "Divider Color"
+      },
+      "pages": {
+        "customCodePage": "Page with Custom Code",
+        "customCodeDescription": "This page: <span class=\"font-mono text-secondary\">{{slug}}</span> uses custom code outside editor.",
+        "cannotEditCustomCode": "You cannot edit this page here. You will need to edit the code directly.",
+        "loading": "Loading...",
+        "noBlocks": "This page has no blocks yet",
+        "addFirstBlock": "Add your first block to start building your page",
+        "addBlock": "Add Block",
+        "addTemplate": "Add Template",
+        "deleteSection": "Delete this section",
+        "confirmDelete": "Are you sure? This action cannot be undone.",
+        "deletePermanently": "Delete Permanently",
+        "fullScreenPreview": "Full Screen Preview: {{title}}",
+        "previewDescription": "This is how the block will appear on the page"
+      }
+    },
+    "login": {
+      "title": "Administration Login",
+      "subtitle": "Access the management dashboard",
+      "username": "Username",
+      "password": "Password",
+      "loginButton": "Log in",
+      "footer": "Access reserved for administrators only",
+      "success": {
+        "title": "Login successful",
+        "description": "Redirecting to dashboard..."
+      },
+      "errors": {
+        "required": "Please fill in all fields",
+        "invalid": "Invalid credentials"
+      }
+    },
+    "globalElementTranslationEditor": {
+      "title": "Global Elements Translation Editor",
+      "description": "Manage translations for navigation, footer, and announcement elements",
+      "buttons": {
+        "footer": "Footer",
+        "navigation": "Navigation",
+        "announcement": "Announcement",
+        "popup": "Popup"
+      },
+      "footerSectionsTitle": "Footer Sections",
+      "footerSections": {
+        "contactInfo": "Contact Information",
+        "usefulLinks": "Useful Links",
+        "socialMedia": "Social Media",
+        "newsletterConfig": "Newsletter Configuration",
+        "copyrightConfig": "Copyright Configuration"
+      },
+      "tabs": {
+        "french": "French",
+        "spanish": "Spanish"
+      },
+      "badges": {
+        "autoTranslated": "Auto-translated",
+        "manuallyEdited": "Manually edited"
+      },
+      "save": "Save",
+      "fieldNames": {
+        "title": "Title",
+        "text": "Text",
+        "message": "Message",
+        "description": "Description",
+        "linkText": "Link Text",
+        "linkUrl": "Link URL",
+        "ctaText": "CTA Text",
+        "ctaUrl": "CTA URL",
+        "email": "Email",
+        "phone": "Phone",
+        "whatsapp": "WhatsApp",
+        "lineId": "Line ID",
+        "address": "Address",
+        "emailLabel": "Email Label",
+        "phoneLabel": "Phone Label",
+        "buttonText": "Button Text",
+        "placeholder": "Placeholder",
+        "successMessage": "Success Message",
+        "errorMessage": "Error Message",
+        "name": "Name"
+      },
+      "toasts": {
+        "saveSuccess": {
+          "title": "Saved",
+          "description": "Translations saved successfully"
+        },
+        "saveError": {
+          "title": "Error",
+          "description": "Failed to save translations"
+        }
+      }
+    },
+    "formTranslationEditor": {
+      "title": "Form Translation Editor",
+      "description": "Manage translations for custom forms",
+      "tabs": {
+        "french": "French",
+        "spanish": "Spanish"
+      },
+      "buttons": {
+        "regenerate": "Regenerate Translations",
+        "save": "Save Translations"
+      },
+      "badges": {
+        "autoTranslated": "Auto-translated",
+        "manuallyEdited": "Manually edited"
+      },
+      "fieldNames": {
+        "formName": "Form Name",
+        "description": "Description",
+        "submitButton": "Submit Button",
+        "successMessage": "Success Message",
+        "errorMessage": "Error Message",
+        "fieldLabel": "Field {number} Label",
+        "fieldPlaceholder": "Field {number} Placeholder"
+      },
+      "noForms": "No forms found",
+      "selectForm": "Select a form to edit translations",
+      "toasts": {
+        "saveSuccess": {
+          "title": "Saved",
+          "description": "Form translations saved successfully"
+        },
+        "saveError": {
+          "title": "Error",
+          "description": "Failed to save translations"
+        },
+        "regenerateSuccess": {
+          "title": "Regenerated",
+          "description": "Translations have been regenerated"
+        },
+        "regenerateError": {
+          "title": "Error",
+          "description": "Failed to regenerate translations"
+        }
       }
     }
   }

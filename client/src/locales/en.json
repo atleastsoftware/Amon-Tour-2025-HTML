@@ -1319,6 +1319,110 @@
       "updateFailed": "An error occurred while updating the card",
       "loadingCards": "Loading cards...",
       "noCards": "No cards yet. Create your first card!"
+    },
+    "globalElementTranslationEditor": {
+      "title": "Global Elements Translation Editor",
+      "description": "Manage translations for navigation, footer, and announcement elements",
+      "buttons": {
+        "footer": "Footer",
+        "navigation": "Navigation",
+        "announcement": "Announcement",
+        "popup": "Popup"
+      },
+      "footerSectionsTitle": "Footer Sections",
+      "footerSections": {
+        "contactInfo": "Contact Information",
+        "usefulLinks": "Useful Links",
+        "socialMedia": "Social Media",
+        "newsletterConfig": "Newsletter Configuration",
+        "copyrightConfig": "Copyright Configuration"
+      },
+      "tabs": {
+        "french": "French",
+        "spanish": "Spanish"
+      },
+      "badges": {
+        "autoTranslated": "Auto-translated",
+        "manuallyEdited": "Manually edited"
+      },
+      "save": "Save",
+      "fieldNames": {
+        "title": "Title",
+        "text": "Text",
+        "message": "Message",
+        "description": "Description",
+        "linkText": "Link Text",
+        "linkUrl": "Link URL",
+        "ctaText": "CTA Text",
+        "ctaUrl": "CTA URL",
+        "email": "Email",
+        "phone": "Phone",
+        "whatsapp": "WhatsApp",
+        "lineId": "Line ID",
+        "address": "Address",
+        "emailLabel": "Email Label",
+        "phoneLabel": "Phone Label",
+        "buttonText": "Button Text",
+        "placeholder": "Placeholder",
+        "successMessage": "Success Message",
+        "errorMessage": "Error Message",
+        "name": "Name"
+      },
+      "toasts": {
+        "saveSuccess": {
+          "title": "Saved",
+          "description": "Translations saved successfully"
+        },
+        "saveError": {
+          "title": "Error",
+          "description": "Failed to save translations"
+        }
+      }
+    },
+    "formTranslationEditor": {
+      "title": "Form Translation Editor",
+      "description": "Manage translations for custom forms",
+      "tabs": {
+        "french": "French",
+        "spanish": "Spanish"
+      },
+      "buttons": {
+        "regenerate": "Regenerate Translations",
+        "save": "Save Translations"
+      },
+      "badges": {
+        "autoTranslated": "Auto-translated",
+        "manuallyEdited": "Manually edited"
+      },
+      "fieldNames": {
+        "formName": "Form Name",
+        "description": "Description",
+        "submitButton": "Submit Button",
+        "successMessage": "Success Message",
+        "errorMessage": "Error Message",
+        "fieldLabel": "Field {number} Label",
+        "fieldPlaceholder": "Field {number} Placeholder"
+      },
+      "noForms": "No forms found",
+      "selectForm": "Select a form to edit translations",
+      "toasts": {
+        "saveSuccess": {
+          "title": "Saved",
+          "description": "Form translations saved successfully"
+        },
+        "saveError": {
+          "title": "Error",
+          "description": "Failed to save translations"
+        },
+        "regenerateSuccess": {
+          "title": "Regenerated",
+          "description": "Translations have been regenerated"
+        },
+        "regenerateError": {
+          "title": "Error",
+          "description": "Failed to regenerate translations"
+        }
+      }
     }
   },
   "_meta": {

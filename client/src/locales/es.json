@@ -1208,6 +1208,110 @@
       "updateFailed": "Se produjo un error al actualizar la tarjeta",
       "loadingCards": "Cargando tarjetas...",
       "noCards": "¡Aún no hay tarjetas. Cree su primera tarjeta!"
+    },
+    "globalElementTranslationEditor": {
+      "title": "Editor de Traducciones de Elementos Globales",
+      "description": "Gestionar traducciones para navegación, pie de página y elementos de anuncios",
+      "buttons": {
+        "footer": "Pie de página",
+        "navigation": "Navegación",
+        "announcement": "Anuncio",
+        "popup": "Ventana emergente"
+      },
+      "footerSectionsTitle": "Secciones del pie de página",
+      "footerSections": {
+        "contactInfo": "Información de contacto",
+        "usefulLinks": "Enlaces útiles",
+        "socialMedia": "Redes sociales",
+        "newsletterConfig": "Configuración del boletín",
+        "copyrightConfig": "Configuración de derechos de autor"
+      },
+      "tabs": {
+        "french": "Francés",
+        "spanish": "Español"
+      },
+      "badges": {
+        "autoTranslated": "Traducido automáticamente",
+        "manuallyEdited": "Editado manualmente"
+      },
+      "save": "Guardar",
+      "fieldNames": {
+        "title": "Título",
+        "text": "Texto",
+        "message": "Mensaje",
+        "description": "Descripción",
+        "linkText": "Texto del enlace",
+        "linkUrl": "URL del enlace",
+        "ctaText": "Texto CTA",
+        "ctaUrl": "URL CTA",
+        "email": "Correo electrónico",
+        "phone": "Teléfono",
+        "whatsapp": "WhatsApp",
+        "lineId": "ID de Line",
+        "address": "Dirección",
+        "emailLabel": "Etiqueta de correo",
+        "phoneLabel": "Etiqueta de teléfono",
+        "buttonText": "Texto del botón",
+        "placeholder": "Marcador de posición",
+        "successMessage": "Mensaje de éxito",
+        "errorMessage": "Mensaje de error",
+        "name": "Nombre"
+      },
+      "toasts": {
+        "saveSuccess": {
+          "title": "Guardado",
+          "description": "Traducciones guardadas correctamente"
+        },
+        "saveError": {
+          "title": "Error",
+          "description": "Error al guardar las traducciones"
+        }
+      }
+    },
+    "formTranslationEditor": {
+      "title": "Editor de Traducciones de Formularios",
+      "description": "Gestionar traducciones para formularios personalizados",
+      "tabs": {
+        "french": "Francés",
+        "spanish": "Español"
+      },
+      "buttons": {
+        "regenerate": "Regenerar Traducciones",
+        "save": "Guardar Traducciones"
+      },
+      "badges": {
+        "autoTranslated": "Traducido automáticamente",
+        "manuallyEdited": "Editado manualmente"
+      },
+      "fieldNames": {
+        "formName": "Nombre del formulario",
+        "description": "Descripción",
+        "submitButton": "Botón de envío",
+        "successMessage": "Mensaje de éxito",
+        "errorMessage": "Mensaje de error",
+        "fieldLabel": "Etiqueta del campo {number}",
+        "fieldPlaceholder": "Marcador del campo {number}"
+      },
+      "noForms": "No se encontraron formularios",
+      "selectForm": "Selecciona un formulario para editar las traducciones",
+      "toasts": {
+        "saveSuccess": {
+          "title": "Guardado",
+          "description": "Traducciones del formulario guardadas correctamente"
+        },
+        "saveError": {
+          "title": "Error",
+          "description": "Error al guardar las traducciones"
+        },
+        "regenerateSuccess": {
+          "title": "Regenerado",
+          "description": "Las traducciones se han regenerado"
+        },
+        "regenerateError": {
+          "title": "Error",
+          "description": "Error al regenerar las traducciones"
+        }
+      }
     }
   },
   "_meta": {

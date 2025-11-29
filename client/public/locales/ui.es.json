@@ -1528,16 +1528,20 @@
   },
   "admin": {
     "common": {
+      "back": "Volver",
       "loading": "Cargando...",
-      "error": "Error",
       "success": "Éxito",
-      "save": "Guardar",
-      "cancel": "Cancelar",
+      "error": "Error",
       "delete": "Eliminar",
       "edit": "Editar",
-      "add": "Añadir",
-      "back": "Volver",
-      "backToAdmin": "Volver a Admin",
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar",
+      "actions": "Acciones",
+      "viewDetails": "Ver detalles",
+      "new": "Nuevo",
+      "processing": "Procesando...",
+      "noResults": "No se encontraron resultados",
       "title": "Título",
       "content": "Contenido",
       "name": "Nombre",
@@ -1545,22 +1549,8 @@
       "close": "Cerrar",
       "saving": "Guardando...",
       "creating": "Creando...",
-      "noResults": "No se encontraron resultados",
       "confirmDelete": "Confirmar eliminación",
-      "deleteConfirmation": "¿Estás seguro de que quieres eliminar esto? Esta acción no se puede deshacer.",
-      "deleteWarning": "Esta acción no se puede deshacer.",
-      "actions": "Acciones",
-      "status": "Estado",
-      "date": "Fecha",
-      "created": "Creado",
-      "updated": "Actualizado",
-      "author": "Autor",
-      "category": "Categoría",
-      "published": "Publicado",
-      "draft": "Borrador",
-      "view": "Ver",
-      "logout": "Cerrar sesión",
-      "updating": "Actualizando..."
+      "deleteConfirmation": "¿Estás seguro de que quieres eliminar esto? Esta acción no se puede deshacer."
     },
     "dashboard": {
       "title": "Administración",
@@ -1575,21 +1565,25 @@
           "title": "Krabi Celebration",
           "description": "Solicitudes de eventos especiales"
         },
-        "partnershipRequests": {
-          "title": "Solicitudes de colaboración",
+        "partnership": {
+          "title": "Solicitudes de asociación",
           "description": "Propuestas de colaboración"
         },
-        "groupRequests": {
+        "groups": {
           "title": "Grupos y Empresas",
           "description": "Solicitudes de grupos y empresas"
         },
-        "blogManagement": {
+        "blog": {
           "title": "Gestión del blog",
           "description": "Crear y editar artículos"
         },
         "newsletter": {
           "title": "Boletín",
           "description": "Gestionar suscripciones al boletín"
+        },
+        "tourCards": {
+          "title": "Fichas de tours",
+          "description": "Crear y gestionar fichas de tours"
         },
         "tourNinjaImages": {
           "title": "Imágenes de Tour Ninja",
@@ -1599,14 +1593,183 @@
           "title": "Gestión de traducciones",
           "description": "Corregir y personalizar traducciones"
         },
-        "tourCards": {
-          "title": "Fichas de tours",
-          "description": "Crear y gestionar fichas de presentación"
+        "messages": {
+          "title": "Mensajes de contacto",
+          "description": "Ver y responder mensajes"
+        },
+        "settings": {
+          "title": "Configuración",
+          "description": "Configuración y preferencias"
+        },
+        "partnershipRequests": {
+          "title": "Solicitudes de asociación",
+          "description": "Propuestas de colaboración"
+        },
+        "groupRequests": {
+          "title": "Grupos y Empresas",
+          "description": "Solicitudes de grupos y empresas"
+        },
+        "blogManagement": {
+          "title": "Gestión del blog",
+          "description": "Crear y editar artículos"
         }
       }
     },
     "appearance": {
-      "title": "Apariencia del sitio"
+      "title": "Apariencia del sitio",
+      "description": "Personalizar colores y tema",
+      "backToAdmin": "Volver al admin",
+      "tabs": {
+        "theme": "Tema",
+        "pages": "Páginas",
+        "footer": "Pie de página"
+      },
+      "theme": {
+        "title": "Configuración del tema",
+        "subtitle": "Personalizar colores y estilos",
+        "design": "Diseño",
+        "elements": "Elementos",
+        "branding": "Imagen de marca",
+        "colors": "Colores",
+        "typography": "Tipografía",
+        "buttonStyles": "Estilos de botones",
+        "announcementBar": "Barra de anuncios",
+        "popupAnnouncement": "Anuncio emergente",
+        "logoFavicon": "Logo y Favicon",
+        "seoMetadata": "SEO y Metadatos",
+        "otherColors": "Otros colores",
+        "colorReference": "Referencia de color",
+        "buttons": "Botones",
+        "logos": "Logos",
+        "notificationBar": "Barra de notificación",
+        "popup": "Ventana emergente",
+        "baseColors": "Colores base",
+        "baseColorsDesc": "Colores base del sitio y referencias de estilo para selectores de color",
+        "primaryColor": "Color principal",
+        "secondaryColor": "Color secundario",
+        "headingColor": "Color de título",
+        "textColor": "Color de texto",
+        "backgroundColor": "Color de fondo",
+        "customColor": "Color personalizado",
+        "saveColors": "Guardar colores",
+        "saveTypography": "Guardar tipografía",
+        "saveButtons": "Guardar botones",
+        "saveLogos": "Guardar logos",
+        "saveNotificationBar": "Guardar barra de notificación",
+        "savePopup": "Guardar ventana emergente",
+        "saveChanges": "Guardar los cambios",
+        "saved": "¡Guardado con éxito!",
+        "error": "Error al guardar",
+        "enableNotificationBar": "Activar barra de notificación",
+        "notificationText": "Texto de notificación",
+        "enableScrolling": "Activar desplazamiento (ideal para textos largos)",
+        "enableNewsletter": "Activar boletín",
+        "enableCopyright": "Activar derechos de autor",
+        "saving": "Guardando...",
+        "textMenu": "Texto del menú",
+        "backgroundMenu": "Fondo del menú",
+        "textFooter": "Texto del pie de página",
+        "backgroundFooter": "Fondo del pie de página",
+        "errorColor": "Color de error",
+        "successColor": "Color de éxito"
+      },
+      "footer": {
+        "title": "Configuración del pie de página",
+        "contactInfo": "Información de contacto",
+        "contactInfoDesc": "Gestionar detalles de contacto del pie de página",
+        "usefulLinks": "Enlaces útiles",
+        "usefulLinksDesc": "Gestionar enlaces de navegación del pie de página",
+        "socialMedia": "Redes sociales",
+        "socialMediaDesc": "Gestionar enlaces de redes sociales",
+        "newsletter": "Boletín",
+        "newsletterDesc": "Configurar sección del boletín",
+        "copyright": "Derechos de autor",
+        "copyrightDesc": "Configurar texto de derechos de autor",
+        "addContactInfo": "Añadir información de contacto",
+        "addLink": "Añadir enlace",
+        "addSocialMedia": "Añadir red social",
+        "moveUp": "Mover arriba",
+        "moveDown": "Mover abajo",
+        "delete": "Eliminar",
+        "label": "Etiqueta",
+        "value": "Valor",
+        "style": "Estilo de visualización",
+        "url": "URL",
+        "icon": "Icono",
+        "preview": "Vista previa en el sitio"
+      },
+      "common": {
+        "save": "Guardar",
+        "cancel": "Cancelar",
+        "edit": "Editar",
+        "delete": "Eliminar",
+        "add": "Añadir",
+        "saving": "Guardando...",
+        "loading": "Cargando...",
+        "clickToEdit": "Clic para editar..."
+      },
+      "navigation": {
+        "menuItems": "Elementos del menú",
+        "addItem": "Añadir elemento",
+        "noItems": "No hay elementos de menú. Haz clic en \"Añadir elemento\" para empezar.",
+        "editItem": "Editar elemento",
+        "itemName": "Nombre del elemento",
+        "itemUrl": "URL",
+        "openIn": "Abrir en",
+        "sameTab": "Misma pestaña",
+        "newTab": "Nueva pestaña",
+        "itemVisible": "Elemento visible",
+        "parentItem": "Elemento padre",
+        "noParent": "Sin padre (nivel superior)",
+        "success": "Éxito",
+        "error": "Error",
+        "description": "Gestiona los elementos del menú de navegación de tu sitio. Arrastra y suelta para reordenar. Nota: El enlace \"Inicio\" (/) se gestiona automáticamente - solo aparece cuando no estás en la página de inicio."
+      },
+      "pageManagement": {
+        "slugUrl": "Slug/URL Externa",
+        "notModifiable": "(no modificable)",
+        "externalLinkCheck": "Marque si es un enlace externo (redirección a una URL completa)",
+        "notLinked": "Esta página aún no está vinculada a otras secciones del sitio",
+        "pageId": "ID de página:",
+        "publicUrl": "URL pública:",
+        "createdAt": "Creada el:",
+        "modifiedAt": "Modificada el:",
+        "mainPage": "Página principal",
+        "secondaryPage": "Página secundaria",
+        "viewPage": "Ver página",
+        "editPage": "Editar página",
+        "generalInfo": "Información general",
+        "metadataConfig": "Metadatos y configuración de la página",
+        "pageName": "Nombre de la página",
+        "pageType": "Tipo de página",
+        "state": "Estado",
+        "active": "Activo",
+        "seoTitle": "Título SEO",
+        "seoKeywords": "Palabras clave SEO",
+        "seoDescription": "Descripción SEO",
+        "notDefined": "No definido",
+        "pageEditor": "Editor de página",
+        "addPage": "Añadir una página",
+        "choosePageToEdit": "Elige la página a editar",
+        "manageFooterContent": "Gestionar el contenido del pie de página",
+        "technicalInfo": "Información técnica",
+        "technicalInfoDesc": "Detalles técnicos y metadatos del sistema",
+        "pageReferences": "Referencias de página",
+        "pageReferencesDesc": "Ubicaciones donde esta página está referenciada en el sitio",
+        "pageNotFound": "Configuración de página no encontrada",
+        "references": {
+          "mainNav": "Menú de navegación principal",
+          "homePage": "Página de inicio del sitio",
+          "footerLinks": "Enlaces del pie de página",
+          "specialForms": "Páginas de formularios especiales"
+        },
+        "categories": {
+          "homePage": "Página de inicio",
+          "mainPages": "Páginas principales",
+          "secondaryPages": "Páginas secundarias",
+          "legalPages": "Avisos legales"
+        }
+      }
     },
     "blog": {
       "title": "Gestión del blog",
@@ -1677,30 +1840,38 @@
       "language": "Idioma"
     },
     "tourNinjaImages": {
-      "title": "Gestión de imágenes Tour Ninja",
-      "description": "Descripción",
-      "addCustomImage": "Añadir imagen personalizada",
-      "selectTour": "Elegir un tour a personalizar",
-      "noTours": "No hay tours disponibles",
-      "noToursDescription": "No se pueden cargar los tours de Tour Ninja. Verifique la conexión API.",
-      "customImages": "Imágenes personalizadas",
-      "originalImage": "Imagen original",
-      "customImage": "Imagen personalizada",
-      "active": "Activo",
+      "title": "Gestión de Imágenes Tour Ninja",
+      "description": "Reemplaza las imágenes de Tour Ninja con tus propias imágenes personalizadas",
+      "addCustomImage": "Añadir Imagen Personalizada",
+      "customizeTourImage": "Personalizar Imagen del Tour",
+      "selectTour": "Seleccionar Tour",
+      "chooseTour": "Elegir un tour...",
+      "noToursAvailable": "No hay tours disponibles",
+      "chooseTourToCustomize": "Elegir un tour para personalizar",
+      "customized": "Personalizado",
       "inactive": "Inactivo",
-      "activate": "Activar",
-      "deactivate": "Desactivar",
+      "days": "día(s)",
+      "editImage": "Editar imagen",
+      "customizeImage": "Personalizar imagen",
+      "noToursAvailableTitle": "No hay tours disponibles",
+      "unableToLoadTours": "No se pueden cargar los tours de Tour Ninja. Por favor, verifica la conexión API.",
+      "noCustomImage": "Sin imagen personalizada",
       "imageSelected": "Imagen seleccionada",
-      "readyToUpload": "lista para subir",
-      "selectValidImage": "Por favor seleccione un archivo de imagen válido",
-      "uploadImage": "Subir imagen",
-      "imageUrl": "URL de la imagen",
-      "directUrl": "URL directa",
-      "tourName": "Nombre del tour",
-      "tourId": "ID del tour",
-      "search": "Buscar",
-      "filterByStatus": "Filtrar por estado",
-      "all": "Todos"
+      "imageReadyToUpload": "{filename} lista para subir",
+      "pleaseSelectValidImage": "Por favor, selecciona un archivo de imagen válido",
+      "customImageAddedSuccess": "Imagen personalizada añadida con éxito",
+      "failedToAddCustomImage": "Error al añadir la imagen personalizada",
+      "imageUpdatedSuccess": "Imagen actualizada con éxito",
+      "failedToUpdateImage": "Error al actualizar la imagen",
+      "imageStatusChanged": "Estado de la imagen cambiado",
+      "failedToChangeStatus": "Error al cambiar el estado",
+      "imageDeletedSuccess": "Imagen eliminada con éxito",
+      "failedToDeleteImage": "Error al eliminar la imagen",
+      "pleaseCompleteRequiredFields": "Por favor, completa todos los campos obligatorios",
+      "pleaseSelectImageToUpload": "Por favor, selecciona una imagen para subir",
+      "pleaseEnterValidImageUrl": "Por favor, ingresa una URL de imagen válida",
+      "authenticationRequired": "Autenticación requerida",
+      "pleaseLoginToAccess": "Debes iniciar sesión para acceder a esta página."
     },
     "translation": {
       "title": "Gestión de traducciones",
@@ -1735,38 +1906,178 @@
     },
     "krabiCelebration": {
       "title": "Krabi Celebration",
-      "description": "Solicitudes de eventos especiales",
-      "requestsReceived": "Solicitudes recibidas",
-      "noRequests": "No hay solicitudes todavía.",
-      "unreadOnly": "Solo no leídas",
+      "subtitle": "Solicitudes de eventos especiales",
+      "unreadBadge": "{count} nuevo(s)",
+      "viewAll": "Ver todo",
+      "unreadOnly": "Solo no leídos",
+      "requestsReceived": "Solicitudes recibidas ({count})",
+      "noRequests": "Aún no hay solicitudes.",
+      "noUnreadRequests": "No hay solicitudes sin leer.",
+      "tableHeaders": {
+        "status": "Estado",
+        "name": "Nombre",
+        "celebrationType": "Tipo de celebración",
+        "guests": "Invitados",
+        "date": "Fecha",
+        "receivedOn": "Recibido el",
+        "actions": "Acciones"
+      },
+      "statusNew": "Nuevo",
+      "statusRead": "Leído",
+      "peopleCount": "{count} persona(s)",
+      "dialogTitle": "Detalles de la solicitud de celebración",
+      "dialogDescription": "Ver toda la información sobre esta solicitud de evento especial",
+      "fields": {
+        "contactName": "Nombre del contacto",
+        "email": "Correo electrónico",
+        "whatsapp": "WhatsApp",
+        "celebrationType": "Tipo de celebración",
+        "guests": "Número de invitados",
+        "date": "Fecha del evento",
+        "budget": "Presupuesto",
+        "description": "Descripción"
+      },
+      "notProvided": "No proporcionado",
+      "receivedOn": "Recibido el",
+      "replyByEmail": "Responder por correo electrónico",
       "markAsRead": "Marcar como leído",
-      "markAsUnread": "Marcar como no leído"
+      "markAsReadSuccess": "Solicitud marcada como leída",
+      "markAsReadError": "Error al marcar como leída",
+      "deleteSuccess": "Solicitud eliminada con éxito",
+      "deleteError": "Error al eliminar la solicitud"
     },
     "partnershipRequests": {
-      "title": "Solicitudes de colaboración",
-      "description": "Propuestas de colaboración",
-      "requestsReceived": "Solicitudes recibidas",
-      "noRequests": "No hay solicitudes todavía.",
-      "unreadOnly": "Solo no leídas",
+      "title": "Solicitudes de asociación",
+      "subtitle": "Propuestas de colaboración",
+      "unreadBadge": "{count} nuevo(s)",
+      "viewAll": "Ver todo",
+      "unreadOnly": "Solo no leídos",
+      "requestsReceived": "Solicitudes recibidas ({count})",
+      "noRequests": "Aún no hay solicitudes.",
+      "noUnreadRequests": "No hay solicitudes sin leer.",
+      "tableHeaders": {
+        "status": "Estado",
+        "contact": "Contacto",
+        "company": "Empresa",
+        "activityType": "Tipo de actividad",
+        "website": "Sitio web",
+        "receivedOn": "Recibido el",
+        "actions": "Acciones"
+      },
+      "statusNew": "Nuevo",
+      "statusRead": "Leído",
+      "dialogTitle": "Detalles de la solicitud de asociación",
+      "dialogDescription": "Ver toda la información sobre esta propuesta de asociación",
+      "fields": {
+        "contactName": "Nombre del contacto",
+        "email": "Correo electrónico",
+        "companyName": "Nombre de la empresa",
+        "partnershipType": "Tipo de asociación",
+        "phone": "Teléfono",
+        "website": "Sitio web",
+        "projectDescription": "Descripción del proyecto"
+      },
+      "notProvided": "No proporcionado",
+      "receivedOn": "Recibido el",
+      "replyByEmail": "Responder por correo electrónico",
       "markAsRead": "Marcar como leído",
-      "markAsUnread": "Marcar como no leído"
+      "markAsReadSuccess": "Solicitud marcada como leída",
+      "markAsReadError": "Error al marcar como leída",
+      "deleteSuccess": "Solicitud eliminada con éxito",
+      "deleteError": "Error al eliminar la solicitud"
     },
     "groupRequests": {
-      "title": "Solicitudes de grupos",
-      "description": "Solicitudes de grupos y empresas",
-      "requestsReceived": "Solicitudes recibidas",
-      "noRequests": "No hay solicitudes todavía.",
-      "unreadOnly": "Solo no leídas",
+      "title": "Grupos y Empresas",
+      "subtitle": "Solicitudes de viajes de grupo y empresariales",
+      "unreadBadge": "{count} nuevo(s)",
+      "viewAll": "Ver todo",
+      "unreadOnly": "Solo no leídos",
+      "requestsReceived": "Solicitudes recibidas ({count})",
+      "noRequests": "Aún no hay solicitudes.",
+      "noUnreadRequests": "No hay solicitudes sin leer.",
+      "tableHeaders": {
+        "status": "Estado",
+        "contact": "Contacto",
+        "company": "Empresa",
+        "participants": "Participantes",
+        "travelDates": "Fechas de viaje",
+        "receivedOn": "Recibido el",
+        "actions": "Acciones"
+      },
+      "statusNew": "Nuevo",
+      "statusRead": "Leído",
+      "peopleCount": "{count} persona(s)",
+      "notSpecified": "No especificado",
+      "dialogTitle": "Detalles de la solicitud de viaje en grupo",
+      "dialogDescription": "Ver toda la información sobre esta solicitud de viaje en grupo",
+      "fields": {
+        "contactName": "Nombre del contacto",
+        "email": "Correo electrónico",
+        "company": "Empresa/Organización",
+        "phone": "Teléfono",
+        "participants": "Número de participantes",
+        "budget": "Presupuesto",
+        "travelDates": "Fechas de viaje",
+        "specialRequirements": "Requisitos especiales"
+      },
+      "notProvided": "No proporcionado",
+      "receivedOn": "Recibido el",
+      "replyByEmail": "Responder por correo electrónico",
       "markAsRead": "Marcar como leído",
-      "markAsUnread": "Marcar como no leído"
+      "markAsReadSuccess": "Solicitud marcada como leída",
+      "markAsReadError": "Error al marcar como leída",
+      "deleteSuccess": "Solicitud eliminada con éxito",
+      "deleteError": "Error al eliminar la solicitud"
     },
     "customTours": {
       "title": "Solicitudes de tours personalizados",
-      "description": "Gestionar solicitudes de tours personalizados",
-      "requestsReceived": "Solicitudes recibidas",
-      "noRequests": "No hay solicitudes todavía.",
-      "newOnly": "Solo nuevas",
-      "markAsProcessed": "Marcar como procesado"
+      "backToAdmin": "Volver a administración",
+      "exportCSV": "Exportar CSV",
+      "searchPlaceholder": "Buscar por nombre o correo electrónico...",
+      "filterByStatus": "Filtrar por estado",
+      "allStatus": "Todos los estados",
+      "statusNew": "Nuevo",
+      "statusInProgress": "En progreso",
+      "statusArchived": "Archivado",
+      "requestsCount": "Solicitudes de tours ({count})",
+      "loadingRequests": "Cargando solicitudes...",
+      "noRequests": "No se encontraron solicitudes.",
+      "tableHeaders": {
+        "name": "Nombre",
+        "contact": "Contacto",
+        "travelers": "Viajeros",
+        "datesDuration": "Fechas/Duración",
+        "status": "Estado",
+        "date": "Fecha",
+        "actions": "Acciones"
+      },
+      "dates": "Fechas:",
+      "duration": "Duración:",
+      "notSpecified": "No especificado",
+      "days": "días",
+      "deleteConfirm": "¿Está seguro de que desea eliminar esta solicitud?",
+      "requestDetails": "Detalles de la solicitud",
+      "fullName": "Nombre completo",
+      "email": "Correo electrónico",
+      "phone": "Teléfono",
+      "adults": "Adultos",
+      "kids": "Niños",
+      "tripDates": "Fechas del viaje",
+      "tripTiming": "Momento del viaje",
+      "tripTypes": "Tipos de viaje",
+      "noTripTypes": "No se seleccionaron tipos de viaje",
+      "destinations": "Destinos",
+      "noDestinations": "No se seleccionaron destinos",
+      "message": "Mensaje",
+      "submitted": "Enviado",
+      "success": {
+        "statusUpdated": "Estado actualizado con éxito",
+        "requestDeleted": "Solicitud eliminada con éxito",
+        "dataExported": "Datos exportados con éxito"
+      },
+      "errors": {
+        "exportFailed": "Error al exportar datos"
+      }
     },
     "editor": {
       "title": "Gestión de Contenido",
@@ -1804,7 +2115,7 @@
       "legalEditor": {
         "title": "Editor de avisos legales",
         "description": "Crear y gestionar páginas legales (avisos, T&C, privacidad)",
-        "listTitle": "Editor de Páginas Legales",
+        "listTitle": "Editor de avisos legales",
         "listDescription": "Gestiona las páginas legales de tu sitio (avisos legales, T&C, privacidad)",
         "createLegalPage": "Crear una página legal",
         "titleLabel": "Título",
@@ -1854,6 +2165,197 @@
         "title": "Añadir un bloque",
         "preview": "Vista previa",
         "selectBlockToPreview": "Selecciona un tipo de bloque para ver la vista previa"
+      }
+    },
+    "login": {
+      "title": "Inicio de sesión de administración",
+      "subtitle": "Accede al panel de gestión",
+      "username": "Nombre de usuario",
+      "password": "Contraseña",
+      "loginButton": "Iniciar sesión",
+      "footer": "Acceso reservado solo para administradores",
+      "success": {
+        "title": "Inicio de sesión exitoso",
+        "description": "Redirigiendo al panel de control..."
+      },
+      "errors": {
+        "required": "Por favor, complete todos los campos",
+        "invalid": "Credenciales inválidas"
+      }
+    },
+    "tourCard": {
+      "form": {
+        "title": "Crear una ficha de tour",
+        "nameLabel": "Nombre del tour / estadía *",
+        "namePlaceholder": "ej. Excursión por las islas de Krabi",
+        "descriptionLabel": "Descripción (opcional)",
+        "descriptionPlaceholder": "Breve descripción del tour...",
+        "priceLabel": "Precio desde *",
+        "pricePlaceholder": "0",
+        "currencyLabel": "Moneda",
+        "typeLabel": "Tipo de ficha *",
+        "tour": "Tour",
+        "tourSubtitle": "Excursiones guiadas",
+        "experience": "Estadía/Experiencia",
+        "experienceSubtitle": "Actividades y Descubrimientos",
+        "customLinkLabel": "Enlace personalizado (Tour Ninja) *",
+        "customLinkPlaceholder": "https://...",
+        "locationTagsLabel": "Etiquetas de ubicación",
+        "locationTagsPlaceholder": "ej. Krabi, Phi Phi...",
+        "addButton": "Agregar",
+        "photosLabel": "Fotos (1 a 3) *",
+        "preview": "Vista previa",
+        "mainPhoto": "Foto principal",
+        "clickToAdd": "Haga clic para agregar",
+        "dragDrop": "o arrastre y suelte",
+        "photosHelp": "PNG, JPG hasta 10 MB (1 a 3 fotos)",
+        "photosRemaining": "Se pueden agregar {count} foto(s) más",
+        "generate": "Crear ficha de tour",
+        "generating": "Creando...",
+        "autoFillTitle": "Título autocompletado",
+        "autoFillDescription": "El título se extrajo de la URL",
+        "errors": {
+          "titleRequired": "El título es obligatorio",
+          "linkRequired": "El enlace personalizado es obligatorio",
+          "photosRequired": "Se requiere al menos una foto",
+          "uploadError": "Error de carga",
+          "uploadErrorDescription": "Error al cargar una o más imágenes",
+          "createErrorDescription": "Error al crear la ficha de tour"
+        },
+        "success": {
+          "created": "Ficha de tour creada",
+          "createdDescription": "La ficha de tour se ha creado con éxito"
+        }
+      }
+    },
+    "translationEditor": {
+      "title": "Editor de traducciones de bloques",
+      "subtitle": "Gestionar las traducciones francesas y españolas para todos los bloques de página",
+      "loading": "Cargando traducciones...",
+      "save": "Guardar traducciones",
+      "pageBlocks": "{pageName} - Bloques",
+      "noTextToTranslate": "No hay texto para traducir en esta página",
+      "noTextInBlock": "Este bloque no contiene texto para traducir",
+      "tabs": {
+        "french": "Francés",
+        "spanish": "Español"
+      },
+      "originalText": "Original (Inglés):",
+      "translationPlaceholder": {
+        "fr": "Traducción francesa...",
+        "es": "Traducción española..."
+      },
+      "saveSuccess": {
+        "title": "Guardado",
+        "description": "Traducciones guardadas con éxito"
+      },
+      "saveError": {
+        "title": "Error",
+        "description": "Error al guardar las traducciones"
+      }
+    },
+    "globalElementTranslationEditor": {
+      "title": "Editor de Traducciones de Elementos Globales",
+      "description": "Gestionar traducciones para navegación, pie de página y elementos de anuncios",
+      "buttons": {
+        "footer": "Pie de página",
+        "navigation": "Navegación",
+        "announcement": "Anuncio",
+        "popup": "Ventana emergente"
+      },
+      "footerSectionsTitle": "Secciones del pie de página",
+      "footerSections": {
+        "contactInfo": "Información de contacto",
+        "usefulLinks": "Enlaces útiles",
+        "socialMedia": "Redes sociales",
+        "newsletterConfig": "Configuración del boletín",
+        "copyrightConfig": "Configuración de derechos de autor"
+      },
+      "tabs": {
+        "french": "Francés",
+        "spanish": "Español"
+      },
+      "badges": {
+        "autoTranslated": "Traducido automáticamente",
+        "manuallyEdited": "Editado manualmente"
+      },
+      "save": "Guardar",
+      "fieldNames": {
+        "title": "Título",
+        "text": "Texto",
+        "message": "Mensaje",
+        "description": "Descripción",
+        "linkText": "Texto del enlace",
+        "linkUrl": "URL del enlace",
+        "ctaText": "Texto CTA",
+        "ctaUrl": "URL CTA",
+        "email": "Correo electrónico",
+        "phone": "Teléfono",
+        "whatsapp": "WhatsApp",
+        "lineId": "ID de Line",
+        "address": "Dirección",
+        "emailLabel": "Etiqueta de correo",
+        "phoneLabel": "Etiqueta de teléfono",
+        "buttonText": "Texto del botón",
+        "placeholder": "Marcador de posición",
+        "successMessage": "Mensaje de éxito",
+        "errorMessage": "Mensaje de error",
+        "name": "Nombre"
+      },
+      "toasts": {
+        "saveSuccess": {
+          "title": "Guardado",
+          "description": "Traducciones guardadas correctamente"
+        },
+        "saveError": {
+          "title": "Error",
+          "description": "Error al guardar las traducciones"
+        }
+      }
+    },
+    "formTranslationEditor": {
+      "title": "Editor de Traducciones de Formularios",
+      "description": "Gestionar traducciones para formularios personalizados",
+      "tabs": {
+        "french": "Francés",
+        "spanish": "Español"
+      },
+      "buttons": {
+        "regenerate": "Regenerar Traducciones",
+        "save": "Guardar Traducciones"
+      },
+      "badges": {
+        "autoTranslated": "Traducido automáticamente",
+        "manuallyEdited": "Editado manualmente"
+      },
+      "fieldNames": {
+        "formName": "Nombre del formulario",
+        "description": "Descripción",
+        "submitButton": "Botón de envío",
+        "successMessage": "Mensaje de éxito",
+        "errorMessage": "Mensaje de error",
+        "fieldLabel": "Etiqueta del campo {number}",
+        "fieldPlaceholder": "Marcador del campo {number}"
+      },
+      "noForms": "No se encontraron formularios",
+      "selectForm": "Selecciona un formulario para editar las traducciones",
+      "toasts": {
+        "saveSuccess": {
+          "title": "Guardado",
+          "description": "Traducciones del formulario guardadas correctamente"
+        },
+        "saveError": {
+          "title": "Error",
+          "description": "Error al guardar las traducciones"
+        },
+        "regenerateSuccess": {
+          "title": "Regenerado",
+          "description": "Las traducciones se han regenerado"
+        },
+        "regenerateError": {
+          "title": "Error",
+          "description": "Error al regenerar las traducciones"
+        }
       }
     }
   }
