@@ -43,7 +43,7 @@ export default function AdminEditorForm() {
   const [newFormName, setNewFormName] = useState('');
   const [navigationContext, setNavigationContext] = useState<any>(null);
   const queryClient = useQueryClient();
-  const { t } = useTranslationSection('admin');
+  const { translations: t } = useTranslationSection('admin');
 
   // Charger le contexte de navigation depuis sessionStorage
   useEffect(() => {
