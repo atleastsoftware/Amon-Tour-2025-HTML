@@ -420,14 +420,15 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
   const { translations } = useTranslation();
   const adminAppearance = translations?.admin?.appearance || {};
   const fm = adminAppearance?.footerManagers?.contactInfo || {};
+  const footerT = adminAppearance?.footer || {};
   const t = {
-    title: fm?.title || "Contact Information",
-    description: fm?.description || "Manage footer contact details",
-    displayStyle: fm?.displayStyle || "Display Style",
+    title: fm?.title || footerT?.contactInfo || "Contact Information",
+    description: fm?.description || footerT?.contactInfoDesc || "Manage footer contact details",
+    displayStyle: fm?.displayStyle || footerT?.style || "Display Style",
     contentLabel: fm?.contentLabel || "Content (appears on website)",
     titleBold: fm?.titleBold || "Title (Bold)",
     text: fm?.text || "Text",
-    addContactInfo: fm?.addContactInfo || "Add contact information"
+    addContactInfo: fm?.addContactInfo || footerT?.addContactInfo || "Add contact information"
   };
 
   const getContactInfo = () => {
@@ -672,14 +673,15 @@ function UsefulLinksManager({ siteSettings, updateSiteSetting, updateSiteSetting
   const { translations } = useTranslation();
   const adminAppearance = translations?.admin?.appearance || {};
   const fm = adminAppearance?.footerManagers?.usefulLinks || {};
+  const footerT = adminAppearance?.footer || {};
   const t = {
-    title: fm?.title || "Useful Links",
-    description: fm?.description || "Manage footer navigation links",
+    title: fm?.title || footerT?.usefulLinks || "Useful Links",
+    description: fm?.description || footerT?.usefulLinksDesc || "Manage footer navigation links",
     contentLabel: fm?.contentLabel || "Content (appears on website)",
     page: fm?.page || "Page",
     customUrl: fm?.customUrl || "Custom URL",
     selectPage: fm?.selectPage || "Select page",
-    addLink: fm?.addLink || "Add link"
+    addLink: fm?.addLink || footerT?.addLink || "Add link"
   };
 
   const getUsefulLinks = () => {
@@ -910,11 +912,12 @@ function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSetting
   const { translations } = useTranslation();
   const adminAppearance = translations?.admin?.appearance || {};
   const fm = adminAppearance?.footerManagers?.socialMedia || {};
+  const footerT = adminAppearance?.footer || {};
   const t = {
-    title: fm?.title || "Social Media",
-    description: fm?.description || "Manage social media links",
-    url: fm?.url || "URL",
-    addSocialMedia: fm?.addSocialMedia || "Add social media"
+    title: fm?.title || footerT?.socialMedia || "Social Media",
+    description: fm?.description || footerT?.socialMediaDesc || "Manage social media links",
+    url: fm?.url || footerT?.url || "URL",
+    addSocialMedia: fm?.addSocialMedia || footerT?.addSocialMedia || "Add social media"
   };
 
   const getSocialMedia = () => {
@@ -1113,9 +1116,10 @@ function NewsletterManager({ siteSettings, updateSiteSetting, updateSiteSettingM
   const { translations } = useTranslation();
   const adminAppearance = translations?.admin?.appearance || {};
   const fm = adminAppearance?.footerManagers?.newsletter || {};
+  const footerT = adminAppearance?.footer || {};
   const t = {
-    title: fm?.title || "Newsletter",
-    description: fm?.description || "Configure the newsletter section",
+    title: fm?.title || footerT?.newsletter || "Newsletter",
+    description: fm?.description || footerT?.newsletterDesc || "Configure the newsletter section",
     enableNewsletter: fm?.enableNewsletter || "Enable newsletter",
     titleLabel: fm?.titleLabel || "Title",
     descriptionLabel: fm?.descriptionLabel || "Description",
@@ -1231,9 +1235,10 @@ function CopyrightManager({ siteSettings, updateSiteSetting, updateSiteSettingMu
   const { translations } = useTranslation();
   const adminAppearance = translations?.admin?.appearance || {};
   const fm = adminAppearance?.footerManagers?.copyright || {};
+  const footerT = adminAppearance?.footer || {};
   const t = {
-    title: fm?.title || "Copyright",
-    description: fm?.description || "Configure the copyright text",
+    title: fm?.title || footerT?.copyright || "Copyright",
+    description: fm?.description || footerT?.copyrightDesc || "Configure the copyright text",
     enableCopyright: fm?.enableCopyright || "Enable copyright",
     copyrightText: fm?.copyrightText || "Copyright Text"
   };
@@ -1729,8 +1734,8 @@ export default function AdminAppearance() {
         newsletterSignup: adminAppearance?.theme?.newsletterSignup || "Newsletter Signup",
         specialPromotion: adminAppearance?.theme?.specialPromotion || "Special Promotion",
         generalAnnouncement: adminAppearance?.theme?.generalAnnouncement || "General Announcement",
-        popupTitle: adminAppearance?.theme?.popupTitle || "Title",
-        popupDescription: adminAppearance?.theme?.popupDescription || "Description",
+        popupFieldTitle: adminAppearance?.theme?.popupFieldTitle || "Title",
+        popupFieldDescription: adminAppearance?.theme?.popupFieldDescription || "Description",
         buttonText: adminAppearance?.theme?.buttonText || "Button Text",
         delaySeconds: adminAppearance?.theme?.delaySeconds || "Delay (seconds)",
         popupPreview: adminAppearance?.theme?.popupPreview || "Pop-up Preview",
@@ -1785,6 +1790,7 @@ export default function AdminAppearance() {
         add: adminAppearance?.common?.add || "Add",
         saving: adminAppearance?.common?.saving || "Saving...",
         loading: adminAppearance?.common?.loading || "Loading...",
+        loadingAppearance: adminAppearance?.common?.loadingAppearance || "Loading appearance settings...",
         clickToEdit: adminAppearance?.common?.clickToEdit || "Click to edit..."
       },
       navigation: {
@@ -2402,7 +2408,7 @@ export default function AdminAppearance() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-secondary mx-auto mb-4"></div>
-          <p className="text-gray-600">{adminAppearance?.common?.loadingAppearance || "Loading appearance settings..."}</p>
+          <p className="text-gray-600">{t.appearance.common.loadingAppearance}</p>
         </div>
       </div>
     );
@@ -3987,7 +3993,7 @@ export default function AdminAppearance() {
                         </Select>
                       </div>
                       <div>
-                        <Label>{t.appearance.theme.popupTitle}</Label>
+                        <Label>{t.appearance.theme.popupFieldTitle}</Label>
                         <Input
                           placeholder="Special Offer!"
                           value={tempPopupSettings?.title || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"title": ""}').title}
@@ -3997,7 +4003,7 @@ export default function AdminAppearance() {
                         />
                       </div>
                       <div>
-                        <Label>{t.appearance.theme.popupDescription}</Label>
+                        <Label>{t.appearance.theme.popupFieldDescription}</Label>
                         <Textarea
                           placeholder="Subscribe to our newsletter for exclusive travel tips and special offers."
                           value={tempPopupSettings?.description || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"description": ""}').description}
