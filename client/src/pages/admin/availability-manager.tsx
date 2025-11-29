@@ -163,7 +163,7 @@ export default function AvailabilityManager() {
     onError: (error: any) => {
       toast({
         variant: "destructive",
-        title: "Error",
+        title: admin.common?.error || "Error",
         description: error.message || admin.availabilityManager?.createError || "Failed to create availability"
       });
     }
@@ -220,7 +220,7 @@ export default function AvailabilityManager() {
       setIsCreatingBulk(false);
       toast({
         variant: "destructive",
-        title: "Error",
+        title: admin.common?.error || "Error",
         description: error.message || admin.availabilityManager?.bulkCreateError || "Failed to create bulk availabilities"
       });
     }
@@ -247,7 +247,7 @@ export default function AvailabilityManager() {
     onError: (error: any) => {
       toast({
         variant: "destructive",
-        title: "Error",
+        title: admin.common?.error || "Error",
         description: error.message || admin.availabilityManager?.updateError || "Failed to update availability"
       });
     }
@@ -270,7 +270,7 @@ export default function AvailabilityManager() {
     onError: (error: any) => {
       toast({
         variant: "destructive",
-        title: "Error",
+        title: admin.common?.error || "Error",
         description: error.message || admin.availabilityManager?.deleteError || "Failed to delete availability"
       });
     }
