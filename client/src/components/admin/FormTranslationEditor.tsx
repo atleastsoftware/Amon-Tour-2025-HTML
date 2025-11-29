@@ -93,7 +93,7 @@ export default function FormTranslationEditor() {
     onError: (error) => {
       toast({
         title: t("formTranslationEditor.toasts.saveError.title"),
-        description: t("formTranslationEditor.toasts.saveError.description", { error }),
+        description: t("formTranslationEditor.toasts.saveError.description", { error: String(error) }),
         variant: "destructive"
       });
     }
@@ -116,7 +116,7 @@ export default function FormTranslationEditor() {
     onError: (error) => {
       toast({
         title: t("formTranslationEditor.toasts.regenerateError.title"),
-        description: t("formTranslationEditor.toasts.regenerateError.description", { error }),
+        description: t("formTranslationEditor.toasts.regenerateError.description", { error: String(error) }),
         variant: "destructive"
       });
     }

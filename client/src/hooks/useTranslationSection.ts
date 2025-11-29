@@ -97,8 +97,8 @@ export function useTranslationSection(section: string) {
   };
 
   return { 
-    t: translations, 
-    translate: t, 
+    t, 
+    translations,
     isLoading, 
     language: currentLanguage 
   };
