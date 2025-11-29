@@ -1366,7 +1366,6 @@
         "mainIcon": "Main icon",
         "selectMainIcon": "Select a main icon for this block or enter an image URL:",
         "uploadCustomIcon": "Upload custom main icon",
-        "title": "Title",
         "description": "Description",
         "miniIcons": "Mini icons",
         "addMiniBlock": "Add mini block",
@@ -1650,6 +1649,7 @@
       "edit": "Edit",
       "add": "Add",
       "back": "Back",
+      "backToAdmin": "Back to Admin",
       "title": "Title",
       "content": "Content",
       "name": "Name",
@@ -1660,7 +1660,225 @@
       "noResults": "No results",
       "confirmDelete": "Confirm deletion",
       "deleteConfirmation": "Are you sure you want to delete this? This action cannot be undone.",
-      "deleteWarning": "This action cannot be undone."
+      "deleteWarning": "This action cannot be undone.",
+      "actions": "Actions",
+      "status": "Status",
+      "date": "Date",
+      "created": "Created",
+      "updated": "Updated",
+      "author": "Author",
+      "category": "Category",
+      "published": "Published",
+      "draft": "Draft",
+      "view": "View",
+      "logout": "Logout",
+      "updating": "Updating..."
+    },
+    "dashboard": {
+      "title": "Administration",
+      "subtitle": "Centralized management dashboard",
+      "logout": "Logout",
+      "sections": {
+        "customTours": {
+          "title": "Custom Tour Requests",
+          "description": "Manage custom tour requests"
+        },
+        "krabiCelebration": {
+          "title": "Krabi Celebration",
+          "description": "Special event requests"
+        },
+        "partnershipRequests": {
+          "title": "Partnership Requests",
+          "description": "Collaboration proposals"
+        },
+        "groupRequests": {
+          "title": "Groups & Companies",
+          "description": "Group and corporate requests"
+        },
+        "blogManagement": {
+          "title": "Blog Management",
+          "description": "Create and edit articles"
+        },
+        "newsletter": {
+          "title": "Newsletter",
+          "description": "Manage newsletter subscriptions"
+        },
+        "tourNinjaImages": {
+          "title": "Tour Ninja Images",
+          "description": "Replace Tour Ninja images with your own"
+        },
+        "translations": {
+          "title": "Translation Management",
+          "description": "Fix and customize translations"
+        },
+        "tourCards": {
+          "title": "Tour Cards",
+          "description": "Create and manage presentation cards"
+        }
+      }
+    },
+    "appearance": {
+      "title": "Site Appearance"
+    },
+    "blog": {
+      "title": "Blog Management",
+      "description": "Manage blog posts and articles",
+      "createPost": "Create Post",
+      "blogPosts": "Blog Posts",
+      "noPostsYet": "No blog posts yet.",
+      "postCreated": "Post created successfully",
+      "postUpdated": "Post updated successfully",
+      "postDeleted": "Post deleted successfully",
+      "titleRequired": "Title is required",
+      "contentRequired": "Content is required",
+      "authorRequired": "Author name is required",
+      "form": {
+        "title": "Title",
+        "content": "Content",
+        "excerpt": "Excerpt",
+        "coverImage": "Cover Image URL",
+        "authorName": "Author Name",
+        "status": "Status",
+        "category": "Category",
+        "selectCategory": "Select a category",
+        "noCategory": "No category"
+      },
+      "createNewPost": "Create New Post",
+      "editPost": "Edit Post",
+      "enterTitle": "Enter post title",
+      "briefDescription": "Brief description",
+      "coverImageUrl": "Cover Image URL",
+      "writeContent": "Write your content here",
+      "selectStatus": "Select status",
+      "draft": "Draft",
+      "published": "Published",
+      "noPosts": "No posts found. Create your first post!",
+      "postTitle": "Title",
+      "author": "Author",
+      "category": "Category",
+      "selectCategory": "Select category",
+      "created": "Created",
+      "updateSuccess": "Post updated successfully",
+      "deleteSuccess": "Post deleted successfully",
+      "deleteFailed": "Failed to delete post",
+      "excerpt": "Excerpt",
+      "content": "Content"
+    },
+    "newsletter": {
+      "title": "Newsletter Management",
+      "description": "Manage newsletter subscriptions and export subscriber lists",
+      "exportCsv": "Export CSV",
+      "exportSuccess": "Newsletter subscribers exported successfully",
+      "exportFailed": "Failed to export newsletter subscribers",
+      "totalSubscribers": "Total Subscribers",
+      "confirmed": "Confirmed",
+      "pendingConfirmation": "Pending Confirmation",
+      "unsubscribed": "Unsubscribed",
+      "pending": "Pending",
+      "filters": "Filters",
+      "filtersDescription": "Search and filter newsletter subscriptions",
+      "searchPlaceholder": "Search by email address...",
+      "allSubscribers": "All Subscribers",
+      "confirmedOnly": "Confirmed Only",
+      "subscriptionsList": "Newsletter Subscriptions",
+      "subscriptionsDescription": "Complete list of newsletter subscribers with their status and subscription details",
+      "noSubscriptions": "No newsletter subscriptions yet.",
+      "noMatchingResults": "No subscriptions found matching your search.",
+      "emailAddress": "Email Address",
+      "subscribedDate": "Subscribed Date",
+      "language": "Language"
+    },
+    "tourNinjaImages": {
+      "title": "Tour Ninja Image Management",
+      "description": "Description",
+      "addCustomImage": "Add Custom Image",
+      "selectTour": "Select a tour to customize",
+      "noTours": "No tours available",
+      "noToursDescription": "Unable to load tours from Tour Ninja. Please check the API connection.",
+      "customImages": "Custom Images",
+      "originalImage": "Original Image",
+      "customImage": "Custom Image",
+      "active": "Active",
+      "inactive": "Inactive",
+      "activate": "Activate",
+      "deactivate": "Deactivate",
+      "imageSelected": "Image selected",
+      "readyToUpload": "ready to upload",
+      "selectValidImage": "Please select a valid image file",
+      "uploadImage": "Upload Image",
+      "imageUrl": "Image URL",
+      "directUrl": "Direct URL",
+      "tourName": "Tour Name",
+      "tourId": "Tour ID",
+      "search": "Search",
+      "filterByStatus": "Filter by status",
+      "all": "All"
+    },
+    "translation": {
+      "title": "Translation Management",
+      "description": "Manage translations for content blocks, global elements and forms",
+      "back": "Back",
+      "pageBlocks": "Page Blocks",
+      "globalElements": "Global Elements",
+      "forms": "Forms",
+      "blockTranslations": "Block Translation Editor",
+      "blockTranslationsDesc": "Manage French and Spanish translations for all page blocks",
+      "noBlocksFound": "No blocks found for this page"
+    },
+    "tourCardBuilder": {
+      "title": "TourCard Builder",
+      "description": "Easily create cards for your tours and experiences",
+      "yourCards": "Your Cards",
+      "noCardsYet": "No cards yet. Create your first card!",
+      "quickCreate": "Quick Card Creation",
+      "bookingLink": "Booking Link (URL)",
+      "bookingLinkPlaceholder": "Ex: https://www.tourniquet.com/tour/...",
+      "extractInfo": "Extract Info",
+      "createCard": "Create a tour card",
+      "cardCreated": "Card created successfully",
+      "cardUpdated": "Card updated successfully",
+      "cardDeleted": "Card deleted successfully",
+      "deleteSuccess": "Card deleted successfully",
+      "deleteFailed": "An error occurred while deleting the card",
+      "updateSuccess": "Card updated successfully",
+      "updateFailed": "An error occurred while updating the card",
+      "loadingCards": "Loading cards...",
+      "noCards": "No cards yet. Create your first card!"
+    },
+    "krabiCelebration": {
+      "title": "Krabi Celebration",
+      "description": "Special event requests",
+      "requestsReceived": "Requests received",
+      "noRequests": "No requests yet.",
+      "unreadOnly": "Unread only",
+      "markAsRead": "Mark as read",
+      "markAsUnread": "Mark as unread"
+    },
+    "partnershipRequests": {
+      "title": "Partnership Requests",
+      "description": "Collaboration proposals",
+      "requestsReceived": "Requests received",
+      "noRequests": "No requests yet.",
+      "unreadOnly": "Unread only",
+      "markAsRead": "Mark as read",
+      "markAsUnread": "Mark as unread"
+    },
+    "groupRequests": {
+      "title": "Group Requests",
+      "description": "Group and corporate requests",
+      "requestsReceived": "Requests received",
+      "noRequests": "No requests yet.",
+      "unreadOnly": "Unread only",
+      "markAsRead": "Mark as read",
+      "markAsUnread": "Mark as unread"
+    },
+    "customTours": {
+      "title": "Custom Tour Requests",
+      "description": "Manage custom tour requests",
+      "requestsReceived": "Requests received",
+      "noRequests": "No requests yet.",
+      "newOnly": "New only",
+      "markAsProcessed": "Mark as processed"
     },
     "editor": {
       "title": "Content Management",

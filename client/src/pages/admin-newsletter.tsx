@@ -11,6 +11,7 @@ import { Download, Search, Users, CheckCircle, XCircle, Clock, ArrowLeft } from 
 import { useLocation } from "wouter";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 interface NewsletterSubscription {
   id: number;
@@ -27,6 +28,9 @@ export default function AdminNewsletterPage() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [, setLocation] = useLocation();
+  const { translations } = useTranslation();
+  const t = translations?.admin?.newsletter || {};
+  const common = translations?.admin?.common || {};
 
   const { data: subscriptions = [], isLoading } = useQuery<NewsletterSubscription[]>({
     queryKey: ["/api/admin/newsletter/subscriptions", { 
@@ -60,14 +64,14 @@ export default function AdminNewsletterPage() {
       window.URL.revokeObjectURL(url);
       
       toast({
-        title: "Export Successful",
-        description: "Newsletter subscribers exported successfully",
+        title: common?.success || "Export Successful",
+        description: t?.exportSuccess || "Newsletter subscribers exported successfully",
         variant: "default",
       });
     } catch (error) {
       toast({
-        title: "Export Failed",
-        description: "Failed to export newsletter subscribers",
+        title: common?.error || "Export Failed",
+        description: t?.exportFailed || "Failed to export newsletter subscribers",
         variant: "destructive",
       });
     }
@@ -75,12 +79,12 @@ export default function AdminNewsletterPage() {
 
   const getStatusBadge = (subscription: NewsletterSubscription) => {
     if (subscription.unsubscribed) {
-      return <Badge variant="secondary" className="flex items-center gap-1"><XCircle className="w-3 h-3" /> Unsubscribed</Badge>;
+      return <Badge variant="secondary" className="flex items-center gap-1"><XCircle className="w-3 h-3" /> {t?.unsubscribed || "Unsubscribed"}</Badge>;
     }
     if (subscription.confirmed) {
-      return <Badge variant="default" className="flex items-center gap-1 bg-green-500"><CheckCircle className="w-3 h-3" /> Confirmed</Badge>;
+      return <Badge variant="default" className="flex items-center gap-1 bg-green-500"><CheckCircle className="w-3 h-3" /> {t?.confirmed || "Confirmed"}</Badge>;
     }
-    return <Badge variant="outline" className="flex items-center gap-1"><Clock className="w-3 h-3" /> Pending</Badge>;
+    return <Badge variant="outline" className="flex items-center gap-1"><Clock className="w-3 h-3" /> {t?.pending || "Pending"}</Badge>;
   };
 
   const confirmedCount = subscriptions.filter(s => s.confirmed && !s.unsubscribed).length;
@@ -102,16 +106,16 @@ export default function AdminNewsletterPage() {
                 className="flex items-center gap-2"
               >
                 <ArrowLeft className="w-4 h-4" />
-                Back to Admin
+                {common?.backToAdmin || "Back to Admin"}
               </Button>
               <div>
-                <h1 className="text-3xl font-bold text-gray-900">Newsletter Management</h1>
-                <p className="text-gray-600 mt-2">Manage newsletter subscriptions and export subscriber lists</p>
+                <h1 className="text-3xl font-bold text-gray-900">{t?.title || "Newsletter Management"}</h1>
+                <p className="text-gray-600 mt-2">{t?.description || "Manage newsletter subscriptions and export subscriber lists"}</p>
               </div>
             </div>
             <Button onClick={handleExport} className="flex items-center gap-2">
               <Download className="w-4 h-4" />
-              Export CSV
+              {t?.exportCsv || "Export CSV"}
             </Button>
           </div>
 
@@ -119,7 +123,7 @@ export default function AdminNewsletterPage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Subscribers</CardTitle>
+                <CardTitle className="text-sm font-medium">{t?.totalSubscribers || "Total Subscribers"}</CardTitle>
                 <Users className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
@@ -129,7 +133,7 @@ export default function AdminNewsletterPage() {
             
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Confirmed</CardTitle>
+                <CardTitle className="text-sm font-medium">{t?.confirmed || "Confirmed"}</CardTitle>
                 <CheckCircle className="h-4 w-4 text-green-500" />
               </CardHeader>
               <CardContent>
@@ -139,7 +143,7 @@ export default function AdminNewsletterPage() {
             
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Pending Confirmation</CardTitle>
+                <CardTitle className="text-sm font-medium">{t?.pendingConfirmation || "Pending Confirmation"}</CardTitle>
                 <Clock className="h-4 w-4 text-yellow-500" />
               </CardHeader>
               <CardContent>
@@ -149,7 +153,7 @@ export default function AdminNewsletterPage() {
             
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Unsubscribed</CardTitle>
+                <CardTitle className="text-sm font-medium">{t?.unsubscribed || "Unsubscribed"}</CardTitle>
                 <XCircle className="h-4 w-4 text-red-500" />
               </CardHeader>
               <CardContent>
@@ -161,15 +165,15 @@ export default function AdminNewsletterPage() {
           {/* Filters */}
           <Card className="mb-8">
             <CardHeader>
-              <CardTitle>Filters</CardTitle>
-              <CardDescription>Search and filter newsletter subscriptions</CardDescription>
+              <CardTitle>{t?.filters || "Filters"}</CardTitle>
+              <CardDescription>{t?.filtersDescription || "Search and filter newsletter subscriptions"}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className="relative flex-1">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                   <Input
-                    placeholder="Search by email address..."
+                    placeholder={t?.searchPlaceholder || "Search by email address..."}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="pl-10"
@@ -177,13 +181,13 @@ export default function AdminNewsletterPage() {
                 </div>
                 <Select value={statusFilter} onValueChange={setStatusFilter}>
                   <SelectTrigger className="w-full sm:w-48">
-                    <SelectValue placeholder="Filter by status" />
+                    <SelectValue placeholder={common?.status || "Filter by status"} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All Subscribers</SelectItem>
-                    <SelectItem value="confirmed">Confirmed Only</SelectItem>
-                    <SelectItem value="unconfirmed">Pending Confirmation</SelectItem>
-                    <SelectItem value="unsubscribed">Unsubscribed</SelectItem>
+                    <SelectItem value="all">{t?.allSubscribers || "All Subscribers"}</SelectItem>
+                    <SelectItem value="confirmed">{t?.confirmedOnly || "Confirmed Only"}</SelectItem>
+                    <SelectItem value="unconfirmed">{t?.pendingConfirmation || "Pending Confirmation"}</SelectItem>
+                    <SelectItem value="unsubscribed">{t?.unsubscribed || "Unsubscribed"}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -193,9 +197,9 @@ export default function AdminNewsletterPage() {
           {/* Subscriptions Table */}
           <Card>
             <CardHeader>
-              <CardTitle>Newsletter Subscriptions ({filteredSubscriptions.length})</CardTitle>
+              <CardTitle>{t?.subscriptionsList || "Newsletter Subscriptions"} ({filteredSubscriptions.length})</CardTitle>
               <CardDescription>
-                Complete list of newsletter subscribers with their status and subscription details
+                {t?.subscriptionsDescription || "Complete list of newsletter subscribers with their status and subscription details"}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -205,17 +209,17 @@ export default function AdminNewsletterPage() {
                 </div>
               ) : filteredSubscriptions.length === 0 ? (
                 <div className="text-center py-8 text-gray-500">
-                  {searchQuery ? "No subscriptions found matching your search." : "No newsletter subscriptions yet."}
+                  {searchQuery ? (t?.noMatchingResults || "No subscriptions found matching your search.") : (t?.noSubscriptions || "No newsletter subscriptions yet.")}
                 </div>
               ) : (
                 <div className="overflow-x-auto">
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>Email Address</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead>Subscribed Date</TableHead>
-                        <TableHead>Language</TableHead>
+                        <TableHead>{t?.emailAddress || "Email Address"}</TableHead>
+                        <TableHead>{common?.status || "Status"}</TableHead>
+                        <TableHead>{t?.subscribedDate || "Subscribed Date"}</TableHead>
+                        <TableHead>{t?.language || "Language"}</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>

@@ -49,6 +49,7 @@ import { useToast } from "@/hooks/use-toast";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 // Simple schemas
 const blogPostSchema = z.object({
@@ -89,6 +90,9 @@ export default function AdminBlogNew() {
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const { translations } = useTranslation();
+  const t = translations?.admin?.blog || {};
+  const common = translations?.admin?.common || {};
 
   // Fetch posts
   const { data: posts = [], isLoading: postsLoading } = useQuery<BlogPost[]>({
@@ -151,11 +155,11 @@ export default function AdminBlogNew() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/blog/posts"] });
       setEditingPost(null);
-      toast({ title: "Success", description: "Post updated successfully" });
+      toast({ title: common?.success || "Success", description: t?.updateSuccess || "Post updated successfully" });
     },
     onError: (error: Error) => {
       toast({ 
-        title: "Error", 
+        title: common?.error || "Error", 
         description: error.message,
         variant: "destructive" 
       });
@@ -172,14 +176,14 @@ export default function AdminBlogNew() {
       
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.message || "Failed to delete post");
+        throw new Error(error.message || t?.deleteFailed || "Failed to delete post");
       }
       
       return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/blog/posts"] });
-      toast({ title: "Success", description: "Post deleted successfully" });
+      toast({ title: common?.success || "Success", description: t?.deleteSuccess || "Post deleted successfully" });
     },
     onError: (error: Error) => {
       toast({ 
@@ -264,39 +268,39 @@ export default function AdminBlogNew() {
               <Link href="/admin">
                 <Button variant="outline" size="sm">
                   <ArrowLeft className="h-4 w-4 mr-2" />
-                  Back to Admin
+                  {common?.backToAdmin || "Back to Admin"}
                 </Button>
               </Link>
-              <h1 className="text-3xl font-bold text-gray-900">Blog Management</h1>
+              <h1 className="text-3xl font-bold text-gray-900">{t?.title || "Blog Management"}</h1>
             </div>
             <Button onClick={() => setIsCreateDialogOpen(true)}>
               <Plus className="h-4 w-4 mr-2" />
-              Create Post
+              {t?.createPost || "Create Post"}
             </Button>
           </div>
 
           {/* Posts Table */}
           <Card>
             <CardHeader>
-              <CardTitle>Blog Posts</CardTitle>
+              <CardTitle>{t?.blogPosts || "Blog Posts"}</CardTitle>
             </CardHeader>
             <CardContent>
               {postsLoading ? (
-                <div className="text-center py-8">Loading posts...</div>
+                <div className="text-center py-8">{common?.loading || "Loading posts..."}</div>
               ) : posts.length === 0 ? (
                 <div className="text-center py-8 text-gray-500">
-                  No posts found. Create your first post!
+                  {t?.noPosts || "No posts found. Create your first post!"}
                 </div>
               ) : (
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Title</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Author</TableHead>
-                      <TableHead>Category</TableHead>
-                      <TableHead>Created</TableHead>
-                      <TableHead>Actions</TableHead>
+                      <TableHead>{t?.postTitle || "Title"}</TableHead>
+                      <TableHead>{common?.status || "Status"}</TableHead>
+                      <TableHead>{t?.author || "Author"}</TableHead>
+                      <TableHead>{t?.category || "Category"}</TableHead>
+                      <TableHead>{t?.created || "Created"}</TableHead>
+                      <TableHead>{common?.actions || "Actions"}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -348,7 +352,7 @@ export default function AdminBlogNew() {
       <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>Create New Post</DialogTitle>
+            <DialogTitle>{t?.createNewPost || "Create New Post"}</DialogTitle>
           </DialogHeader>
           
           <Form {...createForm}>
@@ -358,9 +362,9 @@ export default function AdminBlogNew() {
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Title</FormLabel>
+                    <FormLabel>{t?.postTitle || "Title"}</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder="Enter post title" />
+                      <Input {...field} placeholder={t?.enterTitle || "Enter post title"} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -372,9 +376,9 @@ export default function AdminBlogNew() {
                 name="excerpt"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Excerpt</FormLabel>
+                    <FormLabel>{t?.excerpt || "Excerpt"}</FormLabel>
                     <FormControl>
-                      <Textarea {...field} placeholder="Brief description" rows={2} />
+                      <Textarea {...field} placeholder={t?.briefDescription || "Brief description"} rows={2} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -386,7 +390,7 @@ export default function AdminBlogNew() {
                 name="coverImage"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Cover Image URL</FormLabel>
+                    <FormLabel>{t?.coverImageUrl || "Cover Image URL"}</FormLabel>
                     <FormControl>
                       <Input {...field} placeholder="https://example.com/image.jpg" />
                     </FormControl>
@@ -400,9 +404,9 @@ export default function AdminBlogNew() {
                 name="content"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Content</FormLabel>
+                    <FormLabel>{t?.content || "Content"}</FormLabel>
                     <FormControl>
-                      <Textarea {...field} placeholder="Write your content here" rows={10} />
+                      <Textarea {...field} placeholder={t?.writeContent || "Write your content here"} rows={10} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -415,16 +419,16 @@ export default function AdminBlogNew() {
                   name="status"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Status</FormLabel>
+                      <FormLabel>{common?.status || "Status"}</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder="Select status" />
+                            <SelectValue placeholder={t?.selectStatus || "Select status"} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="draft">Draft</SelectItem>
-                          <SelectItem value="published">Published</SelectItem>
+                          <SelectItem value="draft">{t?.draft || "Draft"}</SelectItem>
+                          <SelectItem value="published">{t?.published || "Published"}</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -437,11 +441,11 @@ export default function AdminBlogNew() {
                   name="categoryId"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Category</FormLabel>
+                      <FormLabel>{t?.category || "Category"}</FormLabel>
                       <Select onValueChange={(value) => field.onChange(value ? parseInt(value) : undefined)} value={field.value?.toString()}>
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder="Select category" />
+                            <SelectValue placeholder={t?.selectCategory || "Select category"} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -460,10 +464,10 @@ export default function AdminBlogNew() {
 
               <div className="flex justify-end gap-2">
                 <Button type="button" variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
-                  Cancel
+                  {common?.cancel || "Cancel"}
                 </Button>
                 <Button type="submit" disabled={createPostMutation.isPending}>
-                  {createPostMutation.isPending ? "Creating..." : "Create Post"}
+                  {createPostMutation.isPending ? (common?.creating || "Creating...") : (t?.createPost || "Create Post")}
                 </Button>
               </div>
             </form>
@@ -475,7 +479,7 @@ export default function AdminBlogNew() {
       <Dialog open={!!editingPost} onOpenChange={() => setEditingPost(null)}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>Edit Post</DialogTitle>
+            <DialogTitle>{t?.editPost || "Edit Post"}</DialogTitle>
           </DialogHeader>
           
           <Form {...editForm}>
@@ -485,9 +489,9 @@ export default function AdminBlogNew() {
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Title</FormLabel>
+                    <FormLabel>{t?.postTitle || "Title"}</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder="Enter post title" />
+                      <Input {...field} placeholder={t?.enterTitle || "Enter post title"} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -499,9 +503,9 @@ export default function AdminBlogNew() {
                 name="excerpt"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Excerpt</FormLabel>
+                    <FormLabel>{t?.excerpt || "Excerpt"}</FormLabel>
                     <FormControl>
-                      <Textarea {...field} placeholder="Brief description" rows={2} />
+                      <Textarea {...field} placeholder={t?.briefDescription || "Brief description"} rows={2} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -513,7 +517,7 @@ export default function AdminBlogNew() {
                 name="coverImage"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Cover Image URL</FormLabel>
+                    <FormLabel>{t?.coverImageUrl || "Cover Image URL"}</FormLabel>
                     <FormControl>
                       <Input {...field} placeholder="https://example.com/image.jpg" />
                     </FormControl>
@@ -527,9 +531,9 @@ export default function AdminBlogNew() {
                 name="content"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Content</FormLabel>
+                    <FormLabel>{t?.content || "Content"}</FormLabel>
                     <FormControl>
-                      <Textarea {...field} placeholder="Write your content here" rows={10} />
+                      <Textarea {...field} placeholder={t?.writeContent || "Write your content here"} rows={10} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -542,16 +546,16 @@ export default function AdminBlogNew() {
                   name="status"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Status</FormLabel>
+                      <FormLabel>{common?.status || "Status"}</FormLabel>
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder="Select status" />
+                            <SelectValue placeholder={t?.selectStatus || "Select status"} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="draft">Draft</SelectItem>
-                          <SelectItem value="published">Published</SelectItem>
+                          <SelectItem value="draft">{t?.draft || "Draft"}</SelectItem>
+                          <SelectItem value="published">{t?.published || "Published"}</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -564,11 +568,11 @@ export default function AdminBlogNew() {
                   name="categoryId"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Category</FormLabel>
+                      <FormLabel>{t?.category || "Category"}</FormLabel>
                       <Select onValueChange={(value) => field.onChange(value ? parseInt(value) : undefined)} value={field.value?.toString()}>
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder="Select category" />
+                            <SelectValue placeholder={t?.selectCategory || "Select category"} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -587,10 +591,10 @@ export default function AdminBlogNew() {
 
               <div className="flex justify-end gap-2">
                 <Button type="button" variant="outline" onClick={() => setEditingPost(null)}>
-                  Cancel
+                  {common?.cancel || "Cancel"}
                 </Button>
                 <Button type="submit" disabled={updatePostMutation.isPending}>
-                  {updatePostMutation.isPending ? "Updating..." : "Update Post"}
+                  {updatePostMutation.isPending ? (common?.updating || "Updating...") : (t?.updatePost || "Update Post")}
                 </Button>
               </div>
             </form>

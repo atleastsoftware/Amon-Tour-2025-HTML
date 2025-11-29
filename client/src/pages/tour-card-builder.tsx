@@ -12,6 +12,7 @@ import { Link } from "wouter";
 import TourCardForm from "@/components/admin/TourCardForm";
 import TourCardDisplay from "@/components/admin/TourCardDisplay";
 import QuickTourCardCreator from "@/components/admin/QuickTourCardCreator";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 interface TourCardData {
   id: string;
@@ -31,6 +32,9 @@ export default function TourCardBuilder() {
   const logout = useLogout();
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const { translations } = useTranslation();
+  const t = translations?.admin?.tourCardBuilder || {};
+  const common = translations?.admin?.common || {};
   
   // Fetch tour cards
   const { data: tourCards = [], isLoading: cardsLoading } = useQuery({
@@ -47,14 +51,14 @@ export default function TourCardBuilder() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/tour-cards'] });
       toast({
-        title: "Succès",
-        description: "La fiche a été supprimée avec succès"
+        title: common?.success || "Success",
+        description: t?.deleteSuccess || "Card deleted successfully"
       });
     },
     onError: () => {
       toast({
-        title: "Erreur",
-        description: "Une erreur est survenue lors de la suppression de la fiche",
+        title: common?.error || "Error",
+        description: t?.deleteFailed || "An error occurred while deleting the card",
         variant: "destructive"
       });
     }
@@ -74,14 +78,14 @@ export default function TourCardBuilder() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/tour-cards'] });
       toast({
-        title: "Succès",
-        description: "La fiche a été mise à jour avec succès"
+        title: common?.success || "Success",
+        description: t?.updateSuccess || "Card updated successfully"
       });
     },
     onError: () => {
       toast({
-        title: "Erreur",
-        description: "Une erreur est survenue lors de la mise à jour de la fiche",
+        title: common?.error || "Error",
+        description: t?.updateFailed || "An error occurred while updating the card",
         variant: "destructive"
       });
     }
@@ -110,7 +114,7 @@ export default function TourCardBuilder() {
     updateMutation.mutate(updatedCard);
   };
 
-  if (authLoading) return <div className="container mx-auto p-8 text-center">Chargement...</div>;
+  if (authLoading) return <div className="container mx-auto p-8 text-center">{common?.loading || "Loading..."}</div>;
 
   // Force TypeScript to treat tourCards as TourCardData[]
   const safeCards = Array.isArray(tourCards) ? tourCards as TourCardData[] : [];
@@ -124,15 +128,15 @@ export default function TourCardBuilder() {
             <Link href="/admin">
               <Button variant="outline" size="sm">
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Admin
+                {common?.backToAdmin || "Back to Admin"}
               </Button>
             </Link>
             <div>
-              <h1 className="text-3xl font-heading font-bold">TourCard Builder</h1>
-              <p className="text-gray-600">Créez facilement des fiches pour vos tours et séjours</p>
+              <h1 className="text-3xl font-heading font-bold">{t?.title || "Tour Card Builder"}</h1>
+              <p className="text-gray-600">{t?.description || "Easily create cards for your tours and stays"}</p>
             </div>
           </div>
-          <Button variant="outline" onClick={handleLogout}>Déconnexion</Button>
+          <Button variant="outline" onClick={handleLogout}>{common?.logout || "Logout"}</Button>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -142,13 +146,13 @@ export default function TourCardBuilder() {
           </div>
           
           <div className="lg:col-span-2">
-            <h2 className="text-xl font-heading font-semibold mb-4">Vos fiches ({safeCards.length})</h2>
+            <h2 className="text-xl font-heading font-semibold mb-4">{t?.yourCards || "Your Cards"} ({safeCards.length})</h2>
             
             {cardsLoading ? (
-              <div className="text-center py-8">Chargement des fiches...</div>
+              <div className="text-center py-8">{t?.loadingCards || "Loading cards..."}</div>
             ) : safeCards.length === 0 ? (
               <div className="bg-gray-50 border border-dashed rounded-lg p-8 text-center">
-                <p className="text-gray-500">Aucune fiche pour le moment. Créez votre première fiche !</p>
+                <p className="text-gray-500">{t?.noCards || "No cards yet. Create your first card!"}</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">

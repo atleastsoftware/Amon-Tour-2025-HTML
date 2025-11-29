@@ -1344,7 +1344,6 @@
         "mainIcon": "Icône principale",
         "selectMainIcon": "Sélectionnez une icône principale pour ce bloc ou entrez une URL d'image :",
         "uploadCustomIcon": "Upload icône principale personnalisée",
-        "title": "Titre",
         "description": "Description",
         "miniIcons": "Mini-icônes",
         "addMiniBlock": "Ajouter un mini bloc",
@@ -1628,6 +1627,7 @@
       "edit": "Modifier",
       "add": "Ajouter",
       "back": "Retour",
+      "backToAdmin": "Retour à l'admin",
       "title": "Titre",
       "content": "Contenu",
       "name": "Nom",
@@ -1638,7 +1638,225 @@
       "noResults": "Aucun résultat",
       "confirmDelete": "Confirmer la suppression",
       "deleteConfirmation": "Êtes-vous sûr de vouloir supprimer ceci ? Cette action est irréversible.",
-      "deleteWarning": "Cette action est irréversible."
+      "deleteWarning": "Cette action est irréversible.",
+      "actions": "Actions",
+      "status": "Statut",
+      "date": "Date",
+      "created": "Créé",
+      "updated": "Mis à jour",
+      "author": "Auteur",
+      "category": "Catégorie",
+      "published": "Publié",
+      "draft": "Brouillon",
+      "view": "Voir",
+      "logout": "Déconnexion",
+      "updating": "Mise à jour..."
+    },
+    "dashboard": {
+      "title": "Administration",
+      "subtitle": "Panel de gestion centralisé",
+      "logout": "Déconnexion",
+      "sections": {
+        "customTours": {
+          "title": "Demandes de tours personnalisés",
+          "description": "Gérer les demandes de tours personnalisés"
+        },
+        "krabiCelebration": {
+          "title": "Krabi Celebration",
+          "description": "Demandes d'événements spéciaux"
+        },
+        "partnershipRequests": {
+          "title": "Demandes de partenariat",
+          "description": "Propositions de collaboration"
+        },
+        "groupRequests": {
+          "title": "Groupes et Entreprises",
+          "description": "Demandes de groupes et entreprises"
+        },
+        "blogManagement": {
+          "title": "Gestion du blog",
+          "description": "Créer et modifier des articles"
+        },
+        "newsletter": {
+          "title": "Newsletter",
+          "description": "Gérer les abonnements à la newsletter"
+        },
+        "tourNinjaImages": {
+          "title": "Images Tour Ninja",
+          "description": "Remplacer les images Tour Ninja par les vôtres"
+        },
+        "translations": {
+          "title": "Gestion des traductions",
+          "description": "Corriger et personnaliser les traductions"
+        },
+        "tourCards": {
+          "title": "Fiches de tours",
+          "description": "Créer et gérer les fiches de présentation"
+        }
+      }
+    },
+    "appearance": {
+      "title": "Apparence du site"
+    },
+    "blog": {
+      "title": "Gestion du blog",
+      "description": "Gérer les articles de blog",
+      "createPost": "Créer un article",
+      "blogPosts": "Articles de blog",
+      "noPostsYet": "Aucun article de blog pour le moment.",
+      "postCreated": "Article créé avec succès",
+      "postUpdated": "Article mis à jour avec succès",
+      "postDeleted": "Article supprimé avec succès",
+      "titleRequired": "Le titre est requis",
+      "contentRequired": "Le contenu est requis",
+      "authorRequired": "Le nom de l'auteur est requis",
+      "form": {
+        "title": "Titre",
+        "content": "Contenu",
+        "excerpt": "Extrait",
+        "coverImage": "URL de l'image de couverture",
+        "authorName": "Nom de l'auteur",
+        "status": "Statut",
+        "category": "Catégorie",
+        "selectCategory": "Sélectionner une catégorie",
+        "noCategory": "Sans catégorie"
+      },
+      "createNewPost": "Créer un Nouvel Article",
+      "editPost": "Modifier l'Article",
+      "enterTitle": "Entrez le titre de l'article",
+      "briefDescription": "Brève description",
+      "coverImageUrl": "URL de l'Image de Couverture",
+      "writeContent": "Écrivez votre contenu ici",
+      "selectStatus": "Sélectionner le statut",
+      "draft": "Brouillon",
+      "published": "Publié",
+      "noPosts": "Aucun article trouvé. Créez votre premier article !",
+      "postTitle": "Titre",
+      "author": "Auteur",
+      "category": "Catégorie",
+      "selectCategory": "Sélectionner une catégorie",
+      "created": "Créé",
+      "updateSuccess": "Article mis à jour avec succès",
+      "deleteSuccess": "Article supprimé avec succès",
+      "deleteFailed": "Échec de la suppression de l'article",
+      "excerpt": "Extrait",
+      "content": "Contenu"
+    },
+    "newsletter": {
+      "title": "Gestion de la newsletter",
+      "description": "Gérer les abonnements et exporter les listes d'abonnés",
+      "exportCsv": "Exporter CSV",
+      "exportSuccess": "Abonnés exportés avec succès",
+      "exportFailed": "Échec de l'exportation des abonnés",
+      "totalSubscribers": "Total des abonnés",
+      "confirmed": "Confirmés",
+      "pendingConfirmation": "En attente de confirmation",
+      "unsubscribed": "Désabonnés",
+      "pending": "En attente",
+      "filters": "Filtres",
+      "filtersDescription": "Rechercher et filtrer les abonnements",
+      "searchPlaceholder": "Rechercher par adresse email...",
+      "allSubscribers": "Tous les abonnés",
+      "confirmedOnly": "Confirmés uniquement",
+      "subscriptionsList": "Abonnements newsletter",
+      "subscriptionsDescription": "Liste complète des abonnés avec leur statut et détails d'inscription",
+      "noSubscriptions": "Aucun abonnement pour le moment.",
+      "noMatchingResults": "Aucun abonnement ne correspond à votre recherche.",
+      "emailAddress": "Adresse email",
+      "subscribedDate": "Date d'inscription",
+      "language": "Langue"
+    },
+    "tourNinjaImages": {
+      "title": "Gestion des images Tour Ninja",
+      "description": "Description",
+      "addCustomImage": "Ajouter une image personnalisée",
+      "selectTour": "Choisir un tour à personnaliser",
+      "noTours": "Aucun tour disponible",
+      "noToursDescription": "Impossible de charger les tours depuis Tour Ninja. Veuillez vérifier la connexion API.",
+      "customImages": "Images personnalisées",
+      "originalImage": "Image originale",
+      "customImage": "Image personnalisée",
+      "active": "Actif",
+      "inactive": "Inactif",
+      "activate": "Activer",
+      "deactivate": "Désactiver",
+      "imageSelected": "Image sélectionnée",
+      "readyToUpload": "prête à télécharger",
+      "selectValidImage": "Veuillez sélectionner un fichier image valide",
+      "uploadImage": "Télécharger l'image",
+      "imageUrl": "URL de l'image",
+      "directUrl": "URL directe",
+      "tourName": "Nom du tour",
+      "tourId": "ID du tour",
+      "search": "Rechercher",
+      "filterByStatus": "Filtrer par statut",
+      "all": "Tous"
+    },
+    "translation": {
+      "title": "Gestion des traductions",
+      "description": "Gérer les traductions pour les blocs de contenu, éléments globaux et formulaires",
+      "back": "Retour",
+      "pageBlocks": "Blocs de pages",
+      "globalElements": "Éléments globaux",
+      "forms": "Formulaires",
+      "blockTranslations": "Éditeur de traductions de blocs",
+      "blockTranslationsDesc": "Gérer les traductions françaises et espagnoles pour tous les blocs de pages",
+      "noBlocksFound": "Aucun bloc trouvé pour cette page"
+    },
+    "tourCardBuilder": {
+      "title": "Constructeur de fiches",
+      "description": "Créez facilement des fiches pour vos tours et expériences",
+      "yourCards": "Vos fiches",
+      "noCardsYet": "Aucune fiche pour le moment. Créez votre première fiche !",
+      "quickCreate": "Création rapide de fiche",
+      "bookingLink": "Lien de réservation (URL)",
+      "bookingLinkPlaceholder": "Ex: https://www.tourniquet.com/tour/...",
+      "extractInfo": "Extraire les infos",
+      "createCard": "Créer une fiche de tour",
+      "cardCreated": "Fiche créée avec succès",
+      "cardUpdated": "Fiche mise à jour avec succès",
+      "cardDeleted": "Fiche supprimée avec succès",
+      "deleteSuccess": "Fiche supprimée avec succès",
+      "deleteFailed": "Une erreur est survenue lors de la suppression de la fiche",
+      "updateSuccess": "Fiche mise à jour avec succès",
+      "updateFailed": "Une erreur est survenue lors de la mise à jour de la fiche",
+      "loadingCards": "Chargement des fiches...",
+      "noCards": "Aucune fiche pour le moment. Créez votre première fiche !"
+    },
+    "krabiCelebration": {
+      "title": "Krabi Celebration",
+      "description": "Demandes d'événements spéciaux",
+      "requestsReceived": "Demandes reçues",
+      "noRequests": "Aucune demande pour le moment.",
+      "unreadOnly": "Non lues uniquement",
+      "markAsRead": "Marquer comme lu",
+      "markAsUnread": "Marquer comme non lu"
+    },
+    "partnershipRequests": {
+      "title": "Demandes de partenariat",
+      "description": "Propositions de collaboration",
+      "requestsReceived": "Demandes reçues",
+      "noRequests": "Aucune demande pour le moment.",
+      "unreadOnly": "Non lues uniquement",
+      "markAsRead": "Marquer comme lu",
+      "markAsUnread": "Marquer comme non lu"
+    },
+    "groupRequests": {
+      "title": "Demandes de groupes",
+      "description": "Demandes de groupes et entreprises",
+      "requestsReceived": "Demandes reçues",
+      "noRequests": "Aucune demande pour le moment.",
+      "unreadOnly": "Non lues uniquement",
+      "markAsRead": "Marquer comme lu",
+      "markAsUnread": "Marquer comme non lu"
+    },
+    "customTours": {
+      "title": "Demandes de tours personnalisés",
+      "description": "Gérer les demandes de tours personnalisés",
+      "requestsReceived": "Demandes reçues",
+      "noRequests": "Aucune demande pour le moment.",
+      "newOnly": "Nouvelles uniquement",
+      "markAsProcessed": "Marquer comme traité"
     },
     "editor": {
       "title": "Gestion de Contenu",

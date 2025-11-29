@@ -8,11 +8,15 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function AdminTranslation() {
   const { isAuthenticated, isLoading } = useIsAuthenticated();
   const [, setLocation] = useLocation();
   const [activeTab, setActiveTab] = useState<string>("blocks");
+  const { translations } = useTranslation();
+  const t = translations?.admin?.translation || {};
+  const common = translations?.admin?.common || {};
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
@@ -25,7 +29,7 @@ export default function AdminTranslation() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-secondary mx-auto"></div>
-          <p className="mt-4 text-muted-foreground">Chargement...</p>
+          <p className="mt-4 text-muted-foreground">{common?.loading || "Loading..."}</p>
         </div>
       </div>
     );
@@ -53,14 +57,14 @@ export default function AdminTranslation() {
                 data-testid="button-back-to-admin"
               >
                 <ArrowLeft className="h-4 w-4" />
-                Retour
+                {common?.back || "Back"}
               </Button>
               <div>
                 <h1 className="text-3xl font-heading font-bold text-foreground">
-                  Gestion des Traductions
+                  {t?.title || "Translation Management"}
                 </h1>
                 <p className="text-muted-foreground mt-2">
-                  Gérez les traductions pour les blocs de contenu, les éléments globaux et les formulaires
+                  {t?.description || "Manage translations for content blocks, global elements and forms"}
                 </p>
               </div>
             </div>
@@ -74,13 +78,13 @@ export default function AdminTranslation() {
               <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
                 <TabsList className="grid w-full grid-cols-3 mb-6">
                   <TabsTrigger value="blocks" data-testid="tab-page-blocks">
-                    📄 Blocs de Pages
+                    {t?.pageBlocks || "Page Blocks"}
                   </TabsTrigger>
                   <TabsTrigger value="global" data-testid="tab-global-elements">
-                    🌍 Éléments Globaux
+                    {t?.globalElements || "Global Elements"}
                   </TabsTrigger>
                   <TabsTrigger value="forms" data-testid="tab-forms">
-                    📝 Formulaires
+                    {t?.forms || "Forms"}
                   </TabsTrigger>
                 </TabsList>
 
