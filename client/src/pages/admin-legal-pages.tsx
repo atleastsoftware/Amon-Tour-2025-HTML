@@ -49,7 +49,7 @@ export default function AdminLegalPages() {
     content: '',
   });
   const contentEditableRef = useRef<HTMLDivElement>(null);
-  const { t } = useTranslationSection('admin');
+  const { translations: t } = useTranslationSection('admin');
 
   // Redirect to login if not authenticated
   useEffect(() => {
