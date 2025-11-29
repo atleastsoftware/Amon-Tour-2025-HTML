@@ -1686,7 +1686,74 @@ export default function AdminAppearance() {
         textFooter: adminAppearance?.theme?.textFooter || "Footer Text",
         backgroundFooter: adminAppearance?.theme?.backgroundFooter || "Footer Background",
         errorColor: adminAppearance?.theme?.errorColor || "Error Color",
-        successColor: adminAppearance?.theme?.successColor || "Success Color"
+        successColor: adminAppearance?.theme?.successColor || "Success Color",
+        typographyDesc: adminAppearance?.theme?.typographyDesc || "Font families and text styles",
+        headingFont: adminAppearance?.theme?.headingFont || "Heading Font",
+        bodyFont: adminAppearance?.theme?.bodyFont || "Body Font",
+        headingWeight: adminAppearance?.theme?.headingWeight || "Heading Weight",
+        bodyWeight: adminAppearance?.theme?.bodyWeight || "Body Weight",
+        baseSize: adminAppearance?.theme?.baseSize || "Base Size",
+        preview: adminAppearance?.theme?.preview || "Preview",
+        previewHeading: adminAppearance?.theme?.previewHeading || "Welcome to Amon Tour",
+        previewText: adminAppearance?.theme?.previewText || "Discover the hidden treasures of Krabi and southern Thailand with our authentic and personalized experiences.",
+        buttonStylesDesc: adminAppearance?.theme?.buttonStylesDesc || "Customize button appearance and behavior",
+        borderRadius: adminAppearance?.theme?.borderRadius || "Border Radius",
+        shadowStyle: adminAppearance?.theme?.shadowStyle || "Shadow Style",
+        hoverEffect: adminAppearance?.theme?.hoverEffect || "Hover Effect",
+        buttonPreview: adminAppearance?.theme?.buttonPreview || "Button Preview",
+        primaryButton: adminAppearance?.theme?.primaryButton || "Primary Button",
+        outlineButton: adminAppearance?.theme?.outlineButton || "Outline Button",
+        noShadow: adminAppearance?.theme?.noShadow || "No Shadow",
+        smallShadow: adminAppearance?.theme?.smallShadow || "Small Shadow",
+        mediumShadow: adminAppearance?.theme?.mediumShadow || "Medium Shadow",
+        largeShadow: adminAppearance?.theme?.largeShadow || "Large Shadow",
+        none: adminAppearance?.theme?.none || "None",
+        scaleUp: adminAppearance?.theme?.scaleUp || "Scale Up",
+        fade: adminAppearance?.theme?.fade || "Fade",
+        shadowGrow: adminAppearance?.theme?.shadowGrow || "Shadow Grow",
+        small: adminAppearance?.theme?.small || "Small",
+        medium: adminAppearance?.theme?.medium || "Medium",
+        large: adminAppearance?.theme?.large || "Large",
+        pill: adminAppearance?.theme?.pill || "Pill",
+        announcementBarDesc: adminAppearance?.theme?.announcementBarDesc || "Manage the notification bar displayed at the top of the site",
+        scrollSpeed: adminAppearance?.theme?.scrollSpeed || "Scroll Speed",
+        slow: adminAppearance?.theme?.slow || "Slow",
+        fast: adminAppearance?.theme?.fast || "Fast",
+        makeClickable: adminAppearance?.theme?.makeClickable || "Make clickable (with URL)",
+        redirectUrl: adminAppearance?.theme?.redirectUrl || "Redirect URL",
+        urlPlaceholder: adminAppearance?.theme?.urlPlaceholder || "Site page (/tours) or external link (https://...)",
+        bgColor: adminAppearance?.theme?.bgColor || "Background Color",
+        textColorLabel: adminAppearance?.theme?.textColorLabel || "Text Color",
+        announcementPreview: adminAppearance?.theme?.announcementPreview || "Announcement Bar Preview",
+        popupTitle: adminAppearance?.theme?.popupTitle || "Pop-up Announcements",
+        popupDesc: adminAppearance?.theme?.popupDesc || "Promotional pop-ups and announcements",
+        enablePopups: adminAppearance?.theme?.enablePopups || "Enable Pop-ups",
+        popupType: adminAppearance?.theme?.popupType || "Pop-up Type",
+        newsletterSignup: adminAppearance?.theme?.newsletterSignup || "Newsletter Signup",
+        specialPromotion: adminAppearance?.theme?.specialPromotion || "Special Promotion",
+        generalAnnouncement: adminAppearance?.theme?.generalAnnouncement || "General Announcement",
+        title: adminAppearance?.theme?.title || "Title",
+        description: adminAppearance?.theme?.description || "Description",
+        buttonText: adminAppearance?.theme?.buttonText || "Button Text",
+        delaySeconds: adminAppearance?.theme?.delaySeconds || "Delay (seconds)",
+        popupPreview: adminAppearance?.theme?.popupPreview || "Pop-up Preview",
+        popupDisabled: adminAppearance?.theme?.popupDisabled || "Pop-up disabled - this preview will not appear on the site",
+        appearsAfter: adminAppearance?.theme?.appearsAfter || "Appears after",
+        seconds: adminAppearance?.theme?.seconds || "seconds",
+        logoFaviconTitle: adminAppearance?.theme?.logoFaviconTitle || "Logo & Favicon",
+        logoFaviconDesc: adminAppearance?.theme?.logoFaviconDesc || "Manage individual logos with upload/link and size controls",
+        headerLogo: adminAppearance?.theme?.headerLogo || "Header Logo",
+        footerLogo: adminAppearance?.theme?.footerLogo || "Footer Logo",
+        faviconLogo: adminAppearance?.theme?.faviconLogo || "Favicon Logo",
+        size: adminAppearance?.theme?.size || "Size",
+        imageUrlPath: adminAppearance?.theme?.imageUrlPath || "Image URL/Path",
+        seoTitle: adminAppearance?.theme?.seoTitle || "SEO & Metadata",
+        seoDesc: adminAppearance?.theme?.seoDesc || "Global SEO settings and social media metadata",
+        siteTitle: adminAppearance?.theme?.siteTitle || "Site Title",
+        tagline: adminAppearance?.theme?.tagline || "Tagline",
+        metaDescription: adminAppearance?.theme?.metaDescription || "Meta Description",
+        keywords: adminAppearance?.theme?.keywords || "Keywords (comma-separated)",
+        ogImageUrl: adminAppearance?.theme?.ogImageUrl || "Open Graph Image URL"
       },
       footer: {
         title: adminAppearance?.footer?.title || "Footer Settings",
@@ -3150,7 +3217,7 @@ export default function AdminAppearance() {
                           <Bell className="w-4 h-4" />
                           {t.appearance.theme.announcementBar}
                         </CardTitle>
-                        <CardDescription>{t.appearance.theme.notificationBar}</CardDescription>
+                        <CardDescription>{t.appearance.theme.announcementBarDesc}</CardDescription>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div className="flex items-center space-x-2">
@@ -3173,7 +3240,7 @@ export default function AdminAppearance() {
                           />
                         </div>
                         
-                        {/* Options de défilement et lien */}
+                        {/* Scroll and link options */}
                         <div className="space-y-3 p-4 bg-gray-50 rounded-lg">
                           <div className="flex items-center space-x-2">
                             <Switch 
@@ -3188,7 +3255,7 @@ export default function AdminAppearance() {
                           
                           {(tempNotificationBar?.scrolling ?? JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"scrolling": false}').scrolling) && (
                             <div>
-                              <Label>Vitesse de défilement</Label>
+                              <Label>{t.appearance.theme.scrollSpeed}</Label>
                               <Select
                                 value={tempNotificationBar?.scroll_speed || JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"scroll_speed": "medium"}').scroll_speed || "medium"}
                                 onValueChange={(value) => {
@@ -3196,12 +3263,12 @@ export default function AdminAppearance() {
                                 }}
                               >
                                 <SelectTrigger>
-                                  <SelectValue placeholder="Sélectionner la vitesse" />
+                                  <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent>
-                                  <SelectItem value="slow">Lent (25s)</SelectItem>
-                                  <SelectItem value="medium">Moyen (15s)</SelectItem>
-                                  <SelectItem value="fast">Rapide (8s)</SelectItem>
+                                  <SelectItem value="slow">{t.appearance.theme.slow} (25s)</SelectItem>
+                                  <SelectItem value="medium">{t.appearance.theme.medium} (15s)</SelectItem>
+                                  <SelectItem value="fast">{t.appearance.theme.fast} (8s)</SelectItem>
                                 </SelectContent>
                               </Select>
                             </div>
@@ -3215,27 +3282,26 @@ export default function AdminAppearance() {
                                 setTempNotificationBar((prev: any) => ({ ...prev, is_clickable: checked }));
                               }}
                             />
-                            <Label htmlFor="notification-clickable">Rendre cliquable (avec URL)</Label>
+                            <Label htmlFor="notification-clickable">{t.appearance.theme.makeClickable}</Label>
                           </div>
                           
                           {(tempNotificationBar?.is_clickable ?? JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"is_clickable": false}').is_clickable) && (
                             <div>
-                              <Label>URL de redirection</Label>
+                              <Label>{t.appearance.theme.redirectUrl}</Label>
                               <Input
-                                placeholder="/tours ou https://example.com"
+                                placeholder={t.appearance.theme.urlPlaceholder}
                                 value={tempNotificationBar?.url || JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"url": ""}').url}
                                 onChange={(e) => {
                                   setTempNotificationBar((prev: any) => ({ ...prev, url: e.target.value }));
                                 }}
                               />
-                              <p className="text-xs text-gray-500 mt-1">Page du site (/tours) ou lien externe (https://...)</p>
                             </div>
                           )}
                         </div>
                         
                         <div className="grid grid-cols-2 gap-4">
                           <ColorPicker
-                            label="Couleur de fond"
+                            label={t.appearance.theme.bgColor}
                             value={tempNotificationBar?.background_color || JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"background_color": "#f5c400"}').background_color}
                             onChange={(value) => {
                               setTempNotificationBar((prev: any) => ({ ...prev, background_color: value }));
@@ -3249,7 +3315,7 @@ export default function AdminAppearance() {
                             }}
                           />
                           <ColorPicker
-                            label="Couleur de texte"
+                            label={t.appearance.theme.textColorLabel}
                             value={tempNotificationBar?.text_color || JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text_color": "#000000"}').text_color}
                             onChange={(value) => {
                               setTempNotificationBar((prev: any) => ({ ...prev, text_color: value }));
@@ -3275,15 +3341,15 @@ export default function AdminAppearance() {
                           </Button>
                         </div>
                         
-                        {/* Aperçu de la barre d'annonces */}
+                        {/* Announcement bar preview */}
                         <div className="mt-6 pt-6 border-t border-gray-200">
                           <div className="flex items-center gap-2 mb-4">
                             <Bell className="w-4 h-4" />
-                            <h3 className="text-base font-semibold">Aperçu de la barre d'annonces</h3>
+                            <h3 className="text-base font-semibold">{t.appearance.theme.announcementPreview}</h3>
                           </div>
                           <div className="bg-gray-100 p-4 rounded-lg">
                             {!(tempNotificationBar?.enabled ?? JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"enabled": true}').enabled) && (
-                              <p className="text-xs text-orange-600 mb-2 text-center">⚠️ Barre d'annonce désactivée - cet aperçu ne s'affichera pas sur le site</p>
+                              <p className="text-xs text-orange-600 mb-2 text-center">⚠️ {t.appearance.theme.popupDisabled}</p>
                             )}
                             <div 
                               className="py-2 px-4 text-center text-sm font-medium rounded"
@@ -3326,12 +3392,12 @@ export default function AdminAppearance() {
                         <Type className="w-4 h-4" />
                         {t.appearance.theme.typography}
                       </CardTitle>
-                      <CardDescription>Familles de polices et styles de texte</CardDescription>
+                      <CardDescription>{t.appearance.theme.typographyDesc}</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <Label>Police des titres</Label>
+                          <Label>{t.appearance.theme.headingFont}</Label>
                           <Select 
                             value={tempTypography?.heading_font || JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_font": "Poppins"}').heading_font}
                             onValueChange={(value) => {
@@ -3351,7 +3417,7 @@ export default function AdminAppearance() {
                           </Select>
                         </div>
                         <div>
-                          <Label>Police du texte</Label>
+                          <Label>{t.appearance.theme.bodyFont}</Label>
                           <Select 
                             value={tempTypography?.body_font || JSON.parse(getSiteSetting('theme', 'typography') || '{"body_font": "Inter"}').body_font}
                             onValueChange={(value) => {
@@ -3373,7 +3439,7 @@ export default function AdminAppearance() {
                       </div>
                       <div className="grid grid-cols-3 gap-4">
                         <div>
-                          <Label>Heading Weight</Label>
+                          <Label>{t.appearance.theme.headingWeight}</Label>
                           <Select 
                             value={tempTypography?.heading_weight || JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_weight": "600"}').heading_weight}
                             onValueChange={(value) => {
@@ -3392,7 +3458,7 @@ export default function AdminAppearance() {
                           </Select>
                         </div>
                         <div>
-                          <Label>Body Weight</Label>
+                          <Label>{t.appearance.theme.bodyWeight}</Label>
                           <Select 
                             value={tempTypography?.body_weight || JSON.parse(getSiteSetting('theme', 'typography') || '{"body_weight": "400"}').body_weight}
                             onValueChange={(value) => {
@@ -3410,7 +3476,7 @@ export default function AdminAppearance() {
                           </Select>
                         </div>
                         <div>
-                          <Label>Base Size</Label>
+                          <Label>{t.appearance.theme.baseSize}</Label>
                           <Select 
                             value={tempTypography?.base_size || JSON.parse(getSiteSetting('theme', 'typography') || '{"base_size": "16px"}').base_size}
                             onValueChange={(value) => {
@@ -3444,7 +3510,7 @@ export default function AdminAppearance() {
                       <div className="mt-6 pt-6 border-t border-gray-200">
                         <div className="flex items-center gap-2 mb-4">
                           <Type className="w-4 h-4" />
-                          <h3 className="text-base font-semibold">Preview</h3>
+                          <h3 className="text-base font-semibold">{t.appearance.theme.preview}</h3>
                         </div>
                         <div className="bg-gray-50 p-4 rounded-lg space-y-3">
                           <div 
@@ -3454,7 +3520,7 @@ export default function AdminAppearance() {
                               fontSize: '24px'
                             }}
                           >
-                            Bienvenue chez Amon Tour
+                            {t.appearance.theme.previewHeading}
                           </div>
                           <div 
                             style={{ 
@@ -3463,7 +3529,7 @@ export default function AdminAppearance() {
                               fontSize: tempTypography?.base_size || JSON.parse(getSiteSetting('theme', 'typography') || '{"base_size": "16px"}').base_size
                             }}
                           >
-                            Découvrez les trésors cachés de Krabi et du sud de la Thaïlande avec nos expériences authentiques et personnalisées.
+                            {t.appearance.theme.previewText}
                           </div>
                         </div>
                       </div>
@@ -3476,13 +3542,13 @@ export default function AdminAppearance() {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                         <MousePointer className="w-4 h-4" />
-                        Styles de boutons
+                        {t.appearance.theme.buttonStyles}
                       </CardTitle>
-                      <CardDescription>Personnalisez l'apparence et le comportement des boutons</CardDescription>
+                      <CardDescription>{t.appearance.theme.buttonStylesDesc}</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div>
-                        <Label>Border Radius</Label>
+                        <Label>{t.appearance.theme.borderRadius}</Label>
                         <Select 
                           value={tempButtonStyles?.border_radius || JSON.parse(getSiteSetting('theme', 'button_styles') || '{"border_radius": "8px"}').border_radius}
                           onValueChange={(value) => {
@@ -3502,7 +3568,7 @@ export default function AdminAppearance() {
                         </Select>
                       </div>
                       <div>
-                        <Label>Shadow Style</Label>
+                        <Label>{t.appearance.theme.shadowStyle}</Label>
                         <Select 
                           value={tempButtonStyles?.shadow || JSON.parse(getSiteSetting('theme', 'button_styles') || '{"shadow": "medium"}').shadow}
                           onValueChange={(value) => {
@@ -3521,7 +3587,7 @@ export default function AdminAppearance() {
                         </Select>
                       </div>
                       <div>
-                        <Label>Hover Effect</Label>
+                        <Label>{t.appearance.theme.hoverEffect}</Label>
                         <Select 
                           value={tempButtonStyles?.hover_effect || JSON.parse(getSiteSetting('theme', 'button_styles') || '{"hover_effect": "scale"}').hover_effect}
                           onValueChange={(value) => {
@@ -3555,7 +3621,7 @@ export default function AdminAppearance() {
                       <div className="mt-6 pt-6 border-t border-gray-200">
                         <div className="flex items-center gap-2 mb-4">
                           <MousePointer className="w-4 h-4" />
-                          <h3 className="text-base font-semibold">Button Preview</h3>
+                          <h3 className="text-base font-semibold">{t.appearance.theme.buttonPreview}</h3>
                         </div>
                         <div className="bg-gray-50 p-4 rounded-lg space-y-3">
                           <div className="flex flex-wrap gap-3">
@@ -3576,7 +3642,7 @@ export default function AdminAppearance() {
                                 })()
                               }}
                             >
-                              Primary Button
+                              {t.appearance.theme.primaryButton}
                             </button>
                             <button 
                               className="px-4 py-2 border-2 transition-all"
@@ -3586,7 +3652,7 @@ export default function AdminAppearance() {
                                 borderRadius: JSON.parse(getSiteSetting('theme', 'button_styles') || '{"border_radius": "8px"}').border_radius
                               }}
                             >
-                              Outline Button
+                              {t.appearance.theme.outlineButton}
                             </button>
                           </div>
                         </div>
@@ -3600,13 +3666,13 @@ export default function AdminAppearance() {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                         <Globe className="w-4 h-4" />
-                        SEO & Métadonnées
+                        {t.appearance.theme.seoTitle}
                       </CardTitle>
-                      <CardDescription>Paramètres SEO globaux et métadonnées des réseaux sociaux</CardDescription>
+                      <CardDescription>{t.appearance.theme.seoDesc}</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div>
-                        <Label>Site Title</Label>
+                        <Label>{t.appearance.theme.siteTitle}</Label>
                         <Input
                           placeholder="Amon Tour - Authentic Thailand Travel Experience"
                           value={JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"site_title": ""}').site_title}
@@ -3617,7 +3683,7 @@ export default function AdminAppearance() {
                         />
                       </div>
                       <div>
-                        <Label>Tagline</Label>
+                        <Label>{t.appearance.theme.tagline}</Label>
                         <Input
                           placeholder="Discover the hidden gems of Krabi and southern Thailand"
                           value={JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"tagline": ""}').tagline}
@@ -3628,7 +3694,7 @@ export default function AdminAppearance() {
                         />
                       </div>
                       <div>
-                        <Label>Meta Description</Label>
+                        <Label>{t.appearance.theme.metaDescription}</Label>
                         <Textarea
                           placeholder="Experience authentic Thailand with Amon Tour. Discover Krabi's hidden islands, local culture, and unforgettable adventures."
                           value={JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"meta_description": ""}').meta_description}
@@ -3639,7 +3705,7 @@ export default function AdminAppearance() {
                         />
                       </div>
                       <div>
-                        <Label>Keywords (comma-separated)</Label>
+                        <Label>{t.appearance.theme.keywords}</Label>
                         <Input
                           placeholder="Thailand travel, Krabi tours, authentic Thailand, island hopping"
                           value={JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"meta_keywords": ""}').meta_keywords}
@@ -3650,7 +3716,7 @@ export default function AdminAppearance() {
                         />
                       </div>
                       <div>
-                        <Label>Open Graph Image URL</Label>
+                        <Label>{t.appearance.theme.ogImageUrl}</Label>
                         <Input
                           placeholder="/src/assets/hero-image.jpg"
                           value={JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"og_image": ""}').og_image}
@@ -3669,17 +3735,17 @@ export default function AdminAppearance() {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                         <Image className="w-4 h-4" />
-                        Logo & Favicon
+                        {t.appearance.theme.logoFaviconTitle}
                       </CardTitle>
-                      <CardDescription>Gérez les logos individuels avec téléchargement/lien et contrôles de taille</CardDescription>
+                      <CardDescription>{t.appearance.theme.logoFaviconDesc}</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
                       {/* Header Logo */}
                       <div className="border rounded-lg p-4">
-                        <Label className="text-base font-semibold mb-3 block">Header Logo</Label>
+                        <Label className="text-base font-semibold mb-3 block">{t.appearance.theme.headerLogo}</Label>
                         <div className="flex gap-3">
                           <div className="w-32">
-                            <Label>Size</Label>
+                            <Label>{t.appearance.theme.size}</Label>
                             <Select 
                               value={tempLogoSettings?.header_logo_height || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo_height": "96px"}').header_logo_height}
                               onValueChange={(value) => {
@@ -3699,7 +3765,7 @@ export default function AdminAppearance() {
                             </Select>
                           </div>
                           <div className="flex-1">
-                            <Label>Image URL/Path</Label>
+                            <Label>{t.appearance.theme.imageUrlPath}</Label>
                             <div className="flex gap-2">
                               <Input
                                 placeholder="/src/assets/logo-amon.png"
@@ -3718,10 +3784,10 @@ export default function AdminAppearance() {
 
                       {/* Footer Logo */}
                       <div className="border rounded-lg p-4">
-                        <Label className="text-base font-semibold mb-3 block">Footer Logo</Label>
+                        <Label className="text-base font-semibold mb-3 block">{t.appearance.theme.footerLogo}</Label>
                         <div className="flex gap-3">
                           <div className="w-32">
-                            <Label>Size</Label>
+                            <Label>{t.appearance.theme.size}</Label>
                             <Select 
                               value={tempLogoSettings?.footer_logo_height || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo_height": "64px"}').footer_logo_height}
                               onValueChange={(value) => {
@@ -3741,7 +3807,7 @@ export default function AdminAppearance() {
                             </Select>
                           </div>
                           <div className="flex-1">
-                            <Label>Image URL/Path</Label>
+                            <Label>{t.appearance.theme.imageUrlPath}</Label>
                             <div className="flex gap-2">
                               <Input
                                 placeholder="/src/assets/logo-amon.png"
@@ -3760,10 +3826,10 @@ export default function AdminAppearance() {
 
                       {/* Favicon Logo */}
                       <div className="border rounded-lg p-4">
-                        <Label className="text-base font-semibold mb-3 block">Favicon Logo</Label>
+                        <Label className="text-base font-semibold mb-3 block">{t.appearance.theme.faviconLogo}</Label>
                         <div className="flex gap-3">
                           <div className="w-32">
-                            <Label>Size</Label>
+                            <Label>{t.appearance.theme.size}</Label>
                             <Select 
                               value={tempLogoSettings?.favicon_size || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon_size": "32px"}').favicon_size}
                               onValueChange={(value) => {
@@ -3782,7 +3848,7 @@ export default function AdminAppearance() {
                             </Select>
                           </div>
                           <div className="flex-1">
-                            <Label>Image URL/Path</Label>
+                            <Label>{t.appearance.theme.imageUrlPath}</Label>
                             <div className="flex gap-2">
                               <Input
                                 placeholder="/favicon.ico"
@@ -3814,7 +3880,7 @@ export default function AdminAppearance() {
                       <div className="mt-6 pt-6 border-t border-gray-200">
                         <div className="flex items-center gap-2 mb-4">
                           <Image className="w-4 h-4" />
-                          <h3 className="text-base font-semibold">Logo Preview</h3>
+                          <h3 className="text-base font-semibold">{t.appearance.theme.preview}</h3>
                         </div>
                         <div className="bg-gray-50 p-4 rounded-lg">
                           <div className="grid grid-cols-3 gap-4">
@@ -3886,9 +3952,9 @@ export default function AdminAppearance() {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                         <Bell className="w-4 h-4" />
-                        Pop-up Announcements
+                        {t.appearance.theme.popupTitle}
                       </CardTitle>
-                      <CardDescription>Promotional pop-ups and announcements</CardDescription>
+                      <CardDescription>{t.appearance.theme.popupDesc}</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div className="flex items-center space-x-2">
@@ -3899,10 +3965,10 @@ export default function AdminAppearance() {
                             setTempPopupSettings((prev: any) => ({ ...prev, enabled: checked }));
                           }}
                         />
-                        <Label htmlFor="popup-enabled">Enable Pop-ups</Label>
+                        <Label htmlFor="popup-enabled">{t.appearance.theme.enablePopups}</Label>
                       </div>
                       <div>
-                        <Label>Pop-up Type</Label>
+                        <Label>{t.appearance.theme.popupType}</Label>
                         <Select 
                           value={tempPopupSettings?.type || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"type": "newsletter"}').type}
                           onValueChange={(value) => {
@@ -3913,14 +3979,14 @@ export default function AdminAppearance() {
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="newsletter">Newsletter Signup</SelectItem>
-                            <SelectItem value="promotion">Special Promotion</SelectItem>
-                            <SelectItem value="announcement">General Announcement</SelectItem>
+                            <SelectItem value="newsletter">{t.appearance.theme.newsletterSignup}</SelectItem>
+                            <SelectItem value="promotion">{t.appearance.theme.specialPromotion}</SelectItem>
+                            <SelectItem value="announcement">{t.appearance.theme.generalAnnouncement}</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
                       <div>
-                        <Label>Title</Label>
+                        <Label>{t.appearance.theme.title}</Label>
                         <Input
                           placeholder="Special Offer!"
                           value={tempPopupSettings?.title || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"title": ""}').title}
@@ -3930,7 +3996,7 @@ export default function AdminAppearance() {
                         />
                       </div>
                       <div>
-                        <Label>Description</Label>
+                        <Label>{t.appearance.theme.description}</Label>
                         <Textarea
                           placeholder="Subscribe to our newsletter for exclusive travel tips and special offers."
                           value={tempPopupSettings?.description || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"description": ""}').description}
@@ -3941,7 +4007,7 @@ export default function AdminAppearance() {
                       </div>
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <Label>Button Text</Label>
+                          <Label>{t.appearance.theme.buttonText}</Label>
                           <Input
                             placeholder="Subscribe"
                             value={tempPopupSettings?.button_text || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"button_text": "Subscribe"}').button_text}
@@ -3951,7 +4017,7 @@ export default function AdminAppearance() {
                           />
                         </div>
                         <div>
-                          <Label>Delay (seconds)</Label>
+                          <Label>{t.appearance.theme.delaySeconds}</Label>
                           <Input
                             type="number"
                             placeholder="5"
@@ -3978,11 +4044,11 @@ export default function AdminAppearance() {
                       <div className="mt-6 pt-6 border-t border-gray-200">
                         <div className="flex items-center gap-2 mb-4">
                           <Bell className="w-4 h-4" />
-                          <h3 className="text-base font-semibold">Pop-up Preview</h3>
+                          <h3 className="text-base font-semibold">{t.appearance.theme.popupPreview}</h3>
                         </div>
                         <div className="bg-gray-100 p-4 rounded-lg">
                           {!(tempPopupSettings?.enabled ?? JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"enabled": false}').enabled) && (
-                            <p className="text-xs text-orange-600 mb-2 text-center">⚠️ Pop-up désactivé - cet aperçu ne s'affichera pas sur le site</p>
+                            <p className="text-xs text-orange-600 mb-2 text-center">⚠️ {t.appearance.theme.popupDisabled}</p>
                           )}
                           <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6 border">
                             <div className="text-center space-y-4">
@@ -4008,7 +4074,7 @@ export default function AdminAppearance() {
                                 {tempPopupSettings?.button_text || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"button_text": "Subscribe"}').button_text || "Subscribe"}
                               </button>
                               <p className="text-xs text-gray-400">
-                                Apparaît après {((tempPopupSettings?.delay || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"delay": 5000}').delay) / 1000) || 5} secondes
+                                {t.appearance.theme.appearsAfter} {((tempPopupSettings?.delay || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"delay": 5000}').delay) / 1000) || 5} {t.appearance.theme.seconds}
                               </p>
                             </div>
                           </div>
