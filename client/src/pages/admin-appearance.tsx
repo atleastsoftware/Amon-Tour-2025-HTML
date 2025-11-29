@@ -419,22 +419,15 @@ function renderStylePreview(style: string, value: string): any {
 function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSettingMutation }: any) {
   const { translations } = useTranslation();
   const adminAppearance = translations?.admin?.appearance || {};
+  const fm = adminAppearance?.footerManagers?.contactInfo || {};
   const t = {
-    footer: {
-      contactInfo: adminAppearance?.footer?.contactInfo || "Contact Information",
-      contactInfoDesc: adminAppearance?.footer?.contactInfoDesc || "Manage footer contact details",
-      addContactInfo: adminAppearance?.footer?.addContactInfo || "Add contact information",
-      addLink: adminAppearance?.footer?.addLink || "Add link",
-      moveUp: adminAppearance?.footer?.moveUp || "Move up",
-      moveDown: adminAppearance?.footer?.moveDown || "Move down",
-      delete: adminAppearance?.footer?.delete || "Delete",
-      label: adminAppearance?.footer?.label || "Label",
-      value: adminAppearance?.footer?.value || "Value",
-      style: adminAppearance?.footer?.style || "Display Style",
-      adminLabel: adminAppearance?.footer?.adminLabel || "Admin Label (for reference)",
-      displayStyle: adminAppearance?.footer?.displayStyle || "Display Style",
-      contentLabel: adminAppearance?.footer?.contentLabel || "Content (appears on website)"
-    }
+    title: fm?.title || "Contact Information",
+    description: fm?.description || "Manage footer contact details",
+    displayStyle: fm?.displayStyle || "Display Style",
+    contentLabel: fm?.contentLabel || "Content (appears on website)",
+    titleBold: fm?.titleBold || "Title (Bold)",
+    text: fm?.text || "Text",
+    addContactInfo: fm?.addContactInfo || "Add contact information"
   };
 
   const getContactInfo = () => {
@@ -502,9 +495,9 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
           <MapPin className="w-4 h-4" />
-          {t.footer.contactInfo}
+          {t.title}
         </CardTitle>
-        <CardDescription>{t.footer.contactInfoDesc}</CardDescription>
+        <CardDescription>{t.description}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {contactInfo.map((item: any, index: number) => (
@@ -551,7 +544,7 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
             <div className="space-y-3">
               <div className="flex gap-3">
                 <div className="w-32">
-                  <Label className="text-xs text-gray-500">Display Style</Label>
+                  <Label className="text-xs text-gray-500">{t.displayStyle}</Label>
                   <Select
                     value={item.style}
                     onValueChange={(value) => updateContactInfo(index, 'style', value)}
@@ -560,8 +553,8 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="title">Title (Bold)</SelectItem>
-                      <SelectItem value="text">Text</SelectItem>
+                      <SelectItem value="title">{t.titleBold}</SelectItem>
+                      <SelectItem value="text">{t.text}</SelectItem>
                       <SelectItem value="address">Address</SelectItem>
                       <SelectItem value="license_badge">License Badge</SelectItem>
                       <SelectItem value="email">Email</SelectItem>
@@ -572,7 +565,7 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
                   </Select>
                 </div>
                 <div className="flex-1">
-                  <Label className="text-xs text-gray-500">Content (appears on website)</Label>
+                  <Label className="text-xs text-gray-500">{t.contentLabel}</Label>
                   {item.style === 'address' ? (
                     <Textarea
                       value={item.value}
@@ -596,18 +589,10 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
         
         {/* Add New Contact Info */}
         <div className="border-2 border-dashed border-gray-300 p-4 rounded-lg space-y-3">
-          <h5 className="font-medium text-gray-700">{t.footer.addContactInfo}</h5>
+          <h5 className="font-medium text-gray-700">{t.addContactInfo}</h5>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <div>
-              <Label className="text-xs text-gray-500">Admin Label (for reference)</Label>
-              <Input
-                value={newItem.label}
-                onChange={(e) => setNewItem(prev => ({ ...prev, label: e.target.value }))}
-                placeholder="e.g., Fax Number"
-              />
-            </div>
-            <div>
-              <Label className="text-xs text-gray-500">Display Style</Label>
+              <Label className="text-xs text-gray-500">{t.displayStyle}</Label>
               <Select
                 value={newItem.style}
                 onValueChange={(value) => setNewItem(prev => ({ ...prev, style: value }))}
@@ -616,8 +601,8 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="title">Title (Bold)</SelectItem>
-                  <SelectItem value="text">Text</SelectItem>
+                  <SelectItem value="title">{t.titleBold}</SelectItem>
+                  <SelectItem value="text">{t.text}</SelectItem>
                   <SelectItem value="address">Address</SelectItem>
                   <SelectItem value="license_badge">License Badge</SelectItem>
                   <SelectItem value="email">Email</SelectItem>
@@ -629,7 +614,7 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
             </div>
           </div>
           <div>
-            <Label className="text-xs text-gray-500">Content (appears on website)</Label>
+            <Label className="text-xs text-gray-500">{t.contentLabel}</Label>
             {newItem.style === 'address' ? (
               <Textarea
                 value={newItem.value}
@@ -673,9 +658,9 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
             </div>
           )}
           
-          <Button onClick={addContactInfo} disabled={!newItem.label || !newItem.value} className="w-full">
+          <Button onClick={addContactInfo} disabled={!newItem.value} className="w-full">
             <Plus className="w-4 h-4 mr-2" />
-            {t.footer.addContactInfo}
+            {t.addContactInfo}
           </Button>
         </div>
       </CardContent>
@@ -684,6 +669,19 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
 }
 
 function UsefulLinksManager({ siteSettings, updateSiteSetting, updateSiteSettingMutation, availablePages }: any) {
+  const { translations } = useTranslation();
+  const adminAppearance = translations?.admin?.appearance || {};
+  const fm = adminAppearance?.footerManagers?.usefulLinks || {};
+  const t = {
+    title: fm?.title || "Useful Links",
+    description: fm?.description || "Manage footer navigation links",
+    contentLabel: fm?.contentLabel || "Content (appears on website)",
+    page: fm?.page || "Page",
+    customUrl: fm?.customUrl || "Custom URL",
+    selectPage: fm?.selectPage || "Select page",
+    addLink: fm?.addLink || "Add link"
+  };
+
   const getUsefulLinks = () => {
     const setting = siteSettings && Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.section === 'footer' && s.key === 'useful_links') : null;
     if (setting?.value) {
@@ -756,16 +754,16 @@ function UsefulLinksManager({ siteSettings, updateSiteSetting, updateSiteSetting
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
           <FileText className="w-4 h-4" />
-          Liens utiles
+          {t.title}
         </CardTitle>
-        <CardDescription>Gérer les liens de navigation du pied de page</CardDescription>
+        <CardDescription>{t.description}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {usefulLinks.map((link: any, index: number) => (
           <div key={index} className="border p-4 rounded-lg space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <Label className="text-xs text-gray-500">Content (appears on website)</Label>
+                <Label className="text-xs text-gray-500">{t.contentLabel}</Label>
                 <Input
                   value={link.text}
                   onChange={(e) => updateUsefulLink(index, 'text', e.target.value)}
@@ -809,8 +807,8 @@ function UsefulLinksManager({ siteSettings, updateSiteSetting, updateSiteSetting
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="page">Page</SelectItem>
-                  <SelectItem value="custom">Custom URL</SelectItem>
+                  <SelectItem value="page">{t.page}</SelectItem>
+                  <SelectItem value="custom">{t.customUrl}</SelectItem>
                 </SelectContent>
               </Select>
               {link.type === 'page' ? (
@@ -819,7 +817,7 @@ function UsefulLinksManager({ siteSettings, updateSiteSetting, updateSiteSetting
                   onValueChange={(value) => updateUsefulLink(index, 'url', value)}
                 >
                   <SelectTrigger className="flex-1">
-                    <SelectValue placeholder="Select page" />
+                    <SelectValue placeholder={t.selectPage} />
                   </SelectTrigger>
                   <SelectContent>
                     {availablePages.map((page: any) => (
@@ -848,7 +846,7 @@ function UsefulLinksManager({ siteSettings, updateSiteSetting, updateSiteSetting
         {/* Add New Link */}
         <div className="border-2 border-dashed border-gray-300 p-4 rounded-lg space-y-3">
           <div>
-            <Label className="text-xs text-gray-500">Content (appears on website)</Label>
+            <Label className="text-xs text-gray-500">{t.contentLabel}</Label>
             <Input
               value={newLink.text}
               onChange={(e) => setNewLink(prev => ({ ...prev, text: e.target.value }))}
@@ -864,8 +862,8 @@ function UsefulLinksManager({ siteSettings, updateSiteSetting, updateSiteSetting
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="page">Page</SelectItem>
-                <SelectItem value="custom">Custom URL</SelectItem>
+                <SelectItem value="page">{t.page}</SelectItem>
+                <SelectItem value="custom">{t.customUrl}</SelectItem>
               </SelectContent>
             </Select>
             {newLink.type === 'page' ? (
@@ -874,7 +872,7 @@ function UsefulLinksManager({ siteSettings, updateSiteSetting, updateSiteSetting
                 onValueChange={(value) => setNewLink(prev => ({ ...prev, url: value }))}
               >
                 <SelectTrigger className="flex-1">
-                  <SelectValue placeholder="Select page" />
+                  <SelectValue placeholder={t.selectPage} />
                 </SelectTrigger>
                 <SelectContent>
                   {availablePages.map((page: any) => (
@@ -897,28 +895,10 @@ function UsefulLinksManager({ siteSettings, updateSiteSetting, updateSiteSetting
               />
             )}
           </div>
-          {/* Preview */}
-          {newLink.text && newLink.url && (
-            <div className="bg-gray-50 p-3 rounded border-l-4 border-secondary">
-              <Label className="text-xs text-gray-500 block mb-1">Preview on website:</Label>
-              <div className="text-sm">
-                <a 
-                  href={newLink.url}
-                  className="text-primary hover:text-primary/80 font-medium"
-                  {...(newLink.url.startsWith('http') ? {
-                    target: "_blank",
-                    rel: "noopener noreferrer"
-                  } : {})}
-                >
-                  {newLink.text}
-                </a>
-              </div>
-            </div>
-          )}
           
           <Button onClick={addUsefulLink} disabled={!newLink.text || !newLink.url} className="w-full">
             <Plus className="w-4 h-4 mr-2" />
-            Add Link
+            {t.addLink}
           </Button>
         </div>
       </CardContent>
@@ -927,6 +907,16 @@ function UsefulLinksManager({ siteSettings, updateSiteSetting, updateSiteSetting
 }
 
 function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSettingMutation }: any) {
+  const { translations } = useTranslation();
+  const adminAppearance = translations?.admin?.appearance || {};
+  const fm = adminAppearance?.footerManagers?.socialMedia || {};
+  const t = {
+    title: fm?.title || "Social Media",
+    description: fm?.description || "Manage social media links",
+    url: fm?.url || "URL",
+    addSocialMedia: fm?.addSocialMedia || "Add social media"
+  };
+
   const getSocialMedia = () => {
     const setting = siteSettings && Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.section === 'footer' && s.key === 'social_media') : null;
     if (setting?.value) {
@@ -1016,9 +1006,9 @@ function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSetting
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
           <Users className="w-4 h-4" />
-          Réseaux sociaux
+          {t.title}
         </CardTitle>
-        <CardDescription>Gérer les liens des réseaux sociaux</CardDescription>
+        <CardDescription>{t.description}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {socialMedia.map((social: any, index: number) => (
@@ -1101,7 +1091,7 @@ function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSetting
             </Select>
           </div>
           <div>
-            <Label className="text-xs text-gray-500">URL</Label>
+            <Label className="text-xs text-gray-500">{t.url}</Label>
             <Input
               value={newSocial.url}
               onChange={(e) => setNewSocial(prev => ({ ...prev, url: e.target.value }))}
@@ -1109,26 +1099,9 @@ function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSetting
             />
           </div>
           
-          {/* Preview */}
-          {newSocial.url && newSocial.icon && (
-            <div className="bg-gray-50 p-3 rounded border-l-4 border-secondary">
-              <Label className="text-xs text-gray-500 block mb-1">Preview on website:</Label>
-              <div className="text-sm">
-                <a 
-                  href={newSocial.url}
-                  className="text-primary hover:text-primary/80"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <i className={`fab fa-${newSocial.icon}`}></i>
-                </a>
-              </div>
-            </div>
-          )}
-          
           <Button onClick={addSocialMedia} disabled={!newSocial.url || !newSocial.icon} className="w-full">
             <Plus className="w-4 h-4 mr-2" />
-            Ajouter un réseau social
+            {t.addSocialMedia}
           </Button>
         </div>
       </CardContent>
@@ -1137,6 +1110,20 @@ function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSetting
 }
 
 function NewsletterManager({ siteSettings, updateSiteSetting, updateSiteSettingMutation }: any) {
+  const { translations } = useTranslation();
+  const adminAppearance = translations?.admin?.appearance || {};
+  const fm = adminAppearance?.footerManagers?.newsletter || {};
+  const t = {
+    title: fm?.title || "Newsletter",
+    description: fm?.description || "Configure the newsletter section",
+    enableNewsletter: fm?.enableNewsletter || "Enable newsletter",
+    titleLabel: fm?.titleLabel || "Title",
+    descriptionLabel: fm?.descriptionLabel || "Description",
+    emailPlaceholder: fm?.emailPlaceholder || "Email Placeholder",
+    buttonText: fm?.buttonText || "Button Text",
+    privacyText: fm?.privacyText || "Privacy Text"
+  };
+
   const getNewsletterConfig = () => {
     const setting = siteSettings && Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.section === 'footer' && s.key === 'newsletter_config') : null;
     if (setting?.value) {
@@ -1173,13 +1160,13 @@ function NewsletterManager({ siteSettings, updateSiteSetting, updateSiteSettingM
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
           <Mail className="w-4 h-4" />
-          Newsletter
+          {t.title}
         </CardTitle>
-        <CardDescription>Configurer la section newsletter</CardDescription>
+        <CardDescription>{t.description}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex items-center justify-between">
-          <Label>Activer la newsletter</Label>
+          <Label>{t.enableNewsletter}</Label>
           <Switch
             checked={newsletterConfig.enabled}
             onCheckedChange={(checked) => updateNewsletterConfig('enabled', checked)}
@@ -1187,7 +1174,7 @@ function NewsletterManager({ siteSettings, updateSiteSetting, updateSiteSettingM
         </div>
         
         <div>
-          <Label htmlFor="newsletter-title">Title</Label>
+          <Label htmlFor="newsletter-title">{t.titleLabel}</Label>
           <Input
             id="newsletter-title"
             value={newsletterConfig.title}
@@ -1197,7 +1184,7 @@ function NewsletterManager({ siteSettings, updateSiteSetting, updateSiteSettingM
         </div>
         
         <div>
-          <Label htmlFor="newsletter-description">Description</Label>
+          <Label htmlFor="newsletter-description">{t.descriptionLabel}</Label>
           <Textarea
             id="newsletter-description"
             value={newsletterConfig.description}
@@ -1207,7 +1194,7 @@ function NewsletterManager({ siteSettings, updateSiteSetting, updateSiteSettingM
         </div>
         
         <div>
-          <Label htmlFor="newsletter-placeholder">Email Placeholder</Label>
+          <Label htmlFor="newsletter-placeholder">{t.emailPlaceholder}</Label>
           <Input
             id="newsletter-placeholder"
             value={newsletterConfig.placeholderText}
@@ -1217,7 +1204,7 @@ function NewsletterManager({ siteSettings, updateSiteSetting, updateSiteSettingM
         </div>
         
         <div>
-          <Label htmlFor="newsletter-button">Button Text</Label>
+          <Label htmlFor="newsletter-button">{t.buttonText}</Label>
           <Input
             id="newsletter-button"
             value={newsletterConfig.buttonText}
@@ -1227,7 +1214,7 @@ function NewsletterManager({ siteSettings, updateSiteSetting, updateSiteSettingM
         </div>
         
         <div>
-          <Label htmlFor="newsletter-privacy">Privacy Text</Label>
+          <Label htmlFor="newsletter-privacy">{t.privacyText}</Label>
           <Input
             id="newsletter-privacy"
             value={newsletterConfig.privacy}
@@ -1241,6 +1228,16 @@ function NewsletterManager({ siteSettings, updateSiteSetting, updateSiteSettingM
 }
 
 function CopyrightManager({ siteSettings, updateSiteSetting, updateSiteSettingMutation }: any) {
+  const { translations } = useTranslation();
+  const adminAppearance = translations?.admin?.appearance || {};
+  const fm = adminAppearance?.footerManagers?.copyright || {};
+  const t = {
+    title: fm?.title || "Copyright",
+    description: fm?.description || "Configure the copyright text",
+    enableCopyright: fm?.enableCopyright || "Enable copyright",
+    copyrightText: fm?.copyrightText || "Copyright Text"
+  };
+
   const getCopyrightConfig = () => {
     const setting = siteSettings && Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.section === 'footer' && s.key === 'copyright_config') : null;
     if (setting?.value) {
@@ -1273,13 +1270,13 @@ function CopyrightManager({ siteSettings, updateSiteSetting, updateSiteSettingMu
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
           <FileText className="w-4 h-4" />
-          Copyright
+          {t.title}
         </CardTitle>
-        <CardDescription>Configurer le texte de copyright</CardDescription>
+        <CardDescription>{t.description}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex items-center justify-between">
-          <Label>Activer le copyright</Label>
+          <Label>{t.enableCopyright}</Label>
           <Switch
             checked={copyrightConfig.enabled}
             onCheckedChange={(checked) => updateCopyrightConfig('enabled', checked)}
@@ -1287,7 +1284,7 @@ function CopyrightManager({ siteSettings, updateSiteSetting, updateSiteSettingMu
         </div>
         
         <div>
-          <Label htmlFor="copyright-text">Copyright Text</Label>
+          <Label htmlFor="copyright-text">{t.copyrightText}</Label>
           <Textarea
             id="copyright-text"
             value={copyrightConfig.text}
@@ -1732,8 +1729,8 @@ export default function AdminAppearance() {
         newsletterSignup: adminAppearance?.theme?.newsletterSignup || "Newsletter Signup",
         specialPromotion: adminAppearance?.theme?.specialPromotion || "Special Promotion",
         generalAnnouncement: adminAppearance?.theme?.generalAnnouncement || "General Announcement",
-        title: adminAppearance?.theme?.title || "Title",
-        description: adminAppearance?.theme?.description || "Description",
+        popupTitle: adminAppearance?.theme?.popupTitle || "Title",
+        popupDescription: adminAppearance?.theme?.popupDescription || "Description",
         buttonText: adminAppearance?.theme?.buttonText || "Button Text",
         delaySeconds: adminAppearance?.theme?.delaySeconds || "Delay (seconds)",
         popupPreview: adminAppearance?.theme?.popupPreview || "Pop-up Preview",
@@ -3990,7 +3987,7 @@ export default function AdminAppearance() {
                         </Select>
                       </div>
                       <div>
-                        <Label>{t.appearance.theme.title}</Label>
+                        <Label>{t.appearance.theme.popupTitle}</Label>
                         <Input
                           placeholder="Special Offer!"
                           value={tempPopupSettings?.title || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"title": ""}').title}
@@ -4000,7 +3997,7 @@ export default function AdminAppearance() {
                         />
                       </div>
                       <div>
-                        <Label>{t.appearance.theme.description}</Label>
+                        <Label>{t.appearance.theme.popupDescription}</Label>
                         <Textarea
                           placeholder="Subscribe to our newsletter for exclusive travel tips and special offers."
                           value={tempPopupSettings?.description || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"description": ""}').description}
