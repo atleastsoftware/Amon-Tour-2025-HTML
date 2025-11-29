@@ -1550,7 +1550,10 @@
       "saving": "Guardando...",
       "creating": "Creando...",
       "confirmDelete": "Confirmar eliminación",
-      "deleteConfirmation": "¿Estás seguro de que quieres eliminar esto? Esta acción no se puede deshacer."
+      "deleteConfirmation": "¿Estás seguro de que quieres eliminar esto? Esta acción no se puede deshacer.",
+      "backToAdmin": "Volver al Admin",
+      "logout": "Cerrar sesión",
+      "login": "Iniciar sesión"
     },
     "dashboard": {
       "title": "Administración",
@@ -1902,7 +1905,24 @@
       "updateSuccess": "Tarjeta actualizada con éxito",
       "updateFailed": "Se produjo un error al actualizar la tarjeta",
       "loadingCards": "Cargando tarjetas...",
-      "noCards": "¡Aún no hay tarjetas. Cree su primera tarjeta!"
+      "noCards": "¡Aún no hay tarjetas. Cree su primera tarjeta!",
+      "pleaseEnterValidUrl": "Por favor, ingresa una URL válida",
+      "newTour": "Nuevo Tour",
+      "autoExtractedDescription": "Descripción extraída automáticamente de la URL. Por favor, modifique para agregar los detalles apropiados.",
+      "extractionSuccess": "Extracción exitosa",
+      "infoExtractedSuccess": "La información se ha extraído con éxito.",
+      "extractionError": "Error de extracción",
+      "unableToExtractInfo": "No se pudo extraer información del enlace proporcionado.",
+      "cardCreationError": "Se produjo un error al crear la tarjeta",
+      "extracting": "Extrayendo...",
+      "extractedInfo": "Información extraída",
+      "titleLabel": "Título",
+      "typeLabel": "Tipo",
+      "descriptionLabel": "Descripción",
+      "priceLabel": "Precio",
+      "tagsLabel": "Etiquetas",
+      "noTagsExtracted": "No se extrajeron etiquetas",
+      "noteAfterCreation": "Nota: Puede modificar todos los detalles después de la creación"
     },
     "krabiCelebration": {
       "title": "Krabi Celebration",
