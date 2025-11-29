@@ -606,7 +606,34 @@
         "noParent": "Aucun parent (niveau supérieur)",
         "success": "Succès",
         "error": "Erreur",
-        "description": "Gérez les éléments du menu de navigation de votre site. Glissez-déposez pour réorganiser. Note : Le lien \"Accueil\" (/) est géré automatiquement - il apparaît uniquement quand on n'est pas sur la page d'accueil."
+        "description": "Gérez les éléments du menu de navigation de votre site. Glissez-déposez pour réorganiser. Note : Le lien \"Accueil\" (/) est géré automatiquement - il apparaît uniquement quand on n'est pas sur la page d'accueil.",
+        "menuItemDialog": {
+          "addTitle": "Ajouter un élément de menu",
+          "editTitle": "Modifier un élément de menu",
+          "description": "Configurez les détails de l'élément de navigation",
+          "menuName": "Nom du menu *",
+          "menuNamePlaceholder": "ex: Accueil, Expériences...",
+          "urlLink": "Lien URL *",
+          "selectPage": "Choisir page",
+          "customUrlPlaceholder": "ou saisir URL personnalisée",
+          "parentMenu": "Menu parent (optionnel)",
+          "selectParent": "Sélectionner un menu parent",
+          "noParentMain": "Aucun (menu principal)",
+          "openIn": "Ouvrir dans",
+          "sameTab": "Même onglet",
+          "newTab": "Nouvel onglet",
+          "elementVisible": "Élément visible",
+          "cancel": "Annuler",
+          "save": "Enregistrer"
+        },
+        "deleteDialog": {
+          "title": "Supprimer l'élément",
+          "description": "Êtes-vous sûr de vouloir supprimer \"{{name}}\" ? Cette action supprimera également tous les sous-éléments.",
+          "deleteSubItem": "Supprimer le sous-élément",
+          "deleteSubItemDesc": "Êtes-vous sûr de vouloir supprimer ce sous-élément ?",
+          "cancel": "Annuler",
+          "delete": "Supprimer"
+        }
       },
       "pageManagement": {
         "slugUrl": "Slug/URL Externe",
@@ -651,6 +678,16 @@
           "mainPages": "Pages principales",
           "secondaryPages": "Pages secondaires",
           "legalPages": "Mentions légales"
+        },
+        "deleteDialog": {
+          "title": "Confirmer la suppression",
+          "description": "Êtes-vous sûr de vouloir supprimer la page \"{{name}}\" ? Cette action est irréversible et supprimera également tous les contenus associés.",
+          "cancel": "Annuler",
+          "delete": "Supprimer",
+          "deleteError": "Erreur lors de la suppression",
+          "pageDeleted": "Page supprimée",
+          "pageDeletedDesc": "La page a été supprimée avec succès.",
+          "deletePageError": "Impossible de supprimer la page."
         }
       },
       "footerManagers": {

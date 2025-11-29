@@ -940,7 +940,34 @@
         "noParent": "No Parent (Top Level)",
         "success": "Success",
         "error": "Error",
-        "description": "Manage the navigation menu items of your site. Drag and drop to reorder. Note: The \"Home\" link (/) is managed automatically - it only appears when not on the home page."
+        "description": "Manage the navigation menu items of your site. Drag and drop to reorder. Note: The \"Home\" link (/) is managed automatically - it only appears when not on the home page.",
+        "menuItemDialog": {
+          "addTitle": "Add a menu item",
+          "editTitle": "Edit a menu item",
+          "description": "Configure the details of the navigation element",
+          "menuName": "Menu name *",
+          "menuNamePlaceholder": "e.g.: Home, Experiences...",
+          "urlLink": "URL Link *",
+          "selectPage": "Select page",
+          "customUrlPlaceholder": "or enter custom URL",
+          "parentMenu": "Parent menu (optional)",
+          "selectParent": "Select a parent menu",
+          "noParentMain": "None (main menu)",
+          "openIn": "Open in",
+          "sameTab": "Same tab",
+          "newTab": "New tab",
+          "elementVisible": "Element visible",
+          "cancel": "Cancel",
+          "save": "Save"
+        },
+        "deleteDialog": {
+          "title": "Delete element",
+          "description": "Are you sure you want to delete \"{{name}}\"? This action will also delete all sub-elements.",
+          "deleteSubItem": "Delete sub-element",
+          "deleteSubItemDesc": "Are you sure you want to delete this sub-element?",
+          "cancel": "Cancel",
+          "delete": "Delete"
+        }
       },
       "pageManagement": {
         "slugUrl": "Slug/External URL",
@@ -985,6 +1012,16 @@
           "mainPages": "Main Pages",
           "secondaryPages": "Secondary Pages",
           "legalPages": "Legal Pages"
+        },
+        "deleteDialog": {
+          "title": "Confirm deletion",
+          "description": "Are you sure you want to delete the page \"{{name}}\"? This action is irreversible and will also delete all associated content.",
+          "cancel": "Cancel",
+          "delete": "Delete",
+          "deleteError": "Error during deletion",
+          "pageDeleted": "Page deleted",
+          "pageDeletedDesc": "The page has been deleted successfully.",
+          "deletePageError": "Unable to delete the page."
         }
       },
       "footerManagers": {

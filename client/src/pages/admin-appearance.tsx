@@ -1791,7 +1791,8 @@ export default function AdminAppearance() {
         saving: adminAppearance?.common?.saving || "Saving...",
         loading: adminAppearance?.common?.loading || "Loading...",
         loadingAppearance: adminAppearance?.common?.loadingAppearance || "Loading appearance settings...",
-        clickToEdit: adminAppearance?.common?.clickToEdit || "Click to edit..."
+        clickToEdit: adminAppearance?.common?.clickToEdit || "Click to edit...",
+        error: adminAppearance?.common?.error || "Error"
       },
       navigation: {
         menuItems: adminAppearance?.navigation?.menuItems || "Menu Items",
@@ -1832,6 +1833,16 @@ export default function AdminAppearance() {
           mainPages: adminAppearance?.pageManagement?.categories?.mainPages || "Main Pages",
           secondaryPages: adminAppearance?.pageManagement?.categories?.secondaryPages || "Secondary Pages",
           legalPages: adminAppearance?.pageManagement?.categories?.legalPages || "Legal Pages"
+        },
+        deleteDialog: {
+          title: adminAppearance?.pageManagement?.deleteDialog?.title || "Confirm deletion",
+          description: adminAppearance?.pageManagement?.deleteDialog?.description || "Are you sure you want to delete the page \"{{name}}\"? This action is irreversible and will also delete all associated content.",
+          cancel: adminAppearance?.pageManagement?.deleteDialog?.cancel || "Cancel",
+          delete: adminAppearance?.pageManagement?.deleteDialog?.delete || "Delete",
+          deleteError: adminAppearance?.pageManagement?.deleteDialog?.deleteError || "Error during deletion",
+          pageDeleted: adminAppearance?.pageManagement?.deleteDialog?.pageDeleted || "Page deleted",
+          pageDeletedDesc: adminAppearance?.pageManagement?.deleteDialog?.pageDeletedDesc || "The page has been deleted successfully.",
+          deletePageError: adminAppearance?.pageManagement?.deleteDialog?.deletePageError || "Unable to delete the page."
         }
       },
       pages: {
@@ -4254,22 +4265,20 @@ export default function AdminAppearance() {
                               <AlertDialogTrigger asChild>
                                 <Button
                                   className="bg-red-600 hover:bg-red-700 text-white px-3"
-                                  title="Supprimer la page"
+                                  title={t.appearance.pageManagement.deleteDialog?.delete || "Delete"}
                                 >
                                   <Trash className="w-4 h-4" />
                                 </Button>
                               </AlertDialogTrigger>
                               <AlertDialogContent>
                                 <AlertDialogHeader>
-                                  <AlertDialogTitle>Confirmer la suppression</AlertDialogTitle>
+                                  <AlertDialogTitle>{t.appearance.pageManagement.deleteDialog?.title || "Confirm deletion"}</AlertDialogTitle>
                                   <AlertDialogDescription>
-                                    Êtes-vous sûr de vouloir supprimer la page "{
-                                      pageConfigs.find(p => p.pageSlug === selectedPage)?.pageName || selectedPage
-                                    }" ? Cette action est irréversible et supprimera également tous les contenus associés.
+                                    {(t.appearance.pageManagement.deleteDialog?.description || "Are you sure you want to delete the page \"{{name}}\"? This action is irreversible and will also delete all associated content.").replace('{{name}}', pageConfigs.find(p => p.pageSlug === selectedPage)?.pageName || selectedPage)}
                                   </AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
-                                  <AlertDialogCancel>Annuler</AlertDialogCancel>
+                                  <AlertDialogCancel>{t.appearance.pageManagement.deleteDialog?.cancel || "Cancel"}</AlertDialogCancel>
                                   <AlertDialogAction
                                     onClick={async () => {
                                       const page = pageConfigs.find(p => p.pageSlug === selectedPage);
@@ -4283,28 +4292,27 @@ export default function AdminAppearance() {
                                         
                                         if (!response.ok) {
                                           const error = await response.json();
-                                          throw new Error(error.message || 'Erreur lors de la suppression');
+                                          throw new Error(error.message || t.appearance.pageManagement.deleteDialog?.deleteError || 'Error during deletion');
                                         }
                                         
                                         toast({
-                                          title: "Page supprimée",
-                                          description: "La page a été supprimée avec succès.",
+                                          title: t.appearance.pageManagement.deleteDialog?.pageDeleted || "Page deleted",
+                                          description: t.appearance.pageManagement.deleteDialog?.pageDeletedDesc || "The page has been deleted successfully.",
                                         });
                                         
-                                        // Rafraîchir la page
                                         window.location.reload();
                                       } catch (error) {
                                         console.error('Error deleting page:', error);
                                         toast({
-                                          title: "Erreur",
-                                          description: "Impossible de supprimer la page.",
+                                          title: t.appearance.common?.error || "Error",
+                                          description: t.appearance.pageManagement.deleteDialog?.deletePageError || "Unable to delete the page.",
                                           variant: "destructive",
                                         });
                                       }
                                     }}
                                     className="bg-red-600 hover:bg-red-700"
                                   >
-                                    Supprimer
+                                    {t.appearance.pageManagement.deleteDialog?.delete || "Delete"}
                                   </AlertDialogAction>
                                 </AlertDialogFooter>
                               </AlertDialogContent>
@@ -5034,6 +5042,20 @@ function MenuItemRow({
   onReorder: (id: number, direction: 'up' | 'down') => void;
   onAddChild: (parentId: number) => void;
 }) {
+  const { translations } = useTranslation();
+  const nav = translations?.admin?.appearance?.navigation || {};
+  const dialog = nav?.menuItemDialog || {};
+  const deleteDialog = nav?.deleteDialog || {};
+  const t = {
+    newTab: dialog?.newTab || "New tab",
+    deleteTitle: deleteDialog?.title || "Delete element",
+    deleteDesc: deleteDialog?.description || "Are you sure you want to delete \"{{name}}\"? This action will also delete all sub-elements.",
+    deleteSubItem: deleteDialog?.deleteSubItem || "Delete sub-element",
+    deleteSubItemDesc: deleteDialog?.deleteSubItemDesc || "Are you sure you want to delete this sub-element?",
+    cancel: deleteDialog?.cancel || "Cancel",
+    delete: deleteDialog?.delete || "Delete"
+  };
+
   return (
     <div className="space-y-1">
       {/* Parent Item */}
@@ -5066,7 +5088,7 @@ function MenuItemRow({
             {item.iconName && <Globe className="w-4 h-4 text-gray-500" />}
             <span className="font-medium">{item.name}</span>
             {item.target === '_blank' && (
-              <Badge variant="outline">Nouvel onglet</Badge>
+              <Badge variant="outline">{t.newTab}</Badge>
             )}
           </div>
           {item.description && (
@@ -5092,16 +5114,15 @@ function MenuItemRow({
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Supprimer l'élément</AlertDialogTitle>
+                <AlertDialogTitle>{t.deleteTitle}</AlertDialogTitle>
                 <AlertDialogDescription>
-                  Êtes-vous sûr de vouloir supprimer "{item.name}" ? 
-                  Cette action supprimera également tous les sous-éléments.
+                  {t.deleteDesc.replace('{{name}}', item.name)}
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>Annuler</AlertDialogCancel>
+                <AlertDialogCancel>{t.cancel}</AlertDialogCancel>
                 <AlertDialogAction onClick={() => onDelete(item.id)}>
-                  Supprimer
+                  {t.delete}
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
@@ -5166,15 +5187,15 @@ function MenuItemRow({
                   </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>
-                      <AlertDialogTitle>Supprimer le sous-élément</AlertDialogTitle>
+                      <AlertDialogTitle>{t.deleteSubItem}</AlertDialogTitle>
                       <AlertDialogDescription>
-                        Êtes-vous sûr de vouloir supprimer "{child.name}" ?
+                        {t.deleteSubItemDesc}
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                      <AlertDialogCancel>Annuler</AlertDialogCancel>
+                      <AlertDialogCancel>{t.cancel}</AlertDialogCancel>
                       <AlertDialogAction onClick={() => onDelete(child.id)}>
-                        Supprimer
+                        {t.delete}
                       </AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
@@ -5206,6 +5227,29 @@ function MenuItemDialog({
   isLoading: boolean;
   pageConfigs?: PageConfiguration[];
 }) {
+  const { translations } = useTranslation();
+  const nav = translations?.admin?.appearance?.navigation || {};
+  const dialog = nav?.menuItemDialog || {};
+  const t = {
+    addTitle: dialog?.addTitle || "Add a menu item",
+    editTitle: dialog?.editTitle || "Edit a menu item",
+    description: dialog?.description || "Configure the details of the navigation element",
+    menuName: dialog?.menuName || "Menu name *",
+    menuNamePlaceholder: dialog?.menuNamePlaceholder || "e.g.: Home, Experiences...",
+    urlLink: dialog?.urlLink || "URL Link *",
+    selectPage: dialog?.selectPage || "Select page",
+    customUrlPlaceholder: dialog?.customUrlPlaceholder || "or enter custom URL",
+    parentMenu: dialog?.parentMenu || "Parent menu (optional)",
+    selectParent: dialog?.selectParent || "Select a parent menu",
+    noParentMain: dialog?.noParentMain || "None (main menu)",
+    openIn: dialog?.openIn || "Open in",
+    sameTab: dialog?.sameTab || "Same tab",
+    newTab: dialog?.newTab || "New tab",
+    elementVisible: dialog?.elementVisible || "Element visible",
+    cancel: dialog?.cancel || "Cancel",
+    save: dialog?.save || "Save"
+  };
+
   const [formData, setFormData] = useState({
     name: '',
     url: '',
@@ -5246,34 +5290,34 @@ function MenuItemDialog({
       <DialogContent className="max-w-2xl">
         <DialogHeader>
           <DialogTitle>
-            {editingItem?.id ? 'Modifier' : 'Ajouter'} un élément de menu
+            {editingItem?.id ? t.editTitle : t.addTitle}
           </DialogTitle>
           <DialogDescription>
-            Configurez les détails de l'élément de navigation
+            {t.description}
           </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Name */}
           <div className="space-y-2">
-            <Label htmlFor="name">Nom du menu *</Label>
+            <Label htmlFor="name">{t.menuName}</Label>
             <Input
               id="name"
               name="name"
               value={formData.name}
               onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-              placeholder="ex: Accueil, Expériences..."
+              placeholder={t.menuNamePlaceholder}
               required
             />
           </div>
 
           {/* URL with Page Selector */}
           <div className="space-y-2">
-            <Label htmlFor="url">Lien URL *</Label>
+            <Label htmlFor="url">{t.urlLink}</Label>
             <div className="flex gap-2">
               <Select value={formData.url} onValueChange={(value) => setFormData(prev => ({ ...prev, url: value }))}>
                 <SelectTrigger className="w-40">
-                  <SelectValue placeholder="Choisir page" />
+                  <SelectValue placeholder={t.selectPage} />
                 </SelectTrigger>
                 <SelectContent position="popper" className="z-[10000]">
                   {pageConfigs && Array.isArray(pageConfigs) ? pageConfigs.map((page) => (
@@ -5288,7 +5332,7 @@ function MenuItemDialog({
                 name="url"
                 value={formData.url}
                 onChange={(e) => setFormData(prev => ({ ...prev, url: e.target.value }))}
-                placeholder="ou saisir URL personnalisée"
+                placeholder={t.customUrlPlaceholder}
                 className="flex-1"
                 required
               />
@@ -5298,13 +5342,13 @@ function MenuItemDialog({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Parent Menu */}
             <div className="space-y-2">
-              <Label htmlFor="parentId">Menu parent (optionnel)</Label>
+              <Label htmlFor="parentId">{t.parentMenu}</Label>
               <Select name="parentId" value={formData.parentId} onValueChange={(value) => setFormData(prev => ({ ...prev, parentId: value }))}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Sélectionner un menu parent" />
+                  <SelectValue placeholder={t.selectParent} />
                 </SelectTrigger>
                 <SelectContent position="popper" className="z-[10000]">
-                  <SelectItem value="none">Aucun (menu principal)</SelectItem>
+                  <SelectItem value="none">{t.noParentMain}</SelectItem>
                   {parentItems.map((parent) => (
                     <SelectItem key={parent.id} value={parent.id.toString()}>
                       {parent.name}
@@ -5316,14 +5360,14 @@ function MenuItemDialog({
 
             {/* Target */}
             <div className="space-y-2">
-              <Label htmlFor="target">Ouvrir dans</Label>
+              <Label htmlFor="target">{t.openIn}</Label>
               <Select name="target" value={formData.target} onValueChange={(value) => setFormData(prev => ({ ...prev, target: value }))}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent position="popper" className="z-[10000]">
-                  <SelectItem value="_self">Même onglet</SelectItem>
-                  <SelectItem value="_blank">Nouvel onglet</SelectItem>
+                  <SelectItem value="_self">{t.sameTab}</SelectItem>
+                  <SelectItem value="_blank">{t.newTab}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -5337,15 +5381,15 @@ function MenuItemDialog({
               checked={formData.isActive}
               onCheckedChange={(checked) => setFormData(prev => ({ ...prev, isActive: checked }))}
             />
-            <Label htmlFor="isActive">Élément visible</Label>
+            <Label htmlFor="isActive">{t.elementVisible}</Label>
           </div>
 
           <div className="flex justify-end gap-2">
             <Button type="button" variant="outline" onClick={onClose}>
-              Annuler
+              {t.cancel}
             </Button>
             <Button type="submit" disabled={isLoading}>
-              {isLoading ? 'Enregistrement...' : 'Enregistrer'}
+              {t.save}
             </Button>
           </div>
         </form>

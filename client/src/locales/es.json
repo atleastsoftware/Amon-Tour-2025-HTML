@@ -606,7 +606,34 @@
         "noParent": "Sin padre (nivel superior)",
         "success": "Éxito",
         "error": "Error",
-        "description": "Gestiona los elementos del menú de navegación de tu sitio. Arrastra y suelta para reordenar. Nota: El enlace \"Inicio\" (/) se gestiona automáticamente - solo aparece cuando no estás en la página de inicio."
+        "description": "Gestiona los elementos del menú de navegación de tu sitio. Arrastra y suelta para reordenar. Nota: El enlace \"Inicio\" (/) se gestiona automáticamente - solo aparece cuando no estás en la página de inicio.",
+        "menuItemDialog": {
+          "addTitle": "Añadir un elemento de menú",
+          "editTitle": "Modificar un elemento de menú",
+          "description": "Configura los detalles del elemento de navegación",
+          "menuName": "Nombre del menú *",
+          "menuNamePlaceholder": "ej: Inicio, Experiencias...",
+          "urlLink": "Enlace URL *",
+          "selectPage": "Elegir página",
+          "customUrlPlaceholder": "o introducir URL personalizada",
+          "parentMenu": "Menú padre (opcional)",
+          "selectParent": "Seleccionar un menú padre",
+          "noParentMain": "Ninguno (menú principal)",
+          "openIn": "Abrir en",
+          "sameTab": "Misma pestaña",
+          "newTab": "Nueva pestaña",
+          "elementVisible": "Elemento visible",
+          "cancel": "Cancelar",
+          "save": "Guardar"
+        },
+        "deleteDialog": {
+          "title": "Eliminar elemento",
+          "description": "¿Estás seguro de que quieres eliminar \"{{name}}\"? Esta acción también eliminará todos los subelementos.",
+          "deleteSubItem": "Eliminar subelemento",
+          "deleteSubItemDesc": "¿Estás seguro de que quieres eliminar este subelemento?",
+          "cancel": "Cancelar",
+          "delete": "Eliminar"
+        }
       },
       "pageManagement": {
         "slugUrl": "Slug/URL Externa",
@@ -651,6 +678,16 @@
           "mainPages": "Páginas principales",
           "secondaryPages": "Páginas secundarias",
           "legalPages": "Avisos legales"
+        },
+        "deleteDialog": {
+          "title": "Confirmar eliminación",
+          "description": "¿Estás seguro de que quieres eliminar la página \"{{name}}\"? Esta acción es irreversible y también eliminará todo el contenido asociado.",
+          "cancel": "Cancelar",
+          "delete": "Eliminar",
+          "deleteError": "Error durante la eliminación",
+          "pageDeleted": "Página eliminada",
+          "pageDeletedDesc": "La página se ha eliminado correctamente.",
+          "deletePageError": "No se pudo eliminar la página."
         }
       },
       "footerManagers": {
