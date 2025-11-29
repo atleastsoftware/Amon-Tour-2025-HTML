@@ -1157,7 +1157,7 @@
         "preview": "Vista previa",
         "selectBlockToPreview": "Selecciona un tipo de bloque para ver la vista previa"
       },
-      "pages": {
+      "pageMessages": {
         "customCodePage": "Página con código personalizado",
         "customCodeDescription": "Esta página: <span class=\"font-mono text-secondary\">{{slug}}</span> utiliza código personalizado fuera del editor.",
         "cannotEditCustomCode": "No puedes editar esta página aquí. Tendrás que editar el código directamente.",

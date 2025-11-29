@@ -1157,7 +1157,7 @@
         "preview": "Prévisualisation",
         "selectBlockToPreview": "Sélectionnez un type de bloc pour voir la prévisualisation"
       },
-      "pages": {
+      "pageMessages": {
         "customCodePage": "Page avec code personnalisé",
         "customCodeDescription": "Cette page : <span class=\"font-mono text-secondary\">{{slug}}</span> utilise du code personnalisé en dehors de l'éditeur.",
         "cannotEditCustomCode": "Vous ne pouvez pas modifier cette page ici. Vous devrez modifier le code directement.",
