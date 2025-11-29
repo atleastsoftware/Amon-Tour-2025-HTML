@@ -1830,6 +1830,10 @@ export default function AdminAppearance() {
           secondaryPages: adminAppearance?.pageManagement?.categories?.secondaryPages || "Secondary Pages",
           legalPages: adminAppearance?.pageManagement?.categories?.legalPages || "Legal Pages"
         }
+      },
+      pages: {
+        menuNavigation: adminAppearance?.pages?.menuNavigation || "Menu Navigation",
+        loadingBlocks: adminAppearance?.pages?.loadingBlocks || "Loading blocks..."
       }
     }
   };
@@ -4196,7 +4200,7 @@ export default function AdminAppearance() {
                     <div>
                       <CardTitle className="text-base sm:text-lg">
                         {selectedPage === 'navigation-menu' 
-                          ? 'Menu Navigation' 
+                          ? (t.appearance?.pages?.menuNavigation || "Menu Navigation")
                           : (() => {
                               const currentPageConfig = pageConfigs.find(p => p.pageSlug === selectedPage);
                               return currentPageConfig?.pageName || selectedPage;
@@ -4465,7 +4469,7 @@ export default function AdminAppearance() {
                     ) : loadingBlocks ? (
                       <div className="text-center py-12">
                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-secondary mx-auto mb-4"></div>
-                        <p className="text-gray-500">Loading blocks...</p>
+                        <p className="text-gray-500">{t.appearance?.pages?.loadingBlocks || "Loading blocks..."}</p>
                       </div>
                     ) : (
                       <PageManagementInterface 
