@@ -986,6 +986,51 @@
           "secondaryPages": "Secondary Pages",
           "legalPages": "Legal Pages"
         }
+      },
+      "footerManagers": {
+        "contactInfo": {
+          "title": "Contact Information",
+          "description": "Manage footer contact details",
+          "displayStyle": "Display Style",
+          "contentLabel": "Content (appears on website)",
+          "titleBold": "Title (Bold)",
+          "text": "Text",
+          "addContactInfo": "Add contact information"
+        },
+        "usefulLinks": {
+          "title": "Useful Links",
+          "description": "Manage footer navigation links",
+          "contentLabel": "Content (appears on website)",
+          "page": "Page",
+          "customUrl": "Custom URL",
+          "selectPage": "Select page",
+          "addLink": "Add link"
+        },
+        "socialMedia": {
+          "title": "Social Media",
+          "description": "Manage social media links",
+          "url": "URL",
+          "addSocialMedia": "Add social media"
+        },
+        "newsletter": {
+          "title": "Newsletter",
+          "description": "Configure the newsletter section",
+          "enableNewsletter": "Enable newsletter",
+          "titleLabel": "Title",
+          "descriptionLabel": "Description",
+          "emailPlaceholder": "Email Placeholder",
+          "buttonText": "Button Text",
+          "privacyText": "Privacy Text"
+        },
+        "copyright": {
+          "title": "Copyright",
+          "description": "Configure the copyright text",
+          "enableCopyright": "Enable copyright",
+          "copyrightText": "Copyright Text"
+        }
+      },
+      "common": {
+        "loadingAppearance": "Loading appearance settings..."
       }
     },
     "dashboard": {

@@ -652,6 +652,51 @@
           "secondaryPages": "Páginas secundarias",
           "legalPages": "Avisos legales"
         }
+      },
+      "footerManagers": {
+        "contactInfo": {
+          "title": "Información de contacto",
+          "description": "Gestionar datos de contacto del pie de página",
+          "displayStyle": "Estilo de visualización",
+          "contentLabel": "Contenido (aparece en el sitio)",
+          "titleBold": "Título (Negrita)",
+          "text": "Texto",
+          "addContactInfo": "Añadir información de contacto"
+        },
+        "usefulLinks": {
+          "title": "Enlaces útiles",
+          "description": "Gestionar enlaces de navegación del pie de página",
+          "contentLabel": "Contenido (aparece en el sitio)",
+          "page": "Página",
+          "customUrl": "URL personalizada",
+          "selectPage": "Seleccionar página",
+          "addLink": "Añadir enlace"
+        },
+        "socialMedia": {
+          "title": "Redes sociales",
+          "description": "Gestionar enlaces de redes sociales",
+          "url": "URL",
+          "addSocialMedia": "Añadir red social"
+        },
+        "newsletter": {
+          "title": "Boletín",
+          "description": "Configurar la sección del boletín",
+          "enableNewsletter": "Activar el boletín",
+          "titleLabel": "Título",
+          "descriptionLabel": "Descripción",
+          "emailPlaceholder": "Marcador de email",
+          "buttonText": "Texto del botón",
+          "privacyText": "Texto de privacidad"
+        },
+        "copyright": {
+          "title": "Copyright",
+          "description": "Configurar el texto de copyright",
+          "enableCopyright": "Activar copyright",
+          "copyrightText": "Texto de copyright"
+        }
+      },
+      "common": {
+        "loadingAppearance": "Cargando configuración de apariencia..."
       }
     },
     "dashboard": {

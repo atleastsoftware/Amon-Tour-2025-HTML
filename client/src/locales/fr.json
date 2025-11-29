@@ -652,6 +652,51 @@
           "secondaryPages": "Pages secondaires",
           "legalPages": "Mentions légales"
         }
+      },
+      "footerManagers": {
+        "contactInfo": {
+          "title": "Informations de contact",
+          "description": "Gérer les coordonnées du pied de page",
+          "displayStyle": "Style d'affichage",
+          "contentLabel": "Contenu (apparaît sur le site)",
+          "titleBold": "Titre (Gras)",
+          "text": "Texte",
+          "addContactInfo": "Ajouter une information de contact"
+        },
+        "usefulLinks": {
+          "title": "Liens utiles",
+          "description": "Gérer les liens de navigation du pied de page",
+          "contentLabel": "Contenu (apparaît sur le site)",
+          "page": "Page",
+          "customUrl": "URL personnalisée",
+          "selectPage": "Sélectionner une page",
+          "addLink": "Ajouter un lien"
+        },
+        "socialMedia": {
+          "title": "Réseaux sociaux",
+          "description": "Gérer les liens des réseaux sociaux",
+          "url": "URL",
+          "addSocialMedia": "Ajouter un réseau social"
+        },
+        "newsletter": {
+          "title": "Newsletter",
+          "description": "Configurer la section newsletter",
+          "enableNewsletter": "Activer la newsletter",
+          "titleLabel": "Titre",
+          "descriptionLabel": "Description",
+          "emailPlaceholder": "Placeholder email",
+          "buttonText": "Texte du bouton",
+          "privacyText": "Texte de confidentialité"
+        },
+        "copyright": {
+          "title": "Copyright",
+          "description": "Configurer le texte de copyright",
+          "enableCopyright": "Activer le copyright",
+          "copyrightText": "Texte de copyright"
+        }
+      },
+      "common": {
+        "loadingAppearance": "Chargement des paramètres d'apparence..."
       }
     },
     "dashboard": {
