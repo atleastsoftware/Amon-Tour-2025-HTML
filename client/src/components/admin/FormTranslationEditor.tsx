@@ -216,24 +216,6 @@ export default function FormTranslationEditor() {
                   <h3 className="text-lg font-semibold">{selectedForm.name}</h3>
                   <div className="flex gap-2">
                     <Button
-                      variant="outline"
-                      onClick={() => regenerateMutation.mutate()}
-                      disabled={regenerateMutation.isPending}
-                      data-testid="button-regenerate-translations"
-                    >
-                      {regenerateMutation.isPending ? (
-                        <>
-                          <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-                          {t("formTranslationEditor.buttons.translating")}
-                        </>
-                      ) : (
-                        <>
-                          <Sparkles className="w-4 h-4 mr-2" />
-                          {t("formTranslationEditor.buttons.regenerate")}
-                        </>
-                      )}
-                    </Button>
-                    <Button
                       onClick={handleSave}
                       disabled={saveMutation.isPending}
                       data-testid="button-save-form-translations"
