@@ -2202,7 +2202,29 @@
         "homePage": "HOME PAGE",
         "mainPages": "MAIN PAGES",
         "secondaryPages": "SECONDARY PAGES",
-        "addPage": "Add a page"
+        "addPage": "Add a page",
+        "mainInterface": {
+          "selectPage": "Select a page to edit",
+          "selectPagePlaceholder": "Select a page",
+          "loadingBlocks": "Loading blocks...",
+          "noBlocks": "No blocks on this page",
+          "addFirstBlock": "Add your first block",
+          "insertBlockHere": "Insert a block here",
+          "moveUp": "Move up",
+          "moveDown": "Move down",
+          "visible": "Visible",
+          "hidden": "Hidden",
+          "modify": "Edit",
+          "close": "Close",
+          "deleteSection": "Delete this section",
+          "deleteConfirm": "Are you sure you want to delete the section \"{{title}}\"?",
+          "deleteWarning": "This action is irreversible and the section will permanently disappear from your website.",
+          "cancel": "Cancel",
+          "deletePermanently": "Delete permanently",
+          "addBlock": "Add a block",
+          "fullscreenPreview": "Full screen preview: {{title}}",
+          "exactReproduction": "Exact reproduction of the section as it appears on your website"
+        }
       },
       "legalEditor": {
         "title": "Legal Notice Editor",

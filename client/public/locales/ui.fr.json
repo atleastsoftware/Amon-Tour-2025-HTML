@@ -2286,7 +2286,29 @@
         "homePage": "PAGE D'ACCUEIL",
         "mainPages": "PAGES PRINCIPALES",
         "secondaryPages": "PAGES SECONDAIRES",
-        "addPage": "Ajouter une page"
+        "addPage": "Ajouter une page",
+        "mainInterface": {
+          "selectPage": "Sélectionnez une page à éditer",
+          "selectPagePlaceholder": "Sélectionnez une page",
+          "loadingBlocks": "Chargement des blocs...",
+          "noBlocks": "Aucun bloc sur cette page",
+          "addFirstBlock": "Ajoutez votre premier bloc",
+          "insertBlockHere": "Insérer un bloc ici",
+          "moveUp": "Déplacer vers le haut",
+          "moveDown": "Déplacer vers le bas",
+          "visible": "Visible",
+          "hidden": "Masqué",
+          "modify": "Modifier",
+          "close": "Fermer",
+          "deleteSection": "Supprimer cette section",
+          "deleteConfirm": "Êtes-vous sûr de vouloir supprimer la section \"{{title}}\" ?",
+          "deleteWarning": "Cette action est irréversible et la section disparaîtra définitivement de votre site web.",
+          "cancel": "Annuler",
+          "deletePermanently": "Supprimer définitivement",
+          "addBlock": "Ajouter un bloc",
+          "fullscreenPreview": "Aperçu plein écran: {{title}}",
+          "exactReproduction": "Reproduction exacte de la section telle qu'elle apparaît sur votre site web"
+        }
       },
       "legalEditor": {
         "title": "Éditeur de mentions légales",

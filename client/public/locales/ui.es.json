@@ -2196,7 +2196,29 @@
         "homePage": "PÁGINA DE INICIO",
         "mainPages": "PÁGINAS PRINCIPALES",
         "secondaryPages": "PÁGINAS SECUNDARIAS",
-        "addPage": "Añadir una página"
+        "addPage": "Añadir una página",
+        "mainInterface": {
+          "selectPage": "Seleccione una página para editar",
+          "selectPagePlaceholder": "Seleccione una página",
+          "loadingBlocks": "Cargando bloques...",
+          "noBlocks": "No hay bloques en esta página",
+          "addFirstBlock": "Agregue su primer bloque",
+          "insertBlockHere": "Insertar un bloque aquí",
+          "moveUp": "Subir",
+          "moveDown": "Bajar",
+          "visible": "Visible",
+          "hidden": "Oculto",
+          "modify": "Editar",
+          "close": "Cerrar",
+          "deleteSection": "Eliminar esta sección",
+          "deleteConfirm": "¿Está seguro de que desea eliminar la sección \"{{title}}\"?",
+          "deleteWarning": "Esta acción es irreversible y la sección desaparecerá permanentemente de su sitio web.",
+          "cancel": "Cancelar",
+          "deletePermanently": "Eliminar permanentemente",
+          "addBlock": "Añadir un bloque",
+          "fullscreenPreview": "Vista previa en pantalla completa: {{title}}",
+          "exactReproduction": "Reproducción exacta de la sección tal como aparece en su sitio web"
+        }
       },
       "legalEditor": {
         "title": "Editor de avisos legales",

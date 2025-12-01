@@ -138,7 +138,7 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
           <div 
             className="w-8 h-8 rounded border border-gray-300 cursor-pointer relative overflow-hidden hover:border-gray-400 transition-colors"
             style={{ backgroundColor: currentColorValue }}
-            title={t?.pageEditor?.colorPicker?.clickToCustomize || 'Click to customize color'}
+            title={t?.editor?.pageEditor?.colorPicker?.clickToCustomize || 'Click to customize color'}
             data-testid="color-picker-box"
           >
             <input
@@ -174,21 +174,21 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
           <Select value={getCurrentOption()} onValueChange={handleOptionSelect}>
             <SelectTrigger className="flex-1" data-testid="color-picker-select">
               <SelectValue>
-                {getCurrentOption() === 'primary' && (t?.pageEditor?.colorPicker?.primaryColor || 'Primary Color')}
-                {getCurrentOption() === 'secondary' && (t?.pageEditor?.colorPicker?.secondaryColor || 'Secondary Color')}
-                {getCurrentOption() === 'heading' && (t?.pageEditor?.colorPicker?.headingColor || 'Heading Color')}
-                {getCurrentOption() === 'text' && (t?.pageEditor?.colorPicker?.textColor || 'Text Color')}
-                {getCurrentOption() === 'background' && (t?.pageEditor?.colorPicker?.backgroundColor || 'Background Color')}
+                {getCurrentOption() === 'primary' && (t?.editor?.pageEditor?.colorPicker?.primaryColor || 'Primary Color')}
+                {getCurrentOption() === 'secondary' && (t?.editor?.pageEditor?.colorPicker?.secondaryColor || 'Secondary Color')}
+                {getCurrentOption() === 'heading' && (t?.editor?.pageEditor?.colorPicker?.headingColor || 'Heading Color')}
+                {getCurrentOption() === 'text' && (t?.editor?.pageEditor?.colorPicker?.textColor || 'Text Color')}
+                {getCurrentOption() === 'background' && (t?.editor?.pageEditor?.colorPicker?.backgroundColor || 'Background Color')}
                 {getCurrentOption() === 'custom' && `Color: ${displayValue}`}
               </SelectValue>
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="custom">Color:</SelectItem>
-              <SelectItem value="primary">{t?.pageEditor?.colorPicker?.primaryColor || 'Primary Color'}</SelectItem>
-              <SelectItem value="secondary">{t?.pageEditor?.colorPicker?.secondaryColor || 'Secondary Color'}</SelectItem>
-              <SelectItem value="heading">{t?.pageEditor?.colorPicker?.headingColor || 'Heading Color'}</SelectItem>
-              <SelectItem value="text">{t?.pageEditor?.colorPicker?.textColor || 'Text Color'}</SelectItem>
-              <SelectItem value="background">{t?.pageEditor?.colorPicker?.backgroundColor || 'Background Color'}</SelectItem>
+              <SelectItem value="primary">{t?.editor?.pageEditor?.colorPicker?.primaryColor || 'Primary Color'}</SelectItem>
+              <SelectItem value="secondary">{t?.editor?.pageEditor?.colorPicker?.secondaryColor || 'Secondary Color'}</SelectItem>
+              <SelectItem value="heading">{t?.editor?.pageEditor?.colorPicker?.headingColor || 'Heading Color'}</SelectItem>
+              <SelectItem value="text">{t?.editor?.pageEditor?.colorPicker?.textColor || 'Text Color'}</SelectItem>
+              <SelectItem value="background">{t?.editor?.pageEditor?.colorPicker?.backgroundColor || 'Background Color'}</SelectItem>
             </SelectContent>
           </Select>
         )}
@@ -196,7 +196,7 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
       
       {/* Explanatory text */}
       <p className="text-xs text-gray-500 mt-1">
-        {t?.pageEditor?.colorPicker?.helpText || 'Click the color box to use the color picker, or select a theme color from the dropdown'}
+        {t?.editor?.pageEditor?.colorPicker?.helpText || 'Click the color box to use the color picker, or select a theme color from the dropdown'}
       </p>
     </div>
   );
@@ -403,7 +403,7 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
             </Label>
             <Select>
               <SelectTrigger style={{ color: resolveColor(formData.textColor) }}>
-                <SelectValue placeholder={field.placeholder || t?.pageEditor?.formPreview?.selectOption || 'Select option'} />
+                <SelectValue placeholder={field.placeholder || t?.editor?.pageEditor?.formPreview?.selectOption || 'Select option'} />
               </SelectTrigger>
               <SelectContent>
                 {field.options?.map((option: string, index: number) => (
@@ -483,7 +483,7 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
               {field.label}{field.required ? ' *' : ''}
             </Label>
             <Input 
-              placeholder={field.placeholder || t?.pageEditor?.formPreview?.selectTripDates || 'Select trip dates'} 
+              placeholder={field.placeholder || t?.editor?.pageEditor?.formPreview?.selectTripDates || 'Select trip dates'} 
               readOnly 
               className="cursor-pointer flatpickr-input" 
               style={{ color: resolveColor(formData.textColor) }}
@@ -536,12 +536,12 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
         {!formId ? (
           <div className="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-12 text-center">
             <FormInput className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-            <p className="text-gray-500 text-lg">{t?.pageEditor?.formPreview?.noFormSelected || 'No form selected'}</p>
-            <p className="text-gray-400 text-sm mt-2">{t?.pageEditor?.formPreview?.selectFormHint || 'Select a form from the dropdown'}</p>
+            <p className="text-gray-500 text-lg">{t?.editor?.pageEditor?.formPreview?.noFormSelected || 'No form selected'}</p>
+            <p className="text-gray-400 text-sm mt-2">{t?.editor?.pageEditor?.formPreview?.selectFormHint || 'Select a form from the dropdown'}</p>
           </div>
         ) : isLoading ? (
           <div className="bg-white rounded-lg shadow-lg p-12 text-center">
-            <p className="text-gray-500">{t?.pageEditor?.formPreview?.loadingForm || 'Loading form...'}</p>
+            <p className="text-gray-500">{t?.editor?.pageEditor?.formPreview?.loadingForm || 'Loading form...'}</p>
           </div>
         ) : formData ? (
           <div className={`${formData.formLayout === 'footer' ? '' : 'bg-white'} rounded-lg shadow-lg overflow-hidden ${formData.formLayout === 'footer' ? 'max-w-2xl' : 'max-w-5xl'} mx-auto`} style={formData.formLayout === 'footer' ? { backgroundColor: resolveColor(formData.frameColor) } : {}}>
@@ -587,7 +587,7 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
                   {formData.fields?.length === 0 ? (
                     <div className="text-center py-16 text-gray-500">
                       <FormInput className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                      <p>{t?.pageEditor?.formPreview?.noFieldsInForm || 'No fields in this form'}</p>
+                      <p>{t?.editor?.pageEditor?.formPreview?.noFieldsInForm || 'No fields in this form'}</p>
                     </div>
                   ) : (
                     <div className="space-y-4">
@@ -1019,7 +1019,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     />
                   ) : (
                     <div className="w-full h-full bg-gray-300 flex items-center justify-center">
-                      <span className="text-gray-600">{t?.pageEditor?.blockPreview?.noImageSelected || 'No image selected'}</span>
+                      <span className="text-gray-600">{t?.editor?.pageEditor?.blockPreview?.noImageSelected || 'No image selected'}</span>
                     </div>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
@@ -2903,18 +2903,18 @@ const BlockEditDropdown = ({
           <div className="space-y-6">
             {/* Titre principal */}
             <div>
-              <Label htmlFor="title">{t?.pageEditor?.blockEdit?.hero?.mainTitle || 'Main Title'}</Label>
+              <Label htmlFor="title">{t?.editor?.pageEditor?.blockEdit?.hero?.mainTitle || 'Main Title'}</Label>
               <Textarea 
                 id="title"
                 value={formData.title ?? block.configuration?.title ?? 'Your exclusive experiences\nin Krabi –\nTHAILAND'} 
                 onChange={e => updateField('title', e.target.value)}
-                placeholder={t?.pageEditor?.blockEdit?.hero?.mainTitlePlaceholder || 'Enter title...'}
+                placeholder={t?.editor?.pageEditor?.blockEdit?.hero?.mainTitlePlaceholder || 'Enter title...'}
                 rows={3}
                 className="mt-2"
               />
               <div className="mt-3">
                 <ColorPicker
-                  label={t?.pageEditor?.blockEdit?.hero?.titleColor || 'Title Color'}
+                  label={t?.editor?.pageEditor?.blockEdit?.hero?.titleColor || 'Title Color'}
                   value={formData.titleColor ?? '#ffffff'}
                   onChange={(value) => updateField('titleColor', value)}
                 />
@@ -2923,17 +2923,17 @@ const BlockEditDropdown = ({
             
             {/* Mot du titre en seconde couleur */}
             <div>
-              <Label htmlFor="titleAccentText">{t?.pageEditor?.blockEdit?.hero?.highlightWord || 'Highlight Word'}</Label>
+              <Label htmlFor="titleAccentText">{t?.editor?.pageEditor?.blockEdit?.hero?.highlightWord || 'Highlight Word'}</Label>
               <Input 
                 id="titleAccentText"
                 value={formData.titleAccentText ?? 'in Krabi –'} 
                 onChange={e => updateField('titleAccentText', e.target.value)}
-                placeholder={t?.pageEditor?.blockEdit?.hero?.highlightWordPlaceholder || 'Enter word to highlight...'}
+                placeholder={t?.editor?.pageEditor?.blockEdit?.hero?.highlightWordPlaceholder || 'Enter word to highlight...'}
                 className="mt-2"
               />
               <div className="mt-3">
                 <ColorPicker
-                  label={t?.pageEditor?.blockEdit?.hero?.accentColor || 'Accent Color'}
+                  label={t?.editor?.pageEditor?.blockEdit?.hero?.accentColor || 'Accent Color'}
                   value={formData.titleAccentColor ?? '#084F6E'}
                   onChange={(value) => updateField('titleAccentColor', value)}
                 />
@@ -2942,18 +2942,18 @@ const BlockEditDropdown = ({
 
             {/* Sous-titre */}
             <div>
-              <Label htmlFor="subtitle">{t?.pageEditor?.blockEdit?.hero?.subtitle || 'Subtitle'}</Label>
+              <Label htmlFor="subtitle">{t?.editor?.pageEditor?.blockEdit?.hero?.subtitle || 'Subtitle'}</Label>
               <Textarea 
                 id="subtitle"
                 value={formData.subtitle ?? block.configuration?.subtitle ?? 'Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.'} 
                 onChange={e => updateField('subtitle', e.target.value)}
-                placeholder={t?.pageEditor?.blockEdit?.hero?.subtitlePlaceholder || 'Enter subtitle...'}
+                placeholder={t?.editor?.pageEditor?.blockEdit?.hero?.subtitlePlaceholder || 'Enter subtitle...'}
                 rows={3}
                 className="mt-2"
               />
               <div className="mt-3">
                 <ColorPicker
-                  label={t?.pageEditor?.blockEdit?.hero?.subtitleColor || 'Subtitle Color'}
+                  label={t?.editor?.pageEditor?.blockEdit?.hero?.subtitleColor || 'Subtitle Color'}
                   value={formData.subtitleColor ?? '#ffffff'}
                   onChange={(value) => updateField('subtitleColor', value)}
                 />
@@ -2963,7 +2963,7 @@ const BlockEditDropdown = ({
             {/* Boutons d'action */}
             <div>
               <div className="flex items-center justify-between mb-3">
-                <Label>{t?.pageEditor?.blockEdit?.hero?.buttons || 'Buttons'}</Label>
+                <Label>{t?.editor?.pageEditor?.blockEdit?.hero?.buttons || 'Buttons'}</Label>
                 <Button 
                   type="button"
                   variant="outline"
@@ -2973,7 +2973,7 @@ const BlockEditDropdown = ({
                     updateField('buttons', [...buttons, {text: 'Nouveau bouton', url: '', color: '#084F6E', style: 'filled'}]);
                   }}
                 >
-                  <Plus className="h-4 w-4 mr-1" /> {t?.pageEditor?.blockEdit?.hero?.addButton || 'Add Button'}
+                  <Plus className="h-4 w-4 mr-1" /> {t?.editor?.pageEditor?.blockEdit?.hero?.addButton || 'Add Button'}
                 </Button>
               </div>
               
@@ -2998,7 +2998,7 @@ const BlockEditDropdown = ({
                   
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <Label className="text-xs">{t?.pageEditor?.blockEdit?.hero?.text || 'Text'}</Label>
+                      <Label className="text-xs">{t?.editor?.pageEditor?.blockEdit?.hero?.text || 'Text'}</Label>
                       <Input 
                         value={button.text || ''} 
                         onChange={e => {
@@ -3026,7 +3026,7 @@ const BlockEditDropdown = ({
                   
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <Label className="text-xs">{t?.pageEditor?.blockEdit?.hero?.color || 'Color'}</Label>
+                      <Label className="text-xs">{t?.editor?.pageEditor?.blockEdit?.hero?.color || 'Color'}</Label>
                       <ColorPicker
                         value={button.color || '#084F6E'}
                         onChange={(value) => {
@@ -3040,7 +3040,7 @@ const BlockEditDropdown = ({
                     </div>
                     
                     <div>
-                      <Label className="text-xs">{t?.pageEditor?.blockEdit?.hero?.style || 'Style'}</Label>
+                      <Label className="text-xs">{t?.editor?.pageEditor?.blockEdit?.hero?.style || 'Style'}</Label>
                       <Select 
                         value={button.style || 'filled'} 
                         onValueChange={value => {
@@ -3055,8 +3055,8 @@ const BlockEditDropdown = ({
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="filled">{t?.pageEditor?.blockEdit?.hero?.filled || 'Filled'}</SelectItem>
-                          <SelectItem value="outline">{t?.pageEditor?.blockEdit?.hero?.outline || 'Outline'}</SelectItem>
+                          <SelectItem value="filled">{t?.editor?.pageEditor?.blockEdit?.hero?.filled || 'Filled'}</SelectItem>
+                          <SelectItem value="outline">{t?.editor?.pageEditor?.blockEdit?.hero?.outline || 'Outline'}</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -3068,16 +3068,16 @@ const BlockEditDropdown = ({
 
             {/* Alignement du contenu */}
             <div>
-              <Label>{t?.pageEditor?.blockEdit?.hero?.contentAlignment || 'Content Alignment'}</Label>
+              <Label>{t?.editor?.pageEditor?.blockEdit?.hero?.contentAlignment || 'Content Alignment'}</Label>
               <div className="mt-3">
                 <Select value={formData.contentAlignment ?? 'left'} onValueChange={value => updateField('contentAlignment', value)}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="left">{t?.pageEditor?.blockEdit?.hero?.alignmentLeft || 'Left'}</SelectItem>
-                    <SelectItem value="center">{t?.pageEditor?.blockEdit?.hero?.alignmentCenter || 'Center'}</SelectItem>
-                    <SelectItem value="right">{t?.pageEditor?.blockEdit?.hero?.alignmentRight || 'Right'}</SelectItem>
+                    <SelectItem value="left">{t?.editor?.pageEditor?.blockEdit?.hero?.alignmentLeft || 'Left'}</SelectItem>
+                    <SelectItem value="center">{t?.editor?.pageEditor?.blockEdit?.hero?.alignmentCenter || 'Center'}</SelectItem>
+                    <SelectItem value="right">{t?.editor?.pageEditor?.blockEdit?.hero?.alignmentRight || 'Right'}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -3085,23 +3085,23 @@ const BlockEditDropdown = ({
 
             {/* Arrière-plan */}
             <div>
-              <Label>{t?.pageEditor?.blockEdit?.hero?.background || 'Background'}</Label>
+              <Label>{t?.editor?.pageEditor?.blockEdit?.hero?.background || 'Background'}</Label>
               <div className="mt-3">
                 <Select value={formData.backgroundType ?? 'video'} onValueChange={value => updateField('backgroundType', value)}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="video">{t?.pageEditor?.blockEdit?.hero?.backgroundTypeVideo || 'Video'}</SelectItem>
-                    <SelectItem value="images">{t?.pageEditor?.blockEdit?.hero?.backgroundTypeImages || 'Images'}</SelectItem>
-                    <SelectItem value="color">{t?.pageEditor?.blockEdit?.hero?.backgroundTypeColor || 'Color'}</SelectItem>
+                    <SelectItem value="video">{t?.editor?.pageEditor?.blockEdit?.hero?.backgroundTypeVideo || 'Video'}</SelectItem>
+                    <SelectItem value="images">{t?.editor?.pageEditor?.blockEdit?.hero?.backgroundTypeImages || 'Images'}</SelectItem>
+                    <SelectItem value="color">{t?.editor?.pageEditor?.blockEdit?.hero?.backgroundTypeColor || 'Color'}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               
               {formData.backgroundType === 'color' && (
                 <div>
-                  <Label htmlFor="backgroundColor">{t?.pageEditor?.blockEdit?.hero?.backgroundColor || 'Background Color'}</Label>
+                  <Label htmlFor="backgroundColor">{t?.editor?.pageEditor?.blockEdit?.hero?.backgroundColor || 'Background Color'}</Label>
                   <div className="flex gap-2">
                     <input 
                       type="color" 
@@ -3123,7 +3123,7 @@ const BlockEditDropdown = ({
               
               {formData.backgroundType === 'video' && (
                 <div>
-                  <Label htmlFor="videoUrl">{t?.pageEditor?.blockEdit?.hero?.videoUrl || 'Video URL'}</Label>
+                  <Label htmlFor="videoUrl">{t?.editor?.pageEditor?.blockEdit?.hero?.videoUrl || 'Video URL'}</Label>
                   <div className="flex gap-2">
                     <Input 
                       id="videoUrl"
@@ -3158,7 +3158,7 @@ const BlockEditDropdown = ({
               
               {formData.backgroundType === 'images' && (
                 <div className="space-y-3">
-                  <Label>{t?.pageEditor?.blockEdit?.hero?.imageUrls || 'Image URLs'}</Label>
+                  <Label>{t?.editor?.pageEditor?.blockEdit?.hero?.imageUrls || 'Image URLs'}</Label>
                   
                   <div className="flex gap-2">
                     <Input 
@@ -8031,7 +8031,7 @@ const BlockEditDropdown = ({
     >
       <div className="p-6">
         <div className="mb-4">
-          <h4 className="font-semibold text-lg mb-1">{t?.pageEditor?.mainInterface?.modify || "Edit"}: {getBlockDisplayName(block)}</h4>
+          <h4 className="font-semibold text-lg mb-1">{t?.editor?.pageEditor?.mainInterface?.modify || "Edit"}: {getBlockDisplayName(block)}</h4>
         </div>
         
         {renderEditFields()}
@@ -8372,12 +8372,12 @@ export default function AdminPageEditor() {
           {currentPageConfig?.isExternalUrl ? (
             <div className="text-center py-16 bg-white rounded-xl shadow-sm border-2 border-orange-200">
               <ExternalLink className="w-16 h-16 text-orange-400 mx-auto mb-4" />
-              <div className="text-gray-700 mb-2 font-semibold text-lg">{t?.pageEditor?.externalRedirectPage || "External Redirect Page"}</div>
+              <div className="text-gray-700 mb-2 font-semibold text-lg">{t?.editor?.pageEditor?.externalRedirectPage || "External Redirect Page"}</div>
               <p className="text-gray-500 text-sm mb-6 max-w-lg mx-auto">
-                {t?.pageEditor?.externalRedirectDesc || "This page redirects to an external link:"} <span className="font-mono text-secondary">{currentPageConfig.pageSlug}</span>
+                {t?.editor?.pageEditor?.externalRedirectDesc || "This page redirects to an external link:"} <span className="font-mono text-secondary">{currentPageConfig.pageSlug}</span>
               </p>
               <p className="text-gray-500 text-sm mb-6 max-w-lg mx-auto">
-                {t?.pageEditor?.externalRedirectNote || "Block editing is not available for external redirect pages. If you want to create a custom page instead, go to page settings and uncheck the 'External Link' option."}
+                {t?.editor?.pageEditor?.externalRedirectNote || "Block editing is not available for external redirect pages. If you want to create a custom page instead, go to page settings and uncheck the 'External Link' option."}
               </p>
               <Button
                 variant="outline"
@@ -8385,18 +8385,18 @@ export default function AdminPageEditor() {
                 className="flex items-center gap-2 mx-auto"
               >
                 <Settings className="w-4 h-4" />
-                {t?.pageEditor?.editPageSettings || "Edit page settings"}
+                {t?.editor?.pageEditor?.editPageSettings || "Edit page settings"}
               </Button>
             </div>
           ) : currentPageConfig?.isCustomCode ? (
             <div className="text-center py-16 bg-white rounded-xl shadow-sm border-2 border-purple-200">
               <Layout className="w-16 h-16 text-purple-400 mx-auto mb-4" />
-              <div className="text-gray-700 mb-2 font-semibold text-lg">{t?.pageEditor?.customCodePage || "Page with Custom Code"}</div>
+              <div className="text-gray-700 mb-2 font-semibold text-lg">{t?.editor?.pageEditor?.customCodePage || "Page with Custom Code"}</div>
               <p className="text-gray-500 text-sm mb-6 max-w-lg mx-auto">
-                {t?.pageEditor?.customCodeDesc || "This page:"} <span className="font-mono text-secondary">{currentPageConfig.pageSlug}</span> {t?.pageEditor?.customCodeUsesEditor || "uses custom code outside the editor."}
+                {t?.editor?.pageEditor?.customCodeDesc || "This page:"} <span className="font-mono text-secondary">{currentPageConfig.pageSlug}</span> {t?.editor?.pageEditor?.customCodeUsesEditor || "uses custom code outside the editor."}
               </p>
               <p className="text-gray-500 text-sm mb-6 max-w-lg mx-auto">
-                {t?.pageEditor?.customCodeNote || "Block editing is not available for custom pages created outside the page editor. For any changes, please contact the developer."}
+                {t?.editor?.pageEditor?.customCodeNote || "Block editing is not available for custom pages created outside the page editor. For any changes, please contact the developer."}
               </p>
               <Button
                 variant="outline"
@@ -8404,7 +8404,7 @@ export default function AdminPageEditor() {
                 className="flex items-center gap-2 mx-auto"
               >
                 <Settings className="w-4 h-4" />
-                {t?.pageEditor?.backToSettings || "Back to settings"}
+                {t?.editor?.pageEditor?.backToSettings || "Back to settings"}
               </Button>
             </div>
           ) : loadingBlocks ? (
@@ -8419,9 +8419,9 @@ export default function AdminPageEditor() {
           ) : pageBlocks.length === 0 ? (
             <div className="text-center py-12 bg-white rounded-xl shadow-sm">
               <Edit className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <div className="text-gray-500 mb-4 font-medium">{t?.pageEditor?.mainInterface?.noBlocks || "This page has no blocks yet"}</div>
+              <div className="text-gray-500 mb-4 font-medium">{t?.editor?.pageEditor?.mainInterface?.noBlocks || "This page has no blocks yet"}</div>
               <p className="text-gray-400 text-sm mb-6">
-                {t?.pageEditor?.mainInterface?.addFirstBlock || "Add your first block to start building your page"}
+                {t?.editor?.pageEditor?.mainInterface?.addFirstBlock || "Add your first block to start building your page"}
               </p>
               <div className="flex justify-center gap-3">
                 <Button
@@ -8434,7 +8434,7 @@ export default function AdminPageEditor() {
                   data-testid="button-add-first-block"
                 >
                   <Plus className="w-4 h-4 mr-2" />
-                  {t?.pageEditor?.mainInterface?.addBlock || "Add Block"}
+                  {t?.editor?.pageEditor?.mainInterface?.addBlock || "Add Block"}
                 </Button>
                 
                 <Button
@@ -8487,7 +8487,7 @@ export default function AdminPageEditor() {
                         data-testid={`button-insert-before-${index}`}
                       >
                         <Plus className="w-4 h-4" />
-                        {t?.pageEditor?.mainInterface?.insertBlockHere || "Insert block here"}
+                        {t?.editor?.pageEditor?.mainInterface?.insertBlockHere || "Insert block here"}
                       </button>
                     </div>
 
@@ -8510,7 +8510,7 @@ export default function AdminPageEditor() {
                                 onClick={() => moveBlock(block, 'up')}
                                 disabled={index === 0}
                                 className="h-6 w-6 p-0"
-                                title={t?.pageEditor?.mainInterface?.moveUp || "Move up"}
+                                title={t?.editor?.pageEditor?.mainInterface?.moveUp || "Move up"}
                               >
                                 <ChevronUp className="w-3 h-3" />
                               </Button>
@@ -8520,7 +8520,7 @@ export default function AdminPageEditor() {
                                 onClick={() => moveBlock(block, 'down')}
                                 disabled={index === sortedBlocks.length - 1}
                                 className="h-6 w-6 p-0"
-                                title={t?.pageEditor?.mainInterface?.moveDown || "Move down"}
+                                title={t?.editor?.pageEditor?.mainInterface?.moveDown || "Move down"}
                               >
                                 <ChevronDown className="w-3 h-3" />
                               </Button>
@@ -8539,9 +8539,9 @@ export default function AdminPageEditor() {
                               <div className="flex items-center justify-between gap-3 min-w-[120px] h-9 px-3 rounded-md border border-input bg-background">
                                 <div className="flex items-center gap-2">
                                   {block.isActive ? (
-                                    <><Eye className="w-4 h-4" />{t?.pageEditor?.mainInterface?.visible || "Visible"}</>
+                                    <><Eye className="w-4 h-4" />{t?.editor?.pageEditor?.mainInterface?.visible || "Visible"}</>
                                   ) : (
-                                    <><EyeOff className="w-4 h-4" />{t?.pageEditor?.mainInterface?.hidden || "Hidden"}</>
+                                    <><EyeOff className="w-4 h-4" />{t?.editor?.pageEditor?.mainInterface?.hidden || "Hidden"}</>
                                   )}
                                 </div>
                                 <Switch 
@@ -8570,7 +8570,7 @@ export default function AdminPageEditor() {
                               }
                             >
                               <Settings className="w-4 h-4" />
-                              {editingBlockId === block.id ? (t?.pageEditor?.mainInterface?.close || "Close") : (t?.pageEditor?.mainInterface?.modify || "Edit")}
+                              {editingBlockId === block.id ? (t?.editor?.pageEditor?.mainInterface?.close || "Close") : (t?.editor?.pageEditor?.mainInterface?.modify || "Edit")}
                             </Button>
 
                             {/* Delete Button with Confirmation */}
@@ -8584,20 +8584,20 @@ export default function AdminPageEditor() {
                                 <AlertDialogHeader>
                                   <AlertDialogTitle className="flex items-center gap-2">
                                     <AlertTriangle className="w-5 h-5 text-red-600" />
-                                    {t?.pageEditor?.mainInterface?.deleteSection || "Delete this section"}
+                                    {t?.editor?.pageEditor?.mainInterface?.deleteSection || "Delete this section"}
                                   </AlertDialogTitle>
                                   <AlertDialogDescription>
-                                    {t?.pageEditor?.mainInterface?.deleteConfirm?.replace('{{title}}', block.title) || `Are you sure you want to delete "${block.title}"?`} 
-                                    {t?.pageEditor?.mainInterface?.deleteWarning || "This action is irreversible."}
+                                    {t?.editor?.pageEditor?.mainInterface?.deleteConfirm?.replace('{{title}}', block.title) || `Are you sure you want to delete "${block.title}"?`} 
+                                    {t?.editor?.pageEditor?.mainInterface?.deleteWarning || "This action is irreversible."}
                                   </AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
-                                  <AlertDialogCancel>{t?.pageEditor?.mainInterface?.cancel || "Cancel"}</AlertDialogCancel>
+                                  <AlertDialogCancel>{t?.editor?.pageEditor?.mainInterface?.cancel || "Cancel"}</AlertDialogCancel>
                                   <AlertDialogAction 
                                     onClick={() => deleteBlockMutation.mutate(block.id)}
                                     className="bg-red-600 hover:bg-red-700"
                                   >
-                                    {t?.pageEditor?.mainInterface?.deletePermanently || "Delete permanently"}
+                                    {t?.editor?.pageEditor?.mainInterface?.deletePermanently || "Delete permanently"}
                                   </AlertDialogAction>
                                 </AlertDialogFooter>
                               </AlertDialogContent>
@@ -8679,7 +8679,7 @@ export default function AdminPageEditor() {
                   }}
                 >
                   <Plus className="w-5 h-5" />
-                  {t?.pageEditor?.mainInterface?.addBlock || "Add block"}
+                  {t?.editor?.pageEditor?.mainInterface?.addBlock || "Add block"}
                 </Button>
               </div>
             </div>
@@ -8691,9 +8691,9 @@ export default function AdminPageEditor() {
       <Dialog open={previewBlock !== null} onOpenChange={() => setPreviewBlock(null)}>
         <DialogContent className="max-w-7xl w-full h-[90vh] p-0">
           <DialogHeader className="p-6 pb-4">
-            <DialogTitle>{t?.pageEditor?.mainInterface?.fullscreenPreview?.replace('{{title}}', previewBlock?.title || '') || `Full screen preview: ${previewBlock?.title}`}</DialogTitle>
+            <DialogTitle>{t?.editor?.pageEditor?.mainInterface?.fullscreenPreview?.replace('{{title}}', previewBlock?.title || '') || `Full screen preview: ${previewBlock?.title}`}</DialogTitle>
             <DialogDescription>
-              {t?.pageEditor?.mainInterface?.exactReproduction || "Exact reproduction of the section as it appears on your website"}
+              {t?.editor?.pageEditor?.mainInterface?.exactReproduction || "Exact reproduction of the section as it appears on your website"}
             </DialogDescription>
           </DialogHeader>
           <div className="flex-1 overflow-y-auto">
