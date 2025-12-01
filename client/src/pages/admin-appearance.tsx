@@ -428,6 +428,12 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
     contentLabel: fm?.contentLabel || "Content (appears on website)",
     titleBold: fm?.titleBold || "Title (Bold)",
     text: fm?.text || "Text",
+    address: fm?.address || "Address",
+    licenseBadge: fm?.licenseBadge || "License Badge",
+    email: fm?.email || "Email",
+    phoneWithTitle: fm?.phoneWithTitle || "Phone w/ Title",
+    whatsapp: fm?.whatsapp || "WhatsApp",
+    lineId: fm?.lineId || "LINE ID",
     addContactInfo: fm?.addContactInfo || footerT?.addContactInfo || "Add contact information"
   };
 
@@ -556,12 +562,12 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
                     <SelectContent>
                       <SelectItem value="title">{t.titleBold}</SelectItem>
                       <SelectItem value="text">{t.text}</SelectItem>
-                      <SelectItem value="address">Address</SelectItem>
-                      <SelectItem value="license_badge">License Badge</SelectItem>
-                      <SelectItem value="email">Email</SelectItem>
-                      <SelectItem value="phone_with_title">Phone w/ Title</SelectItem>
-                      <SelectItem value="whatsapp">WhatsApp</SelectItem>
-                      <SelectItem value="line">LINE ID</SelectItem>
+                      <SelectItem value="address">{t.address}</SelectItem>
+                      <SelectItem value="license_badge">{t.licenseBadge}</SelectItem>
+                      <SelectItem value="email">{t.email}</SelectItem>
+                      <SelectItem value="phone_with_title">{t.phoneWithTitle}</SelectItem>
+                      <SelectItem value="whatsapp">{t.whatsapp}</SelectItem>
+                      <SelectItem value="line">{t.lineId}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -604,12 +610,12 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
                 <SelectContent>
                   <SelectItem value="title">{t.titleBold}</SelectItem>
                   <SelectItem value="text">{t.text}</SelectItem>
-                  <SelectItem value="address">Address</SelectItem>
-                  <SelectItem value="license_badge">License Badge</SelectItem>
-                  <SelectItem value="email">Email</SelectItem>
-                  <SelectItem value="phone_with_title">Phone w/ Title</SelectItem>
-                  <SelectItem value="whatsapp">WhatsApp</SelectItem>
-                  <SelectItem value="line">LINE ID</SelectItem>
+                  <SelectItem value="address">{t.address}</SelectItem>
+                  <SelectItem value="license_badge">{t.licenseBadge}</SelectItem>
+                  <SelectItem value="email">{t.email}</SelectItem>
+                  <SelectItem value="phone_with_title">{t.phoneWithTitle}</SelectItem>
+                  <SelectItem value="whatsapp">{t.whatsapp}</SelectItem>
+                  <SelectItem value="line">{t.lineId}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
