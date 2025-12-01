@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useState, useEffect, useCallback, forwardRef, useImperativeHandle } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,11 +7,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useToast } from "@/hooks/use-toast";
 import { useTranslationSection } from '@/contexts/TranslationContext';
 import { queryClient } from "@/lib/queryClient";
-import { FileText, Save, Lock, Sparkles, EyeOff, AlertCircle } from "lucide-react";
+import { FileText, Lock, Sparkles, EyeOff } from "lucide-react";
 import { BLOCK_TYPE_LABELS } from "./BlockSelectionPopup";
+import type { TranslationEditorRef } from "@/pages/admin-translation";
 
 function getBlockDisplayName(blockType: string): string {
   return BLOCK_TYPE_LABELS[blockType] || blockType;
@@ -169,14 +169,17 @@ interface PendingChanges {
   [blockId: number]: BlockTranslations;
 }
 
-export default function BlockTranslationEditor() {
+interface BlockTranslationEditorProps {
+  onPendingCountChange?: (count: number) => void;
+}
+
+const BlockTranslationEditor = forwardRef<TranslationEditorRef, BlockTranslationEditorProps>(
+  function BlockTranslationEditor({ onPendingCountChange }, ref) {
   const t = useTranslationSection('admin');
-  const { toast } = useToast();
   const [selectedPageId, setSelectedPageId] = useState<number | null>(null);
   const [selectedBlockId, setSelectedBlockId] = useState<number | null>(null);
   const [pendingChanges, setPendingChanges] = useState<PendingChanges>({});
   const [activeTab, setActiveTab] = useState<'fr' | 'es'>('fr');
-  const [isSaving, setIsSaving] = useState(false);
 
   const { data: pages = [], isLoading } = useQuery<Page[]>({
     queryKey: ['/api/admin/blocks-with-translations'],
@@ -205,7 +208,12 @@ export default function BlockTranslationEditor() {
   const editedTranslations = selectedBlockId ? getCurrentTranslations(selectedBlockId) : null;
 
   const pendingBlockIds = Object.keys(pendingChanges).map(Number);
-  const hasPendingChanges = pendingBlockIds.length > 0;
+  const pendingCount = pendingBlockIds.length;
+
+  // Notify parent of pending changes count
+  useEffect(() => {
+    onPendingCountChange?.(pendingCount);
+  }, [pendingCount, onPendingCountChange]);
 
   const handleTranslationChange = (lang: 'fr' | 'es', key: string, value: string) => {
     if (!selectedBlockId) return;
@@ -225,53 +233,44 @@ export default function BlockTranslationEditor() {
     }));
   };
 
-  const handleSaveAllTranslations = async () => {
-    if (!hasPendingChanges) return;
+  const saveAllTranslations = useCallback(async (): Promise<{ success: number; error: number }> => {
+    if (pendingCount === 0) return { success: 0, error: 0 };
     
-    setIsSaving(true);
     let successCount = 0;
     let errorCount = 0;
 
-    try {
-      for (const [blockIdStr, translations] of Object.entries(pendingChanges)) {
-        const blockId = parseInt(blockIdStr);
-        try {
-          const res = await fetch(`/api/admin/block-translations/${blockId}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include',
-            body: JSON.stringify({ translations })
-          });
-          if (res.ok) {
-            successCount++;
-          } else {
-            errorCount++;
-          }
-        } catch {
+    for (const [blockIdStr, translations] of Object.entries(pendingChanges)) {
+      const blockId = parseInt(blockIdStr);
+      try {
+        const res = await fetch(`/api/admin/block-translations/${blockId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ translations })
+        });
+        if (res.ok) {
+          successCount++;
+        } else {
           errorCount++;
         }
+      } catch {
+        errorCount++;
       }
-
-      if (successCount > 0) {
-        setPendingChanges({});
-        queryClient.invalidateQueries({ queryKey: ['/api/admin/blocks-with-translations'] });
-        toast({
-          title: t?.translationEditor?.saveSuccess?.title || 'Saved',
-          description: `${successCount} ${t?.translationEditor?.blocksSaved || 'block(s) saved successfully'}`,
-        });
-      }
-      
-      if (errorCount > 0) {
-        toast({
-          title: t?.translationEditor?.saveError?.title || 'Error',
-          description: `${errorCount} ${t?.translationEditor?.blocksFailed || 'block(s) failed to save'}`,
-          variant: "destructive",
-        });
-      }
-    } finally {
-      setIsSaving(false);
     }
-  };
+
+    if (successCount > 0) {
+      setPendingChanges({});
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/blocks-with-translations'] });
+    }
+
+    return { success: successCount, error: errorCount };
+  }, [pendingChanges, pendingCount]);
+
+  // Expose save function to parent via ref
+  useImperativeHandle(ref, () => ({
+    save: saveAllTranslations,
+    getPendingCount: () => pendingCount
+  }), [saveAllTranslations, pendingCount]);
 
   const isBlockModified = (blockId: number) => {
     return pendingChanges.hasOwnProperty(blockId);
@@ -295,27 +294,6 @@ export default function BlockTranslationEditor() {
 
   return (
     <div className="space-y-4 relative">
-      {/* Fixed save button at top right */}
-      {hasPendingChanges && (
-        <div className="fixed bottom-6 right-6 z-50" data-testid="global-save-container">
-          <Button
-            onClick={handleSaveAllTranslations}
-            disabled={isSaving}
-            size="lg"
-            className="shadow-lg flex items-center gap-2 bg-primary hover:bg-primary/90"
-            data-testid="button-global-save-translations"
-          >
-            <Save className="w-5 h-5" />
-            {isSaving 
-              ? (t?.translationEditor?.saving || 'Saving...') 
-              : (t?.translationEditor?.saveAll || 'Save all translations')}
-            <Badge variant="secondary" className="ml-2 bg-white text-primary">
-              {pendingBlockIds.length}
-            </Badge>
-          </Button>
-        </div>
-      )}
-
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
@@ -328,14 +306,6 @@ export default function BlockTranslationEditor() {
                 {t?.translationEditor?.subtitle || 'Manage French and Spanish translations for all page blocks'}
               </CardDescription>
             </div>
-            {hasPendingChanges && (
-              <div className="flex items-center gap-2 text-amber-600">
-                <AlertCircle className="w-4 h-4" />
-                <span className="text-sm font-medium">
-                  {pendingBlockIds.length} {t?.translationEditor?.pendingChanges || 'pending change(s)'}
-                </span>
-              </div>
-            )}
           </div>
         </CardHeader>
         <CardContent>
@@ -495,4 +465,6 @@ export default function BlockTranslationEditor() {
       </Card>
     </div>
   );
-}
+});
+
+export default BlockTranslationEditor;

@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useState, useEffect, useMemo, forwardRef, useImperativeHandle, useCallback } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,10 +7,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
-import { FileText, Save, RefreshCw, Sparkles, AlertCircle } from "lucide-react";
+import { FileText, Sparkles, AlertCircle } from "lucide-react";
 import { useTranslationSection } from "@/hooks/useTranslationSection";
+import type { TranslationEditorRef } from "@/pages/admin-translation";
 
 interface CustomForm {
   id: number;
@@ -53,11 +53,16 @@ function getFieldDisplayName(key: string, t: (key: string, params?: any) => stri
   return key.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 }
 
-export default function FormTranslationEditor() {
+interface FormTranslationEditorProps {
+  onPendingCountChange?: (count: number) => void;
+}
+
+const FormTranslationEditor = forwardRef<TranslationEditorRef, FormTranslationEditorProps>(
+  function FormTranslationEditor({ onPendingCountChange }, ref) {
   const { t } = useTranslationSection('admin');
-  const { toast } = useToast();
   const [selectedFormId, setSelectedFormId] = useState<number | null>(null);
   const [editedTranslations, setEditedTranslations] = useState<any>(null);
+  const [originalTranslations, setOriginalTranslations] = useState<any>(null);
   const [activeTab, setActiveTab] = useState<'fr' | 'es'>('fr');
 
   // Fetch all forms
@@ -70,61 +75,44 @@ export default function FormTranslationEditor() {
   // Initialize translations when form is selected
   useEffect(() => {
     if (selectedForm) {
-      setEditedTranslations(selectedForm.translations || { en: {}, fr: {}, es: {} });
+      const translations = selectedForm.translations || { en: {}, fr: {}, es: {} };
+      setEditedTranslations(translations);
+      setOriginalTranslations(JSON.parse(JSON.stringify(translations)));
     }
   }, [selectedForm]);
 
-  // Save mutation
-  const saveMutation = useMutation({
-    mutationFn: async () => {
-      if (!selectedFormId || !editedTranslations) return;
-      
+  // Check if there are pending changes
+  const hasChanges = useMemo(() => {
+    if (!editedTranslations || !originalTranslations) return false;
+    return JSON.stringify(editedTranslations) !== JSON.stringify(originalTranslations);
+  }, [editedTranslations, originalTranslations]);
+
+  // Notify parent of pending changes
+  useEffect(() => {
+    onPendingCountChange?.(hasChanges ? 1 : 0);
+  }, [hasChanges, onPendingCountChange]);
+
+  // Save function
+  const saveTranslations = useCallback(async (): Promise<{ success: number; error: number }> => {
+    if (!selectedFormId || !editedTranslations || !hasChanges) return { success: 0, error: 0 };
+    
+    try {
       await apiRequest('PUT', `/api/admin/form-translations/${selectedFormId}`, {
         translations: editedTranslations
       });
-    },
-    onSuccess: () => {
-      toast({
-        title: t("formTranslationEditor.toasts.saveSuccess.title"),
-        description: t("formTranslationEditor.toasts.saveSuccess.description")
-      });
       queryClient.invalidateQueries({ queryKey: ['/api/admin/forms-with-translations'] });
-    },
-    onError: (error) => {
-      toast({
-        title: t("formTranslationEditor.toasts.saveError.title"),
-        description: t("formTranslationEditor.toasts.saveError.description", { error: String(error) }),
-        variant: "destructive"
-      });
+      setOriginalTranslations(JSON.parse(JSON.stringify(editedTranslations)));
+      return { success: 1, error: 0 };
+    } catch {
+      return { success: 0, error: 1 };
     }
-  });
+  }, [selectedFormId, editedTranslations, hasChanges]);
 
-  // Regenerate mutation
-  const regenerateMutation = useMutation({
-    mutationFn: async () => {
-      if (!selectedFormId) return;
-      
-      await apiRequest('POST', `/api/admin/form-translations/${selectedFormId}/regenerate`, {});
-    },
-    onSuccess: () => {
-      toast({
-        title: t("formTranslationEditor.toasts.regenerateSuccess.title"),
-        description: t("formTranslationEditor.toasts.regenerateSuccess.description")
-      });
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/forms-with-translations'] });
-    },
-    onError: (error) => {
-      toast({
-        title: t("formTranslationEditor.toasts.regenerateError.title"),
-        description: t("formTranslationEditor.toasts.regenerateError.description", { error: String(error) }),
-        variant: "destructive"
-      });
-    }
-  });
-
-  const handleSave = () => {
-    saveMutation.mutate();
-  };
+  // Expose save function to parent via ref
+  useImperativeHandle(ref, () => ({
+    save: saveTranslations,
+    getPendingCount: () => hasChanges ? 1 : 0
+  }), [saveTranslations, hasChanges]);
 
   const handleTranslationChange = (lang: 'fr' | 'es', key: string, value: string) => {
     setEditedTranslations((prev: any) => ({
@@ -214,25 +202,6 @@ export default function FormTranslationEditor() {
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-semibold">{selectedForm.name}</h3>
-                  <div className="flex gap-2">
-                    <Button
-                      onClick={handleSave}
-                      disabled={saveMutation.isPending}
-                      data-testid="button-save-form-translations"
-                    >
-                      {saveMutation.isPending ? (
-                        <>
-                          <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-                          {t("formTranslationEditor.buttons.saving")}
-                        </>
-                      ) : (
-                        <>
-                          <Save className="w-4 h-4 mr-2" />
-                          {t("formTranslationEditor.buttons.save")}
-                        </>
-                      )}
-                    </Button>
-                  </div>
                 </div>
 
                 <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'fr' | 'es')}>
@@ -313,4 +282,6 @@ export default function FormTranslationEditor() {
       </Card>
     </div>
   );
-}
+});
+
+export default FormTranslationEditor;

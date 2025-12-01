@@ -1,5 +1,5 @@
-import { useState, useEffect, useMemo } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useState, useEffect, useMemo, forwardRef, useImperativeHandle, useCallback } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,10 +7,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useToast } from "@/hooks/use-toast";
 import { queryClient } from "@/lib/queryClient";
-import { Globe, Save, Lock, Sparkles } from "lucide-react";
+import { Globe, Lock, Sparkles } from "lucide-react";
 import { useTranslationSection } from "@/hooks/useTranslationSection";
+import type { TranslationEditorRef } from "@/pages/admin-translation";
 
 function getFieldDisplayName(key: string, t: (key: string) => string): string {
   const simpleFieldKeys: Record<string, string> = {
@@ -93,12 +93,17 @@ interface GlobalElements {
 
 type ElementType = 'footer' | 'navigation' | 'announcement' | 'popup';
 
-export default function GlobalElementTranslationEditor() {
+interface GlobalElementTranslationEditorProps {
+  onPendingCountChange?: (count: number) => void;
+}
+
+const GlobalElementTranslationEditor = forwardRef<TranslationEditorRef, GlobalElementTranslationEditorProps>(
+  function GlobalElementTranslationEditor({ onPendingCountChange }, ref) {
   const { t } = useTranslationSection('admin');
-  const { toast } = useToast();
   const [selectedElementType, setSelectedElementType] = useState<ElementType | null>(null);
   const [selectedFooterSection, setSelectedFooterSection] = useState<string | null>(null);
   const [editedTranslations, setEditedTranslations] = useState<ElementTranslations | null>(null);
+  const [originalTranslations, setOriginalTranslations] = useState<ElementTranslations | null>(null);
   const [activeTab, setActiveTab] = useState<'fr' | 'es'>('fr');
 
   const { data: elements, isLoading } = useQuery<GlobalElements>({
@@ -156,33 +161,46 @@ export default function GlobalElementTranslationEditor() {
   useEffect(() => {
     if (selectedElementData) {
       setEditedTranslations(selectedElementData.translations);
+      setOriginalTranslations(JSON.parse(JSON.stringify(selectedElementData.translations)));
     } else {
       setEditedTranslations(null);
+      setOriginalTranslations(null);
     }
-  }, [selectedElementType, selectedFooterSection]);
+  }, [selectedElementType, selectedFooterSection, selectedElementData]);
 
-  // Mutation to save translations
-  const saveTranslationsMutation = useMutation({
-    mutationFn: async () => {
-      if (!editedTranslations) return;
-      
-      let type = '';
-      let identifier = '';
-      
-      if (selectedElementType === 'footer' && selectedFooterSection) {
-        type = 'footer';
-        identifier = selectedFooterSection;
-      } else if (selectedElementType === 'navigation') {
-        type = 'navigationMenu';
-        identifier = 'all';
-      } else if (selectedElementType === 'announcement') {
-        type = 'announcementBar';
-        identifier = 'main';
-      } else if (selectedElementType === 'popup') {
-        type = 'popup';
-        identifier = 'main';
-      }
-      
+  // Check if there are pending changes
+  const hasChanges = useMemo(() => {
+    if (!editedTranslations || !originalTranslations) return false;
+    return JSON.stringify(editedTranslations) !== JSON.stringify(originalTranslations);
+  }, [editedTranslations, originalTranslations]);
+
+  // Notify parent of pending changes
+  useEffect(() => {
+    onPendingCountChange?.(hasChanges ? 1 : 0);
+  }, [hasChanges, onPendingCountChange]);
+
+  // Save function
+  const saveTranslations = useCallback(async (): Promise<{ success: number; error: number }> => {
+    if (!editedTranslations || !hasChanges) return { success: 0, error: 0 };
+    
+    let type = '';
+    let identifier = '';
+    
+    if (selectedElementType === 'footer' && selectedFooterSection) {
+      type = 'footer';
+      identifier = selectedFooterSection;
+    } else if (selectedElementType === 'navigation') {
+      type = 'navigationMenu';
+      identifier = 'all';
+    } else if (selectedElementType === 'announcement') {
+      type = 'announcementBar';
+      identifier = 'main';
+    } else if (selectedElementType === 'popup') {
+      type = 'popup';
+      identifier = 'main';
+    }
+    
+    try {
       const res = await fetch(`/api/admin/global-element-translations/${type}/${identifier}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -190,27 +208,19 @@ export default function GlobalElementTranslationEditor() {
         body: JSON.stringify({ translations: editedTranslations })
       });
       if (!res.ok) throw new Error('Failed to save translations');
-      return res.json();
-    },
-    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/global-element-translations'] });
-      toast({
-        title: t("globalElementTranslationEditor.toasts.saveSuccess.title"),
-        description: t("globalElementTranslationEditor.toasts.saveSuccess.description"),
-      });
-    },
-    onError: () => {
-      toast({
-        title: t("globalElementTranslationEditor.toasts.saveError.title"),
-        description: t("globalElementTranslationEditor.toasts.saveError.description"),
-        variant: "destructive",
-      });
-    },
-  });
+      setOriginalTranslations(JSON.parse(JSON.stringify(editedTranslations)));
+      return { success: 1, error: 0 };
+    } catch {
+      return { success: 0, error: 1 };
+    }
+  }, [editedTranslations, hasChanges, selectedElementType, selectedFooterSection]);
 
-  const handleSaveTranslations = () => {
-    saveTranslationsMutation.mutate();
-  };
+  // Expose save function to parent via ref
+  useImperativeHandle(ref, () => ({
+    save: saveTranslations,
+    getPendingCount: () => hasChanges ? 1 : 0
+  }), [saveTranslations, hasChanges]);
 
   const handleUpdateTranslation = (lang: 'fr' | 'es', key: string, value: string) => {
     if (!editedTranslations) return;
@@ -317,14 +327,6 @@ export default function GlobalElementTranslationEditor() {
                     {selectedElementType === 'announcement' && t("globalElementTranslationEditor.buttons.announcement")}
                     {selectedElementType === 'popup' && t("globalElementTranslationEditor.buttons.popup")}
                   </h3>
-                  <Button
-                    onClick={handleSaveTranslations}
-                    disabled={saveTranslationsMutation.isPending}
-                    data-testid="button-save-global-translations"
-                  >
-                    <Save className="w-4 h-4 mr-2" />
-                    {t("translation.save")}
-                  </Button>
                 </div>
 
                 <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as 'fr' | 'es')}>
@@ -420,4 +422,6 @@ export default function GlobalElementTranslationEditor() {
       </Card>
     </div>
   );
-}
+});
+
+export default GlobalElementTranslationEditor;
