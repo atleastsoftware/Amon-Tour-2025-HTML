@@ -8251,7 +8251,7 @@ export default function AdminPageEditor() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-secondary mx-auto mb-4"></div>
-            <div className="text-gray-500">Chargement de la page...</div>
+            <div className="text-gray-500">{t?.common?.loading || "Loading..."}</div>
           </div>
         </div>
       </div>
@@ -8263,10 +8263,10 @@ export default function AdminPageEditor() {
       <div className="min-h-screen bg-gray-50 p-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center py-12">
-            <div className="text-gray-500">Page configuration not found</div>
+            <div className="text-gray-500">{t?.editor?.pageEditor?.pageNotFound || "Page configuration not found"}</div>
             <Button onClick={goBack} className="mt-4">
               <ArrowLeft className="w-4 h-4 mr-2" />
-              Retour
+              {t?.common?.back || "Back"}
             </Button>
           </div>
         </div>
@@ -8292,8 +8292,8 @@ export default function AdminPageEditor() {
                   <Settings className="w-5 h-5" style={{ color: THEME_COLORS.secondary }} />
                 </div>
                 <div>
-                  <h1 className="text-2xl font-bold text-gray-900">Éditeur de page</h1>
-                  <p className="text-sm text-gray-600">Chaque bloc reproduit exactement la section correspondante de votre site web.</p>
+                  <h1 className="text-2xl font-bold text-gray-900">{t?.pageEditor?.blockEditorTitle || "Page Editor"}</h1>
+                  <p className="text-sm text-gray-600">{t?.pageEditor?.blockEditorDescription || "Each block exactly reproduces the corresponding section of your website"}</p>
                 </div>
               </div>
             </div>
@@ -8303,10 +8303,10 @@ export default function AdminPageEditor() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {/* Menu principal (Home) */}
+                  {/* Home Page */}
                   {pageConfigs.filter((p: PageConfiguration) => p.pageSlug === 'home').length > 0 && (
                     <SelectGroup>
-                      <SelectLabel>Menu principal</SelectLabel>
+                      <SelectLabel>{t?.editor?.pageEditor?.categories?.homePage || "Home Page"}</SelectLabel>
                       {pageConfigs
                         .filter((p: PageConfiguration) => p.pageSlug === 'home')
                         .map((page: PageConfiguration) => (
@@ -8317,10 +8317,10 @@ export default function AdminPageEditor() {
                     </SelectGroup>
                   )}
                   
-                  {/* Pages principales */}
+                  {/* Main Pages */}
                   {pageConfigs.filter((p: PageConfiguration) => p.pageType === 'main' && p.pageSlug !== 'home').length > 0 && (
                     <SelectGroup>
-                      <SelectLabel>Pages principales</SelectLabel>
+                      <SelectLabel>{t?.editor?.pageEditor?.categories?.mainPages || "Main Pages"}</SelectLabel>
                       {pageConfigs
                         .filter((p: PageConfiguration) => p.pageType === 'main' && p.pageSlug !== 'home')
                         .sort((a, b) => a.pageName.localeCompare(b.pageName, 'fr'))
@@ -8332,10 +8332,10 @@ export default function AdminPageEditor() {
                     </SelectGroup>
                   )}
                   
-                  {/* Pages secondaires */}
+                  {/* Secondary Pages */}
                   {pageConfigs.filter((p: PageConfiguration) => p.pageType === 'secondary').length > 0 && (
                     <SelectGroup>
-                      <SelectLabel>Pages secondaires</SelectLabel>
+                      <SelectLabel>{t?.editor?.pageEditor?.categories?.secondaryPages || "Secondary Pages"}</SelectLabel>
                       {pageConfigs
                         .filter((p: PageConfiguration) => p.pageType === 'secondary')
                         .sort((a, b) => a.pageName.localeCompare(b.pageName, 'fr'))
@@ -8354,7 +8354,7 @@ export default function AdminPageEditor() {
                 className="flex items-center gap-2"
               >
                 <ExternalLink className="w-4 h-4" />
-                Voir la page
+                {t?.pageEditor?.viewPage || "View page"}
               </Button>
             </div>
           </div>
@@ -8367,18 +8367,16 @@ export default function AdminPageEditor() {
         {/* Blocks List */}
         <div className="space-y-4">
 
-          {/* Redirection externe - Blocage de l'édition */}
+          {/* External redirect - Block editing */}
           {currentPageConfig?.isExternalUrl ? (
             <div className="text-center py-16 bg-white rounded-xl shadow-sm border-2 border-orange-200">
               <ExternalLink className="w-16 h-16 text-orange-400 mx-auto mb-4" />
-              <div className="text-gray-700 mb-2 font-semibold text-lg">Page de redirection externe</div>
+              <div className="text-gray-700 mb-2 font-semibold text-lg">{t?.pageEditor?.externalRedirectPage || "External Redirect Page"}</div>
               <p className="text-gray-500 text-sm mb-6 max-w-lg mx-auto">
-                Cette page redirige vers un lien externe : <span className="font-mono text-secondary">{currentPageConfig.pageSlug}</span>
+                {t?.pageEditor?.externalRedirectDesc || "This page redirects to an external link:"} <span className="font-mono text-secondary">{currentPageConfig.pageSlug}</span>
               </p>
               <p className="text-gray-500 text-sm mb-6 max-w-lg mx-auto">
-                L'édition de blocs n'est pas disponible pour les pages de redirection externe. 
-                Si vous souhaitez créer une page personnalisée à la place, allez dans les paramètres 
-                de la page et décochez l'option "Lien externe".
+                {t?.pageEditor?.externalRedirectNote || "Block editing is not available for external redirect pages. If you want to create a custom page instead, go to page settings and uncheck the 'External Link' option."}
               </p>
               <Button
                 variant="outline"
@@ -8386,19 +8384,18 @@ export default function AdminPageEditor() {
                 className="flex items-center gap-2 mx-auto"
               >
                 <Settings className="w-4 h-4" />
-                Modifier les paramètres de la page
+                {t?.pageEditor?.editPageSettings || "Edit page settings"}
               </Button>
             </div>
           ) : currentPageConfig?.isCustomCode ? (
             <div className="text-center py-16 bg-white rounded-xl shadow-sm border-2 border-purple-200">
               <Layout className="w-16 h-16 text-purple-400 mx-auto mb-4" />
-              <div className="text-gray-700 mb-2 font-semibold text-lg">Page avec code personnalisé</div>
+              <div className="text-gray-700 mb-2 font-semibold text-lg">{t?.pageEditor?.customCodePage || "Page with Custom Code"}</div>
               <p className="text-gray-500 text-sm mb-6 max-w-lg mx-auto">
-                Cette page : <span className="font-mono text-secondary">{currentPageConfig.pageSlug}</span> utilise du code personnalisé hors éditeur.
+                {t?.pageEditor?.customCodeDesc || "This page:"} <span className="font-mono text-secondary">{currentPageConfig.pageSlug}</span> {t?.pageEditor?.customCodeUsesEditor || "uses custom code outside the editor."}
               </p>
               <p className="text-gray-500 text-sm mb-6 max-w-lg mx-auto">
-                L'édition de blocs n'est pas disponible pour les pages personnalisées créées hors de l'éditeur de page. 
-                Pour toute modification, veuillez contacter le développeur.
+                {t?.pageEditor?.customCodeNote || "Block editing is not available for custom pages created outside the page editor. For any changes, please contact the developer."}
               </p>
               <Button
                 variant="outline"
@@ -8406,7 +8403,7 @@ export default function AdminPageEditor() {
                 className="flex items-center gap-2 mx-auto"
               >
                 <Settings className="w-4 h-4" />
-                Retour aux paramètres
+                {t?.pageEditor?.backToSettings || "Back to settings"}
               </Button>
             </div>
           ) : loadingBlocks ? (
@@ -8421,9 +8418,9 @@ export default function AdminPageEditor() {
           ) : pageBlocks.length === 0 ? (
             <div className="text-center py-12 bg-white rounded-xl shadow-sm">
               <Edit className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <div className="text-gray-500 mb-4 font-medium">Aucune section sur cette page</div>
+              <div className="text-gray-500 mb-4 font-medium">{t?.pageMessages?.noBlocks || "This page has no blocks yet"}</div>
               <p className="text-gray-400 text-sm mb-6">
-                Commencez par ajouter votre premier bloc pour construire cette page
+                {t?.pageMessages?.addFirstBlock || "Add your first block to start building your page"}
               </p>
               <div className="flex justify-center gap-3">
                 <Button
@@ -8436,7 +8433,7 @@ export default function AdminPageEditor() {
                   data-testid="button-add-first-block"
                 >
                   <Plus className="w-4 h-4 mr-2" />
-                  Ajouter un bloc
+                  {t?.pageMessages?.addBlock || "Add Block"}
                 </Button>
                 
                 <Button
@@ -8457,7 +8454,7 @@ export default function AdminPageEditor() {
                   }}
                 >
                   <Layout className="w-5 h-5" />
-                  Ajouter un template
+                  {t?.pageMessages?.addTemplate || "Add Template"}
                 </Button>
               </div>
             </div>
@@ -8489,7 +8486,7 @@ export default function AdminPageEditor() {
                         data-testid={`button-insert-before-${index}`}
                       >
                         <Plus className="w-4 h-4" />
-                        Insérer un bloc ici
+                        {t?.pageMessages?.insertBlockHere || "Insert block here"}
                       </button>
                     </div>
 

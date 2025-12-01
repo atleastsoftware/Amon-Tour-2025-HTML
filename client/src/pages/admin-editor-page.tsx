@@ -61,10 +61,16 @@ function AdminEditorPageContent() {
       id: page.pageSlug,
       title: page.pageName,
       slug: page.pageSlug === 'home' ? '/' : `/${page.pageSlug}`,
-      status: page.isActive ? 'Active' : 'Inactive',
+      isActive: page.isActive,
+      status: page.isActive 
+        ? (t?.appearance?.active || 'Active') 
+        : (t?.appearance?.inactive || 'Inactive'),
       pageType: page.pageType,
-      type: page.pageType === 'main' ? 'Page principale' : 
-            page.pageType === 'secondary' ? 'Page secondaire' : 'Mentions légales'
+      type: page.pageType === 'main' 
+        ? (t?.editor?.pageEditor?.categories?.mainPages || 'Main page') 
+        : page.pageType === 'secondary' 
+        ? (t?.editor?.pageEditor?.categories?.secondaryPages || 'Secondary page') 
+        : (t?.editor?.pageEditor?.categories?.legalPages || 'Legal pages')
     }));
   
   // Organiser les pages par catégories (même logique que admin-appearance)
@@ -177,7 +183,7 @@ function AdminEditorPageContent() {
                         {homePage.title || 'Home'}
                       </h3>
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        homePage.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                        homePage.isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
                       }`}>
                         {homePage.status}
                       </span>
@@ -235,7 +241,7 @@ function AdminEditorPageContent() {
                             {page.title || 'Untitled'}
                           </h3>
                           <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                            page.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                            page.isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
                           }`}>
                             {page.status}
                           </span>
@@ -317,7 +323,7 @@ function AdminEditorPageContent() {
                             {page.title || 'Untitled'}
                           </h3>
                           <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                            page.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                            page.isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
                           }`}>
                             {page.status}
                           </span>
