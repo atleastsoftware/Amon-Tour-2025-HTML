@@ -8293,8 +8293,8 @@ export default function AdminPageEditor() {
                   <Settings className="w-5 h-5" style={{ color: THEME_COLORS.secondary }} />
                 </div>
                 <div>
-                  <h1 className="text-2xl font-bold text-gray-900">{t?.pageEditor?.blockEditorTitle || "Page Editor"}</h1>
-                  <p className="text-sm text-gray-600">{t?.pageEditor?.blockEditorDescription || "Each block exactly reproduces the corresponding section of your website"}</p>
+                  <h1 className="text-2xl font-bold text-gray-900">{t?.editor?.pageEditor?.blockEditorTitle || "Page Editor"}</h1>
+                  <p className="text-sm text-gray-600">{t?.editor?.pageEditor?.blockEditorDescription || "Each block exactly reproduces the corresponding section of your website"}</p>
                 </div>
               </div>
             </div>
@@ -8307,7 +8307,7 @@ export default function AdminPageEditor() {
                   {/* Home Page */}
                   {pageConfigs.filter((p: PageConfiguration) => p.pageSlug === 'home').length > 0 && (
                     <SelectGroup>
-                      <SelectLabel>{t?.editor?.pageEditor?.categories?.homePage || "Home Page"}</SelectLabel>
+                      <SelectLabel>{t?.editor?.pageEditor?.homePage || "Home Page"}</SelectLabel>
                       {pageConfigs
                         .filter((p: PageConfiguration) => p.pageSlug === 'home')
                         .map((page: PageConfiguration) => (
@@ -8321,7 +8321,7 @@ export default function AdminPageEditor() {
                   {/* Main Pages */}
                   {pageConfigs.filter((p: PageConfiguration) => p.pageType === 'main' && p.pageSlug !== 'home').length > 0 && (
                     <SelectGroup>
-                      <SelectLabel>{t?.editor?.pageEditor?.categories?.mainPages || "Main Pages"}</SelectLabel>
+                      <SelectLabel>{t?.editor?.pageEditor?.mainPages || "Main Pages"}</SelectLabel>
                       {pageConfigs
                         .filter((p: PageConfiguration) => p.pageType === 'main' && p.pageSlug !== 'home')
                         .sort((a, b) => a.pageName.localeCompare(b.pageName, 'fr'))
@@ -8336,7 +8336,7 @@ export default function AdminPageEditor() {
                   {/* Secondary Pages */}
                   {pageConfigs.filter((p: PageConfiguration) => p.pageType === 'secondary').length > 0 && (
                     <SelectGroup>
-                      <SelectLabel>{t?.editor?.pageEditor?.categories?.secondaryPages || "Secondary Pages"}</SelectLabel>
+                      <SelectLabel>{t?.editor?.pageEditor?.secondaryPages || "Secondary Pages"}</SelectLabel>
                       {pageConfigs
                         .filter((p: PageConfiguration) => p.pageType === 'secondary')
                         .sort((a, b) => a.pageName.localeCompare(b.pageName, 'fr'))
@@ -8355,7 +8355,7 @@ export default function AdminPageEditor() {
                 className="flex items-center gap-2"
               >
                 <ExternalLink className="w-4 h-4" />
-                {t?.pageEditor?.viewPage || "View page"}
+                {t?.editor?.viewPage || "View page"}
               </Button>
             </div>
           </div>
@@ -8419,9 +8419,9 @@ export default function AdminPageEditor() {
           ) : pageBlocks.length === 0 ? (
             <div className="text-center py-12 bg-white rounded-xl shadow-sm">
               <Edit className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <div className="text-gray-500 mb-4 font-medium">{t?.pageMessages?.noBlocks || "This page has no blocks yet"}</div>
+              <div className="text-gray-500 mb-4 font-medium">{t?.pageEditor?.mainInterface?.noBlocks || "This page has no blocks yet"}</div>
               <p className="text-gray-400 text-sm mb-6">
-                {t?.pageMessages?.addFirstBlock || "Add your first block to start building your page"}
+                {t?.pageEditor?.mainInterface?.addFirstBlock || "Add your first block to start building your page"}
               </p>
               <div className="flex justify-center gap-3">
                 <Button
@@ -8434,7 +8434,7 @@ export default function AdminPageEditor() {
                   data-testid="button-add-first-block"
                 >
                   <Plus className="w-4 h-4 mr-2" />
-                  {t?.pageMessages?.addBlock || "Add Block"}
+                  {t?.pageEditor?.mainInterface?.addBlock || "Add Block"}
                 </Button>
                 
                 <Button
@@ -8455,7 +8455,7 @@ export default function AdminPageEditor() {
                   }}
                 >
                   <Layout className="w-5 h-5" />
-                  {t?.pageMessages?.addTemplate || "Add Template"}
+                  {t?.appearance?.addTemplate || "Add Template"}
                 </Button>
               </div>
             </div>
@@ -8487,7 +8487,7 @@ export default function AdminPageEditor() {
                         data-testid={`button-insert-before-${index}`}
                       >
                         <Plus className="w-4 h-4" />
-                        {t?.pageMessages?.insertBlockHere || "Insert block here"}
+                        {t?.pageEditor?.mainInterface?.insertBlockHere || "Insert block here"}
                       </button>
                     </div>
 
