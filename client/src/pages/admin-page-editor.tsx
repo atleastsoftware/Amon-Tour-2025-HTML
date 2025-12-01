@@ -3305,7 +3305,7 @@ const BlockEditDropdown = ({
           <div className="space-y-6">
             {/* Titre */}
             <div>
-              <Label htmlFor="title">Titre principal</Label>
+              <Label htmlFor="title">{t?.editor?.pageEditor?.blockEdit?.common?.mainTitle || 'Main Title'}</Label>
               <Textarea 
                 id="title"
                 value={formData.title ?? defaultTextImagesData.title} 
@@ -3424,7 +3424,7 @@ const BlockEditDropdown = ({
 
                     <div className="space-y-3">
                       <div>
-                        <Label className="text-sm">Sous-titre</Label>
+                        <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.subtitle || 'Subtitle'}</Label>
                         <Input 
                           value={section.subtitle || ''} 
                           onChange={e => {
@@ -3627,7 +3627,7 @@ const BlockEditDropdown = ({
                   }}
                 >
                   <Plus size={14} className="inline mr-1" />
-                  Ajouter un bouton
+                  {t?.editor?.pageEditor?.blockEdit?.common?.addButton || 'Add Button'}
                 </button>
               </div>
 
@@ -3820,7 +3820,7 @@ const BlockEditDropdown = ({
 
             {/* Tiret */}
             <div>
-              <Label htmlFor="divider">Tiret</Label>
+              <Label htmlFor="divider">{t?.editor?.pageEditor?.blockEdit?.common?.divider || 'Divider'}</Label>
               <div className="mt-3">
                 <ColorPicker
                   value={formData.dividerColor ?? '#3BA8AF'}
@@ -3831,7 +3831,7 @@ const BlockEditDropdown = ({
 
             {/* Couleur de fond */}
             <div>
-              <Label htmlFor="backgroundColor">Couleur de fond</Label>
+              <Label htmlFor="backgroundColor">{t?.editor?.pageEditor?.blockEdit?.common?.backgroundColor || 'Background Color'}</Label>
               <div className="mt-3">
                 <ColorPicker
                   value={formData.backgroundColor ?? '#ffffff'}
@@ -3845,17 +3845,17 @@ const BlockEditDropdown = ({
             {/* Boutons d'action */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <Label>Boutons d'action</Label>
+                <Label>{t?.editor?.pageEditor?.blockEdit?.common?.actionButtons || 'Action Buttons'}</Label>
                 <Button 
                   type="button"
                   variant="outline"
                   size="sm"
                   onClick={() => {
                     const buttons = formData.buttons || [];
-                    updateField('buttons', [...buttons, {text: 'Nouveau bouton', url: '', color: '#084F6E', textColor: '#ffffff', style: 'filled'}]);
+                    updateField('buttons', [...buttons, {text: t?.editor?.pageEditor?.blockEdit?.common?.button || 'Button', url: '', color: '#084F6E', textColor: '#ffffff', style: 'filled'}]);
                   }}
                 >
-                  <Plus className="h-4 w-4 mr-1" /> Ajouter un bouton
+                  <Plus className="h-4 w-4 mr-1" /> {t?.editor?.pageEditor?.blockEdit?.common?.addButton || 'Add Button'}
                 </Button>
               </div>
               
@@ -3863,7 +3863,7 @@ const BlockEditDropdown = ({
                 {(formData.buttons || []).map((button: any, index: number) => (
                   <div key={index} className="border rounded-lg p-4 space-y-3">
                     <div className="flex items-center justify-between">
-                      <Label className="text-sm font-medium">Bouton {index + 1}</Label>
+                      <Label className="text-sm font-medium">{t?.editor?.pageEditor?.blockEdit?.common?.button || 'Button'} {index + 1}</Label>
                       <Button 
                         type="button"
                         variant="ghost"
@@ -3880,7 +3880,7 @@ const BlockEditDropdown = ({
                   
                     <div className="grid grid-cols-2 gap-2">
                       <div>
-                        <Label className="text-xs">Texte</Label>
+                        <Label className="text-xs">{t?.editor?.pageEditor?.blockEdit?.common?.text || 'Text'}</Label>
                         <Input 
                           value={button.text || ''} 
                           onChange={e => {
@@ -3893,7 +3893,7 @@ const BlockEditDropdown = ({
                         />
                       </div>
                       <div>
-                        <Label className="text-xs">URL</Label>
+                        <Label className="text-xs">{t?.editor?.pageEditor?.blockEdit?.common?.url || 'URL'}</Label>
                         <Input 
                           value={button.url || ''} 
                           onChange={e => {
@@ -3903,14 +3903,14 @@ const BlockEditDropdown = ({
                             );
                             updateField('buttons', newButtons);
                           }}
-                          placeholder='Tapez "/" pour sélectionner une page du site'
+                          placeholder={t?.editor?.pageEditor?.blockEdit?.common?.urlHelp || 'Type "/" to select a site page'}
                         />
                       </div>
                     </div>
                     
                     <div className="grid grid-cols-2 gap-3">
                       <div>
-                        <Label className="text-xs">Couleur du bouton</Label>
+                        <Label className="text-xs">{t?.editor?.pageEditor?.blockEdit?.common?.buttonColor || 'Button Color'}</Label>
                         <ColorPicker
                           value={button.color || '#084F6E'}
                           onChange={(value) => {
@@ -3924,7 +3924,7 @@ const BlockEditDropdown = ({
                       </div>
                       
                       <div>
-                        <Label className="text-xs">Couleur du texte</Label>
+                        <Label className="text-xs">{t?.editor?.pageEditor?.blockEdit?.common?.textColor || 'Text Color'}</Label>
                         <ColorPicker
                           value={button.textColor || '#ffffff'}
                           onChange={(value) => {
@@ -3939,7 +3939,7 @@ const BlockEditDropdown = ({
                     </div>
                     
                     <div>
-                      <Label className="text-xs">Style</Label>
+                      <Label className="text-xs">{t?.editor?.pageEditor?.blockEdit?.common?.style || 'Style'}</Label>
                       <Select 
                         value={button.style || 'filled'} 
                         onValueChange={value => {
@@ -3989,7 +3989,7 @@ const BlockEditDropdown = ({
             
             {/* Sous-titre */}
             <div>
-              <Label htmlFor="subtitle">Sous-titre</Label>
+              <Label htmlFor="subtitle">{t?.editor?.pageEditor?.blockEdit?.common?.subtitle || 'Subtitle'}</Label>
               <Textarea 
                 id="subtitle"
                 value={formData.subtitle !== undefined ? formData.subtitle : (block.configuration?.subtitle ?? '')} 
@@ -4048,7 +4048,7 @@ const BlockEditDropdown = ({
             {/* Boutons d'action */}
             <div>
               <div className="flex items-center justify-between mb-3">
-                <Label>Boutons d'action</Label>
+                <Label>{t?.editor?.pageEditor?.blockEdit?.common?.actionButtons || 'Action Buttons'}</Label>
                 <Button 
                   type="button"
                   variant="outline"
@@ -4058,7 +4058,7 @@ const BlockEditDropdown = ({
                     updateField('buttons', [...buttons, {text: 'Nouveau bouton', url: '', color: '#084F6E', style: 'filled'}]);
                   }}
                 >
-                  <Plus className="h-4 w-4 mr-1" /> Ajouter un bouton
+                  <Plus className="h-4 w-4 mr-1" /> {t?.editor?.pageEditor?.blockEdit?.common?.addButton || 'Add Button'}
                 </Button>
               </div>
               
@@ -4153,7 +4153,7 @@ const BlockEditDropdown = ({
 
             {/* Arrière-plan */}
             <div>
-              <Label>Arrière-plan</Label>
+              <Label>{t?.editor?.pageEditor?.blockEdit?.common?.background || 'Background'}</Label>
               <div className="mt-3">
                 <Select value={formData.backgroundType ?? 'image'} onValueChange={value => updateField('backgroundType', value)}>
                   <SelectTrigger>
@@ -4423,7 +4423,7 @@ const BlockEditDropdown = ({
             
             {/* Sous-titre */}
             <div>
-              <Label htmlFor="subtitle">Sous-titre</Label>
+              <Label htmlFor="subtitle">{t?.editor?.pageEditor?.blockEdit?.common?.subtitle || 'Subtitle'}</Label>
               <Input 
                 id="subtitle"
                 value={formData.subtitle ?? block.configuration?.subtitle ?? 'Step off the beaten path into carefully curated experiences beyond the tourist trail.'} 
@@ -4668,7 +4668,7 @@ const BlockEditDropdown = ({
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <Label className="text-xs text-gray-500">Couleur du bouton</Label>
+                  <Label className="text-xs text-gray-500">{t?.editor?.pageEditor?.blockEdit?.common?.buttonColor || 'Button Color'}</Label>
                   <ColorPicker
                     value={formData.buttonBackgroundColor ?? '#084F6E'}
                     onChange={(value) => updateField('buttonBackgroundColor', value)}
@@ -4726,7 +4726,7 @@ const BlockEditDropdown = ({
             
             {/* Sous-titre */}
             <div>
-              <Label htmlFor="subtitle">Sous-titre</Label>
+              <Label htmlFor="subtitle">{t?.editor?.pageEditor?.blockEdit?.common?.subtitle || 'Subtitle'}</Label>
               <Input 
                 id="subtitle"
                 value={formData.subtitle ?? 'Get inspired by our custom-designed travel experiences.'} 
@@ -4971,7 +4971,7 @@ const BlockEditDropdown = ({
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <Label className="text-xs text-gray-500">Couleur du bouton</Label>
+                  <Label className="text-xs text-gray-500">{t?.editor?.pageEditor?.blockEdit?.common?.buttonColor || 'Button Color'}</Label>
                   <ColorPicker
                     value={formData.buttonBackgroundColor ?? '#084F6E'}
                     onChange={(value) => updateField('buttonBackgroundColor', value)}
@@ -5029,7 +5029,7 @@ const BlockEditDropdown = ({
               </div>
               
               <div>
-                <Label htmlFor="subtitle">Sous-titre</Label>
+                <Label htmlFor="subtitle">{t?.editor?.pageEditor?.blockEdit?.common?.subtitle || 'Subtitle'}</Label>
                 <Input 
                   id="subtitle"
 
@@ -5695,7 +5695,7 @@ const BlockEditDropdown = ({
           <div className="space-y-6">
             {/* Titre */}
             <div>
-              <Label htmlFor="title">Titre principal</Label>
+              <Label htmlFor="title">{t?.editor?.pageEditor?.blockEdit?.common?.mainTitle || 'Main Title'}</Label>
               <Input 
                 id="title"
                 value={formData.title ?? ''} 
@@ -5805,7 +5805,7 @@ const BlockEditDropdown = ({
 
                     <div className="space-y-3">
                       <div>
-                        <Label className="text-sm">Sous-titre</Label>
+                        <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.subtitle || 'Subtitle'}</Label>
                         <Input 
                           value={section.subtitle || ''} 
                           onChange={e => {
@@ -6033,7 +6033,7 @@ const BlockEditDropdown = ({
                   }}
                 >
                   <Plus size={14} className="inline mr-1" />
-                  Ajouter un bouton
+                  {t?.editor?.pageEditor?.blockEdit?.common?.addButton || 'Add Button'}
                 </button>
               </div>
 
@@ -6090,7 +6090,7 @@ const BlockEditDropdown = ({
                       </div>
                       <div className="grid grid-cols-2 gap-3">
                         <div>
-                          <Label className="text-sm">Couleur du bouton</Label>
+                          <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.buttonColor || 'Button Color'}</Label>
                           <ColorPicker
                             value={button.color || '#084F6E'}
                             onChange={(value) => {
@@ -6174,7 +6174,7 @@ const BlockEditDropdown = ({
               />
             </div>
             <div>
-              <Label htmlFor="subtitle">Sous-titre</Label>
+              <Label htmlFor="subtitle">{t?.editor?.pageEditor?.blockEdit?.common?.subtitle || 'Subtitle'}</Label>
               <Input 
                 id="subtitle"
                 value={formData.subtitle ?? 'Discover the authentic experiences...'} 
@@ -6368,7 +6368,7 @@ const BlockEditDropdown = ({
             
             {/* Sous-titre */}
             <div>
-              <Label htmlFor="subtitle">Sous-titre</Label>
+              <Label htmlFor="subtitle">{t?.editor?.pageEditor?.blockEdit?.common?.subtitle || 'Subtitle'}</Label>
               <Textarea 
                 id="subtitle"
                 value={formData.subtitle ?? 'Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.'} 
@@ -6442,7 +6442,7 @@ const BlockEditDropdown = ({
             
             {/* Sous-titre */}
             <div>
-              <Label htmlFor="subtitle">Sous-titre</Label>
+              <Label htmlFor="subtitle">{t?.editor?.pageEditor?.blockEdit?.common?.subtitle || 'Subtitle'}</Label>
               <Textarea 
                 id="subtitle"
                 value={formData.subtitle ?? 'Description pour votre section de contact'} 
@@ -6861,7 +6861,7 @@ const BlockEditDropdown = ({
 
             {/* Sous-titre */}
             <div>
-              <Label htmlFor="subtitle">Sous-titre</Label>
+              <Label htmlFor="subtitle">{t?.editor?.pageEditor?.blockEdit?.common?.subtitle || 'Subtitle'}</Label>
               <Textarea 
                 id="subtitle"
                 value={formData.subtitle ?? "Description pour votre galerie d'images"} 
@@ -6958,7 +6958,7 @@ const BlockEditDropdown = ({
 
             {/* Sous-titre */}
             <div>
-              <Label htmlFor="subtitle">Sous-titre</Label>
+              <Label htmlFor="subtitle">{t?.editor?.pageEditor?.blockEdit?.common?.subtitle || 'Subtitle'}</Label>
               <Textarea 
                 id="subtitle"
                 value={formData.subtitle ?? 'Description pour votre section vidéo'} 
@@ -7056,7 +7056,7 @@ const BlockEditDropdown = ({
 
             {/* Sous-titre */}
             <div>
-              <Label htmlFor="subtitle">Sous-titre</Label>
+              <Label htmlFor="subtitle">{t?.editor?.pageEditor?.blockEdit?.common?.subtitle || 'Subtitle'}</Label>
               <Textarea 
                 id="subtitle"
                 value={formData.subtitle ?? 'Description de votre listing'} 
@@ -7192,7 +7192,7 @@ const BlockEditDropdown = ({
 
             {/* Sous-titre */}
             <div>
-              <Label htmlFor="subtitle">Sous-titre</Label>
+              <Label htmlFor="subtitle">{t?.editor?.pageEditor?.blockEdit?.common?.subtitle || 'Subtitle'}</Label>
               <Input 
                 id="subtitle"
                 value={formData.subtitle ?? 'Tarif journalier minimum'} 
@@ -7648,7 +7648,7 @@ const BlockEditDropdown = ({
 
               {/* Sous-titre */}
               <div>
-                <Label htmlFor="subtitle">Sous-titre</Label>
+                <Label htmlFor="subtitle">{t?.editor?.pageEditor?.blockEdit?.common?.subtitle || 'Subtitle'}</Label>
                 <Textarea 
                   id="subtitle"
                   value={formData.subtitle ?? block.configuration?.subtitle ?? ''} 
@@ -7668,7 +7668,7 @@ const BlockEditDropdown = ({
               {/* Boutons d'action */}
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <Label>Boutons d'action</Label>
+                  <Label>{t?.editor?.pageEditor?.blockEdit?.common?.actionButtons || 'Action Buttons'}</Label>
                   <Button 
                     type="button"
                     variant="outline"
@@ -7678,7 +7678,7 @@ const BlockEditDropdown = ({
                       updateField('buttons', [...buttons, {text: 'Nouveau bouton', url: '', color: '#ffffff', textColor: '#084F6E', style: 'filled'}]);
                     }}
                   >
-                    <Plus className="h-4 w-4 mr-1" /> Ajouter un bouton
+                    <Plus className="h-4 w-4 mr-1" /> {t?.editor?.pageEditor?.blockEdit?.common?.addButton || 'Add Button'}
                   </Button>
                 </div>
                 
@@ -7731,7 +7731,7 @@ const BlockEditDropdown = ({
                     
                     <div className="grid grid-cols-2 gap-3">
                       <div>
-                        <Label className="text-xs">Couleur du bouton</Label>
+                        <Label className="text-xs">{t?.editor?.pageEditor?.blockEdit?.common?.buttonColor || 'Button Color'}</Label>
                         <ColorPicker
                           value={button.color || '#084F6E'}
                           onChange={(value) => {
@@ -7745,7 +7745,7 @@ const BlockEditDropdown = ({
                       </div>
                       
                       <div>
-                        <Label className="text-xs">Couleur du texte</Label>
+                        <Label className="text-xs">{t?.editor?.pageEditor?.blockEdit?.common?.textColor || 'Text Color'}</Label>
                         <ColorPicker
                           value={button.textColor || '#ffffff'}
                           onChange={(value) => {
@@ -7787,7 +7787,7 @@ const BlockEditDropdown = ({
 
               {/* Alignement du contenu */}
               <div>
-                <Label>Alignement du contenu</Label>
+                <Label>{t?.editor?.pageEditor?.blockEdit?.common?.contentAlignment || 'Content Alignment'}</Label>
                 <div className="mt-3">
                   <Select value={formData.contentAlignment ?? 'center'} onValueChange={value => updateField('contentAlignment', value)}>
                     <SelectTrigger>
@@ -7816,7 +7816,7 @@ const BlockEditDropdown = ({
 
               {/* Arrière-plan */}
               <div>
-                <Label>Arrière-plan</Label>
+                <Label>{t?.editor?.pageEditor?.blockEdit?.common?.background || 'Background'}</Label>
                 <div className="mt-3">
                   <Select value={formData.backgroundType ?? 'gradient'} onValueChange={value => updateField('backgroundType', value)}>
                     <SelectTrigger>
