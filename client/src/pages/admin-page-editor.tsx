@@ -41,7 +41,7 @@ interface ColorPickerProps {
 }
 
 function ColorPicker({ value, onChange, label }: ColorPickerProps) {
-  const { t } = useTranslationSection('admin');
+  const { translations: t } = useTranslationSection('admin');
   const [isEditingCustom, setIsEditingCustom] = useState(false);
   const [customInput, setCustomInput] = useState('');
   const currentColorValue = value || '#ffffff';
@@ -138,7 +138,7 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
           <div 
             className="w-8 h-8 rounded border border-gray-300 cursor-pointer relative overflow-hidden hover:border-gray-400 transition-colors"
             style={{ backgroundColor: currentColorValue }}
-            title={t('pageEditor.colorPicker.clickToCustomize') || 'Click to customize color'}
+            title={t?.pageEditor?.colorPicker?.clickToCustomize || 'Click to customize color'}
             data-testid="color-picker-box"
           >
             <input
@@ -174,21 +174,21 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
           <Select value={getCurrentOption()} onValueChange={handleOptionSelect}>
             <SelectTrigger className="flex-1" data-testid="color-picker-select">
               <SelectValue>
-                {getCurrentOption() === 'primary' && (t('pageEditor.colorPicker.primaryColor') || 'Primary Color')}
-                {getCurrentOption() === 'secondary' && (t('pageEditor.colorPicker.secondaryColor') || 'Secondary Color')}
-                {getCurrentOption() === 'heading' && (t('pageEditor.colorPicker.headingColor') || 'Heading Color')}
-                {getCurrentOption() === 'text' && (t('pageEditor.colorPicker.textColor') || 'Text Color')}
-                {getCurrentOption() === 'background' && (t('pageEditor.colorPicker.backgroundColor') || 'Background Color')}
+                {getCurrentOption() === 'primary' && (t?.pageEditor?.colorPicker?.primaryColor || 'Primary Color')}
+                {getCurrentOption() === 'secondary' && (t?.pageEditor?.colorPicker?.secondaryColor || 'Secondary Color')}
+                {getCurrentOption() === 'heading' && (t?.pageEditor?.colorPicker?.headingColor || 'Heading Color')}
+                {getCurrentOption() === 'text' && (t?.pageEditor?.colorPicker?.textColor || 'Text Color')}
+                {getCurrentOption() === 'background' && (t?.pageEditor?.colorPicker?.backgroundColor || 'Background Color')}
                 {getCurrentOption() === 'custom' && `Color: ${displayValue}`}
               </SelectValue>
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="custom">Color:</SelectItem>
-              <SelectItem value="primary">{t('pageEditor.colorPicker.primaryColor') || 'Primary Color'}</SelectItem>
-              <SelectItem value="secondary">{t('pageEditor.colorPicker.secondaryColor') || 'Secondary Color'}</SelectItem>
-              <SelectItem value="heading">{t('pageEditor.colorPicker.headingColor') || 'Heading Color'}</SelectItem>
-              <SelectItem value="text">{t('pageEditor.colorPicker.textColor') || 'Text Color'}</SelectItem>
-              <SelectItem value="background">{t('pageEditor.colorPicker.backgroundColor') || 'Background Color'}</SelectItem>
+              <SelectItem value="primary">{t?.pageEditor?.colorPicker?.primaryColor || 'Primary Color'}</SelectItem>
+              <SelectItem value="secondary">{t?.pageEditor?.colorPicker?.secondaryColor || 'Secondary Color'}</SelectItem>
+              <SelectItem value="heading">{t?.pageEditor?.colorPicker?.headingColor || 'Heading Color'}</SelectItem>
+              <SelectItem value="text">{t?.pageEditor?.colorPicker?.textColor || 'Text Color'}</SelectItem>
+              <SelectItem value="background">{t?.pageEditor?.colorPicker?.backgroundColor || 'Background Color'}</SelectItem>
             </SelectContent>
           </Select>
         )}
@@ -196,7 +196,7 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
       
       {/* Explanatory text */}
       <p className="text-xs text-gray-500 mt-1">
-        {t('pageEditor.colorPicker.helpText') || 'Click the color box to use the color picker, or select a theme color from the dropdown'}
+        {t?.pageEditor?.colorPicker?.helpText || 'Click the color box to use the color picker, or select a theme color from the dropdown'}
       </p>
     </div>
   );
@@ -352,7 +352,7 @@ interface DynamicFormBlockPreviewProps {
 }
 
 function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitleColor, dividerColor, backgroundColor }: DynamicFormBlockPreviewProps) {
-  const { t } = useTranslationSection('admin');
+  const { translations: t } = useTranslationSection('admin');
   const { data: formData, isLoading } = useQuery<any>({
     queryKey: ['/api/admin/custom-forms', formId],
     queryFn: () => formId ? fetch(`/api/admin/custom-forms/${formId}`).then(res => res.json()) : null,
@@ -403,7 +403,7 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
             </Label>
             <Select>
               <SelectTrigger style={{ color: resolveColor(formData.textColor) }}>
-                <SelectValue placeholder={field.placeholder || t('pageEditor.formPreview.selectOption')} />
+                <SelectValue placeholder={field.placeholder || t?.pageEditor?.formPreview?.selectOption || 'Select option'} />
               </SelectTrigger>
               <SelectContent>
                 {field.options?.map((option: string, index: number) => (
@@ -483,7 +483,7 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
               {field.label}{field.required ? ' *' : ''}
             </Label>
             <Input 
-              placeholder={field.placeholder || t('pageEditor.formPreview.selectTripDates')} 
+              placeholder={field.placeholder || t?.pageEditor?.formPreview?.selectTripDates || 'Select trip dates'} 
               readOnly 
               className="cursor-pointer flatpickr-input" 
               style={{ color: resolveColor(formData.textColor) }}
@@ -536,12 +536,12 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
         {!formId ? (
           <div className="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-12 text-center">
             <FormInput className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-            <p className="text-gray-500 text-lg">{t('pageEditor.formPreview.noFormSelected')}</p>
-            <p className="text-gray-400 text-sm mt-2">{t('pageEditor.formPreview.selectFormHint')}</p>
+            <p className="text-gray-500 text-lg">{t?.pageEditor?.formPreview?.noFormSelected || 'No form selected'}</p>
+            <p className="text-gray-400 text-sm mt-2">{t?.pageEditor?.formPreview?.selectFormHint || 'Select a form from the dropdown'}</p>
           </div>
         ) : isLoading ? (
           <div className="bg-white rounded-lg shadow-lg p-12 text-center">
-            <p className="text-gray-500">{t('pageEditor.formPreview.loadingForm')}</p>
+            <p className="text-gray-500">{t?.pageEditor?.formPreview?.loadingForm || 'Loading form...'}</p>
           </div>
         ) : formData ? (
           <div className={`${formData.formLayout === 'footer' ? '' : 'bg-white'} rounded-lg shadow-lg overflow-hidden ${formData.formLayout === 'footer' ? 'max-w-2xl' : 'max-w-5xl'} mx-auto`} style={formData.formLayout === 'footer' ? { backgroundColor: resolveColor(formData.frameColor) } : {}}>
@@ -587,7 +587,7 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
                   {formData.fields?.length === 0 ? (
                     <div className="text-center py-16 text-gray-500">
                       <FormInput className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                      <p>{t('pageEditor.formPreview.noFieldsInForm')}</p>
+                      <p>{t?.pageEditor?.formPreview?.noFieldsInForm || 'No fields in this form'}</p>
                     </div>
                   ) : (
                     <div className="space-y-4">
@@ -956,7 +956,7 @@ function FormSelector({ selectedFormId, onFormSelect, pageSlug, blockId }: FormS
 // Real Component Previews - Using ACTUAL website components only
 const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: PageBlock; isFullscreen: boolean; liveConfiguration?: any }) => {
   // Call all hooks at component level (React rule)
-  const { t } = useTranslationSection('admin');
+  const { translations: t } = useTranslationSection('admin');
   const { tours: tourNinjaTours, isLoading: tourNinjaLoading } = useTourNinja();
   
   const getActualComponent = () => {
@@ -1019,7 +1019,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     />
                   ) : (
                     <div className="w-full h-full bg-gray-300 flex items-center justify-center">
-                      <span className="text-gray-600">{t('pageEditor.blockPreview.noImageSelected')}</span>
+                      <span className="text-gray-600">{t?.pageEditor?.blockPreview?.noImageSelected || 'No image selected'}</span>
                     </div>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
@@ -1089,7 +1089,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                         color: (button.style || 'filled') === 'outline' ? (button.color || '#084F6E') : '#ffffff'
                       }}
                     >
-                      {button.text || t('pageEditor.blockPreview.button', { number: index + 1 })}
+                      {button.text || `Button ${index + 1}`}
                     </span>
                   ))}
                 </div>
@@ -1454,7 +1454,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                         color: (button.style || 'filled') === 'outline' ? (button.color || '#084F6E') : '#ffffff'
                       }}
                     >
-                      {button.text || t('pageEditor.blockPreview.button', { number: index + 1 })}
+                      {button.text || `Button ${index + 1}`}
                     </span>
                   ))}
                 </div>
@@ -2859,7 +2859,7 @@ const BlockEditDropdown = ({
   pageSlug?: string; 
   onPreviewUpdate?: (config: any) => void;
 }) => {
-  const { t } = useTranslationSection('admin');
+  const { translations: t } = useTranslationSection('admin');
   const [formData, setFormData] = useState(block.configuration || {});
   
   // Récupérer les tours Tour Ninja pour la sélection manuelle
@@ -2903,18 +2903,18 @@ const BlockEditDropdown = ({
           <div className="space-y-6">
             {/* Titre principal */}
             <div>
-              <Label htmlFor="title">{t('pageEditor.blockEdit.hero.mainTitle')}</Label>
+              <Label htmlFor="title">{t?.pageEditor?.blockEdit?.hero?.mainTitle || 'Main Title'}</Label>
               <Textarea 
                 id="title"
                 value={formData.title ?? block.configuration?.title ?? 'Your exclusive experiences\nin Krabi –\nTHAILAND'} 
                 onChange={e => updateField('title', e.target.value)}
-                placeholder={t('pageEditor.blockEdit.hero.mainTitlePlaceholder')}
+                placeholder={t?.pageEditor?.blockEdit?.hero?.mainTitlePlaceholder || 'Enter title...'}
                 rows={3}
                 className="mt-2"
               />
               <div className="mt-3">
                 <ColorPicker
-                  label={t('pageEditor.blockEdit.hero.titleColor')}
+                  label={t?.pageEditor?.blockEdit?.hero?.titleColor || 'Title Color'}
                   value={formData.titleColor ?? '#ffffff'}
                   onChange={(value) => updateField('titleColor', value)}
                 />
@@ -2923,17 +2923,17 @@ const BlockEditDropdown = ({
             
             {/* Mot du titre en seconde couleur */}
             <div>
-              <Label htmlFor="titleAccentText">{t('pageEditor.blockEdit.hero.highlightWord')}</Label>
+              <Label htmlFor="titleAccentText">{t?.pageEditor?.blockEdit?.hero?.highlightWord || 'Highlight Word'}</Label>
               <Input 
                 id="titleAccentText"
                 value={formData.titleAccentText ?? 'in Krabi –'} 
                 onChange={e => updateField('titleAccentText', e.target.value)}
-                placeholder={t('pageEditor.blockEdit.hero.highlightWordPlaceholder')}
+                placeholder={t?.pageEditor?.blockEdit?.hero?.highlightWordPlaceholder || 'Enter word to highlight...'}
                 className="mt-2"
               />
               <div className="mt-3">
                 <ColorPicker
-                  label={t('pageEditor.blockEdit.hero.accentColor')}
+                  label={t?.pageEditor?.blockEdit?.hero?.accentColor || 'Accent Color'}
                   value={formData.titleAccentColor ?? '#084F6E'}
                   onChange={(value) => updateField('titleAccentColor', value)}
                 />
@@ -2942,18 +2942,18 @@ const BlockEditDropdown = ({
 
             {/* Sous-titre */}
             <div>
-              <Label htmlFor="subtitle">{t('pageEditor.blockEdit.hero.subtitle')}</Label>
+              <Label htmlFor="subtitle">{t?.pageEditor?.blockEdit?.hero?.subtitle || 'Subtitle'}</Label>
               <Textarea 
                 id="subtitle"
                 value={formData.subtitle ?? block.configuration?.subtitle ?? 'Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.'} 
                 onChange={e => updateField('subtitle', e.target.value)}
-                placeholder={t('pageEditor.blockEdit.hero.subtitlePlaceholder')}
+                placeholder={t?.pageEditor?.blockEdit?.hero?.subtitlePlaceholder || 'Enter subtitle...'}
                 rows={3}
                 className="mt-2"
               />
               <div className="mt-3">
                 <ColorPicker
-                  label={t('pageEditor.blockEdit.hero.subtitleColor')}
+                  label={t?.pageEditor?.blockEdit?.hero?.subtitleColor || 'Subtitle Color'}
                   value={formData.subtitleColor ?? '#ffffff'}
                   onChange={(value) => updateField('subtitleColor', value)}
                 />
@@ -2963,7 +2963,7 @@ const BlockEditDropdown = ({
             {/* Boutons d'action */}
             <div>
               <div className="flex items-center justify-between mb-3">
-                <Label>{t('pageEditor.blockEdit.hero.buttons')}</Label>
+                <Label>{t?.pageEditor?.blockEdit?.hero?.buttons || 'Buttons'}</Label>
                 <Button 
                   type="button"
                   variant="outline"
@@ -2973,7 +2973,7 @@ const BlockEditDropdown = ({
                     updateField('buttons', [...buttons, {text: 'Nouveau bouton', url: '', color: '#084F6E', style: 'filled'}]);
                   }}
                 >
-                  <Plus className="h-4 w-4 mr-1" /> {t('pageEditor.blockEdit.hero.addButton')}
+                  <Plus className="h-4 w-4 mr-1" /> {t?.pageEditor?.blockEdit?.hero?.addButton || 'Add Button'}
                 </Button>
               </div>
               
@@ -2981,7 +2981,7 @@ const BlockEditDropdown = ({
                 {(formData.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}]).map((button: any, index: number) => (
                   <div key={index} className="border rounded-lg p-4 space-y-3">
                     <div className="flex items-center justify-between">
-                      <Label className="text-sm font-medium">{t('pageEditor.blockEdit.hero.button', { number: index + 1 })}</Label>
+                      <Label className="text-sm font-medium">{`Button ${index + 1}`}</Label>
                       <Button 
                         type="button"
                         variant="ghost"
@@ -2998,7 +2998,7 @@ const BlockEditDropdown = ({
                   
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <Label className="text-xs">{t('pageEditor.blockEdit.hero.text')}</Label>
+                      <Label className="text-xs">{t?.pageEditor?.blockEdit?.hero?.text || 'Text'}</Label>
                       <Input 
                         value={button.text || ''} 
                         onChange={e => {
@@ -3026,7 +3026,7 @@ const BlockEditDropdown = ({
                   
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <Label className="text-xs">{t('pageEditor.blockEdit.hero.color')}</Label>
+                      <Label className="text-xs">{t?.pageEditor?.blockEdit?.hero?.color || 'Color'}</Label>
                       <ColorPicker
                         value={button.color || '#084F6E'}
                         onChange={(value) => {
@@ -3040,7 +3040,7 @@ const BlockEditDropdown = ({
                     </div>
                     
                     <div>
-                      <Label className="text-xs">{t('pageEditor.blockEdit.hero.style')}</Label>
+                      <Label className="text-xs">{t?.pageEditor?.blockEdit?.hero?.style || 'Style'}</Label>
                       <Select 
                         value={button.style || 'filled'} 
                         onValueChange={value => {
@@ -3055,8 +3055,8 @@ const BlockEditDropdown = ({
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="filled">{t('pageEditor.blockEdit.hero.filled')}</SelectItem>
-                          <SelectItem value="outline">{t('pageEditor.blockEdit.hero.outline')}</SelectItem>
+                          <SelectItem value="filled">{t?.pageEditor?.blockEdit?.hero?.filled || 'Filled'}</SelectItem>
+                          <SelectItem value="outline">{t?.pageEditor?.blockEdit?.hero?.outline || 'Outline'}</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -3068,16 +3068,16 @@ const BlockEditDropdown = ({
 
             {/* Alignement du contenu */}
             <div>
-              <Label>{t('pageEditor.blockEdit.hero.contentAlignment')}</Label>
+              <Label>{t?.pageEditor?.blockEdit?.hero?.contentAlignment || 'Content Alignment'}</Label>
               <div className="mt-3">
                 <Select value={formData.contentAlignment ?? 'left'} onValueChange={value => updateField('contentAlignment', value)}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="left">{t('pageEditor.blockEdit.hero.alignmentLeft')}</SelectItem>
-                    <SelectItem value="center">{t('pageEditor.blockEdit.hero.alignmentCenter')}</SelectItem>
-                    <SelectItem value="right">{t('pageEditor.blockEdit.hero.alignmentRight')}</SelectItem>
+                    <SelectItem value="left">{t?.pageEditor?.blockEdit?.hero?.alignmentLeft || 'Left'}</SelectItem>
+                    <SelectItem value="center">{t?.pageEditor?.blockEdit?.hero?.alignmentCenter || 'Center'}</SelectItem>
+                    <SelectItem value="right">{t?.pageEditor?.blockEdit?.hero?.alignmentRight || 'Right'}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -3085,23 +3085,23 @@ const BlockEditDropdown = ({
 
             {/* Arrière-plan */}
             <div>
-              <Label>{t('pageEditor.blockEdit.hero.background')}</Label>
+              <Label>{t?.pageEditor?.blockEdit?.hero?.background || 'Background'}</Label>
               <div className="mt-3">
                 <Select value={formData.backgroundType ?? 'video'} onValueChange={value => updateField('backgroundType', value)}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="video">{t('pageEditor.blockEdit.hero.backgroundTypeVideo')}</SelectItem>
-                    <SelectItem value="images">{t('pageEditor.blockEdit.hero.backgroundTypeImages')}</SelectItem>
-                    <SelectItem value="color">{t('pageEditor.blockEdit.hero.backgroundTypeColor')}</SelectItem>
+                    <SelectItem value="video">{t?.pageEditor?.blockEdit?.hero?.backgroundTypeVideo || 'Video'}</SelectItem>
+                    <SelectItem value="images">{t?.pageEditor?.blockEdit?.hero?.backgroundTypeImages || 'Images'}</SelectItem>
+                    <SelectItem value="color">{t?.pageEditor?.blockEdit?.hero?.backgroundTypeColor || 'Color'}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               
               {formData.backgroundType === 'color' && (
                 <div>
-                  <Label htmlFor="backgroundColor">{t('pageEditor.blockEdit.hero.backgroundColor')}</Label>
+                  <Label htmlFor="backgroundColor">{t?.pageEditor?.blockEdit?.hero?.backgroundColor || 'Background Color'}</Label>
                   <div className="flex gap-2">
                     <input 
                       type="color" 
@@ -3123,7 +3123,7 @@ const BlockEditDropdown = ({
               
               {formData.backgroundType === 'video' && (
                 <div>
-                  <Label htmlFor="videoUrl">{t('pageEditor.blockEdit.hero.videoUrl')}</Label>
+                  <Label htmlFor="videoUrl">{t?.pageEditor?.blockEdit?.hero?.videoUrl || 'Video URL'}</Label>
                   <div className="flex gap-2">
                     <Input 
                       id="videoUrl"
@@ -3158,7 +3158,7 @@ const BlockEditDropdown = ({
               
               {formData.backgroundType === 'images' && (
                 <div className="space-y-3">
-                  <Label>{t('pageEditor.blockEdit.hero.imageUrls')}</Label>
+                  <Label>{t?.pageEditor?.blockEdit?.hero?.imageUrls || 'Image URLs'}</Label>
                   
                   <div className="flex gap-2">
                     <Input 

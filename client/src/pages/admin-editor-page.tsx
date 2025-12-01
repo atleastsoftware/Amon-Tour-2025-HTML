@@ -36,7 +36,7 @@ function AdminEditorPageContent() {
   const [, setLocation] = useLocation();
   const searchString = useSearch();
   const [isAddPageModalOpen, setIsAddPageModalOpen] = useState(false);
-  const { t } = useTranslationSection('admin');
+  const { translations: t } = useTranslationSection('admin');
 
   const { data: pageConfigs = [], isLoading, error } = useQuery<PageConfiguration[]>({
     queryKey: ['/api/admin/page-configurations'],
