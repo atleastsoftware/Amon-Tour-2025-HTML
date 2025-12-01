@@ -1555,6 +1555,89 @@
       "logout": "Cerrar sesión",
       "login": "Iniciar sesión"
     },
+    "blockEditor": {
+      "title": "Configuración del bloque: {{type}}",
+      "tabs": {
+        "content": "Contenido",
+        "style": "Estilo",
+        "actions": "Acciones",
+        "advanced": "Avanzado"
+      },
+      "colorPicker": {
+        "colorReference": "Referencia de color",
+        "colorPlaceholder": "#ffffff",
+        "inputHelp": "Escriba el código de color o seleccione un color predefinido",
+        "themeColors": "Colores del tema",
+        "primary": "Principal",
+        "primaryTitle": "Color principal del tema",
+        "secondary": "Secundario",
+        "secondaryTitle": "Color secundario del tema",
+        "heading": "Título",
+        "headingTitle": "Color de título (referencia)",
+        "text": "Texto",
+        "textTitle": "Color de texto (referencia)",
+        "background": "Fondo",
+        "backgroundTitle": "Color de fondo (referencia)",
+        "preview": "Vista previa",
+        "pickerTitle": "Selector de color",
+        "pickerHelp": "Haga clic en la caja de color o seleccione un color del tema"
+      },
+      "fields": {
+        "title": "Título",
+        "titlePlaceholder": "Ingrese el título",
+        "subtitle": "Subtítulo",
+        "subtitlePlaceholder": "Ingrese el subtítulo",
+        "description": "Descripción",
+        "descriptionPlaceholder": "Ingrese la descripción",
+        "content": "Contenido",
+        "contentPlaceholder": "Ingrese el contenido",
+        "blockTitle": "Título del bloque",
+        "blockTitlePlaceholder": "Título del bloque",
+        "blockSubtitle": "Subtítulo del bloque",
+        "blockSubtitlePlaceholder": "Subtítulo del bloque",
+        "blockDescription": "Descripción del bloque",
+        "blockDescriptionPlaceholder": "Descripción del bloque",
+        "mainContent": "Contenido principal (soporta HTML)",
+        "mainContentPlaceholder": "Contenido principal (soporta HTML)",
+        "imageUrl": "URL de la imagen",
+        "imageUrlPlaceholder": "/ruta/a/imagen.jpg",
+        "upload": "Subir",
+        "backgroundColor": "Color de fondo",
+        "backgroundColors": {
+          "white": "Blanco",
+          "gray": "Gris",
+          "primaryBlue": "Azul primario",
+          "secondaryGold": "Oro secundario",
+          "dark": "Oscuro"
+        },
+        "layout": "Diseño",
+        "layouts": {
+          "textLeftImageRight": "Texto a la izquierda, Imagen a la derecha",
+          "imageLeftTextRight": "Imagen a la izquierda, Texto a la derecha"
+        },
+        "textColor": "Color del texto",
+        "ctaText": "Texto del botón",
+        "ctaTextPlaceholder": "Más información",
+        "ctaUrl": "URL del botón",
+        "ctaUrlPlaceholder": "/contacto",
+        "ctaButtons": "Botones de acción",
+        "buttonText": "Texto del botón",
+        "buttonStyle": "Estilo del botón",
+        "buttonStyles": {
+          "primary": "Principal",
+          "secondary": "Secundario",
+          "outline": "Contorno"
+        },
+        "buttons": "Botones",
+        "newButton": "Nuevo botón",
+        "addButton": "Añadir botón",
+        "blockId": "Identificador del bloque",
+        "blockOrder": "Orden del bloque",
+        "isActive": "El bloque está activo",
+        "rawConfig": "Configuración sin procesar (JSON)",
+        "rawConfigPlaceholder": "{ }"
+      }
+    },
     "dashboard": {
       "title": "Administración",
       "subtitle": "Panel de gestión centralizado",
@@ -2197,6 +2280,47 @@
         "mainPages": "PÁGINAS PRINCIPALES",
         "secondaryPages": "PÁGINAS SECUNDARIAS",
         "addPage": "Añadir una página",
+        "colorPicker": {
+          "primaryColor": "Color principal",
+          "secondaryColor": "Color secundario",
+          "headingColor": "Color de título",
+          "textColor": "Color de texto",
+          "backgroundColor": "Color de fondo",
+          "clickToCustomize": "Haga clic en la caja de color o seleccione un color del tema"
+        },
+        "blockEdit": {
+          "common": {
+            "title": "Título",
+            "titleColor": "Color del título",
+            "subtitle": "Subtítulo",
+            "subtitleColor": "Color del subtítulo",
+            "content": "Contenido",
+            "contentColor": "Color del contenido",
+            "divider": "Guión",
+            "dividerColor": "Color del guión",
+            "backgroundColor": "Color de fondo",
+            "mainTitle": "Título principal",
+            "accentWord": "Palabra de color de acento",
+            "accentWordHelp": "Escriba exactamente las palabras del título que desea colorear",
+            "accentColor": "Color de acento",
+            "description": "Descripción",
+            "imageUrl": "URL de la imagen",
+            "videoUrl": "URL del video",
+            "buttonText": "Texto del botón",
+            "buttonUrl": "URL del botón",
+            "buttons": "Botones",
+            "addButton": "Añadir botón"
+          },
+          "hero": {
+            "mainTitle": "Título principal",
+            "titleColor": "Color del título",
+            "accentText": "Palabra de color de acento",
+            "accentTextHelp": "Escriba exactamente las palabras del título que desea colorear",
+            "accentColor": "Color de acento",
+            "subtitle": "Subtítulo",
+            "subtitleColor": "Color del subtítulo"
+          }
+        },
         "mainInterface": {
           "selectPage": "Seleccione una página para editar",
           "selectPagePlaceholder": "Seleccione una página",

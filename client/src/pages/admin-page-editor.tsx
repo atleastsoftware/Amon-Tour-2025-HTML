@@ -7542,7 +7542,7 @@ const BlockEditDropdown = ({
             <div className="space-y-6">
               {/* Titre */}
               <div>
-                <Label htmlFor="title">Titre</Label>
+                <Label htmlFor="title">{t?.editor?.pageEditor?.blockEdit?.common?.title || 'Title'}</Label>
                 <Input 
                   id="title"
                   value={formData.title ?? block.configuration?.title ?? ''} 
@@ -7560,7 +7560,7 @@ const BlockEditDropdown = ({
               
               {/* Contenu */}
               <div>
-                <Label htmlFor="content">Contenu</Label>
+                <Label htmlFor="content">{t?.editor?.pageEditor?.blockEdit?.common?.content || 'Content'}</Label>
                 <Textarea 
                   id="content"
                   value={formData.content ?? block.configuration?.content ?? ''} 
@@ -7579,7 +7579,7 @@ const BlockEditDropdown = ({
 
               {/* Tiret */}
               <div>
-                <Label htmlFor="divider">Tiret</Label>
+                <Label htmlFor="divider">{t?.editor?.pageEditor?.blockEdit?.common?.divider || 'Divider'}</Label>
                 <div className="mt-3">
                   <ColorPicker
                     value={formData.dividerColor ?? '#3BA8AF'}
@@ -7590,7 +7590,7 @@ const BlockEditDropdown = ({
 
               {/* Couleur de fond */}
               <div>
-                <Label htmlFor="backgroundColor">Couleur de fond</Label>
+                <Label htmlFor="backgroundColor">{t?.editor?.pageEditor?.blockEdit?.common?.backgroundColor || 'Background Color'}</Label>
                 <div className="mt-3">
                   <ColorPicker
                     value={formData.backgroundColor ?? '#ffffff'}
@@ -7608,7 +7608,7 @@ const BlockEditDropdown = ({
             <div className="space-y-6">
               {/* Titre principal */}
               <div>
-                <Label htmlFor="title">Titre principal</Label>
+                <Label htmlFor="title">{t?.editor?.pageEditor?.blockEdit?.common?.mainTitle || 'Main Title'}</Label>
                 <Textarea 
                   id="title"
                   value={formData.title ?? block.configuration?.title ?? ''} 
@@ -7627,7 +7627,7 @@ const BlockEditDropdown = ({
               
               {/* Mot du titre en seconde couleur */}
               <div>
-                <Label htmlFor="titleAccentText">Mot du titre en seconde couleur</Label>
+                <Label htmlFor="titleAccentText">{t?.editor?.pageEditor?.blockEdit?.common?.accentWord || 'Accent Word'}</Label>
                 <Input 
                   id="titleAccentText"
                   value={formData.titleAccentText ?? ''} 
@@ -7636,7 +7636,7 @@ const BlockEditDropdown = ({
                   className="mt-2"
                 />
                 <p className="text-xs text-gray-500 mt-1">
-                  Tapez exactement les mots du titre que vous voulez colorer
+                  {t?.editor?.pageEditor?.blockEdit?.common?.accentWordHelp || 'Type the exact words from the title you want to color'}
                 </p>
                 <div className="mt-3">
                   <ColorPicker

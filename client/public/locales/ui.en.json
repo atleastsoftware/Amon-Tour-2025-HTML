@@ -1663,6 +1663,89 @@
       "logout": "Logout",
       "login": "Log in"
     },
+    "blockEditor": {
+      "title": "Block configuration: {{type}}",
+      "tabs": {
+        "content": "Content",
+        "style": "Style",
+        "actions": "Actions",
+        "advanced": "Advanced"
+      },
+      "colorPicker": {
+        "colorReference": "Color reference",
+        "colorPlaceholder": "#ffffff",
+        "inputHelp": "Type the color code or select a predefined color",
+        "themeColors": "Theme colors",
+        "primary": "Primary",
+        "primaryTitle": "Primary theme color",
+        "secondary": "Secondary",
+        "secondaryTitle": "Secondary theme color",
+        "heading": "Heading",
+        "headingTitle": "Heading color (reference)",
+        "text": "Text",
+        "textTitle": "Text color (reference)",
+        "background": "Background",
+        "backgroundTitle": "Background color (reference)",
+        "preview": "Preview",
+        "pickerTitle": "Color picker",
+        "pickerHelp": "Click the color box or select a theme color"
+      },
+      "fields": {
+        "title": "Title",
+        "titlePlaceholder": "Enter the title",
+        "subtitle": "Subtitle",
+        "subtitlePlaceholder": "Enter the subtitle",
+        "description": "Description",
+        "descriptionPlaceholder": "Enter the description",
+        "content": "Content",
+        "contentPlaceholder": "Enter the content",
+        "blockTitle": "Block title",
+        "blockTitlePlaceholder": "Block title",
+        "blockSubtitle": "Block subtitle",
+        "blockSubtitlePlaceholder": "Block subtitle",
+        "blockDescription": "Block description",
+        "blockDescriptionPlaceholder": "Block description",
+        "mainContent": "Main content (supports HTML)",
+        "mainContentPlaceholder": "Main content (supports HTML)",
+        "imageUrl": "Image URL",
+        "imageUrlPlaceholder": "/path/to/image.jpg",
+        "upload": "Upload",
+        "backgroundColor": "Background color",
+        "backgroundColors": {
+          "white": "White",
+          "gray": "Gray",
+          "primaryBlue": "Primary blue",
+          "secondaryGold": "Secondary gold",
+          "dark": "Dark"
+        },
+        "layout": "Layout",
+        "layouts": {
+          "textLeftImageRight": "Text left, Image right",
+          "imageLeftTextRight": "Image left, Text right"
+        },
+        "textColor": "Text color",
+        "ctaText": "Button text",
+        "ctaTextPlaceholder": "Learn more",
+        "ctaUrl": "Button URL",
+        "ctaUrlPlaceholder": "/contact",
+        "ctaButtons": "Action buttons",
+        "buttonText": "Button text",
+        "buttonStyle": "Button style",
+        "buttonStyles": {
+          "primary": "Primary",
+          "secondary": "Secondary",
+          "outline": "Outline"
+        },
+        "buttons": "Buttons",
+        "newButton": "New button",
+        "addButton": "Add button",
+        "blockId": "Block identifier",
+        "blockOrder": "Block order",
+        "isActive": "Block is active",
+        "rawConfig": "Raw configuration (JSON)",
+        "rawConfigPlaceholder": "{ }"
+      }
+    },
     "dashboard": {
       "title": "Administration",
       "subtitle": "Centralized management dashboard",
@@ -2203,6 +2286,47 @@
         "mainPages": "MAIN PAGES",
         "secondaryPages": "SECONDARY PAGES",
         "addPage": "Add a page",
+        "colorPicker": {
+          "primaryColor": "Primary Color",
+          "secondaryColor": "Secondary Color",
+          "headingColor": "Heading Color",
+          "textColor": "Text Color",
+          "backgroundColor": "Background Color",
+          "clickToCustomize": "Click the color box or select a theme color"
+        },
+        "blockEdit": {
+          "common": {
+            "title": "Title",
+            "titleColor": "Title Color",
+            "subtitle": "Subtitle",
+            "subtitleColor": "Subtitle Color",
+            "content": "Content",
+            "contentColor": "Content Color",
+            "divider": "Divider",
+            "dividerColor": "Divider Color",
+            "backgroundColor": "Background Color",
+            "mainTitle": "Main Title",
+            "accentWord": "Accent Word",
+            "accentWordHelp": "Type the exact words from the title you want to color",
+            "accentColor": "Accent Color",
+            "description": "Description",
+            "imageUrl": "Image URL",
+            "videoUrl": "Video URL",
+            "buttonText": "Button Text",
+            "buttonUrl": "Button URL",
+            "buttons": "Buttons",
+            "addButton": "Add Button"
+          },
+          "hero": {
+            "mainTitle": "Main Title",
+            "titleColor": "Title Color",
+            "accentText": "Accent Word",
+            "accentTextHelp": "Type the exact words from the title you want to color",
+            "accentColor": "Accent Color",
+            "subtitle": "Subtitle",
+            "subtitleColor": "Subtitle Color"
+          }
+        },
         "mainInterface": {
           "selectPage": "Select a page to edit",
           "selectPagePlaceholder": "Select a page",
