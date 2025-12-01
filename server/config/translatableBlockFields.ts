@@ -132,7 +132,7 @@ export const TRANSLATABLE_BLOCK_FIELDS: Record<string, TranslatableFieldConfig> 
   },
   
   popular_experiences: {
-    simpleFields: ['title', 'subtitle']
+    simpleFields: ['title', 'subtitle', 'viewDetailsText', 'bookNowText', 'buttonText']
   },
   
   custom_tour_form: {
@@ -140,7 +140,7 @@ export const TRANSLATABLE_BLOCK_FIELDS: Record<string, TranslatableFieldConfig> 
   },
   
   tour_ninja_section: {
-    simpleFields: ['title', 'subtitle']
+    simpleFields: ['title', 'subtitle', 'viewDetailsText', 'bookNowText', 'buttonText']
   },
   
   why_choose_us: {
@@ -221,7 +221,7 @@ export const TRANSLATABLE_BLOCK_FIELDS: Record<string, TranslatableFieldConfig> 
   },
   
   card_grid: {
-    simpleFields: ['title', 'subtitle']
+    simpleFields: ['title', 'subtitle', 'viewDetailsText', 'bookNowText', 'buttonText']
   },
   
   search_bar: {

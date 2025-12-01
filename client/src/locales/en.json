@@ -1485,6 +1485,8 @@
         "companyLicense": "Company License",
         "companyDescription": "Company Description",
         "buttonText": "Button Text",
+        "viewDetailsText": "View Details Text",
+        "bookNowText": "Book Now Text",
         "privacyText": "Privacy Text",
         "searchPlaceholder": "Search Placeholder",
         "tagsTitle": "Tags Title",

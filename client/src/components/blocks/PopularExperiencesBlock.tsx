@@ -30,6 +30,10 @@ export default function PopularExperiencesBlock({
   const tours = translations.tours;
   const common = translations.common;
   
+  // Use translated button texts from configuration if available, otherwise fall back to common translations
+  const viewDetailsLabel = configuration.viewDetailsText || common.viewDetails;
+  const bookNowLabel = configuration.bookNowText || common.bookNow;
+  
   console.log('🎯 [PopularExperiencesBlock] Rendering with language:', currentLanguage);
   
   // Helper to display duration in the correct language
@@ -249,7 +253,7 @@ export default function PopularExperiencesBlock({
                           e.currentTarget.style.backgroundColor = 'white';
                         }}
                       >
-                        {common.viewDetails}
+                        {viewDetailsLabel}
                         <ChevronRight className="h-3 w-3" />
                       </button>
                       <button 
@@ -269,7 +273,7 @@ export default function PopularExperiencesBlock({
                           e.currentTarget.style.filter = 'brightness(100%)';
                         }}
                       >
-                        {common.bookNow}
+                        {bookNowLabel}
                         <ChevronRight className="h-3 w-3" />
                       </button>
                     </div>
@@ -325,7 +329,7 @@ export default function PopularExperiencesBlock({
                         e.currentTarget.style.backgroundColor = 'white';
                       }}
                     >
-                      View details
+                      {viewDetailsLabel}
                       <ChevronRight className="h-3 w-3" />
                     </button>
                     <button 
@@ -340,7 +344,7 @@ export default function PopularExperiencesBlock({
                         e.currentTarget.style.filter = 'brightness(100%)';
                       }}
                     >
-                      Book now
+                      {bookNowLabel}
                       <ChevronRight className="h-3 w-3" />
                     </button>
                   </div>

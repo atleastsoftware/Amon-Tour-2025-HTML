@@ -735,13 +735,21 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
         // USE TRANSLATIONS FIRST for popular experiences
         const popularTitle = getDynamicTranslation(block.blockType, block.id, "title", block.title || popularExpConfig.title || '');
         const popularSubtitle = getDynamicTranslation(block.blockType, block.id, "subtitle", block.subtitle || popularExpConfig.subtitle || '');
+        const viewDetailsText = getDynamicTranslation(block.blockType, block.id, "viewDetailsText", popularExpConfig.viewDetailsText || '');
+        const bookNowText = getDynamicTranslation(block.blockType, block.id, "bookNowText", popularExpConfig.bookNowText || '');
+        const ctaButtonText = getDynamicTranslation(block.blockType, block.id, "buttonText", popularExpConfig.buttonText || '');
         
         return (
           <PopularExperiencesBlock
             key={block.id}
             title={popularTitle}
             subtitle={popularSubtitle}
-            configuration={popularExpConfig}
+            configuration={{
+              ...popularExpConfig,
+              viewDetailsText: viewDetailsText || undefined,
+              bookNowText: bookNowText || undefined,
+              buttonText: ctaButtonText || popularExpConfig.buttonText
+            }}
           />
         );
 

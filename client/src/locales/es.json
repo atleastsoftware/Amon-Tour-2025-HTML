@@ -1347,6 +1347,8 @@
         "companyLicense": "Licencia de la empresa",
         "companyDescription": "Descripción de la empresa",
         "buttonText": "Texto del botón",
+        "viewDetailsText": "Texto de ver detalles",
+        "bookNowText": "Texto de reservar ahora",
         "privacyText": "Texto de privacidad",
         "searchPlaceholder": "Marcador de búsqueda",
         "tagsTitle": "Título de etiquetas",
