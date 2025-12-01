@@ -338,7 +338,8 @@
   },
   "popular_experiences_433": {
     "title": "Nos forfaits exclusifs",
-    "subtitle": "Découvrez nos forfaits exclusifs de 2 à 3 jours : expériences immersives, activités soigneusement sélectionnées et hébergements de charme loin de la foule. Parfait pour explorer Krabi en profondeur, ces courts séjours allient confort, authenticité et soutien personnalisé, vous permettant de découvrir la Thaïlande différemment et en toute tranquillité d'esprit."
+    "subtitle": "Découvrez nos forfaits exclusifs de 2 à 3 jours : expériences immersives, activités soigneusement sélectionnées et hébergements de charme loin de la foule. Parfait pour explorer Krabi en profondeur, ces courts séjours allient confort, authenticité et soutien personnalisé, vous permettant de découvrir la Thaïlande différemment et en toute tranquillité d'esprit.",
+    "button_text": "Tours et expériences"
   },
   "why_choose_us_259": {
     "title": "Pourquoi Nous Choisir",
@@ -416,7 +417,8 @@
   },
   "popular_experiences_247": {
     "title": "Expériences uniques",
-    "subtitle": "Explorez nos plus belles expériences à Krabi, toutes garanties hors des sentiers battus : excursions en mer privées et semi-privées, excursions terrestres uniques (kayak à travers les mangroves, les cascades, la jungle tropicale, les arbres centenaires, les temples, les grottes karstiques, les piscines naturelles) et forfaits exclusifs de 2 jours / 1 nuit."
+    "subtitle": "Explorez nos plus belles expériences à Krabi, toutes garanties hors des sentiers battus : excursions en mer privées et semi-privées, excursions terrestres uniques (kayak à travers les mangroves, les cascades, la jungle tropicale, les arbres centenaires, les temples, les grottes karstiques, les piscines naturelles) et forfaits exclusifs de 2 jours / 1 nuit.",
+    "button_text": "Tours et expériences"
   },
   "navigation_menu_8": {
     "name": "Croisière"
@@ -582,14 +584,7 @@
         "preview": "Aperçu sur le site"
       },
       "common": {
-        "save": "Sauvegarder",
-        "cancel": "Annuler",
-        "edit": "Modifier",
-        "delete": "Supprimer",
-        "add": "Ajouter",
-        "saving": "Sauvegarde...",
-        "loading": "Chargement...",
-        "clickToEdit": "Cliquez pour modifier..."
+        "loadingAppearance": "Chargement des paramètres d'apparence..."
       },
       "navigation": {
         "menuItems": "Éléments du menu",
@@ -731,9 +726,6 @@
           "enableCopyright": "Activer le copyright",
           "copyrightText": "Texte de copyright"
         }
-      },
-      "common": {
-        "loadingAppearance": "Chargement des paramètres d'apparence..."
       }
     },
     "dashboard": {
@@ -1611,6 +1603,28 @@
     },
     "navigation_menu_8": {
       "name": {
+        "isManuallyEdited": true
+      }
+    },
+    "popular_experiences_247": {
+      "title": {
+        "isManuallyEdited": true
+      },
+      "subtitle": {
+        "isManuallyEdited": true
+      },
+      "button_text": {
+        "isManuallyEdited": true
+      }
+    },
+    "popular_experiences_433": {
+      "title": {
+        "isManuallyEdited": true
+      },
+      "subtitle": {
+        "isManuallyEdited": true
+      },
+      "button_text": {
         "isManuallyEdited": true
       }
     }

@@ -344,7 +344,8 @@
   },
   "popular_experiences_433": {
     "title": "Our Exclusive Packages",
-    "subtitle": "Discover our exclusive 2–3 day packages: immersive experiences, carefully selected activities, and charming accommodations away from the crowds. Perfect for exploring Krabi in depth, these short stays combine comfort, authenticity, and personalized support, allowing you to experience Thailand differently and with complete peace of mind."
+    "subtitle": "Discover our exclusive 2–3 day packages: immersive experiences, carefully selected activities, and charming accommodations away from the crowds. Perfect for exploring Krabi in depth, these short stays combine comfort, authenticity, and personalized support, allowing you to experience Thailand differently and with complete peace of mind.",
+    "button_text": "Voir tous les tours"
   },
   "why_choose_us_259": {
     "title": "Why Choose Us",
@@ -422,7 +423,8 @@
   },
   "popular_experiences_247": {
     "title": "Our exclusive experiences",
-    "subtitle": "Explore our finest experiences in Krabi, all guaranteed off the beaten path: private and semi-private sea tours, unique land excursions (kayaking through mangroves, waterfalls, tropical jungle, centuries-old trees, temples, karst caves, natural pools), and exclusive 2-day / 1-night packages."
+    "subtitle": "Explore our finest experiences in Krabi, all guaranteed off the beaten path: private and semi-private sea tours, unique land excursions (kayaking through mangroves, waterfalls, tropical jungle, centuries-old trees, temples, karst caves, natural pools), and exclusive 2-day / 1-night packages.",
+    "button_text": "Tours & Experiences"
   },
   "navigation_menu_1": {
     "name": "Home"
@@ -983,14 +985,7 @@
         "preview": "Preview on website"
       },
       "common": {
-        "save": "Save",
-        "cancel": "Cancel",
-        "edit": "Edit",
-        "delete": "Delete",
-        "add": "Add",
-        "saving": "Saving...",
-        "loading": "Loading...",
-        "clickToEdit": "Click to edit..."
+        "loadingAppearance": "Loading appearance settings..."
       },
       "navigation": {
         "menuItems": "Menu Items",
@@ -1138,9 +1133,6 @@
           "enableCopyright": "Enable copyright",
           "copyrightText": "Copyright Text"
         }
-      },
-      "common": {
-        "loadingAppearance": "Loading appearance settings..."
       }
     },
     "dashboard": {
@@ -1754,6 +1746,16 @@
   "_meta": {
     "hero_199": {
       "subtitle": {}
+    },
+    "popular_experiences_247": {
+      "title": {},
+      "subtitle": {},
+      "button_text": {}
+    },
+    "popular_experiences_433": {
+      "title": {},
+      "subtitle": {},
+      "button_text": {}
     }
   }
 }

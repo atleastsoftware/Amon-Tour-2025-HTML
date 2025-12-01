@@ -338,7 +338,8 @@
   },
   "popular_experiences_433": {
     "title": "\" Programas exclusivos.",
-    "subtitle": "Descubre nuestros exclusivos paquetes de 2-3 días: experiencias inmersivas, actividades cuidadosamente seleccionadas y alojamientos encantadores lejos de las multitudes. Perfecto para explorar Krabi en profundidad, estas estancias cortas combinan comodidad, autenticidad y atención personalizada, lo que te permite experimentar Tailandia de manera diferente y con total tranquilidad."
+    "subtitle": "Descubre nuestros exclusivos paquetes de 2-3 días: experiencias inmersivas, actividades cuidadosamente seleccionadas y alojamientos encantadores lejos de las multitudes. Perfecto para explorar Krabi en profundidad, estas estancias cortas combinan comodidad, autenticidad y atención personalizada, lo que te permite experimentar Tailandia de manera diferente y con total tranquilidad.",
+    "button_text": "Tours y experiencias"
   },
   "why_choose_us_259": {
     "title": "Por qué Elegir a Nosotros",
@@ -416,7 +417,8 @@
   },
   "popular_experiences_247": {
     "title": "Experiencias exclusivas",
-    "subtitle": "Explore nuestras mejores experiencias en Krabi, todas garantizadas fuera de lo común: excursiones marítimas privadas y semiprivadas, excursiones terrestres únicas (kayak a través de manglares, cascadas, selva tropical, árboles centenarios, templos, cuevas kársticas, piscinas naturales) y paquetes exclusivos de 2 días / 1 noche."
+    "subtitle": "Explore nuestras mejores experiencias en Krabi, todas garantizadas fuera de lo común: excursiones marítimas privadas y semiprivadas, excursiones terrestres únicas (kayak a través de manglares, cascadas, selva tropical, árboles centenarios, templos, cuevas kársticas, piscinas naturales) y paquetes exclusivos de 2 días / 1 noche.",
+    "button_text": "Tours y Experiencias"
   },
   "navigation_menu_8": {
     "name": "Crucero"
@@ -649,14 +651,7 @@
         "preview": "Vista previa en el sitio"
       },
       "common": {
-        "save": "Guardar",
-        "cancel": "Cancelar",
-        "edit": "Editar",
-        "delete": "Eliminar",
-        "add": "Añadir",
-        "saving": "Guardando...",
-        "loading": "Cargando...",
-        "clickToEdit": "Clic para editar..."
+        "loadingAppearance": "Cargando configuración de apariencia..."
       },
       "navigation": {
         "menuItems": "Elementos del menú",
@@ -804,9 +799,6 @@
           "enableCopyright": "Activar copyright",
           "copyrightText": "Texto de copyright"
         }
-      },
-      "common": {
-        "loadingAppearance": "Cargando configuración de apariencia..."
       }
     },
     "dashboard": {
@@ -1828,6 +1820,28 @@
     },
     "navigation_menu_8": {
       "name": {
+        "isManuallyEdited": true
+      }
+    },
+    "popular_experiences_247": {
+      "title": {
+        "isManuallyEdited": true
+      },
+      "subtitle": {
+        "isManuallyEdited": true
+      },
+      "button_text": {
+        "isManuallyEdited": true
+      }
+    },
+    "popular_experiences_433": {
+      "title": {
+        "isManuallyEdited": true
+      },
+      "subtitle": {
+        "isManuallyEdited": true
+      },
+      "button_text": {
         "isManuallyEdited": true
       }
     }

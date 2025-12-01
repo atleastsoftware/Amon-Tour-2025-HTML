@@ -2612,9 +2612,9 @@
         "formName": "Nombre del formulario:"
       },
       "blockTypes": {
-        "cardGridDate": "Card Grid Date",
+        "cardGridDate": "Cuadrícula de tarjetas (fecha)",
         "cardGridDateDesc": "Cuadrícula de tarjetas con insignias de duración",
-        "cardGridPrice": "Card Grid Price",
+        "cardGridPrice": "Cuadrícula de tarjetas (precio)",
         "cardGridPriceDesc": "Cuadrícula de tarjetas con insignias de precio",
         "contact": "Contacto",
         "contactDesc": "Sección de contacto con email, teléfono, WhatsApp y Line ID",
@@ -2622,17 +2622,17 @@
         "formDesc": "Formulario con imagen y campos personalizables",
         "gallery": "Galería",
         "galleryDesc": "Tarjetas de testimonios desplazables",
-        "hero": "Hero Section",
+        "hero": "Sección Hero",
         "heroDesc": "Banner de bienvenida con título, subtítulo y botones CTA",
-        "header_page": "Header Page",
+        "header_page": "Encabezado de página",
         "header_pageDesc": "Encabezado de página con título, subtítulo e imagen de fondo",
         "text": "Texto + Botones",
         "textDesc": "Sección de texto con título, contenido y botones de acción",
         "iconGrid": "Texto + Iconos",
         "iconGridDesc": "Cuadrícula de iconos con descripciones de texto",
-        "searchModule": "Search Bar: Tours",
+        "searchModule": "Barra de búsqueda: Tours",
         "searchModuleDesc": "Módulo de búsqueda y filtrado de tours",
-        "blog_search": "Search Bar: Blog",
+        "blog_search": "Barra de búsqueda: Blog",
         "blog_searchDesc": "Barra de búsqueda con filtros de tags y categorías para blog",
         "textImage": "Texto + Imágenes",
         "textImageDesc": "Sección de texto con imágenes opcionales",
@@ -2648,7 +2648,9 @@
       "blockSelection": {
         "title": "Añadir un bloque",
         "preview": "Vista previa",
-        "selectBlockToPreview": "Selecciona un tipo de bloque para ver la vista previa"
+        "selectBlockToPreview": "Selecciona un tipo de bloque para ver la vista previa",
+        "cancel": "Cancelar",
+        "add": "Añadir"
       }
     },
     "login": {
