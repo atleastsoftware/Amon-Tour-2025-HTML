@@ -375,7 +375,7 @@ export default function BlockTranslationEditor() {
                                 >
                                   <div className="flex items-center justify-between">
                                     <label className="text-sm font-medium flex items-center gap-2" data-testid={`label-${lang}-${key}`}>
-                                      {getFieldDisplayName(key, t?.translationEditor)}
+                                      {getFieldDisplayName(key, t)}
                                       {isManuallyEdited ? (
                                         <Badge variant="secondary" className="text-xs bg-amber-500 text-white flex items-center gap-1" data-testid={`badge-manually-edited-${lang}-${key}`}>
                                           <Lock className="w-3 h-3" />
