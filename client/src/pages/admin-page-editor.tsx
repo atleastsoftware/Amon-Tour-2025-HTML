@@ -3315,7 +3315,7 @@ const BlockEditDropdown = ({
                 className="mt-2"
               />
               <div className="mt-3">
-                <Label className="text-sm">Couleur du titre</Label>
+                <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.titleColor || 'Title Color'}</Label>
                 <ColorPicker
                   value={formData.titleColor ?? '#084F6E'}
                   onChange={(value) => updateField('titleColor', value)}
@@ -3325,7 +3325,7 @@ const BlockEditDropdown = ({
 
             {/* Introduction */}
             <div>
-              <Label htmlFor="introduction">Introduction</Label>
+              <Label htmlFor="introduction">{t?.editor?.pageEditor?.blockEdit?.common?.introduction || 'Introduction'}</Label>
               <Textarea 
                 id="introduction"
                 value={formData.introduction ?? defaultTextImagesData.introduction} 
@@ -3335,7 +3335,7 @@ const BlockEditDropdown = ({
                 className="mt-2"
               />
               <div className="mt-3">
-                <Label className="text-sm">Couleur de l'introduction</Label>
+                <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.introductionColor || 'Introduction Color'}</Label>
                 <ColorPicker
                   value={formData.introColor ?? '#666666'}
                   onChange={(value) => updateField('introColor', value)}
@@ -3345,7 +3345,7 @@ const BlockEditDropdown = ({
 
             {/* Couleur du trait de séparation */}
             <div>
-              <Label>Couleur du trait de séparation</Label>
+              <Label>{t?.editor?.pageEditor?.blockEdit?.common?.dividerColor || 'Divider Color'}</Label>
               <div className="mt-2">
                 <ColorPicker
                   value={formData.dividerColor ?? '#3BA8AF'}
@@ -3356,7 +3356,7 @@ const BlockEditDropdown = ({
 
             {/* Couleur de fond */}
             <div>
-              <Label htmlFor="backgroundColor">Couleur de fond</Label>
+              <Label htmlFor="backgroundColor">{t?.editor?.pageEditor?.blockEdit?.common?.backgroundColor || 'Background Color'}</Label>
               <div className="mt-3">
                 <ColorPicker
                   value={formData.backgroundColor ?? '#ffffff'}
@@ -3368,7 +3368,7 @@ const BlockEditDropdown = ({
             {/* Sous-sections dynamiques */}
             <div className="border-t pt-4 mt-6">
               <div className="flex items-center justify-between mb-4">
-                <Label className="text-base font-semibold">Sous-sections</Label>
+                <Label className="text-base font-semibold">{t?.editor?.pageEditor?.blockEdit?.common?.subsections || 'Subsections'}</Label>
                 <button
                   type="button"
                   onClick={() => {
@@ -3391,7 +3391,7 @@ const BlockEditDropdown = ({
                   }}
                 >
                   <Plus size={14} className="inline mr-1" />
-                  Ajouter une sous-section
+                  {t?.editor?.pageEditor?.blockEdit?.common?.addSubsection || 'Add Subsection'}
                 </button>
               </div>
 
@@ -3399,7 +3399,7 @@ const BlockEditDropdown = ({
                 {textSections.map((section: any, index: number) => (
                   <div key={index} className="border-2 border-gray-300 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-3">
-                      <Label className="text-sm font-medium">Sous-section {index + 1}</Label>
+                      <Label className="text-sm font-medium">{t?.editor?.pageEditor?.blockEdit?.common?.subsection || 'Subsection'} {index + 1}</Label>
                       <button
                         type="button"
                         onClick={() => {
@@ -3418,7 +3418,7 @@ const BlockEditDropdown = ({
                           e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
                         }}
                       >
-                        Supprimer
+                        {t?.editor?.pageEditor?.blockEdit?.common?.delete || 'Delete'}
                       </button>
                     </div>
 
@@ -3435,7 +3435,7 @@ const BlockEditDropdown = ({
                         />
                       </div>
                       <div>
-                        <Label className="text-sm">Texte</Label>
+                        <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.text || 'Text'}</Label>
                         <Textarea 
                           value={section.text || ''} 
                           onChange={e => {
@@ -3452,7 +3452,7 @@ const BlockEditDropdown = ({
               </div>
 
               <div className="mt-4">
-                <Label className="text-sm">Couleur des sous-titres</Label>
+                <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.subtitleColor || 'Subtitle Color'}</Label>
                 <ColorPicker
                   value={formData.subtitleColor ?? '#084F6E'}
                   onChange={(value) => updateField('subtitleColor', value)}
@@ -3460,7 +3460,7 @@ const BlockEditDropdown = ({
               </div>
 
               <div className="mt-4">
-                <Label className="text-sm">Couleur du texte</Label>
+                <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.textColor || 'Text Color'}</Label>
                 <ColorPicker
                   value={formData.textColor ?? '#666666'}
                   onChange={(value) => updateField('textColor', value)}
@@ -3471,7 +3471,7 @@ const BlockEditDropdown = ({
             {/* Images */}
             <div className="border-t pt-4 mt-6">
               <div className="flex items-center justify-between mb-4">
-                <Label className="text-base font-semibold">Images</Label>
+                <Label className="text-base font-semibold">{t?.editor?.pageEditor?.blockEdit?.common?.images || 'Images'}</Label>
                 <button
                   type="button"
                   onClick={() => {
@@ -3506,7 +3506,7 @@ const BlockEditDropdown = ({
                   }}
                 >
                   <Plus size={14} className="inline mr-1" />
-                  Ajouter une image
+                  {t?.editor?.pageEditor?.blockEdit?.common?.addImage || 'Add Image'}
                 </button>
               </div>
 
@@ -3514,7 +3514,7 @@ const BlockEditDropdown = ({
                 {textImages.map((image: any, index: number) => (
                   <div key={index} className="border-2 border-gray-300 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-3">
-                      <Label className="text-sm font-medium">Image {index + 1}</Label>
+                      <Label className="text-sm font-medium">{t?.editor?.pageEditor?.blockEdit?.common?.image || 'Image'} {index + 1}</Label>
                       <button
                         type="button"
                         onClick={() => {
@@ -3533,13 +3533,13 @@ const BlockEditDropdown = ({
                           e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
                         }}
                       >
-                        Supprimer
+                        {t?.editor?.pageEditor?.blockEdit?.common?.delete || 'Delete'}
                       </button>
                     </div>
 
                     <div className="space-y-3">
                       <div>
-                        <Label className="text-sm">URL de l'image</Label>
+                        <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.imageUrl || 'Image URL'}</Label>
                         <Input 
                           value={image.url || ''} 
                           onChange={e => {
@@ -3550,7 +3550,7 @@ const BlockEditDropdown = ({
                         />
                       </div>
                       <div>
-                        <Label className="text-sm">Texte alternatif</Label>
+                        <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.altText || 'Alt Text'}</Label>
                         <Input 
                           value={image.alt || ''} 
                           onChange={e => {
@@ -3561,7 +3561,7 @@ const BlockEditDropdown = ({
                         />
                       </div>
                       <div>
-                        <Label className="text-sm">Associer à la sous-section</Label>
+                        <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.associateToSubsection || 'Associate to Subsection'}</Label>
                         <select 
                           value={image.sectionIndex || 0}
                           onChange={e => {
@@ -3579,7 +3579,7 @@ const BlockEditDropdown = ({
                         </select>
                       </div>
                       <div>
-                        <Label className="text-sm">Position</Label>
+                        <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.position || 'Position'}</Label>
                         <select 
                           value={image.position || 'left'}
                           onChange={e => {
@@ -3589,8 +3589,8 @@ const BlockEditDropdown = ({
                           }}
                           className="w-full p-2 border rounded"
                         >
-                          <option value="left">Gauche</option>
-                          <option value="right">Droite</option>
+                          <option value="left">{t?.editor?.pageEditor?.blockEdit?.alignmentOptions?.left || 'Left'}</option>
+                          <option value="right">{t?.editor?.pageEditor?.blockEdit?.alignmentOptions?.right || 'Right'}</option>
                         </select>
                       </div>
                     </div>
@@ -3602,7 +3602,7 @@ const BlockEditDropdown = ({
             {/* Boutons */}
             <div className="border-t pt-4 mt-6">
               <div className="flex items-center justify-between mb-4">
-                <Label className="text-base font-semibold">Boutons</Label>
+                <Label className="text-base font-semibold">{t?.editor?.pageEditor?.blockEdit?.common?.buttons || 'Buttons'}</Label>
                 <button
                   type="button"
                   onClick={() => {
@@ -3635,7 +3635,7 @@ const BlockEditDropdown = ({
                 {textButtons.map((button: any, index: number) => (
                   <div key={index} className="border-2 border-gray-300 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-3">
-                      <Label className="text-sm font-medium">Bouton {index + 1}</Label>
+                      <Label className="text-sm font-medium">{t?.editor?.pageEditor?.blockEdit?.common?.button || 'Button'} {index + 1}</Label>
                       <button
                         type="button"
                         onClick={() => {
@@ -3654,13 +3654,13 @@ const BlockEditDropdown = ({
                           e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
                         }}
                       >
-                        Supprimer
+                        {t?.editor?.pageEditor?.blockEdit?.common?.delete || 'Delete'}
                       </button>
                     </div>
 
                     <div className="space-y-3">
                       <div>
-                        <Label className="text-sm">Texte du bouton</Label>
+                        <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.buttonText || 'Button Text'}</Label>
                         <Input 
                           value={button.text || ''} 
                           onChange={e => {
@@ -3681,7 +3681,7 @@ const BlockEditDropdown = ({
                         />
                       </div>
                       <div>
-                        <Label className="text-sm">Style</Label>
+                        <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.style || 'Style'}</Label>
                         <select 
                           value={button.style || 'filled'}
                           onChange={e => {
@@ -3691,12 +3691,12 @@ const BlockEditDropdown = ({
                           }}
                           className="w-full p-2 border rounded"
                         >
-                          <option value="filled">Plein</option>
-                          <option value="outline">Contour</option>
+                          <option value="filled">{t?.editor?.pageEditor?.blockEdit?.styleOptions?.filled || 'Filled'}</option>
+                          <option value="outline">{t?.editor?.pageEditor?.blockEdit?.styleOptions?.outline || 'Outline'}</option>
                         </select>
                       </div>
                       <div>
-                        <Label className="text-sm">Couleur</Label>
+                        <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.color || 'Color'}</Label>
                         <ColorPicker
                           value={button.color || '#084F6E'}
                           onChange={(value) => {
@@ -3719,7 +3719,7 @@ const BlockEditDropdown = ({
           <div className="space-y-6">
             {/* Titre */}
             <div>
-              <Label htmlFor="title">Titre</Label>
+              <Label htmlFor="title">{t?.editor?.pageEditor?.blockEdit?.common?.title || 'Title'}</Label>
               <Input 
                 id="title"
                 value={formData.title ?? block.configuration?.title ?? ''} 
@@ -3737,7 +3737,7 @@ const BlockEditDropdown = ({
             
             {/* Contenu */}
             <div>
-              <Label htmlFor="content">Contenu</Label>
+              <Label htmlFor="content">{t?.editor?.pageEditor?.blockEdit?.common?.content || 'Content'}</Label>
               <Textarea 
                 id="content"
                 value={formData.content ?? block.configuration?.content ?? ''} 
@@ -3767,7 +3767,7 @@ const BlockEditDropdown = ({
 
             {/* Couleur de fond */}
             <div>
-              <Label htmlFor="backgroundColor">Couleur de fond</Label>
+              <Label htmlFor="backgroundColor">{t?.editor?.pageEditor?.blockEdit?.common?.backgroundColor || 'Background Color'}</Label>
               <div className="mt-3">
                 <ColorPicker
                   value={formData.backgroundColor ?? '#ffffff'}
@@ -3783,7 +3783,7 @@ const BlockEditDropdown = ({
           <div className="space-y-6">
             {/* Titre */}
             <div>
-              <Label htmlFor="title">Titre</Label>
+              <Label htmlFor="title">{t?.editor?.pageEditor?.blockEdit?.common?.title || 'Title'}</Label>
               <Input 
                 id="title"
                 value={formData.title ?? block.configuration?.title ?? ''} 
@@ -3801,7 +3801,7 @@ const BlockEditDropdown = ({
             
             {/* Contenu */}
             <div>
-              <Label htmlFor="content">Contenu</Label>
+              <Label htmlFor="content">{t?.editor?.pageEditor?.blockEdit?.common?.content || 'Content'}</Label>
               <Textarea 
                 id="content"
                 value={formData.content ?? block.configuration?.content ?? ''} 
@@ -3971,7 +3971,7 @@ const BlockEditDropdown = ({
           <div className="space-y-6">
             {/* Titre */}
             <div>
-              <Label htmlFor="title">Titre</Label>
+              <Label htmlFor="title">{t?.editor?.pageEditor?.blockEdit?.common?.title || 'Title'}</Label>
               <Textarea 
                 id="title"
                 value={formData.title !== undefined ? formData.title : (block.configuration?.title ?? '')} 
@@ -4066,7 +4066,7 @@ const BlockEditDropdown = ({
                 {(formData.buttons || []).map((button: any, index: number) => (
                   <div key={index} className="border rounded-lg p-4 space-y-3">
                     <div className="flex items-center justify-between">
-                      <Label className="text-sm font-medium">Bouton {index + 1}</Label>
+                      <Label className="text-sm font-medium">{t?.editor?.pageEditor?.blockEdit?.common?.button || 'Button'} {index + 1}</Label>
                       <Button 
                         type="button"
                         variant="ghost"
@@ -4170,7 +4170,7 @@ const BlockEditDropdown = ({
               
               {formData.backgroundType === 'color' && (
                 <div className="mt-3">
-                  <Label htmlFor="backgroundColor">Couleur de fond</Label>
+                  <Label htmlFor="backgroundColor">{t?.editor?.pageEditor?.blockEdit?.common?.backgroundColor || 'Background Color'}</Label>
                   <div className="mt-2">
                     <ColorPicker
                       value={formData.backgroundColor ?? '#084F6E'}
@@ -4389,7 +4389,7 @@ const BlockEditDropdown = ({
 
             {/* Couleur de fond */}
             <div>
-              <Label htmlFor="backgroundColor">Couleur de fond</Label>
+              <Label htmlFor="backgroundColor">{t?.editor?.pageEditor?.blockEdit?.common?.backgroundColor || 'Background Color'}</Label>
               <div className="mt-3">
                 <ColorPicker
                   value={formData.backgroundColor ?? '#ffffff'}
@@ -4405,7 +4405,7 @@ const BlockEditDropdown = ({
           <div className="space-y-6">
             {/* Titre */}
             <div>
-              <Label htmlFor="title">Titre</Label>
+              <Label htmlFor="title">{t?.editor?.pageEditor?.blockEdit?.common?.title || 'Title'}</Label>
               <Input 
                 id="title"
                 value={formData.title ?? block.configuration?.title ?? 'Our Popular Experiences'} 
@@ -4452,7 +4452,7 @@ const BlockEditDropdown = ({
 
             {/* Couleur de fond */}
             <div>
-              <Label htmlFor="backgroundColor">Couleur de fond</Label>
+              <Label htmlFor="backgroundColor">{t?.editor?.pageEditor?.blockEdit?.common?.backgroundColor || 'Background Color'}</Label>
               <div className="mt-3">
                 <ColorPicker
                   value={formData.backgroundColor ?? '#ffffff'}
@@ -4708,7 +4708,7 @@ const BlockEditDropdown = ({
           <div className="space-y-6">
             {/* Titre */}
             <div>
-              <Label htmlFor="title">Titre</Label>
+              <Label htmlFor="title">{t?.editor?.pageEditor?.blockEdit?.common?.title || 'Title'}</Label>
               <Input 
                 id="title"
                 value={formData.title ?? 'Some Ideas For Your Next Trip'} 
@@ -4755,7 +4755,7 @@ const BlockEditDropdown = ({
 
             {/* Couleur de fond */}
             <div>
-              <Label htmlFor="backgroundColor">Couleur de fond</Label>
+              <Label htmlFor="backgroundColor">{t?.editor?.pageEditor?.blockEdit?.common?.backgroundColor || 'Background Color'}</Label>
               <div className="mt-3">
                 <ColorPicker
                   value={formData.backgroundColor ?? '#f9fafb'}
@@ -5013,7 +5013,7 @@ const BlockEditDropdown = ({
             {/* Configuration des couleurs */}
             <div className="space-y-4">
               <div>
-                <Label htmlFor="title">Titre</Label>
+                <Label htmlFor="title">{t?.editor?.pageEditor?.blockEdit?.common?.title || 'Title'}</Label>
                 <Input 
                   id="title"
                   value={formData.title ?? 'Why Choose Us'} 
@@ -5057,7 +5057,7 @@ const BlockEditDropdown = ({
 
               {/* Couleur de fond */}
               <div>
-                <Label htmlFor="backgroundColor">Couleur de fond</Label>
+                <Label htmlFor="backgroundColor">{t?.editor?.pageEditor?.blockEdit?.common?.backgroundColor || 'Background Color'}</Label>
                 <div className="mt-3">
                   <ColorPicker
                     value={formData.backgroundColor ?? '#ffffff'}
@@ -5703,7 +5703,7 @@ const BlockEditDropdown = ({
                 className="mt-2"
               />
               <div className="mt-3">
-                <Label className="text-sm">Couleur du titre</Label>
+                <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.titleColor || 'Title Color'}</Label>
                 <ColorPicker
                   value={formData.titleColor ?? '#084F6E'}
                   onChange={(value) => updateField('titleColor', value)}
@@ -5729,7 +5729,7 @@ const BlockEditDropdown = ({
 
             {/* Introduction */}
             <div>
-              <Label htmlFor="introduction">Introduction</Label>
+              <Label htmlFor="introduction">{t?.editor?.pageEditor?.blockEdit?.common?.introduction || 'Introduction'}</Label>
               <Textarea 
                 id="introduction"
                 value={formData.introduction ?? ''} 
@@ -5738,7 +5738,7 @@ const BlockEditDropdown = ({
                 className="mt-2"
               />
               <div className="mt-3">
-                <Label className="text-sm">Couleur de l'introduction</Label>
+                <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.introductionColor || 'Introduction Color'}</Label>
                 <ColorPicker
                   value={formData.introColor ?? '#666666'}
                   onChange={(value) => updateField('introColor', value)}
@@ -5749,7 +5749,7 @@ const BlockEditDropdown = ({
             {/* Sous-sections */}
             <div className="border-t pt-4 mt-6">
               <div className="flex items-center justify-between mb-4">
-                <Label className="text-base font-semibold">Sous-sections</Label>
+                <Label className="text-base font-semibold">{t?.editor?.pageEditor?.blockEdit?.common?.subsections || 'Subsections'}</Label>
                 <button
                   type="button"
                   onClick={() => {
@@ -5772,7 +5772,7 @@ const BlockEditDropdown = ({
                   }}
                 >
                   <Plus size={14} className="inline mr-1" />
-                  Ajouter une sous-section
+                  {t?.editor?.pageEditor?.blockEdit?.common?.addSubsection || 'Add Subsection'}
                 </button>
               </div>
 
@@ -5780,7 +5780,7 @@ const BlockEditDropdown = ({
                 {whoWeAreSections.map((section: any, index: number) => (
                   <div key={index} className="border-2 border-gray-300 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-3">
-                      <Label className="text-sm font-medium">Sous-section {index + 1}</Label>
+                      <Label className="text-sm font-medium">{t?.editor?.pageEditor?.blockEdit?.common?.subsection || 'Subsection'} {index + 1}</Label>
                       <button
                         type="button"
                         onClick={() => {
@@ -5799,7 +5799,7 @@ const BlockEditDropdown = ({
                           e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
                         }}
                       >
-                        Supprimer
+                        {t?.editor?.pageEditor?.blockEdit?.common?.delete || 'Delete'}
                       </button>
                     </div>
 
@@ -5816,7 +5816,7 @@ const BlockEditDropdown = ({
                         />
                       </div>
                       <div>
-                        <Label className="text-sm">Texte</Label>
+                        <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.text || 'Text'}</Label>
                         <Textarea 
                           value={section.text || ''} 
                           onChange={e => {
@@ -5833,7 +5833,7 @@ const BlockEditDropdown = ({
               </div>
 
               <div className="mt-4">
-                <Label className="text-sm">Couleur des sous-titres</Label>
+                <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.subtitleColor || 'Subtitle Color'}</Label>
                 <ColorPicker
                   value={formData.subtitleColor ?? '#084F6E'}
                   onChange={(value) => updateField('subtitleColor', value)}
@@ -5841,7 +5841,7 @@ const BlockEditDropdown = ({
               </div>
 
               <div className="mt-4">
-                <Label className="text-sm">Couleur du texte</Label>
+                <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.textColor || 'Text Color'}</Label>
                 <ColorPicker
                   value={formData.textColor ?? '#666666'}
                   onChange={(value) => updateField('textColor', value)}
@@ -5852,7 +5852,7 @@ const BlockEditDropdown = ({
             {/* Images */}
             <div className="border-t pt-4 mt-6">
               <div className="flex items-center justify-between mb-4">
-                <Label className="text-base font-semibold">Images</Label>
+                <Label className="text-base font-semibold">{t?.editor?.pageEditor?.blockEdit?.common?.images || 'Images'}</Label>
                 <button
                   type="button"
                   onClick={() => {
@@ -5875,7 +5875,7 @@ const BlockEditDropdown = ({
                   }}
                 >
                   <Plus size={14} className="inline mr-1" />
-                  Ajouter une image
+                  {t?.editor?.pageEditor?.blockEdit?.common?.addImage || 'Add Image'}
                 </button>
               </div>
 
@@ -5914,7 +5914,7 @@ const BlockEditDropdown = ({
                 {whoWeAreImages.map((image: any, index: number) => (
                   <div key={index} className="border-2 border-gray-300 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-3">
-                      <Label className="text-sm font-medium">Image {index + 1}</Label>
+                      <Label className="text-sm font-medium">{t?.editor?.pageEditor?.blockEdit?.common?.image || 'Image'} {index + 1}</Label>
                       <button
                         type="button"
                         onClick={() => {
@@ -5933,13 +5933,13 @@ const BlockEditDropdown = ({
                           e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
                         }}
                       >
-                        Supprimer
+                        {t?.editor?.pageEditor?.blockEdit?.common?.delete || 'Delete'}
                       </button>
                     </div>
 
                     <div className="space-y-3">
                       <div>
-                        <Label className="text-sm">URL de l'image</Label>
+                        <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.imageUrl || 'Image URL'}</Label>
                         <div className="flex gap-2 items-center">
                           <Input 
                             value={image.url || ''} 
@@ -5989,7 +5989,7 @@ const BlockEditDropdown = ({
                         </div>
                       </div>
                       <div>
-                        <Label className="text-sm">Texte alternatif</Label>
+                        <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.altText || 'Alt Text'}</Label>
                         <Input 
                           value={image.alt || ''} 
                           onChange={e => {
@@ -6008,7 +6008,7 @@ const BlockEditDropdown = ({
             {/* Boutons */}
             <div className="border-t pt-4 mt-6">
               <div className="flex items-center justify-between mb-4">
-                <Label className="text-base font-semibold">Boutons</Label>
+                <Label className="text-base font-semibold">{t?.editor?.pageEditor?.blockEdit?.common?.buttons || 'Buttons'}</Label>
                 <button
                   type="button"
                   onClick={() => {
@@ -6041,7 +6041,7 @@ const BlockEditDropdown = ({
                 {whoWeAreButtons.map((button: any, index: number) => (
                   <div key={index} className="border-2 border-gray-300 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-3">
-                      <Label className="text-sm font-medium">Bouton {index + 1}</Label>
+                      <Label className="text-sm font-medium">{t?.editor?.pageEditor?.blockEdit?.common?.button || 'Button'} {index + 1}</Label>
                       <button
                         type="button"
                         onClick={() => {
@@ -6060,14 +6060,14 @@ const BlockEditDropdown = ({
                           e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
                         }}
                       >
-                        Supprimer
+                        {t?.editor?.pageEditor?.blockEdit?.common?.delete || 'Delete'}
                       </button>
                     </div>
 
                     <div className="space-y-3">
                       <div className="grid grid-cols-2 gap-3">
                         <div>
-                          <Label className="text-sm">Texte du bouton</Label>
+                          <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.buttonText || 'Button Text'}</Label>
                           <Input 
                             value={button.text || ''} 
                             onChange={e => {
@@ -6101,7 +6101,7 @@ const BlockEditDropdown = ({
                           />
                         </div>
                         <div>
-                          <Label className="text-sm">Couleur du texte</Label>
+                          <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.textColor || 'Text Color'}</Label>
                           <ColorPicker
                             value={button.textColor || '#ffffff'}
                             onChange={(value) => {
@@ -6166,7 +6166,7 @@ const BlockEditDropdown = ({
         return (
           <div className="space-y-4">
             <div>
-              <Label htmlFor="title">Titre</Label>
+              <Label htmlFor="title">{t?.editor?.pageEditor?.blockEdit?.common?.title || 'Title'}</Label>
               <Input 
                 id="title"
                 value={formData.title ?? 'Our Travelers Reviews'} 
@@ -6285,7 +6285,7 @@ const BlockEditDropdown = ({
                           e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
                         }}
                       >
-                        Supprimer
+                        {t?.editor?.pageEditor?.blockEdit?.common?.delete || 'Delete'}
                       </button>
                     </div>
 
@@ -6323,7 +6323,7 @@ const BlockEditDropdown = ({
                         />
                       </div>
                       <div>
-                        <Label className="text-sm">Texte</Label>
+                        <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.text || 'Text'}</Label>
                         <Textarea 
                           value={review.text || ''} 
                           onChange={e => {
@@ -6350,7 +6350,7 @@ const BlockEditDropdown = ({
           <div className="space-y-6">
             {/* Titre */}
             <div>
-              <Label htmlFor="title">Titre</Label>
+              <Label htmlFor="title">{t?.editor?.pageEditor?.blockEdit?.common?.title || 'Title'}</Label>
               <Input 
                 id="title"
                 value={formData.title ?? 'Our Tailor-made trips'} 
@@ -6398,7 +6398,7 @@ const BlockEditDropdown = ({
 
             {/* Couleur de fond */}
             <div>
-              <Label htmlFor="backgroundColor">Couleur de fond</Label>
+              <Label htmlFor="backgroundColor">{t?.editor?.pageEditor?.blockEdit?.common?.backgroundColor || 'Background Color'}</Label>
               <div className="mt-3">
                 <ColorPicker
                   value={formData.backgroundColor ?? '#ffffff'}
@@ -6424,7 +6424,7 @@ const BlockEditDropdown = ({
           <div className="space-y-6">
             {/* Titre */}
             <div>
-              <Label htmlFor="title">Titre</Label>
+              <Label htmlFor="title">{t?.editor?.pageEditor?.blockEdit?.common?.title || 'Title'}</Label>
               <Input 
                 id="title"
                 value={formData.title ?? 'Titre principal'} 
@@ -6844,7 +6844,7 @@ const BlockEditDropdown = ({
           <div className="space-y-6">
             {/* Titre */}
             <div>
-              <Label htmlFor="title">Titre</Label>
+              <Label htmlFor="title">{t?.editor?.pageEditor?.blockEdit?.common?.title || 'Title'}</Label>
               <Input 
                 id="title"
                 value={formData.title ?? 'Titre de la galerie'} 
@@ -6941,7 +6941,7 @@ const BlockEditDropdown = ({
           <div className="space-y-6">
             {/* Titre */}
             <div>
-              <Label htmlFor="title">Titre</Label>
+              <Label htmlFor="title">{t?.editor?.pageEditor?.blockEdit?.common?.title || 'Title'}</Label>
               <Input 
                 id="title"
                 value={formData.title ?? 'Titre de la vidéo'} 
@@ -7039,7 +7039,7 @@ const BlockEditDropdown = ({
           <div className="space-y-6">
             {/* Titre */}
             <div>
-              <Label htmlFor="title">Titre</Label>
+              <Label htmlFor="title">{t?.editor?.pageEditor?.blockEdit?.common?.title || 'Title'}</Label>
               <Input 
                 id="title"
                 value={formData.title ?? 'Titre de la section'} 
@@ -7175,7 +7175,7 @@ const BlockEditDropdown = ({
           <div className="space-y-6">
             {/* Titre */}
             <div>
-              <Label htmlFor="title">Titre</Label>
+              <Label htmlFor="title">{t?.editor?.pageEditor?.blockEdit?.common?.title || 'Title'}</Label>
               <Input 
                 id="title"
                 value={formData.title ?? 'Tarification Saisonnière'} 
@@ -7686,7 +7686,7 @@ const BlockEditDropdown = ({
                   {(formData.buttons || [{text: 'Bouton 1', url: '', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '', color: '#ffffff', textColor: '#ffffff', style: 'outline'}]).map((button: any, index: number) => (
                     <div key={index} className="border rounded-lg p-4 space-y-3">
                       <div className="flex items-center justify-between">
-                        <Label className="text-sm font-medium">Bouton {index + 1}</Label>
+                        <Label className="text-sm font-medium">{t?.editor?.pageEditor?.blockEdit?.common?.button || 'Button'} {index + 1}</Label>
                         <Button 
                           type="button"
                           variant="ghost"
@@ -7852,7 +7852,7 @@ const BlockEditDropdown = ({
                 
                 {formData.backgroundType === 'color' && (
                   <div className="mt-3">
-                    <Label htmlFor="backgroundColor">Couleur de fond</Label>
+                    <Label htmlFor="backgroundColor">{t?.editor?.pageEditor?.blockEdit?.common?.backgroundColor || 'Background Color'}</Label>
                     <ColorPicker
                       value={formData.backgroundColor ?? '#084F6E'}
                       onChange={(value) => updateField('backgroundColor', value)}
