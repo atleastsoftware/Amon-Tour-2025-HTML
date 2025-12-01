@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Home, FileText, Grid3x3, FormInput, CheckCircle, Calendar, DollarSign, Sparkles, Image, Search, Mail, Images, Video, List } from 'lucide-react';
+import { useTranslationSection } from '@/hooks/useTranslationSection';
 
 export interface BlockType {
   type: string;
@@ -511,6 +512,7 @@ interface BlockSelectionPopupProps {
 
 export default function BlockSelectionPopup({ isOpen, onClose, onSelect }: BlockSelectionPopupProps) {
   const [selectedType, setSelectedType] = useState<string | null>(null);
+  const { translations: t } = useTranslationSection('editor');
 
   const handleAdd = () => {
     if (selectedType) {
@@ -525,8 +527,35 @@ export default function BlockSelectionPopup({ isOpen, onClose, onSelect }: Block
     onClose();
   };
 
-  // Trier les blocs par ordre alphabétique
-  const sortedBlockTypes = [...blockTypes].sort((a, b) => a.label.localeCompare(b.label));
+  const getBlockLabel = (blockType: BlockType) => {
+    const blockTypesTranslations = t?.blockTypes as Record<string, string> | undefined;
+    const keyMap: Record<string, string> = {
+      'popular_experiences': 'cardGridDate',
+      'tour_ninja_section': 'cardGridPrice',
+      'custom_tour_form': 'form',
+      'who_we_are': 'textImage',
+      'why_choose_us': 'iconGrid',
+      'search_bar_tours': 'searchModule'
+    };
+    const key = keyMap[blockType.type] || blockType.type;
+    return blockTypesTranslations?.[key] || blockType.label;
+  };
+
+  const getBlockDescription = (blockType: BlockType) => {
+    const blockTypesTranslations = t?.blockTypes as Record<string, string> | undefined;
+    const keyMap: Record<string, string> = {
+      'popular_experiences': 'cardGridDateDesc',
+      'tour_ninja_section': 'cardGridPriceDesc',
+      'custom_tour_form': 'formDesc',
+      'who_we_are': 'textImageDesc',
+      'why_choose_us': 'iconGridDesc',
+      'search_bar_tours': 'searchModuleDesc'
+    };
+    const key = keyMap[blockType.type] || (blockType.type + 'Desc');
+    return blockTypesTranslations?.[key] || blockType.description;
+  };
+
+  const sortedBlockTypes = [...blockTypes].sort((a, b) => getBlockLabel(a).localeCompare(getBlockLabel(b)));
   
   const selectedBlock = sortedBlockTypes.find(b => b.type === selectedType);
 
@@ -534,11 +563,11 @@ export default function BlockSelectionPopup({ isOpen, onClose, onSelect }: Block
     <Dialog open={isOpen} onOpenChange={handleCancel}>
       <DialogContent className="max-w-5xl h-[85vh] flex flex-col">
         <DialogHeader>
-          <DialogTitle>Ajouter un bloc</DialogTitle>
+          <DialogTitle>{t?.blockSelection?.title || "Add block"}</DialogTitle>
         </DialogHeader>
 
         <div className="flex gap-4 flex-1 min-h-0">
-          {/* Liste des types de blocs */}
+          {/* Block type list */}
           <ScrollArea className="w-56 border rounded-lg flex-shrink-0">
             <div className="p-2 space-y-1.5">
               {sortedBlockTypes.map((blockType) => {
@@ -551,24 +580,24 @@ export default function BlockSelectionPopup({ isOpen, onClose, onSelect }: Block
                     onClick={() => setSelectedType(blockType.type)}
                     data-testid={`block-type-${blockType.type}`}
                   >
-                    <div className="font-semibold text-sm mb-1">{blockType.label}</div>
-                    <div className="text-xs text-gray-600">{blockType.description}</div>
+                    <div className="font-semibold text-sm mb-1">{getBlockLabel(blockType)}</div>
+                    <div className="text-xs text-gray-600">{getBlockDescription(blockType)}</div>
                   </Card>
                 );
               })}
             </div>
           </ScrollArea>
 
-          {/* Prévisualisation */}
+          {/* Preview */}
           <div className="flex-1 border rounded-lg p-4 bg-gray-50 overflow-auto">
-            <h3 className="text-sm font-semibold mb-3 text-gray-700">Prévisualisation</h3>
+            <h3 className="text-sm font-semibold mb-3 text-gray-700">{t?.blockSelection?.preview || "Preview"}</h3>
             {selectedBlock ? (
               <div className="bg-white rounded-lg p-4 shadow-sm">
                 {selectedBlock.preview}
               </div>
             ) : (
               <div className="flex items-center justify-center h-full text-gray-400">
-                Sélectionnez un type de bloc pour voir la prévisualisation
+                {t?.blockSelection?.selectBlockToPreview || "Select a block type to preview"}
               </div>
             )}
           </div>
@@ -576,14 +605,14 @@ export default function BlockSelectionPopup({ isOpen, onClose, onSelect }: Block
 
         <DialogFooter className="mt-4">
           <Button variant="outline" onClick={handleCancel} data-testid="button-cancel-block">
-            Annuler
+            {t?.cancel || "Cancel"}
           </Button>
           <Button 
             onClick={handleAdd} 
             disabled={!selectedType}
             data-testid="button-add-block"
           >
-            Ajouter
+            {t?.add || "Add"}
           </Button>
         </DialogFooter>
       </DialogContent>

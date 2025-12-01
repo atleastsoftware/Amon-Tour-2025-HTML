@@ -8031,7 +8031,7 @@ const BlockEditDropdown = ({
     >
       <div className="p-6">
         <div className="mb-4">
-          <h4 className="font-semibold text-lg mb-1">Modifier: {getBlockDisplayName(block)}</h4>
+          <h4 className="font-semibold text-lg mb-1">{t?.pageEditor?.mainInterface?.modify || "Edit"}: {getBlockDisplayName(block)}</h4>
         </div>
         
         {renderEditFields()}
@@ -8039,10 +8039,10 @@ const BlockEditDropdown = ({
         <div className="flex gap-3 mt-6 pt-4 border-t">
           <Button onClick={handleSave} className="flex-1">
             <Save className="w-4 h-4 mr-2" />
-            Sauvegarder
+            {t?.editor?.save || "Save"}
           </Button>
           <Button variant="outline" onClick={onCancel}>
-            Annuler
+            {t?.editor?.cancel || "Cancel"}
           </Button>
         </div>
       </div>
@@ -8510,7 +8510,7 @@ export default function AdminPageEditor() {
                                 onClick={() => moveBlock(block, 'up')}
                                 disabled={index === 0}
                                 className="h-6 w-6 p-0"
-                                title="Déplacer vers le haut"
+                                title={t?.pageEditor?.mainInterface?.moveUp || "Move up"}
                               >
                                 <ChevronUp className="w-3 h-3" />
                               </Button>
@@ -8520,7 +8520,7 @@ export default function AdminPageEditor() {
                                 onClick={() => moveBlock(block, 'down')}
                                 disabled={index === sortedBlocks.length - 1}
                                 className="h-6 w-6 p-0"
-                                title="Déplacer vers le bas"
+                                title={t?.pageEditor?.mainInterface?.moveDown || "Move down"}
                               >
                                 <ChevronDown className="w-3 h-3" />
                               </Button>
@@ -8539,9 +8539,9 @@ export default function AdminPageEditor() {
                               <div className="flex items-center justify-between gap-3 min-w-[120px] h-9 px-3 rounded-md border border-input bg-background">
                                 <div className="flex items-center gap-2">
                                   {block.isActive ? (
-                                    <><Eye className="w-4 h-4" />Visible</>
+                                    <><Eye className="w-4 h-4" />{t?.pageEditor?.mainInterface?.visible || "Visible"}</>
                                   ) : (
-                                    <><EyeOff className="w-4 h-4" />Masqué</>
+                                    <><EyeOff className="w-4 h-4" />{t?.pageEditor?.mainInterface?.hidden || "Hidden"}</>
                                   )}
                                 </div>
                                 <Switch 
@@ -8570,7 +8570,7 @@ export default function AdminPageEditor() {
                               }
                             >
                               <Settings className="w-4 h-4" />
-                              {editingBlockId === block.id ? 'Fermer' : 'Modifier'}
+                              {editingBlockId === block.id ? (t?.pageEditor?.mainInterface?.close || "Close") : (t?.pageEditor?.mainInterface?.modify || "Edit")}
                             </Button>
 
                             {/* Delete Button with Confirmation */}
@@ -8584,20 +8584,20 @@ export default function AdminPageEditor() {
                                 <AlertDialogHeader>
                                   <AlertDialogTitle className="flex items-center gap-2">
                                     <AlertTriangle className="w-5 h-5 text-red-600" />
-                                    Supprimer cette section
+                                    {t?.pageEditor?.mainInterface?.deleteSection || "Delete this section"}
                                   </AlertDialogTitle>
                                   <AlertDialogDescription>
-                                    Êtes-vous sûr de vouloir supprimer la section "{block.title}" ? 
-                                    Cette action est irréversible et la section disparaîtra définitivement de votre site web.
+                                    {t?.pageEditor?.mainInterface?.deleteConfirm?.replace('{{title}}', block.title) || `Are you sure you want to delete "${block.title}"?`} 
+                                    {t?.pageEditor?.mainInterface?.deleteWarning || "This action is irreversible."}
                                   </AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
-                                  <AlertDialogCancel>Annuler</AlertDialogCancel>
+                                  <AlertDialogCancel>{t?.pageEditor?.mainInterface?.cancel || "Cancel"}</AlertDialogCancel>
                                   <AlertDialogAction 
                                     onClick={() => deleteBlockMutation.mutate(block.id)}
                                     className="bg-red-600 hover:bg-red-700"
                                   >
-                                    Supprimer définitivement
+                                    {t?.pageEditor?.mainInterface?.deletePermanently || "Delete permanently"}
                                   </AlertDialogAction>
                                 </AlertDialogFooter>
                               </AlertDialogContent>
@@ -8679,7 +8679,7 @@ export default function AdminPageEditor() {
                   }}
                 >
                   <Plus className="w-5 h-5" />
-                  Ajouter un bloc
+                  {t?.pageEditor?.mainInterface?.addBlock || "Add block"}
                 </Button>
               </div>
             </div>
@@ -8691,9 +8691,9 @@ export default function AdminPageEditor() {
       <Dialog open={previewBlock !== null} onOpenChange={() => setPreviewBlock(null)}>
         <DialogContent className="max-w-7xl w-full h-[90vh] p-0">
           <DialogHeader className="p-6 pb-4">
-            <DialogTitle>Aperçu plein écran: {previewBlock?.title}</DialogTitle>
+            <DialogTitle>{t?.pageEditor?.mainInterface?.fullscreenPreview?.replace('{{title}}', previewBlock?.title || '') || `Full screen preview: ${previewBlock?.title}`}</DialogTitle>
             <DialogDescription>
-              Reproduction exacte de la section telle qu'elle apparaît sur votre site web
+              {t?.pageEditor?.mainInterface?.exactReproduction || "Exact reproduction of the section as it appears on your website"}
             </DialogDescription>
           </DialogHeader>
           <div className="flex-1 overflow-y-auto">
