@@ -2365,7 +2365,15 @@
             "numberOfAdsToDisplay": "Número de anuncios a mostrar",
             "allAvailableAds": "Todos los anuncios disponibles",
             "adCategory": "Categoría de anuncios",
-            "allAds": "Todos los anuncios"
+            "allAds": "Todos los anuncios",
+            "featuredAds": "Anuncios destacados",
+            "dayTrips": "Excursiones de un día",
+            "multiDayTrips": "Viajes de varios días",
+            "custom": "Personalizado (Manual)",
+            "selectToursToDisplay": "Seleccionar tours a mostrar",
+            "noToursAvailable": "No hay tours disponibles",
+            "toursSelected": "tour(s) seleccionado(s)",
+            "actionButtonAtBottom": "Botón de acción en la parte inferior"
           },
           "alignmentOptions": {
             "left": "Izquierda",
@@ -2381,7 +2389,8 @@
           "frameSizes": {
             "small": "Pequeña",
             "smallScrollingImages": "Pequeña (Imágenes desplazables)",
-            "large": "Grande (pantalla completa)"
+            "large": "Grande (pantalla completa)",
+            "largeMainThumbnails": "Grande (Imagen principal + Miniaturas)"
           },
           "videoTypes": {
             "directVideo": "Video directo (MP4/WebM)"
@@ -2393,6 +2402,133 @@
           "styleOptions": {
             "filled": "Relleno",
             "outline": "Contorno"
+          },
+          "common": {
+            "title": "Título",
+            "content": "Contenido",
+            "subtitle": "Subtítulo",
+            "divider": "Separador",
+            "backgroundColor": "Color de fondo",
+            "titleColor": "Color del título",
+            "introduction": "Introducción",
+            "introductionColor": "Color de la introducción",
+            "dividerColor": "Color del separador",
+            "subsections": "Subsecciones",
+            "addSubsection": "Añadir subsección",
+            "subsection": "Subsección",
+            "delete": "Eliminar",
+            "text": "Texto",
+            "subtitleColor": "Color del subtítulo",
+            "textColor": "Color del texto",
+            "images": "Imágenes",
+            "addImage": "Añadir imagen",
+            "image": "Imagen",
+            "imageUrl": "URL de la imagen",
+            "altText": "Texto alternativo",
+            "associateToSubsection": "Asociar a una subsección",
+            "position": "Posición",
+            "buttons": "Botones",
+            "addButton": "Añadir botón",
+            "button": "Botón",
+            "buttonText": "Texto del botón",
+            "style": "Estilo",
+            "color": "Color",
+            "actionButtons": "Botones de acción",
+            "buttonColor": "Color del botón",
+            "buttonStyle": "Estilo del botón",
+            "url": "URL",
+            "urlHelp": "Escriba \"/\" para seleccionar una página del sitio",
+            "gradientColor1": "Primer color del degradado",
+            "gradientColor2": "Segundo color del degradado",
+            "backgroundImageUrl": "URL de la imagen de fondo",
+            "selectType": "Seleccionar tipo",
+            "buttonUrl": "URL del botón",
+            "allButtonText": "Todo Texto del botón",
+            "noEditOptions": "Sin opciones de edición para este tipo de bloque",
+            "noFieldsInForm": "No hay campos en este formulario",
+            "mainTitle": "Título principal",
+            "contentAlignment": "Alineación del contenido",
+            "background": "Fondo",
+            "icon": "Icono",
+            "label": "Etiqueta",
+            "iconColor": "Color del icono",
+            "labelColor": "Color de la etiqueta",
+            "number": "Número",
+            "description": "Descripción",
+            "moreText": "Leer más"
+          },
+          "searchBar": {
+            "filterBar": "Barra de filtro",
+            "searchPlaceholder": "Texto de búsqueda",
+            "blockColor": "Color del bloque"
+          },
+          "footer": {
+            "firstLine": "Primera línea",
+            "secondLine": "Segunda línea",
+            "email": "Correo electrónico",
+            "phone": "Teléfono",
+            "aboutCompanySection": "Sección \"Acerca de nuestra empresa\"",
+            "sectionTitle": "Título de la sección",
+            "tatLicense": "Licencia TAT",
+            "descriptionOptional": "Descripción (opcional)"
+          },
+          "gallery": {
+            "carouselType": "Tipo de carrusel",
+            "imageLayout": "Disposición de imágenes"
+          },
+          "blogSearch": {
+            "tagsSectionTitle": "Título de la sección de etiquetas",
+            "categoriesSectionTitle": "Título de la sección de categorías",
+            "categories": "Categorías"
+          },
+          "video": {
+            "videoType": "Tipo de video",
+            "videoUrl": "URL del video"
+          },
+          "features": {
+            "noMiniIconsAdded": "No se han añadido mini-iconos. Use el botón \"Añadir\" de arriba."
+          },
+          "iconGrid": {
+            "iconBlocks": "Bloques de iconos",
+            "designStyle": "Estilo de diseño",
+            "block": "Bloque",
+            "mainIcon": "Icono principal",
+            "miniIcons": "Mini iconos",
+            "addNewBlock": "Añadir un nuevo bloque",
+            "deleteBlock": "Eliminar bloque",
+            "addMiniBlock": "Añadir mini bloque",
+            "deleteMiniIcon": "Eliminar este mini icono"
+          },
+          "pricing": {
+            "addCard": "Añadir una tarjeta",
+            "additionalOptions": "Opciones adicionales",
+            "allOptions": "Todas las opciones",
+            "addOption": "Añadir una opción",
+            "supplementColor": "Color del suplemento",
+            "logoColor": "Color del logo",
+            "pricingCards": "Tarjetas de precios",
+            "card": "Tarjeta"
+          },
+          "blogSearch": {
+            "searchBar": "Barra de búsqueda"
+          },
+          "reviews": {
+            "starCount": "Número de estrellas (mostradas bajo la calificación)",
+            "googleRating": "Calificación de Google",
+            "reviewCount": "Número de reseñas",
+            "googleLink": "Enlace de redirección de Google",
+            "googleLinkText": "Texto del enlace de Google",
+            "customerReviews": "Reseñas de clientes",
+            "review": "Reseña",
+            "name": "Nombre",
+            "starRating": "Calificación de estrellas",
+            "addReview": "Añadir una reseña"
+          },
+          "form": {
+            "linkedForm": "Formulario enlazado"
+          },
+          "gallery": {
+            "imageLayout": "Disposición de imágenes"
           }
         },
         "mainInterface": {

@@ -2371,7 +2371,15 @@
             "numberOfAdsToDisplay": "Number of Ads to Display",
             "allAvailableAds": "All Available Ads",
             "adCategory": "Ad Category",
-            "allAds": "All Ads"
+            "allAds": "All Ads",
+            "featuredAds": "Featured Ads",
+            "dayTrips": "Day Trips",
+            "multiDayTrips": "Multi-Day Trips",
+            "custom": "Custom (Manual)",
+            "selectToursToDisplay": "Select Tours to Display",
+            "noToursAvailable": "No tours available",
+            "toursSelected": "tour(s) selected",
+            "actionButtonAtBottom": "Action Button at Bottom of Section"
           },
           "alignmentOptions": {
             "left": "Left",
@@ -2387,7 +2395,8 @@
           "frameSizes": {
             "small": "Small",
             "smallScrollingImages": "Small (Scrolling Images)",
-            "large": "Large (Full Screen)"
+            "large": "Large (Full Screen)",
+            "largeMainThumbnails": "Large (Main Image + Thumbnails)"
           },
           "videoTypes": {
             "directVideo": "Direct Video (MP4/WebM)"
@@ -2399,6 +2408,130 @@
           "styleOptions": {
             "filled": "Filled",
             "outline": "Outline"
+          },
+          "common": {
+            "title": "Title",
+            "content": "Content",
+            "subtitle": "Subtitle",
+            "divider": "Divider",
+            "backgroundColor": "Background Color",
+            "titleColor": "Title Color",
+            "introduction": "Introduction",
+            "introductionColor": "Introduction Color",
+            "dividerColor": "Divider Color",
+            "subsections": "Subsections",
+            "addSubsection": "Add Subsection",
+            "subsection": "Subsection",
+            "delete": "Delete",
+            "text": "Text",
+            "subtitleColor": "Subtitle Color",
+            "textColor": "Text Color",
+            "images": "Images",
+            "addImage": "Add Image",
+            "image": "Image",
+            "imageUrl": "Image URL",
+            "altText": "Alt Text",
+            "associateToSubsection": "Associate to Subsection",
+            "position": "Position",
+            "buttons": "Buttons",
+            "addButton": "Add Button",
+            "button": "Button",
+            "buttonText": "Button Text",
+            "style": "Style",
+            "color": "Color",
+            "actionButtons": "Action Buttons",
+            "buttonColor": "Button Color",
+            "buttonStyle": "Button Style",
+            "url": "URL",
+            "urlHelp": "Type \"/\" to select a site page",
+            "gradientColor1": "First Gradient Color",
+            "gradientColor2": "Second Gradient Color",
+            "backgroundImageUrl": "Background Image URL",
+            "selectType": "Select type",
+            "buttonUrl": "Button URL",
+            "allButtonText": "All Button Text",
+            "noEditOptions": "No editing options for this block type",
+            "noFieldsInForm": "No fields in this form",
+            "mainTitle": "Main Title",
+            "contentAlignment": "Content Alignment",
+            "background": "Background",
+            "icon": "Icon",
+            "label": "Label",
+            "iconColor": "Icon Color",
+            "labelColor": "Label Color",
+            "number": "Number",
+            "description": "Description",
+            "moreText": "Read more"
+          },
+          "searchBar": {
+            "filterBar": "Filter Bar",
+            "searchPlaceholder": "Search Placeholder",
+            "blockColor": "Block Color"
+          },
+          "footer": {
+            "firstLine": "First Line",
+            "secondLine": "Second Line",
+            "email": "Email Address",
+            "phone": "Phone",
+            "aboutCompanySection": "About Company Section",
+            "sectionTitle": "Section Title",
+            "tatLicense": "TAT License",
+            "descriptionOptional": "Description (optional)"
+          },
+          "gallery": {
+            "carouselType": "Carousel Type",
+            "imageLayout": "Image Layout"
+          },
+          "blogSearch": {
+            "tagsSectionTitle": "Tags Section Title",
+            "categoriesSectionTitle": "Categories Section Title",
+            "categories": "Categories"
+          },
+          "video": {
+            "videoType": "Video Type",
+            "videoUrl": "Video URL"
+          },
+          "features": {
+            "noMiniIconsAdded": "No mini-icons added. Use the \"Add\" button above."
+          },
+          "iconGrid": {
+            "iconBlocks": "Icon Blocks",
+            "designStyle": "Design Style",
+            "block": "Block",
+            "mainIcon": "Main Icon",
+            "miniIcons": "Mini Icons",
+            "addNewBlock": "Add a new block",
+            "deleteBlock": "Delete block",
+            "addMiniBlock": "Add mini block",
+            "deleteMiniIcon": "Delete this mini icon"
+          },
+          "pricing": {
+            "addCard": "Add a card",
+            "additionalOptions": "Additional Options",
+            "allOptions": "All Options",
+            "addOption": "Add an option",
+            "supplementColor": "Supplement Color",
+            "logoColor": "Logo Color",
+            "pricingCards": "Pricing Cards",
+            "card": "Card"
+          },
+          "blogSearch": {
+            "searchBar": "Search Bar"
+          },
+          "reviews": {
+            "starCount": "Star Count (displayed under the rating)",
+            "googleRating": "Google Rating",
+            "reviewCount": "Review Count",
+            "googleLink": "Google Redirect Link",
+            "googleLinkText": "Google Link Text",
+            "customerReviews": "Customer Reviews",
+            "review": "Review",
+            "name": "Name",
+            "starRating": "Star Rating",
+            "addReview": "Add a review"
+          },
+          "form": {
+            "linkedForm": "Linked Form"
           }
         },
         "mainInterface": {
@@ -2788,7 +2921,22 @@
         "mobile": "Mobile",
         "new": "New",
         "mainTitle": "Main Title",
-        "dividerColor": "Divider Color"
+        "dividerColor": "Divider Color",
+        "formTitle": "Form Title",
+        "sectionTitle": "Section Title",
+        "pageTitle": "Page Title",
+        "galleryTitle": "Gallery Title",
+        "videoTitle": "Video Title",
+        "placeholderText": "Placeholder Text",
+        "searchArticles": "Search articles...",
+        "price": "Price",
+        "currency": "Currency",
+        "cycle": "Cycle",
+        "supplement": "Supplement",
+        "included": "Included",
+        "includedInPrice": "Included in Price",
+        "notIncluded": "Not Included",
+        "notIncludedInPrice": "Not Included in Price"
       },
       "pages": {
         "customCodePage": "Page with Custom Code",

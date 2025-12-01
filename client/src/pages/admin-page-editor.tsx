@@ -571,7 +571,7 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
                       className="font-heading font-bold text-4xl mb-3"
                       style={{ color: resolveColor(formData.titleColor) }}
                     >
-                      {formData.title || 'Titre du formulaire'}
+                      {formData.title || (t?.common?.formTitle || 'Form Title')}
                     </h3>
                     {formData.subtitle && (
                       <p 
@@ -658,7 +658,7 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
                 {formData.fields?.length === 0 ? (
                   <div className="text-center py-16 text-gray-500">
                     <FormInput className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                    <p>Aucun champ dans ce formulaire</p>
+                    <p>{t?.editor?.pageEditor?.blockEdit?.common?.noFieldsInForm || 'No fields in this form'}</p>
                   </div>
                 ) : (
                   <div className="space-y-4">
@@ -751,7 +751,7 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
                       className="font-heading font-bold text-3xl mb-3"
                       style={{ color: resolveColor(formData.titleColor) }}
                     >
-                      {formData.title || 'Titre du formulaire'}
+                      {formData.title || (t?.common?.formTitle || 'Form Title')}
                     </h3>
                     {formData.subtitle && (
                       <p 
@@ -769,7 +769,7 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
                   {formData.fields?.length === 0 ? (
                     <div className="text-center py-16 text-gray-500 h-full flex flex-col items-center justify-center">
                       <FormInput className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                      <p>Aucun champ dans ce formulaire</p>
+                      <p>{t?.editor?.pageEditor?.blockEdit?.common?.noFieldsInForm || 'No fields in this form'}</p>
                     </div>
                   ) : (
                     <div className="space-y-4">
@@ -863,7 +863,7 @@ function FormSelector({ selectedFormId, onFormSelect, pageSlug, blockId }: FormS
   const selectedForm = forms.find(f => f.id === selectedFormId);
 
   if (isLoading) {
-    return <div className="text-sm text-gray-500">Chargement des formulaires...</div>;
+    return <div className="text-sm text-gray-500">{t?.common?.loading || 'Loading...'}</div>;
   }
 
   return (
@@ -880,7 +880,7 @@ function FormSelector({ selectedFormId, onFormSelect, pageSlug, blockId }: FormS
               size="sm"
             >
               <Trash2 className="w-4 h-4 mr-1" />
-              Supprimer
+              {t?.common?.delete || 'Delete'}
             </Button>
           </div>
           <Select 
@@ -912,7 +912,7 @@ function FormSelector({ selectedFormId, onFormSelect, pageSlug, blockId }: FormS
             variant="outline"
           >
             <FormInput className="w-4 h-4 mr-2" />
-            Modifier le formulaire complet
+            {t?.editor?.pageEditor?.formPreview?.editFullForm || 'Edit Complete Form'}
           </Button>
         </div>
       ) : (
@@ -1242,7 +1242,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   className="font-heading font-bold text-3xl md:text-4xl mb-3"
                   style={{ color: expatsConfig.titleColor || '#333333' }}
                 >
-                  {expatsConfig.title || block.configuration?.title || block.title || "Titre de la section"}
+                  {expatsConfig.title || block.configuration?.title || block.title || (t?.common?.sectionTitle || "Section Title")}
                 </h2>
                 <div 
                   className="w-20 h-1 mx-auto mb-8"
@@ -1275,7 +1275,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   className="font-heading font-bold text-3xl md:text-4xl mb-3"
                   style={{ color: textConfig.titleColor ?? '#333333' }}
                 >
-                  {textConfig.title ?? block.configuration?.title ?? block.title ?? "Titre de la section"}
+                  {textConfig.title ?? block.configuration?.title ?? block.title ?? (t?.common?.sectionTitle || "Section Title")}
                 </h2>
                 <div 
                   className="w-20 h-1 mx-auto mb-8"
@@ -1428,7 +1428,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 className="text-4xl md:text-5xl font-heading font-bold mb-4"
                 style={{ color: headerPageConfig.titleColor || '#ffffff', whiteSpace: 'pre-line' }}
               >
-                {headerPageConfig.title || 'Titre de la page'}
+                {headerPageConfig.title || (t?.common?.pageTitle || 'Page Title')}
               </h1>
               {headerPageConfig.subtitle && (
                 <p 
@@ -2564,7 +2564,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
           
           // Helper function to render title with colored accent
           const renderTitle = () => {
-            const fullTitle = heroConfig.title || "Titre principal";
+            const fullTitle = heroConfig.title || (t?.common?.mainTitle || "Main Title");
             const accentText = heroConfig.titleAccentText || "";
             const titleColor = heroConfig.titleColor || '#ffffff';
             const accentColor = heroConfig.titleAccentColor || '#084F6E';
@@ -2705,7 +2705,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       whiteSpace: 'pre-line'
                     }}
                   >
-                    {heroConfig.subtitle || "Sous-titre"}
+                    {heroConfig.subtitle || (t?.common?.subtitle || "Subtitle")}
                   </p>
                   <div className={`flex flex-col sm:flex-row gap-4 ${
                     heroConfig.contentAlignment === 'center' ? 'justify-center' :
@@ -2751,7 +2751,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                           whiteSpace: 'pre-line'
                         }}
                       >
-                        {heroConfig.subtitle || "Sous-titre"}
+                        {heroConfig.subtitle || (t?.common?.subtitle || "Subtitle")}
                       </p>
                       <div className={`flex flex-col sm:flex-row gap-4 ${
                         heroConfig.contentAlignment === 'center' ? 'justify-center' :
@@ -2800,7 +2800,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     className="font-heading font-bold text-3xl md:text-4xl mb-3"
                     style={{ color: textConfig.titleColor ?? '#333333' }}
                   >
-                    {textConfig.title || block.configuration?.title || block.title || "Titre de la section"}
+                    {textConfig.title || block.configuration?.title || block.title || (t?.common?.sectionTitle || "Section Title")}
                   </h2>
                   <div 
                     className="w-20 h-1 mx-auto mb-8"
@@ -3756,7 +3756,7 @@ const BlockEditDropdown = ({
 
             {/* Tiret */}
             <div>
-              <Label htmlFor="divider">Tiret</Label>
+              <Label htmlFor="divider">{t?.editor?.pageEditor?.blockEdit?.common?.divider || 'Divider'}</Label>
               <div className="mt-3">
                 <ColorPicker
                   value={formData.dividerColor ?? '#3BA8AF'}
@@ -3954,8 +3954,8 @@ const BlockEditDropdown = ({
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="filled">Plein</SelectItem>
-                          <SelectItem value="outline">Bordure</SelectItem>
+                          <SelectItem value="filled">{t?.editor?.pageEditor?.blockEdit?.styleOptions?.filled || 'Filled'}</SelectItem>
+                          <SelectItem value="outline">{t?.editor?.pageEditor?.blockEdit?.styleOptions?.outline || 'Outline'}</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -4007,7 +4007,7 @@ const BlockEditDropdown = ({
 
             {/* Icône */}
             <div>
-              <Label htmlFor="iconUrl">Icône</Label>
+              <Label htmlFor="iconUrl">{t?.editor?.pageEditor?.blockEdit?.common?.icon || 'Icon'}</Label>
               <div className="flex gap-2 mt-2">
                 <Input 
                   id="iconUrl"
@@ -4083,7 +4083,7 @@ const BlockEditDropdown = ({
                   
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <Label className="text-xs">Texte</Label>
+                      <Label className="text-xs">{t?.editor?.pageEditor?.blockEdit?.common?.text || 'Text'}</Label>
                       <Input 
                         value={button.text || ''} 
                         onChange={e => {
@@ -4111,7 +4111,7 @@ const BlockEditDropdown = ({
                   
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <Label className="text-xs">Couleur</Label>
+                      <Label className="text-xs">{t?.editor?.pageEditor?.blockEdit?.common?.color || 'Color'}</Label>
                       <ColorPicker
                         value={button.color || '#084F6E'}
                         onChange={(value) => {
@@ -4125,7 +4125,7 @@ const BlockEditDropdown = ({
                     </div>
                     
                     <div>
-                      <Label className="text-xs">Style</Label>
+                      <Label className="text-xs">{t?.editor?.pageEditor?.blockEdit?.common?.style || 'Style'}</Label>
                       <Select 
                         value={button.style || 'filled'} 
                         onValueChange={value => {
@@ -4183,7 +4183,7 @@ const BlockEditDropdown = ({
               {formData.backgroundType === 'gradient' && (
                 <div className="mt-3 space-y-3">
                   <div>
-                    <Label htmlFor="gradientColor1">Couleur 1</Label>
+                    <Label htmlFor="gradientColor1">{t?.editor?.pageEditor?.blockEdit?.common?.gradientColor1 || 'Gradient Color 1'}</Label>
                     <div className="mt-2">
                       <ColorPicker
                         value={formData.gradientColor1 ?? '#084F6E'}
@@ -4192,7 +4192,7 @@ const BlockEditDropdown = ({
                     </div>
                   </div>
                   <div>
-                    <Label htmlFor="gradientColor2">Couleur 2</Label>
+                    <Label htmlFor="gradientColor2">{t?.editor?.pageEditor?.blockEdit?.common?.gradientColor2 || 'Gradient Color 2'}</Label>
                     <div className="mt-2">
                       <ColorPicker
                         value={formData.gradientColor2 ?? '#3BA8AF'}
@@ -4219,7 +4219,7 @@ const BlockEditDropdown = ({
               {formData.backgroundType === 'image' && (
                 <div className="mt-3 space-y-3">
                   <div>
-                    <Label htmlFor="imageUrl">URL de l'image de fond</Label>
+                    <Label htmlFor="imageUrl">{t?.editor?.pageEditor?.blockEdit?.common?.backgroundImageUrl || 'Background Image URL'}</Label>
                     <Input 
                       id="imageUrl"
                       value={formData.imageUrl ?? ''} 
@@ -4229,7 +4229,7 @@ const BlockEditDropdown = ({
                     />
                   </div>
                   <div>
-                    <Label htmlFor="imageAlt">Texte alternatif</Label>
+                    <Label htmlFor="imageAlt">{t?.editor?.pageEditor?.blockEdit?.common?.altText || 'Alt Text'}</Label>
                     <Input 
                       id="imageAlt"
                       value={formData.imageAlt ?? ''} 
@@ -4265,11 +4265,11 @@ const BlockEditDropdown = ({
           <div className="space-y-6">
             {/* Barre de filtres */}
             <div className="space-y-4">
-              <h3 className="font-semibold text-lg">Barre de filtres</h3>
+              <h3 className="font-semibold text-lg">{t?.editor?.pageEditor?.blockEdit?.searchBar?.filterBar || 'Filter Bar'}</h3>
               
               {/* Titre */}
               <div>
-                <Label htmlFor="filtersTitle">Titre</Label>
+                <Label htmlFor="filtersTitle">{t?.editor?.pageEditor?.blockEdit?.common?.title || 'Title'}</Label>
                 <Input 
                   id="filtersTitle"
                   value={formData.filtersTitle !== undefined ? formData.filtersTitle : (block.configuration?.filtersTitle ?? '')} 
@@ -4280,7 +4280,7 @@ const BlockEditDropdown = ({
 
               {/* Placeholder de recherche */}
               <div>
-                <Label htmlFor="searchPlaceholder">Placeholder de recherche</Label>
+                <Label htmlFor="searchPlaceholder">{t?.editor?.pageEditor?.blockEdit?.searchBar?.searchPlaceholder || 'Search Placeholder'}</Label>
                 <Input 
                   id="searchPlaceholder"
                   value={formData.searchPlaceholder !== undefined ? formData.searchPlaceholder : (block.configuration?.searchPlaceholder ?? '')} 
@@ -4291,7 +4291,7 @@ const BlockEditDropdown = ({
 
               {/* Couleur de texte */}
               <div>
-                <Label htmlFor="filtersTextColor">Couleur de texte</Label>
+                <Label htmlFor="filtersTextColor">{t?.editor?.pageEditor?.blockEdit?.common?.textColor || 'Text Color'}</Label>
                 <div className="mt-3">
                   <ColorPicker
                     value={formData.filtersTextColor ?? '#333333'}
@@ -4302,7 +4302,7 @@ const BlockEditDropdown = ({
 
               {/* Couleur du bloc */}
               <div>
-                <Label htmlFor="filtersBgColor">Couleur du bloc</Label>
+                <Label htmlFor="filtersBgColor">{t?.editor?.pageEditor?.blockEdit?.searchBar?.blockColor || 'Block Color'}</Label>
                 <div className="mt-3">
                   <ColorPicker
                     value={formData.filtersBgColor ?? '#ffffff'}
@@ -4441,7 +4441,7 @@ const BlockEditDropdown = ({
 
             {/* Tiret */}
             <div>
-              <Label htmlFor="divider">Tiret</Label>
+              <Label htmlFor="divider">{t?.editor?.pageEditor?.blockEdit?.common?.divider || 'Divider'}</Label>
               <div className="mt-3">
                 <ColorPicker
                   value={formData.dividerColor ?? '#3BA8AF'}
@@ -4600,10 +4600,10 @@ const BlockEditDropdown = ({
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">{t?.editor?.pageEditor?.blockEdit?.grid?.allAds || 'All Ads'}</SelectItem>
-                    <SelectItem value="featured">Annonces vedettes</SelectItem>
-                    <SelectItem value="day_trips">Excursions d'une journée</SelectItem>
-                    <SelectItem value="multi_day">Séjours multi-jours</SelectItem>
-                    <SelectItem value="custom">Personnalisé (manuelle)</SelectItem>
+                    <SelectItem value="featured">{t?.editor?.pageEditor?.blockEdit?.grid?.featuredAds || 'Featured Ads'}</SelectItem>
+                    <SelectItem value="day_trips">{t?.editor?.pageEditor?.blockEdit?.grid?.dayTrips || 'Day Trips'}</SelectItem>
+                    <SelectItem value="multi_day">{t?.editor?.pageEditor?.blockEdit?.grid?.multiDayTrips || 'Multi-Day Trips'}</SelectItem>
+                    <SelectItem value="custom">{t?.editor?.pageEditor?.blockEdit?.grid?.custom || 'Custom (Manual)'}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -4611,7 +4611,7 @@ const BlockEditDropdown = ({
               {/* Sélection manuelle des tours (affiché uniquement en mode "Personnalisé") */}
               {formData.categoryFilter === 'custom' && (
                 <div className="mt-4 p-4 border rounded-lg bg-gray-50">
-                  <Label className="text-sm font-medium mb-3 block">Sélectionner les tours à afficher</Label>
+                  <Label className="text-sm font-medium mb-3 block">{t?.editor?.pageEditor?.blockEdit?.grid?.selectToursToDisplay || 'Select Tours to Display'}</Label>
                   <div className="max-h-64 overflow-y-auto space-y-2">
                     {realTours && realTours.length > 0 ? (
                       realTours.map((tour: any) => (
@@ -4635,12 +4635,12 @@ const BlockEditDropdown = ({
                         </div>
                       ))
                     ) : (
-                      <p className="text-sm text-gray-500">Aucun tour disponible</p>
+                      <p className="text-sm text-gray-500">{t?.editor?.pageEditor?.blockEdit?.grid?.noToursAvailable || 'No tours available'}</p>
                     )}
                   </div>
                   {formData.selectedTourIds && formData.selectedTourIds.length > 0 && (
                     <p className="text-xs text-gray-500 mt-3">
-                      {formData.selectedTourIds.length} tour(s) sélectionné(s)
+                      {formData.selectedTourIds.length} {t?.editor?.pageEditor?.blockEdit?.grid?.toursSelected || 'tour(s) selected'}
                     </p>
                   )}
                 </div>
@@ -4649,9 +4649,9 @@ const BlockEditDropdown = ({
 
             {/* Bouton d'action */}
             <div className="space-y-3 border-t pt-4">
-              <Label className="text-sm font-medium">Bouton d'action en bas de section</Label>
+              <Label className="text-sm font-medium">{t?.editor?.pageEditor?.blockEdit?.grid?.actionButtonAtBottom || 'Action Button at Bottom of Section'}</Label>
               <div>
-                <Label className="text-xs text-gray-500">Texte du bouton</Label>
+                <Label className="text-xs text-gray-500">{t?.editor?.pageEditor?.blockEdit?.common?.buttonText || 'Button Text'}</Label>
                 <Input 
                   value={formData.buttonText ?? ''} 
                   onChange={e => updateField('buttonText', e.target.value)}
@@ -4661,7 +4661,7 @@ const BlockEditDropdown = ({
               </div>
               <div>
                 <URLInput
-                  label="URL du bouton"
+                  label={t?.editor?.pageEditor?.blockEdit?.common?.buttonUrl || "Button URL"}
                   value={formData.buttonUrl ?? ''}
                   onChange={(value) => updateField('buttonUrl', value)}
                 />
@@ -4676,7 +4676,7 @@ const BlockEditDropdown = ({
                   />
                 </div>
                 <div>
-                  <Label className="text-xs text-gray-500">Couleur du texte</Label>
+                  <Label className="text-xs text-gray-500">{t?.editor?.pageEditor?.blockEdit?.common?.textColor || 'Text Color'}</Label>
                   <ColorPicker
                     value={formData.buttonTextColor ?? '#ffffff'}
                     onChange={(value) => updateField('buttonTextColor', value)}
@@ -4685,7 +4685,7 @@ const BlockEditDropdown = ({
                 </div>
               </div>
               <div>
-                <Label className="text-xs text-gray-500">Style du bouton</Label>
+                <Label className="text-xs text-gray-500">{t?.editor?.pageEditor?.blockEdit?.common?.buttonStyle || 'Button Style'}</Label>
                 <Select 
                   value={formData.buttonStyle ?? 'solid'} 
                   onValueChange={value => updateField('buttonStyle', value)}
@@ -4744,7 +4744,7 @@ const BlockEditDropdown = ({
 
             {/* Tiret */}
             <div>
-              <Label htmlFor="divider">Tiret</Label>
+              <Label htmlFor="divider">{t?.editor?.pageEditor?.blockEdit?.common?.divider || 'Divider'}</Label>
               <div className="mt-3">
                 <ColorPicker
                   value={formData.dividerColor ?? '#3BA8AF'}
@@ -4891,7 +4891,7 @@ const BlockEditDropdown = ({
                       }
                     }}
                   />
-                  <Label htmlFor="show_all_ads_price" className="text-sm">Toutes les annonces disponibles</Label>
+                  <Label htmlFor="show_all_ads_price" className="text-sm">{t?.editor?.pageEditor?.blockEdit?.grid?.allAvailableAds || 'All Available Ads'}</Label>
                 </div>
               </div>
 
@@ -4903,10 +4903,10 @@ const BlockEditDropdown = ({
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">{t?.editor?.pageEditor?.blockEdit?.grid?.allAds || 'All Ads'}</SelectItem>
-                    <SelectItem value="featured">Annonces vedettes</SelectItem>
-                    <SelectItem value="day_trips">Excursions d'une journée</SelectItem>
-                    <SelectItem value="multi_day">Séjours multi-jours</SelectItem>
-                    <SelectItem value="custom">Personnalisé (manuelle)</SelectItem>
+                    <SelectItem value="featured">{t?.editor?.pageEditor?.blockEdit?.grid?.featuredAds || 'Featured Ads'}</SelectItem>
+                    <SelectItem value="day_trips">{t?.editor?.pageEditor?.blockEdit?.grid?.dayTrips || 'Day Trips'}</SelectItem>
+                    <SelectItem value="multi_day">{t?.editor?.pageEditor?.blockEdit?.grid?.multiDayTrips || 'Multi-Day Trips'}</SelectItem>
+                    <SelectItem value="custom">{t?.editor?.pageEditor?.blockEdit?.grid?.custom || 'Custom (Manual)'}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -4914,7 +4914,7 @@ const BlockEditDropdown = ({
               {/* Sélection manuelle des tours (affiché uniquement en mode "Personnalisé") */}
               {formData.categoryFilter === 'custom' && (
                 <div className="mt-4 p-4 border rounded-lg bg-gray-50">
-                  <Label className="text-sm font-medium mb-3 block">Sélectionner les tours à afficher</Label>
+                  <Label className="text-sm font-medium mb-3 block">{t?.editor?.pageEditor?.blockEdit?.grid?.selectToursToDisplay || 'Select Tours to Display'}</Label>
                   <div className="max-h-64 overflow-y-auto space-y-2">
                     {realToursPrice && realToursPrice.length > 0 ? (
                       realToursPrice.map((tour: any) => (
@@ -4938,12 +4938,12 @@ const BlockEditDropdown = ({
                         </div>
                       ))
                     ) : (
-                      <p className="text-sm text-gray-500">Aucun tour disponible</p>
+                      <p className="text-sm text-gray-500">{t?.editor?.pageEditor?.blockEdit?.grid?.noToursAvailable || 'No tours available'}</p>
                     )}
                   </div>
                   {formData.selectedTourIds && formData.selectedTourIds.length > 0 && (
                     <p className="text-xs text-gray-500 mt-3">
-                      {formData.selectedTourIds.length} tour(s) sélectionné(s)
+                      {formData.selectedTourIds.length} {t?.editor?.pageEditor?.blockEdit?.grid?.toursSelected || 'tour(s) selected'}
                     </p>
                   )}
                 </div>
@@ -4952,9 +4952,9 @@ const BlockEditDropdown = ({
 
             {/* Bouton d'action */}
             <div className="space-y-3 border-t pt-4">
-              <Label className="text-sm font-medium">Bouton d'action en bas de section</Label>
+              <Label className="text-sm font-medium">{t?.editor?.pageEditor?.blockEdit?.grid?.actionButtonAtBottom || 'Action Button at Bottom of Section'}</Label>
               <div>
-                <Label className="text-xs text-gray-500">Texte du bouton</Label>
+                <Label className="text-xs text-gray-500">{t?.editor?.pageEditor?.blockEdit?.common?.buttonText || 'Button Text'}</Label>
                 <Input 
                   value={formData.buttonText ?? ''} 
                   onChange={e => updateField('buttonText', e.target.value)}
@@ -4964,7 +4964,7 @@ const BlockEditDropdown = ({
               </div>
               <div>
                 <URLInput
-                  label="URL du bouton"
+                  label={t?.editor?.pageEditor?.blockEdit?.common?.buttonUrl || "Button URL"}
                   value={formData.buttonUrl ?? ''}
                   onChange={(value) => updateField('buttonUrl', value)}
                 />
@@ -4979,7 +4979,7 @@ const BlockEditDropdown = ({
                   />
                 </div>
                 <div>
-                  <Label className="text-xs text-gray-500">Couleur du texte</Label>
+                  <Label className="text-xs text-gray-500">{t?.editor?.pageEditor?.blockEdit?.common?.textColor || 'Text Color'}</Label>
                   <ColorPicker
                     value={formData.buttonTextColor ?? '#ffffff'}
                     onChange={(value) => updateField('buttonTextColor', value)}
@@ -4988,7 +4988,7 @@ const BlockEditDropdown = ({
                 </div>
               </div>
               <div>
-                <Label className="text-xs text-gray-500">Style du bouton</Label>
+                <Label className="text-xs text-gray-500">{t?.editor?.pageEditor?.blockEdit?.common?.buttonStyle || 'Button Style'}</Label>
                 <Select 
                   value={formData.buttonStyle ?? 'solid'} 
                   onValueChange={value => updateField('buttonStyle', value)}
@@ -5046,7 +5046,7 @@ const BlockEditDropdown = ({
               </div>
               
               <div>
-                <Label htmlFor="divider">Tiret</Label>
+                <Label htmlFor="divider">{t?.editor?.pageEditor?.blockEdit?.common?.divider || 'Divider'}</Label>
                 <div className="mt-3">
                   <ColorPicker
                     value={formData.dividerColor ?? '#3BA8AF'}
@@ -5070,7 +5070,7 @@ const BlockEditDropdown = ({
             {/* Gestion des blocs d'icônes */}
             <div>
               <div className="flex items-center justify-between mb-4">
-                <Label className="text-lg font-semibold">Bloc d'icones</Label>
+                <Label className="text-lg font-semibold">{t?.editor?.pageEditor?.blockEdit?.iconGrid?.iconBlocks || 'Icon Blocks'}</Label>
                 <div className="flex gap-2">
                   <button 
                     type="button"
@@ -5109,14 +5109,14 @@ const BlockEditDropdown = ({
                     className={`px-3 py-1 rounded text-sm ${formData.iconBlocks?.length >= 6 ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : ''}`}
                     disabled={formData.iconBlocks?.length >= 6}
                   >
-                    + Ajouter un nouveau bloc
+                    + {t?.editor?.pageEditor?.blockEdit?.iconGrid?.addNewBlock || 'Add a new block'}
                   </button>
                 </div>
               </div>
               
               {/* Sélecteur de style */}
               <div className="mb-6">
-                <Label className="text-sm font-medium mb-2">Style de design</Label>
+                <Label className="text-sm font-medium mb-2">{t?.editor?.pageEditor?.blockEdit?.iconGrid?.designStyle || 'Design Style'}</Label>
                 <div className="grid grid-cols-2 gap-3 mt-2">
                   <button
                     type="button"
@@ -5198,7 +5198,7 @@ const BlockEditDropdown = ({
                   <div key={block.id} className="border-2 border-gray-300 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex flex-col gap-2">
-                        <Label className="font-medium text-base">Bloc {index + 1}</Label>
+                        <Label className="font-medium text-base">{t?.editor?.pageEditor?.blockEdit?.iconGrid?.block || 'Block'} {index + 1}</Label>
                         <ColorPicker
                           value={block.iconColor || THEME_COLORS.primary}
                           onChange={(value) => {
@@ -5230,14 +5230,14 @@ const BlockEditDropdown = ({
                           e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
                         }}
                       >
-                        Supprimer le bloc
+                        {t?.editor?.pageEditor?.blockEdit?.iconGrid?.deleteBlock || 'Delete block'}
                       </button>
                     </div>
                     
                     <div className="space-y-3">
                       {/* Icône principale */}
                       <div>
-                        <Label className="text-sm font-medium text-gray-700">Icône principale</Label>
+                        <Label className="text-sm font-medium text-gray-700">{t?.editor?.pageEditor?.blockEdit?.iconGrid?.mainIcon || 'Main Icon'}</Label>
                         <div className="mt-2">
                           <div className="grid grid-cols-6 gap-2">
                             {[
@@ -5365,7 +5365,7 @@ const BlockEditDropdown = ({
                       
                       {/* Titre et description */}
                       <div>
-                        <Label>Titre</Label>
+                        <Label>{t?.editor?.pageEditor?.blockEdit?.common?.title || 'Title'}</Label>
                         <Input 
                           value={block.title} 
                           onChange={e => {
@@ -5380,7 +5380,7 @@ const BlockEditDropdown = ({
                       </div>
                       
                       <div>
-                        <Label>Description</Label>
+                        <Label>{t?.editor?.pageEditor?.blockEdit?.common?.description || 'Description'}</Label>
                         <Textarea 
                           value={block.description} 
                           onChange={e => {
@@ -5398,7 +5398,7 @@ const BlockEditDropdown = ({
                       {/* Mini-icônes */}
                       <div>
                         <div className="flex items-center justify-between mb-2">
-                          <Label className="text-sm font-medium text-gray-700">Mini-icônes</Label>
+                          <Label className="text-sm font-medium text-gray-700">{t?.editor?.pageEditor?.blockEdit?.iconGrid?.miniIcons || 'Mini Icons'}</Label>
                           <button
                             type="button"
                             onClick={() => {
@@ -5441,7 +5441,7 @@ const BlockEditDropdown = ({
                             disabled={(block.miniIcons || []).length >= 3}
                           >
                             <Plus size={12} />
-                            Ajouter un mini bloc
+                            {t?.editor?.pageEditor?.blockEdit?.iconGrid?.addMiniBlock || 'Add mini block'}
                           </button>
                         </div>
                         <div className="space-y-2">
@@ -5451,7 +5451,7 @@ const BlockEditDropdown = ({
                               <div className="mb-3">
                                 <div className="flex gap-2 items-end">
                                   <div className="flex-1">
-                                    <Label className="text-xs font-medium text-gray-600">Texte</Label>
+                                    <Label className="text-xs font-medium text-gray-600">{t?.editor?.pageEditor?.blockEdit?.common?.text || 'Text'}</Label>
                                     <Input 
  
                                       value={miniIcon.text} 
@@ -5494,7 +5494,7 @@ const BlockEditDropdown = ({
                                     onMouseLeave={(e) => {
                                       e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
                                     }}
-                                    title="Supprimer cette mini-icône"
+                                    title={t?.editor?.pageEditor?.blockEdit?.iconGrid?.deleteMiniIcon || 'Delete this mini icon'}
                                   >
                                     <Trash2 size={14} />
                                   </button>
@@ -5503,7 +5503,7 @@ const BlockEditDropdown = ({
                               
                               {/* Sélecteur d'icône */}
                               <div>
-                                <Label className="text-xs font-medium text-gray-600 mb-2 block">Icône</Label>
+                                <Label className="text-xs font-medium text-gray-600 mb-2 block">{t?.editor?.pageEditor?.blockEdit?.common?.icon || 'Icon'}</Label>
                                 <div className="grid grid-cols-9 gap-1 mb-2">
                                   {[
                                     { icon: 'fas fa-car', component: <i className="fas fa-car text-xs"></i>, label: 'Private Car' },
@@ -5640,7 +5640,7 @@ const BlockEditDropdown = ({
                             </div>
                           ))}
                           {(!block.miniIcons || block.miniIcons.length === 0) && (
-                            <p className="text-xs text-gray-500 italic">Aucune mini-icône ajoutée. Utilisez le bouton "Ajouter" ci-dessus.</p>
+                            <p className="text-xs text-gray-500 italic">{t?.editor?.pageEditor?.blockEdit?.features?.noMiniIconsAdded || 'No mini-icons added. Use the "Add" button above.'}</p>
                           )}
                         </div>
                       </div>
@@ -5711,7 +5711,7 @@ const BlockEditDropdown = ({
               </div>
               
               <div className="mt-3">
-                <Label className="text-sm">Couleur du tiret</Label>
+                <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.dividerColor || 'Divider Color'}</Label>
                 <ColorPicker
                   value={formData.dividerColor ?? '#3BA8AF'}
                   onChange={(value) => updateField('dividerColor', value)}
@@ -5719,7 +5719,7 @@ const BlockEditDropdown = ({
               </div>
 
               <div className="mt-3">
-                <Label className="text-sm">Couleur du fond</Label>
+                <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.backgroundColor || 'Background Color'}</Label>
                 <ColorPicker
                   value={formData.backgroundColor ?? '#ffffff'}
                   onChange={(value) => updateField('backgroundColor', value)}
@@ -5881,7 +5881,7 @@ const BlockEditDropdown = ({
 
               {/* Disposition des images */}
               <div className="mb-4">
-                <Label className="text-sm font-medium mb-2">Disposition des images</Label>
+                <Label className="text-sm font-medium mb-2">{t?.editor?.pageEditor?.blockEdit?.gallery?.imageLayout || 'Image Layout'}</Label>
                 <div className="grid grid-cols-2 gap-3 mt-2">
                   <button
                     type="button"
@@ -6113,7 +6113,7 @@ const BlockEditDropdown = ({
                         </div>
                       </div>
                       <div>
-                        <Label className="text-sm">Style</Label>
+                        <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.common?.style || 'Style'}</Label>
                         <select 
                           value={button.style || 'filled'}
                           onChange={e => {
@@ -6182,7 +6182,7 @@ const BlockEditDropdown = ({
               />
             </div>
             <div>
-              <Label htmlFor="starRating">Nombre d'étoiles (affichées sous la note)</Label>
+              <Label htmlFor="starRating">{t?.editor?.pageEditor?.blockEdit?.reviews?.starCount || 'Star Count (displayed under the rating)'}</Label>
               <Input 
                 id="starRating"
                 type="number"
@@ -6194,7 +6194,7 @@ const BlockEditDropdown = ({
               />
             </div>
             <div>
-              <Label htmlFor="googleRating">Note Google</Label>
+              <Label htmlFor="googleRating">{t?.editor?.pageEditor?.blockEdit?.reviews?.googleRating || 'Google Rating'}</Label>
               <Input 
                 id="googleRating"
                 value={formData.googleRating ?? '5.0'} 
@@ -6202,7 +6202,7 @@ const BlockEditDropdown = ({
               />
             </div>
             <div>
-              <Label htmlFor="reviewCount">Nombre d'avis</Label>
+              <Label htmlFor="reviewCount">{t?.editor?.pageEditor?.blockEdit?.reviews?.reviewCount || 'Review Count'}</Label>
               <Input 
                 id="reviewCount"
                 value={formData.reviewCount ?? '80'} 
@@ -6210,7 +6210,7 @@ const BlockEditDropdown = ({
               />
             </div>
             <div>
-              <Label htmlFor="googleLink">Lien de redirection Google</Label>
+              <Label htmlFor="googleLink">{t?.editor?.pageEditor?.blockEdit?.reviews?.googleLink || 'Google Redirect Link'}</Label>
               <Input 
                 id="googleLink"
                 type="url"
@@ -6220,7 +6220,7 @@ const BlockEditDropdown = ({
               />
             </div>
             <div>
-              <Label htmlFor="googleLinkText">Texte du lien Google</Label>
+              <Label htmlFor="googleLinkText">{t?.editor?.pageEditor?.blockEdit?.reviews?.googleLinkText || 'Google Link Text'}</Label>
               <Input 
                 id="googleLinkText"
                 value={formData.googleLinkText ?? 'View all reviews on Google'} 
@@ -6231,7 +6231,7 @@ const BlockEditDropdown = ({
             {/* Section des avis individuels */}
             <div className="border-t pt-4 mt-6">
               <div className="flex items-center justify-between mb-4">
-                <Label className="text-base font-semibold">Avis clients</Label>
+                <Label className="text-base font-semibold">{t?.editor?.pageEditor?.blockEdit?.reviews?.customerReviews || 'Customer Reviews'}</Label>
                 <button
                   type="button"
                   onClick={() => {
@@ -6257,7 +6257,7 @@ const BlockEditDropdown = ({
                   }}
                 >
                   <Plus size={14} className="inline mr-1" />
-                  Ajouter une note
+                  {t?.editor?.pageEditor?.blockEdit?.reviews?.addReview || 'Add a review'}
                 </button>
               </div>
 
@@ -6265,7 +6265,7 @@ const BlockEditDropdown = ({
                 {(formData.reviews || []).map((review: any, index: number) => (
                   <div key={review.id} className="border-2 border-gray-300 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-3">
-                      <Label className="text-sm font-medium">Avis {index + 1}</Label>
+                      <Label className="text-sm font-medium">{t?.editor?.pageEditor?.blockEdit?.reviews?.review || 'Review'} {index + 1}</Label>
                       <button
                         type="button"
                         onClick={() => {
@@ -6291,7 +6291,7 @@ const BlockEditDropdown = ({
 
                     <div className="space-y-3">
                       <div>
-                        <Label className="text-sm">Nom</Label>
+                        <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.reviews?.name || 'Name'}</Label>
                         <Input 
                           value={review.name || ''} 
                           onChange={e => {
@@ -6305,7 +6305,7 @@ const BlockEditDropdown = ({
                         />
                       </div>
                       <div>
-                        <Label className="text-sm">Nombre d'étoiles</Label>
+                        <Label className="text-sm">{t?.editor?.pageEditor?.blockEdit?.reviews?.starRating || 'Star Rating'}</Label>
                         <Input 
                           type="number"
                           min="1"
@@ -6387,7 +6387,7 @@ const BlockEditDropdown = ({
 
             {/* Tiret */}
             <div>
-              <Label htmlFor="divider">Tiret</Label>
+              <Label htmlFor="divider">{t?.editor?.pageEditor?.blockEdit?.common?.divider || 'Divider'}</Label>
               <div className="mt-3">
                 <ColorPicker
                   value={formData.dividerColor ?? '#3BA8AF'}
@@ -6408,7 +6408,7 @@ const BlockEditDropdown = ({
             </div>
             
             <div className="pt-4 border-t space-y-3">
-              <Label>Formulaire lié</Label>
+              <Label>{t?.editor?.pageEditor?.blockEdit?.form?.linkedForm || 'Linked Form'}</Label>
               <FormSelector 
                 selectedFormId={formData.formId}
                 onFormSelect={(formId: number | null) => updateField('formId', formId)}
@@ -6427,7 +6427,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="title">{t?.editor?.pageEditor?.blockEdit?.common?.title || 'Title'}</Label>
               <Input 
                 id="title"
-                value={formData.title ?? 'Titre principal'} 
+                value={formData.title ?? (t?.common?.mainTitle || 'Main Title')} 
                 onChange={e => updateField('title', e.target.value)}
                 className="mt-2"
               />
@@ -6461,7 +6461,7 @@ const BlockEditDropdown = ({
 
             {/* Tiret */}
             <div>
-              <Label>Tiret séparateur</Label>
+              <Label>{t?.editor?.pageEditor?.blockEdit?.common?.dividerColor || 'Divider Color'}</Label>
               <div className="mt-3">
                 <ColorPicker
                   value={formData.dividerColor ?? '#3BA8AF'}
@@ -6472,7 +6472,7 @@ const BlockEditDropdown = ({
 
             {/* Couleur de fond */}
             <div>
-              <Label>Couleur de fond</Label>
+              <Label>{t?.editor?.pageEditor?.blockEdit?.common?.backgroundColor || 'Background Color'}</Label>
               <div className="mt-3">
                 <ColorPicker
                   value={formData.backgroundColor ?? '#ffffff'}
@@ -6485,9 +6485,9 @@ const BlockEditDropdown = ({
 
             {/* Email */}
             <div className="space-y-3">
-              <Label className="text-base font-semibold">Email</Label>
+              <Label className="text-base font-semibold">{t?.editor?.pageEditor?.blockEdit?.footer?.email || 'Email'}</Label>
               <div>
-                <Label htmlFor="emailLabel">Label</Label>
+                <Label htmlFor="emailLabel">{t?.editor?.pageEditor?.blockEdit?.common?.label || 'Label'}</Label>
                 <Input 
                   id="emailLabel"
                   value={formData.emailLabel ?? 'Email'} 
@@ -6496,7 +6496,7 @@ const BlockEditDropdown = ({
                 />
               </div>
               <div>
-                <Label htmlFor="email">Adresse email</Label>
+                <Label htmlFor="email">{t?.editor?.pageEditor?.blockEdit?.footer?.email || 'Email Address'}</Label>
                 <Input 
                   id="email"
                   type="email"
@@ -6507,14 +6507,14 @@ const BlockEditDropdown = ({
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <Label>Couleur icône</Label>
+                  <Label>{t?.editor?.pageEditor?.blockEdit?.common?.iconColor || 'Icon Color'}</Label>
                   <ColorPicker
                     value={formData.emailIconColor ?? '#084F6E'}
                     onChange={(value) => updateField('emailIconColor', value)}
                   />
                 </div>
                 <div>
-                  <Label>Couleur label</Label>
+                  <Label>{t?.editor?.pageEditor?.blockEdit?.common?.labelColor || 'Label Color'}</Label>
                   <ColorPicker
                     value={formData.emailLabelColor ?? '#084F6E'}
                     onChange={(value) => updateField('emailLabelColor', value)}
@@ -6527,9 +6527,9 @@ const BlockEditDropdown = ({
 
             {/* Phone */}
             <div className="space-y-3">
-              <Label className="text-base font-semibold">Téléphone</Label>
+              <Label className="text-base font-semibold">{t?.editor?.pageEditor?.blockEdit?.footer?.phone || 'Phone'}</Label>
               <div>
-                <Label htmlFor="phoneLabel">Label</Label>
+                <Label htmlFor="phoneLabel">{t?.editor?.pageEditor?.blockEdit?.common?.label || 'Label'}</Label>
                 <Input 
                   id="phoneLabel"
                   value={formData.phoneLabel ?? 'Téléphone'} 
@@ -6538,7 +6538,7 @@ const BlockEditDropdown = ({
                 />
               </div>
               <div>
-                <Label htmlFor="phone">Numéro</Label>
+                <Label htmlFor="phone">{t?.editor?.pageEditor?.blockEdit?.common?.number || 'Number'}</Label>
                 <Input 
                   id="phone"
                   type="tel"
@@ -6549,14 +6549,14 @@ const BlockEditDropdown = ({
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <Label>Couleur icône</Label>
+                  <Label>{t?.editor?.pageEditor?.blockEdit?.common?.iconColor || 'Icon Color'}</Label>
                   <ColorPicker
                     value={formData.phoneIconColor ?? '#3BA8AF'}
                     onChange={(value) => updateField('phoneIconColor', value)}
                   />
                 </div>
                 <div>
-                  <Label>Couleur label</Label>
+                  <Label>{t?.editor?.pageEditor?.blockEdit?.common?.labelColor || 'Label Color'}</Label>
                   <ColorPicker
                     value={formData.phoneLabelColor ?? '#3BA8AF'}
                     onChange={(value) => updateField('phoneLabelColor', value)}
@@ -6571,7 +6571,7 @@ const BlockEditDropdown = ({
             <div className="space-y-3">
               <Label className="text-base font-semibold">WhatsApp</Label>
               <div>
-                <Label htmlFor="whatsappLabel">Label</Label>
+                <Label htmlFor="whatsappLabel">{t?.editor?.pageEditor?.blockEdit?.common?.label || 'Label'}</Label>
                 <Input 
                   id="whatsappLabel"
                   value={formData.whatsappLabel ?? 'WhatsApp'} 
@@ -6580,7 +6580,7 @@ const BlockEditDropdown = ({
                 />
               </div>
               <div>
-                <Label htmlFor="whatsapp">Numéro</Label>
+                <Label htmlFor="whatsapp">{t?.editor?.pageEditor?.blockEdit?.common?.number || 'Number'}</Label>
                 <Input 
                   id="whatsapp"
                   type="tel"
@@ -6591,14 +6591,14 @@ const BlockEditDropdown = ({
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <Label>Couleur icône</Label>
+                  <Label>{t?.editor?.pageEditor?.blockEdit?.common?.iconColor || 'Icon Color'}</Label>
                   <ColorPicker
                     value={formData.whatsappIconColor ?? '#25D366'}
                     onChange={(value) => updateField('whatsappIconColor', value)}
                   />
                 </div>
                 <div>
-                  <Label>Couleur label</Label>
+                  <Label>{t?.editor?.pageEditor?.blockEdit?.common?.labelColor || 'Label Color'}</Label>
                   <ColorPicker
                     value={formData.whatsappLabelColor ?? '#25D366'}
                     onChange={(value) => updateField('whatsappLabelColor', value)}
@@ -6613,7 +6613,7 @@ const BlockEditDropdown = ({
             <div className="space-y-3">
               <Label className="text-base font-semibold">Line ID</Label>
               <div>
-                <Label htmlFor="lineIdLabel">Label</Label>
+                <Label htmlFor="lineIdLabel">{t?.editor?.pageEditor?.blockEdit?.common?.label || 'Label'}</Label>
                 <Input 
                   id="lineIdLabel"
                   value={formData.lineIdLabel ?? 'Line ID'} 
@@ -6632,14 +6632,14 @@ const BlockEditDropdown = ({
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <Label>Couleur icône</Label>
+                  <Label>{t?.editor?.pageEditor?.blockEdit?.common?.iconColor || 'Icon Color'}</Label>
                   <ColorPicker
                     value={formData.lineIdIconColor ?? '#00B900'}
                     onChange={(value) => updateField('lineIdIconColor', value)}
                   />
                 </div>
                 <div>
-                  <Label>Couleur label</Label>
+                  <Label>{t?.editor?.pageEditor?.blockEdit?.common?.labelColor || 'Label Color'}</Label>
                   <ColorPicker
                     value={formData.lineIdLabelColor ?? '#00B900'}
                     onChange={(value) => updateField('lineIdLabelColor', value)}
@@ -6653,7 +6653,7 @@ const BlockEditDropdown = ({
             {/* About Company Section */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <Label className="text-base font-semibold">Section "À propos de notre entreprise"</Label>
+                <Label className="text-base font-semibold">{t?.editor?.pageEditor?.blockEdit?.footer?.aboutCompanySection || 'About Company Section'}</Label>
                 <Switch
                   checked={formData.showAboutCompany ?? true}
                   onCheckedChange={(checked) => updateField('showAboutCompany', checked)}
@@ -6663,7 +6663,7 @@ const BlockEditDropdown = ({
               {(formData.showAboutCompany ?? true) && (
                 <>
                   <div>
-                    <Label htmlFor="aboutTitle">Titre de la section</Label>
+                    <Label htmlFor="aboutTitle">{t?.editor?.pageEditor?.blockEdit?.footer?.sectionTitle || 'Section Title'}</Label>
                     <Input 
                       id="aboutTitle"
                       value={formData.aboutTitle ?? 'À propos de notre entreprise'} 
@@ -6672,7 +6672,7 @@ const BlockEditDropdown = ({
                     />
                   </div>
                   <div>
-                    <Label htmlFor="companyBrand">Première ligne</Label>
+                    <Label htmlFor="companyBrand">{t?.editor?.pageEditor?.blockEdit?.footer?.firstLine || 'First Line'}</Label>
                     <Input 
                       id="companyBrand"
                       value={formData.companyBrand ?? 'Nom de la marque'} 
@@ -6681,7 +6681,7 @@ const BlockEditDropdown = ({
                     />
                   </div>
                   <div>
-                    <Label htmlFor="companyName">Deuxième ligne</Label>
+                    <Label htmlFor="companyName">{t?.editor?.pageEditor?.blockEdit?.footer?.secondLine || 'Second Line'}</Label>
                     <Input 
                       id="companyName"
                       value={formData.companyName ?? 'Votre Adresse'} 
@@ -6690,7 +6690,7 @@ const BlockEditDropdown = ({
                     />
                   </div>
                   <div>
-                    <Label htmlFor="companyLicense">Licence TAT</Label>
+                    <Label htmlFor="companyLicense">{t?.editor?.pageEditor?.blockEdit?.footer?.tatLicense || 'TAT License'}</Label>
                     <Input 
                       id="companyLicense"
                       value={formData.companyLicense ?? '00/00000'} 
@@ -6699,7 +6699,7 @@ const BlockEditDropdown = ({
                     />
                   </div>
                   <div>
-                    <Label htmlFor="companyDescription">Description (optionnelle)</Label>
+                    <Label htmlFor="companyDescription">{t?.editor?.pageEditor?.blockEdit?.footer?.descriptionOptional || 'Description (optional)'}</Label>
                     <Textarea 
                       id="companyDescription"
                       value={formData.companyDescription ?? ''} 
@@ -6719,7 +6719,7 @@ const BlockEditDropdown = ({
           <div className="space-y-6">
             {/* Couleur des annonces */}
             <div>
-              <Label>Couleur des annonces</Label>
+              <Label>{t?.editor?.pageEditor?.blockEdit?.grid?.adColors || 'Ad Colors'}</Label>
               <div className="mt-3">
                 <ColorPicker
                   value={formData.cardColor ?? '#084F6E'}
@@ -6730,7 +6730,7 @@ const BlockEditDropdown = ({
 
             {/* Couleur de fond */}
             <div>
-              <Label>Couleur de fond</Label>
+              <Label>{t?.editor?.pageEditor?.blockEdit?.common?.backgroundColor || 'Background Color'}</Label>
               <div className="mt-3">
                 <ColorPicker
                   value={formData.backgroundColor ?? '#ffffff'}
@@ -6743,12 +6743,12 @@ const BlockEditDropdown = ({
 
             {/* Barre de recherche */}
             <div>
-              <Label className="text-base font-semibold">Barre de recherche</Label>
+              <Label className="text-base font-semibold">{t?.editor?.pageEditor?.blockEdit?.blogSearch?.searchBar || 'Search Bar'}</Label>
               <div className="mt-3">
-                <Label htmlFor="searchPlaceholder">Texte du placeholder</Label>
+                <Label htmlFor="searchPlaceholder">{t?.common?.placeholderText || 'Placeholder Text'}</Label>
                 <Input 
                   id="searchPlaceholder"
-                  value={formData.searchPlaceholder ?? 'Rechercher des articles...'} 
+                  value={formData.searchPlaceholder ?? (t?.common?.searchArticles || 'Search articles...')} 
                   onChange={e => updateField('searchPlaceholder', e.target.value)}
                   className="mt-2"
                 />
@@ -6761,7 +6761,7 @@ const BlockEditDropdown = ({
             <div className="space-y-3">
               <Label className="text-base font-semibold">Tags</Label>
               <div>
-                <Label htmlFor="tagsTitle">Titre de la section Tags</Label>
+                <Label htmlFor="tagsTitle">{t?.editor?.pageEditor?.blockEdit?.blogSearch?.tagsSectionTitle || 'Tags Section Title'}</Label>
                 <Input 
                   id="tagsTitle"
                   value={formData.tagsTitle ?? 'Tags'} 
@@ -6770,7 +6770,7 @@ const BlockEditDropdown = ({
                 />
               </div>
               <div>
-                <Label htmlFor="allTagsText">Texte du bouton "Tous"</Label>
+                <Label htmlFor="allTagsText">{t?.editor?.pageEditor?.blockEdit?.common?.allButtonText || 'All Button Text'}</Label>
                 <Input 
                   id="allTagsText"
                   value={formData.allTagsText ?? 'Tous les tags'} 
@@ -6800,18 +6800,18 @@ const BlockEditDropdown = ({
 
             {/* Catégories */}
             <div className="space-y-3">
-              <Label className="text-base font-semibold">Catégories</Label>
+              <Label className="text-base font-semibold">{t?.editor?.pageEditor?.blockEdit?.blogSearch?.categories || 'Categories'}</Label>
               <div>
-                <Label htmlFor="categoriesTitle">Titre de la section Catégories</Label>
+                <Label htmlFor="categoriesTitle">{t?.editor?.pageEditor?.blockEdit?.blogSearch?.categoriesSectionTitle || 'Categories Section Title'}</Label>
                 <Input 
                   id="categoriesTitle"
-                  value={formData.categoriesTitle ?? 'Catégories'} 
+                  value={formData.categoriesTitle ?? (t?.editor?.pageEditor?.blockEdit?.blogSearch?.categories || 'Categories')} 
                   onChange={e => updateField('categoriesTitle', e.target.value)}
                   className="mt-2"
                 />
               </div>
               <div>
-                <Label htmlFor="allCategoriesText">Texte du bouton "Tous"</Label>
+                <Label htmlFor="allCategoriesText">{t?.editor?.pageEditor?.blockEdit?.common?.allButtonText || 'All Button Text'}</Label>
                 <Input 
                   id="allCategoriesText"
                   value={formData.allCategoriesText ?? 'Toutes les catégories'} 
@@ -6847,7 +6847,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="title">{t?.editor?.pageEditor?.blockEdit?.common?.title || 'Title'}</Label>
               <Input 
                 id="title"
-                value={formData.title ?? 'Titre de la galerie'} 
+                value={formData.title ?? (t?.common?.galleryTitle || 'Gallery Title')} 
                 onChange={e => updateField('title', e.target.value)}
                 className="mt-2"
               />
@@ -6892,7 +6892,7 @@ const BlockEditDropdown = ({
 
             {/* Couleur de fond */}
             <div>
-              <Label>Couleur de fond</Label>
+              <Label>{t?.editor?.pageEditor?.blockEdit?.common?.backgroundColor || 'Background Color'}</Label>
               <div className="mt-3">
                 <ColorPicker
                   value={formData.backgroundColor ?? '#ffffff'}
@@ -6905,17 +6905,17 @@ const BlockEditDropdown = ({
 
             {/* Type de carrousel */}
             <div>
-              <Label htmlFor="carouselType">Type de carrousel</Label>
+              <Label htmlFor="carouselType">{t?.editor?.pageEditor?.blockEdit?.gallery?.carouselType || 'Carousel Type'}</Label>
               <Select 
                 value={formData.carouselType ?? 'grande'} 
                 onValueChange={(value) => updateField('carouselType', value)}
               >
                 <SelectTrigger className="mt-2">
-                  <SelectValue placeholder="Sélectionnez le type" />
+                  <SelectValue placeholder={t?.editor?.pageEditor?.blockEdit?.common?.selectType || "Select type"} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="petite">{t?.editor?.pageEditor?.blockEdit?.frameSizes?.smallScrollingImages || 'Small (Scrolling Images)'}</SelectItem>
-                  <SelectItem value="grande">Grande (Image principale + miniatures)</SelectItem>
+                  <SelectItem value="grande">{t?.editor?.pageEditor?.blockEdit?.frameSizes?.largeMainThumbnails || 'Large (Main Image + Thumbnails)'}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -6944,7 +6944,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="title">{t?.editor?.pageEditor?.blockEdit?.common?.title || 'Title'}</Label>
               <Input 
                 id="title"
-                value={formData.title ?? 'Titre de la vidéo'} 
+                value={formData.title ?? (t?.common?.videoTitle || 'Video Title')} 
                 onChange={e => updateField('title', e.target.value)}
                 className="mt-2"
               />
@@ -6989,7 +6989,7 @@ const BlockEditDropdown = ({
 
             {/* Couleur de fond */}
             <div>
-              <Label>Couleur de fond</Label>
+              <Label>{t?.editor?.pageEditor?.blockEdit?.common?.backgroundColor || 'Background Color'}</Label>
               <div className="mt-3">
                 <ColorPicker
                   value={formData.backgroundColor ?? '#ffffff'}
@@ -7002,7 +7002,7 @@ const BlockEditDropdown = ({
 
             {/* URL de la vidéo */}
             <div>
-              <Label htmlFor="videoUrl">URL de la vidéo</Label>
+              <Label htmlFor="videoUrl">{t?.editor?.pageEditor?.blockEdit?.video?.videoUrl || 'Video URL'}</Label>
               <Input 
                 id="videoUrl"
                 value={formData.videoUrl ?? ''} 
@@ -7014,13 +7014,13 @@ const BlockEditDropdown = ({
 
             {/* Type de vidéo */}
             <div>
-              <Label htmlFor="videoType">Type de vidéo</Label>
+              <Label htmlFor="videoType">{t?.editor?.pageEditor?.blockEdit?.video?.videoType || 'Video Type'}</Label>
               <Select 
                 value={formData.videoType ?? 'youtube'} 
                 onValueChange={(value) => updateField('videoType', value)}
               >
                 <SelectTrigger className="mt-2">
-                  <SelectValue placeholder="Sélectionnez le type" />
+                  <SelectValue placeholder={t?.editor?.pageEditor?.blockEdit?.common?.selectType || "Select type"} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="youtube">YouTube</SelectItem>
@@ -7042,7 +7042,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="title">{t?.editor?.pageEditor?.blockEdit?.common?.title || 'Title'}</Label>
               <Input 
                 id="title"
-                value={formData.title ?? 'Titre de la section'} 
+                value={formData.title ?? (t?.common?.sectionTitle || 'Section Title')} 
                 onChange={e => updateField('title', e.target.value)}
                 className="mt-2"
               />
@@ -7087,7 +7087,7 @@ const BlockEditDropdown = ({
 
             {/* Couleur de fond */}
             <div>
-              <Label>Couleur de fond</Label>
+              <Label>{t?.editor?.pageEditor?.blockEdit?.common?.backgroundColor || 'Background Color'}</Label>
               <div className="mt-3">
                 <ColorPicker
                   value={formData.backgroundColor ?? '#ffffff'}
@@ -7126,7 +7126,7 @@ const BlockEditDropdown = ({
                           updateField('items', newItems);
                         }}
                       >
-                        Supprimer
+                        {t?.common?.delete || 'Delete'}
                       </Button>
                     </div>
                     <Input
@@ -7168,7 +7168,7 @@ const BlockEditDropdown = ({
 
       case 'text_pricing':
         const pricingCards = formData.pricingCards || [
-          { title: 'Titre', subtitle: 'Sous-titre', price: 'Prix', currency: 'Devise', cycle: 'Cycle', label: 'Label', moreText: 'Texte', headerGradient: '#084F6E' }
+          { title: 'Title', subtitle: 'Subtitle', price: 'Price', currency: 'Currency', cycle: 'Cycle', label: 'Label', moreText: 'Text', headerGradient: '#084F6E' }
         ];
         
         return (
@@ -7222,7 +7222,7 @@ const BlockEditDropdown = ({
 
             {/* Couleur de fond */}
             <div>
-              <Label>Couleur de fond</Label>
+              <Label>{t?.editor?.pageEditor?.blockEdit?.common?.backgroundColor || 'Background Color'}</Label>
               <div className="mt-3">
                 <ColorPicker
                   value={formData.backgroundColor ?? '#ffffff'}
@@ -7235,12 +7235,12 @@ const BlockEditDropdown = ({
 
             {/* Cartes de pricing */}
             <div>
-              <Label className="text-base font-semibold">Cartes de tarification</Label>
+              <Label className="text-base font-semibold">{t?.editor?.pageEditor?.blockEdit?.pricing?.pricingCards || 'Pricing Cards'}</Label>
               <div className="space-y-4 mt-3">
                 {pricingCards.map((card: any, index: number) => (
                   <div key={index} className="p-4 border rounded-lg space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium">Carte {index + 1}</span>
+                      <span className="text-sm font-medium">{t?.editor?.pageEditor?.blockEdit?.pricing?.card || 'Card'} {index + 1}</span>
                       <Button
                         type="button"
                         variant="ghost"
@@ -7250,12 +7250,12 @@ const BlockEditDropdown = ({
                           updateField('pricingCards', newCards);
                         }}
                       >
-                        Supprimer
+                        {t?.common?.delete || 'Delete'}
                       </Button>
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       <Input
-                        placeholder="Titre"
+                        placeholder={t?.common?.title || "Title"}
                         value={card.title || ''}
                         onChange={(e) => {
                           const newCards = [...pricingCards];
@@ -7264,7 +7264,7 @@ const BlockEditDropdown = ({
                         }}
                       />
                       <Input
-                        placeholder="Sous-titre"
+                        placeholder={t?.common?.subtitle || "Subtitle"}
                         value={card.subtitle || ''}
                         onChange={(e) => {
                           const newCards = [...pricingCards];
@@ -7275,7 +7275,7 @@ const BlockEditDropdown = ({
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       <Input
-                        placeholder="Prix"
+                        placeholder={t?.common?.price || "Price"}
                         value={card.price || ''}
                         onChange={(e) => {
                           const newCards = [...pricingCards];
@@ -7284,7 +7284,7 @@ const BlockEditDropdown = ({
                         }}
                       />
                       <Input
-                        placeholder="Devise"
+                        placeholder={t?.common?.currency || "Currency"}
                         value={card.currency || ''}
                         onChange={(e) => {
                           const newCards = [...pricingCards];
@@ -7295,7 +7295,7 @@ const BlockEditDropdown = ({
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       <Input
-                        placeholder="Cycle"
+                        placeholder={t?.common?.cycle || "Cycle"}
                         value={card.cycle || ''}
                         onChange={(e) => {
                           const newCards = [...pricingCards];
@@ -7314,7 +7314,7 @@ const BlockEditDropdown = ({
                       />
                     </div>
                     <Textarea
-                      placeholder="Texte de plus"
+                      placeholder={t?.editor?.pageEditor?.blockEdit?.common?.moreText || 'Read more'}
                       value={card.moreText || ''}
                       rows={2}
                       onChange={(e) => {
@@ -7356,17 +7356,17 @@ const BlockEditDropdown = ({
                     updateField('pricingCards', newCards);
                   }}
                 >
-                  Ajouter une carte
+                  {t?.editor?.pageEditor?.blockEdit?.pricing?.addCard || 'Add a card'}
                 </Button>
               </div>
             </div>
 
             <Separator />
 
-            {/* Options supplémentaires (optionnelle) */}
+            {/* {t?.editor?.pageEditor?.blockEdit?.pricing?.additionalOptions || 'Additional Options'} (optionnelle) */}
             <div>
               <Label className="text-base font-semibold flex items-center gap-2">
-                Options supplémentaires
+                {t?.editor?.pageEditor?.blockEdit?.pricing?.additionalOptions || 'Additional Options'}
                 <input
                   type="checkbox"
                   checked={formData.showPickupSection ?? false}
@@ -7379,10 +7379,10 @@ const BlockEditDropdown = ({
                 <div className="space-y-4 mt-3">
                   {/* Titre de la section pickup */}
                   <div>
-                    <Label htmlFor="pickupTitle">Titre de la section</Label>
+                    <Label htmlFor="pickupTitle">{t?.editor?.pageEditor?.blockEdit?.footer?.sectionTitle || 'Section Title'}</Label>
                     <Input 
                       id="pickupTitle"
-                      value={formData.pickupTitle ?? 'Options supplémentaires'} 
+                      value={formData.pickupTitle ?? 'Additional Options'} 
                       onChange={e => updateField('pickupTitle', e.target.value)}
                       className="mt-2"
                     />
@@ -7390,7 +7390,7 @@ const BlockEditDropdown = ({
 
                   {/* Toutes les options */}
                   <div>
-                    <Label className="text-sm font-medium">Toutes les options</Label>
+                    <Label className="text-sm font-medium">{t?.editor?.pageEditor?.blockEdit?.pricing?.allOptions || 'All Options'}</Label>
                     <div className="space-y-3 mt-2">
                       {(formData.pickupTimes || []).map((pickup: any, index: number) => (
                         <div key={index} className="p-3 border rounded-lg space-y-2">
@@ -7405,12 +7405,12 @@ const BlockEditDropdown = ({
                                 updateField('pickupTimes', newTimes);
                               }}
                             >
-                              Supprimer
+                              {t?.common?.delete || 'Delete'}
                             </Button>
                           </div>
                           <div className="grid grid-cols-2 gap-2">
                             <Input
-                              placeholder="Titre"
+                              placeholder={t?.common?.title || "Title"}
                               value={pickup.time || ''}
                               onChange={(e) => {
                                 const newTimes = [...(formData.pickupTimes || [])];
@@ -7419,7 +7419,7 @@ const BlockEditDropdown = ({
                               }}
                             />
                             <Input
-                              placeholder="Sous titre"
+                              placeholder={t?.common?.subtitle || "Subtitle"}
                               value={pickup.location || ''}
                               onChange={(e) => {
                                 const newTimes = [...(formData.pickupTimes || [])];
@@ -7429,7 +7429,7 @@ const BlockEditDropdown = ({
                             />
                           </div>
                           <Input
-                            placeholder="Supplément"
+                            placeholder={t?.common?.supplement || "Supplement"}
                             value={pickup.price || ''}
                             onChange={(e) => {
                               const newTimes = [...(formData.pickupTimes || [])];
@@ -7438,7 +7438,7 @@ const BlockEditDropdown = ({
                             }}
                           />
                           <div>
-                            <Label className="text-xs">Couleur du supplément</Label>
+                            <Label className="text-xs">{t?.editor?.pageEditor?.blockEdit?.pricing?.supplementColor || 'Supplement Color'}</Label>
                             <div className="mt-1">
                               <ColorPicker
                                 value={pickup.supplementColor || '#084F6E'}
@@ -7457,11 +7457,11 @@ const BlockEditDropdown = ({
                         variant="outline"
                         className="w-full"
                         onClick={() => {
-                          const newTimes = [...(formData.pickupTimes || []), { time: 'Titre', location: 'Sous titre', price: 'Supplément', supplementColor: '#084F6E' }];
+                          const newTimes = [...(formData.pickupTimes || []), { time: 'Title', location: 'Subtitle', price: 'Supplement', supplementColor: '#084F6E' }];
                           updateField('pickupTimes', newTimes);
                         }}
                       >
-                        Ajouter une option
+                        {t?.editor?.pageEditor?.blockEdit?.pricing?.addOption || 'Add an option'}
                       </Button>
                     </div>
                   </div>
@@ -7470,10 +7470,10 @@ const BlockEditDropdown = ({
 
                   {/* Included in Price */}
                   <div>
-                    <Label>Included</Label>
+                    <Label>{t?.common?.included || 'Included'}</Label>
                     <Input 
-                      placeholder="Titre"
-                      value={formData.includedTitle ?? 'Included in Price'} 
+                      placeholder={t?.common?.title || "Title"}
+                      value={formData.includedTitle ?? (t?.common?.includedInPrice || 'Included in Price')} 
                       onChange={e => updateField('includedTitle', e.target.value)}
                       className="mt-2"
                     />
@@ -7489,7 +7489,7 @@ const BlockEditDropdown = ({
                   </div>
 
                   <div>
-                    <Label>Couleur du logo</Label>
+                    <Label>{t?.editor?.pageEditor?.blockEdit?.pricing?.logoColor || 'Logo Color'}</Label>
                     <div className="mt-2">
                       <ColorPicker
                         value={formData.includedLogoColor ?? '#3BA8AF'}
@@ -7502,10 +7502,10 @@ const BlockEditDropdown = ({
 
                   {/* Not Included in Price */}
                   <div>
-                    <Label>Not Included</Label>
+                    <Label>{t?.common?.notIncluded || 'Not Included'}</Label>
                     <Input 
-                      placeholder="Titre"
-                      value={formData.notIncludedTitle ?? 'Not Included in Price'} 
+                      placeholder={t?.common?.title || "Title"}
+                      value={formData.notIncludedTitle ?? (t?.common?.notIncludedInPrice || 'Not Included in Price')} 
                       onChange={e => updateField('notIncludedTitle', e.target.value)}
                       className="mt-2"
                     />
@@ -7521,7 +7521,7 @@ const BlockEditDropdown = ({
                   </div>
 
                   <div>
-                    <Label>Couleur du logo</Label>
+                    <Label>{t?.editor?.pageEditor?.blockEdit?.pricing?.logoColor || 'Logo Color'}</Label>
                     <div className="mt-2">
                       <ColorPicker
                         value={formData.notIncludedLogoColor ?? '#3BA8AF'}
@@ -7703,7 +7703,7 @@ const BlockEditDropdown = ({
                     
                     <div className="grid grid-cols-2 gap-2">
                       <div>
-                        <Label className="text-xs">Texte</Label>
+                        <Label className="text-xs">{t?.editor?.pageEditor?.blockEdit?.common?.text || 'Text'}</Label>
                         <Input 
                           value={button.text || ''} 
                           onChange={e => {
@@ -7760,7 +7760,7 @@ const BlockEditDropdown = ({
                     </div>
                     
                     <div>
-                      <Label className="text-xs">Style</Label>
+                      <Label className="text-xs">{t?.editor?.pageEditor?.blockEdit?.common?.style || 'Style'}</Label>
                       <Select 
                         value={button.style || 'filled'} 
                         onValueChange={value => {
@@ -7834,14 +7834,14 @@ const BlockEditDropdown = ({
                 {formData.backgroundType === 'gradient' && (
                   <div className="space-y-3 mt-3">
                     <div>
-                      <Label htmlFor="gradientColor1">Première couleur du dégradé</Label>
+                      <Label htmlFor="gradientColor1">{t?.editor?.pageEditor?.blockEdit?.common?.gradientColor1 || 'First Gradient Color'}</Label>
                       <ColorPicker
                         value={formData.gradientColor1 ?? '#084F6E'}
                         onChange={(value) => updateField('gradientColor1', value)}
                       />
                     </div>
                     <div>
-                      <Label htmlFor="gradientColor2">Deuxième couleur du dégradé</Label>
+                      <Label htmlFor="gradientColor2">{t?.editor?.pageEditor?.blockEdit?.common?.gradientColor2 || 'Second Gradient Color'}</Label>
                       <ColorPicker
                         value={formData.gradientColor2 ?? '#3BA8AF'}
                         onChange={(value) => updateField('gradientColor2', value)}
@@ -8014,7 +8014,7 @@ const BlockEditDropdown = ({
 
         return (
           <div className="p-4 text-center text-gray-500">
-            <p>Aucune option d'édition pour ce type de bloc</p>
+            <p>{t?.editor?.pageEditor?.blockEdit?.common?.noEditOptions || 'No editing options for this block type'}</p>
           </div>
         );
     }
