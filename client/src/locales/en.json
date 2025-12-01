@@ -1344,6 +1344,12 @@
         "formName": "Form name:"
       },
       "blockTypes": {
+        "hero": "Hero Section",
+        "heroDesc": "Welcome banner with title, subtitle and CTA buttons",
+        "header_page": "Header Page",
+        "header_pageDesc": "Page header with title, subtitle and background image",
+        "text": "Text + Buttons",
+        "textDesc": "Text section with title, content and action buttons",
         "cardGridDate": "Card Grid Date",
         "cardGridDateDesc": "Card grid with duration badges",
         "cardGridPrice": "Card Grid Price",
@@ -1354,19 +1360,29 @@
         "formDesc": "Form with image and customizable fields",
         "gallery": "Gallery",
         "galleryDesc": "Scrollable testimonial cards",
-        "hero": "Hero",
-        "heroDesc": "Hero section with video and call-to-action buttons",
-        "iconGrid": "Icon Grid",
+        "iconGrid": "Text + Icons",
         "iconGridDesc": "Icon grid with text descriptions",
-        "searchModule": "Search Module",
+        "searchModule": "Search Bar: Tours",
         "searchModuleDesc": "Tour search and filter module",
-        "textImage": "Text & Image",
-        "textImageDesc": "Text section with optional image"
+        "textImage": "Text + Images",
+        "textImageDesc": "Text section with optional image",
+        "blog_search": "Search Bar: Blog",
+        "blog_searchDesc": "Blog article search and filter bar",
+        "text_gallery": "Text + Gallery",
+        "text_galleryDesc": "Text section with image gallery",
+        "text_video": "Text + Video",
+        "text_videoDesc": "Text section with embedded video",
+        "text_listing": "Text + Listing",
+        "text_listingDesc": "Text section with item list",
+        "text_pricing": "Text + Pricing",
+        "text_pricingDesc": "Text section with pricing table"
       },
       "blockSelection": {
         "title": "Add a block",
         "preview": "Preview",
-        "selectBlockToPreview": "Select a block type to see the preview"
+        "selectBlockToPreview": "Select a block type to see the preview",
+        "cancel": "Cancel",
+        "add": "Add"
       }
     },
     "newsletter": {

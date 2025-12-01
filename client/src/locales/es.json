@@ -1206,6 +1206,12 @@
         "formName": "Nombre del formulario:"
       },
       "blockTypes": {
+        "hero": "Sección Hero",
+        "heroDesc": "Banner de bienvenida con título, subtítulo y botones CTA",
+        "header_page": "Encabezado de página",
+        "header_pageDesc": "Encabezado de página con título, subtítulo e imagen de fondo",
+        "text": "Texto + Botones",
+        "textDesc": "Sección de texto con título, contenido y botones de acción",
         "cardGridDate": "Card Grid Date",
         "cardGridDateDesc": "Cuadrícula de tarjetas con insignias de duración",
         "cardGridPrice": "Card Grid Price",
@@ -1216,19 +1222,29 @@
         "formDesc": "Formulario con imagen y campos personalizables",
         "gallery": "Galería",
         "galleryDesc": "Tarjetas de testimonios desplazables",
-        "hero": "Hero",
-        "heroDesc": "Sección hero con video y botones de llamada a la acción",
-        "iconGrid": "Cuadrícula de iconos",
+        "iconGrid": "Texto + Iconos",
         "iconGridDesc": "Cuadrícula de iconos con descripciones de texto",
-        "searchModule": "Módulo de búsqueda",
+        "searchModule": "Barra de búsqueda: Tours",
         "searchModuleDesc": "Módulo de búsqueda y filtrado de tours",
-        "textImage": "Texto e Imagen",
-        "textImageDesc": "Sección de texto con imagen opcional"
+        "textImage": "Texto + Imágenes",
+        "textImageDesc": "Sección de texto con imagen opcional",
+        "blog_search": "Barra de búsqueda: Blog",
+        "blog_searchDesc": "Barra de búsqueda y filtrado de artículos de blog",
+        "text_gallery": "Texto + Galería",
+        "text_galleryDesc": "Sección de texto con galería de imágenes",
+        "text_video": "Texto + Video",
+        "text_videoDesc": "Sección de texto con video incrustado",
+        "text_listing": "Texto + Listado",
+        "text_listingDesc": "Sección de texto con lista de elementos",
+        "text_pricing": "Texto + Precios",
+        "text_pricingDesc": "Sección de texto con tabla de precios"
       },
       "blockSelection": {
         "title": "Añadir un bloque",
         "preview": "Vista previa",
-        "selectBlockToPreview": "Selecciona un tipo de bloque para ver la vista previa"
+        "selectBlockToPreview": "Selecciona un tipo de bloque para ver la vista previa",
+        "cancel": "Cancelar",
+        "add": "Añadir"
       },
       "pageMessages": {
         "customCodePage": "Página con código personalizado",

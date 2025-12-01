@@ -535,7 +535,16 @@ export default function BlockSelectionPopup({ isOpen, onClose, onSelect }: Block
       'custom_tour_form': 'form',
       'who_we_are': 'textImage',
       'why_choose_us': 'iconGrid',
-      'search_bar_tours': 'searchModule'
+      'search_bar_tours': 'searchModule',
+      'hero': 'hero',
+      'header_page': 'header_page',
+      'text': 'text',
+      'contact': 'contact',
+      'blog_search': 'blog_search',
+      'text_gallery': 'text_gallery',
+      'text_video': 'text_video',
+      'text_listing': 'text_listing',
+      'text_pricing': 'text_pricing'
     };
     const key = keyMap[blockType.type] || blockType.type;
     return blockTypesTranslations?.[key] || blockType.label;
@@ -549,7 +558,16 @@ export default function BlockSelectionPopup({ isOpen, onClose, onSelect }: Block
       'custom_tour_form': 'formDesc',
       'who_we_are': 'textImageDesc',
       'why_choose_us': 'iconGridDesc',
-      'search_bar_tours': 'searchModuleDesc'
+      'search_bar_tours': 'searchModuleDesc',
+      'hero': 'heroDesc',
+      'header_page': 'header_pageDesc',
+      'text': 'textDesc',
+      'contact': 'contactDesc',
+      'blog_search': 'blog_searchDesc',
+      'text_gallery': 'text_galleryDesc',
+      'text_video': 'text_videoDesc',
+      'text_listing': 'text_listingDesc',
+      'text_pricing': 'text_pricingDesc'
     };
     const key = keyMap[blockType.type] || (blockType.type + 'Desc');
     return blockTypesTranslations?.[key] || blockType.description;
@@ -605,14 +623,14 @@ export default function BlockSelectionPopup({ isOpen, onClose, onSelect }: Block
 
         <DialogFooter className="mt-4">
           <Button variant="outline" onClick={handleCancel} data-testid="button-cancel-block">
-            {t?.cancel || "Cancel"}
+            {t?.blockSelection?.cancel || "Cancel"}
           </Button>
           <Button 
             onClick={handleAdd} 
             disabled={!selectedType}
             data-testid="button-add-block"
           >
-            {t?.add || "Add"}
+            {t?.blockSelection?.add || "Add"}
           </Button>
         </DialogFooter>
       </DialogContent>
