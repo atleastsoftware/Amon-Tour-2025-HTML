@@ -2356,7 +2356,49 @@
             "subtitleColor": "Subtitle Color",
             "buttons": "Buttons",
             "contentAlignment": "Content Alignment",
-            "background": "Background"
+            "background": "Background",
+            "videoUrl": "Video URL",
+            "frameSize": "Frame Size",
+            "contentAnimation": "Content Animation"
+          },
+          "grid": {
+            "gridConfiguration": "Grid Configuration",
+            "adColors": "Ad Colors",
+            "columnsPerDevice": "Columns per Device",
+            "mobile": "Mobile",
+            "tablet": "Tablet",
+            "desktop": "Desktop",
+            "numberOfAdsToDisplay": "Number of Ads to Display",
+            "allAvailableAds": "All Available Ads",
+            "adCategory": "Ad Category",
+            "allAds": "All Ads"
+          },
+          "alignmentOptions": {
+            "left": "Left",
+            "center": "Center",
+            "right": "Right"
+          },
+          "backgroundTypes": {
+            "gradient": "Gradient",
+            "solidColor": "Solid Color",
+            "video": "Video",
+            "rotatingImages": "Rotating Images"
+          },
+          "frameSizes": {
+            "small": "Small",
+            "smallScrollingImages": "Small (Scrolling Images)",
+            "large": "Large (Full Screen)"
+          },
+          "videoTypes": {
+            "directVideo": "Direct Video (MP4/WebM)"
+          },
+          "buttons": {
+            "save": "Save",
+            "cancel": "Cancel"
+          },
+          "styleOptions": {
+            "filled": "Filled",
+            "outline": "Outline"
           }
         },
         "mainInterface": {

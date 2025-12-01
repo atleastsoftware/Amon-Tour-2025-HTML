@@ -2350,7 +2350,49 @@
             "subtitleColor": "Color del subtítulo",
             "buttons": "Botones",
             "contentAlignment": "Alineación del contenido",
-            "background": "Fondo"
+            "background": "Fondo",
+            "videoUrl": "URL del video",
+            "frameSize": "Tamaño del marco",
+            "contentAnimation": "Animación del contenido"
+          },
+          "grid": {
+            "gridConfiguration": "Configuración de la cuadrícula",
+            "adColors": "Colores de los anuncios",
+            "columnsPerDevice": "Columnas por dispositivo",
+            "mobile": "Móvil",
+            "tablet": "Tableta",
+            "desktop": "Escritorio",
+            "numberOfAdsToDisplay": "Número de anuncios a mostrar",
+            "allAvailableAds": "Todos los anuncios disponibles",
+            "adCategory": "Categoría de anuncios",
+            "allAds": "Todos los anuncios"
+          },
+          "alignmentOptions": {
+            "left": "Izquierda",
+            "center": "Centro",
+            "right": "Derecha"
+          },
+          "backgroundTypes": {
+            "gradient": "Degradado",
+            "solidColor": "Color sólido",
+            "video": "Video",
+            "rotatingImages": "Imágenes rotativas"
+          },
+          "frameSizes": {
+            "small": "Pequeña",
+            "smallScrollingImages": "Pequeña (Imágenes desplazables)",
+            "large": "Grande (pantalla completa)"
+          },
+          "videoTypes": {
+            "directVideo": "Video directo (MP4/WebM)"
+          },
+          "buttons": {
+            "save": "Guardar",
+            "cancel": "Cancelar"
+          },
+          "styleOptions": {
+            "filled": "Relleno",
+            "outline": "Contorno"
           }
         },
         "mainInterface": {

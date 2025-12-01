@@ -4140,8 +4140,8 @@ const BlockEditDropdown = ({
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="filled">Plein</SelectItem>
-                          <SelectItem value="outline">Contour</SelectItem>
+                          <SelectItem value="filled">{t?.editor?.pageEditor?.blockEdit?.styleOptions?.filled || 'Filled'}</SelectItem>
+                          <SelectItem value="outline">{t?.editor?.pageEditor?.blockEdit?.styleOptions?.outline || 'Outline'}</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -4160,10 +4160,10 @@ const BlockEditDropdown = ({
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="image">Image</SelectItem>
-                    <SelectItem value="video">Vidéo</SelectItem>
-                    <SelectItem value="color">Couleur unie</SelectItem>
-                    <SelectItem value="gradient">Dégradé</SelectItem>
+                    <SelectItem value="image">{t?.editor?.pageEditor?.blockEdit?.common?.image || 'Image'}</SelectItem>
+                    <SelectItem value="video">{t?.editor?.pageEditor?.blockEdit?.backgroundTypes?.video || 'Video'}</SelectItem>
+                    <SelectItem value="color">{t?.editor?.pageEditor?.blockEdit?.backgroundTypes?.solidColor || 'Solid Color'}</SelectItem>
+                    <SelectItem value="gradient">{t?.editor?.pageEditor?.blockEdit?.common?.gradient || 'Gradient'}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -4205,7 +4205,7 @@ const BlockEditDropdown = ({
               
               {formData.backgroundType === 'video' && (
                 <div className="mt-3">
-                  <Label htmlFor="videoUrl">URL de la vidéo</Label>
+                  <Label htmlFor="videoUrl">{t?.editor?.pageEditor?.blockEdit?.hero?.videoUrl || 'Video URL'}</Label>
                   <Input 
                     id="videoUrl"
                     value={formData.videoUrl ?? ''} 
@@ -4244,15 +4244,15 @@ const BlockEditDropdown = ({
 
             {/* Taille du cadre */}
             <div>
-              <Label>Taille du cadre</Label>
+              <Label>{t?.editor?.pageEditor?.blockEdit?.hero?.frameSize || 'Frame Size'}</Label>
               <div className="mt-3">
                 <Select value={formData.frameSize ?? 'small'} onValueChange={value => updateField('frameSize', value)}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="small">Petite</SelectItem>
-                    <SelectItem value="large">Grande</SelectItem>
+                    <SelectItem value="small">{t?.editor?.pageEditor?.blockEdit?.frameSizes?.small || 'Small'}</SelectItem>
+                    <SelectItem value="large">{t?.editor?.pageEditor?.blockEdit?.frameSizes?.large || 'Large (Full Screen)'}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -4316,11 +4316,11 @@ const BlockEditDropdown = ({
 
             {/* Configuration de la grille */}
             <div className="space-y-4">
-              <h3 className="font-semibold text-lg">Configuration de la grille</h3>
+              <h3 className="font-semibold text-lg">{t?.editor?.pageEditor?.blockEdit?.grid?.gridConfiguration || 'Grid Configuration'}</h3>
 
               {/* Couleurs des annonces */}
               <div>
-                <Label className="text-sm font-medium">Couleurs des annonces</Label>
+                <Label className="text-sm font-medium">{t?.editor?.pageEditor?.blockEdit?.grid?.adColors || 'Ad Colors'}</Label>
                 <div className="mt-2">
                   <ColorPicker
                     value={formData.cardsColor ?? '#084F6E'}
@@ -4331,10 +4331,10 @@ const BlockEditDropdown = ({
 
               {/* Colonnes par appareil */}
               <div>
-                <Label>Colonnes par appareil</Label>
+                <Label>{t?.editor?.pageEditor?.blockEdit?.grid?.columnsPerDevice || 'Columns per Device'}</Label>
                 <div className="grid grid-cols-3 gap-3 mt-3">
                   <div>
-                    <Label htmlFor="mobileColumns" className="text-xs">Mobile</Label>
+                    <Label htmlFor="mobileColumns" className="text-xs">{t?.editor?.pageEditor?.blockEdit?.grid?.mobile || 'Mobile'}</Label>
                     <Select 
                       value={String(formData.mobileColumns || 1)} 
                       onValueChange={value => updateField('mobileColumns', parseInt(value))}
@@ -4349,7 +4349,7 @@ const BlockEditDropdown = ({
                     </Select>
                   </div>
                   <div>
-                    <Label htmlFor="tabletColumns" className="text-xs">Tablette</Label>
+                    <Label htmlFor="tabletColumns" className="text-xs">{t?.editor?.pageEditor?.blockEdit?.grid?.tablet || 'Tablet'}</Label>
                     <Select 
                       value={String(formData.tabletColumns || 2)} 
                       onValueChange={value => updateField('tabletColumns', parseInt(value))}
@@ -4365,7 +4365,7 @@ const BlockEditDropdown = ({
                     </Select>
                   </div>
                   <div>
-                    <Label htmlFor="desktopColumns" className="text-xs">Ordinateur</Label>
+                    <Label htmlFor="desktopColumns" className="text-xs">{t?.editor?.pageEditor?.blockEdit?.grid?.desktop || 'Desktop'}</Label>
                     <Select 
                       value={String(formData.desktopColumns || 3)} 
                       onValueChange={value => updateField('desktopColumns', parseInt(value))}
@@ -4463,11 +4463,11 @@ const BlockEditDropdown = ({
 
             {/* Configuration de la grille */}
             <div className="space-y-4 border-t pt-4">
-              <h4 className="text-sm font-medium text-gray-900">Configuration de la grille</h4>
+              <h4 className="text-sm font-medium text-gray-900">{t?.editor?.pageEditor?.blockEdit?.grid?.gridConfiguration || 'Grid Configuration'}</h4>
               
               {/* Couleurs des annonces */}
               <div className="space-y-2">
-                <Label className="text-sm font-medium">Couleurs des annonces</Label>
+                <Label className="text-sm font-medium">{t?.editor?.pageEditor?.blockEdit?.grid?.adColors || 'Ad Colors'}</Label>
                 <ColorPicker
                   value={formData.cardsColor ?? '#2563eb'}
                   onChange={(value) => {
@@ -4479,10 +4479,10 @@ const BlockEditDropdown = ({
               
               {/* Colonnes */}
               <div>
-                <Label className="text-sm font-medium">Colonnes par appareil</Label>
+                <Label className="text-sm font-medium">{t?.editor?.pageEditor?.blockEdit?.grid?.columnsPerDevice || 'Columns per Device'}</Label>
                 <div className="grid grid-cols-3 gap-4 mt-2">
                   <div>
-                    <Label className="text-xs text-gray-500">Mobile</Label>
+                    <Label className="text-xs text-gray-500">{t?.editor?.pageEditor?.blockEdit?.grid?.mobile || 'Mobile'}</Label>
                     <Select value={String(formData.mobileColumns || 1)} onValueChange={value => updateField('mobileColumns', parseInt(value))}>
                       <SelectTrigger>
                         <SelectValue />
@@ -4494,7 +4494,7 @@ const BlockEditDropdown = ({
                     </Select>
                   </div>
                   <div>
-                    <Label className="text-xs text-gray-500">Tablette</Label>
+                    <Label className="text-xs text-gray-500">{t?.editor?.pageEditor?.blockEdit?.grid?.tablet || 'Tablet'}</Label>
                     <Select value={String(formData.tabletColumns || 2)} onValueChange={value => updateField('tabletColumns', parseInt(value))}>
                       <SelectTrigger>
                         <SelectValue />
@@ -4507,7 +4507,7 @@ const BlockEditDropdown = ({
                     </Select>
                   </div>
                   <div>
-                    <Label className="text-xs text-gray-500">Ordinateur</Label>
+                    <Label className="text-xs text-gray-500">{t?.editor?.pageEditor?.blockEdit?.grid?.desktop || 'Desktop'}</Label>
                     <Select value={String(formData.desktopColumns || 3)} onValueChange={value => updateField('desktopColumns', parseInt(value))}>
                       <SelectTrigger>
                         <SelectValue />
@@ -4525,10 +4525,10 @@ const BlockEditDropdown = ({
 
               {/* Nombre d'annonces */}
               <div>
-                <Label className="text-sm font-medium">Nombre d'annonces à afficher</Label>
+                <Label className="text-sm font-medium">{t?.editor?.pageEditor?.blockEdit?.grid?.numberOfAdsToDisplay || 'Number of Ads to Display'}</Label>
                 <div className="grid grid-cols-3 gap-4 mt-2">
                   <div>
-                    <Label className="text-xs text-gray-500">Mobile</Label>
+                    <Label className="text-xs text-gray-500">{t?.editor?.pageEditor?.blockEdit?.grid?.mobile || 'Mobile'}</Label>
                     <Input 
                       type="number" 
                       min="1" 
@@ -4540,7 +4540,7 @@ const BlockEditDropdown = ({
                     />
                   </div>
                   <div>
-                    <Label className="text-xs text-gray-500">Tablette</Label>
+                    <Label className="text-xs text-gray-500">{t?.editor?.pageEditor?.blockEdit?.grid?.tablet || 'Tablet'}</Label>
                     <Input 
                       type="number" 
                       min="1" 
@@ -4552,7 +4552,7 @@ const BlockEditDropdown = ({
                     />
                   </div>
                   <div>
-                    <Label className="text-xs text-gray-500">Ordinateur</Label>
+                    <Label className="text-xs text-gray-500">{t?.editor?.pageEditor?.blockEdit?.grid?.desktop || 'Desktop'}</Label>
                     <Input 
                       type="number" 
                       min="1" 
@@ -4588,18 +4588,18 @@ const BlockEditDropdown = ({
                       }
                     }}
                   />
-                  <Label htmlFor="show_all_ads" className="text-sm">Toutes les annonces disponibles</Label>
+                  <Label htmlFor="show_all_ads" className="text-sm">{t?.editor?.pageEditor?.blockEdit?.grid?.allAvailableAds || 'All Available Ads'}</Label>
                 </div>
               </div>
 
               <div>
-                <Label htmlFor="categoryFilter">Catégorie d'annonces</Label>
+                <Label htmlFor="categoryFilter">{t?.editor?.pageEditor?.blockEdit?.grid?.adCategory || 'Ad Category'}</Label>
                 <Select value={formData.categoryFilter ?? 'all'} onValueChange={value => updateField('categoryFilter', value)}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">Toutes les annonces</SelectItem>
+                    <SelectItem value="all">{t?.editor?.pageEditor?.blockEdit?.grid?.allAds || 'All Ads'}</SelectItem>
                     <SelectItem value="featured">Annonces vedettes</SelectItem>
                     <SelectItem value="day_trips">Excursions d'une journée</SelectItem>
                     <SelectItem value="multi_day">Séjours multi-jours</SelectItem>
@@ -4766,11 +4766,11 @@ const BlockEditDropdown = ({
 
             {/* Configuration de la grille */}
             <div className="space-y-4 border-t pt-4">
-              <h4 className="text-sm font-medium text-gray-900">Configuration de la grille</h4>
+              <h4 className="text-sm font-medium text-gray-900">{t?.editor?.pageEditor?.blockEdit?.grid?.gridConfiguration || 'Grid Configuration'}</h4>
               
               {/* Couleurs des annonces */}
               <div className="space-y-2">
-                <Label className="text-sm font-medium">Couleurs des annonces</Label>
+                <Label className="text-sm font-medium">{t?.editor?.pageEditor?.blockEdit?.grid?.adColors || 'Ad Colors'}</Label>
                 <ColorPicker
                   value={formData.cardsColor ?? '#2563eb'}
                   onChange={(value) => {
@@ -4782,10 +4782,10 @@ const BlockEditDropdown = ({
               
               {/* Colonnes */}
               <div>
-                <Label className="text-sm font-medium">Colonnes par appareil</Label>
+                <Label className="text-sm font-medium">{t?.editor?.pageEditor?.blockEdit?.grid?.columnsPerDevice || 'Columns per Device'}</Label>
                 <div className="grid grid-cols-3 gap-4 mt-2">
                   <div>
-                    <Label className="text-xs text-gray-500">Mobile</Label>
+                    <Label className="text-xs text-gray-500">{t?.editor?.pageEditor?.blockEdit?.grid?.mobile || 'Mobile'}</Label>
                     <Select value={String(formData.mobileColumns || 1)} onValueChange={value => updateField('mobileColumns', parseInt(value))}>
                       <SelectTrigger>
                         <SelectValue />
@@ -4797,7 +4797,7 @@ const BlockEditDropdown = ({
                     </Select>
                   </div>
                   <div>
-                    <Label className="text-xs text-gray-500">Tablette</Label>
+                    <Label className="text-xs text-gray-500">{t?.editor?.pageEditor?.blockEdit?.grid?.tablet || 'Tablet'}</Label>
                     <Select value={String(formData.tabletColumns || 2)} onValueChange={value => updateField('tabletColumns', parseInt(value))}>
                       <SelectTrigger>
                         <SelectValue />
@@ -4810,7 +4810,7 @@ const BlockEditDropdown = ({
                     </Select>
                   </div>
                   <div>
-                    <Label className="text-xs text-gray-500">Ordinateur</Label>
+                    <Label className="text-xs text-gray-500">{t?.editor?.pageEditor?.blockEdit?.grid?.desktop || 'Desktop'}</Label>
                     <Select value={String(formData.desktopColumns || 3)} onValueChange={value => updateField('desktopColumns', parseInt(value))}>
                       <SelectTrigger>
                         <SelectValue />
@@ -4828,10 +4828,10 @@ const BlockEditDropdown = ({
 
               {/* Nombre d'annonces */}
               <div>
-                <Label className="text-sm font-medium">Nombre d'annonces à afficher</Label>
+                <Label className="text-sm font-medium">{t?.editor?.pageEditor?.blockEdit?.grid?.numberOfAdsToDisplay || 'Number of Ads to Display'}</Label>
                 <div className="grid grid-cols-3 gap-4 mt-2">
                   <div>
-                    <Label className="text-xs text-gray-500">Mobile</Label>
+                    <Label className="text-xs text-gray-500">{t?.editor?.pageEditor?.blockEdit?.grid?.mobile || 'Mobile'}</Label>
                     <Input 
                       type="number" 
                       min="1" 
@@ -4843,7 +4843,7 @@ const BlockEditDropdown = ({
                     />
                   </div>
                   <div>
-                    <Label className="text-xs text-gray-500">Tablette</Label>
+                    <Label className="text-xs text-gray-500">{t?.editor?.pageEditor?.blockEdit?.grid?.tablet || 'Tablet'}</Label>
                     <Input 
                       type="number" 
                       min="1" 
@@ -4855,7 +4855,7 @@ const BlockEditDropdown = ({
                     />
                   </div>
                   <div>
-                    <Label className="text-xs text-gray-500">Ordinateur</Label>
+                    <Label className="text-xs text-gray-500">{t?.editor?.pageEditor?.blockEdit?.grid?.desktop || 'Desktop'}</Label>
                     <Input 
                       type="number" 
                       min="1" 
@@ -4896,13 +4896,13 @@ const BlockEditDropdown = ({
               </div>
 
               <div>
-                <Label htmlFor="categoryFilter">Catégorie d'annonces</Label>
+                <Label htmlFor="categoryFilter">{t?.editor?.pageEditor?.blockEdit?.grid?.adCategory || 'Ad Category'}</Label>
                 <Select value={formData.categoryFilter ?? 'all'} onValueChange={value => updateField('categoryFilter', value)}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">Toutes les annonces</SelectItem>
+                    <SelectItem value="all">{t?.editor?.pageEditor?.blockEdit?.grid?.allAds || 'All Ads'}</SelectItem>
                     <SelectItem value="featured">Annonces vedettes</SelectItem>
                     <SelectItem value="day_trips">Excursions d'une journée</SelectItem>
                     <SelectItem value="multi_day">Séjours multi-jours</SelectItem>
@@ -6914,7 +6914,7 @@ const BlockEditDropdown = ({
                   <SelectValue placeholder="Sélectionnez le type" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="petite">Petite (Images défilantes)</SelectItem>
+                  <SelectItem value="petite">{t?.editor?.pageEditor?.blockEdit?.frameSizes?.smallScrollingImages || 'Small (Scrolling Images)'}</SelectItem>
                   <SelectItem value="grande">Grande (Image principale + miniatures)</SelectItem>
                 </SelectContent>
               </Select>
@@ -7025,7 +7025,7 @@ const BlockEditDropdown = ({
                 <SelectContent>
                   <SelectItem value="youtube">YouTube</SelectItem>
                   <SelectItem value="vimeo">Vimeo</SelectItem>
-                  <SelectItem value="direct">Vidéo directe (MP4/WebM)</SelectItem>
+                  <SelectItem value="direct">{t?.editor?.pageEditor?.blockEdit?.videoTypes?.directVideo || 'Direct Video (MP4/WebM)'}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -7775,8 +7775,8 @@ const BlockEditDropdown = ({
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="filled">Plein</SelectItem>
-                          <SelectItem value="outline">Contour</SelectItem>
+                          <SelectItem value="filled">{t?.editor?.pageEditor?.blockEdit?.styleOptions?.filled || 'Filled'}</SelectItem>
+                          <SelectItem value="outline">{t?.editor?.pageEditor?.blockEdit?.styleOptions?.outline || 'Outline'}</SelectItem>
                         </SelectContent>
                       </Select>
                       </div>
@@ -7794,9 +7794,9 @@ const BlockEditDropdown = ({
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="left">À gauche</SelectItem>
-                      <SelectItem value="center">Au centre</SelectItem>
-                      <SelectItem value="right">À droite</SelectItem>
+                      <SelectItem value="left">{t?.editor?.pageEditor?.blockEdit?.alignmentOptions?.left || 'Left'}</SelectItem>
+                      <SelectItem value="center">{t?.editor?.pageEditor?.blockEdit?.alignmentOptions?.center || 'Center'}</SelectItem>
+                      <SelectItem value="right">{t?.editor?.pageEditor?.blockEdit?.alignmentOptions?.right || 'Right'}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -7810,7 +7810,7 @@ const BlockEditDropdown = ({
                   onCheckedChange={(checked) => updateField('hasAnimation', checked)}
                 />
                 <Label htmlFor="animation" className="cursor-pointer">
-                  Animation du contenu
+                  {t?.editor?.pageEditor?.blockEdit?.hero?.contentAnimation || 'Content Animation'}
                 </Label>
               </div>
 
@@ -7823,10 +7823,10 @@ const BlockEditDropdown = ({
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="gradient">Couleur dégradé</SelectItem>
-                      <SelectItem value="color">Couleur unie</SelectItem>
-                      <SelectItem value="video">Vidéo</SelectItem>
-                      <SelectItem value="images">Images en rotation</SelectItem>
+                      <SelectItem value="gradient">{t?.editor?.pageEditor?.blockEdit?.backgroundTypes?.gradient || 'Gradient'}</SelectItem>
+                      <SelectItem value="color">{t?.editor?.pageEditor?.blockEdit?.backgroundTypes?.solidColor || 'Solid Color'}</SelectItem>
+                      <SelectItem value="video">{t?.editor?.pageEditor?.blockEdit?.backgroundTypes?.video || 'Video'}</SelectItem>
+                      <SelectItem value="images">{t?.editor?.pageEditor?.blockEdit?.backgroundTypes?.rotatingImages || 'Rotating Images'}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -7862,7 +7862,7 @@ const BlockEditDropdown = ({
                 
                 {formData.backgroundType === 'video' && (
                   <div className="mt-3">
-                    <Label htmlFor="videoUrl">URL de la vidéo</Label>
+                    <Label htmlFor="videoUrl">{t?.editor?.pageEditor?.blockEdit?.hero?.videoUrl || 'Video URL'}</Label>
                     <div className="flex gap-2">
                       <Input 
                         id="videoUrl"
@@ -7898,7 +7898,7 @@ const BlockEditDropdown = ({
                 
                 {formData.backgroundType === 'images' && (
                   <div className="space-y-3">
-                    <Label>URLs des images (3 maximum)</Label>
+                    <Label>{t?.editor?.pageEditor?.blockEdit?.common?.imageUrls || 'Image URLs (3 maximum)'}</Label>
                     
                     <div className="flex gap-2">
                       <Input 
@@ -7995,15 +7995,15 @@ const BlockEditDropdown = ({
 
               {/* Taille du cadre */}
               <div>
-                <Label>Taille du cadre</Label>
+                <Label>{t?.editor?.pageEditor?.blockEdit?.hero?.frameSize || 'Frame Size'}</Label>
                 <div className="mt-3">
                   <Select value={formData.heroSize ?? 'petite'} onValueChange={value => updateField('heroSize', value)}>
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="petite">Petite</SelectItem>
-                      <SelectItem value="grande">Grande (plein écran)</SelectItem>
+                      <SelectItem value="petite">{t?.editor?.pageEditor?.blockEdit?.frameSizes?.small || 'Small'}</SelectItem>
+                      <SelectItem value="grande">{t?.editor?.pageEditor?.blockEdit?.frameSizes?.large || 'Large (Full Screen)'}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

@@ -2440,7 +2440,49 @@
             "subtitleColor": "Couleur du sous-titre",
             "buttons": "Boutons",
             "contentAlignment": "Alignement du contenu",
-            "background": "Arrière-plan"
+            "background": "Arrière-plan",
+            "videoUrl": "URL de la vidéo",
+            "frameSize": "Taille du cadre",
+            "contentAnimation": "Animation du contenu"
+          },
+          "grid": {
+            "gridConfiguration": "Configuration de la grille",
+            "adColors": "Couleurs des annonces",
+            "columnsPerDevice": "Colonnes par appareil",
+            "mobile": "Mobile",
+            "tablet": "Tablette",
+            "desktop": "Ordinateur",
+            "numberOfAdsToDisplay": "Nombre d'annonces à afficher",
+            "allAvailableAds": "Toutes les annonces disponibles",
+            "adCategory": "Catégorie d'annonces",
+            "allAds": "Toutes les annonces"
+          },
+          "alignmentOptions": {
+            "left": "À gauche",
+            "center": "Au centre",
+            "right": "À droite"
+          },
+          "backgroundTypes": {
+            "gradient": "Couleur dégradé",
+            "solidColor": "Couleur unie",
+            "video": "Vidéo",
+            "rotatingImages": "Images en rotation"
+          },
+          "frameSizes": {
+            "small": "Petite",
+            "smallScrollingImages": "Petite (Images défilantes)",
+            "large": "Grande (plein écran)"
+          },
+          "videoTypes": {
+            "directVideo": "Vidéo directe (MP4/WebM)"
+          },
+          "buttons": {
+            "save": "Enregistrer",
+            "cancel": "Annuler"
+          },
+          "styleOptions": {
+            "filled": "Plein",
+            "outline": "Contour"
           }
         },
         "mainInterface": {
