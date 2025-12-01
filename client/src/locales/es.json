@@ -1203,7 +1203,8 @@
         "listDescription": "Crea y gestiona formularios personalizados con campos dinámicos",
         "addForm": "Añadir un formulario",
         "formBuilder": "Constructor de formularios",
-        "formName": "Nombre del formulario:"
+        "formName": "Nombre del formulario:",
+        "formNamePlaceholder": "Ej: Formulario de contacto"
       },
       "blockTypes": {
         "hero": "Sección Hero",
@@ -1245,6 +1246,81 @@
         "selectBlockToPreview": "Selecciona un tipo de bloque para ver la vista previa",
         "cancel": "Cancelar",
         "add": "Añadir"
+      },
+      "formBuilder": {
+        "colorPicker": {
+          "colorHint": "Haz clic en el cuadro de color para elegir visualmente o en el código de color para ingresarlo directamente",
+          "primary": "Primario",
+          "secondary": "Secundario",
+          "heading": "Encabezado",
+          "text": "Texto",
+          "background": "Fondo",
+          "colorReference": "Color: {{color}}",
+          "customColor": "Color personalizado"
+        },
+        "preview": {
+          "addFieldsToPreview": "Añade campos para ver la vista previa",
+          "formTitle": "Título del formulario"
+        },
+        "datePicker": {
+          "alertMessage": "Selector de fecha - Un calendario se abriría aquí en el sitio real"
+        },
+        "builder": {
+          "add": "Añadir",
+          "options": "Opciones",
+          "fieldLabel": "Etiqueta del campo",
+          "placeholder": "Texto de ayuda",
+          "required": "Obligatorio",
+          "width": "Ancho",
+          "full": "Completo",
+          "half": "Mitad",
+          "third": "Tercio",
+          "twoThirds": "Dos tercios",
+          "addField": "Añadir campo",
+          "noFields": "No hay campos. Haz clic en \"Añadir campo\" para empezar."
+        },
+        "style": {
+          "layout": "Disposición",
+          "layoutDescription": "Elige cómo organizar la imagen y el formulario",
+          "columns": "Columnas",
+          "columnsDesc": "Imagen y título a la izquierda, formulario a la derecha",
+          "columnsReversed": "Columnas invertidas",
+          "columnsReversedDesc": "Formulario a la izquierda, imagen y título a la derecha",
+          "header": "Encabezado",
+          "headerLayoutDesc": "Imagen y título arriba, formulario debajo en todo el ancho",
+          "footer": "Pie de página",
+          "footerLayoutDesc": "Formulario estándar de pie de página (sin imagen)",
+          "colors": "Colores",
+          "primaryColor": "Color principal",
+          "frameColor": "Color del marco",
+          "titleColor": "Color del título",
+          "subtitleColor": "Color del subtítulo",
+          "textColor": "Color del texto"
+        },
+        "informations": {
+          "title": "Información",
+          "formTitle": "Título del formulario",
+          "formSubtitle": "Subtítulo del formulario",
+          "headerImage": "Imagen de encabezado",
+          "uploadImage": "Subir imagen",
+          "currentImage": "Imagen actual"
+        },
+        "settings": {
+          "title": "Configuración",
+          "submitButtonText": "Texto del botón de envío",
+          "successMessage": "Mensaje de éxito",
+          "errorMessage": "Mensaje de error",
+          "redirectUrl": "URL de redirección",
+          "emailNotification": "Notificación por email",
+          "whatsappButton": "Botón de WhatsApp",
+          "whatsappButtonText": "Texto del botón de WhatsApp"
+        },
+        "tabs": {
+          "informations": "Información",
+          "builder": "Campos",
+          "style": "Estilo",
+          "settings": "Configuración"
+        }
       },
       "pageMessages": {
         "customCodePage": "Página con código personalizado",

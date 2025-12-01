@@ -1341,7 +1341,8 @@
         "listDescription": "Create and manage custom forms with dynamic fields",
         "addForm": "Add a form",
         "formBuilder": "Form Builder",
-        "formName": "Form name:"
+        "formName": "Form name:",
+        "formNamePlaceholder": "Ex: Contact form"
       },
       "blockTypes": {
         "hero": "Hero Section",
@@ -1383,6 +1384,81 @@
         "selectBlockToPreview": "Select a block type to see the preview",
         "cancel": "Cancel",
         "add": "Add"
+      },
+      "formBuilder": {
+        "colorPicker": {
+          "colorHint": "Click on the color square to choose visually or on the color code to enter directly",
+          "primary": "Primary",
+          "secondary": "Secondary",
+          "heading": "Heading",
+          "text": "Text",
+          "background": "Background",
+          "colorReference": "Color: {{color}}",
+          "customColor": "Custom color"
+        },
+        "preview": {
+          "addFieldsToPreview": "Add fields to see the preview",
+          "formTitle": "Form Title"
+        },
+        "datePicker": {
+          "alertMessage": "Date selector - A calendar would open here on the actual site"
+        },
+        "builder": {
+          "add": "Add",
+          "options": "Options",
+          "fieldLabel": "Field label",
+          "placeholder": "Placeholder text",
+          "required": "Required",
+          "width": "Width",
+          "full": "Full",
+          "half": "Half",
+          "third": "Third",
+          "twoThirds": "Two thirds",
+          "addField": "Add field",
+          "noFields": "No fields. Click \"Add field\" to get started."
+        },
+        "style": {
+          "layout": "Layout",
+          "layoutDescription": "Choose how to organize the image and form",
+          "columns": "Columns",
+          "columnsDesc": "Image and title on the left, form on the right",
+          "columnsReversed": "Columns reversed",
+          "columnsReversedDesc": "Form on the left, image and title on the right",
+          "header": "Header",
+          "headerLayoutDesc": "Image and title at the top, form below full width",
+          "footer": "Footer",
+          "footerLayoutDesc": "Standard footer form (without image)",
+          "colors": "Colors",
+          "primaryColor": "Primary color",
+          "frameColor": "Frame color",
+          "titleColor": "Title color",
+          "subtitleColor": "Subtitle color",
+          "textColor": "Text color"
+        },
+        "informations": {
+          "title": "Information",
+          "formTitle": "Form title",
+          "formSubtitle": "Form subtitle",
+          "headerImage": "Header image",
+          "uploadImage": "Upload image",
+          "currentImage": "Current image"
+        },
+        "settings": {
+          "title": "Settings",
+          "submitButtonText": "Submit button text",
+          "successMessage": "Success message",
+          "errorMessage": "Error message",
+          "redirectUrl": "Redirect URL",
+          "emailNotification": "Email notification",
+          "whatsappButton": "WhatsApp button",
+          "whatsappButtonText": "WhatsApp button text"
+        },
+        "tabs": {
+          "informations": "Information",
+          "builder": "Fields",
+          "style": "Style",
+          "settings": "Settings"
+        }
       }
     },
     "newsletter": {

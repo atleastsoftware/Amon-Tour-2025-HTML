@@ -303,7 +303,7 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
         )}
       </div>
       <p className="text-xs text-gray-500">
-        Cliquez sur le carré de couleur pour choisir visuellement ou sur le code couleur pour saisir directement
+        {t('formBuilder.colorPicker.colorHint')}
       </p>
     </div>
   );
@@ -725,7 +725,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
               className="cursor-pointer flatpickr-input" 
               style={{ color: resolveColor(formData.textColor) }}
               onClick={() => {
-                alert('Sélecteur de date - Un calendrier s\'ouvrirait ici sur le site réel');
+                alert(t('formBuilder.datePicker.alertMessage'));
               }}
             />
           </div>
@@ -742,24 +742,24 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
       <div className="bg-card border-b p-4 sticky top-0 z-10">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <h2 className="text-lg font-semibold">Constructeur de formulaire</h2>
+            <h2 className="text-lg font-semibold">{t('formEditor.formBuilder')}</h2>
             <div className="flex items-center gap-2">
-              <Label className="text-sm font-medium whitespace-nowrap">Nom du formulaire :</Label>
+              <Label className="text-sm font-medium whitespace-nowrap">{t('formEditor.formName')}</Label>
               <Input
                 value={formData.name}
                 onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                placeholder="Ex: Formulaire de contact"
+                placeholder={t('formEditor.formNamePlaceholder')}
                 className="w-64 h-9"
               />
             </div>
           </div>
           <div className="flex gap-2">
             <Button onClick={onCancel} variant="outline" size="sm" className="h-9">
-              Annuler
+              {t('common.cancel')}
             </Button>
             <Button onClick={handleSave} disabled={saving} size="sm" className="h-9">
               <Save className="h-4 w-4 mr-2" />
-              {saving ? 'Sauvegarde...' : 'Sauvegarder'}
+              {saving ? t('common.saving') : t('common.save')}
             </Button>
           </div>
         </div>
@@ -798,7 +798,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                         className="font-heading font-bold text-4xl mb-3"
                         style={{ color: resolveColor(formData.titleColor) }}
                       >
-                        {formData.title || 'Titre du formulaire'}
+                        {formData.title || t('formBuilder.preview.formTitle')}
                       </h3>
                       {formData.subtitle && (
                         <p 
@@ -816,7 +816,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                     {formData.fields.length === 0 ? (
                       <div className="text-center py-16 text-gray-500">
                         <FormInput className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                        <p>Ajoutez des champs pour voir la prévisualisation</p>
+                        <p>{t('formBuilder.preview.addFieldsToPreview')}</p>
                       </div>
                     ) : (
                       <div className="space-y-4">
@@ -895,7 +895,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                   {formData.fields.length === 0 ? (
                     <div className="text-center py-16 text-gray-500">
                       <FormInput className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                      <p>Ajoutez des champs pour voir la prévisualisation</p>
+                      <p>{t('formBuilder.preview.addFieldsToPreview')}</p>
                     </div>
                   ) : (
                     <div className="space-y-4">
@@ -1016,7 +1016,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                     {formData.fields.length === 0 ? (
                       <div className="text-center py-16 text-gray-500 h-full flex flex-col items-center justify-center">
                         <FormInput className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                        <p>Ajoutez des champs pour voir la prévisualisation</p>
+                        <p>{t('formBuilder.preview.addFieldsToPreview')}</p>
                       </div>
                     ) : (
                       <div className="space-y-4">
@@ -1448,7 +1448,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                                                 className="h-8"
                                               >
                                                 <Plus className="h-3 w-3 mr-2" />
-                                                Ajouter
+                                                {t('formBuilder.builder.add')}
                                               </Button>
                                             </div>
                                           </div>
@@ -1470,11 +1470,11 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
 
             {activeTab === 'style' && (
               <div className="space-y-6">
-                {/* Nouveau bloc Disposition */}
+                {/* Layout Block */}
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-sm">Disposition</CardTitle>
-                    <p className="text-xs text-gray-500">Choisissez comment organiser l'image et le formulaire</p>
+                    <CardTitle className="text-sm">{t('formBuilder.style.layout')}</CardTitle>
+                    <p className="text-xs text-gray-500">{t('formBuilder.style.layoutDescription')}</p>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="grid grid-cols-1 gap-3">
@@ -1489,9 +1489,9 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                             <div className="w-4 h-3 bg-primary/20 rounded-sm"></div>
                             <div className="w-4 h-3 bg-gray-200 rounded-sm"></div>
                           </div>
-                          <Label className="font-medium text-sm">Colonnes</Label>
+                          <Label className="font-medium text-sm">{t('formBuilder.style.columns')}</Label>
                         </div>
-                        <p className="text-xs text-gray-600">Image et titre à gauche, formulaire à droite</p>
+                        <p className="text-xs text-gray-600">{t('formBuilder.style.columnsDesc')}</p>
                       </div>
                       
                       <div 
@@ -1505,9 +1505,9 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                             <div className="w-4 h-3 bg-gray-200 rounded-sm"></div>
                             <div className="w-4 h-3 bg-primary/20 rounded-sm"></div>
                           </div>
-                          <Label className="font-medium text-sm">Colonnes inversées</Label>
+                          <Label className="font-medium text-sm">{t('formBuilder.style.columnsReversed')}</Label>
                         </div>
-                        <p className="text-xs text-gray-600">Formulaire à gauche, image et titre à droite</p>
+                        <p className="text-xs text-gray-600">{t('formBuilder.style.columnsReversedDesc')}</p>
                       </div>
                       
                       <div 
@@ -1521,9 +1521,9 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                             <div className="w-8 h-2 bg-primary/20 rounded-sm"></div>
                             <div className="w-8 h-3 bg-gray-200 rounded-sm"></div>
                           </div>
-                          <Label className="font-medium text-sm">Header</Label>
+                          <Label className="font-medium text-sm">{t('formBuilder.style.header')}</Label>
                         </div>
-                        <p className="text-xs text-gray-600">Image et titre en haut, formulaire en dessous sur toute la largeur</p>
+                        <p className="text-xs text-gray-600">{t('formBuilder.style.headerLayoutDesc')}</p>
                       </div>
                       
                       <div 
@@ -1537,9 +1537,9 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                             <div className="w-8 h-3 bg-gray-200 rounded-sm"></div>
                             <div className="w-8 h-2 bg-primary/20 rounded-sm"></div>
                           </div>
-                          <Label className="font-medium text-sm">Footer</Label>
+                          <Label className="font-medium text-sm">{t('formBuilder.style.footer')}</Label>
                         </div>
-                        <p className="text-xs text-gray-600">Formulaire standard de bas de page (sans image)</p>
+                        <p className="text-xs text-gray-600">{t('formBuilder.style.footerLayoutDesc')}</p>
                       </div>
                     </div>
                   </CardContent>
@@ -1547,12 +1547,12 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                 
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-sm">Couleurs</CardTitle>
+                    <CardTitle className="text-sm">{t('formBuilder.style.colors')}</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div>
                       <ColorPicker
-                        label="Couleur principale"
+                        label={t('formBuilder.style.primaryColor')}
                         value={formData.primaryColor}
                         onChange={(value) => setFormData(prev => ({ ...prev, primaryColor: value }))}
                       />
@@ -1560,7 +1560,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                     
                     <div>
                       <ColorPicker
-                        label="Couleur du cadre"
+                        label={t('formBuilder.style.frameColor')}
                         value={formData.frameColor}
                         onChange={(value) => setFormData(prev => ({ ...prev, frameColor: value }))}
                       />
@@ -1568,7 +1568,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                     
                     <div>
                       <ColorPicker
-                        label="Couleur du titre"
+                        label={t('formBuilder.style.titleColor')}
                         value={formData.titleColor}
                         onChange={(value) => setFormData(prev => ({ ...prev, titleColor: value }))}
                       />
@@ -1576,7 +1576,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                     
                     <div>
                       <ColorPicker
-                        label="Couleur du sous-titre"
+                        label={t('formBuilder.style.subtitleColor')}
                         value={formData.subtitleColor}
                         onChange={(value) => setFormData(prev => ({ ...prev, subtitleColor: value }))}
                       />
@@ -1584,7 +1584,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                     
                     <div>
                       <ColorPicker
-                        label="Couleur du texte"
+                        label={t('formBuilder.style.textColor')}
                         value={formData.textColor}
                         onChange={(value) => setFormData(prev => ({ ...prev, textColor: value }))}
                       />
@@ -1603,7 +1603,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div>
-                      <Label>Message de succès</Label>
+                      <Label>{t('formBuilder.settings.successMessage')}</Label>
                       <Textarea
                         value={formData.settings.successMessage || ''}
                         onChange={(e) => setFormData(prev => ({
@@ -1615,7 +1615,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                     </div>
                     
                     <div>
-                      <Label>Message d'erreur</Label>
+                      <Label>{t('formBuilder.settings.errorMessage')}</Label>
                       <Textarea
                         value={formData.settings.errorMessage || ''}
                         onChange={(e) => setFormData(prev => ({
