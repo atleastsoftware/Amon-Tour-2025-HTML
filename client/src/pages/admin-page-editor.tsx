@@ -8061,6 +8061,7 @@ export default function AdminPageEditor() {
   const [isTemplatePopupOpen, setIsTemplatePopupOpen] = useState(false);
   const [insertPosition, setInsertPosition] = useState<number | null>(null);
   const queryClient = useQueryClient();
+  const { translations: t } = useTranslationSection('admin');
   
   // Get page slug from URL parameters
   const urlParams = new URLSearchParams(searchString);
