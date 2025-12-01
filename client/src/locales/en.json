@@ -286,7 +286,8 @@
   },
   "tour_ninja_section_255": {
     "title": "Some Ideas For Your Next Trip",
-    "subtitle": "Get inspired by our custom-designed travel experiences."
+    "subtitle": "Get inspired by our custom-designed travel experiences.",
+    "button_text": "Tours & Experiences"
   },
   "header_page_328": {
     "title": "Create Your Custom Tour",
@@ -1753,6 +1754,11 @@
       "button_text": {}
     },
     "popular_experiences_433": {
+      "title": {},
+      "subtitle": {},
+      "button_text": {}
+    },
+    "tour_ninja_section_255": {
       "title": {},
       "subtitle": {},
       "button_text": {}

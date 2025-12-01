@@ -2609,7 +2609,105 @@
         "listDescription": "Crea y gestiona formularios personalizados con campos dinámicos",
         "addForm": "Añadir un formulario",
         "formBuilder": "Constructor de formularios",
-        "formName": "Nombre del formulario:"
+        "formName": "Nombre del formulario:",
+        "formNamePlaceholder": "Ej: Formulario de contacto"
+      },
+      "formBuilder": {
+        "title": "Constructor de formularios",
+        "formName": "Nombre del formulario",
+        "formNamePlaceholder": "Ej: Formulario de contacto",
+        "noForms": "No hay formularios disponibles.",
+        "newField": "Nuevo campo",
+        "fieldLabel": "Etiqueta del campo",
+        "fieldRequired": "Campo requerido",
+        "fieldType": "Tipo de campo",
+        "fieldWidth": "Ancho",
+        "tabs": {
+          "informations": "Información",
+          "builder": "Constructor",
+          "style": "Estilo",
+          "settings": "Configuración"
+        },
+        "informations": {
+          "title": "Información",
+          "generalInfo": "Información general",
+          "formTitle": "Título del formulario",
+          "subtitle": "Subtítulo",
+          "headerImage": "Imagen de cabecera",
+          "submitButton": "Texto del botón de envío"
+        },
+        "style": {
+          "title": "Estilo",
+          "disposition": "Disposición",
+          "columns": "Columnas",
+          "columnsReversed": "Columnas invertidas",
+          "header": "Encabezado",
+          "footer": "Pie de página",
+          "colors": "Colores",
+          "primaryColor": "Color primario",
+          "backgroundColor": "Color de fondo",
+          "frameColor": "Color del marco",
+          "titleColor": "Color del título",
+          "subtitleColor": "Color del subtítulo",
+          "textColor": "Color del texto"
+        },
+        "settings": {
+          "title": "Configuración",
+          "submitButtonText": "Texto del botón de envío",
+          "successMessage": "Mensaje de éxito",
+          "errorMessage": "Mensaje de error",
+          "redirectUrl": "URL de redirección",
+          "emailNotification": "Notificación por email",
+          "whatsappButton": "Botón de WhatsApp",
+          "whatsappButtonText": "Texto del botón de WhatsApp"
+        },
+        "preview": {
+          "title": "Vista previa",
+          "selectOption": "Seleccionar una opción",
+          "noFieldsTitle": "Añadir campos al formulario",
+          "noFieldsDescription": "Usa la pestaña Constructor para añadir campos"
+        },
+        "fieldTypes": {
+          "text": "Texto",
+          "email": "Correo electrónico",
+          "phone": "Teléfono",
+          "textarea": "Área de texto",
+          "select": "Selección",
+          "checkbox": "Casilla de verificación",
+          "radio": "Botón de radio",
+          "file": "Archivo",
+          "date": "Fecha",
+          "number": "Número"
+        },
+        "widths": {
+          "full": "Ancho completo",
+          "half": "Mitad de ancho",
+          "third": "Tercio (1/3)",
+          "twothirds": "Dos tercios (2/3)"
+        },
+        "options": "Opciones",
+        "addOption": "Agregar opción",
+        "noFields": "No se han agregado campos. Use los botones de arriba para agregar campos.",
+        "fieldConfig": "Configuración del campo",
+        "datePicker": {
+          "alertMessage": "Este es un campo de fecha. En el formulario real, se abrirá un selector de fechas."
+        },
+        "colorPicker": {
+          "colorHint": "Haz clic en el cuadro de color para elegir visualmente o en el código de color para ingresarlo directamente",
+          "primary": "Primario",
+          "secondary": "Secundario",
+          "heading": "Encabezado",
+          "text": "Texto",
+          "background": "Fondo",
+          "colorReference": "Color: {{color}}",
+          "customColor": "Color personalizado"
+        },
+        "errors": {
+          "nameRequired": "El nombre del formulario es obligatorio.",
+          "fieldsRequired": "El formulario debe contener al menos un campo."
+        },
+        "submit": "Enviar",
+        "whatsappContact": "Contacto vía WhatsApp"
       },
       "blockTypes": {
         "cardGridDate": "Cuadrícula de tarjetas (fecha)",

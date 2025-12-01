@@ -280,7 +280,8 @@
   },
   "tour_ninja_section_255": {
     "title": "Quelques idées pour votre prochain voyage",
-    "subtitle": "Laissez-vous inspirer par nos expériences de voyage personnalisées."
+    "subtitle": "Laissez-vous inspirer par nos expériences de voyage personnalisées.",
+    "button_text": "Tours et expériences"
   },
   "header_page_328": {
     "title": "Créez votre visite personnalisée",
@@ -1618,6 +1619,17 @@
       }
     },
     "popular_experiences_433": {
+      "title": {
+        "isManuallyEdited": true
+      },
+      "subtitle": {
+        "isManuallyEdited": true
+      },
+      "button_text": {
+        "isManuallyEdited": true
+      }
+    },
+    "tour_ninja_section_255": {
       "title": {
         "isManuallyEdited": true
       },
