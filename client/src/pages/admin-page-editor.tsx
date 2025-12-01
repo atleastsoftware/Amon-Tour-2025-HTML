@@ -856,6 +856,7 @@ interface FormSelectorProps {
 }
 
 function FormSelector({ selectedFormId, onFormSelect, pageSlug, blockId }: FormSelectorProps) {
+  const { translations: t } = useTranslationSection('admin');
   const { data: forms = [], isLoading } = useQuery<any[]>({
     queryKey: ['/api/admin/custom-forms'],
   });
@@ -938,7 +939,7 @@ function FormSelector({ selectedFormId, onFormSelect, pageSlug, blockId }: FormS
             <SelectItem value="new">
               <div className="flex items-center">
                 <Plus className="w-4 h-4 mr-2" />
-                Créer un nouveau formulaire
+                {t?.editor?.pageEditor?.formPreview?.createNewForm || 'Create New Form'}
               </div>
             </SelectItem>
             {forms.map(form => (

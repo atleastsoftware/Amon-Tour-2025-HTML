@@ -2646,6 +2646,7 @@
         "noFieldsInForm": "No fields in this form",
         "formNotFound": "Form not found",
         "viewForm": "View Form",
+        "createNewForm": "Create New Form",
         "editFullForm": "Edit Complete Form",
         "deleteForm": "Delete",
         "formId": "Form ID {{id}}"

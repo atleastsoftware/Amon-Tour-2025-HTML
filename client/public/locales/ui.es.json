@@ -1133,7 +1133,13 @@
       "loadingForm": "Cargando formulario...",
       "noFieldsInForm": "No hay campos en este formulario",
       "selectOption": "Seleccionar una opción",
-      "selectTripDates": "Seleccionar fechas de viaje"
+      "selectTripDates": "Seleccionar fechas de viaje",
+      "formNotFound": "Formulario no encontrado",
+      "viewForm": "Ver formulario",
+      "createNewForm": "Crear nuevo formulario",
+      "editFullForm": "Editar formulario completo",
+      "deleteForm": "Eliminar",
+      "formId": "ID del formulario {{id}}"
     },
     "blockPreview": {
       "noImageSelected": "No se ha seleccionado ninguna imagen",
