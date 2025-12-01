@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,7 +10,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/hooks/use-toast";
 import { useTranslationSection } from '@/contexts/TranslationContext';
 import { queryClient } from "@/lib/queryClient";
-import { FileText, Save, Lock, Sparkles, AlertCircle, EyeOff } from "lucide-react";
+import { FileText, Save, Lock, Sparkles, EyeOff, AlertCircle } from "lucide-react";
 import { BLOCK_TYPE_LABELS } from "./BlockSelectionPopup";
 
 function getBlockDisplayName(blockType: string): string {
@@ -18,10 +18,9 @@ function getBlockDisplayName(blockType: string): string {
 }
 
 function getSortedFieldKeys(keys: string[]): string[] {
-  // Define preferred order for common fields
   const fieldOrder = [
     'title',
-    'title_accent',  // Mot du titre en seconde couleur - right after title
+    'title_accent',
     'subtitle',
     'description',
     'content',
@@ -32,7 +31,6 @@ function getSortedFieldKeys(keys: string[]): string[] {
     'search_placeholder',
   ];
 
-  // Separate keys into ordered and unordered
   const orderedKeys: string[] = [];
   const unorderedKeys: string[] = [];
 
@@ -45,10 +43,7 @@ function getSortedFieldKeys(keys: string[]): string[] {
     }
   }
 
-  // Sort ordered keys by their position in fieldOrder
   orderedKeys.sort((a, b) => fieldOrder.indexOf(a) - fieldOrder.indexOf(b));
-
-  // Return ordered keys first, then unordered keys
   return [...orderedKeys, ...unorderedKeys];
 }
 
@@ -78,6 +73,8 @@ function getFieldDisplayName(key: string, t: any): string {
     'company_license': t?.fieldNames?.companyLicense || 'Company License',
     'company_description': t?.fieldNames?.companyDescription || 'Company Description',
     'button_text': t?.fieldNames?.buttonText || 'Button Text',
+    'view_details_text': t?.fieldNames?.viewDetailsText || 'View Details Text',
+    'book_now_text': t?.fieldNames?.bookNowText || 'Book Now Text',
     'privacy_text': t?.fieldNames?.privacyText || 'Privacy Text',
     'search_placeholder': t?.fieldNames?.searchPlaceholder || 'Search Placeholder',
     'tags_title': t?.fieldNames?.tagsTitle || 'Tags Title',
@@ -168,13 +165,18 @@ interface Page {
   blocks: Block[];
 }
 
+interface PendingChanges {
+  [blockId: number]: BlockTranslations;
+}
+
 export default function BlockTranslationEditor() {
   const t = useTranslationSection('admin');
   const { toast } = useToast();
   const [selectedPageId, setSelectedPageId] = useState<number | null>(null);
   const [selectedBlockId, setSelectedBlockId] = useState<number | null>(null);
-  const [editedTranslations, setEditedTranslations] = useState<BlockTranslations | null>(null);
+  const [pendingChanges, setPendingChanges] = useState<PendingChanges>({});
   const [activeTab, setActiveTab] = useState<'fr' | 'es'>('fr');
+  const [isSaving, setIsSaving] = useState(false);
 
   const { data: pages = [], isLoading } = useQuery<Page[]>({
     queryKey: ['/api/admin/blocks-with-translations'],
@@ -192,58 +194,87 @@ export default function BlockTranslationEditor() {
 
   const selectedPage = pages.find(p => p.id === selectedPageId);
 
-  useEffect(() => {
-    if (selectedBlock) {
-      setEditedTranslations(selectedBlock.translations);
-    } else {
-      setEditedTranslations(null);
+  const getCurrentTranslations = useCallback((blockId: number): BlockTranslations | null => {
+    if (pendingChanges[blockId]) {
+      return pendingChanges[blockId];
     }
-  }, [selectedBlock]);
+    const block = pages.flatMap(p => p.blocks).find(b => b.id === blockId);
+    return block?.translations || null;
+  }, [pendingChanges, pages]);
 
-  const saveTranslationsMutation = useMutation({
-    mutationFn: async (data: { blockId: number; translations: BlockTranslations }) => {
-      const res = await fetch(`/api/admin/block-translations/${data.blockId}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ translations: data.translations })
-      });
-      if (!res.ok) throw new Error('Failed to save translations');
-      return res.json();
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/blocks-with-translations'] });
-      toast({
-        title: t?.translationEditor?.saveSuccess?.title || 'Saved',
-        description: t?.translationEditor?.saveSuccess?.description || 'Translations saved successfully',
-      });
-    },
-    onError: () => {
-      toast({
-        title: t?.translationEditor?.saveError?.title || 'Error',
-        description: t?.translationEditor?.saveError?.description || 'Failed to save translations',
-        variant: "destructive",
-      });
-    },
-  });
+  const editedTranslations = selectedBlockId ? getCurrentTranslations(selectedBlockId) : null;
 
-  const handleSaveTranslations = () => {
-    if (!selectedBlockId || !editedTranslations) return;
-    saveTranslationsMutation.mutate({
-      blockId: selectedBlockId,
-      translations: editedTranslations
-    });
-  };
+  const pendingBlockIds = Object.keys(pendingChanges).map(Number);
+  const hasPendingChanges = pendingBlockIds.length > 0;
 
   const handleTranslationChange = (lang: 'fr' | 'es', key: string, value: string) => {
-    if (!editedTranslations) return;
-    setEditedTranslations({
-      ...editedTranslations,
-      [lang]: {
-        ...editedTranslations[lang],
-        [key]: value
+    if (!selectedBlockId) return;
+    
+    const currentTranslations = getCurrentTranslations(selectedBlockId);
+    if (!currentTranslations) return;
+
+    setPendingChanges(prev => ({
+      ...prev,
+      [selectedBlockId]: {
+        ...currentTranslations,
+        [lang]: {
+          ...currentTranslations[lang],
+          [key]: value
+        }
       }
-    });
+    }));
+  };
+
+  const handleSaveAllTranslations = async () => {
+    if (!hasPendingChanges) return;
+    
+    setIsSaving(true);
+    let successCount = 0;
+    let errorCount = 0;
+
+    try {
+      for (const [blockIdStr, translations] of Object.entries(pendingChanges)) {
+        const blockId = parseInt(blockIdStr);
+        try {
+          const res = await fetch(`/api/admin/block-translations/${blockId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ translations })
+          });
+          if (res.ok) {
+            successCount++;
+          } else {
+            errorCount++;
+          }
+        } catch {
+          errorCount++;
+        }
+      }
+
+      if (successCount > 0) {
+        setPendingChanges({});
+        queryClient.invalidateQueries({ queryKey: ['/api/admin/blocks-with-translations'] });
+        toast({
+          title: t?.translationEditor?.saveSuccess?.title || 'Saved',
+          description: `${successCount} ${t?.translationEditor?.blocksSaved || 'block(s) saved successfully'}`,
+        });
+      }
+      
+      if (errorCount > 0) {
+        toast({
+          title: t?.translationEditor?.saveError?.title || 'Error',
+          description: `${errorCount} ${t?.translationEditor?.blocksFailed || 'block(s) failed to save'}`,
+          variant: "destructive",
+        });
+      }
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const isBlockModified = (blockId: number) => {
+    return pendingChanges.hasOwnProperty(blockId);
   };
 
   if (isLoading) {
@@ -263,16 +294,49 @@ export default function BlockTranslationEditor() {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 relative">
+      {/* Fixed save button at top right */}
+      {hasPendingChanges && (
+        <div className="fixed bottom-6 right-6 z-50" data-testid="global-save-container">
+          <Button
+            onClick={handleSaveAllTranslations}
+            disabled={isSaving}
+            size="lg"
+            className="shadow-lg flex items-center gap-2 bg-primary hover:bg-primary/90"
+            data-testid="button-global-save-translations"
+          >
+            <Save className="w-5 h-5" />
+            {isSaving 
+              ? (t?.translationEditor?.saving || 'Saving...') 
+              : (t?.translationEditor?.saveAll || 'Save all translations')}
+            <Badge variant="secondary" className="ml-2 bg-white text-primary">
+              {pendingBlockIds.length}
+            </Badge>
+          </Button>
+        </div>
+      )}
+
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2" data-testid="card-title-translation-editor">
-            <FileText className="w-5 h-5" />
-            {t?.translationEditor?.title || 'Block Translations Editor'}
-          </CardTitle>
-          <CardDescription data-testid="card-description-translation-editor">
-            {t?.translationEditor?.subtitle || 'Manage French and Spanish translations for all page blocks'}
-          </CardDescription>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="flex items-center gap-2" data-testid="card-title-translation-editor">
+                <FileText className="w-5 h-5" />
+                {t?.translationEditor?.title || 'Block Translations Editor'}
+              </CardTitle>
+              <CardDescription data-testid="card-description-translation-editor">
+                {t?.translationEditor?.subtitle || 'Manage French and Spanish translations for all page blocks'}
+              </CardDescription>
+            </div>
+            {hasPendingChanges && (
+              <div className="flex items-center gap-2 text-amber-600">
+                <AlertCircle className="w-4 h-4" />
+                <span className="text-sm font-medium">
+                  {pendingBlockIds.length} {t?.translationEditor?.pendingChanges || 'pending change(s)'}
+                </span>
+              </div>
+            )}
+          </div>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
@@ -305,6 +369,7 @@ export default function BlockTranslationEditor() {
                     .map(block => {
                       const isSelected = block.id === selectedBlockId;
                       const isHidden = !block.isActive;
+                      const isModified = isBlockModified(block.id);
                       
                       return (
                         <Button
@@ -312,11 +377,12 @@ export default function BlockTranslationEditor() {
                           variant={isSelected ? "default" : "outline"}
                           onClick={() => setSelectedBlockId(block.id)}
                           data-testid={`button-select-block-${block.id}`}
-                          className={isHidden ? 'opacity-50' : ''}
+                          className={`${isHidden ? 'opacity-50' : ''} ${isModified ? 'ring-2 ring-amber-400' : ''}`}
                         >
                           {getBlockDisplayName(block.blockType)}
                           {block.title && ` - ${block.title.substring(0, 20)}`}
                           {isHidden && <EyeOff className="w-3 h-3 ml-2" data-testid="icon-hidden-block" />}
+                          {isModified && <span className="w-2 h-2 bg-amber-400 rounded-full ml-2" data-testid={`indicator-modified-${block.id}`} />}
                         </Button>
                       );
                     })}
@@ -331,15 +397,14 @@ export default function BlockTranslationEditor() {
             {selectedBlockId && selectedBlock && editedTranslations && (
               <div className="space-y-4 pt-4 border-t">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-semibold" data-testid="heading-selected-block">{getBlockDisplayName(selectedBlock.blockType)}</h3>
-                  <Button
-                    onClick={handleSaveTranslations}
-                    disabled={saveTranslationsMutation.isPending}
-                    data-testid="button-save-block-translations"
-                  >
-                    <Save className="w-4 h-4 mr-2" />
-                    {t?.translationEditor?.save || 'Save translations'}
-                  </Button>
+                  <h3 className="text-lg font-semibold flex items-center gap-2" data-testid="heading-selected-block">
+                    {getBlockDisplayName(selectedBlock.blockType)}
+                    {isBlockModified(selectedBlockId) && (
+                      <Badge variant="outline" className="text-amber-600 border-amber-400">
+                        {t?.translationEditor?.modified || 'Modified'}
+                      </Badge>
+                    )}
+                  </h3>
                 </div>
 
                 <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as 'fr' | 'es')}>

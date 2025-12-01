@@ -2817,9 +2817,15 @@
       "subtitle": "Gestionar las traducciones francesas y españolas para todos los bloques de página",
       "loading": "Cargando traducciones...",
       "save": "Guardar traducciones",
+      "saveAll": "Guardar todas las traducciones",
+      "saving": "Guardando...",
       "pageBlocks": "{pageName} - Bloques",
       "noTextToTranslate": "No hay texto para traducir en esta página",
       "noTextInBlock": "Este bloque no contiene texto para traducir",
+      "pendingChanges": "cambio(s) pendiente(s)",
+      "modified": "Modificado",
+      "blocksSaved": "bloque(s) guardado(s) con éxito",
+      "blocksFailed": "bloque(s) no se pudieron guardar",
       "tabs": {
         "french": "Francés",
         "spanish": "Español"
