@@ -2936,7 +2936,11 @@
         "included": "Included",
         "includedInPrice": "Included in Price",
         "notIncluded": "Not Included",
-        "notIncludedInPrice": "Not Included in Price"
+        "notIncludedInPrice": "Not Included in Price",
+        "contactDescription": "Description for your contact section",
+        "galleryDescription": "Description for your image gallery",
+        "videoDescription": "Description for your video section",
+        "listingDescription": "Description of your listing"
       },
       "pages": {
         "customCodePage": "Page with Custom Code",

@@ -2660,8 +2660,8 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
           };
           
           const buttons = heroConfig.buttons || [
-            {text: 'Bouton 1', url: '', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, 
-            {text: 'Bouton 2', url: '', color: '#ffffff', textColor: '#ffffff', style: 'outline'}
+            {text: 'Button 1', url: '', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, 
+            {text: 'Button 2', url: '', color: '#ffffff', textColor: '#ffffff', style: 'outline'}
           ];
           
           const heroSize = heroConfig.heroSize || 'petite';
@@ -2970,7 +2970,7 @@ const BlockEditDropdown = ({
                   size="sm"
                   onClick={() => {
                     const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}];
-                    updateField('buttons', [...buttons, {text: 'Nouveau bouton', url: '', color: '#084F6E', style: 'filled'}]);
+                    updateField('buttons', [...buttons, {text: 'New Button', url: '', color: '#084F6E', style: 'filled'}]);
                   }}
                 >
                   <Plus className="h-4 w-4 mr-1" /> {t?.editor?.pageEditor?.blockEdit?.hero?.addButton || 'Add Button'}
@@ -3373,8 +3373,8 @@ const BlockEditDropdown = ({
                   type="button"
                   onClick={() => {
                     const newSection = {
-                      subtitle: 'Nouveau sous-titre',
-                      text: 'Nouveau texte...'
+                      subtitle: 'New Subtitle',
+                      text: 'New text...'
                     };
                     updateField('sections', [...textSections, newSection]);
                   }}
@@ -3607,7 +3607,7 @@ const BlockEditDropdown = ({
                   type="button"
                   onClick={() => {
                     const newButton = {
-                      text: 'Nouveau bouton',
+                      text: 'New Button',
                       url: '',
                       color: '#084F6E',
                       style: 'filled'
@@ -4055,7 +4055,7 @@ const BlockEditDropdown = ({
                   size="sm"
                   onClick={() => {
                     const buttons = formData.buttons || [];
-                    updateField('buttons', [...buttons, {text: 'Nouveau bouton', url: '', color: '#084F6E', style: 'filled'}]);
+                    updateField('buttons', [...buttons, {text: 'New Button', url: '', color: '#084F6E', style: 'filled'}]);
                   }}
                 >
                   <Plus className="h-4 w-4 mr-1" /> {t?.editor?.pageEditor?.blockEdit?.common?.addButton || 'Add Button'}
@@ -5080,13 +5080,13 @@ const BlockEditDropdown = ({
                         const newBlock = {
                           id: Date.now(),
                           mainIcon: 'fas fa-sparkles',
-                          title: 'Nouveau Bloc',
-                          description: 'Description de ce bloc d\'avantages.',
+                          title: 'New Block',
+                          description: 'Description of this benefits block.',
                           iconColor: THEME_COLORS.primary,
                           miniIcons: [
-                            { icon: 'fas fa-check', text: 'Avantage 1' },
-                            { icon: 'fas fa-check', text: 'Avantage 2' },
-                            { icon: 'fas fa-check', text: 'Avantage 3' }
+                            { icon: 'fas fa-check', text: 'Benefit 1' },
+                            { icon: 'fas fa-check', text: 'Benefit 2' },
+                            { icon: 'fas fa-check', text: 'Benefit 3' }
                           ]
                         };
                         updateField('iconBlocks', [...blocks, newBlock]);
@@ -5412,7 +5412,7 @@ const BlockEditDropdown = ({
                               
                               const updatedBlocks = blocks.map((b: any) => {
                                 if (b.id === block.id) {
-                                  const newMiniIcons = [...(b.miniIcons || []), { icon: 'fas fa-check', text: 'Nouveau' }];
+                                  const newMiniIcons = [...(b.miniIcons || []), { icon: 'fas fa-check', text: 'New' }];
                                   return { ...b, miniIcons: newMiniIcons };
                                 }
                                 return b;
@@ -5546,7 +5546,7 @@ const BlockEditDropdown = ({
                                 {/* Input manuel avec boutons carrés bleus à côté */}
                                 <div className="flex gap-2">
                                   <Input 
-                                    placeholder={miniIcon.icon && !miniIcon.icon.startsWith('http') && !miniIcon.icon.startsWith('/') ? `Icône sélectionnée: ${miniIcon.icon}` : ""} 
+                                    placeholder={miniIcon.icon && !miniIcon.icon.startsWith('http') && !miniIcon.icon.startsWith('/') ? `Selected icon: ${miniIcon.icon}` : ""} 
                                     value={miniIcon.icon} 
                                     data-mini-icon={`${block.id}-${miniIndex}`}
                                     onChange={e => {
@@ -5754,8 +5754,8 @@ const BlockEditDropdown = ({
                   type="button"
                   onClick={() => {
                     const newSection = {
-                      subtitle: 'Nouveau sous-titre',
-                      text: 'Nouveau texte...'
+                      subtitle: 'New Subtitle',
+                      text: 'New text...'
                     };
                     updateField('sections', [...whoWeAreSections, newSection]);
                   }}
@@ -6013,7 +6013,7 @@ const BlockEditDropdown = ({
                   type="button"
                   onClick={() => {
                     const newButton = {
-                      text: 'Nouveau bouton',
+                      text: 'New Button',
                       url: '',
                       color: '#084F6E',
                       style: 'filled'
@@ -6238,7 +6238,7 @@ const BlockEditDropdown = ({
                     const reviews = formData.reviews || [];
                     const newReview = {
                       id: Date.now(),
-                      name: 'Nouveau Client',
+                      name: 'New Client',
                       rating: 5,
                       text: 'Excellent service!'
                     };
@@ -6445,7 +6445,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="subtitle">{t?.editor?.pageEditor?.blockEdit?.common?.subtitle || 'Subtitle'}</Label>
               <Textarea 
                 id="subtitle"
-                value={formData.subtitle ?? 'Description pour votre section de contact'} 
+                value={formData.subtitle ?? (t?.common?.contactDescription || 'Description for your contact section')} 
                 onChange={e => updateField('subtitle', e.target.value)}
                 rows={2}
                 className="mt-2"
@@ -6864,7 +6864,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="subtitle">{t?.editor?.pageEditor?.blockEdit?.common?.subtitle || 'Subtitle'}</Label>
               <Textarea 
                 id="subtitle"
-                value={formData.subtitle ?? "Description pour votre galerie d'images"} 
+                value={formData.subtitle ?? (t?.common?.galleryDescription || "Description for your image gallery")} 
                 onChange={e => updateField('subtitle', e.target.value)}
                 rows={2}
                 className="mt-2"
@@ -6961,7 +6961,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="subtitle">{t?.editor?.pageEditor?.blockEdit?.common?.subtitle || 'Subtitle'}</Label>
               <Textarea 
                 id="subtitle"
-                value={formData.subtitle ?? 'Description pour votre section vidéo'} 
+                value={formData.subtitle ?? (t?.common?.videoDescription || 'Description for your video section')} 
                 onChange={e => updateField('subtitle', e.target.value)}
                 rows={2}
                 className="mt-2"
@@ -7033,7 +7033,7 @@ const BlockEditDropdown = ({
         );
 
       case 'text_listing':
-        const listingItems = formData.items || [{ label: '1', description: 'Description de votre element' }];
+        const listingItems = formData.items || [{ label: '1', description: 'Description of your element' }];
         
         return (
           <div className="space-y-6">
@@ -7059,7 +7059,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="subtitle">{t?.editor?.pageEditor?.blockEdit?.common?.subtitle || 'Subtitle'}</Label>
               <Textarea 
                 id="subtitle"
-                value={formData.subtitle ?? 'Description de votre listing'} 
+                value={formData.subtitle ?? (t?.common?.listingDescription || 'Description of your listing')} 
                 onChange={e => updateField('subtitle', e.target.value)}
                 rows={2}
                 className="mt-2"
@@ -7674,8 +7674,8 @@ const BlockEditDropdown = ({
                     variant="outline"
                     size="sm"
                     onClick={() => {
-                      const buttons = formData.buttons || [{text: 'Bouton 1', url: '', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '', color: '#ffffff', textColor: '#ffffff', style: 'outline'}];
-                      updateField('buttons', [...buttons, {text: 'Nouveau bouton', url: '', color: '#ffffff', textColor: '#084F6E', style: 'filled'}]);
+                      const buttons = formData.buttons || [{text: 'Button 1', url: '', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, {text: 'Button 2', url: '', color: '#ffffff', textColor: '#ffffff', style: 'outline'}];
+                      updateField('buttons', [...buttons, {text: 'New Button', url: '', color: '#ffffff', textColor: '#084F6E', style: 'filled'}]);
                     }}
                   >
                     <Plus className="h-4 w-4 mr-1" /> {t?.editor?.pageEditor?.blockEdit?.common?.addButton || 'Add Button'}
@@ -7683,7 +7683,7 @@ const BlockEditDropdown = ({
                 </div>
                 
                 <div className="space-y-3">
-                  {(formData.buttons || [{text: 'Bouton 1', url: '', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '', color: '#ffffff', textColor: '#ffffff', style: 'outline'}]).map((button: any, index: number) => (
+                  {(formData.buttons || [{text: 'Button 1', url: '', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, {text: 'Button 2', url: '', color: '#ffffff', textColor: '#ffffff', style: 'outline'}]).map((button: any, index: number) => (
                     <div key={index} className="border rounded-lg p-4 space-y-3">
                       <div className="flex items-center justify-between">
                         <Label className="text-sm font-medium">{t?.editor?.pageEditor?.blockEdit?.common?.button || 'Button'} {index + 1}</Label>
@@ -7692,7 +7692,7 @@ const BlockEditDropdown = ({
                           variant="ghost"
                           size="sm"
                           onClick={() => {
-                            const buttons = formData.buttons || [{text: 'Bouton 1', url: '', color: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '', color: '#084F6E', style: 'filled'}];
+                            const buttons = formData.buttons || [{text: 'Button 1', url: '', color: '#084F6E', style: 'filled'}, {text: 'Button 2', url: '', color: '#084F6E', style: 'filled'}];
                             const newButtons = buttons.filter((_: any, i: number) => i !== index);
                             updateField('buttons', newButtons);
                           }}
@@ -7707,7 +7707,7 @@ const BlockEditDropdown = ({
                         <Input 
                           value={button.text || ''} 
                           onChange={e => {
-                            const buttons = formData.buttons || [{text: 'Bouton 1', url: '', color: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '', color: '#084F6E', style: 'filled'}];
+                            const buttons = formData.buttons || [{text: 'Button 1', url: '', color: '#084F6E', style: 'filled'}, {text: 'Button 2', url: '', color: '#084F6E', style: 'filled'}];
                             const newButtons = buttons.map((b: any, i: number) => 
                               i === index ? {...b, text: e.target.value} : b
                             );
@@ -7719,7 +7719,7 @@ const BlockEditDropdown = ({
                         <URLInput 
                           value={button.url || ''} 
                           onChange={(value: string) => {
-                            const buttons = formData.buttons || [{text: 'Bouton 1', url: '', color: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '', color: '#084F6E', style: 'filled'}];
+                            const buttons = formData.buttons || [{text: 'Button 1', url: '', color: '#084F6E', style: 'filled'}, {text: 'Button 2', url: '', color: '#084F6E', style: 'filled'}];
                             const newButtons = buttons.map((b: any, i: number) => 
                               i === index ? {...b, url: value} : b
                             );
@@ -7735,7 +7735,7 @@ const BlockEditDropdown = ({
                         <ColorPicker
                           value={button.color || '#084F6E'}
                           onChange={(value) => {
-                            const buttons = formData.buttons || [{text: 'Bouton 1', url: '', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '', color: '#ffffff', textColor: '#ffffff', style: 'outline'}];
+                            const buttons = formData.buttons || [{text: 'Button 1', url: '', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, {text: 'Button 2', url: '', color: '#ffffff', textColor: '#ffffff', style: 'outline'}];
                             const newButtons = buttons.map((b: any, i: number) => 
                               i === index ? {...b, color: value} : b
                             );
@@ -7749,7 +7749,7 @@ const BlockEditDropdown = ({
                         <ColorPicker
                           value={button.textColor || '#ffffff'}
                           onChange={(value) => {
-                            const buttons = formData.buttons || [{text: 'Bouton 1', url: '', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '', color: '#ffffff', textColor: '#ffffff', style: 'outline'}];
+                            const buttons = formData.buttons || [{text: 'Button 1', url: '', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, {text: 'Button 2', url: '', color: '#ffffff', textColor: '#ffffff', style: 'outline'}];
                             const newButtons = buttons.map((b: any, i: number) => 
                               i === index ? {...b, textColor: value} : b
                             );
@@ -7764,7 +7764,7 @@ const BlockEditDropdown = ({
                       <Select 
                         value={button.style || 'filled'} 
                         onValueChange={value => {
-                          const buttons = formData.buttons || [{text: 'Bouton 1', url: '', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '', color: '#ffffff', textColor: '#ffffff', style: 'outline'}];
+                          const buttons = formData.buttons || [{text: 'Button 1', url: '', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, {text: 'Button 2', url: '', color: '#ffffff', textColor: '#ffffff', style: 'outline'}];
                           const newButtons = buttons.map((b: any, i: number) => 
                             i === index ? {...b, style: value} : b
                           );
