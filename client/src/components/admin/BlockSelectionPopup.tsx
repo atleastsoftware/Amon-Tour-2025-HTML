@@ -724,16 +724,172 @@ export default function BlockSelectionPopup({ isOpen, onClose, onSelect }: Block
         return (
           <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
             <div className="text-center mb-4">
-              <h2 className="font-bold text-lg mb-2" style={{ color: '#333333' }}>{p.contactTitle || 'Contact Information'}</h2>
+              <h2 className="font-bold text-lg mb-2" style={{ color: '#084F6E' }}>{p.mainTitle || 'Main Title'}</h2>
               <div className="w-16 h-0.5 mx-auto mb-3" style={{ backgroundColor: '#3BA8AF' }}></div>
+              <p className="text-xs leading-relaxed mb-4" style={{ color: '#666666' }}>{p.description || 'Description'}</p>
             </div>
-            <div className="grid grid-cols-2 gap-3">
-              {[{ label: p.phone || 'Phone' }, { label: p.whatsapp || 'WhatsApp' }].map((item, i) => (
-                <div key={i} className="flex items-center gap-2 p-3 border rounded-lg">
-                  <div className="w-8 h-8 rounded-full bg-[#084F6E] flex items-center justify-center text-white text-sm">
-                    <i className="fas fa-phone"></i>
+            <div className="space-y-2">
+              {[
+                { label: p.email || 'Email', value: 'contact@example.com', color: '#084F6E' },
+                { label: p.phone || 'Phone', value: '+ 22 222 222 222', color: '#3BA8AF' },
+                { label: p.whatsapp || 'WhatsApp', value: '+ 22 222 222 222', color: '#25D366' },
+                { label: p.lineId || 'Line ID', value: 'myaccount', color: '#00B900' }
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-2 p-2 border rounded-lg">
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: `${item.color}15` }}>
+                    <Mail className="w-4 h-4" style={{ color: item.color }} />
                   </div>
-                  <div className="text-xs font-semibold">{item.label}</div>
+                  <div className="text-left">
+                    <div className="text-xs font-semibold" style={{ color: '#084F6E' }}>{item.label}</div>
+                    <div className="text-xs" style={{ color: '#666666' }}>{item.value}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-3 p-3 bg-gray-50 rounded-lg text-center">
+              <div className="text-xs font-bold mb-1">{p.aboutCompany || 'About our company'}</div>
+              <div className="text-xs text-gray-600 mb-1"><strong>{p.brandName || 'Brand Name'}</strong></div>
+              <div className="text-xs text-gray-600 mb-1">{p.yourAddress || 'Your Address'}</div>
+              <div className="inline-block bg-secondary/20 text-primary px-2 py-0.5 rounded-full text-xs mt-1">{p.tatLicense || 'TAT License'}: 00/00000</div>
+            </div>
+          </div>
+        );
+      case 'search_bar_tours':
+        return (
+          <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
+            <div className="mb-3">
+              <div className="text-xs font-medium text-gray-700 mb-2">{p.filters || 'Filters'}</div>
+              <div className="flex flex-wrap gap-2 mb-3">
+                <div className="border rounded px-2 py-1 text-xs text-gray-600 flex items-center gap-1">
+                  <Search className="w-3 h-3" />{p.search || 'Search...'}
+                </div>
+                <div className="border rounded px-2 py-1 text-xs text-gray-600">{p.allPrices || 'All prices'}</div>
+                <div className="border rounded px-2 py-1 text-xs text-gray-600">{p.allDurations || 'All durations'}</div>
+              </div>
+            </div>
+            <div className="grid grid-cols-3 gap-2">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="bg-white border rounded-lg overflow-hidden">
+                  <div className="h-16 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF] relative">
+                    <div className="absolute top-1 right-1 bg-white px-1.5 py-0.5 rounded text-xs">1 {p.day || 'day'}</div>
+                  </div>
+                  <div className="p-2 bg-white">
+                    <div className="text-xs font-semibold">{p.tourName || 'Tour Name'}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      case 'blog_search':
+        return (
+          <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
+            <div className="mb-3">
+              <div className="relative">
+                <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400 h-3 w-3" />
+                <input 
+                  type="text" 
+                  placeholder={p.searchArticles || 'Search articles...'}
+                  className="w-full pl-8 pr-3 py-1.5 text-xs border rounded-lg"
+                  disabled
+                />
+              </div>
+            </div>
+            <div className="space-y-3">
+              <div>
+                <div className="text-xs font-medium text-gray-700 mb-2">{p.tags || 'Tags'}</div>
+                <div className="flex flex-wrap gap-1">
+                  <div className="px-2 py-1 bg-[#3BA8AF] text-white rounded text-xs">{p.allTags || 'All tags'}</div>
+                  <div className="px-2 py-1 border border-[#3BA8AF] text-[#3BA8AF] rounded text-xs">{p.tagName || 'Tag name'}</div>
+                  <div className="px-2 py-1 border border-[#3BA8AF] text-[#3BA8AF] rounded text-xs">{p.tagName || 'Tag name'}</div>
+                </div>
+              </div>
+              <div>
+                <div className="text-xs font-medium text-gray-700 mb-2">{p.categories || 'Categories'}</div>
+                <div className="flex flex-wrap gap-1">
+                  <div className="px-2 py-1 bg-[#084F6E] text-white rounded text-xs">{p.allCategories || 'All categories'}</div>
+                  <div className="px-2 py-1 border border-[#084F6E] text-[#084F6E] rounded text-xs">{p.categoryName || 'Category name'}</div>
+                  <div className="px-2 py-1 border border-[#084F6E] text-[#084F6E] rounded text-xs">{p.categoryName || 'Category name'}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      case 'text_gallery':
+        return (
+          <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
+            <div className="text-center mb-4">
+              <h2 className="font-bold text-lg mb-2" style={{ color: '#333333' }}>{p.galleryTitle || 'Gallery Title'}</h2>
+              <div className="w-16 h-0.5 mx-auto mb-3" style={{ backgroundColor: '#3BA8AF' }}></div>
+              <p className="text-xs leading-relaxed" style={{ color: '#666666' }}>{p.galleryDesc || 'Description for your image gallery'}</p>
+            </div>
+            <div className="flex gap-2 justify-center">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="w-24 h-20 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF] rounded-lg shadow-md flex items-center justify-center">
+                  <Images className="w-8 h-8 text-white opacity-60" />
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      case 'text_video':
+        return (
+          <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
+            <div className="text-center mb-4">
+              <h2 className="font-bold text-lg mb-2" style={{ color: '#333333' }}>{p.videoTitle || 'Video Title'}</h2>
+              <div className="w-16 h-0.5 mx-auto mb-3" style={{ backgroundColor: '#084F6E' }}></div>
+              <p className="text-xs leading-relaxed" style={{ color: '#666666' }}>{p.videoDesc || 'Description for your video section'}</p>
+            </div>
+            <div className="relative aspect-video bg-black rounded-lg flex items-center justify-center">
+              <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
+                <Video className="w-8 h-8 text-white" />
+              </div>
+            </div>
+          </div>
+        );
+      case 'text_listing':
+        return (
+          <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
+            <div className="text-center mb-3">
+              <h2 className="font-bold text-sm mb-2" style={{ color: '#333333' }}>{p.sectionTitle || 'Section Title'}</h2>
+              <div className="w-12 h-0.5 mx-auto mb-2" style={{ backgroundColor: '#3BA8AF' }}></div>
+              <p className="text-xs" style={{ color: '#666666' }}>{p.listingDesc || 'Description for your listing'}</p>
+            </div>
+            <div className="space-y-2">
+              {['1', '2', '3'].map((label, i) => (
+                <div key={i} className="bg-gray-50 rounded-lg p-2 flex items-center gap-2">
+                  <span className="font-bold text-xs" style={{ color: '#084F6E', minWidth: '45px' }}>{label}</span>
+                  <span className="text-xs text-gray-600">{p.elementDesc || 'Description of your element'}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      case 'text_pricing':
+        return (
+          <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
+            <div className="text-center mb-3">
+              <h2 className="font-bold text-sm mb-2" style={{ color: '#333333' }}>{p.sectionTitle || 'Section Title'}</h2>
+              <div className="w-12 h-0.5 mx-auto mb-2" style={{ backgroundColor: '#3BA8AF' }}></div>
+              <p className="text-xs" style={{ color: '#666666' }}>{p.pricingDesc || 'Description of your pricing'}</p>
+            </div>
+            <div className="grid grid-cols-3 gap-2">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="rounded-lg overflow-hidden shadow-lg bg-white">
+                  <div className="text-white p-2.5 rounded-t-lg" style={{ backgroundColor: '#084F6E' }}>
+                    <div className="text-sm font-bold leading-tight">{p.title || 'Title'}</div>
+                    <div className="text-xs opacity-90 leading-tight">{p.subtitle || 'Subtitle'}</div>
+                  </div>
+                  <div className="bg-white p-3">
+                    <div className="text-2xl font-bold text-gray-900 leading-none">
+                      {p.price || 'Price'} <span className="text-base font-normal text-gray-900">{p.currency || 'Currency'}</span>
+                    </div>
+                    <div className="text-xs text-gray-400 mt-1 mb-3">{p.monthYear || 'Month/Year'}</div>
+                    <div className="border-t border-gray-200 pt-2">
+                      <div className="text-xs font-medium text-gray-600 mb-0.5">{p.label || 'Label'}</div>
+                      <div className="text-xs text-gray-400">{p.text || 'Text'}</div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
