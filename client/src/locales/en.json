@@ -1891,6 +1891,14 @@
       "title": {},
       "subtitle": {},
       "button_text": {}
+    },
+    "search_bar_tours_331": {
+      "filters_title": {},
+      "search_placeholder": {}
     }
+  },
+  "search_bar_tours_331": {
+    "filters_title": "Filters",
+    "search_placeholder": "Search for a tour..."
   }
 }

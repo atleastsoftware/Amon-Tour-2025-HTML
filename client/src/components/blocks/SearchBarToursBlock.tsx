@@ -52,9 +52,16 @@ export default function SearchBarToursBlock({ block, configuration }: SearchBarT
     return `${duration} ${duration > 1 ? daysWord : dayWord}`;
   };
 
+  // Get common translations for filter labels
+  const t = translations.common || {};
+  
   // Configuration with translation
-  const filtersTitle = blockTranslations.filters_title || configuration.filtersTitle || 'Filters';
-  const searchPlaceholder = blockTranslations.search_placeholder || configuration.searchPlaceholder || 'Search for a tour...';
+  const filtersTitle = blockTranslations.filters_title || configuration.filtersTitle || t.filters || 'Filters';
+  const searchPlaceholder = blockTranslations.search_placeholder || configuration.searchPlaceholder || t.searchPlaceholder || 'Search for a tour...';
+  const allPricesLabel = t.allPrices || 'All prices';
+  const allDurationsLabel = t.allDurations || 'All durations';
+  const allDestinationsLabel = t.allDestinations || 'All destinations';
+  const priceOnRequestLabel = t.priceOnRequest || 'Price on request';
   const filtersTextColor = configuration.filtersTextColor ?? '#333333';
   const filtersBgColor = configuration.filtersBgColor ?? '#ffffff';
   const cardsColor = configuration.cardsColor ?? '#084F6E';
@@ -120,10 +127,10 @@ export default function SearchBarToursBlock({ block, configuration }: SearchBarT
         { value: "2000-4000", label: "2,000 - 4,000 THB" },
         { value: "4000-6000", label: "4,000 - 6,000 THB" },
         { value: "6000+", label: "6,000+ THB" },
-        { value: "free", label: "Price on request" }
+        { value: "free", label: priceOnRequestLabel }
       ]
     });
-  }, [tours]);
+  }, [tours, priceOnRequestLabel]);
 
   const handleTourDetails = (tour: TourNinjaTour) => {
     if (tour.detailsUrl) {
@@ -226,10 +233,10 @@ export default function SearchBarToursBlock({ block, configuration }: SearchBarT
             {/* Prix */}
             <Select value={priceRange} onValueChange={setPriceRange}>
               <SelectTrigger>
-                <SelectValue placeholder="All prices" />
+                <SelectValue placeholder={allPricesLabel} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All prices</SelectItem>
+                <SelectItem value="all">{allPricesLabel}</SelectItem>
                 {filterOptions.priceRanges.map(range => (
                   <SelectItem key={range.value} value={range.value}>
                     {range.label}
@@ -241,10 +248,10 @@ export default function SearchBarToursBlock({ block, configuration }: SearchBarT
             {/* Durée */}
             <Select value={durationFilter} onValueChange={setDurationFilter}>
               <SelectTrigger>
-                <SelectValue placeholder="All durations" />
+                <SelectValue placeholder={allDurationsLabel} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All durations</SelectItem>
+                <SelectItem value="all">{allDurationsLabel}</SelectItem>
                 {filterOptions.durations.map(duration => (
                   <SelectItem key={duration} value={duration.toString()}>
                     {formatDuration(Number(duration))}
@@ -256,10 +263,10 @@ export default function SearchBarToursBlock({ block, configuration }: SearchBarT
             {/* Destination */}
             <Select value={destinationFilter} onValueChange={setDestinationFilter}>
               <SelectTrigger>
-                <SelectValue placeholder="All destinations" />
+                <SelectValue placeholder={allDestinationsLabel} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All destinations</SelectItem>
+                <SelectItem value="all">{allDestinationsLabel}</SelectItem>
                 {filterOptions.destinations.map(destination => (
                   <SelectItem key={destination} value={destination}>
                     {destination}

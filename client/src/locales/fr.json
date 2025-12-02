@@ -31,6 +31,7 @@
     "allPrices": "Tous les prix",
     "allDurations": "Toutes les durées",
     "allDestinations": "Toutes les destinations",
+    "priceOnRequest": "Prix sur demande",
     "clearFilters": "Effacer les filtres",
     "day": "jour",
     "days": "jours",
@@ -1758,10 +1759,22 @@
       "button_text": {
         "isManuallyEdited": true
       }
+    },
+    "search_bar_tours_331": {
+      "filters_title": {
+        "isManuallyEdited": true
+      },
+      "search_placeholder": {
+        "isManuallyEdited": true
+      }
     }
   },
   "text_436": {
     "title": "nouveau texte de test numéro deux",
     "description": "petit test numéro deux"
+  },
+  "search_bar_tours_331": {
+    "filters_title": "Filtres",
+    "search_placeholder": "Rechercher une visite..."
   }
 }
