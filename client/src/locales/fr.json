@@ -33,7 +33,8 @@
     "allDestinations": "Toutes les destinations",
     "clearFilters": "Effacer les filtres",
     "day": "jour",
-    "days": "jours"
+    "days": "jours",
+    "back": "Retour"
   },
   "tours": {
     "title": "Tours et Expériences",
@@ -42,6 +43,21 @@
     "participants": "Participants max",
     "price": "À partir de",
     "featured": "Nos expériences exclusives"
+  },
+  "tourDetail": {
+    "notFound": "Tour non trouvé",
+    "notFoundDescription": "Le tour demandé n'a pas été trouvé.",
+    "backToTours": "Retour aux tours",
+    "booking": "Réservation",
+    "startingFrom": "À partir de",
+    "perPerson": "par personne",
+    "contactForPrice": "Nous contacter pour le prix",
+    "description": "Description",
+    "highlights": "Points forts",
+    "guests": "personnes",
+    "upTo": "Jusqu'à",
+    "minGuests": "Minimum",
+    "moreDetails": "Plus de détails sur Tour Ninja"
   },
   "home": {
     "introTitle": "Quand des expatriés vous accueillent dans leur pays d'adoption",

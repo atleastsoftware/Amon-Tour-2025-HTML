@@ -39,7 +39,8 @@
     "backToWebsite": "Back to Website",
     "edit": "Edit",
     "delete": "Delete",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "back": "Back"
   },
   "tours": {
     "title": "Tours & Experiences",
@@ -48,6 +49,21 @@
     "participants": "Max participants",
     "price": "From",
     "featured": "Our exclusive experiences"
+  },
+  "tourDetail": {
+    "notFound": "Tour not found",
+    "notFoundDescription": "The requested tour was not found.",
+    "backToTours": "Back to tours",
+    "booking": "Booking",
+    "startingFrom": "Starting from",
+    "perPerson": "per person",
+    "contactForPrice": "Contact for price",
+    "description": "Description",
+    "highlights": "Highlights",
+    "guests": "guests",
+    "upTo": "Up to",
+    "minGuests": "Minimum",
+    "moreDetails": "More details on Tour Ninja"
   },
   "home": {
     "introTitle": "When expats welcome you in their host country",

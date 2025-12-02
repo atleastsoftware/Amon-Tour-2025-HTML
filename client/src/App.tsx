@@ -10,6 +10,7 @@ import TourCards from "@/pages/tour-cards";
 import Stays from "@/pages/stays";
 import TourIframe from "@/pages/tour-iframe";
 import TourNinjaIframe from "@/pages/tour-ninja-iframe";
+import TourDetail from "@/pages/tour-detail";
 import TourView from "@/pages/tour-view";
 import TourShowcase from "@/pages/tour-showcase";
 import CustomTour from "@/pages/custom-tour";
@@ -74,6 +75,7 @@ function Router() {
       <Route path="/stays" component={Stays} />
       <Route path="/tour/:token" component={TourShowcase} />
       <Route path="/tour-ninja-iframe" component={TourNinjaIframe} />
+      <Route path="/tour-detail/:id" component={TourDetail} />
       <Route path="/custom-tour" component={() => <DynamicPage slug="custom-tour" />} />
       <Route path="/book-tour/:id" component={BookTour} />
       <Route path="/booking" component={BookingIframe} />

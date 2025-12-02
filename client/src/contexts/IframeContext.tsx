@@ -18,7 +18,15 @@ export function IframeProvider({ children }: { children: ReactNode }) {
   const [location, setLocation] = useLocation();
 
   const openIframe = (url: string, title: string) => {
-    // Instead of opening a modal, navigate to the iframe page
+    // Check if this is a Tour Ninja details URL - redirect to our custom translated page
+    const detailsMatch = url.match(/tourninja\.io\/details\/([^/?]+)/);
+    if (detailsMatch && title.toLowerCase().includes('details')) {
+      const tourId = detailsMatch[1];
+      setLocation(`/tour-detail/${tourId}`);
+      return;
+    }
+    
+    // For booking and other URLs, use the iframe page
     const currentPath = location;
     const params = new URLSearchParams({
       url: url,

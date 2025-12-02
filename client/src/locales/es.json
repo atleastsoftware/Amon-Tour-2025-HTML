@@ -33,7 +33,8 @@
     "allDestinations": "Todos los destinos",
     "clearFilters": "Limpiar filtros",
     "day": "día",
-    "days": "días"
+    "days": "días",
+    "back": "Atrás"
   },
   "tours": {
     "title": "Tours y Experiencias",
@@ -42,6 +43,21 @@
     "participants": "Participantes máx.",
     "price": "Desde",
     "featured": "Nuestras experiencias exclusivas"
+  },
+  "tourDetail": {
+    "notFound": "Tour no encontrado",
+    "notFoundDescription": "El tour solicitado no fue encontrado.",
+    "backToTours": "Volver a los tours",
+    "booking": "Reserva",
+    "startingFrom": "Desde",
+    "perPerson": "por persona",
+    "contactForPrice": "Contactar para precio",
+    "description": "Descripción",
+    "highlights": "Destacados",
+    "guests": "personas",
+    "upTo": "Hasta",
+    "minGuests": "Mínimo",
+    "moreDetails": "Más detalles en Tour Ninja"
   },
   "home": {
     "introTitle": "Cuando los expatriados te dan la bienvenida en su país de adopción",
