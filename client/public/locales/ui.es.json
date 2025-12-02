@@ -48,6 +48,47 @@
     "listingDescription": "Descripción de su listado",
     "title": "Título"
   },
+  "editor": {
+    "blockSelection": {
+      "title": "Seleccionar un bloque",
+      "preview": "Vista previa",
+      "selectBlockToPreview": "Selecciona un tipo de bloque para ver la vista previa",
+      "cancel": "Cancelar",
+      "add": "Agregar"
+    },
+    "blockTypes": {
+      "hero": "Sección Hero",
+      "heroDesc": "Banner de bienvenida con título, subtítulo y botones CTA",
+      "header_page": "Encabezado de página",
+      "header_pageDesc": "Encabezado de página con título, subtítulo e imagen de fondo",
+      "text": "Texto + Botones",
+      "textDesc": "Sección de texto con título, contenido y botones de acción",
+      "cardGridDate": "Card Grid Date",
+      "cardGridDateDesc": "Cuadrícula de tarjetas con insignias de duración",
+      "cardGridPrice": "Card Grid Price",
+      "cardGridPriceDesc": "Cuadrícula de tarjetas con insignias de precio",
+      "contact": "Contacto",
+      "contactDesc": "Sección de contacto con email, teléfono, WhatsApp y Line ID",
+      "form": "Formulario",
+      "formDesc": "Formulario con imagen y campos personalizables",
+      "textImage": "Texto + Imágenes",
+      "textImageDesc": "Sección de texto con imágenes",
+      "iconGrid": "Texto + Iconos",
+      "iconGridDesc": "Cuadrícula de iconos con texto",
+      "searchModule": "Barra de búsqueda: Tours",
+      "searchModuleDesc": "Módulo de búsqueda para tours",
+      "blog_search": "Barra de búsqueda: Blog",
+      "blog_searchDesc": "Módulo de búsqueda para el blog",
+      "text_gallery": "Texto + Galería",
+      "text_galleryDesc": "Sección de texto con galería de imágenes",
+      "text_video": "Texto + Video",
+      "text_videoDesc": "Sección de texto con video",
+      "text_listing": "Texto + Lista",
+      "text_listingDesc": "Sección de texto con lista de elementos",
+      "text_pricing": "Texto + Precios",
+      "text_pricingDesc": "Sección de texto con tarjetas de precios"
+    }
+  },
   "login": {
     "title": "Administración",
     "subtitle": "Inicia sesión para acceder al área de administración",

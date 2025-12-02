@@ -26,6 +26,47 @@
     "backToWebsite": "Back to website",
     "adminDashboard": "Admin Dashboard"
   },
+  "editor": {
+    "blockSelection": {
+      "title": "Select a block",
+      "preview": "Preview",
+      "selectBlockToPreview": "Select a block type to preview",
+      "cancel": "Cancel",
+      "add": "Add"
+    },
+    "blockTypes": {
+      "hero": "Hero Section",
+      "heroDesc": "Welcome banner with title, subtitle and CTA buttons",
+      "header_page": "Page Header",
+      "header_pageDesc": "Page header with title, subtitle and background image",
+      "text": "Text + Buttons",
+      "textDesc": "Text section with title, content and action buttons",
+      "cardGridDate": "Card Grid Date",
+      "cardGridDateDesc": "Card grid with duration badges",
+      "cardGridPrice": "Card Grid Price",
+      "cardGridPriceDesc": "Card grid with price badges",
+      "contact": "Contact",
+      "contactDesc": "Contact section with email, phone, WhatsApp and Line ID",
+      "form": "Form",
+      "formDesc": "Form with image and customizable fields",
+      "textImage": "Text + Images",
+      "textImageDesc": "Text section with images",
+      "iconGrid": "Text + Icons",
+      "iconGridDesc": "Icon grid with text",
+      "searchModule": "Search Bar: Tours",
+      "searchModuleDesc": "Search module for tours",
+      "blog_search": "Search Bar: Blog",
+      "blog_searchDesc": "Search module for blog",
+      "text_gallery": "Text + Gallery",
+      "text_galleryDesc": "Text section with image gallery",
+      "text_video": "Text + Video",
+      "text_videoDesc": "Text section with video",
+      "text_listing": "Text + List",
+      "text_listingDesc": "Text section with list items",
+      "text_pricing": "Text + Pricing",
+      "text_pricingDesc": "Text section with pricing cards"
+    }
+  },
   "login": {
     "title": "Administration",
     "subtitle": "Log in to access the admin area",
