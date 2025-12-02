@@ -13,7 +13,19 @@ import { FileText, Lock, Sparkles, EyeOff } from "lucide-react";
 import { BLOCK_TYPE_LABELS } from "./BlockSelectionPopup";
 import type { TranslationEditorRef } from "@/pages/admin-translation";
 
-function getBlockDisplayName(blockType: string): string {
+function getBlockDisplayName(blockType: string, blockTypesTranslations?: Record<string, string>): string {
+  const keyMap: Record<string, string> = {
+    'popular_experiences': 'cardGridDate',
+    'tour_ninja_section': 'cardGridPrice',
+    'custom_tour_form': 'form',
+    'who_we_are': 'textImage',
+    'why_choose_us': 'iconGrid',
+    'search_bar_tours': 'searchModule',
+  };
+  const key = keyMap[blockType] || blockType;
+  if (blockTypesTranslations?.[key]) {
+    return blockTypesTranslations[key];
+  }
   return BLOCK_TYPE_LABELS[blockType] || blockType;
 }
 
@@ -311,27 +323,32 @@ const BlockTranslationEditor = forwardRef<TranslationEditorRef, BlockTranslation
         <CardContent>
           <div className="space-y-4">
             {/* Page selector */}
-            <div className="flex flex-wrap gap-2">
-              {pages.map(page => (
-                <Button
-                  key={page.id}
-                  variant={selectedPageId === page.id ? "default" : "outline"}
-                  onClick={() => {
-                    setSelectedPageId(page.id);
-                    setSelectedBlockId(null);
-                  }}
-                  data-testid={`button-select-page-${page.pageSlug}`}
-                >
-                  {page.pageName}
-                </Button>
-              ))}
+            <div className="space-y-3">
+              <h3 className="text-sm font-semibold text-muted-foreground" data-testid="heading-pages-label">
+                {t?.translationEditor?.pagesLabel || 'Pages :'}
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {pages.map(page => (
+                  <Button
+                    key={page.id}
+                    variant={selectedPageId === page.id ? "default" : "outline"}
+                    onClick={() => {
+                      setSelectedPageId(page.id);
+                      setSelectedBlockId(null);
+                    }}
+                    data-testid={`button-select-page-${page.pageSlug}`}
+                  >
+                    {page.pageName}
+                  </Button>
+                ))}
+              </div>
             </div>
 
             {/* Block selector for selected page */}
             {selectedPage && (
               <div className="space-y-3">
                 <h3 className="text-sm font-semibold text-muted-foreground" data-testid="heading-page-blocks">
-                  {(t?.translationEditor?.pageBlocks?.replace('{pageName}', selectedPage.pageName)) || `${selectedPage.pageName} - Blocks`}
+                  {t?.translationEditor?.blocksLabel || 'Blocs :'}
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {selectedPage.blocks
@@ -340,6 +357,7 @@ const BlockTranslationEditor = forwardRef<TranslationEditorRef, BlockTranslation
                       const isSelected = block.id === selectedBlockId;
                       const isHidden = !block.isActive;
                       const isModified = isBlockModified(block.id);
+                      const blockTypesTranslations = t?.blockTypes as Record<string, string> | undefined;
                       
                       return (
                         <Button
@@ -349,7 +367,7 @@ const BlockTranslationEditor = forwardRef<TranslationEditorRef, BlockTranslation
                           data-testid={`button-select-block-${block.id}`}
                           className={`${isHidden ? 'opacity-50' : ''} ${isModified ? 'ring-2 ring-amber-400' : ''}`}
                         >
-                          {getBlockDisplayName(block.blockType)}
+                          {getBlockDisplayName(block.blockType, blockTypesTranslations)}
                           {block.title && ` - ${block.title.substring(0, 20)}`}
                           {isHidden && <EyeOff className="w-3 h-3 ml-2" data-testid="icon-hidden-block" />}
                           {isModified && <span className="w-2 h-2 bg-amber-400 rounded-full ml-2" data-testid={`indicator-modified-${block.id}`} />}
@@ -368,7 +386,7 @@ const BlockTranslationEditor = forwardRef<TranslationEditorRef, BlockTranslation
               <div className="space-y-4 pt-4 border-t">
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-semibold flex items-center gap-2" data-testid="heading-selected-block">
-                    {getBlockDisplayName(selectedBlock.blockType)}
+                    {getBlockDisplayName(selectedBlock.blockType, t?.blockTypes as Record<string, string> | undefined)}
                     {isBlockModified(selectedBlockId) && (
                       <Badge variant="outline" className="text-amber-600 border-amber-400">
                         {t?.translationEditor?.modified || 'Modified'}

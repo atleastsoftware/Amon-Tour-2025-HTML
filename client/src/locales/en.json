@@ -1327,6 +1327,62 @@
       "pricingCard": "Pricing Card",
       "pickupTime": "Pickup Time"
     },
+    "translationEditor": {
+      "title": "Block Translations Editor",
+      "subtitle": "Manage French and Spanish translations for all page blocks",
+      "loading": "Loading translations...",
+      "save": "Save translations",
+      "pagesLabel": "Pages:",
+      "blocksLabel": "Blocks:",
+      "noTextToTranslate": "No translatable text in this page",
+      "noTextInBlock": "This block has no translatable text",
+      "modified": "Modified",
+      "tabs": {
+        "french": "French",
+        "spanish": "Spanish"
+      },
+      "originalText": "Original (English):",
+      "translationPlaceholder": {
+        "fr": "French translation...",
+        "es": "Spanish translation..."
+      },
+      "badges": {
+        "manuallyEdited": "Manually Edited",
+        "auto": "Auto"
+      }
+    },
+    "blockTypes": {
+      "hero": "Hero Section",
+      "heroDesc": "Welcome banner with title, subtitle and CTA buttons",
+      "header_page": "Header Page",
+      "header_pageDesc": "Page header with title, subtitle and background image",
+      "text": "Text + Buttons",
+      "textDesc": "Text section with title, content and action buttons",
+      "cardGridDate": "Grid: Duration",
+      "cardGridDateDesc": "Card grid with duration badges",
+      "cardGridPrice": "Grid: Price",
+      "cardGridPriceDesc": "Card grid with price badges",
+      "contact": "Contact",
+      "contactDesc": "Contact section with email, phone, WhatsApp and Line ID",
+      "form": "Form",
+      "formDesc": "Form with image and customizable fields",
+      "textImage": "Text + Images",
+      "textImageDesc": "Text section with images",
+      "iconGrid": "Text + Icons",
+      "iconGridDesc": "Icon grid with text",
+      "searchModule": "Search Bar: Tours",
+      "searchModuleDesc": "Search module for tours",
+      "blog_search": "Search Bar: Blog",
+      "blog_searchDesc": "Search module for blog",
+      "text_gallery": "Text + Gallery",
+      "text_galleryDesc": "Text section with image gallery",
+      "text_video": "Text + Video",
+      "text_videoDesc": "Text section with video",
+      "text_listing": "Text + List",
+      "text_listingDesc": "Text section with list items",
+      "text_pricing": "Text + Pricing",
+      "text_pricingDesc": "Text section with pricing cards"
+    },
     "editor": {
       "title": "Content Management",
       "description": "Easily manage your website content with our professional editing tools",
