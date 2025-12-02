@@ -46,7 +46,7 @@ export const TRANSLATABLE_BLOCK_FIELDS: Record<string, TranslatableFieldConfig> 
   },
   
   search_bar_tours: {
-    simpleFields: ['title', 'subtitle', 'placeholder']
+    simpleFields: ['title', 'subtitle', 'filtersTitle', 'searchPlaceholder']
   },
   
   features_3col: {

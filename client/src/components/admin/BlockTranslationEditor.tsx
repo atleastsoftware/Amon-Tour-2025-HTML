@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, forwardRef, useImperativeHandle } from "react";
+import { useState, useEffect, useCallback, forwardRef, useImperativeHandle, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -6,12 +6,110 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { useTranslationSection } from '@/contexts/TranslationContext';
 import { queryClient } from "@/lib/queryClient";
-import { FileText, Lock, Sparkles, EyeOff } from "lucide-react";
+import { FileText, Lock, Sparkles, EyeOff, Bold, Italic, AlignLeft, AlignCenter, AlignRight, List, Heading1, Heading2 } from "lucide-react";
 import { BLOCK_TYPE_LABELS } from "./BlockSelectionPopup";
 import type { TranslationEditorRef } from "@/pages/admin-translation";
+
+interface RichTextEditorProps {
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+  testId?: string;
+}
+
+function RichTextEditor({ value, onChange, placeholder, testId }: RichTextEditorProps) {
+  const editorRef = useRef<HTMLDivElement>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  useEffect(() => {
+    if (editorRef.current && !isInitialized) {
+      editorRef.current.innerHTML = value || '';
+      setIsInitialized(true);
+    }
+  }, [value, isInitialized]);
+
+  useEffect(() => {
+    if (editorRef.current && isInitialized && editorRef.current.innerHTML !== value) {
+      const selection = window.getSelection();
+      const range = selection?.rangeCount ? selection.getRangeAt(0) : null;
+      editorRef.current.innerHTML = value || '';
+      if (range && editorRef.current.contains(range.startContainer)) {
+        selection?.removeAllRanges();
+        selection?.addRange(range);
+      }
+    }
+  }, [value, isInitialized]);
+
+  const formatText = (command: string, value?: string) => {
+    document.execCommand(command, false, value);
+    if (editorRef.current) {
+      onChange(editorRef.current.innerHTML);
+    }
+  };
+
+  const insertHeading = (level: number) => {
+    const selection = window.getSelection();
+    if (!selection || selection.rangeCount === 0) return;
+    
+    const range = selection.getRangeAt(0);
+    const heading = document.createElement(`h${level}`);
+    heading.innerHTML = range.toString() || 'Heading';
+    range.deleteContents();
+    range.insertNode(heading);
+    
+    if (editorRef.current) {
+      onChange(editorRef.current.innerHTML);
+    }
+  };
+
+  const handleContentChange = (e: React.FormEvent<HTMLDivElement>) => {
+    onChange(e.currentTarget.innerHTML);
+  };
+
+  return (
+    <div className="space-y-2" data-testid={testId}>
+      <div className="border rounded-lg p-2 bg-muted/50 flex flex-wrap gap-1">
+        <Button type="button" variant="ghost" size="sm" onClick={() => insertHeading(2)} title="Heading 2">
+          <Heading1 className="w-4 h-4" />
+        </Button>
+        <Button type="button" variant="ghost" size="sm" onClick={() => insertHeading(3)} title="Heading 3">
+          <Heading2 className="w-4 h-4" />
+        </Button>
+        <div className="w-px bg-border mx-1" />
+        <Button type="button" variant="ghost" size="sm" onClick={() => formatText('bold')} title="Bold">
+          <Bold className="w-4 h-4" />
+        </Button>
+        <Button type="button" variant="ghost" size="sm" onClick={() => formatText('italic')} title="Italic">
+          <Italic className="w-4 h-4" />
+        </Button>
+        <div className="w-px bg-border mx-1" />
+        <Button type="button" variant="ghost" size="sm" onClick={() => formatText('justifyLeft')} title="Align left">
+          <AlignLeft className="w-4 h-4" />
+        </Button>
+        <Button type="button" variant="ghost" size="sm" onClick={() => formatText('justifyCenter')} title="Center">
+          <AlignCenter className="w-4 h-4" />
+        </Button>
+        <Button type="button" variant="ghost" size="sm" onClick={() => formatText('justifyRight')} title="Align right">
+          <AlignRight className="w-4 h-4" />
+        </Button>
+        <div className="w-px bg-border mx-1" />
+        <Button type="button" variant="ghost" size="sm" onClick={() => formatText('insertUnorderedList')} title="Bullet list">
+          <List className="w-4 h-4" />
+        </Button>
+      </div>
+      <div
+        ref={editorRef}
+        contentEditable
+        onInput={handleContentChange}
+        className="border rounded-lg p-6 bg-white min-h-[300px] prose prose-sm max-w-none focus:outline-none focus:ring-2 focus:ring-primary"
+        suppressContentEditableWarning
+        data-placeholder={placeholder}
+      />
+    </div>
+  );
+}
 
 function getBlockDisplayName(blockType: string, blockTypesTranslations?: Record<string, string>): string {
   const keyMap: Record<string, string> = {
@@ -21,10 +119,14 @@ function getBlockDisplayName(blockType: string, blockTypesTranslations?: Record<
     'who_we_are': 'textImage',
     'why_choose_us': 'iconGrid',
     'search_bar_tours': 'searchModule',
+    'text_section': 'text',
   };
   const key = keyMap[blockType] || blockType;
   if (blockTypesTranslations?.[key]) {
     return blockTypesTranslations[key];
+  }
+  if (blockType === 'text_section') {
+    return BLOCK_TYPE_LABELS['text'] || 'Text';
   }
   return BLOCK_TYPE_LABELS[blockType] || blockType;
 }
@@ -407,72 +509,82 @@ const BlockTranslationEditor = forwardRef<TranslationEditorRef, BlockTranslation
 
                   {(['fr', 'es'] as const).map(lang => (
                     <TabsContent key={lang} value={lang} data-testid={`tab-content-${lang}`}>
-                      <ScrollArea className="h-[600px] pr-4">
-                        <div className="space-y-4">
-                          {Object.keys(editedTranslations.en).length > 0 ? (
-                            getSortedFieldKeys(Object.keys(editedTranslations.en)).map((key) => {
-                              const enValue = editedTranslations.en[key];
-                              const translatedValue = editedTranslations[lang][key] || '';
-                              const isLongText = enValue.length > 100 || enValue.includes('\n') || translatedValue.includes('\n');
-                              const isManuallyEdited = selectedBlock?.translationsMeta?.[lang]?.[key]?.isManuallyEdited === true;
+                      <div className="space-y-4">
+                        {Object.keys(editedTranslations.en).length > 0 ? (
+                          getSortedFieldKeys(Object.keys(editedTranslations.en)).map((key) => {
+                            const enValue = editedTranslations.en[key];
+                            const translatedValue = editedTranslations[lang][key] || '';
+                            const isHtmlContent = selectedBlock?.blockType === 'text_section' && key === 'content';
+                            const isLongText = !isHtmlContent && (enValue.length > 100 || enValue.includes('\n') || translatedValue.includes('\n'));
+                            const isManuallyEdited = selectedBlock?.translationsMeta?.[lang]?.[key]?.isManuallyEdited === true;
 
-                              return (
-                                <div 
-                                  key={key} 
-                                  className={`space-y-2 p-4 border rounded-lg ${
-                                    isManuallyEdited 
-                                      ? 'border-amber-400 bg-amber-50/50 dark:bg-amber-950/20' 
-                                      : 'border-border'
-                                  }`}
-                                  data-testid={`field-container-${lang}-${key}`}
-                                >
-                                  <div className="flex items-center justify-between">
-                                    <label className="text-sm font-medium flex items-center gap-2" data-testid={`label-${lang}-${key}`}>
-                                      {getFieldDisplayName(key, t)}
-                                      {isManuallyEdited ? (
-                                        <Badge variant="secondary" className="text-xs bg-amber-500 text-white flex items-center gap-1" data-testid={`badge-manually-edited-${lang}-${key}`}>
-                                          <Lock className="w-3 h-3" />
-                                          {t?.translationEditor?.badges?.manuallyEdited || 'Manually Edited'}
-                                        </Badge>
-                                      ) : (
-                                        <Badge variant="outline" className="text-xs flex items-center gap-1" data-testid={`badge-auto-${lang}-${key}`}>
-                                          <Sparkles className="w-3 h-3" />
-                                          {t?.translationEditor?.badges?.auto || 'Auto'}
-                                        </Badge>
-                                      )}
-                                    </label>
-                                  </div>
-                                  
-                                  <div className="text-xs text-muted-foreground bg-muted p-2 rounded" style={{ whiteSpace: 'pre-line' }} data-testid={`original-text-${lang}-${key}`}>
-                                    <strong>{t?.translationEditor?.originalText || 'Original (English):'}</strong> {enValue}
-                                  </div>
-
-                                  {isLongText ? (
-                                    <Textarea
-                                      value={translatedValue}
-                                      onChange={(e) => handleTranslationChange(lang, key, e.target.value)}
-                                      placeholder={t?.translationEditor?.translationPlaceholder?.[lang] || (lang === 'fr' ? 'French translation...' : 'Spanish translation...')}
-                                      rows={Math.max(4, (translatedValue.match(/\n/g) || []).length + 2)}
-                                      data-testid={`textarea-${lang}-${key}`}
-                                    />
-                                  ) : (
-                                    <Input
-                                      value={translatedValue}
-                                      onChange={(e) => handleTranslationChange(lang, key, e.target.value)}
-                                      placeholder={t?.translationEditor?.translationPlaceholder?.[lang] || (lang === 'fr' ? 'French translation...' : 'Spanish translation...')}
-                                      data-testid={`input-${lang}-${key}`}
-                                    />
-                                  )}
+                            return (
+                              <div 
+                                key={key} 
+                                className={`space-y-2 p-4 border rounded-lg ${
+                                  isManuallyEdited 
+                                    ? 'border-amber-400 bg-amber-50/50 dark:bg-amber-950/20' 
+                                    : 'border-border'
+                                }`}
+                                data-testid={`field-container-${lang}-${key}`}
+                              >
+                                <div className="flex items-center justify-between">
+                                  <label className="text-sm font-medium flex items-center gap-2" data-testid={`label-${lang}-${key}`}>
+                                    {getFieldDisplayName(key, t)}
+                                    {isManuallyEdited ? (
+                                      <Badge variant="secondary" className="text-xs bg-amber-500 text-white flex items-center gap-1" data-testid={`badge-manually-edited-${lang}-${key}`}>
+                                        <Lock className="w-3 h-3" />
+                                        {t?.translationEditor?.badges?.manuallyEdited || 'Manually Edited'}
+                                      </Badge>
+                                    ) : (
+                                      <Badge variant="outline" className="text-xs flex items-center gap-1" data-testid={`badge-auto-${lang}-${key}`}>
+                                        <Sparkles className="w-3 h-3" />
+                                        {t?.translationEditor?.badges?.auto || 'Auto'}
+                                      </Badge>
+                                    )}
+                                  </label>
                                 </div>
-                              );
-                            })
-                          ) : (
-                            <p className="text-center py-12 text-muted-foreground" data-testid="text-no-text-in-block">
-                              {t?.translationEditor?.noTextInBlock || 'This block contains no translatable text'}
-                            </p>
-                          )}
-                        </div>
-                      </ScrollArea>
+                                
+                                {isHtmlContent ? (
+                                  <RichTextEditor
+                                    value={translatedValue}
+                                    onChange={(value) => handleTranslationChange(lang, key, value)}
+                                    placeholder={t?.translationEditor?.translationPlaceholder?.[lang] || (lang === 'fr' ? 'French translation...' : 'Spanish translation...')}
+                                    testId={`richtext-${lang}-${key}`}
+                                  />
+                                ) : (
+                                  <>
+                                    <div className="text-xs text-muted-foreground bg-muted p-2 rounded" style={{ whiteSpace: 'pre-line' }} data-testid={`original-text-${lang}-${key}`}>
+                                      <strong>{t?.translationEditor?.originalText || 'Original (English):'}</strong> {enValue}
+                                    </div>
+
+                                    {isLongText ? (
+                                      <Textarea
+                                        value={translatedValue}
+                                        onChange={(e) => handleTranslationChange(lang, key, e.target.value)}
+                                        placeholder={t?.translationEditor?.translationPlaceholder?.[lang] || (lang === 'fr' ? 'French translation...' : 'Spanish translation...')}
+                                        rows={Math.max(4, (translatedValue.match(/\n/g) || []).length + 2)}
+                                        data-testid={`textarea-${lang}-${key}`}
+                                      />
+                                    ) : (
+                                      <Input
+                                        value={translatedValue}
+                                        onChange={(e) => handleTranslationChange(lang, key, e.target.value)}
+                                        placeholder={t?.translationEditor?.translationPlaceholder?.[lang] || (lang === 'fr' ? 'French translation...' : 'Spanish translation...')}
+                                        data-testid={`input-${lang}-${key}`}
+                                      />
+                                    )}
+                                  </>
+                                )}
+                              </div>
+                            );
+                          })
+                        ) : (
+                          <p className="text-center py-12 text-muted-foreground" data-testid="text-no-text-in-block">
+                            {t?.translationEditor?.noTextInBlock || 'This block contains no translatable text'}
+                          </p>
+                        )}
+                      </div>
                     </TabsContent>
                   ))}
                 </Tabs>
