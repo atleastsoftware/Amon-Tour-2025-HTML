@@ -123,7 +123,7 @@ function getBlockDisplayName(blockType: string, blockTypesTranslations?: Record<
     return blockTypesTranslations[key];
   }
   if (blockType === 'text_section') {
-    return BLOCK_TYPE_LABELS['text'] || 'Text';
+    return blockTypesTranslations?.textSection || 'Text';
   }
   return BLOCK_TYPE_LABELS[blockType] || blockType;
 }
@@ -188,6 +188,9 @@ function getFieldDisplayName(key: string, t: any): string {
     'book_now_text': t?.fieldNames?.bookNowText || 'Book Now Text',
     'privacy_text': t?.fieldNames?.privacyText || 'Privacy Text',
     'search_placeholder': t?.fieldNames?.searchPlaceholder || 'Search Placeholder',
+    'searchPlaceholder': t?.fieldNames?.searchPlaceholder || 'Search Placeholder',
+    'filtersTitle': t?.fieldNames?.filtersTitle || 'Filters Title',
+    'filters_title': t?.fieldNames?.filtersTitle || 'Filters Title',
     'tags_title': t?.fieldNames?.tagsTitle || 'Tags Title',
     'categories_title': t?.fieldNames?.categoriesTitle || 'Categories Title',
     'all_tags_text': t?.fieldNames?.allTagsText || 'All Tags Text',

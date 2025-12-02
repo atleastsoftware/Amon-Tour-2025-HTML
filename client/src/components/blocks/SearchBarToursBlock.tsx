@@ -55,9 +55,9 @@ export default function SearchBarToursBlock({ block, configuration }: SearchBarT
   // Get common translations for filter labels
   const t = translations.common || {};
   
-  // Configuration with translation
-  const filtersTitle = blockTranslations.filters_title || configuration.filtersTitle || t.filters || 'Filters';
-  const searchPlaceholder = blockTranslations.search_placeholder || configuration.searchPlaceholder || t.searchPlaceholder || 'Search for a tour...';
+  // Configuration with translation - use camelCase keys to match server extraction
+  const filtersTitle = blockTranslations.filtersTitle || configuration.filtersTitle || t.filters || 'Filters';
+  const searchPlaceholder = blockTranslations.searchPlaceholder || configuration.searchPlaceholder || t.searchPlaceholder || 'Search for a tour...';
   const allPricesLabel = t.allPrices || 'All prices';
   const allDurationsLabel = t.allDurations || 'All durations';
   const allDestinationsLabel = t.allDestinations || 'All destinations';
