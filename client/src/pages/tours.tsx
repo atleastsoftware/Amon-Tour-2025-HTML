@@ -33,19 +33,19 @@ export default function Tours() {
 
   const handleTourDetails = (tour: TourNinjaTour) => {
     if (tour.detailsUrl) {
-      openIframe(tour.detailsUrl, `Details - ${tour.name}`);
+      openIframe(tour.detailsUrl, tour.name);
     }
   };
 
   const handleTourPresentation = (tour: TourNinjaTour) => {
     if (tour.presentationUrl) {
-      openIframe(tour.presentationUrl, `Presentation - ${tour.name}`);
+      openIframe(tour.presentationUrl, tour.name);
     }
   };
 
   const handleTourBooking = (tour: TourNinjaTour) => {
     if (tour.bookingUrl) {
-      openIframe(tour.bookingUrl, `Reservation - ${tour.name}`);
+      openIframe(tour.bookingUrl, tour.name);
     }
   };
 

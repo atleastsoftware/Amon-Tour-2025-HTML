@@ -241,9 +241,9 @@ export default function PopularExperiencesBlock({
                         }}
                         onClick={() => {
                           if (tour.detailsUrl) {
-                            openIframe(tour.detailsUrl, `Details - ${tour.name}`);
+                            openIframe(tour.detailsUrl, tour.name);
                           } else if (tour.presentationUrl) {
-                            openIframe(tour.presentationUrl, `Presentation - ${tour.name}`);
+                            openIframe(tour.presentationUrl, tour.name);
                           }
                         }}
                         onMouseEnter={(e) => {
@@ -263,7 +263,7 @@ export default function PopularExperiencesBlock({
                         }}
                         onClick={() => {
                           if (tour.bookingUrl) {
-                            openIframe(tour.bookingUrl, `Booking - ${tour.name}`);
+                            openIframe(tour.bookingUrl, tour.name);
                           }
                         }}
                         onMouseEnter={(e) => {

@@ -321,7 +321,7 @@ export default function Home() {
                         className="text-lg font-bold text-gray-800 mb-3 line-clamp-2 cursor-pointer hover:text-primary transition-colors"
                         onClick={() => {
                           if (tour.presentationUrl) {
-                            openIframe(tour.presentationUrl, `Présentation - ${tour.name}`);
+                            openIframe(tour.presentationUrl, tour.name);
                           }
                         }}
                       >
@@ -338,7 +338,7 @@ export default function Home() {
                         {tour.detailsUrl && (
                           <button 
                             onClick={() => {
-                              openIframe(tour.detailsUrl, `Détails - ${tour.name}`);
+                              openIframe(tour.detailsUrl, tour.name);
                             }}
                             className="flex-1 border border-primary text-primary hover:bg-primary/10 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
                             data-testid={`button-view-details-${tour.id}`}
@@ -350,7 +350,7 @@ export default function Home() {
                         {tour.bookingUrl && (
                           <button 
                             onClick={() => {
-                              openIframe(tour.bookingUrl, `Booking - ${tour.name}`);
+                              openIframe(tour.bookingUrl, tour.name);
                             }}
                             className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
                             data-testid={`button-book-now-${tour.id}`}

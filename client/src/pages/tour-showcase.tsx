@@ -78,14 +78,13 @@ export default function TourShowcase() {
 
   const handleBookNow = () => {
     if (tour?.bookingUrl) {
-      // Toujours ouvrir la réservation en iframe sur amon-tour.com
-      openIframe(tour.bookingUrl, `Booking - ${tour.name}`);
+      openIframe(tour.bookingUrl, tour.name);
     }
   };
 
   const handleViewDetails = () => {
     if (tour?.detailsUrl) {
-      openIframe(tour.detailsUrl, `Details - ${tour.name}`);
+      openIframe(tour.detailsUrl, tour.name);
     }
   };
 
