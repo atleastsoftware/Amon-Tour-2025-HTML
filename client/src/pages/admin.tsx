@@ -92,21 +92,22 @@ export default function Admin() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="flex justify-between items-center mb-8">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
               <div>
-                <h1 className="text-3xl font-heading font-bold text-gray-900">{dashboard?.title || "Administration"}</h1>
-                <p className="text-gray-600 mt-2">{dashboard?.subtitle || "Centralized management dashboard"}</p>
+                <h1 className="text-2xl sm:text-3xl font-heading font-bold text-gray-900">{dashboard?.title || "Administration"}</h1>
+                <p className="text-sm sm:text-base text-gray-600 mt-1 sm:mt-2">{dashboard?.subtitle || "Centralized management dashboard"}</p>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                 <Button 
                   variant="outline" 
                   onClick={() => setLocation('/admin-appearance')} 
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2 text-sm sm:text-base"
                 >
                   <Palette className="h-4 w-4" />
-                  {adminT?.appearance?.title || "Site Appearance"}
+                  <span className="hidden sm:inline">{adminT?.appearance?.title || "Site Appearance"}</span>
+                  <span className="sm:hidden">{adminT?.appearance?.shortTitle || "Apparence"}</span>
                 </Button>
-                <Button variant="outline" onClick={handleLogout} className="flex items-center gap-2">
+                <Button variant="outline" onClick={handleLogout} className="flex items-center gap-2 text-sm sm:text-base">
                   <LogOut className="h-4 w-4" />
                   {dashboard?.logout || "Logout"}
                 </Button>

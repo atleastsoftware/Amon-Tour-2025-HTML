@@ -117,22 +117,22 @@ export default function AdminTranslation() {
             transition={{ duration: 0.5 }}
           >
             {/* Header with back button and global save */}
-            <div className="flex items-center justify-between mb-8">
-              <div className="flex items-center gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                 <Button
                   variant="outline"
                   onClick={() => setLocation('/admin')}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2 w-fit"
                   data-testid="button-back-to-admin"
                 >
                   <ArrowLeft className="h-4 w-4" />
                   {common?.back || "Back"}
                 </Button>
                 <div>
-                  <h1 className="text-3xl font-heading font-bold text-foreground">
+                  <h1 className="text-xl sm:text-3xl font-heading font-bold text-foreground">
                     {t?.title || "Translation Management"}
                   </h1>
-                  <p className="text-muted-foreground mt-2">
+                  <p className="text-sm sm:text-base text-muted-foreground mt-1 sm:mt-2">
                     {t?.description || "Manage translations for content blocks, global elements and forms"}
                   </p>
                 </div>
@@ -143,7 +143,7 @@ export default function AdminTranslation() {
                 onClick={handleGlobalSave}
                 disabled={!hasPendingChanges || isSaving}
                 size="lg"
-                className={`flex items-center gap-2 ${hasPendingChanges ? 'bg-primary hover:bg-primary/90' : 'bg-muted text-muted-foreground'}`}
+                className={`flex items-center gap-2 w-full sm:w-auto ${hasPendingChanges ? 'bg-primary hover:bg-primary/90' : 'bg-muted text-muted-foreground'}`}
                 data-testid="button-global-save-all"
               >
                 <Save className="h-5 w-5" />

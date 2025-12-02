@@ -263,17 +263,17 @@ export default function AdminBlogNew() {
       <div className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
               <Link href="/admin">
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="w-fit">
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   {common?.backToAdmin || "Back to Admin"}
                 </Button>
               </Link>
-              <h1 className="text-3xl font-bold text-gray-900">{t?.title || "Blog Management"}</h1>
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">{t?.title || "Blog Management"}</h1>
             </div>
-            <Button onClick={() => setIsCreateDialogOpen(true)}>
+            <Button onClick={() => setIsCreateDialogOpen(true)} className="w-full sm:w-auto">
               <Plus className="h-4 w-4 mr-2" />
               {t?.createPost || "Create Post"}
             </Button>
@@ -292,15 +292,16 @@ export default function AdminBlogNew() {
                   {t?.noPosts || "No posts found. Create your first post!"}
                 </div>
               ) : (
+                <div className="overflow-x-auto">
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>{t?.postTitle || "Title"}</TableHead>
-                      <TableHead>{common?.status || "Status"}</TableHead>
-                      <TableHead>{t?.author || "Author"}</TableHead>
-                      <TableHead>{t?.category || "Category"}</TableHead>
-                      <TableHead>{t?.created || "Created"}</TableHead>
-                      <TableHead>{common?.actions || "Actions"}</TableHead>
+                      <TableHead className="min-w-[200px]">{t?.postTitle || "Title"}</TableHead>
+                      <TableHead className="min-w-[80px]">{common?.status || "Status"}</TableHead>
+                      <TableHead className="min-w-[100px] hidden sm:table-cell">{t?.author || "Author"}</TableHead>
+                      <TableHead className="min-w-[120px] hidden md:table-cell">{t?.category || "Category"}</TableHead>
+                      <TableHead className="min-w-[100px] hidden lg:table-cell">{t?.created || "Created"}</TableHead>
+                      <TableHead className="min-w-[80px]">{common?.actions || "Actions"}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -316,9 +317,9 @@ export default function AdminBlogNew() {
                             {post.status === 'published' ? (t?.published || 'Published') : (t?.draft || 'Draft')}
                           </span>
                         </TableCell>
-                        <TableCell>{post.authorName}</TableCell>
-                        <TableCell>{post.category?.name || (t?.noCategory || "No category")}</TableCell>
-                        <TableCell>{new Date(post.createdAt).toLocaleDateString()}</TableCell>
+                        <TableCell className="hidden sm:table-cell">{post.authorName}</TableCell>
+                        <TableCell className="hidden md:table-cell">{post.category?.name || (t?.noCategory || "No category")}</TableCell>
+                        <TableCell className="hidden lg:table-cell">{new Date(post.createdAt).toLocaleDateString()}</TableCell>
                         <TableCell>
                           <div className="flex gap-2">
                             <Button
@@ -342,6 +343,7 @@ export default function AdminBlogNew() {
                     ))}
                   </TableBody>
                 </Table>
+                </div>
               )}
             </CardContent>
           </Card>
