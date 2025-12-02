@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useLogin, useIsAuthenticated } from "@/lib/auth";
-import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,13 +9,11 @@ import { motion } from "framer-motion";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { useTranslation } from "@/contexts/TranslationContext";
-import { queryClient } from "@/lib/queryClient";
 
 export default function AdminLogin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const login = useLogin();
-  const [, setLocation] = useLocation();
   const { toast } = useToast();
   const { translations } = useTranslation();
   const { isAuthenticated, isLoading: authLoading } = useIsAuthenticated();
@@ -27,9 +24,9 @@ export default function AdminLogin() {
 
   useEffect(() => {
     if (!authLoading && isAuthenticated) {
-      setLocation("/admin");
+      window.location.href = "/admin";
     }
-  }, [isAuthenticated, authLoading, setLocation]);
+  }, [isAuthenticated, authLoading]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,13 +42,11 @@ export default function AdminLogin() {
     
     try {
       await login.mutateAsync({ username, password });
-      await queryClient.invalidateQueries({ queryKey: ["/api/me"] });
-      await queryClient.refetchQueries({ queryKey: ["/api/me"] });
       toast({
         title: loginT?.success?.title || "Login successful",
         description: loginT?.success?.description || "Redirecting to dashboard...",
       });
-      setLocation("/admin");
+      window.location.href = "/admin";
     } catch (error) {
       toast({
         title: commonT?.error || "Error",
