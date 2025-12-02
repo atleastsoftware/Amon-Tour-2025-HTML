@@ -149,31 +149,31 @@ export default function AdminPartnershipRequests() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="flex items-center justify-between mb-8">
-              <div className="flex items-center gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
                 <Button 
                   variant="outline" 
                   onClick={() => setLocation("/admin")}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2 w-fit"
                   data-testid="button-back-to-admin"
                 >
                   <ArrowLeft className="h-4 w-4" />
                   {admin.common?.back || "Back"}
                 </Button>
                 <div className="flex items-center gap-3">
-                  <Handshake className="h-8 w-8 text-primary" />
+                  <Handshake className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
                   <div>
-                    <h1 className="text-3xl font-heading text-gray-900" data-testid="text-page-title">
+                    <h1 className="text-xl sm:text-3xl font-heading text-gray-900" data-testid="text-page-title">
                       {admin.partnershipRequests?.title || "Partnership Requests"}
                     </h1>
-                    <p className="text-gray-600" data-testid="text-page-subtitle">
+                    <p className="text-sm sm:text-base text-gray-600" data-testid="text-page-subtitle">
                       {admin.partnershipRequests?.subtitle || "Collaboration proposals"}
                     </p>
                   </div>
                 </div>
               </div>
               
-              <div className="flex items-center gap-4">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-4">
                 {unreadCount > 0 && (
                   <Badge variant="destructive" className="flex items-center gap-1" data-testid="badge-unread-count">
                     {(admin.partnershipRequests?.unreadBadge || "{count} new").replace('{count}', String(unreadCount))}
@@ -182,7 +182,7 @@ export default function AdminPartnershipRequests() {
                 <Button
                   variant={showUnreadOnly ? "default" : "outline"}
                   onClick={() => setShowUnreadOnly(!showUnreadOnly)}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2 w-full sm:w-auto"
                   data-testid="button-toggle-unread"
                 >
                   {showUnreadOnly 

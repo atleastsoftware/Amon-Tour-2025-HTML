@@ -123,20 +123,20 @@ export default function TourCardBuilder() {
     <>
       <Header />
       <div className="container mx-auto p-4 pt-20 pb-16">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
-          <div className="flex items-center gap-4">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
             <Link href="/admin">
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" className="w-fit">
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 {common?.backToAdmin || "Back to Admin"}
               </Button>
             </Link>
             <div>
-              <h1 className="text-3xl font-heading font-bold">{t?.title || "Tour Card Builder"}</h1>
-              <p className="text-gray-600">{t?.description || "Easily create cards for your tours and stays"}</p>
+              <h1 className="text-xl sm:text-3xl font-heading font-bold">{t?.title || "Tour Card Builder"}</h1>
+              <p className="text-sm sm:text-base text-gray-600">{t?.description || "Easily create cards for your tours and stays"}</p>
             </div>
           </div>
-          <Button variant="outline" onClick={handleLogout}>{common?.logout || "Logout"}</Button>
+          <Button variant="outline" onClick={handleLogout} className="w-full sm:w-auto">{common?.logout || "Logout"}</Button>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

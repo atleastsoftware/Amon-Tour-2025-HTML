@@ -97,30 +97,30 @@ export default function AdminNewsletterPage() {
       
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-7xl mx-auto">
-          <div className="flex justify-between items-center mb-8">
-            <div className="flex items-center gap-4">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setLocation('/admin')}
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 w-fit"
               >
                 <ArrowLeft className="w-4 h-4" />
                 {common?.backToAdmin || "Back to Admin"}
               </Button>
               <div>
-                <h1 className="text-3xl font-bold text-gray-900">{t?.title || "Newsletter Management"}</h1>
-                <p className="text-gray-600 mt-2">{t?.description || "Manage newsletter subscriptions and export subscriber lists"}</p>
+                <h1 className="text-xl sm:text-3xl font-bold text-gray-900">{t?.title || "Newsletter Management"}</h1>
+                <p className="text-sm sm:text-base text-gray-600 mt-1 sm:mt-2">{t?.description || "Manage newsletter subscriptions and export subscriber lists"}</p>
               </div>
             </div>
-            <Button onClick={handleExport} className="flex items-center gap-2">
+            <Button onClick={handleExport} className="flex items-center gap-2 w-full sm:w-auto">
               <Download className="w-4 h-4" />
               {t?.exportCsv || "Export CSV"}
             </Button>
           </div>
 
           {/* Statistics Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-8">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">{t?.totalSubscribers || "Total Subscribers"}</CardTitle>

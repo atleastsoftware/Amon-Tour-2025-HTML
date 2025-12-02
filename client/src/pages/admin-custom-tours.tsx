@@ -249,19 +249,19 @@ export default function AdminCustomTours() {
       <div className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
               <Link href="/admin">
-                <Button variant="outline" size="sm" data-testid="button-back-to-admin">
+                <Button variant="outline" size="sm" data-testid="button-back-to-admin" className="w-fit">
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   {admin.customTours?.backToAdmin || "Back to Admin"}
                 </Button>
               </Link>
-              <h1 className="text-3xl font-bold text-gray-900">
+              <h1 className="text-xl sm:text-3xl font-bold text-gray-900">
                 {admin.customTours?.title || "Custom Tour Requests"}
               </h1>
             </div>
-            <Button onClick={handleExport} data-testid="button-export-csv">
+            <Button onClick={handleExport} data-testid="button-export-csv" className="w-full sm:w-auto">
               <Download className="h-4 w-4 mr-2" />
               {admin.customTours?.exportCSV || "Export CSV"}
             </Button>

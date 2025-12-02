@@ -378,17 +378,17 @@ export default function AdminTourNinjaImages() {
   }
 
   return (
-    <div className="p-6 space-y-6">
-      <div className="flex justify-between items-center">
+    <div className="p-4 sm:p-6 space-y-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">{t?.title || "Tour Ninja Images Management"}</h1>
-          <p className="text-gray-600 mt-1">
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">{t?.title || "Tour Ninja Images Management"}</h1>
+          <p className="text-sm sm:text-base text-gray-600 mt-1">
             {t?.description || "Replace Tour Ninja images with your own custom images"}
           </p>
         </div>
         <Dialog open={showNewDialog} onOpenChange={setShowNewDialog}>
           <DialogTrigger asChild>
-            <Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary shadow-lg">
+            <Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary shadow-lg w-full sm:w-auto">
               <Sparkles className="w-4 h-4 mr-2" />
               {t?.addCustomImage || "Add Custom Image"}
             </Button>
