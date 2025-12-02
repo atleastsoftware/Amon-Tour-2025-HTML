@@ -2890,17 +2890,26 @@
     "formTranslationEditor": {
       "title": "Éditeur de Traductions des Formulaires",
       "description": "Gérer les traductions pour les formulaires personnalisés",
+      "loading": "Chargement des formulaires...",
       "tabs": {
-        "french": "Français",
-        "spanish": "Espagnol"
+        "french": "🇫🇷 Français",
+        "spanish": "🇪🇸 Espagnol"
       },
       "buttons": {
         "regenerate": "Régénérer les traductions",
-        "save": "Enregistrer les traductions"
+        "save": "Enregistrer les traductions",
+        "saving": "Enregistrement...",
+        "translating": "Traduction en cours..."
       },
       "badges": {
         "autoTranslated": "Traduit automatiquement",
-        "manuallyEdited": "Modifié manuellement"
+        "manuallyEdited": "Modifié manuellement",
+        "manuallyTranslated": "Traduit manuellement",
+        "issue": "Problème"
+      },
+      "placeholders": {
+        "french": "Traduction en français...",
+        "spanish": "Traduction en espagnol..."
       },
       "fieldNames": {
         "formName": "Nom du formulaire",
@@ -2908,8 +2917,8 @@
         "submitButton": "Bouton de soumission",
         "successMessage": "Message de succès",
         "errorMessage": "Message d'erreur",
-        "fieldLabel": "Libellé du champ {number}",
-        "fieldPlaceholder": "Placeholder du champ {number}"
+        "fieldLabel": "Libellé du champ {{number}}",
+        "fieldPlaceholder": "Placeholder du champ {{number}}"
       },
       "noForms": "Aucun formulaire trouvé",
       "selectForm": "Sélectionnez un formulaire pour modifier les traductions",

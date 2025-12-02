@@ -3037,17 +3037,26 @@
     "formTranslationEditor": {
       "title": "Form Translation Editor",
       "description": "Manage translations for custom forms",
+      "loading": "Loading forms...",
       "tabs": {
-        "french": "French",
-        "spanish": "Spanish"
+        "french": "🇫🇷 French",
+        "spanish": "🇪🇸 Spanish"
       },
       "buttons": {
         "regenerate": "Regenerate Translations",
-        "save": "Save Translations"
+        "save": "Save Translations",
+        "saving": "Saving...",
+        "translating": "Translating..."
       },
       "badges": {
         "autoTranslated": "Auto-translated",
-        "manuallyEdited": "Manually edited"
+        "manuallyEdited": "Manually edited",
+        "manuallyTranslated": "Manually translated",
+        "issue": "Issue"
+      },
+      "placeholders": {
+        "french": "French translation...",
+        "spanish": "Spanish translation..."
       },
       "fieldNames": {
         "formName": "Form Name",
@@ -3055,8 +3064,8 @@
         "submitButton": "Submit Button",
         "successMessage": "Success Message",
         "errorMessage": "Error Message",
-        "fieldLabel": "Field {number} Label",
-        "fieldPlaceholder": "Field {number} Placeholder"
+        "fieldLabel": "Field {{number}} Label",
+        "fieldPlaceholder": "Field {{number}} Placeholder"
       },
       "noForms": "No forms found",
       "selectForm": "Select a form to edit translations",
