@@ -13,6 +13,7 @@ import { useTranslation } from "@/contexts/TranslationContext";
 export default function AdminLogin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [isRedirecting, setIsRedirecting] = useState(false);
   const login = useLogin();
   const { toast } = useToast();
   const { translations } = useTranslation();
@@ -24,6 +25,7 @@ export default function AdminLogin() {
 
   useEffect(() => {
     if (!authLoading && isAuthenticated) {
+      setIsRedirecting(true);
       window.location.href = "/admin";
     }
   }, [isAuthenticated, authLoading]);
@@ -42,6 +44,7 @@ export default function AdminLogin() {
     
     try {
       await login.mutateAsync({ username, password });
+      setIsRedirecting(true);
       toast({
         title: loginT?.success?.title || "Login successful",
         description: loginT?.success?.description || "Redirecting to dashboard...",
@@ -55,6 +58,26 @@ export default function AdminLogin() {
       });
     }
   };
+
+  if (isRedirecting || (isAuthenticated && !authLoading)) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-white">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="text-center"
+        >
+          <div className="relative w-16 h-16 mx-auto mb-4">
+            <div className="absolute inset-0 rounded-full border-4 border-blue-200"></div>
+            <div className="absolute inset-0 rounded-full border-4 border-blue-600 border-t-transparent animate-spin"></div>
+          </div>
+          <p className="text-lg font-medium text-gray-700">
+            {loginT?.redirecting || "Redirecting to dashboard..."}
+          </p>
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
     <>

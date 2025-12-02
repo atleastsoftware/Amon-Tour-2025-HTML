@@ -1264,6 +1264,7 @@
       "password": "Password",
       "loginButton": "Log in",
       "footer": "Access reserved for administrators only",
+      "redirecting": "Redirecting to dashboard...",
       "success": {
         "title": "Login successful",
         "description": "Redirecting to dashboard..."

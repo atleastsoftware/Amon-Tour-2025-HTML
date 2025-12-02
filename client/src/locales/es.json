@@ -513,6 +513,7 @@
       "password": "Contraseña",
       "loginButton": "Iniciar sesión",
       "footer": "Acceso reservado solo para administradores",
+      "redirecting": "Redirigiendo al panel de control...",
       "success": {
         "title": "Inicio de sesión exitoso",
         "description": "Redirigiendo al panel de control..."

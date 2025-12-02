@@ -513,6 +513,7 @@
       "password": "Mot de passe",
       "loginButton": "Se connecter",
       "footer": "Accès réservé aux administrateurs uniquement",
+      "redirecting": "Redirection vers le tableau de bord...",
       "success": {
         "title": "Connexion réussie",
         "description": "Redirection vers le tableau de bord..."
