@@ -1,20 +1,31 @@
 import { useEffect } from "react";
 import { useLocation, useSearch } from "wouter";
 import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import logoAmon from "@/assets/logo-amon.png";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function TourNinjaIframe() {
   const [, setLocation] = useLocation();
   const searchString = useSearch();
+  const { translations } = useTranslation();
+  
+  const t = translations.tourNinjaIframe || {};
+  const common = translations.common || {};
   
   // Parse URL parameters
   const urlParams = new URLSearchParams(searchString);
   const iframeUrl = urlParams.get('url');
-  const title = urlParams.get('title') || 'Tour Details';
+  const titleParam = urlParams.get('title') || 'Tour Details';
+  const titleType = urlParams.get('type') || 'presentation';
   const returnUrl = urlParams.get('return') || '/experiences';
+  
+  // Get translated title prefix based on type
+  const titlePrefix = titleType === 'booking' 
+    ? (t.booking || 'Booking') 
+    : (t.presentation || 'Presentation');
+  const title = `${titlePrefix} - ${titleParam}`;
   
   // Redirect if no URL provided
   useEffect(() => {
@@ -23,9 +34,13 @@ export default function TourNinjaIframe() {
     }
   }, [iframeUrl, returnUrl, setLocation]);
   
-  // Scroll to top on mount
+  // Scroll to top and hide body scroll to prevent double scrollbar
   useEffect(() => {
     window.scrollTo(0, 0);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, []);
   
   if (!iframeUrl) return null;
@@ -56,26 +71,24 @@ export default function TourNinjaIframe() {
                 className="hover:bg-gray-100"
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Back
+                {common.back || 'Back'}
               </Button>
             </div>
           </div>
         </div>
         
-        {/* Iframe Container */}
-        <div className="container mx-auto px-0">
+        {/* Iframe Container - Full height without footer to avoid double scrollbar */}
+        <div className="w-full">
           <iframe
             src={iframeUrl}
             className="w-full border-0"
-            style={{ height: 'calc(100vh - 200px)', minHeight: '600px' }}
+            style={{ height: 'calc(100vh - 160px)', minHeight: '500px' }}
             title={title}
             loading="lazy"
             sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
           />
         </div>
       </div>
-      
-      <Footer />
     </>
   );
 }

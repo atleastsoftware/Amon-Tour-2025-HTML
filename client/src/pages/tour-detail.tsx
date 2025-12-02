@@ -68,7 +68,7 @@ export default function TourDetail() {
 
   const handleBookNow = () => {
     if (tour?.bookingUrl) {
-      openIframe(tour.bookingUrl, `${t.booking || 'Booking'} - ${tour.name}`);
+      openIframe(tour.bookingUrl, tour.name);
     }
   };
 

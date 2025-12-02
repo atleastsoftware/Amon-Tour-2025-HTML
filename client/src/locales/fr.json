@@ -59,6 +59,10 @@
     "minGuests": "Minimum",
     "moreDetails": "Plus de détails sur Tour Ninja"
   },
+  "tourNinjaIframe": {
+    "presentation": "Présentation",
+    "booking": "Réservation"
+  },
   "home": {
     "introTitle": "Quand des expatriés vous accueillent dans leur pays d'adoption",
     "introDescription": "Depuis 2013, notre agence de voyage familiale crée des activités exclusives autour de Krabi et conçoit des voyages sur mesure dans toute la Thaïlande. Nous visons à offrir des expériences de voyage immersives, loin du tourisme de masse, avec un service personnalisé pour chaque voyageur — en vous accueillant comme faisant partie de notre famille ou de nos amis proches.",

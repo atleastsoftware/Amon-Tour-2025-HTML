@@ -26,11 +26,16 @@ export function IframeProvider({ children }: { children: ReactNode }) {
       return;
     }
     
+    // Determine iframe type based on URL content
+    const isBooking = url.includes('book') || url.includes('checkout') || url.includes('reserve');
+    const iframeType = isBooking ? 'booking' : 'presentation';
+    
     // For booking and other URLs, use the iframe page
     const currentPath = location;
     const params = new URLSearchParams({
       url: url,
       title: title,
+      type: iframeType,
       return: currentPath
     });
     setLocation(`/tour-ninja-iframe?${params.toString()}`);

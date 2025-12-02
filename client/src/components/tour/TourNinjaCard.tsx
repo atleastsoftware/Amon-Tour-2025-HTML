@@ -51,11 +51,11 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
   // Gestionnaire de clic sur la carte
   const handleCardClick = () => {
     if (tour.presentationUrl) {
-      openIframe(tour.presentationUrl, `Presentation - ${tour.name}`);
+      openIframe(tour.presentationUrl, tour.name);
     } else if (tour.detailsUrl) {
-      openIframe(tour.detailsUrl, `Details - ${tour.name}`);
+      openIframe(tour.detailsUrl, tour.name);
     } else if (tour.bookingUrl) {
-      openIframe(tour.bookingUrl, `Booking - ${tour.name}`);
+      openIframe(tour.bookingUrl, tour.name);
     }
   };
 
@@ -151,7 +151,7 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
               onClick={(e) => {
                 e.stopPropagation();
                 if (tour.presentationUrl) {
-                  openIframe(tour.presentationUrl, `Presentation - ${tour.name}`);
+                  openIframe(tour.presentationUrl, tour.name);
                 }
               }}
             >
@@ -188,7 +188,7 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
                   onClick={(e) => {
                     e.stopPropagation();
                     if (tour.detailsUrl) {
-                      openIframe(tour.detailsUrl, `Details - ${tour.name}`);
+                      openIframe(tour.detailsUrl, tour.name);
                     }
                   }}
                   className="flex-1 bg-primary text-white py-2 px-4 rounded-md font-medium text-sm hover:bg-primary-dark transition-colors flex items-center justify-center"
@@ -204,7 +204,7 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
                   onClick={(e) => {
                     e.stopPropagation();
                     if (tour.bookingUrl) {
-                      openIframe(tour.bookingUrl, `Booking - ${tour.name}`);
+                      openIframe(tour.bookingUrl, tour.name);
                     }
                   }}
                   className="flex-1 bg-secondary text-white py-2 px-4 rounded-md font-medium text-sm hover:bg-secondary-dark transition-colors flex items-center justify-center"
