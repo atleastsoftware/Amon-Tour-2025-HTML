@@ -3070,8 +3070,17 @@
       }
     },
     "globalElementTranslationEditor": {
-      "title": "Global Elements Translation Editor",
-      "description": "Manage translations for navigation, footer, and announcement elements",
+      "title": "Global Elements Translations",
+      "description": "Manage translations for your site's global elements",
+      "loading": "Loading...",
+      "placeholders": {
+        "french": "French translation",
+        "spanish": "Spanish translation"
+      },
+      "emptyStates": {
+        "popupNotConfigured": "Popup not configured",
+        "popupNotConfiguredDescription": "Enable the popup in the panel to manage its translations"
+      },
       "buttons": {
         "footer": "Footer",
         "navigation": "Navigation",

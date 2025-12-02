@@ -3048,8 +3048,17 @@
       }
     },
     "globalElementTranslationEditor": {
-      "title": "Editor de Traducciones de Elementos Globales",
-      "description": "Gestionar traducciones para navegación, pie de página y elementos de anuncios",
+      "title": "Traducciones de elementos globales",
+      "description": "Gestione las traducciones de los elementos globales de su sitio",
+      "loading": "Cargando...",
+      "placeholders": {
+        "french": "Traducción francesa",
+        "spanish": "Traducción española"
+      },
+      "emptyStates": {
+        "popupNotConfigured": "Pop-up no configurado",
+        "popupNotConfiguredDescription": "Active el pop-up en el panel para gestionar sus traducciones"
+      },
       "buttons": {
         "footer": "Pie de página",
         "navigation": "Navegación",
