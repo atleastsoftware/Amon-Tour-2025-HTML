@@ -573,6 +573,178 @@ export default function BlockSelectionPopup({ isOpen, onClose, onSelect }: Block
     return blockTypesTranslations?.[key] || blockType.description;
   };
 
+  const p = (t?.previewContent || {}) as Record<string, string>;
+  
+  const getTranslatedPreview = (blockType: string): JSX.Element | null => {
+    switch (blockType) {
+      case 'hero':
+        return (
+          <div className="w-full bg-white rounded-lg overflow-hidden border">
+            <div className="relative h-48 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF]">
+              <div className="absolute inset-0 bg-black/40"></div>
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
+                <h1 className="text-lg font-bold mb-1 text-center">{p.mainTitle || 'Main Title'}</h1>
+                <p className="text-xs opacity-90 mb-2 text-center">{p.subtitle || 'Subtitle'}</p>
+                <div className="flex gap-2">
+                  <div className="px-3 py-1 bg-white text-[#084F6E] rounded text-xs font-semibold">{p.button1 || 'Button 1'}</div>
+                  <div className="px-3 py-1 border border-white rounded text-xs font-semibold">{p.button2 || 'Button 2'}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      case 'header_page':
+        return (
+          <div className="w-full bg-white rounded-lg overflow-hidden border">
+            <div className="relative h-32 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF]">
+              <div className="absolute inset-0 bg-black/40"></div>
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-3">
+                <h1 className="text-base font-bold mb-0.5 text-center">{p.pageTitle || 'Page Title'}</h1>
+                <p className="text-xs opacity-90 text-center">{p.subtitle || 'Subtitle'}</p>
+              </div>
+            </div>
+          </div>
+        );
+      case 'text':
+        return (
+          <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
+            <div className="text-center max-w-4xl mx-auto">
+              <h2 className="font-bold text-lg mb-2" style={{ color: '#333333' }}>{p.sectionTitle || 'Section Title'}</h2>
+              <div className="w-16 h-0.5 mx-auto mb-3" style={{ backgroundColor: '#3BA8AF' }}></div>
+              <p className="text-sm leading-relaxed mb-3" style={{ color: '#666666' }}>{p.textSectionContent || 'Add your text section content here.'}</p>
+              <div className="flex gap-2 justify-center">
+                <div className="px-3 py-1 bg-[#084F6E] text-white rounded text-xs">{p.button1 || 'Button 1'}</div>
+                <div className="px-3 py-1 border border-[#084F6E] text-[#084F6E] rounded text-xs">{p.button2 || 'Button 2'}</div>
+              </div>
+            </div>
+          </div>
+        );
+      case 'popular_experiences':
+        return (
+          <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
+            <div className="text-center mb-4">
+              <h2 className="font-bold text-lg mb-2" style={{ color: '#333333' }}>{p.sectionTitle || 'Section Title'}</h2>
+              <div className="w-16 h-0.5 mx-auto mb-3" style={{ backgroundColor: '#3BA8AF' }}></div>
+              <p className="text-xs leading-relaxed" style={{ color: '#666666' }}>{p.cardGridDurationDesc || 'Description for your card grid with duration badges.'}</p>
+            </div>
+            <div className="grid grid-cols-3 gap-2">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="bg-white border rounded-lg overflow-hidden">
+                  <div className="h-16 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF] relative">
+                    <div className="absolute top-1 right-1 bg-white px-1.5 py-0.5 rounded text-xs">1 {p.day || 'day'}</div>
+                  </div>
+                  <div className="p-2 bg-white">
+                    <div className="text-xs font-semibold">{p.tourName || 'Tour Name'}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      case 'tour_ninja_section':
+        return (
+          <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
+            <div className="text-center mb-4">
+              <h2 className="font-bold text-lg mb-2" style={{ color: '#333333' }}>{p.sectionTitle || 'Section Title'}</h2>
+              <div className="w-16 h-0.5 mx-auto mb-3" style={{ backgroundColor: '#3BA8AF' }}></div>
+              <p className="text-xs leading-relaxed" style={{ color: '#666666' }}>{p.cardGridPriceDesc || 'Description for your card grid with prices.'}</p>
+            </div>
+            <div className="grid grid-cols-3 gap-2">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="bg-white border rounded-lg overflow-hidden">
+                  <div className="h-16 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF] relative">
+                    <div className="absolute top-1 right-1 bg-white px-1.5 py-0.5 rounded text-xs">{p.price || 'Price'}</div>
+                  </div>
+                  <div className="p-2 bg-white">
+                    <div className="text-xs font-semibold">{p.tourName || 'Tour Name'}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      case 'custom_tour_form':
+        return (
+          <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
+            <div className="text-center mb-4">
+              <h2 className="font-bold text-lg mb-2" style={{ color: '#333333' }}>{p.formTitle || 'Form Title'}</h2>
+              <div className="w-16 h-0.5 mx-auto mb-3" style={{ backgroundColor: '#3BA8AF' }}></div>
+              <p className="text-xs leading-relaxed" style={{ color: '#666666' }}>{p.formDescription || 'Description for your customizable form.'}</p>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="bg-gradient-to-r from-[#084F6E] to-[#3BA8AF] rounded h-20"></div>
+              <div className="space-y-2">
+                <div className="h-6 bg-gray-100 rounded"></div>
+                <div className="h-6 bg-gray-100 rounded"></div>
+              </div>
+            </div>
+          </div>
+        );
+      case 'why_choose_us':
+        return (
+          <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
+            <div className="text-center mb-4">
+              <h2 className="font-bold text-lg mb-2" style={{ color: '#333333' }}>{p.sectionTitle || 'Section Title'}</h2>
+              <div className="w-16 h-0.5 mx-auto mb-3" style={{ backgroundColor: '#3BA8AF' }}></div>
+              <p className="text-xs leading-relaxed" style={{ color: '#666666' }}>{p.iconSectionDesc || 'Description for your icon section.'}</p>
+            </div>
+            <div className="grid grid-cols-3 gap-3">
+              {[{ color: '#084F6E' }, { color: '#3BA8AF' }, { color: '#084F6E' }].map((item, i) => (
+                <div key={i} className="text-center border rounded-lg p-3 bg-white">
+                  <div className="w-10 h-10 rounded-full mx-auto mb-2 flex items-center justify-center" style={{ backgroundColor: item.color }}>
+                    <i className="fas fa-star text-white text-sm"></i>
+                  </div>
+                  <div className="text-xs font-semibold mb-1">{p.title || 'Title'}</div>
+                  <div className="text-xs text-gray-500">{p.description || 'Description'}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      case 'who_we_are':
+        return (
+          <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="flex flex-col">
+                <h2 className="font-bold text-base mb-2" style={{ color: '#333333' }}>{p.mainTitle || 'Main Title'}</h2>
+                <div className="w-12 h-0.5 mb-3" style={{ backgroundColor: '#3BA8AF' }}></div>
+                <p className="text-xs leading-relaxed mb-3" style={{ color: '#666666' }}>{p.addTextContent || 'Add your main text content here.'}</p>
+                <h3 className="font-bold text-sm mb-1" style={{ color: '#333333' }}>{p.subtitle || 'Subtitle'}</h3>
+                <p className="text-xs leading-relaxed mb-3" style={{ color: '#666666' }}>{p.additionalDescription || 'Additional description for your section.'}</p>
+                <div className="flex gap-2 mt-auto">
+                  <div className="px-3 py-1 rounded text-xs font-semibold" style={{ backgroundColor: '#084F6E', color: '#ffffff' }}>{p.button1 || 'Button 1'}</div>
+                  <div className="px-3 py-1 rounded text-xs font-semibold border-2" style={{ borderColor: '#084F6E', color: '#084F6E' }}>{p.button2 || 'Button 2'} →</div>
+                </div>
+              </div>
+              <div className="bg-gradient-to-br from-[#084F6E] to-[#3BA8AF] rounded h-full min-h-[180px]"></div>
+            </div>
+          </div>
+        );
+      case 'contact':
+        return (
+          <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
+            <div className="text-center mb-4">
+              <h2 className="font-bold text-lg mb-2" style={{ color: '#333333' }}>{p.contactTitle || 'Contact Information'}</h2>
+              <div className="w-16 h-0.5 mx-auto mb-3" style={{ backgroundColor: '#3BA8AF' }}></div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              {[{ label: p.phone || 'Phone' }, { label: p.whatsapp || 'WhatsApp' }].map((item, i) => (
+                <div key={i} className="flex items-center gap-2 p-3 border rounded-lg">
+                  <div className="w-8 h-8 rounded-full bg-[#084F6E] flex items-center justify-center text-white text-sm">
+                    <i className="fas fa-phone"></i>
+                  </div>
+                  <div className="text-xs font-semibold">{item.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      default:
+        const foundBlock = blockTypes.find(b => b.type === blockType);
+        return foundBlock ? foundBlock.preview : null;
+    }
+  };
+
   const sortedBlockTypes = [...blockTypes].sort((a, b) => getBlockLabel(a).localeCompare(getBlockLabel(b)));
   
   const selectedBlock = sortedBlockTypes.find(b => b.type === selectedType);
@@ -609,9 +781,9 @@ export default function BlockSelectionPopup({ isOpen, onClose, onSelect }: Block
           {/* Preview */}
           <div className="flex-1 border rounded-lg p-4 bg-gray-50 overflow-auto">
             <h3 className="text-sm font-semibold mb-3 text-gray-700">{t?.blockSelection?.preview || "Preview"}</h3>
-            {selectedBlock ? (
+            {selectedType ? (
               <div className="bg-white rounded-lg p-4 shadow-sm">
-                {selectedBlock.preview}
+                {getTranslatedPreview(selectedType)}
               </div>
             ) : (
               <div className="flex items-center justify-center h-full text-gray-400">
