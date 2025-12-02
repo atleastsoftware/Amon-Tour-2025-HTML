@@ -21,26 +21,17 @@ interface RichTextEditorProps {
 
 function RichTextEditor({ value, onChange, placeholder, testId }: RichTextEditorProps) {
   const editorRef = useRef<HTMLDivElement>(null);
-  const [isInitialized, setIsInitialized] = useState(false);
+  const lastValueRef = useRef<string>(value || '');
+  const isUserEditingRef = useRef(false);
 
   useEffect(() => {
-    if (editorRef.current && !isInitialized) {
-      editorRef.current.innerHTML = value || '';
-      setIsInitialized(true);
-    }
-  }, [value, isInitialized]);
-
-  useEffect(() => {
-    if (editorRef.current && isInitialized && editorRef.current.innerHTML !== value) {
-      const selection = window.getSelection();
-      const range = selection?.rangeCount ? selection.getRangeAt(0) : null;
-      editorRef.current.innerHTML = value || '';
-      if (range && editorRef.current.contains(range.startContainer)) {
-        selection?.removeAllRanges();
-        selection?.addRange(range);
+    if (editorRef.current && !isUserEditingRef.current) {
+      if (editorRef.current.innerHTML !== value) {
+        editorRef.current.innerHTML = value || '';
+        lastValueRef.current = value || '';
       }
     }
-  }, [value, isInitialized]);
+  }, [value]);
 
   const formatText = (command: string, value?: string) => {
     document.execCommand(command, false, value);
@@ -65,7 +56,13 @@ function RichTextEditor({ value, onChange, placeholder, testId }: RichTextEditor
   };
 
   const handleContentChange = (e: React.FormEvent<HTMLDivElement>) => {
-    onChange(e.currentTarget.innerHTML);
+    isUserEditingRef.current = true;
+    const newValue = e.currentTarget.innerHTML;
+    lastValueRef.current = newValue;
+    onChange(newValue);
+    setTimeout(() => {
+      isUserEditingRef.current = false;
+    }, 100);
   };
 
   return (
@@ -514,7 +511,7 @@ const BlockTranslationEditor = forwardRef<TranslationEditorRef, BlockTranslation
                           getSortedFieldKeys(Object.keys(editedTranslations.en)).map((key) => {
                             const enValue = editedTranslations.en[key];
                             const translatedValue = editedTranslations[lang][key] || '';
-                            const isHtmlContent = selectedBlock?.blockType === 'text_section' && key === 'content';
+                            const isHtmlContent = selectedBlock?.blockType === 'text_section' && (key === 'content' || key === 'description');
                             const isLongText = !isHtmlContent && (enValue.length > 100 || enValue.includes('\n') || translatedValue.includes('\n'));
                             const isManuallyEdited = selectedBlock?.translationsMeta?.[lang]?.[key]?.isManuallyEdited === true;
 
