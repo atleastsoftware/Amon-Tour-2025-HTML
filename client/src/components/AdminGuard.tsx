@@ -1,6 +1,7 @@
 import { useEffect, ReactNode } from 'react';
 import { useLocation } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 interface AdminGuardProps {
   children: ReactNode;
@@ -8,37 +9,54 @@ interface AdminGuardProps {
 
 export function AdminGuard({ children }: AdminGuardProps) {
   const [, setLocation] = useLocation();
+  const { translations } = useTranslation();
+  
+  const adminT = translations?.admin || {};
+  const loginT = adminT?.login || {};
   
   const { data: user, isLoading, error } = useQuery({
     queryKey: ['/api/me'],
     retry: false,
-    staleTime: 5 * 60 * 1000, // Cache for 5 minutes
+    staleTime: 0,
   });
 
   useEffect(() => {
-    // If not authenticated, redirect to admin login
     if (error || (!isLoading && !user)) {
       setLocation('/admin-login');
     }
   }, [user, isLoading, error, setLocation]);
 
-  // Show loading while checking authentication
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-muted/30">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-white">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-secondary mx-auto mb-4"></div>
-          <p className="text-muted-foreground">Vérification de l'authentification...</p>
+          <div className="relative w-16 h-16 mx-auto mb-4">
+            <div className="absolute inset-0 rounded-full border-4 border-blue-200"></div>
+            <div className="absolute inset-0 rounded-full border-4 border-blue-600 border-t-transparent animate-spin"></div>
+          </div>
+          <p className="text-lg font-medium text-gray-700">
+            {loginT?.redirecting || "Loading dashboard..."}
+          </p>
         </div>
       </div>
     );
   }
 
-  // If not authenticated, don't render children (redirect will happen)
   if (!user) {
-    return null;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-white">
+        <div className="text-center">
+          <div className="relative w-16 h-16 mx-auto mb-4">
+            <div className="absolute inset-0 rounded-full border-4 border-blue-200"></div>
+            <div className="absolute inset-0 rounded-full border-4 border-blue-600 border-t-transparent animate-spin"></div>
+          </div>
+          <p className="text-lg font-medium text-gray-700">
+            {loginT?.redirecting || "Redirecting..."}
+          </p>
+        </div>
+      </div>
+    );
   }
 
-  // User is authenticated, render children
   return <>{children}</>;
 }
