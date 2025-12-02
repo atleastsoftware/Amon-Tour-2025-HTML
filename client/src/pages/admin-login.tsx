@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useLogin } from "@/lib/auth";
+import { useState, useEffect } from "react";
+import { useLogin, useIsAuthenticated } from "@/lib/auth";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { useTranslation } from "@/contexts/TranslationContext";
+import { queryClient } from "@/lib/queryClient";
 
 export default function AdminLogin() {
   const [username, setUsername] = useState("");
@@ -17,11 +18,18 @@ export default function AdminLogin() {
   const login = useLogin();
   const [, setLocation] = useLocation();
   const { toast } = useToast();
-  const { translations, currentLanguage } = useTranslation();
+  const { translations } = useTranslation();
+  const { isAuthenticated, isLoading: authLoading } = useIsAuthenticated();
   
   const adminT = translations?.admin || {};
   const loginT = adminT?.login || {};
   const commonT = adminT?.common || {};
+
+  useEffect(() => {
+    if (!authLoading && isAuthenticated) {
+      setLocation("/admin");
+    }
+  }, [isAuthenticated, authLoading, setLocation]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,13 +45,13 @@ export default function AdminLogin() {
     
     try {
       await login.mutateAsync({ username, password });
+      await queryClient.invalidateQueries({ queryKey: ["/api/me"] });
+      await queryClient.refetchQueries({ queryKey: ["/api/me"] });
       toast({
         title: loginT?.success?.title || "Login successful",
         description: loginT?.success?.description || "Redirecting to dashboard...",
       });
-      setTimeout(() => {
-        setLocation("/admin");
-      }, 1000);
+      setLocation("/admin");
     } catch (error) {
       toast({
         title: commonT?.error || "Error",
