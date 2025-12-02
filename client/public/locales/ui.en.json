@@ -1659,6 +1659,7 @@
       "noResults": "No results",
       "confirmDelete": "Confirm deletion",
       "deleteConfirmation": "Are you sure you want to delete this? This action cannot be undone.",
+      "deleteWarning": "This action cannot be undone.",
       "backToAdmin": "Back to Admin",
       "logout": "Logout",
       "login": "Log in"

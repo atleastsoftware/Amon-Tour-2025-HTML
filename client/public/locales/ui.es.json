@@ -1579,6 +1579,7 @@
       "creating": "Creando...",
       "confirmDelete": "Confirmar eliminación",
       "deleteConfirmation": "¿Estás seguro de que quieres eliminar esto? Esta acción no se puede deshacer.",
+      "deleteWarning": "Esta acción no se puede deshacer.",
       "backToAdmin": "Volver al Admin",
       "logout": "Cerrar sesión",
       "login": "Iniciar sesión"

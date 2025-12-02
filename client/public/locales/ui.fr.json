@@ -1669,6 +1669,7 @@
       "creating": "Création...",
       "confirmDelete": "Confirmer la suppression",
       "deleteConfirmation": "Êtes-vous sûr de vouloir supprimer ceci ? Cette action est irréversible.",
+      "deleteWarning": "Cette action est irréversible.",
       "backToAdmin": "Retour Admin",
       "logout": "Déconnexion",
       "login": "Se connecter"
