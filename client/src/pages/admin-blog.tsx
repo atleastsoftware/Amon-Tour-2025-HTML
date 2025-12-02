@@ -308,16 +308,16 @@ export default function AdminBlogNew() {
                       <TableRow key={post.id}>
                         <TableCell className="font-medium">{post.title}</TableCell>
                         <TableCell>
-                          <span className={`px-2 py-1 rounded-full text-xs ${
+                          <span className={`px-2 py-1 rounded-full text-xs whitespace-nowrap ${
                             post.status === 'published' 
                               ? 'bg-green-100 text-green-800' 
                               : 'bg-yellow-100 text-yellow-800'
                           }`}>
-                            {post.status}
+                            {post.status === 'published' ? (t?.published || 'Published') : (t?.draft || 'Draft')}
                           </span>
                         </TableCell>
                         <TableCell>{post.authorName}</TableCell>
-                        <TableCell>{post.category?.name || "No category"}</TableCell>
+                        <TableCell>{post.category?.name || (t?.noCategory || "No category")}</TableCell>
                         <TableCell>{new Date(post.createdAt).toLocaleDateString()}</TableCell>
                         <TableCell>
                           <div className="flex gap-2">
@@ -350,7 +350,7 @@ export default function AdminBlogNew() {
 
       {/* Create Dialog */}
       <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-2xl w-[95vw] max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{t?.createNewPost || "Create New Post"}</DialogTitle>
           </DialogHeader>
@@ -413,7 +413,7 @@ export default function AdminBlogNew() {
                 )}
               />
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <FormField
                   control={createForm.control}
                   name="status"
@@ -477,7 +477,7 @@ export default function AdminBlogNew() {
 
       {/* Edit Dialog */}
       <Dialog open={!!editingPost} onOpenChange={() => setEditingPost(null)}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-2xl w-[95vw] max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{t?.editPost || "Edit Post"}</DialogTitle>
           </DialogHeader>
@@ -540,7 +540,7 @@ export default function AdminBlogNew() {
                 )}
               />
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <FormField
                   control={editForm.control}
                   name="status"

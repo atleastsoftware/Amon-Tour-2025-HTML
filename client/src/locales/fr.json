@@ -1347,6 +1347,7 @@
       "selectStatus": "Sélectionner le statut",
       "draft": "Brouillon",
       "published": "Publié",
+      "noCategory": "Sans catégorie",
       "noPosts": "Aucun article trouvé. Créez votre premier article !",
       "postTitle": "Titre",
       "author": "Auteur",

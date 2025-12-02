@@ -1552,6 +1552,7 @@
       "selectStatus": "Seleccionar estado",
       "draft": "Borrador",
       "published": "Publicado",
+      "noCategory": "Sin categoría",
       "noPosts": "No se encontraron publicaciones. ¡Cree su primera publicación!",
       "postTitle": "Título",
       "author": "Autor",
