@@ -52,8 +52,22 @@ export default function SearchBarToursBlock({ block, configuration }: SearchBarT
     return `${duration} ${duration > 1 ? daysWord : dayWord}`;
   };
 
+  // Helper to translate location
+  const translateLocation = (location: string) => {
+    if (!location) return location;
+    let translated = location;
+    if (currentLanguage === 'fr') {
+      translated = translated.replace('Thailand', 'Thaïlande');
+    } else if (currentLanguage === 'es') {
+      translated = translated.replace('Thailand', 'Tailandia');
+    }
+    return translated;
+  };
+
   // Get common translations for filter labels
   const t = translations.common || {};
+  const toursT = translations.tours || {};
+  const tourDetailT = translations.tourDetail || {};
   
   // Configuration with translation - use camelCase keys to match server extraction
   const filtersTitle = blockTranslations.filtersTitle || configuration.filtersTitle || t.filters || 'Filters';
@@ -343,7 +357,7 @@ export default function SearchBarToursBlock({ block, configuration }: SearchBarT
                     
                     <div className="flex items-center text-sm text-gray-500 mb-4">
                       <MapPin className="h-4 w-4 mr-1" />
-                      {tour.location}
+                      {translateLocation(tour.location)}
                     </div>
                     
                     <div className="flex gap-2">
@@ -356,7 +370,7 @@ export default function SearchBarToursBlock({ block, configuration }: SearchBarT
                           color: cardsColor
                         }}
                       >
-                        View details
+                        {t.viewDetails || "View details"}
                         <ExternalLink className="h-4 w-4 ml-2" />
                       </Button>
                       <Button 
@@ -366,7 +380,7 @@ export default function SearchBarToursBlock({ block, configuration }: SearchBarT
                           backgroundColor: cardsColor
                         }}
                       >
-                        Book
+                        {t.bookNow || "Book"}
                         <ExternalLink className="h-4 w-4 ml-2" />
                       </Button>
                     </div>
@@ -377,7 +391,11 @@ export default function SearchBarToursBlock({ block, configuration }: SearchBarT
           </motion.div>
         ) : (
           <div className="text-center py-8">
-            <p className="text-gray-500">No tours available at the moment.</p>
+            <p className="text-gray-500">
+              {currentLanguage === 'fr' ? "Aucun tour disponible pour le moment." :
+               currentLanguage === 'es' ? "No hay tours disponibles en este momento." :
+               "No tours available at the moment."}
+            </p>
           </div>
         )}
       </div>
