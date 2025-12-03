@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useLocation, useSearch } from "wouter";
 import Header from "@/components/layout/Header";
 import { Button } from "@/components/ui/button";
@@ -6,20 +6,49 @@ import { ArrowLeft } from "lucide-react";
 import logoAmon from "@/assets/logo-amon.png";
 import { useTranslation } from "@/contexts/TranslationContext";
 
+// Helper function to update language in Tour Ninja URL
+function updateUrlLanguage(url: string, language: string): string {
+  if (!url.includes('tourninja.io')) {
+    return url;
+  }
+  
+  try {
+    const urlObj = new URL(url);
+    urlObj.searchParams.set('language', language);
+    urlObj.searchParams.set('lang', language);
+    return urlObj.toString();
+  } catch {
+    const separator = url.includes('?') ? '&' : '?';
+    return `${url}${separator}language=${language}&lang=${language}`;
+  }
+}
+
 export default function TourNinjaIframe() {
   const [, setLocation] = useLocation();
   const searchString = useSearch();
-  const { translations } = useTranslation();
+  const { translations, currentLanguage } = useTranslation();
+  const [iframeKey, setIframeKey] = useState(0);
   
   const t = translations.tourNinjaIframe || {};
   const common = translations.common || {};
   
   // Parse URL parameters
   const urlParams = new URLSearchParams(searchString);
-  const iframeUrl = urlParams.get('url');
+  const originalIframeUrl = urlParams.get('url');
   const titleParam = urlParams.get('title') || 'Tour Details';
   const titleType = urlParams.get('type') || 'presentation';
   const returnUrl = urlParams.get('return') || '/experiences';
+  
+  // Update iframe URL when language changes
+  const iframeUrl = useMemo(() => {
+    if (!originalIframeUrl) return null;
+    return updateUrlLanguage(originalIframeUrl, currentLanguage);
+  }, [originalIframeUrl, currentLanguage]);
+  
+  // Force iframe reload when language changes
+  useEffect(() => {
+    setIframeKey(prev => prev + 1);
+  }, [currentLanguage]);
   
   // Get translated title prefix based on type
   const titlePrefix = titleType === 'booking' 
@@ -29,10 +58,10 @@ export default function TourNinjaIframe() {
   
   // Redirect if no URL provided
   useEffect(() => {
-    if (!iframeUrl) {
+    if (!originalIframeUrl) {
       setLocation(returnUrl);
     }
-  }, [iframeUrl, returnUrl, setLocation]);
+  }, [originalIframeUrl, returnUrl, setLocation]);
   
   // Scroll to top and hide body scroll to prevent double scrollbar
   useEffect(() => {
@@ -43,7 +72,7 @@ export default function TourNinjaIframe() {
     };
   }, []);
   
-  if (!iframeUrl) return null;
+  if (!originalIframeUrl || !iframeUrl) return null;
   
   return (
     <>
@@ -80,6 +109,7 @@ export default function TourNinjaIframe() {
         {/* Iframe Container - Full height without footer to avoid double scrollbar */}
         <div className="w-full">
           <iframe
+            key={iframeKey}
             src={iframeUrl}
             className="w-full border-0"
             style={{ height: 'calc(100vh - 160px)', minHeight: '500px' }}
