@@ -43,16 +43,6 @@ export default function SearchBarToursBlock({ block, configuration }: SearchBarT
   const section = block ? `search_bar_tours_${block.id}` : 'search_bar_tours';
   const blockTranslations = translations[section] || {};
   
-  // Debug logging
-  console.log('🔍 SearchBarToursBlock Debug:', {
-    blockId: block?.id,
-    section,
-    currentLanguage,
-    blockTranslations,
-    hasSearchPlaceholder: !!blockTranslations.search_placeholder,
-    translationsKeys: Object.keys(translations).filter(k => k.includes('search'))
-  });
-  
   // Helper to display duration in the correct language
   const formatDuration = (duration: number) => {
     const dayWord = currentLanguage === 'fr' ? 'jour' : 
