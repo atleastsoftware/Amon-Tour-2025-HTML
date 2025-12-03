@@ -66,13 +66,20 @@ export default function TourNinjaIframe() {
       <Header />
       
       <div className="min-h-screen bg-gray-50">
-        {/* Iframe Container - Full height */}
-        <div className="w-full">
+        {/* Iframe Container - Full height with top cropping to hide Tour Ninja header */}
+        <div 
+          className="w-full overflow-hidden"
+          style={{ height: 'calc(100vh - 100px)' }}
+        >
           <iframe
             key={iframeKey}
             src={iframeUrl}
             className="w-full border-0"
-            style={{ height: 'calc(100vh - 100px)', minHeight: '600px' }}
+            style={{ 
+              height: 'calc(100vh - 40px)', 
+              minHeight: '650px',
+              marginTop: '-60px'
+            }}
             title={titleParam}
             loading="lazy"
             sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
