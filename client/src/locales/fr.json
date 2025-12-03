@@ -75,7 +75,10 @@
     "readMore": "Lire la suite",
     "noArticles": "Aucun article trouvé",
     "noArticlesDescription": "Essayez d'ajuster vos critères de recherche ou parcourez tous les articles.",
-    "clearFilters": "Effacer les filtres"
+    "clearFilters": "Effacer les filtres",
+    "backToBlog": "Retour au blog",
+    "articleNotFound": "Article non trouvé",
+    "articleNotFoundDescription": "L'article que vous recherchez n'existe pas ou a été supprimé."
   },
   "home": {
     "introTitle": "Quand des expatriés vous accueillent dans leur pays d'adoption",

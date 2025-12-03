@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Helmet } from "react-helmet";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 interface BlogPost {
   id: number;
@@ -151,6 +152,21 @@ const getRelatedTours = (slug: string) => {
 
 export default function BlogPostPage() {
   const [, params] = useRoute("/blog/:slug");
+  const { translations, currentLanguage } = useTranslation();
+  const blogPostsT = translations.blogPosts || {};
+  const blogT = translations.blogPage || {};
+  
+  const getTranslatedPost = (post: BlogPost) => {
+    const postTranslation = blogPostsT[String(post.id)];
+    if (postTranslation && currentLanguage !== 'en') {
+      return {
+        ...post,
+        title: postTranslation.title || post.title,
+        excerpt: postTranslation.excerpt || post.excerpt
+      };
+    }
+    return post;
+  };
   
   const { data: post, isLoading, error } = useQuery<BlogPost>({
     queryKey: [`/api/blog/posts/slug/${params?.slug}`],
@@ -163,7 +179,12 @@ export default function BlogPostPage() {
   });
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
+    const localeMap: { [key: string]: string } = {
+      'fr': 'fr-FR',
+      'es': 'es-ES',
+      'en': 'en-US'
+    };
+    return new Date(dateString).toLocaleDateString(localeMap[currentLanguage] || "en-US", {
       year: "numeric",
       month: "long",
       day: "numeric",
@@ -251,12 +272,12 @@ export default function BlogPostPage() {
         <Header />
         <div className="bg-gray-50 flex items-center justify-center">
           <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-800 mb-4">Article Not Found</h1>
-            <p className="text-gray-600 mb-8">The article you're looking for doesn't exist or has been removed.</p>
+            <h1 className="text-4xl font-bold text-gray-800 mb-4">{blogT.articleNotFound || "Article Not Found"}</h1>
+            <p className="text-gray-600 mb-8">{blogT.articleNotFoundDescription || "The article you're looking for doesn't exist or has been removed."}</p>
             <Link href="/blog">
               <Button>
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Blog
+                {blogT.backToBlog || "Back to Blog"}
               </Button>
             </Link>
           </div>
@@ -266,16 +287,18 @@ export default function BlogPostPage() {
     );
   }
 
+  const translatedPost = getTranslatedPost(post);
+
   return (
     <div className="min-h-screen">
       <Helmet>
-        <title>{post.title} | Amon Tour - Krabi Thailand Guide</title>
-        <meta name="description" content={post.metaDescription || post.excerpt} />
-        <meta name="keywords" content={post.metaKeywords || `Krabi, Thailand, ${post.title}`} />
+        <title>{translatedPost.title} | Amon Tour - Krabi Thailand Guide</title>
+        <meta name="description" content={post.metaDescription || translatedPost.excerpt} />
+        <meta name="keywords" content={post.metaKeywords || `Krabi, Thailand, ${translatedPost.title}`} />
         
         {/* Open Graph Meta Tags for Social Media */}
-        <meta property="og:title" content={`${post.title} | Amon Tour`} />
-        <meta property="og:description" content={post.metaDescription || post.excerpt} />
+        <meta property="og:title" content={`${translatedPost.title} | Amon Tour`} />
+        <meta property="og:description" content={post.metaDescription || translatedPost.excerpt} />
         <meta property="og:type" content="article" />
         <meta property="og:url" content={`https://amon-tour.com/blog/${post.slug}`} />
         {post.coverImage && (
@@ -284,8 +307,8 @@ export default function BlogPostPage() {
         
         {/* Twitter Card Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${post.title} | Amon Tour`} />
-        <meta name="twitter:description" content={post.metaDescription || post.excerpt} />
+        <meta name="twitter:title" content={`${translatedPost.title} | Amon Tour`} />
+        <meta name="twitter:description" content={post.metaDescription || translatedPost.excerpt} />
         {post.coverImage && (
           <meta name="twitter:image" content={`https://amon-tour.com${post.coverImage}`} />
         )}
@@ -295,8 +318,8 @@ export default function BlogPostPage() {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Article",
-            "headline": post.title,
-            "description": post.metaDescription || post.excerpt,
+            "headline": translatedPost.title,
+            "description": post.metaDescription || translatedPost.excerpt,
             "image": post.coverImage ? `https://amon-tour.com${post.coverImage}` : undefined,
             "author": {
               "@type": "Organization",
@@ -329,7 +352,7 @@ export default function BlogPostPage() {
             {/* Back Button */}
             <Link href="/blog" className="inline-flex items-center text-primary hover:text-primary/80 mb-8">
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Blog
+              {blogT.backToBlog || "Back to Blog"}
             </Link>
 
             {/* Article Header */}
@@ -339,8 +362,8 @@ export default function BlogPostPage() {
                 <div className="relative h-64 md:h-96 overflow-hidden">
                   <img
                     src={post.coverImage}
-                    alt={post.imageAltText || `Krabi Guide - ${post.title} | Amon Tour`}
-                    title={post.title}
+                    alt={post.imageAltText || `Krabi Guide - ${translatedPost.title} | Amon Tour`}
+                    title={translatedPost.title}
                     className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                     loading="eager"
                     fetchPriority="high"
@@ -360,7 +383,7 @@ export default function BlogPostPage() {
               {/* Content */}
               <div className="p-8">
                 <h1 className="text-4xl font-bold text-gray-900 mb-6">
-                  {post.title}
+                  {translatedPost.title}
                 </h1>
 
                 {/* Meta Information */}

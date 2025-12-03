@@ -75,7 +75,10 @@
     "readMore": "Leer más",
     "noArticles": "No se encontraron artículos",
     "noArticlesDescription": "Intenta ajustar tus criterios de búsqueda o navega por todos los artículos.",
-    "clearFilters": "Limpiar filtros"
+    "clearFilters": "Limpiar filtros",
+    "backToBlog": "Volver al blog",
+    "articleNotFound": "Artículo no encontrado",
+    "articleNotFoundDescription": "El artículo que buscas no existe o ha sido eliminado."
   },
   "home": {
     "introTitle": "Cuando los expatriados te dan la bienvenida en su país de adopción",
