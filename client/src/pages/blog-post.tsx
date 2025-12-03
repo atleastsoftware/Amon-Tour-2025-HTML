@@ -155,6 +155,8 @@ export default function BlogPostPage() {
   const { translations, currentLanguage } = useTranslation();
   const blogPostsT = translations.blogPosts || {};
   const blogT = translations.blogPage || {};
+  const blogCategoriesT = translations.blogCategories || {};
+  const blogTagsT = translations.blogTags || {};
   
   const getTranslatedPost = (post: BlogPost) => {
     const postTranslation = blogPostsT[String(post.id)];
@@ -166,6 +168,20 @@ export default function BlogPostPage() {
       };
     }
     return post;
+  };
+  
+  const translateCategory = (name: string) => {
+    if (currentLanguage !== 'en' && blogCategoriesT[name]) {
+      return blogCategoriesT[name];
+    }
+    return name;
+  };
+  
+  const translateTag = (name: string) => {
+    if (currentLanguage !== 'en' && blogTagsT[name]) {
+      return blogTagsT[name];
+    }
+    return name;
   };
   
   const { data: post, isLoading, error } = useQuery<BlogPost>({
@@ -374,7 +390,7 @@ export default function BlogPostPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
                   {post.category && (
                     <Badge className="absolute top-4 left-4 bg-primary shadow-lg">
-                      {post.category.name}
+                      {translateCategory(post.category.name)}
                     </Badge>
                   )}
                 </div>
@@ -404,7 +420,7 @@ export default function BlogPostPage() {
                     {post.tags.map((tag: any) => (
                       <Badge key={tag.id} variant="secondary">
                         <Tag className="h-3 w-3 mr-1" />
-                        {tag.name}
+                        {translateTag(tag.name)}
                       </Badge>
                     ))}
                   </div>

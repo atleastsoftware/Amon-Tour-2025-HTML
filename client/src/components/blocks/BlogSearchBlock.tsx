@@ -69,6 +69,8 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
   const blockTranslations = translations[section] || {};
   const blogT = translations.blogPage || {};
   const blogPostsT = translations.blogPosts || {};
+  const blogCategoriesT = translations.blogCategories || {};
+  const blogTagsT = translations.blogTags || {};
   
   const getTranslatedPost = (post: BlogPost) => {
     const postTranslation = blogPostsT[String(post.id)];
@@ -80,6 +82,20 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
       };
     }
     return post;
+  };
+  
+  const translateCategory = (name: string) => {
+    if (currentLanguage !== 'en' && blogCategoriesT[name]) {
+      return blogCategoriesT[name];
+    }
+    return name;
+  };
+  
+  const translateTag = (name: string) => {
+    if (currentLanguage !== 'en' && blogTagsT[name]) {
+      return blogTagsT[name];
+    }
+    return name;
   };
   
   const [searchTerm, setSearchTerm] = useState("");
@@ -173,7 +189,7 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
                       }}
                     >
                       <Tag className="h-3 w-3 mr-1" />
-                      {tag.name}
+                      {translateTag(tag.name)}
                     </Button>
                   ))}
                 </div>
@@ -212,7 +228,7 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
                       borderColor: config.categoryButtonColor ?? '#084F6E'
                     }}
                   >
-                    🏝️ {category.name}
+                    🏝️ {translateCategory(category.name)}
                   </Button>
                 ))}
               </div>
@@ -259,7 +275,7 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
                       />
                       {post.category && (
                         <Badge className="absolute top-3 left-3 bg-primary text-white">
-                          🏝️ {post.category.name}
+                          🏝️ {translateCategory(post.category.name)}
                         </Badge>
                       )}
                     </div>
@@ -272,7 +288,7 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
                     >
                       {post.category && (
                         <Badge className="absolute top-3 left-3 bg-white/20 backdrop-blur-sm text-white border-white/30">
-                          🏝️ {post.category.name}
+                          🏝️ {translateCategory(post.category.name)}
                         </Badge>
                       )}
                       <h3 className="text-2xl font-bold text-white text-center px-4">
@@ -312,7 +328,7 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
                             className="text-xs cursor-pointer hover:bg-primary/10 hover:border-primary/30 transition-colors"
                             onClick={() => setSelectedTag(tag.slug)}
                           >
-                            📸 {tag.name}
+                            📸 {translateTag(tag.name)}
                           </Badge>
                         ))}
                       </div>
