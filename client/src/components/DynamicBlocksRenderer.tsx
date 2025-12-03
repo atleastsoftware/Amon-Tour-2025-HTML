@@ -1112,7 +1112,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
       case 'search_bar_tours':
         return (
           <div key={block.id} className="w-full">
-            <SearchBarToursBlock configuration={block.configuration || {}} />
+            <SearchBarToursBlock block={block} configuration={block.configuration || {}} />
           </div>
         );
 

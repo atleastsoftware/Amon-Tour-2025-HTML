@@ -43,6 +43,16 @@ export default function SearchBarToursBlock({ block, configuration }: SearchBarT
   const section = block ? `search_bar_tours_${block.id}` : 'search_bar_tours';
   const blockTranslations = translations[section] || {};
   
+  // Debug logging
+  console.log('🔍 SearchBarToursBlock Debug:', {
+    blockId: block?.id,
+    section,
+    currentLanguage,
+    blockTranslations,
+    hasSearchPlaceholder: !!blockTranslations.search_placeholder,
+    translationsKeys: Object.keys(translations).filter(k => k.includes('search'))
+  });
+  
   // Helper to display duration in the correct language
   const formatDuration = (duration: number) => {
     const dayWord = currentLanguage === 'fr' ? 'jour' : 
@@ -69,9 +79,9 @@ export default function SearchBarToursBlock({ block, configuration }: SearchBarT
   const toursT = translations.tours || {};
   const tourDetailT = translations.tourDetail || {};
   
-  // Configuration with translation - use camelCase keys to match server extraction
-  const filtersTitle = blockTranslations.filtersTitle || configuration.filtersTitle || t.filters || 'Filters';
-  const searchPlaceholder = blockTranslations.searchPlaceholder || configuration.searchPlaceholder || t.searchPlaceholder || 'Search for a tour...';
+  // Configuration with translation - check both camelCase and snake_case keys for compatibility
+  const filtersTitle = blockTranslations.filtersTitle || blockTranslations.filters_title || configuration.filtersTitle || t.filters || 'Filters';
+  const searchPlaceholder = blockTranslations.searchPlaceholder || blockTranslations.search_placeholder || configuration.searchPlaceholder || t.searchPlaceholder || 'Search for a tour...';
   const allPricesLabel = t.allPrices || 'All prices';
   const allDurationsLabel = t.allDurations || 'All durations';
   const allDestinationsLabel = t.allDestinations || 'All destinations';
