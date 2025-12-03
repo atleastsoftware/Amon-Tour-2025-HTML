@@ -64,6 +64,19 @@
     "presentation": "Présentation",
     "booking": "Réservation"
   },
+  "blogPage": {
+    "title": "Blog de voyage",
+    "subtitle": "Découvrez le meilleur de Krabi à travers nos guides de voyage, conseils et informations locales.",
+    "searchPlaceholder": "Rechercher des articles...",
+    "tags": "Tags",
+    "allTags": "Tous les tags",
+    "categories": "Catégories",
+    "allCategories": "Toutes les catégories",
+    "readMore": "Lire la suite",
+    "noArticles": "Aucun article trouvé",
+    "noArticlesDescription": "Essayez d'ajuster vos critères de recherche ou parcourez tous les articles.",
+    "clearFilters": "Effacer les filtres"
+  },
   "home": {
     "introTitle": "Quand des expatriés vous accueillent dans leur pays d'adoption",
     "introDescription": "Depuis 2013, notre agence de voyage familiale crée des activités exclusives autour de Krabi et conçoit des voyages sur mesure dans toute la Thaïlande. Nous visons à offrir des expériences de voyage immersives, loin du tourisme de masse, avec un service personnalisé pour chaque voyageur — en vous accueillant comme faisant partie de notre famille ou de nos amis proches.",

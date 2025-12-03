@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import HeroHeader from "@/components/layout/HeroHeader";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 interface BlogPost {
   id: number;
@@ -49,6 +50,9 @@ export default function BlogPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedTag, setSelectedTag] = useState("");
+  const { translations, currentLanguage } = useTranslation();
+  
+  const blogT = translations?.blogPage || {};
 
   const { data: posts = [], isLoading: postsLoading } = useQuery<BlogPost[]>({
     queryKey: ["/api/blog/posts/published", { search: searchTerm, category: selectedCategory, tag: selectedTag }],
@@ -63,7 +67,8 @@ export default function BlogPage() {
   });
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
+    const locale = currentLanguage === 'fr' ? 'fr-FR' : currentLanguage === 'es' ? 'es-ES' : 'en-US';
+    return new Date(dateString).toLocaleDateString(locale, {
       year: "numeric",
       month: "long",
       day: "numeric",
@@ -87,8 +92,8 @@ export default function BlogPage() {
       <div>
         {/* Hero Section */}
         <HeroHeader 
-          title="Travel Blog"
-          subtitle="Discover the best of Krabi through our travel guides, tips, and local insights."
+          title={blogT.title || "Travel Blog"}
+          subtitle={blogT.subtitle || "Discover the best of Krabi through our travel guides, tips, and local insights."}
           alt="Travel blog about Krabi and Thailand"
         />
 
@@ -101,7 +106,7 @@ export default function BlogPage() {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                 <Input
                   type="text"
-                  placeholder="Search articles..."
+                  placeholder={blogT.searchPlaceholder || "Search articles..."}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10"
@@ -114,7 +119,7 @@ export default function BlogPage() {
               {/* Tags Row */}
               {tags.length > 0 && (
                 <div>
-                  <h3 className="text-sm font-medium text-gray-700 mb-3">Tags</h3>
+                  <h3 className="text-sm font-medium text-gray-700 mb-3">{blogT.tags || "Tags"}</h3>
                   <div className="flex flex-wrap gap-2">
                     <Button
                       variant={selectedTag === "" ? "secondary" : "outline"}
@@ -122,7 +127,7 @@ export default function BlogPage() {
                       className="whitespace-nowrap"
                       onClick={() => setSelectedTag("")}
                     >
-                      All Tags
+                      {blogT.allTags || "All Tags"}
                     </Button>
                     {tags.slice(0, 8).map((tag) => (
                       <Button
@@ -142,7 +147,7 @@ export default function BlogPage() {
 
               {/* Categories Row */}
               <div>
-                <h3 className="text-sm font-medium text-gray-700 mb-3">Categories</h3>
+                <h3 className="text-sm font-medium text-gray-700 mb-3">{blogT.categories || "Categories"}</h3>
                 <div className="flex flex-wrap gap-2">
                   <Button
                     variant={selectedCategory === "" ? "default" : "outline"}
@@ -150,7 +155,7 @@ export default function BlogPage() {
                     className="whitespace-nowrap"
                     onClick={() => setSelectedCategory("")}
                   >
-                    All Categories
+                    {blogT.allCategories || "All Categories"}
                   </Button>
                   {categories.map((category) => (
                     <Button
@@ -246,7 +251,7 @@ export default function BlogPage() {
 
                       <Link href={`/blog/${post.slug}`}>
                         <Button className="w-full">
-                          Read More
+                          {blogT.readMore || "Read More"}
                         </Button>
                       </Link>
                     </CardContent>
@@ -255,9 +260,9 @@ export default function BlogPage() {
               </div>
             ) : (
               <div className="text-center py-12">
-                <h3 className="text-2xl font-bold text-gray-800 mb-4">No Articles Found</h3>
+                <h3 className="text-2xl font-bold text-gray-800 mb-4">{blogT.noArticles || "No Articles Found"}</h3>
                 <p className="text-gray-600 mb-6">
-                  Try adjusting your search criteria or browse all articles.
+                  {blogT.noArticlesDescription || "Try adjusting your search criteria or browse all articles."}
                 </p>
                 <Button
                   onClick={() => {
@@ -266,7 +271,7 @@ export default function BlogPage() {
                     setSelectedTag("");
                   }}
                 >
-                  Clear Filters
+                  {blogT.clearFilters || "Clear Filters"}
                 </Button>
               </div>
             )}
