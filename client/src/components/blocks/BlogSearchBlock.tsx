@@ -64,9 +64,10 @@ interface BlogTag {
 
 export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
   const config = block.configuration || {};
-  const { translations } = useTranslation();
+  const { translations, currentLanguage } = useTranslation();
   const section = `blog_search_${block.id}`;
   const blockTranslations = translations[section] || {};
+  const blogT = translations.blogPage || {};
   
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -85,7 +86,8 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
   });
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
+    const locale = currentLanguage === 'fr' ? 'fr-FR' : currentLanguage === 'es' ? 'es-ES' : 'en-US';
+    return new Date(dateString).toLocaleDateString(locale, {
       year: "numeric",
       month: "long",
       day: "numeric",
@@ -114,7 +116,7 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
               <Input
                 type="text"
-                placeholder={blockTranslations.search_placeholder || config.searchPlaceholder || "Rechercher des articles..."}
+                placeholder={blockTranslations.search_placeholder || config.searchPlaceholder || blogT.searchPlaceholder || "Search articles..."}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10"
@@ -128,7 +130,7 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
             {tags.length > 0 && (
               <div>
                 <h3 className="text-sm font-medium text-gray-700 mb-3">
-                  {blockTranslations.tags_title || config.tagsTitle || "Tags"}
+                  {blockTranslations.tags_title || config.tagsTitle || blogT.tags || "Tags"}
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   <Button
@@ -142,7 +144,7 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
                       borderColor: config.tagButtonColor ?? '#3BA8AF'
                     }}
                   >
-                    {blockTranslations.all_tags_text || config.allTagsText || "Tous les tags"}
+                    {blockTranslations.all_tags_text || config.allTagsText || blogT.allTags || "All Tags"}
                   </Button>
                   {tags.slice(0, 8).map((tag) => (
                     <Button
@@ -168,7 +170,7 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
             {/* Categories Row */}
             <div>
               <h3 className="text-sm font-medium text-gray-700 mb-3">
-                {blockTranslations.categories_title || config.categoriesTitle || "Catégories"}
+                {blockTranslations.categories_title || config.categoriesTitle || blogT.categories || "Categories"}
               </h3>
               <div className="flex flex-wrap gap-2">
                 <Button
@@ -182,7 +184,7 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
                     borderColor: config.categoryButtonColor ?? '#084F6E'
                   }}
                 >
-                  {blockTranslations.all_categories_text || config.allCategoriesText || "Toutes les catégories"}
+                  {blockTranslations.all_categories_text || config.allCategoriesText || blogT.allCategories || "All Categories"}
                 </Button>
                 {categories.map((category) => (
                   <Button
@@ -309,7 +311,7 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
                           color: 'white'
                         }}
                       >
-                        Read More
+                        {blogT.readMore || "Read More"}
                       </Button>
                     </Link>
                   </CardContent>
@@ -318,9 +320,9 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
             </div>
           ) : (
             <div className="text-center py-12">
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">Aucun article trouvé</h3>
+              <h3 className="text-2xl font-bold text-gray-800 mb-4">{blogT.noArticles || "No Articles Found"}</h3>
               <p className="text-gray-600 mb-6">
-                Essayez d'ajuster vos critères de recherche ou parcourez tous les articles.
+                {blogT.noArticlesDescription || "Try adjusting your search criteria or browse all articles."}
               </p>
               <Button
                 onClick={() => {
@@ -329,7 +331,7 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
                   setSelectedTag("");
                 }}
               >
-                Effacer les filtres
+                {blogT.clearFilters || "Clear Filters"}
               </Button>
             </div>
           )}
