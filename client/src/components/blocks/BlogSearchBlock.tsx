@@ -68,6 +68,19 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
   const section = `blog_search_${block.id}`;
   const blockTranslations = translations[section] || {};
   const blogT = translations.blogPage || {};
+  const blogPostsT = translations.blogPosts || {};
+  
+  const getTranslatedPost = (post: BlogPost) => {
+    const postTranslation = blogPostsT[String(post.id)];
+    if (postTranslation && currentLanguage !== 'en') {
+      return {
+        ...post,
+        title: postTranslation.title || post.title,
+        excerpt: postTranslation.excerpt || post.excerpt
+      };
+    }
+    return post;
+  };
   
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -226,13 +239,15 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
             </div>
           ) : filteredPosts.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredPosts.map((post) => (
+              {filteredPosts.map((post) => {
+                const translatedPost = getTranslatedPost(post);
+                return (
                 <Card key={post.id} className="overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-all duration-300 group">
                   {post.coverImage ? (
                     <div className="relative h-48 overflow-hidden">
                       <img
                         src={post.coverImage}
-                        alt={post.title}
+                        alt={translatedPost.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         onError={(e) => {
                           e.currentTarget.style.display = 'none';
@@ -261,14 +276,14 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
                         </Badge>
                       )}
                       <h3 className="text-2xl font-bold text-white text-center px-4">
-                        {post.title}
+                        {translatedPost.title}
                       </h3>
                     </div>
                   )}
                   <CardHeader className="pb-3">
                     <h3 className="text-xl font-semibold line-clamp-2 hover:text-primary transition-colors">
                       <Link href={`/blog/${post.slug}`}>
-                        {post.title}
+                        {translatedPost.title}
                       </Link>
                     </h3>
                     <div className="flex items-center text-sm text-gray-500 space-x-4">
@@ -284,7 +299,7 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
                   </CardHeader>
                   <CardContent className="pt-0">
                     <p className="text-gray-600 line-clamp-3 mb-4 leading-relaxed">
-                      {post.excerpt}
+                      {translatedPost.excerpt}
                     </p>
                     
                     {/* Tags */}
@@ -316,7 +331,8 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
                     </Link>
                   </CardContent>
                 </Card>
-              ))}
+                );
+              })}
             </div>
           ) : (
             <div className="text-center py-12">
