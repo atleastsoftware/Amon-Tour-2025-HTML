@@ -113,6 +113,35 @@ export default function DynamicFormBlock({
       return;
     }
 
+    // Validate required fields before submission
+    if (formData?.fields) {
+      for (const field of formData.fields) {
+        if (field.required) {
+          const value = formValues[field.id];
+          const isEmpty = !value || (typeof value === 'string' && value.trim() === '') || (Array.isArray(value) && value.length === 0);
+          
+          if (isEmpty) {
+            // Show specific error for WhatsApp/phone fields
+            if (field.id === 'whatsappNumber' || field.type === 'phone') {
+              toast({
+                title: getTranslation('phone_required_title', "WhatsApp Number Required"),
+                description: getTranslation('phone_required', "Please enter your WhatsApp number so we can contact you about your trip."),
+                variant: "destructive",
+              });
+              return;
+            }
+            // Show generic required field error for other fields
+            toast({
+              title: getTranslation('field_required_title', "Required Field"),
+              description: `${field.label.replace(' *', '')} is required.`,
+              variant: "destructive",
+            });
+            return;
+          }
+        }
+      }
+    }
+
     setIsSubmitting(true);
     try {
       // Parse number of adults from text like "2 adults" -> 2
