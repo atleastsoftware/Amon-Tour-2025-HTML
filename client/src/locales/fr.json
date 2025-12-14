@@ -240,7 +240,16 @@
     "airConditionedCabins": "Cabines climatisées",
     "seoTitle": "Croisières de luxe à Krabi - Charters de yachts privés",
     "seoDescription": "Explorez Krabi depuis l'eau avec nos croisières de luxe et charters de yachts privés. Expériences inoubliables, équipage professionnel et itinéraires personnalisés.",
-    "seoKeywords": "croisières krabi, yacht de luxe krabi, charter privé thaïlande, location de bateau krabi, tours en bateau"
+    "seoKeywords": "croisières krabi, yacht de luxe krabi, charter privé thaïlande, location de bateau krabi, tours en bateau",
+    "requestSent": "Demande envoyée !",
+    "contactShortly": "Nous vous contacterons bientôt pour discuter de votre voyage.",
+    "errorMessage": "Un problème est survenu lors de l'envoi de votre demande. Veuillez réessayer.",
+    "phoneRequired": "Veuillez entrer votre numéro WhatsApp. Ce champ est obligatoire.",
+    "fullNamePlaceholder": "Votre nom complet",
+    "emailPlaceholder": "votre@email.com",
+    "datesPlaceholder": "Sélectionnez vos dates de voyage",
+    "chooseDuration": "Sélectionner la durée",
+    "sending": "Envoi en cours..."
   },
   "customTour": {
     "title": "Créez votre voyage parfait en Thaïlande",

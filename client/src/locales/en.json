@@ -197,7 +197,16 @@
     "airConditionedCabins": "Air-conditioned cabins",
     "seoTitle": "Luxury Cruises in Krabi - Private Yacht Charters",
     "seoDescription": "Explore Krabi from the water with our luxury cruises and private yacht charters. Unforgettable experiences, professional crew, and customized itineraries.",
-    "seoKeywords": "krabi cruises, luxury yacht krabi, private charter thailand, boat rental krabi, boat tours"
+    "seoKeywords": "krabi cruises, luxury yacht krabi, private charter thailand, boat rental krabi, boat tours",
+    "requestSent": "Request Sent!",
+    "contactShortly": "We will contact you shortly to discuss your trip.",
+    "errorMessage": "There was a problem sending your request. Please try again.",
+    "phoneRequired": "Please enter your WhatsApp number. This field is required.",
+    "fullNamePlaceholder": "Your full name",
+    "emailPlaceholder": "your@email.com",
+    "datesPlaceholder": "Select your travel dates",
+    "chooseDuration": "Select duration",
+    "sending": "Sending..."
   },
   "customTour": {
     "title": "Create Your Perfect Thailand Journey",

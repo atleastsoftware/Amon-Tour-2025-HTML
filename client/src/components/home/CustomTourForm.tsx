@@ -32,7 +32,7 @@ const customTourSchema = z.object({
   name: z.string().min(2, { message: "Full Name is required" }),
   email: z.string().email({ message: "Invalid email" }),
   countryCode: z.string().min(1, { message: "Country code is required" }),
-  phoneNumber: z.string().min(8, { message: "Phone number is required" }),
+  phoneNumber: z.string().min(1, { message: "WhatsApp number is required" }).min(8, { message: "Please enter a valid WhatsApp number (minimum 8 digits)" }),
   adults: z.string().min(1, { message: "Please enter number of adults" }),
   kids: z.string().optional(),
   dateRange: z.string().optional(),

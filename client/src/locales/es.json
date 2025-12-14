@@ -240,7 +240,16 @@
     "airConditionedCabins": "Cabinas con aire acondicionado",
     "seoTitle": "Cruceros de lujo en Krabi - Chárteres de yates privados",
     "seoDescription": "Explora Krabi desde el agua con nuestros cruceros de lujo y chárteres de yates privados. Experiencias inolvidables, tripulación profesional e itinerarios personalizados.",
-    "seoKeywords": "cruceros krabi, yate de lujo krabi, chárter privado tailandia, alquiler de barcos krabi, tours en barco"
+    "seoKeywords": "cruceros krabi, yate de lujo krabi, chárter privado tailandia, alquiler de barcos krabi, tours en barco",
+    "requestSent": "¡Solicitud enviada!",
+    "contactShortly": "Nos pondremos en contacto contigo pronto para hablar sobre tu viaje.",
+    "errorMessage": "Hubo un problema al enviar tu solicitud. Por favor, inténtalo de nuevo.",
+    "phoneRequired": "Por favor, introduce tu número de WhatsApp. Este campo es obligatorio.",
+    "fullNamePlaceholder": "Tu nombre completo",
+    "emailPlaceholder": "tu@email.com",
+    "datesPlaceholder": "Selecciona tus fechas de viaje",
+    "chooseDuration": "Seleccionar duración",
+    "sending": "Enviando..."
   },
   "customTour": {
     "title": "Crea tu viaje perfecto en Tailandia",
