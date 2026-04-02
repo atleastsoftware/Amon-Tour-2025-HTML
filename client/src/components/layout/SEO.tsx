@@ -37,7 +37,6 @@ export default function SEO({
   const { translations } = useTranslation();
   const seo = translations.seo;
   
-  // Use translated defaults if no values provided
   const finalTitle = title || seo.defaultTitle;
   const finalDescription = description || seo.defaultDescription;
   const finalKeywords = keywords || seo.defaultKeywords;
@@ -46,24 +45,28 @@ export default function SEO({
   const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
   const [detectedLanguage, setDetectedLanguage] = useState(language);
   
-  // Auto-detect language from browser if not specified
   useEffect(() => {
     const browserLang = navigator.language?.split('-')[0]?.toLowerCase() || 'en';
-    const supportedLangs = ['en', 'fr', 'th', 'de', 'es', 'it'];
+    const supportedLangs = ['en', 'fr', 'th', 'de', 'es', 'it', 'zh', 'ms'];
     const finalLang = supportedLangs.includes(browserLang) ? browserLang : 'en';
     setDetectedLanguage(language || finalLang);
   }, [language]);
   
-  // Generate automatic hreflang if not provided
   const currentUrl = canonicalUrl || (typeof window !== 'undefined' ? window.location.href : siteUrl);
   const autoHreflang = hreflang || [
     { lang: 'en', url: currentUrl },
+    { lang: 'en-MY', url: currentUrl },
+    { lang: 'en-SG', url: currentUrl },
+    { lang: 'en-AU', url: currentUrl },
     { lang: 'fr', url: currentUrl },
     { lang: 'th', url: currentUrl },
+    { lang: 'zh-CN', url: currentUrl },
+    { lang: 'zh-SG', url: currentUrl },
+    { lang: 'zh-MY', url: currentUrl },
+    { lang: 'ms', url: currentUrl },
     { lang: 'x-default', url: currentUrl }
   ];
   
-  // Default structured data for travel agency
   const defaultStructuredData = {
     "@context": "https://schema.org",
     "@type": "TravelAgency",
@@ -78,25 +81,29 @@ export default function SEO({
       "@type": "ContactPoint",
       "telephone": "+66-81-956-2849",
       "contactType": "customer service",
-      "availableLanguage": ["English", "French", "Thai"]
+      "availableLanguage": ["English", "French", "Thai", "Mandarin"]
     },
     "address": {
       "@type": "PostalAddress",
+      "addressLocality": "Krabi",
       "addressCountry": "TH",
-      "addressRegion": "Thailand"
+      "addressRegion": "Krabi Province"
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": "13.7367",
-      "longitude": "100.5232"
+      "latitude": "8.0863",
+      "longitude": "98.9063"
     },
-    "areaServed": {
-      "@type": "Country",
-      "name": "Thailand"
-    },
-    "serviceType": ["Private Tours", "Cultural Experiences", "Travel Planning", "Island Tours", "Temple Visits", "Local Cuisine Tours"],
+    "areaServed": [
+      { "@type": "Country", "name": "Thailand" },
+      { "@type": "Country", "name": "Malaysia" },
+      { "@type": "Country", "name": "Singapore" },
+      { "@type": "Country", "name": "Australia" },
+      { "@type": "Country", "name": "China" }
+    ],
+    "serviceType": ["Private Tours", "Cultural Experiences", "Travel Planning", "Island Tours", "Temple Visits", "Local Cuisine Tours", "Kayaking", "Sunset Trips"],
     "priceRange": "$$-$$$",
-    "currenciesAccepted": ["THB", "USD", "EUR"],
+    "currenciesAccepted": ["THB", "USD", "EUR", "MYR", "SGD", "AUD", "CNY"],
     "paymentAccepted": ["Cash", "Credit Card", "Bank Transfer"],
     "openingHours": "Mo-Su 08:00-20:00",
     "sameAs": [
@@ -105,7 +112,6 @@ export default function SEO({
     ]
   };
 
-  // Generate additional schemas for AEO
   const breadcrumbSchema = breadcrumbs ? {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -180,6 +186,12 @@ export default function SEO({
       <meta property="og:url" content={canonicalUrl || siteUrl} />
       <meta property="og:site_name" content="Amon Tour" />
       <meta property="og:locale" content="en_US" />
+      <meta property="og:locale:alternate" content="zh_CN" />
+      <meta property="og:locale:alternate" content="zh_SG" />
+      <meta property="og:locale:alternate" content="en_MY" />
+      <meta property="og:locale:alternate" content="en_SG" />
+      <meta property="og:locale:alternate" content="en_AU" />
+      <meta property="og:locale:alternate" content="fr_FR" />
       
       {/* Twitter Card Meta Tags */}
       <meta name="twitter:card" content="summary_large_image" />
@@ -193,7 +205,7 @@ export default function SEO({
       {/* Canonical Link */}
       <link rel="canonical" href={canonicalUrl || siteUrl} />
       
-      {/* Hreflang tags for internationalization - Automatic multilingual support */}
+      {/* Hreflang tags — full market coverage */}
       {autoHreflang.map(({ lang, url }) => (
         <link key={lang} rel="alternate" hrefLang={lang} href={url} />
       ))}

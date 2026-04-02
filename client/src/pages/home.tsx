@@ -145,9 +145,9 @@ export default function Home() {
   return (
     <>
       <SEO 
-        title="Amon Tour - Authentic Thailand Travel Experiences | Private Tours & Cultural Journeys"
-        description="Discover authentic Thailand with Amon Tour. Expert-guided private tours, cultural experiences, and personalized journeys across Bangkok, Phuket, and beyond. Family-run travel agency offering immersive experiences away from mass tourism."
-        keywords="thailand private tours, bangkok cultural experiences, phuket authentic travel, thailand family travel agency, personalized thailand journeys, thai temple tours, island hopping thailand, authentic thai culture, thailand vacation planning"
+        title="Amon Tour - Private Tours in Krabi Thailand | Malaysia, Singapore, Australia & Worldwide"
+        description="Amon Tour is a Krabi-based travel agency run by French and English-speaking guides. Authentic private tours in Krabi, Phi Phi, Phang Nga Bay and southern Thailand — perfect for travelers from Malaysia, Singapore, Australia and beyond. Custom itineraries, small groups, no mass tourism."
+        keywords="krabi tour from malaysia, krabi tour from singapore, thailand holiday package malaysia, thailand tour singapore, krabi private tour, krabi trip from KL, thailand tours australia, krabi island hopping, phang nga bay tour, phi phi island day trip, krabi francophone guide, french speaking guide krabi, private tour krabi thailand, authentic thailand experience, southern thailand tours"
         canonicalUrl="https://amon-tour.com/"
         breadcrumbs={[
           { name: "Home", url: "/" }
@@ -155,23 +155,43 @@ export default function Home() {
         faqSchema={[
           {
             question: "What makes Amon Tour different from other Thailand travel agencies?",
-            answer: "Amon Tour is a family-run travel agency that specializes in authentic, personalized experiences away from mass tourism. We offer expert-guided private tours, cultural immersion, and customized journeys with local insights that only expats living in Thailand can provide."
+            answer: "Amon Tour is based in Krabi and run by French and English-speaking expat guides with deep local knowledge. We specialize in authentic, small-group private experiences away from mass tourism — ideal for travelers from Malaysia, Singapore, Australia, and further afield who want a genuine southern Thailand experience."
           },
           {
             question: "What areas of Thailand does Amon Tour cover?",
-            answer: "We specialize in southern Thailand, particularly Krabi, Phuket, and surrounding areas including Phang Nga Bay, Koh Phi Phi, and local islands. We create experiences that showcase authentic Thai culture, temples, local cuisine, and natural beauty."
+            answer: "We are based in Krabi and specialize in southern Thailand: Krabi, Phang Nga Bay, Koh Phi Phi, Railay Beach, Koh Lanta, and surrounding islands. We create bespoke experiences showcasing authentic Thai culture, limestone karsts, turquoise waters, temples, local cuisine, and untouched nature."
+          },
+          {
+            question: "Do Malaysians need a visa to visit Thailand and travel to Krabi?",
+            answer: "Malaysian citizens enjoy visa-free entry to Thailand for up to 30 days. Krabi is very accessible from Malaysia — there are direct flights from Kuala Lumpur (KUL) to Krabi (KBV) taking around 1.5 to 2 hours, making it one of the easiest and closest international holiday destinations for Malaysians."
+          },
+          {
+            question: "How long is the flight from Singapore to Krabi?",
+            answer: "The flight from Singapore (SIN) to Krabi (KBV) takes approximately 1.5 to 2 hours. Singaporeans can also enter Thailand visa-free for up to 30 days, making Krabi an ideal long-weekend or short-break destination. Amon Tour can arrange private pickups from Krabi Airport."
+          },
+          {
+            question: "Is there halal food available in Krabi for Muslim travelers from Malaysia?",
+            answer: "Yes — Krabi has a significant Muslim population and halal food is widely available throughout the region, including at local markets, restaurants near Ao Nang, and Krabi Town. Our team can advise on halal-friendly dining options as part of your tour planning."
+          },
+          {
+            question: "How do travelers from Australia book a Krabi tour with Amon Tour?",
+            answer: "Australian travelers can book directly via our website contact form, by email at contact@amon-tour.com, or via WhatsApp. We recommend planning at least 3–4 days in Krabi. Flight time from Sydney or Melbourne to Krabi is approximately 10–11 hours (often with a stop in Kuala Lumpur or Bangkok). We handle everything once you land."
+          },
+          {
+            question: "What is the best time of year to visit Krabi?",
+            answer: "The best time to visit Krabi is November to April — the dry season — with clear skies, calm seas, and perfect conditions for island hopping and water activities. For travelers from Australia, this aligns well with the Australian winter (June–August), which is still a pleasant time in Krabi despite some rainfall."
+          },
+          {
+            question: "Does Amon Tour offer French-speaking guides?",
+            answer: "Yes — our guides are fluent in both French and English, which is rare in Krabi. This makes Amon Tour particularly popular with French-speaking travelers from Europe, Canada, and Réunion, as well as English-speaking travelers from Malaysia, Singapore, Australia, and the UK."
           },
           {
             question: "How do I book a custom tour with Amon Tour?",
-            answer: "You can request a custom tour through our contact form on the website, email us directly at contact@amon-tour.com, or call us at +66-81-956-2849. We'll work with you to create a personalized itinerary based on your interests, budget, and travel dates."
-          },
-          {
-            question: "What languages do Amon Tour guides speak?",
-            answer: "Our team speaks English, French, and Thai fluently. This multilingual capability allows us to provide comfortable experiences for international travelers while facilitating authentic cultural exchanges with local communities."
+            answer: "The easiest way is via WhatsApp — we respond quickly and can build a personalized itinerary around your interests, group size, budget, and travel dates. You can also use the contact form on our website or email us at contact@amon-tour.com. We create tailor-made tours for individuals, couples, families, and small groups."
           },
           {
             question: "What types of experiences does Amon Tour offer?",
-            answer: "We offer private island tours, temple visits, cultural experiences, local cuisine tours, kayaking adventures, sunset trips, and customized multi-day journeys. Each experience is designed to showcase authentic Thailand away from crowded tourist spots."
+            answer: "We offer private island day trips, kayaking in sea caves, Phang Nga Bay tours, temple visits, local cuisine experiences, sunset trips, snorkeling, Koh Phi Phi tours, Railay Beach excursions, and multi-day customized journeys. All experiences are private or small-group and designed to go beyond the standard tourist trail."
           }
         ]}
         reviewSchema={{
@@ -196,31 +216,42 @@ export default function Home() {
           "@context": "https://schema.org",
           "@type": "TravelAgency",
           "name": "Amon Tour",
-          "description": "Family-run travel agency specializing in authentic Thailand experiences, private tours, and cultural journeys across Bangkok, Phuket, and beyond.",
+          "description": "Krabi-based travel agency run by French and English-speaking guides, offering authentic private tours in southern Thailand for travelers from Malaysia, Singapore, Australia, and worldwide.",
           "url": "https://amon-tour.com",
           "logo": "https://amon-tour.com/Logo Long Blue.png",
           "image": "https://amon-tour.com/Logo Long Blue.png",
-          "telephone": "+66-XXX-XXX-XXX",
+          "telephone": "+66-81-956-2849",
           "email": "contact@amon-tour.com",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+66-81-956-2849",
+            "contactType": "customer service",
+            "availableLanguage": ["English", "French", "Thai", "Mandarin"]
+          },
           "address": {
             "@type": "PostalAddress",
+            "addressLocality": "Krabi",
             "addressCountry": "TH",
-            "addressRegion": "Thailand"
+            "addressRegion": "Krabi Province"
           },
           "geo": {
             "@type": "GeoCoordinates",
-            "latitude": "13.7367",
-            "longitude": "100.5232"
+            "latitude": "8.0863",
+            "longitude": "98.9063"
           },
-          "areaServed": {
-            "@type": "Country",
-            "name": "Thailand"
-          },
-          "serviceType": ["Private Tours", "Cultural Experiences", "Travel Planning", "Temple Tours", "Island Tours"],
+          "areaServed": [
+            { "@type": "Country", "name": "Thailand" },
+            { "@type": "Country", "name": "Malaysia" },
+            { "@type": "Country", "name": "Singapore" },
+            { "@type": "Country", "name": "Australia" },
+            { "@type": "Country", "name": "China" }
+          ],
+          "serviceType": ["Private Tours", "Cultural Experiences", "Travel Planning", "Island Tours", "Temple Visits", "Kayaking", "Sunset Trips"],
           "priceRange": "$$-$$$",
+          "currenciesAccepted": ["THB", "USD", "EUR", "MYR", "SGD", "AUD", "CNY"],
           "openingHours": "Mo-Su 08:00-20:00",
           "foundingDate": "2020",
-          "slogan": "Authentic Thailand experiences, far from mass tourism",
+          "slogan": "Authentic Krabi experiences, guided by locals who know Thailand",
           "sameAs": [
             "https://www.facebook.com/amontour",
             "https://www.instagram.com/amontour"

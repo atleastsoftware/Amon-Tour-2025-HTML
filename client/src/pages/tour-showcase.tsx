@@ -133,6 +133,42 @@ export default function TourShowcase() {
     );
   }
 
+  const touristTripSchema = {
+    "@context": "https://schema.org",
+    "@type": "TouristTrip",
+    "name": tour.name,
+    "description": tour.shortDescription || tour.description,
+    "image": tour.primaryImage || tour.images[0] || '',
+    "url": metadata?.url || `https://amon-tour.com/tour/${token}`,
+    "touristType": ["Family", "Couple", "Solo", "Group"],
+    "itinerary": {
+      "@type": "ItemList",
+      "itemListElement": (tour.itinerary || []).map((day, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "name": day.title,
+        "description": day.description
+      }))
+    },
+    "offers": tour.price > 0 ? {
+      "@type": "Offer",
+      "price": tour.price,
+      "priceCurrency": tour.currency || "THB",
+      "availability": "https://schema.org/InStock",
+      "url": tour.bookingUrl || metadata?.url || `https://amon-tour.com/tour/${token}`
+    } : undefined,
+    "provider": {
+      "@type": "TravelAgency",
+      "name": "Amon Tour",
+      "url": "https://amon-tour.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Krabi",
+        "addressCountry": "TH"
+      }
+    }
+  };
+
   return (
     <>
       <SEO 
@@ -141,6 +177,7 @@ export default function TourShowcase() {
         ogImage={metadata?.image || tour.primaryImage || tour.images[0]}
         canonicalUrl={metadata?.url || `https://www.amon-tour.com/tour/${token}`}
         keywords={metadata?.keywords?.join(', ') || ''}
+        structuredData={touristTripSchema}
       />
       <Header />
       

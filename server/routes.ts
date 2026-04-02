@@ -316,7 +316,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get('/sitemap.xml', async (req, res) => {
     try {
       const baseUrl = 'https://amon-tour.com';
-      const languages = ['en', 'fr', 'th'];
+      const languages = ['en', 'en-MY', 'en-SG', 'en-AU', 'fr', 'th', 'zh-CN', 'zh-SG', 'zh-MY', 'ms', 'x-default'];
       
       const staticPages = [
         { url: '/', changefreq: 'daily', priority: '1.0' },
@@ -327,6 +327,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         { url: '/custom-tour', changefreq: 'monthly', priority: '0.7' },
         { url: '/blog', changefreq: 'weekly', priority: '0.6' },
         { url: '/contact', changefreq: 'monthly', priority: '0.5' },
+        { url: '/group-corporate', changefreq: 'monthly', priority: '0.5' },
+        { url: '/become-partner', changefreq: 'monthly', priority: '0.4' },
         { url: '/privacy-policy', changefreq: 'yearly', priority: '0.3' },
         { url: '/terms-conditions', changefreq: 'yearly', priority: '0.3' },
         { url: '/legal-notice', changefreq: 'yearly', priority: '0.3' }
@@ -361,6 +363,7 @@ ${alternateLinks}
 </urlset>`;
 
       res.set('Content-Type', 'application/xml');
+      res.set('Cache-Control', 'public, max-age=86400');
       res.send(sitemap);
     } catch (error) {
       console.error('Error generating sitemap:', error);
@@ -372,24 +375,16 @@ ${alternateLinks}
     const robotsTxt = `User-agent: *
 Allow: /
 
-# SEO optimized for Thailand tourism
-Allow: /tours
-Allow: /experiences
-Allow: /stays
-Allow: /custom-tour
-
-# Block admin areas
 Disallow: /admin
+Disallow: /admin-*
+Disallow: /tour-card-builder
 Disallow: /api/
 Disallow: /uploads/
 
-# Sitemap location
-Sitemap: https://amon-tour.com/sitemap.xml
-
-# Crawl delay to be respectful
-Crawl-delay: 1`;
+Sitemap: https://amon-tour.com/sitemap.xml`;
 
     res.set('Content-Type', 'text/plain');
+    res.set('Cache-Control', 'public, max-age=86400');
     res.send(robotsTxt);
   });
 
