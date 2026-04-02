@@ -81,7 +81,7 @@ export default function SEO({
       "@type": "ContactPoint",
       "telephone": "+66-81-956-2849",
       "contactType": "customer service",
-      "availableLanguage": ["English", "French", "Thai", "Mandarin"]
+      "availableLanguage": ["English", "French", "Thai"]
     },
     "address": {
       "@type": "PostalAddress",
@@ -94,16 +94,10 @@ export default function SEO({
       "latitude": "8.0863",
       "longitude": "98.9063"
     },
-    "areaServed": [
-      { "@type": "Country", "name": "Thailand" },
-      { "@type": "Country", "name": "Malaysia" },
-      { "@type": "Country", "name": "Singapore" },
-      { "@type": "Country", "name": "Australia" },
-      { "@type": "Country", "name": "China" }
-    ],
+    "areaServed": { "@type": "Country", "name": "Thailand" },
     "serviceType": ["Private Tours", "Cultural Experiences", "Travel Planning", "Island Tours", "Temple Visits", "Local Cuisine Tours", "Kayaking", "Sunset Trips"],
     "priceRange": "$$-$$$",
-    "currenciesAccepted": ["THB", "USD", "EUR", "MYR", "SGD", "AUD", "CNY"],
+    "currenciesAccepted": ["THB", "USD", "EUR"],
     "paymentAccepted": ["Cash", "Credit Card", "Bank Transfer"],
     "openingHours": "Mo-Su 08:00-20:00",
     "sameAs": [
