@@ -157,7 +157,7 @@ const DESTINATIONS: Destination[] = [
     title: "Tour privé Koh Phi Phi depuis Krabi | Amon Tour",
     metaDescription:
       "Tour privé Koh Phi Phi depuis Ao Nang, Krabi. Visitez Maya Bay, Viking Cave, snorkeling à Phi Phi Ley avec un guide francophone. Départ journée complète ~8h. Réservez sur WhatsApp.",
-    h1: "Tour privé Koh Phi Phi depuis Krabi",
+    h1: "Tour privé Koh Phi Phi depuis Krabi | Amon Tour",
     intro:
       "Le tour privé Koh Phi Phi est l'une des excursions les plus demandées depuis Krabi — et l'une de celles où la différence entre un tour de groupe et un tour privé est la plus visible. Avec Amon Tour, vous partez depuis Ao Nang sur un bateau réservé pour vous seuls, vous choisissez l'ordre des arrêts et vous passez plus de temps là où vous aimez.",
     sections: [
@@ -268,7 +268,7 @@ const DESTINATIONS: Destination[] = [
     title: "Excursion Phang Nga Bay depuis Krabi | James Bond Island | Amon Tour",
     metaDescription:
       "Excursion privée Phang Nga Bay depuis Krabi : James Bond Island, kayak en grottes marines, village flottant Ko Panyi. Guide francophone, bateau privé. Réservez sur WhatsApp.",
-    h1: "Excursion Phang Nga Bay depuis Krabi",
+    h1: "Excursion Phang Nga Bay depuis Krabi | Amon Tour",
     intro:
       "L'excursion Phang Nga Bay depuis Krabi est l'une des journées les plus spectaculaires du sud de la Thaïlande. La baie concentre des formations calcaires à couper le souffle, des grottes marines accessibles en kayak, et le célèbre James Bond Island — le tout à moins de 2 heures de bateau depuis Ao Nang.",
     sections: [
@@ -357,7 +357,7 @@ const DESTINATIONS: Destination[] = [
     title: "Bivouac Thalane — Kayak & Nuit en Nature à Phang Nga | Amon Tour",
     metaDescription:
       "Bivouac kayak Thalane : paddlez dans des mangroves vierges à Phang Nga, atteignez un lagon secret inaccessible à pied, dormez sous les étoiles. Expérience signature d'Amon Tour.",
-    h1: "Bivouac kayak Thalane — L'expérience secrète de Phang Nga",
+    h1: "Bivouac kayak Thalane — Expérience secrète à Phang Nga | Amon Tour",
     intro:
       "Le bivouac kayak Thalane est l'expérience la plus secrète et la plus intense qu'Amon Tour propose. À deux heures de route de Krabi, dans le district peu touristique de Klong Thom, la rivière Thalane ouvre un accès unique à des mangroves vierges et à un lagon intérieur que l'on ne peut atteindre qu'en kayak — et uniquement à certaines heures de marée.",
     sections: [
@@ -456,7 +456,7 @@ const DESTINATIONS: Destination[] = [
     title: "Catamaran privatif à Krabi — Location avec guides | Amon Tour",
     metaDescription:
       "Location de catamaran privatif à Krabi avec guides bilingues. Couchers de soleil, visite des îles, snorkeling. Idéal couples et familles. Départ Ao Nang. Réservez sur WhatsApp.",
-    h1: "Catamaran privatif à Krabi — Location avec guides",
+    h1: "Catamaran privatif à Krabi — Location avec guides | Amon Tour",
     intro:
       "Le catamaran privatif est la façon la plus élégante et la plus confortable d'explorer les îles de Krabi. À la différence d'un speedboat bondé ou d'un longtail boat sonore, un catamaran offre de l'espace, de la stabilité, et une navigation silencieuse au moteur ou à la voile selon les conditions.",
     sections: [
@@ -562,7 +562,7 @@ const DESTINATIONS: Destination[] = [
     title: "Excursion Railay Beach depuis Ao Nang | Tour Privé Krabi | Amon Tour",
     metaDescription:
       "Excursion Railay Beach depuis Ao Nang en longtail privé. Phra Nang Cave Beach, escalade, lagoon hike. Guide bilingue, demi-journée ou journée. Réservez sur WhatsApp.",
-    h1: "Excursion Railay Beach depuis Ao Nang",
+    h1: "Excursion Railay Beach depuis Ao Nang | Tour Privé Krabi — Amon Tour",
     intro:
       "Railay Beach est souvent désignée comme l'une des plus belles plages d'Asie — et elle se mérite : accessible uniquement par bateau (pas de route), Railay est une presqu'île de calcaire coupée de la terre ferme par des falaises vertigineuses. Elle concentre plusieurs des plus belles plages et formations rocheuses de Thaïlande en moins de 2 kilomètres de côte.",
     sections: [
@@ -741,7 +741,7 @@ function ssrDestinationsHub(_req: Request, res: Response) {
         <span style="color:#E6B64C;font-family:'Poppins',sans-serif;font-size:1.3rem;font-weight:600;text-align:center;padding:1rem">${escapeHtml(d.h1)}</span>
       </div>
       <div class="card-body">
-        <h3 class="card-title"><a href="/destinations/${escapeAttr(d.slug)}">${escapeHtml(d.h1)}</a></h3>
+        <h2 class="card-title"><a href="/destinations/${escapeAttr(d.slug)}">${escapeHtml(d.h1)}</a></h2>
         <p class="card-desc">${escapeHtml(d.intro.slice(0, 180))}…</p>
         <a class="card-cta" href="/destinations/${escapeAttr(d.slug)}">Découvrir →</a>
       </div>
