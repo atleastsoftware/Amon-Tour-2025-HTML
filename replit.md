@@ -25,6 +25,7 @@ The frontend is built with **React 18** and **TypeScript**, using **Tailwind CSS
 - **Modular Block System**: Content is managed through reusable blocks with a defined creation procedure, ensuring consistency and maintainability.
 - **API Proxy**: Handles external **Tour Ninja** integration for expanded tour inventory and image management.
 - **Comprehensive Error Handling**: Implemented across the platform, especially for form submissions and external API calls.
+- **SEO via Dynamic Rendering (SSR)**: Because the site is a React SPA, Googlebot would otherwise see only an empty `<div id="root">`. To fix this, `server/ssrShared.ts` and `server/ssrSeoRoutes.ts` intercept requests from search-engine and social bots (User-Agent based) and return fully-rendered HTML for `/`, `/tours`, `/tour-details/:id`, `/experiences`, `/custom-tour`, `/contact`, `/blog`. Real browsers fall through to the SPA unchanged. Each SSR page includes title, meta description, H1, real DB content, canonical, 11 hreflang locales and JSON-LD structured data (TravelAgency, TouristTrip, BreadcrumbList, ContactPage). Force SSR for testing via `?_ssr=1`.
 
 ## External Dependencies
 

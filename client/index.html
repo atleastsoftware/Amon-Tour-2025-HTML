@@ -24,8 +24,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <!-- Optimized font loading with font-display swap -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&family=Lobster&display=swap" rel="stylesheet">
+    <!-- Async (non-render-blocking) font loading -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&family=Lobster&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&family=Lobster&display=swap" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&family=Lobster&display=swap" /></noscript>
     
     <!-- Font Awesome with defer for better performance -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'" />
@@ -44,9 +46,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Amon Tour">
     
-    <!-- Fallback title/description (overridden by React Helmet) -->
-    <title>Amon Tour - Authentic Thailand Travel Experiences | Private Tours & Cultural Journeys</title>
-    <meta name="description" content="Plan your perfect Thailand vacation with Amon Tour - expert-guided private tours, cultural experiences & custom itineraries. Explore Bangkok, Phuket, Krabi & hidden gems. Family-run agency since 2017." />
+    <!-- Fallback title/description (overridden by React Helmet on hydration) -->
+    <title>Amon Tour - Private Tours in Krabi Thailand | French & English Speaking Guides</title>
+    <meta name="description" content="Krabi-based travel agency run by French and English-speaking guides since 2013. Authentic private tours in Krabi, Phi Phi, Phang Nga Bay and southern Thailand — ideal for travellers from Malaysia, Singapore, Australia and worldwide." />
   </head>
   <body>
     <div id="root"></div>

@@ -41,6 +41,7 @@ import { autoTranslationService } from "./services/autoTranslationService";
 import { translationFileService } from "./services/translationFileService";
 import { blockTranslationService } from "./services/blockTranslationService";
 import { globalElementTranslationService } from "./services/globalElementTranslationService";
+import { registerSsrRoutes } from "./ssrSeoRoutes";
 
 // Initialize default legal pages on startup
 async function initializeDefaultLegalPages() {
@@ -273,6 +274,10 @@ async function initializeDefaultLegalPages() {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // ─── SSR for SEO (must be first: serves indexable HTML to bots) ───
+  // Browsers fall through to the SPA via ssrIfBot middleware.
+  registerSsrRoutes(app);
+
   
   // Health check endpoint - responds immediately for deployment health checks
   app.get("/health", (req, res) => {
