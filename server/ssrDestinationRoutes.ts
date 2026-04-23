@@ -265,7 +265,7 @@ const DESTINATIONS: Destination[] = [
   {
     slug: "phang-nga-bay",
     lang: "both",
-    title: "Excursion Phang Nga Bay depuis Krabi | James Bond Island | Amon Tour",
+    title: "Excursion Phang Nga Bay depuis Krabi | Amon Tour",
     metaDescription:
       "Excursion privée Phang Nga Bay depuis Krabi : James Bond Island, kayak en grottes marines, village flottant Ko Panyi. Guide francophone, bateau privé. Réservez sur WhatsApp.",
     h1: "Excursion Phang Nga Bay depuis Krabi | Amon Tour",
@@ -476,7 +476,7 @@ const DESTINATIONS: Destination[] = [
         heading: "Destinations accessibles en catamaran depuis Ao Nang",
         content: `<p>Selon la durée de location et la météo, le catamaran peut couvrir :</p>
 <ul>
-<li><strong>4 Îles (Koh Mook, Koh Ngai, Koh Kradan, Koh Libong)</strong> : archipel au sud de Krabi, eaux turquoise, plages désertes</li>
+<li><strong>4 Îles (Koh Mook, Koh Ngai, Koh Kradan, Koh Rok)</strong> : archipel au sud de Krabi, eaux turquoise, plages désertes et snorkeling d'exception</li>
 <li><strong>Railay Beach et Koh Poda</strong> : falaises calcaires de Krabi à portée de voile</li>
 <li><strong>Bamboo Island et Chicken Island</strong> : spots snorkeling au nord de Phi Phi</li>
 <li><strong>Coucher de soleil sur les falaises de Railay</strong> : la formule "sunset cruise" — départ vers 15h, ancre face aux falaises dorées au coucher du soleil</li>
@@ -559,7 +559,7 @@ const DESTINATIONS: Destination[] = [
   {
     slug: "railay-beach",
     lang: "both",
-    title: "Excursion Railay Beach depuis Ao Nang | Tour Privé Krabi | Amon Tour",
+    title: "Excursion Railay Beach depuis Ao Nang | Tour Privé Krabi",
     metaDescription:
       "Excursion Railay Beach depuis Ao Nang en longtail privé. Phra Nang Cave Beach, escalade, lagoon hike. Guide bilingue, demi-journée ou journée. Réservez sur WhatsApp.",
     h1: "Excursion Railay Beach depuis Ao Nang | Tour Privé Krabi — Amon Tour",
