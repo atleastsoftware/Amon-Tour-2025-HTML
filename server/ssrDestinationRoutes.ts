@@ -867,6 +867,9 @@ export const DESTINATION_SLUGS = DESTINATIONS.map((d) => d.slug);
  * ────────────────────────────────────────────────────────────────────────── */
 
 export function registerDestinationRoutes(app: Express): void {
-  app.get("/destinations", ssrIfBot(ssrDestinationsHub));
-  app.get("/destinations/:slug", ssrIfBot(ssrDestinationPage));
+  // Destination landing pages are pure SSR HTML — served to ALL visitors,
+  // not just bots. These pages have no SPA counterpart, so all users need
+  // the server-rendered HTML (bots for indexing, humans for conversion).
+  app.get("/destinations", ssrDestinationsHub);
+  app.get("/destinations/:slug", ssrDestinationPage);
 }
