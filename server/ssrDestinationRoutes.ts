@@ -34,7 +34,10 @@ type Destination = {
   sections: DestinationSection[];
   faq: DestinationFaq[];
   relatedSlugs: string[];
+  /** Primary rich schema for the page (TravelAgency, TouristTrip, or other). */
   schema: object;
+  /** Always a TouristTrip schema — used for hub ItemList + FAQPage pairing. */
+  tripSchema: object;
 };
 
 /* ──────────────────────────────────────────────────────────────────────────
@@ -131,6 +134,18 @@ const DESTINATIONS: Destination[] = [
       telephone: BRAND.phoneIntl,
       availableLanguage: ["French", "English", "Thai"],
       areaServed: { "@type": "Country", name: "Thailand" },
+    },
+    tripSchema: {
+      "@context": "https://schema.org",
+      "@type": "TouristTrip",
+      name: "Services d'agence voyage francophone à Krabi — Amon Tour",
+      description:
+        "Tours privés organisés par une agence francophone basée à Krabi depuis 2013. Guides bilingues français-anglais. Sur mesure, petit groupe, départ Ao Nang.",
+      url: `${BASE_URL}/destinations/agence-francophone-krabi`,
+      provider: { "@type": "TravelAgency", name: "Amon Tour", url: BASE_URL },
+      touristType: ["FrenchSpeaking", "Family", "Couple"],
+      availableLanguage: ["French", "English", "Thai"],
+      geo: { "@type": "GeoCoordinates", latitude: 8.0319, longitude: 98.8254 },
     },
   },
 
@@ -232,6 +247,17 @@ const DESTINATIONS: Destination[] = [
       },
       geo: { "@type": "GeoCoordinates", latitude: 7.7407, longitude: 98.7784 },
     },
+    tripSchema: {
+      "@context": "https://schema.org",
+      "@type": "TouristTrip",
+      name: "Tour privé Koh Phi Phi depuis Krabi",
+      description:
+        "Excursion privée en bateau d'Ao Nang vers Koh Phi Phi Ley et Koh Phi Phi Don. Visite de Maya Bay, Viking Cave, snorkeling, Pileh Lagoon. Guides francophones depuis 2013.",
+      url: `${BASE_URL}/destinations/koh-phi-phi`,
+      provider: { "@type": "TravelAgency", name: "Amon Tour", url: BASE_URL },
+      touristType: ["Family", "Couple", "Adventure"],
+      geo: { "@type": "GeoCoordinates", latitude: 7.7407, longitude: 98.7784 },
+    },
   },
 
   /* ── 3. Phang Nga Bay ────────────────────────────────────────────────── */
@@ -300,6 +326,17 @@ const DESTINATIONS: Destination[] = [
     ],
     relatedSlugs: ["koh-phi-phi", "thalane-bivouac", "catamaran-krabi"],
     schema: {
+      "@context": "https://schema.org",
+      "@type": "TouristTrip",
+      name: "Excursion privée Phang Nga Bay depuis Krabi",
+      description:
+        "Journée privée dans la baie de Phang Nga depuis Krabi : James Bond Island (Ko Tapu), kayak en grottes marines, village flottant Ko Panyi. Guide bilingue FR/EN.",
+      url: `${BASE_URL}/destinations/phang-nga-bay`,
+      provider: { "@type": "TravelAgency", name: "Amon Tour", url: BASE_URL },
+      touristType: ["Family", "Couple", "Adventure"],
+      geo: { "@type": "GeoCoordinates", latitude: 8.2653, longitude: 98.5027 },
+    },
+    tripSchema: {
       "@context": "https://schema.org",
       "@type": "TouristTrip",
       name: "Excursion privée Phang Nga Bay depuis Krabi",
@@ -386,6 +423,18 @@ const DESTINATIONS: Destination[] = [
     ],
     relatedSlugs: ["phang-nga-bay", "agence-francophone-krabi", "catamaran-krabi"],
     schema: {
+      "@context": "https://schema.org",
+      "@type": "TouristTrip",
+      name: "Bivouac kayak Thalane — Mangroves de Phang Nga",
+      description:
+        "Expérience de 2 jours/1 nuit en kayak dans les mangroves préservées de Thalane, Phang Nga. Accès à un lagon secret en tunnel naturel. Bivouac nature, cuisine locale. Max 6 personnes.",
+      url: `${BASE_URL}/destinations/thalane-bivouac`,
+      provider: { "@type": "TravelAgency", name: "Amon Tour", url: BASE_URL },
+      touristType: ["Adventure", "Nature"],
+      duration: "P2D",
+      geo: { "@type": "GeoCoordinates", latitude: 8.05, longitude: 98.73 },
+    },
+    tripSchema: {
       "@context": "https://schema.org",
       "@type": "TouristTrip",
       name: "Bivouac kayak Thalane — Mangroves de Phang Nga",
@@ -492,6 +541,17 @@ const DESTINATIONS: Destination[] = [
       touristType: ["Couple", "Family", "Luxury"],
       geo: { "@type": "GeoCoordinates", latitude: 8.0319, longitude: 98.8254 },
     },
+    tripSchema: {
+      "@context": "https://schema.org",
+      "@type": "TouristTrip",
+      name: "Location catamaran privatif Krabi",
+      description:
+        "Location de catamaran privatif à Krabi avec skipper et guide bilingue FR/EN. Excursions îles, sunset cruise, voyage de noces. Départ Ao Nang. Jusqu'à 10 personnes.",
+      url: `${BASE_URL}/destinations/catamaran-krabi`,
+      provider: { "@type": "TravelAgency", name: "Amon Tour", url: BASE_URL },
+      touristType: ["Couple", "Family", "Luxury"],
+      geo: { "@type": "GeoCoordinates", latitude: 8.0319, longitude: 98.8254 },
+    },
   },
 
   /* ── 6. Railay Beach ─────────────────────────────────────────────────── */
@@ -558,6 +618,17 @@ const DESTINATIONS: Destination[] = [
     ],
     relatedSlugs: ["koh-phi-phi", "catamaran-krabi", "agence-francophone-krabi"],
     schema: {
+      "@context": "https://schema.org",
+      "@type": "TouristTrip",
+      name: "Excursion Railay Beach depuis Ao Nang",
+      description:
+        "Excursion privée en longtail boat depuis Ao Nang vers Railay Beach. Phra Nang Cave Beach, escalade, lagoon hike. Guide bilingue FR/EN. Demi-journée ou journée complète.",
+      url: `${BASE_URL}/destinations/railay-beach`,
+      provider: { "@type": "TravelAgency", name: "Amon Tour", url: BASE_URL },
+      touristType: ["Family", "Couple", "Adventure", "Sport"],
+      geo: { "@type": "GeoCoordinates", latitude: 8.0068, longitude: 98.837 },
+    },
+    tripSchema: {
       "@context": "https://schema.org",
       "@type": "TouristTrip",
       name: "Excursion Railay Beach depuis Ao Nang",
@@ -683,7 +754,7 @@ function ssrDestinationsHub(_req: Request, res: Response) {
     itemListElement: DESTINATIONS.map((d, i) => ({
       "@type": "ListItem",
       position: i + 1,
-      item: d.schema,
+      item: d.tripSchema,
     })),
   };
 
@@ -765,7 +836,7 @@ function ssrDestinationPage(req: Request, res: Response) {
       { label: "Destinations", url: "/destinations" },
       { label: dest.h1 },
     ],
-    schemaJsons: [dest.schema, faqSchema(dest.faq), breadcrumbSchema(dest)],
+    schemaJsons: [dest.schema, dest.tripSchema, faqSchema(dest.faq), breadcrumbSchema(dest)],
   });
   sendSsrHtml(res, html);
 }
