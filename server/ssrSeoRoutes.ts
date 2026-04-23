@@ -197,7 +197,7 @@ async function ssrHome(_req: Request, res: Response) {
           <a class="card-cta" href="/destinations/railay-beach">Learn more →</a>
         </div></article>
       </div>
-      <p style="margin-top:1rem"><a class="btn btn-primary" href="/destinations">Voir toutes nos destinations →</a></p>
+      <p style="margin-top:1rem"><a class="btn btn-primary" href="/destinations">Explore all our destinations →</a></p>
     </section>
 
     <section class="section">

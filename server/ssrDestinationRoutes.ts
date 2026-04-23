@@ -52,7 +52,7 @@ const DESTINATIONS: Destination[] = [
     lang: "fr",
     title: "Agence de voyage francophone à Krabi | Amon Tour",
     metaDescription:
-      "Amon Tour est l'agence de voyage francophone à Krabi. Guides francophones et anglophones depuis 2013. Tours privés, sur mesure, départ depuis Ao Nang. Réservez sur WhatsApp.",
+      "Agence francophone à Krabi depuis 2013. Guides FR/EN, tours privés sur mesure. Départ Ao Nang. Réservez sur WhatsApp.",
     h1: "Agence de voyage francophone à Krabi — Amon Tour",
     intro:
       "Amon Tour est l'une des rares agences de voyage francophones basées à Krabi. Depuis 2013, nos guides bilingues français-anglais accompagnent des voyageurs francophones venus de France, de Belgique, de Suisse, du Canada, mais aussi de Nouvelle-Calédonie et de La Réunion, dans la découverte authentique du sud de la Thaïlande.",
@@ -156,7 +156,7 @@ const DESTINATIONS: Destination[] = [
     lang: "both",
     title: "Tour privé Koh Phi Phi depuis Krabi | Amon Tour",
     metaDescription:
-      "Tour privé Koh Phi Phi depuis Ao Nang, Krabi. Visitez Maya Bay, Viking Cave, snorkeling à Phi Phi Ley avec un guide francophone. Départ journée complète ~8h. Réservez sur WhatsApp.",
+      "Tour privé Koh Phi Phi depuis Krabi : Maya Bay, Viking Cave, snorkeling à Phi Phi Ley. Guide francophone, bateau privé. Journée complète depuis Ao Nang.",
     h1: "Tour privé Koh Phi Phi depuis Krabi | Amon Tour",
     intro:
       "Le tour privé Koh Phi Phi est l'une des excursions les plus demandées depuis Krabi — et l'une de celles où la différence entre un tour de groupe et un tour privé est la plus visible. Avec Amon Tour, vous partez depuis Ao Nang sur un bateau réservé pour vous seuls, vous choisissez l'ordre des arrêts et vous passez plus de temps là où vous aimez.",
@@ -267,7 +267,7 @@ const DESTINATIONS: Destination[] = [
     lang: "both",
     title: "Excursion Phang Nga Bay depuis Krabi | Amon Tour",
     metaDescription:
-      "Excursion privée Phang Nga Bay depuis Krabi : James Bond Island, kayak en grottes marines, village flottant Ko Panyi. Guide francophone, bateau privé. Réservez sur WhatsApp.",
+      "Excursion Phang Nga Bay depuis Krabi : James Bond Island, kayak en grottes, Ko Panyi. Guide francophone, bateau privé. Réservez sur WhatsApp.",
     h1: "Excursion Phang Nga Bay depuis Krabi | Amon Tour",
     intro:
       "L'excursion Phang Nga Bay depuis Krabi est l'une des journées les plus spectaculaires du sud de la Thaïlande. La baie concentre des formations calcaires à couper le souffle, des grottes marines accessibles en kayak, et le célèbre James Bond Island — le tout à moins de 2 heures de bateau depuis Ao Nang.",
@@ -356,7 +356,7 @@ const DESTINATIONS: Destination[] = [
     lang: "fr",
     title: "Bivouac Thalane — Kayak & Nuit en Nature à Phang Nga | Amon Tour",
     metaDescription:
-      "Bivouac kayak Thalane : paddlez dans des mangroves vierges à Phang Nga, atteignez un lagon secret inaccessible à pied, dormez sous les étoiles. Expérience signature d'Amon Tour.",
+      "Bivouac kayak Thalane : mangroves vierges, lagon secret inaccessible à pied, nuit sous les étoiles à Phang Nga. Expérience signature Amon Tour.",
     h1: "Bivouac kayak Thalane — Expérience secrète à Phang Nga | Amon Tour",
     intro:
       "Le bivouac kayak Thalane est l'expérience la plus secrète et la plus intense qu'Amon Tour propose. À deux heures de route de Krabi, dans le district peu touristique de Klong Thom, la rivière Thalane ouvre un accès unique à des mangroves vierges et à un lagon intérieur que l'on ne peut atteindre qu'en kayak — et uniquement à certaines heures de marée.",
@@ -455,7 +455,7 @@ const DESTINATIONS: Destination[] = [
     lang: "fr",
     title: "Catamaran privatif à Krabi — Location avec guides | Amon Tour",
     metaDescription:
-      "Location de catamaran privatif à Krabi avec guides bilingues. Couchers de soleil, visite des îles, snorkeling. Idéal couples et familles. Départ Ao Nang. Réservez sur WhatsApp.",
+      "Catamaran privatif à Krabi avec guides bilingues FR/EN. Couchers de soleil, îles et snorkeling. Idéal couples et familles. Départ Ao Nang.",
     h1: "Catamaran privatif à Krabi — Location avec guides | Amon Tour",
     intro:
       "Le catamaran privatif est la façon la plus élégante et la plus confortable d'explorer les îles de Krabi. À la différence d'un speedboat bondé ou d'un longtail boat sonore, un catamaran offre de l'espace, de la stabilité, et une navigation silencieuse au moteur ou à la voile selon les conditions.",
@@ -561,7 +561,7 @@ const DESTINATIONS: Destination[] = [
     lang: "both",
     title: "Excursion Railay Beach depuis Ao Nang | Tour Privé Krabi",
     metaDescription:
-      "Excursion Railay Beach depuis Ao Nang en longtail privé. Phra Nang Cave Beach, escalade, lagoon hike. Guide bilingue, demi-journée ou journée. Réservez sur WhatsApp.",
+      "Railay Beach depuis Ao Nang en longtail privé. Phra Nang Cave Beach, escalade, lagoon hike. Guide bilingue, demi-journée ou journée complète.",
     h1: "Excursion Railay Beach depuis Ao Nang | Tour Privé Krabi — Amon Tour",
     intro:
       "Railay Beach est souvent désignée comme l'une des plus belles plages d'Asie — et elle se mérite : accessible uniquement par bateau (pas de route), Railay est une presqu'île de calcaire coupée de la terre ferme par des falaises vertigineuses. Elle concentre plusieurs des plus belles plages et formations rocheuses de Thaïlande en moins de 2 kilomètres de côte.",
