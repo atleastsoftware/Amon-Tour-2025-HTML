@@ -42,6 +42,7 @@ import { translationFileService } from "./services/translationFileService";
 import { blockTranslationService } from "./services/blockTranslationService";
 import { globalElementTranslationService } from "./services/globalElementTranslationService";
 import { registerSsrRoutes } from "./ssrSeoRoutes";
+import { registerDestinationRoutes, DESTINATION_SLUGS } from "./ssrDestinationRoutes";
 
 // Initialize default legal pages on startup
 async function initializeDefaultLegalPages() {
@@ -277,6 +278,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ─── SSR for SEO (must be first: serves indexable HTML to bots) ───
   // Browsers fall through to the SPA via ssrIfBot middleware.
   registerSsrRoutes(app);
+  registerDestinationRoutes(app);
 
   
   // Health check endpoint - responds immediately for deployment health checks
@@ -327,6 +329,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         { url: '/', changefreq: 'daily', priority: '1.0' },
         { url: '/tours', changefreq: 'weekly', priority: '0.9' },
         { url: '/experiences', changefreq: 'weekly', priority: '0.8' },
+        { url: '/destinations', changefreq: 'monthly', priority: '0.8' },
+        ...DESTINATION_SLUGS.map(slug => ({
+          url: `/destinations/${slug}`,
+          changefreq: 'monthly' as const,
+          priority: ['agence-francophone-krabi', 'koh-phi-phi', 'phang-nga-bay'].includes(slug) ? '0.9' : '0.8',
+        })),
         { url: '/stays', changefreq: 'weekly', priority: '0.8' },
         { url: '/external-stays', changefreq: 'weekly', priority: '0.7' },
         { url: '/custom-tour', changefreq: 'monthly', priority: '0.7' },

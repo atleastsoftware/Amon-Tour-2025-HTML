@@ -197,6 +197,7 @@ async function ssrHome(_req: Request, res: Response) {
           <a class="card-cta" href="/destinations/railay-beach">Learn more →</a>
         </div></article>
       </div>
+      <p style="margin-top:1rem"><a class="btn btn-primary" href="/destinations">Voir toutes nos destinations →</a></p>
     </section>
 
     <section class="section">
@@ -232,6 +233,7 @@ async function ssrTours(_req: Request, res: Response) {
       <div class="card-grid">${tours.map(tourCardHtml).join("")}</div>
       <div class="cta-row">
         <a class="btn btn-primary" href="/custom-tour">Don't see what you want? Build a custom tour</a>
+        <a class="btn btn-gold" href="/destinations">Explore our destinations</a>
       </div>`
     : `<p>Our tour list is being updated. Please <a href="/contact">contact us</a> for current availability.</p>`;
 
