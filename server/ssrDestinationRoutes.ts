@@ -1,11 +1,12 @@
 /**
  * Programmatic SEO destination landing pages.
  *
- * 6 pages targeting low-competition keyword opportunities from the SEO audit.
- * All pages are pure SSR HTML (no React bundle) served to bots via bot-UA detection.
- * Real browsers fall through to the SPA via next().
+ * 6 keyword-targeted landing pages + a hub page (/destinations).
+ * All routes serve full SSR HTML to every visitor (browser and bot alike).
+ * These pages have no SPA counterpart, so server-rendered HTML is the only
+ * rendering path — no bot-gating required.
  */
-import type { Express, Request, Response, NextFunction } from "express";
+import type { Express, Request, Response } from "express";
 import {
   ssrHtmlShell,
   sendSsrHtml,
@@ -839,21 +840,6 @@ function ssrDestinationPage(req: Request, res: Response) {
     schemaJsons: [dest.schema, dest.tripSchema, faqSchema(dest.faq), breadcrumbSchema(dest)],
   });
   sendSsrHtml(res, html);
-}
-
-/* ──────────────────────────────────────────────────────────────────────────
- * Bot detection (reuse same pattern as ssrSeoRoutes)
- * ────────────────────────────────────────────────────────────────────────── */
-
-const BOT_UA_REGEX = /googlebot|bingbot|duckduckbot|baiduspider|yandex|slurp|facebookexternalhit|twitterbot|linkedinbot|whatsapp|telegrambot|applebot|ahrefsbot|semrushbot|petalbot|bytespider|discordbot|pinterest|slackbot|chrome-lighthouse|lighthouse|headlesschrome|headless|bot\/|crawler|spider/i;
-
-function ssrIfBot(handler: (req: Request, res: Response) => void) {
-  return (req: Request, res: Response, next: NextFunction) => {
-    const ua = req.get("user-agent") || "";
-    const force = req.query._ssr === "1";
-    if (!force && !BOT_UA_REGEX.test(ua)) return next();
-    handler(req, res);
-  };
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
