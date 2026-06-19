@@ -333,7 +333,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         ...DESTINATION_SLUGS.map(slug => ({
           url: `/destinations/${slug}`,
           changefreq: 'monthly' as const,
-          priority: ['agence-francophone-krabi', 'koh-phi-phi', 'phang-nga-bay'].includes(slug) ? '0.9' : '0.8',
+          priority: ['agence-francophone-krabi', 'koh-phi-phi', 'phang-nga-bay', 'sejour-famille-personnalise-thailande', 'family-tailor-made-trip-thailand'].includes(slug) ? '0.9' : '0.8',
         })),
         { url: '/stays', changefreq: 'weekly', priority: '0.8' },
         { url: '/external-stays', changefreq: 'weekly', priority: '0.7' },

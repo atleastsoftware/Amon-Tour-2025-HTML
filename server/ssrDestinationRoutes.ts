@@ -641,6 +641,254 @@ const DESTINATIONS: Destination[] = [
       geo: { "@type": "GeoCoordinates", latitude: 8.0068, longitude: 98.837 },
     },
   },
+
+  /* ── 7. Séjour famille personnalisé (FR) ─────────────────────────────── */
+  {
+    slug: "sejour-famille-personnalise-thailande",
+    lang: "fr",
+    title: "Séjour famille personnalisé en Thaïlande | Amon Tour",
+    metaDescription:
+      "Séjour famille sur mesure à Krabi, loin du tourisme de masse. Conçu par une famille française installée depuis 2013. Guides FR/EN, catamaran privatif.",
+    h1: "Séjour famille personnalisé en Thaïlande, loin du tourisme de masse",
+    intro:
+      "Un séjour famille personnalisé en Thaïlande avec Amon Tour, c'est un voyage entièrement sur mesure conçu par une famille française installée à Krabi depuis 2013 : un itinéraire adapté à l'âge de vos enfants, des activités privées en petit comité (8 personnes maximum), et le choix délibéré d'éviter les sites bondés du tourisme de masse. Nous organisons votre voyage comme si nous accueillions nos propres amis.",
+    sections: [
+      {
+        heading: "Pourquoi choisir un séjour sur mesure plutôt qu'un circuit organisé ?",
+        content: `<p>Un circuit organisé impose son rythme : horaires fixes, grands groupes, arrêts photo minutés. Avec de jeunes enfants ou des adolescents, ce format atteint vite ses limites — sieste impossible, attente sous le soleil, journées trop longues.</p>
+<p>Un séjour sur mesure inverse la logique : <strong>c'est le programme qui s'adapte à votre famille</strong>, pas l'inverse. Vous fixez l'heure de départ, la durée de chaque étape, le niveau d'activité. Vous pouvez écourter une journée en mer si les enfants fatiguent, ou prolonger un moment qui plaît.</p>
+<p>Amon Tour est une agence familiale — Éric, Margaux et leurs deux garçons vivent à Krabi depuis 2013. Cette expérience de parents voyageant avec enfants dans la région nourrit chaque programme que nous concevons : nous savons quelles plages ont de l'ombre, quels trajets en bateau sont trop longs pour un enfant de 4 ans, et où trouver un déjeuner qui plaira à toute la famille.</p>`,
+      },
+      {
+        heading: "Loin du tourisme de masse : comment nous évitons les foules",
+        content: `<p>Éviter le tourisme de masse n'est pas un slogan, c'est une méthode concrète. Voici comment nous procédons :</p>
+<ul>
+<li><strong>Départs décalés :</strong> nous partons avant ou après les pics de fréquentation. Arriver à Maya Bay à 8h plutôt qu'à 11h change radicalement l'expérience.</li>
+<li><strong>Bateaux privés :</strong> votre famille seule à bord, jamais mélangée à un groupe de 30 inconnus.</li>
+<li><strong>Îles et coins moins connus :</strong> Koh Hong, Koh Rok, les mangroves de Thalane ou des plages secrètes de Railay, là où les circuits standards ne s'arrêtent pas.</li>
+<li><strong>Petits groupes :</strong> 8 personnes maximum, ce qui permet un vrai contact avec le guide et un rythme humain.</li>
+</ul>
+<p>Résultat : des photos sans foule en arrière-plan, des enfants détendus, et le sentiment de découvrir la Thaïlande plutôt que de la subir.</p>`,
+      },
+      {
+        heading: "Des activités pensées pour chaque âge",
+        content: `<p>Un bon séjour famille tient compte de l'âge réel des enfants :</p>
+<ul>
+<li><strong>Tout-petits (0-4 ans) :</strong> courtes sorties en bateau, lagons calmes (Pileh Lagoon), plages à eau peu profonde, beaucoup de temps libre.</li>
+<li><strong>Enfants (5-11 ans) :</strong> snorkeling encadré avec gilet, kayak en duo avec un parent, observation des singes et des varans, baignade dans les hongs de Phang Nga.</li>
+<li><strong>Adolescents (12 ans et +) :</strong> escalade à Railay, paddle, plongée avec masque sur les récifs de Hin Klang, bivouac kayak dans les mangroves.</li>
+</ul>
+<p>Tout le matériel (masques, tubas, gilets enfants) est fourni à bord. Indiquez-nous simplement l'âge de chaque enfant lors de la demande pour que nous calibrions le programme.</p>`,
+      },
+      {
+        heading: "Le catamaran privatif : la journée famille par excellence",
+        content: `<p>Pour une famille, le <strong>catamaran privatif</strong> est souvent la plus belle journée du séjour. Plus stable qu'un speedboat — un vrai atout contre le mal de mer des enfants — il offre de l'espace pour bouger, un coin ombragé pour la sieste, et une plateforme de baignade sécurisée.</p>
+<p>La journée se construit autour de vous : navigation tranquille entre les îles, arrêts snorkeling dans des eaux calmes, déjeuner à bord, baignade et coucher de soleil sur le retour. Aucun horaire imposé, aucun autre groupe à bord.</p>
+<p>Découvrez aussi notre page dédiée au <a href="/destinations/catamaran-krabi">catamaran privatif à Krabi</a> pour les détails de cette expérience.</p>`,
+      },
+      {
+        heading: "Exemple d'itinéraire famille sur 8 jours",
+        content: `<p>Voici un exemple de séjour équilibré, alternant mer, nature et repos (entièrement modulable) :</p>
+<ul>
+<li><strong>Jour 1 :</strong> arrivée à Krabi, installation à Ao Nang, soirée tranquille au marché de nuit.</li>
+<li><strong>Jour 2 :</strong> journée catamaran privatif autour des 4 Îles et Koh Hong.</li>
+<li><strong>Jour 3 :</strong> repos, piscine, demi-journée à Railay Beach en longtail.</li>
+<li><strong>Jour 4 :</strong> excursion privée Phang Nga Bay — James Bond Island et kayak en grottes.</li>
+<li><strong>Jour 5-6 :</strong> nature à Khao Sok — lac Cheow Lan, maisons flottantes, forêt tropicale.</li>
+<li><strong>Jour 7 :</strong> tour privé Koh Phi Phi avec snorkeling à Pileh Lagoon.</li>
+<li><strong>Jour 8 :</strong> matinée libre, transfert aéroport.</li>
+</ul>
+<p>C'est un point de départ, pas un cadre figé. Nous ajustons durée, hébergement et activités selon vos envies et votre budget.</p>`,
+      },
+      {
+        heading: "Organiser votre séjour famille : comment ça marche",
+        content: `<p>La façon la plus simple est <strong>WhatsApp</strong> au <a href="https://wa.me/${WA}">+66 86 476 3804</a> — nous répondons en français dans l'heure, entre 8h et 21h (heure de Thaïlande). Vous pouvez aussi remplir notre <a href="/custom-tour">formulaire de demande sur mesure</a>.</p>
+<p>Dites-nous : vos dates, l'âge de vos enfants, vos centres d'intérêt (mer, nature, culture, repos) et votre budget approximatif. Nous vous renvoyons une proposition détaillée sous 24 à 48h. Aucun paiement n'est requis pour recevoir un programme.</p>
+<p><strong>Tarif :</strong> [TO INSERT : fourchette de prix par jour et par famille].</p>`,
+      },
+    ],
+    faq: [
+      {
+        question: "Comment organiser un voyage en famille sur mesure en Thaïlande ?",
+        answer:
+          "Contactez Amon Tour sur WhatsApp (+66 86 476 3804) ou via le formulaire sur mesure du site, en précisant vos dates, l'âge des enfants, vos centres d'intérêt et votre budget. Nous renvoyons une proposition détaillée sous 24 à 48h, sans paiement préalable.",
+      },
+      {
+        question: "Comment éviter le tourisme de masse à Krabi avec des enfants ?",
+        answer:
+          "En privatisant les excursions, en partant avant ou après les pics de fréquentation, et en choisissant des îles moins connues comme Koh Hong ou Koh Rok. Amon Tour organise des départs décalés et des bateaux privés pour que votre famille évite les foules.",
+      },
+      {
+        question: "Quelles activités en Thaïlande pour de jeunes enfants ?",
+        answer:
+          "Pour les tout-petits, on privilégie les courtes sorties en bateau, les lagons calmes comme Pileh Lagoon et les plages à eau peu profonde. Pour les 5-11 ans, snorkeling encadré avec gilet et kayak en duo avec un parent. Le matériel enfant est fourni à bord.",
+      },
+      {
+        question: "Peut-on privatiser un catamaran pour une famille ?",
+        answer:
+          "Oui. Le catamaran privatif est idéal pour les familles : plus stable contre le mal de mer, espace pour bouger, coin ombragé et plateforme de baignade. La journée est construite autour de votre rythme, sans autre groupe à bord.",
+      },
+      {
+        question: "Quel est le meilleur moment pour un séjour famille à Krabi ?",
+        answer:
+          "De novembre à avril, la mer est calme et le ciel dégagé — la période la plus confortable avec des enfants. De mai à octobre, les tarifs sont plus bas et les sites moins fréquentés, mais certaines sorties en mer peuvent être adaptées selon la météo.",
+      },
+      {
+        question: "Parlez-vous français pour organiser le voyage ?",
+        answer:
+          "Oui. Amon Tour est une agence familiale française installée à Krabi depuis 2013. Tout l'accompagnement, de la première demande au guide sur place, est disponible en français comme en anglais.",
+      },
+    ],
+    relatedSlugs: ["catamaran-krabi", "koh-phi-phi", "phang-nga-bay", "agence-francophone-krabi"],
+    schema: {
+      "@context": "https://schema.org",
+      "@type": "TouristTrip",
+      name: "Séjour famille personnalisé en Thaïlande — Amon Tour",
+      description:
+        "Voyage famille sur mesure à Krabi et dans le sud de la Thaïlande, loin du tourisme de masse. Activités privées adaptées à l'âge des enfants, catamaran privatif, guides francophones depuis 2013.",
+      url: `${BASE_URL}/destinations/sejour-famille-personnalise-thailande`,
+      provider: { "@type": "TravelAgency", name: "Amon Tour", url: BASE_URL },
+      touristType: ["Family", "FrenchSpeaking"],
+      availableLanguage: ["French", "English", "Thai"],
+      geo: { "@type": "GeoCoordinates", latitude: 8.0319, longitude: 98.8254 },
+    },
+    tripSchema: {
+      "@context": "https://schema.org",
+      "@type": "TouristTrip",
+      name: "Séjour famille personnalisé en Thaïlande — Amon Tour",
+      description:
+        "Voyage famille sur mesure à Krabi, loin du tourisme de masse. Petit groupe, catamaran privatif, activités adaptées aux enfants. Agence familiale francophone depuis 2013.",
+      url: `${BASE_URL}/destinations/sejour-famille-personnalise-thailande`,
+      provider: { "@type": "TravelAgency", name: "Amon Tour", url: BASE_URL },
+      touristType: ["Family", "FrenchSpeaking"],
+      availableLanguage: ["French", "English", "Thai"],
+      geo: { "@type": "GeoCoordinates", latitude: 8.0319, longitude: 98.8254 },
+    },
+  },
+
+  /* ── 8. Tailor-made family trips (EN) ────────────────────────────────── */
+  {
+    slug: "family-tailor-made-trip-thailand",
+    lang: "en",
+    title: "Tailor-Made Family Trips in Thailand | Amon Tour",
+    metaDescription:
+      "Personalized family holidays in Krabi, away from mass tourism. Planned by a French family living here since 2013. English & French guides, private catamaran.",
+    h1: "Tailor-Made Family Trips in Thailand — Away from Mass Tourism",
+    intro:
+      "A tailor-made family trip in Thailand with Amon Tour is a fully personalized holiday designed by a French family living in Krabi since 2013: an itinerary built around your children's ages, private activities in small groups (8 people maximum), and a deliberate choice to avoid the crowded sites of mass tourism. We plan your trip as if we were welcoming our own friends.",
+    sections: [
+      {
+        heading: "Why choose a tailor-made trip over a packaged tour?",
+        content: `<p>A packaged tour sets its own pace: fixed schedules, large groups, timed photo stops. With young children or teenagers, this format quickly hits its limits — no room for a nap, waiting in the sun, days that run too long.</p>
+<p>A tailor-made trip flips the logic: <strong>the programme adapts to your family</strong>, not the other way around. You set the departure time, the length of each stop, the level of activity. You can cut a day at sea short if the kids tire, or linger somewhere everyone loves.</p>
+<p>Amon Tour is a family-run agency — Éric, Margaux and their two boys have lived in Krabi since 2013. That first-hand experience of travelling with children in the region shapes every programme we design: we know which beaches have shade, which boat transfers are too long for a four-year-old, and where to find a lunch the whole family will enjoy.</p>`,
+      },
+      {
+        heading: "Away from mass tourism: how we avoid the crowds",
+        content: `<p>Avoiding mass tourism isn't a slogan — it's a method. Here is how we do it:</p>
+<ul>
+<li><strong>Off-peak departures:</strong> we leave before or after the busiest hours. Reaching Maya Bay at 8am instead of 11am completely changes the experience.</li>
+<li><strong>Private boats:</strong> your family alone on board, never mixed with a group of 30 strangers.</li>
+<li><strong>Lesser-known islands:</strong> Koh Hong, Koh Rok, the Thalane mangroves or hidden beaches near Railay — places the standard tours skip.</li>
+<li><strong>Small groups:</strong> 8 people maximum, allowing real contact with your guide and a human pace.</li>
+</ul>
+<p>The result: photos without crowds in the background, relaxed children, and the feeling of discovering Thailand rather than enduring it.</p>`,
+      },
+      {
+        heading: "Activities designed for every age",
+        content: `<p>A good family trip accounts for the children's real ages:</p>
+<ul>
+<li><strong>Toddlers (0-4):</strong> short boat trips, calm lagoons (Pileh Lagoon), shallow-water beaches, plenty of free time.</li>
+<li><strong>Children (5-11):</strong> supervised snorkeling with a life vest, tandem kayaking with a parent, watching monkeys and monitor lizards, swimming in the Phang Nga hongs.</li>
+<li><strong>Teenagers (12+):</strong> rock climbing at Railay, paddleboarding, snorkeling over the Hin Klang reefs, kayak camping in the mangroves.</li>
+</ul>
+<p>All equipment (masks, snorkels, children's life vests) is provided on board. Just tell us each child's age when you enquire so we can calibrate the programme.</p>`,
+      },
+      {
+        heading: "The private catamaran: the family day at its best",
+        content: `<p>For a family, the <strong>private catamaran</strong> is often the highlight of the trip. More stable than a speedboat — a real advantage against children's seasickness — it offers space to move, a shaded corner for naps, and a safe swimming platform.</p>
+<p>The day is built around you: relaxed sailing between the islands, snorkeling stops in calm water, lunch on board, swimming and a sunset on the way back. No fixed schedule, no other group on board.</p>
+<p>See our dedicated page on the <a href="/destinations/catamaran-krabi">private catamaran in Krabi</a> for the full details of this experience.</p>`,
+      },
+      {
+        heading: "Sample 8-day family itinerary",
+        content: `<p>Here is an example of a balanced trip, alternating sea, nature and rest (fully customizable):</p>
+<ul>
+<li><strong>Day 1:</strong> arrival in Krabi, settling into Ao Nang, a quiet evening at the night market.</li>
+<li><strong>Day 2:</strong> private catamaran day around the 4 Islands and Koh Hong.</li>
+<li><strong>Day 3:</strong> rest, pool time, a half-day at Railay Beach by longtail.</li>
+<li><strong>Day 4:</strong> private Phang Nga Bay excursion — James Bond Island and cave kayaking.</li>
+<li><strong>Days 5-6:</strong> nature at Khao Sok — Cheow Lan Lake, floating bungalows, rainforest.</li>
+<li><strong>Day 7:</strong> private Koh Phi Phi tour with snorkeling at Pileh Lagoon.</li>
+<li><strong>Day 8:</strong> free morning, airport transfer.</li>
+</ul>
+<p>This is a starting point, not a fixed frame. We adjust duration, accommodation and activities to your wishes and budget.</p>`,
+      },
+      {
+        heading: "Planning your family trip: how it works",
+        content: `<p>The simplest way is <strong>WhatsApp</strong> at <a href="https://wa.me/${WA}">+66 86 476 3804</a> — we reply in English within an hour, between 8am and 9pm (Thailand time). You can also fill in our <a href="/custom-tour">tailor-made request form</a>.</p>
+<p>Tell us: your dates, your children's ages, your interests (sea, nature, culture, rest) and your approximate budget. We send back a detailed proposal within 24 to 48 hours. No payment is required to receive a programme.</p>
+<p><strong>Price:</strong> [TO INSERT: price range per day per family].</p>`,
+      },
+    ],
+    faq: [
+      {
+        question: "How do I plan a tailor-made family trip to Thailand?",
+        answer:
+          "Contact Amon Tour on WhatsApp (+66 86 476 3804) or through the tailor-made form on the site, sharing your dates, your children's ages, your interests and your budget. We send back a detailed proposal within 24 to 48 hours, with no payment required up front.",
+      },
+      {
+        question: "How can families avoid mass tourism in Krabi?",
+        answer:
+          "By privatizing excursions, departing before or after peak hours, and choosing lesser-known islands such as Koh Hong or Koh Rok. Amon Tour arranges off-peak departures and private boats so your family avoids the crowds.",
+      },
+      {
+        question: "What activities in Thailand suit young children?",
+        answer:
+          "For toddlers, we favour short boat trips, calm lagoons like Pileh Lagoon and shallow-water beaches. For ages 5-11, supervised snorkeling with a life vest and tandem kayaking with a parent. Children's equipment is provided on board.",
+      },
+      {
+        question: "Can a family book a private catamaran in Krabi?",
+        answer:
+          "Yes. The private catamaran is ideal for families: more stable against seasickness, room to move, a shaded area and a swimming platform. The day is built around your pace, with no other group on board.",
+      },
+      {
+        question: "When is the best time for a family trip to Krabi?",
+        answer:
+          "From November to April the sea is calm and skies are clear — the most comfortable period with children. From May to October prices are lower and sites are quieter, though some sea trips may be adapted to the weather.",
+      },
+      {
+        question: "Do you speak English to organize the trip?",
+        answer:
+          "Yes. Amon Tour's guides are fluent in English and French. From your first message to your guide on the ground, the whole experience is available in English — and in French if you prefer.",
+      },
+    ],
+    relatedSlugs: ["catamaran-krabi", "koh-phi-phi", "phang-nga-bay", "agence-francophone-krabi"],
+    schema: {
+      "@context": "https://schema.org",
+      "@type": "TouristTrip",
+      name: "Tailor-Made Family Trips in Thailand — Amon Tour",
+      description:
+        "Personalized family holidays in Krabi and southern Thailand, away from mass tourism. Private activities tailored to children's ages, private catamaran, English- and French-speaking guides since 2013.",
+      url: `${BASE_URL}/destinations/family-tailor-made-trip-thailand`,
+      provider: { "@type": "TravelAgency", name: "Amon Tour", url: BASE_URL },
+      touristType: ["Family"],
+      availableLanguage: ["English", "French", "Thai"],
+      geo: { "@type": "GeoCoordinates", latitude: 8.0319, longitude: 98.8254 },
+    },
+    tripSchema: {
+      "@context": "https://schema.org",
+      "@type": "TouristTrip",
+      name: "Tailor-Made Family Trips in Thailand — Amon Tour",
+      description:
+        "Personalized family holidays in Krabi, away from mass tourism. Small groups, private catamaran, child-friendly activities. Family-run agency, English & French, since 2013.",
+      url: `${BASE_URL}/destinations/family-tailor-made-trip-thailand`,
+      provider: { "@type": "TravelAgency", name: "Amon Tour", url: BASE_URL },
+      touristType: ["Family"],
+      availableLanguage: ["English", "French", "Thai"],
+      geo: { "@type": "GeoCoordinates", latitude: 8.0319, longitude: 98.8254 },
+    },
+  },
 ];
 
 /* ──────────────────────────────────────────────────────────────────────────
@@ -652,6 +900,45 @@ const BY_SLUG = new Map<string, Destination>(DESTINATIONS.map((d) => [d.slug, d]
 /* ──────────────────────────────────────────────────────────────────────────
  * HTML generators
  * ────────────────────────────────────────────────────────────────────────── */
+
+/* Per-language UI chrome so EN pages render in English, FR pages in French. */
+type UiLang = "fr" | "en";
+const UI: Record<UiLang, {
+  faqHeading: string;
+  relatedHeading: string;
+  bookHeading: string;
+  bookBody: string;
+  waBtn: string;
+  customBtn: string;
+  contactBtn: string;
+  waPrefix: (h1: string) => string;
+}> = {
+  fr: {
+    faqHeading: "Questions fréquentes",
+    relatedHeading: "Autres destinations",
+    bookHeading: "Organiser ce séjour",
+    bookBody:
+      "Contactez-nous directement — nous répondons généralement en moins d'une heure sur WhatsApp entre 8h et 21h (heure thaïlandaise).",
+    waBtn: "WhatsApp (recommandé)",
+    customBtn: "Demande sur mesure",
+    contactBtn: "Formulaire de contact",
+    waPrefix: (h1) => `Bonjour Amon Tour, je suis intéressé(e) par : ${h1}`,
+  },
+  en: {
+    faqHeading: "Frequently asked questions",
+    relatedHeading: "Other destinations",
+    bookHeading: "Plan this trip",
+    bookBody:
+      "Contact us directly — we usually reply within an hour on WhatsApp between 8am and 9pm (Thailand time).",
+    waBtn: "WhatsApp (recommended)",
+    customBtn: "Tailor-made request",
+    contactBtn: "Contact form",
+    waPrefix: (h1) => `Hello Amon Tour, I'm interested in: ${h1}`,
+  },
+};
+function uiLang(dest: Destination): UiLang {
+  return dest.lang === "en" ? "en" : "fr";
+}
 
 function renderSections(sections: DestinationSection[]): string {
   return sections
@@ -665,7 +952,7 @@ function renderSections(sections: DestinationSection[]): string {
     .join("");
 }
 
-function renderFaq(faq: DestinationFaq[]): string {
+function renderFaq(faq: DestinationFaq[], lang: UiLang): string {
   const items = faq
     .map(
       (f) => `
@@ -677,12 +964,12 @@ function renderFaq(faq: DestinationFaq[]): string {
     .join("");
   return `
     <section class="section">
-      <h2>Questions fréquentes</h2>
+      <h2>${UI[lang].faqHeading}</h2>
       <div class="faq">${items}</div>
     </section>`;
 }
 
-function renderRelated(slugs: string[], currentSlug: string): string {
+function renderRelated(slugs: string[], currentSlug: string, lang: UiLang): string {
   const items = slugs
     .filter((s) => s !== currentSlug)
     .map((s) => {
@@ -695,7 +982,7 @@ function renderRelated(slugs: string[], currentSlug: string): string {
   if (!items) return "";
   return `
     <section class="section">
-      <h2>Autres destinations</h2>
+      <h2>${UI[lang].relatedHeading}</h2>
       <div class="related-list">${items}</div>
     </section>`;
 }
@@ -810,20 +1097,22 @@ function ssrDestinationPage(req: Request, res: Response) {
     return sendSsrHtml(res, html, 404);
   }
 
+  const lang = uiLang(dest);
+  const t = UI[lang];
   const bodyHtml = `
     <p class="intro">${escapeHtml(dest.intro)}</p>
     ${renderSections(dest.sections)}
-    ${renderFaq(dest.faq)}
+    ${renderFaq(dest.faq, lang)}
     <section class="section">
-      <h2>Réserver cette excursion</h2>
-      <p>Contactez-nous directement — nous répondons généralement en moins d'une heure sur WhatsApp entre 8h et 21h (heure thaïlandaise).</p>
+      <h2>${t.bookHeading}</h2>
+      <p>${t.bookBody}</p>
       <div class="cta-row">
-        <a class="btn btn-gold" href="https://wa.me/${WA}?text=${encodeURIComponent(`Bonjour Amon Tour, je suis intéressé(e) par : ${dest.h1}`)}" rel="noopener" target="_blank">WhatsApp (recommandé)</a>
-        <a class="btn btn-primary" href="/custom-tour">Demande sur mesure</a>
-        <a class="btn btn-primary" href="/contact">Formulaire de contact</a>
+        <a class="btn btn-gold" href="https://wa.me/${WA}?text=${encodeURIComponent(t.waPrefix(dest.h1))}" rel="noopener" target="_blank">${t.waBtn}</a>
+        <a class="btn btn-primary" href="/custom-tour">${t.customBtn}</a>
+        <a class="btn btn-primary" href="/contact">${t.contactBtn}</a>
       </div>
     </section>
-    ${renderRelated(dest.relatedSlugs, dest.slug)}`;
+    ${renderRelated(dest.relatedSlugs, dest.slug, lang)}`;
 
   const html = ssrHtmlShell({
     title: dest.title,
