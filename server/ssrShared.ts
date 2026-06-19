@@ -23,7 +23,7 @@ export const BRAND = {
   textMuted: "#4b5563",
   bgLight: "#f8fafc",
   border: "#e5e7eb",
-  logo: "/Logo Long Blue.png",
+  logo: "/favicon.png",
   phone: "+66 81 956 2849",
   phoneIntl: "+66819562849",
   whatsapp: "+66 86 476 3804",
@@ -228,7 +228,7 @@ export function ssrHtmlShell(opts: SsrShellOptions): string {
   const lang = opts.lang || "en";
   const canonical = `${BASE_URL}${opts.path}`;
   const description = truncate(opts.description, 320);
-  const ogImage = opts.metaImage || `${BASE_URL}/Logo%20Long%20Blue.png`;
+  const ogImage = opts.metaImage || `${BASE_URL}/amon-tour-team.jpg`;
 
   const hreflangLinks = HREFLANG_LOCALES
     .map((loc) => `<link rel="alternate" hreflang="${loc}" href="${canonical}" />`)

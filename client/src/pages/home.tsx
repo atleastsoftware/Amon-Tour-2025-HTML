@@ -218,8 +218,8 @@ export default function Home() {
           "name": "Amon Tour",
           "description": "Krabi-based travel agency run by French and English-speaking guides, offering authentic private tours in southern Thailand for travelers from Malaysia, Singapore, Australia, and worldwide.",
           "url": "https://amon-tour.com",
-          "logo": "https://amon-tour.com/Logo Long Blue.png",
-          "image": "https://amon-tour.com/Logo Long Blue.png",
+          "logo": "https://amon-tour.com/favicon.png",
+          "image": "https://amon-tour.com/amon-tour-team.jpg",
           "telephone": "+66-81-956-2849",
           "email": "contact@amon-tour.com",
           "contactPoint": {

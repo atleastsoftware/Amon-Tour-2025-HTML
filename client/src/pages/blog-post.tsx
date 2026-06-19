@@ -347,7 +347,7 @@ export default function BlogPostPage() {
               "name": "Amon Tour",
               "logo": {
                 "@type": "ImageObject",
-                "url": "https://amon-tour.com/logo.png"
+                "url": "https://amon-tour.com/favicon.png"
               }
             },
             "datePublished": post.createdAt,

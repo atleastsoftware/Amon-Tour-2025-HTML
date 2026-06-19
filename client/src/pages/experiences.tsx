@@ -91,7 +91,7 @@ export default function Experiences() {
             "name": experience.title,
             "description": experience.description,
             "url": `https://amon-tour.com/experiences/${experience.id}`,
-            "image": experience.images?.[0] || "https://amon-tour.com/Logo Long Blue.png",
+            "image": experience.images?.[0] || "https://amon-tour.com/amon-tour-team.jpg",
             "offers": {
               "@type": "Offer",
               "price": experience.price,

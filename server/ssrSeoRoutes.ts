@@ -30,8 +30,8 @@ function travelAgencySchema() {
     "@type": "TravelAgency",
     name: "Amon Tour",
     url: BASE_URL,
-    logo: `${BASE_URL}/Logo%20Long%20Blue.png`,
-    image: `${BASE_URL}/Logo%20Long%20Blue.png`,
+    logo: `${BASE_URL}/favicon.png`,
+    image: `${BASE_URL}/amon-tour-team.jpg`,
     description:
       "Krabi-based travel agency offering authentic private tours in southern Thailand with French and English-speaking guides since 2013.",
     address: {
