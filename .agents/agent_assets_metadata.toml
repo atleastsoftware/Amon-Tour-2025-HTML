@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "J7TWQykwKmelra62Loveh"
+uri = "file://exports/Amon-Tour-Rapport-SEO-GEO-Cible.pdf"
+type = "pdf"
+title = "Rapport SEO & GEO — La cible atteinte (Amon Tour)"
