@@ -428,27 +428,44 @@ export default function BlogPostPage() {
 
                 {/* Article Content */}
                 <div className="prose prose-lg max-w-none">
-                  {post.content.split('\n').map((paragraph, index) => {
-                    if (paragraph.startsWith('# ')) {
-                      return <h1 key={index} className="text-3xl font-bold mt-8 mb-4">{parseInlineMarkdown(paragraph.slice(2))}</h1>;
+                  {(() => {
+                    const lines = post.content.split('\n');
+                    const elements: JSX.Element[] = [];
+                    let i = 0;
+                    while (i < lines.length) {
+                      const line = lines[i];
+                      if (line.startsWith('# ')) {
+                        // Downgrade top-level H1 to H2 — the article title already occupies the page H1
+                        elements.push(<h2 key={i} className="text-3xl font-bold mt-8 mb-4">{parseInlineMarkdown(line.slice(2))}</h2>);
+                        i++;
+                      } else if (line.startsWith('## ')) {
+                        elements.push(<h3 key={i} className="text-2xl font-bold mt-6 mb-3">{parseInlineMarkdown(line.slice(3))}</h3>);
+                        i++;
+                      } else if (line.startsWith('### ')) {
+                        elements.push(<h4 key={i} className="text-xl font-bold mt-4 mb-2">{parseInlineMarkdown(line.slice(4))}</h4>);
+                        i++;
+                      } else if (line.startsWith('> ')) {
+                        elements.push(<blockquote key={i} className="border-l-4 border-primary pl-4 italic text-gray-700 my-4">{parseInlineMarkdown(line.slice(2))}</blockquote>);
+                        i++;
+                      } else if (line.startsWith('- ')) {
+                        // Collect all consecutive list items into one <ul>
+                        const listItems: JSX.Element[] = [];
+                        const listKey = i;
+                        while (i < lines.length && lines[i].startsWith('- ')) {
+                          listItems.push(<li key={i} className="ml-4">{parseInlineMarkdown(lines[i].slice(2))}</li>);
+                          i++;
+                        }
+                        elements.push(<ul key={listKey} className="list-disc list-outside pl-4 mb-4 space-y-1">{listItems}</ul>);
+                      } else if (line.trim() === '') {
+                        elements.push(<br key={i} />);
+                        i++;
+                      } else {
+                        elements.push(<p key={i} className="mb-4 text-gray-700 leading-relaxed">{parseInlineMarkdown(line)}</p>);
+                        i++;
+                      }
                     }
-                    if (paragraph.startsWith('## ')) {
-                      return <h2 key={index} className="text-2xl font-bold mt-6 mb-3">{parseInlineMarkdown(paragraph.slice(3))}</h2>;
-                    }
-                    if (paragraph.startsWith('### ')) {
-                      return <h3 key={index} className="text-xl font-bold mt-4 mb-2">{parseInlineMarkdown(paragraph.slice(4))}</h3>;
-                    }
-                    if (paragraph.startsWith('> ')) {
-                      return <blockquote key={index} className="border-l-4 border-primary pl-4 italic text-gray-700 my-4">{parseInlineMarkdown(paragraph.slice(2))}</blockquote>;
-                    }
-                    if (paragraph.startsWith('- ')) {
-                      return <li key={index} className="ml-4">{parseInlineMarkdown(paragraph.slice(2))}</li>;
-                    }
-                    if (paragraph.trim() === '') {
-                      return <br key={index} />;
-                    }
-                    return <p key={index} className="mb-4 text-gray-700 leading-relaxed">{parseInlineMarkdown(paragraph)}</p>;
-                  })}
+                    return elements;
+                  })()}
                 </div>
                 
                 {/* Related Tours Section - SEO optimized call-to-action */}
