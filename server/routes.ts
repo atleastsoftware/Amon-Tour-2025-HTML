@@ -342,6 +342,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         { url: '/contact', changefreq: 'monthly', priority: '0.5' },
         { url: '/group-corporate', changefreq: 'monthly', priority: '0.5' },
         { url: '/become-partner', changefreq: 'monthly', priority: '0.4' },
+        { url: '/krabi-celebration', changefreq: 'monthly', priority: '0.6' },
+        { url: '/brochure', changefreq: 'monthly', priority: '0.5' },
+        { url: '/villas-krabi', changefreq: 'monthly', priority: '0.6' },
         { url: '/privacy-policy', changefreq: 'yearly', priority: '0.3' },
         { url: '/terms-conditions', changefreq: 'yearly', priority: '0.3' },
         { url: '/legal-notice', changefreq: 'yearly', priority: '0.3' }
@@ -350,13 +353,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Get tours for dynamic URLs
       const tours = await storage.getTours();
       const tourUrls = tours.map(tour => ({
-        url: `/tour-details/${tour.id}`,
+        url: `/tour-detail/${tour.id}`,
         changefreq: 'weekly',
         priority: '0.8',
         lastmod: new Date().toISOString().split('T')[0]
       }));
 
-      const allUrls = [...staticPages, ...tourUrls];
+      // Get published blog posts for dynamic URLs
+      const blogPosts = await storage.getPublishedBlogPosts();
+      const blogUrls = blogPosts.map(post => ({
+        url: `/blog/${post.slug}`,
+        changefreq: 'monthly' as const,
+        priority: '0.6',
+        lastmod: (post.updatedAt || post.publishDate || new Date()).toISOString().split('T')[0]
+      }));
+
+      const allUrls = [...staticPages, ...tourUrls, ...blogUrls];
       
       const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">

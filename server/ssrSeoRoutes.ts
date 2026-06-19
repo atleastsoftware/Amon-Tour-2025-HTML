@@ -89,7 +89,7 @@ function tourTripSchema(tour: {
     name: tour.title,
     description: stripTags(tour.description).slice(0, 500),
     image: absoluteUrl(tour.imageUrl),
-    url: `${BASE_URL}/tour-details/${tour.id}`,
+    url: `${BASE_URL}/tour-detail/${tour.id}`,
     provider: {
       "@type": "TravelAgency",
       name: "Amon Tour",
@@ -100,7 +100,7 @@ function tourTripSchema(tour: {
       price: tour.price,
       priceCurrency: "THB",
       availability: "https://schema.org/InStock",
-      url: `${BASE_URL}/tour-details/${tour.id}`,
+      url: `${BASE_URL}/tour-detail/${tour.id}`,
     },
     duration: tour.duration,
     touristType: ["Family", "Couple", "Adventure"],
@@ -119,10 +119,10 @@ function tourCardHtml(tour: { id: number; title: string; shortDescription: strin
     <article class="card">
       <div class="card-img">${img}</div>
       <div class="card-body">
-        <h3 class="card-title"><a href="/tour-details/${tour.id}">${escapeHtml(tour.title)}</a></h3>
+        <h3 class="card-title"><a href="/tour-detail/${tour.id}">${escapeHtml(tour.title)}</a></h3>
         <div class="card-meta">${escapeHtml(tour.duration)} · From ${tour.price.toLocaleString()} THB</div>
         <p class="card-desc">${escapeHtml(truncate(stripTags(tour.shortDescription || ""), 160))}</p>
-        <a class="card-cta" href="/tour-details/${tour.id}">View tour →</a>
+        <a class="card-cta" href="/tour-detail/${tour.id}">View tour →</a>
       </div>
     </article>`;
 }
@@ -290,7 +290,7 @@ async function ssrTourDetail(req: Request, res: Response) {
     const html = ssrHtmlShell({
       title: "Tour not found | Amon Tour",
       description: "The tour you're looking for is not available. Browse our other private tours from Krabi or contact us.",
-      path: `/tour-details/${id}`,
+      path: `/tour-detail/${id}`,
       h1: "Tour not found",
       bodyHtml: `<p>This tour is not currently available. <a href="/tours">View all our tours</a> or <a href="/contact">contact us</a> for help.</p>`,
     });
@@ -345,7 +345,7 @@ async function ssrTourDetail(req: Request, res: Response) {
   const html = ssrHtmlShell({
     title: truncate(`${tour.title} | Private Tour Krabi — Amon Tour`, 70),
     description: truncate(stripTags(tour.shortDescription || tour.description), 320),
-    path: `/tour-details/${id}`,
+    path: `/tour-detail/${id}`,
     h1: tour.title,
     bodyHtml,
     metaImage: tour.imageUrl || undefined,
@@ -355,7 +355,7 @@ async function ssrTourDetail(req: Request, res: Response) {
       breadcrumbSchema([
         { label: "Home", url: "/" },
         { label: "Tours", url: "/tours" },
-        { label: tour.title, url: `/tour-details/${id}` },
+        { label: tour.title, url: `/tour-detail/${id}` },
       ]),
     ],
   });
