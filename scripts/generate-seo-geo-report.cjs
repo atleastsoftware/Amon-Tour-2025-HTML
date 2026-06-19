@@ -199,6 +199,18 @@ bullet("Voyageurs francophones (France, Belgique, Suisse, Canada, Réunion, Nouv
 subhead("Axe profils — intention de réservation");
 para("Le contenu cible des intentions concrètes : « tour privé », « excursion depuis Krabi », « agence francophone », « catamaran privatif », « bivouac kayak ». Ces requêtes traduisent une intention d'achat élevée, et non une simple recherche d'information.");
 
+// Highlighted new segment
+ensure(150);
+doc.roundedRect(M, y, CW, 22, 5).fill(GOLD);
+doc.fillColor(DARKBLUE).font("bold").fontSize(10.5).text("NOUVEAU SEGMENT PRIORITAIRE", M + 12, y + 6);
+y += 32;
+subhead("Familles en quête de séjours personnalisés (francophones & anglophones)");
+para("Cible à fort potentiel : des familles qui ne cherchent pas une excursion standard, mais un séjour sur mesure adapté à leur rythme, à l'âge des enfants et à leurs envies. Elles privilégient un interlocuteur dans leur langue (français ou anglais) et un programme construit avec elles.");
+bullet("Besoin clé : un séjour personnalisé (durée, activités, hébergement, transport privé) plutôt qu'un produit figé.");
+bullet("Sensibilités : sécurité des enfants, confort, flexibilité du planning, guide qui parle leur langue.");
+bullet("Double langue : familles francophones (France, Belgique, Suisse, Canada, Réunion) ET familles anglophones (Malaisie, Singapour, Australie, expatriés).");
+bullet("Levier sur le site : formulaire « tour sur mesure » (custom-tour) + mise en avant explicite de l'accompagnement familial bilingue.");
+
 heading("2", "Comment le SEO atteint cette cible");
 para("Le référencement classique permet d'apparaître dans Google et Bing pour les recherches des marchés visés. Les leviers en place :");
 bullet("Balises hreflang (11 langues) : indiquent à Google quelle version servir selon le pays/la langue de l'internaute — essentiel pour MY, SG, CN, AU et la francophonie.");
@@ -234,6 +246,8 @@ table(
     ["AU / premium", "catamaran privatif Krabi, location bateau", "/destinations/catamaran-krabi"],
     ["Aventure", "bivouac kayak Thalane, nuit nature Phang Nga", "/destinations/thalane-bivouac"],
     ["Tous marchés", "Railay Beach depuis Ao Nang, escalade", "/destinations/railay-beach"],
+    ["Familles (FR)", "séjour famille personnalisé Krabi, voyage sur mesure enfants", "à créer : /sejour-famille-krabi"],
+    ["Familles (EN)", "personalized family holiday Krabi, tailor-made family tour", "à créer : /en/family-tailor-made-krabi"],
   ],
   [22, 44, 34]
 );
@@ -247,6 +261,22 @@ subhead("• L'aventurier (Australie / francophonie)");
 para("Recherche nature, kayak, escalade, expériences hors des sentiers battus. Touché via le bivouac Thalane et Railay.", { gap: 6 });
 subhead("• Le voyageur francophone fidèle");
 para("Valorise un accompagnement dans sa langue. Touché via le positionnement « agence francophone depuis 2013 », différenciant face aux concurrents anglophones.", { gap: 6 });
+subhead("• La famille en quête d'un séjour personnalisé (FR & EN)");
+para("Parents voyageant avec enfants, qui veulent un programme sur mesure et un accompagnement dans leur langue (français ou anglais). Recherchent flexibilité, sécurité et confort. Touchés via le formulaire « tour sur mesure », une page dédiée « séjour famille personnalisé » (à créer en FR et EN) et une FAQ répondant à leurs questions concrètes (âge minimum, gilets enfants, rythme adapté).", { gap: 6 });
+
+// GEO callout — target prompts for the family segment
+ensure(110);
+doc.roundedRect(M, y, CW, 96, 8).fill(LIGHT);
+doc.fillColor(DARKBLUE).font("bold").fontSize(10.5).text("Prompts IA ciblés (GEO) pour le segment familles", M + 14, y + 12);
+doc.fillColor(INK).font("reg").fontSize(9.5).text(
+  "Pour être cité par ChatGPT, Perplexity ou Google AI Overviews, le contenu doit répondre directement à des questions comme :",
+  M + 14, y + 30, { width: CW - 28, lineGap: 2 }
+);
+doc.fillColor(BLUE).font("obl").fontSize(9.5).text(
+  "« agence francophone pour voyage en famille à Krabi »  ·  « best family-friendly private tours in Krabi »  ·  « séjour sur mesure Thaïlande avec enfants »  ·  « tailor-made family holiday Krabi with English guide »",
+  M + 14, y + 56, { width: CW - 28, lineGap: 3 }
+);
+y += 96 + 12;
 
 heading("6", "Indicateurs à suivre (KPIs)");
 bullet("Positions Google par marché (via Search Console — filtrer par pays : MY, SG, CN, AU).");
@@ -263,6 +293,7 @@ table(
     ["Raccourcir la meta description de l'accueil (240 → 155 car.)", "Affichage complet dans les résultats Google", "Moyenne"],
     ["Unifier les routes de fiches tours (éviter le doublon)", "Évite le contenu dupliqué", "Moyenne"],
     ["Ajouter des pages destinations en anglais (/en/…)", "Capter MY, SG, AU en anglais", "Moyenne"],
+    ["Créer une page « séjour famille personnalisé » (FR + EN)", "Capter le nouveau segment familles sur mesure", "Haute"],
     ["Soumettre le sitemap dans Google Search Console", "Indexation plus rapide des nouvelles pages", "Haute"],
   ],
   [40, 42, 18]
