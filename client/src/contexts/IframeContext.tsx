@@ -41,30 +41,19 @@ export function IframeProvider({ children }: { children: ReactNode }) {
   const { currentLanguage } = useTranslation();
 
   const openIframe = (originalUrl: string, title: string) => {
-    // Tour Ninja detail/presentation pages → render natively on our own translated
-    // page. Tour Ninja is now a PWA that fails to load inside a cross-origin
-    // sandboxed iframe (service worker + 403 responses), so we never embed it.
-    const detailsMatch = originalUrl.match(/tourninja\.io\/details\/([^/?]+)/);
-    if (detailsMatch) {
-      setLocation(`/tour-detail/${detailsMatch[1]}`);
-      return;
-    }
-
+    // Add language parameter to Tour Ninja URLs
     const url = addLanguageToTourNinjaUrl(originalUrl, currentLanguage);
 
-    // Booking / checkout (and any other Tour Ninja flow we can't render natively)
-    // must open in a new tab — these pages cannot be safely embedded.
-    if (url.includes('tourninja.io')) {
-      window.open(url, '_blank', 'noopener,noreferrer');
-      return;
-    }
+    // Determine iframe type based on URL content
+    const isBooking = url.includes('book') || url.includes('checkout') || url.includes('reserve');
+    const iframeType = isBooking ? 'booking' : 'presentation';
 
-    // Non-Tour Ninja URLs: keep using the in-app iframe page.
+    // Embed the Tour Ninja page (presentation / details / booking) in our iframe page.
     const currentPath = location;
     const params = new URLSearchParams({
       url: url,
       title: title,
-      type: 'presentation',
+      type: iframeType,
       return: currentPath,
     });
     setLocation(`/tour-ninja-iframe?${params.toString()}`);
