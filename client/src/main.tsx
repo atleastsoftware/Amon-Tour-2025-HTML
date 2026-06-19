@@ -19,10 +19,8 @@ fontLink.rel = "stylesheet";
 fontLink.href = "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@600&display=swap";
 document.head.appendChild(fontLink);
 
-// Set page title
-const titleElement = document.createElement("title");
-titleElement.textContent = "Senthang Siam Tour - Votre spécialiste des voyages en Thaïlande";
-document.head.appendChild(titleElement);
+// Set fallback page title (React Helmet overrides this per route)
+document.title = "Amon Tour | Private Krabi Tours · French & English Guides";
 
 createRoot(document.getElementById("root")!).render(
   <ThemeProvider attribute="class" defaultTheme="light">

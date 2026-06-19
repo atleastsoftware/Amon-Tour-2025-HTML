@@ -46,12 +46,99 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Amon Tour">
     
-    <!-- Fallback title/description (overridden by React Helmet on hydration) -->
-    <title>Amon Tour - Private Tours in Krabi Thailand | French & English Speaking Guides</title>
-    <meta name="description" content="Krabi-based travel agency run by French and English-speaking guides since 2013. Authentic private tours in Krabi, Phi Phi, Phang Nga Bay and southern Thailand — ideal for travellers from Malaysia, Singapore, Australia and worldwide." />
+    <!-- Fallback title/description (overridden by React Helmet on each route) -->
+    <title>Amon Tour | Private Krabi Tours · French & English Guides</title>
+    <meta name="description" content="Krabi travel agency run by French & English-speaking guides since 2013. Private tours to Koh Phi Phi, Phang Nga Bay & southern Thailand, tailored to you." />
+
+    <!-- Open Graph (social sharing) — overridden per route by React Helmet -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Amon Tour" />
+    <meta property="og:title" content="Amon Tour | Private Krabi Tours · French & English Guides" />
+    <meta property="og:description" content="Krabi travel agency run by French & English-speaking guides since 2013. Private tours to Koh Phi Phi, Phang Nga Bay & southern Thailand, tailored to you." />
+    <meta property="og:url" content="https://amon-tour.com/" />
+    <meta property="og:image" content="https://amon-tour.com/amon-tour-team.jpg" />
+    <meta property="og:locale" content="en" />
+    <meta property="og:locale:alternate" content="fr" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Amon Tour | Private Krabi Tours · French & English Guides" />
+    <meta name="twitter:description" content="Krabi travel agency run by French & English-speaking guides since 2013. Private tours to Koh Phi Phi, Phang Nga Bay & southern Thailand, tailored to you." />
+    <meta name="twitter:image" content="https://amon-tour.com/amon-tour-team.jpg" />
+
+    <!-- Structured data: TravelAgency + WebSite + BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TravelAgency",
+      "name": "Amon Tour",
+      "url": "https://amon-tour.com/",
+      "logo": "https://amon-tour.com/favicon.png",
+      "image": "https://amon-tour.com/amon-tour-team.jpg",
+      "description": "Family-run Krabi travel agency offering private, tailor-made tours of southern Thailand with French- and English-speaking guides since 2013.",
+      "foundingDate": "2013",
+      "telephone": "+66819562849",
+      "email": "contact@amon-tour.com",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Ao Nang, Krabi",
+        "addressRegion": "Krabi",
+        "addressCountry": "TH"
+      },
+      "areaServed": ["Krabi", "Koh Phi Phi", "Phang Nga Bay", "Railay", "Khao Sok", "Southern Thailand"],
+      "availableLanguage": ["French", "English", "Thai"],
+      "sameAs": ["https://www.facebook.com/amontourkrabi"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Amon Tour",
+      "url": "https://amon-tour.com/",
+      "inLanguage": ["en", "fr"],
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://amon-tour.com/tours?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://amon-tour.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Tours", "item": "https://amon-tour.com/tours" },
+        { "@type": "ListItem", "position": 3, "name": "Destinations", "item": "https://amon-tour.com/destinations" }
+      ]
+    }
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Static fallback for non-JS crawlers & SEO audits; React replaces it on mount -->
+      <div id="ssr-fallback" style="max-width:900px;margin:0 auto;padding:2rem 1.25rem;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#1f2937;line-height:1.6">
+        <a href="/" aria-label="Amon Tour home" style="display:inline-block;font-size:1.4rem;font-weight:700;color:#084F6E;text-decoration:none;margin-bottom:1rem">Amon Tour</a>
+        <h1 style="font-size:1.9rem;color:#084F6E;margin:.25rem 0 .75rem">Private, Tailor-Made Tours in Krabi, Thailand</h1>
+        <p style="font-size:1.05rem;color:#4b5563;max-width:720px">Amon Tour is a family-run Krabi travel agency offering private, personalized tours of southern Thailand with French- and English-speaking guides since 2013 — Koh Phi Phi, Phang Nga Bay, Railay and Khao Sok, away from mass tourism.</p>
+        <nav aria-label="Main navigation" style="margin-top:1.25rem">
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:.75rem 1.25rem;font-weight:600">
+            <li><a href="/tours" style="color:#084F6E">Tours</a></li>
+            <li><a href="/experiences" style="color:#084F6E">Experiences</a></li>
+            <li><a href="/destinations" style="color:#084F6E">Destinations</a></li>
+            <li><a href="/destinations/sejour-famille-personnalise-thailande" style="color:#084F6E">Séjour famille sur mesure</a></li>
+            <li><a href="/destinations/family-tailor-made-trip-thailand" style="color:#084F6E">Family tailor-made trips</a></li>
+            <li><a href="/custom-tour" style="color:#084F6E">Custom Tour</a></li>
+            <li><a href="/stays" style="color:#084F6E">Stays</a></li>
+            <li><a href="/blog" style="color:#084F6E">Blog</a></li>
+            <li><a href="/contact" style="color:#084F6E">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
 
   </body>
