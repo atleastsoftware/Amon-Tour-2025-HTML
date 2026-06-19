@@ -12,6 +12,7 @@ export default function Brochure() {
         title="Our Brochure - Amon Tour Travel Guide"
         description="Download our comprehensive travel brochure featuring the best of Krabi and Thailand. Available in French and English with detailed tour information and stunning photography."
         keywords="amon tour brochure, krabi travel guide, thailand tours pdf, travel brochure download"
+        canonicalUrl="https://amon-tour.com/brochure"
       />
       <Header />
       

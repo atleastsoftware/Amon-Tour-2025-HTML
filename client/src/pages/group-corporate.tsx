@@ -108,6 +108,7 @@ export default function GroupCorporate() {
         title="Group & Corporate Travel - Tailored Experiences in Krabi"
         description="Custom group travel solutions for corporate retreats, team building, educational trips, and special events in Krabi, Thailand. Professional planning and on-site support."
         keywords="corporate retreat krabi, group travel thailand, team building activities, educational tours, company events krabi"
+        canonicalUrl="https://amon-tour.com/group-corporate"
       />
       <Header />
       

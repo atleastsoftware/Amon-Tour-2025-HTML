@@ -107,6 +107,7 @@ export default function KrabiCelebration() {
         title="Krabi Celebration - Unique Moments in Exceptional Settings"
         description="Let yourself be enchanted by the magic of Krabi and create unforgettable memories with Krabi Celebration. Intimate weddings, romantic dinners and tailor-made celebrations in Thailand."
         keywords="krabi celebration, thailand wedding, romantic dinner krabi, destination wedding celebration, thailand wedding planner, private beach ceremony"
+        canonicalUrl="https://amon-tour.com/krabi-celebration"
       />
       <Header />
       

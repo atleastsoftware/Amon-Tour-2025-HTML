@@ -12,6 +12,7 @@ export default function VillasKrabi() {
         title="Villas in Krabi - Curated Villa Selection"
         description="Download our curated selection of premium villas in Krabi. Luxury accommodations with stunning views, private pools, and exceptional service for your perfect getaway."
         keywords="krabi villas, luxury accommodation krabi, private villas thailand, villa rentals krabi, premium stays"
+        canonicalUrl="https://amon-tour.com/villas-krabi"
       />
       <Header />
       

@@ -102,6 +102,7 @@ export default function BecomePartner() {
         title="Become Partner - Join Amon Tour Network"
         description="Partner with Amon Tour and grow your business. Attractive commissions, transparent processes, and local expertise for travel agents, hotels, and influencers."
         keywords="travel partner thailand, tour operator partnership, travel agent commission, affiliate program krabi, b2b travel thailand"
+        canonicalUrl="https://amon-tour.com/become-partner"
       />
       <Header />
       

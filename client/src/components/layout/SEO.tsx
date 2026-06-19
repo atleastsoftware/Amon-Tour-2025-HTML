@@ -177,7 +177,7 @@ export default function SEO({
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:image:alt" content={`${title} - Amon Tour Thailand`} />
-      <meta property="og:url" content={canonicalUrl || siteUrl} />
+      <meta property="og:url" content={currentUrl} />
       <meta property="og:site_name" content="Amon Tour" />
       <meta property="og:locale" content="en_US" />
       <meta property="og:locale:alternate" content="zh_CN" />
@@ -197,7 +197,7 @@ export default function SEO({
       <meta name="twitter:creator" content="@amontour" />
       
       {/* Canonical Link */}
-      <link rel="canonical" href={canonicalUrl || siteUrl} />
+      <link rel="canonical" href={currentUrl} />
       
       {/* Hreflang tags — full market coverage */}
       {autoHreflang.map(({ lang, url }) => (
