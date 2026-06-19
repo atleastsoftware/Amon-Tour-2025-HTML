@@ -184,9 +184,22 @@ const gap = 14;
 const cw3 = (CW - gap * 3) / 4;
 statCard(M, cw3, "11", "langues déclarées (hreflang)");
 statCard(M + (cw3 + gap), cw3, "14", "robots IA reconnus (GEO)");
-statCard(M + (cw3 + gap) * 2, cw3, "46", "URLs dans le sitemap");
-statCard(M + (cw3 + gap) * 3, cw3, "17", "pages rendues pour les robots");
+statCard(M + (cw3 + gap) * 2, cw3, "48", "URLs dans le sitemap");
+statCard(M + (cw3 + gap) * 3, cw3, "19", "pages rendues pour les robots");
 y += 58 + 16;
+
+// ===== Ce qui a été réalisé =====
+ensure(40);
+doc.roundedRect(M, y, CW, 22, 5).fill(BLUE);
+doc.fillColor("#ffffff").font("bold").fontSize(10.5).text("CE QUI A ÉTÉ RÉALISÉ", M + 12, y + 6);
+y += 32;
+para("Au-delà de l'audit, les optimisations suivantes ont été mises en ligne sur amon-tour.com :");
+bullet("Deux nouvelles pages « séjour famille personnalisé » créées et publiées : une version française (/destinations/sejour-famille-personnalise-thailande) et une version anglaise (/destinations/family-tailor-made-trip-thailand).");
+bullet("Chaque page contient ~1 700 à 1 850 mots de contenu réel : réponse directe pour les IA, 6 sections, 6 questions/réponses (FAQ), un exemple d'itinéraire famille sur 8 jours et la mise en avant du catamaran privatif.");
+bullet("Données structurées complètes sur les deux pages : TouristTrip (type « Famille »), FAQPage et BreadcrumbList — le format que Google et les IA citent le plus volontiers.");
+bullet("Affichage adapté à la langue : la page anglaise s'affiche entièrement en anglais (titres, FAQ, boutons, message WhatsApp), la française reste en français.");
+bullet("Maillage interne : liens vers catamaran, Koh Phi Phi, Phang Nga Bay et la page agence francophone, pour renforcer tout le référencement.");
+bullet("Les deux pages sont déjà dans le sitemap (priorité 0.9) et listées sur la page hub /destinations — prêtes à être indexées par Google et les IA.");
 
 heading("1", "La cible stratégique");
 para("La stratégie SEO/GEO d'Amon Tour vise des voyageurs internationaux susceptibles de réserver des excursions privées à Krabi et dans le sud de la Thaïlande. Deux grands axes structurent cette cible :");
@@ -214,10 +227,10 @@ bullet("Levier sur le site : formulaire « tour sur mesure » (custom-tour) + mi
 heading("2", "Comment le SEO atteint cette cible");
 para("Le référencement classique permet d'apparaître dans Google et Bing pour les recherches des marchés visés. Les leviers en place :");
 bullet("Balises hreflang (11 langues) : indiquent à Google quelle version servir selon le pays/la langue de l'internaute — essentiel pour MY, SG, CN, AU et la francophonie.");
-bullet("Pages destinations dédiées : 6 pages ciblées mots-clés (Koh Phi Phi, Phang Nga Bay, Railay, catamaran, bivouac Thalane, agence francophone) avec ~1 400 mots chacune.");
+bullet("Pages destinations dédiées : 8 pages ciblées mots-clés (Koh Phi Phi, Phang Nga Bay, Railay, catamaran, bivouac Thalane, agence francophone + séjour famille FR et family tailor-made EN) avec ~1 400 à 1 850 mots chacune.");
 bullet("Données structurées (Schema.org) : TravelAgency, TouristTrip, FAQPage, BreadcrumbList — Google comprend la nature des pages et peut afficher des résultats enrichis.");
-bullet("Sitemap complet (46 URLs) + robots.txt propre : tout le contenu utile est exploré, l'administration est protégée.");
-bullet("Rendu serveur (SSR) pour les robots : 17 pages renvoient un HTML complet aux moteurs au lieu d'une page vide — indispensable pour un site React.");
+bullet("Sitemap complet (48 URLs) + robots.txt propre : tout le contenu utile est exploré, l'administration est protégée.");
+bullet("Rendu serveur (SSR) pour les robots : 19 pages renvoient un HTML complet aux moteurs au lieu d'une page vide — indispensable pour un site React.");
 
 heading("3", "Comment le GEO atteint cette cible");
 para("Le GEO (Generative Engine Optimization) vise la visibilité dans les réponses générées par les IA, un canal de recherche en forte croissance. Quand un voyageur demande à ChatGPT « meilleure agence francophone à Krabi », l'objectif est qu'Amon Tour soit cité.");
@@ -246,8 +259,8 @@ table(
     ["AU / premium", "catamaran privatif Krabi, location bateau", "/destinations/catamaran-krabi"],
     ["Aventure", "bivouac kayak Thalane, nuit nature Phang Nga", "/destinations/thalane-bivouac"],
     ["Tous marchés", "Railay Beach depuis Ao Nang, escalade", "/destinations/railay-beach"],
-    ["Familles (FR)", "séjour famille personnalisé Krabi, voyage sur mesure enfants", "à créer : /sejour-famille-krabi"],
-    ["Familles (EN)", "personalized family holiday Krabi, tailor-made family tour", "à créer : /en/family-tailor-made-krabi"],
+    ["Familles (FR)", "séjour famille personnalisé Thaïlande, voyage sur mesure enfants, hors tourisme de masse", "/destinations/sejour-famille-personnalise-thailande"],
+    ["Familles (EN)", "tailor-made family trip Thailand, personalized family holiday Krabi", "/destinations/family-tailor-made-trip-thailand"],
   ],
   [22, 44, 34]
 );
@@ -262,7 +275,7 @@ para("Recherche nature, kayak, escalade, expériences hors des sentiers battus. 
 subhead("• Le voyageur francophone fidèle");
 para("Valorise un accompagnement dans sa langue. Touché via le positionnement « agence francophone depuis 2013 », différenciant face aux concurrents anglophones.", { gap: 6 });
 subhead("• La famille en quête d'un séjour personnalisé (FR & EN)");
-para("Parents voyageant avec enfants, qui veulent un programme sur mesure et un accompagnement dans leur langue (français ou anglais). Recherchent flexibilité, sécurité et confort. Touchés via le formulaire « tour sur mesure », une page dédiée « séjour famille personnalisé » (à créer en FR et EN) et une FAQ répondant à leurs questions concrètes (âge minimum, gilets enfants, rythme adapté).", { gap: 6 });
+para("Parents voyageant avec enfants, qui veulent un programme sur mesure et un accompagnement dans leur langue (français ou anglais). Recherchent flexibilité, sécurité et confort. Touchés via le formulaire « tour sur mesure » et les deux pages dédiées « séjour famille personnalisé » désormais en ligne (FR et EN), avec une FAQ répondant à leurs questions concrètes (âge des enfants, gilets, rythme adapté, catamaran privatif).", { gap: 6 });
 
 // GEO callout — target prompts for the family segment
 ensure(110);
@@ -293,7 +306,8 @@ table(
     ["Raccourcir la meta description de l'accueil (240 → 155 car.)", "Affichage complet dans les résultats Google", "Moyenne"],
     ["Unifier les routes de fiches tours (éviter le doublon)", "Évite le contenu dupliqué", "Moyenne"],
     ["Ajouter des pages destinations en anglais (/en/…)", "Capter MY, SG, AU en anglais", "Moyenne"],
-    ["Créer une page « séjour famille personnalisé » (FR + EN)", "Capter le nouveau segment familles sur mesure", "Haute"],
+    ["✓ Créer une page « séjour famille personnalisé » (FR + EN)", "RÉALISÉ — segment familles sur mesure désormais couvert (2 pages en ligne)", "Fait"],
+    ["Renseigner les tarifs sur les pages familles", "Lever le dernier point « [à insérer] » et rassurer les prospects", "Moyenne"],
     ["Soumettre le sitemap dans Google Search Console", "Indexation plus rapide des nouvelles pages", "Haute"],
   ],
   [40, 42, 18]
