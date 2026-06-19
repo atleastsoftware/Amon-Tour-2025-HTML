@@ -145,8 +145,8 @@ export default function Home() {
   return (
     <>
       <SEO 
-        title="Amon Tour - Private Tours in Krabi Thailand | Malaysia, Singapore, Australia & Worldwide"
-        description="Amon Tour is a Krabi-based travel agency run by French and English-speaking guides. Authentic private tours in Krabi, Phi Phi, Phang Nga Bay and southern Thailand — perfect for travelers from Malaysia, Singapore, Australia and beyond. Custom itineraries, small groups, no mass tourism."
+        title="Private Krabi Tours & Thailand Day Trips | Amon Tour"
+        description="Amon Tour is a Krabi travel agency with French- and English-speaking guides offering private tours to Koh Phi Phi, Phang Nga Bay and southern Thailand."
         keywords="krabi tour from malaysia, krabi tour from singapore, thailand holiday package malaysia, thailand tour singapore, krabi private tour, krabi trip from KL, thailand tours australia, krabi island hopping, phang nga bay tour, phi phi island day trip, krabi francophone guide, french speaking guide krabi, private tour krabi thailand, authentic thailand experience, southern thailand tours"
         canonicalUrl="https://amon-tour.com/"
         breadcrumbs={[

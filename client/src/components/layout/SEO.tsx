@@ -2,6 +2,17 @@ import { Helmet } from 'react-helmet';
 import { useEffect, useState } from 'react';
 import { useTranslation } from '@/contexts/TranslationContext';
 
+// Safety clamp: trim any meta description to <=160 chars at a word boundary.
+function clampDescription(desc: string, max = 160): string {
+  if (!desc) return desc;
+  const trimmed = desc.trim();
+  if (trimmed.length <= max) return trimmed;
+  const slice = trimmed.slice(0, max);
+  const lastSpace = slice.lastIndexOf(' ');
+  const cut = lastSpace > 80 ? slice.slice(0, lastSpace) : slice;
+  return cut.replace(/[\s,;:.\u2013\u2014-]+$/, '');
+}
+
 interface SEOProps {
   title?: string;
   description?: string;
@@ -38,7 +49,7 @@ export default function SEO({
   const seo = translations.seo;
   
   const finalTitle = title || seo.defaultTitle;
-  const finalDescription = description || seo.defaultDescription;
+  const finalDescription = clampDescription(description || seo.defaultDescription);
   const finalKeywords = keywords || seo.defaultKeywords;
   
   const fullTitle = finalTitle.includes('Amon Tour') ? finalTitle : `${finalTitle} | Amon Tour`;

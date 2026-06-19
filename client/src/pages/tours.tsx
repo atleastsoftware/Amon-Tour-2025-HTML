@@ -154,8 +154,8 @@ export default function Tours() {
   return (
     <>
       <SEO 
-        title="Thailand Tours & Experiences | Authentic Island Tours Krabi | Amon Tour"
-        description="Explore authentic Thailand tours in Krabi and southern Thailand. Private island tours, cultural experiences, temple visits, and local adventures. Book your authentic Thai experience today."
+        title="Krabi Tours & Island Day Trips in Thailand | Amon Tour"
+        description="Discover authentic private Krabi tours with Amon Tour: island day trips, cultural experiences, temple visits and local adventures across southern Thailand."
         keywords="krabi tours, thailand island tours, phuket experiences, phang nga bay tours, private boat tours thailand, authentic thai experiences, koh phi phi tours, cultural tours thailand"
         canonicalUrl="https://amon-tour.com/tours"
         breadcrumbs={[

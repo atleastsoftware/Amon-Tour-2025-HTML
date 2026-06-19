@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "wouter";
+import { useLocation, Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { ArrowLeft, ExternalLink, Clock, Users, MapPin, Calendar, Star } from "lucide-react";
@@ -54,6 +54,44 @@ interface TourShowcaseData {
 interface TourShowcaseParams {
   token: string;
 }
+
+// Build a <title> within the 40–65 character SEO sweet spot.
+function buildSeoTitle(name: string): string {
+  const clean = (name || 'Tour Details').trim();
+  const suffix = ' | Amon Tour Krabi';
+  const candidates = [
+    `${clean} – Private Krabi Tour & Booking${suffix}`,
+    `${clean} – Private Krabi Tour${suffix}`,
+    `${clean}${suffix}`,
+  ];
+  for (const c of candidates) {
+    if (c.length >= 40 && c.length <= 65) return c;
+  }
+  const shortest = candidates[candidates.length - 1];
+  if (shortest.length > 65) {
+    const room = 65 - suffix.length - 1;
+    return `${clean.slice(0, room).trim()}${suffix}`;
+  }
+  return candidates[0];
+}
+
+// Build a meta description within the 140–160 character sweet spot.
+function buildSeoDescription(name: string, raw?: string): string {
+  if (raw && raw.trim().length >= 140 && raw.trim().length <= 160) return raw.trim();
+  const clean = (name || 'this private Krabi tour').trim();
+  const base = `Book ${clean} with Amon Tour: a private, small-group Krabi tour in southern Thailand with flexible dates and French- and English-speaking local guides.`;
+  if (base.length >= 140) return base;
+  return `Discover this private Krabi tour with Amon Tour — a small-group southern Thailand experience, flexible dates and French- and English-speaking guides.`;
+}
+
+const SHOWCASE_INTERNAL_LINKS: Array<{ href: string; label: string }> = [
+  { href: '/experiences', label: 'Experiences' },
+  { href: '/tours', label: 'All Tours' },
+  { href: '/custom-tour', label: 'Custom Tour' },
+  { href: '/stays', label: 'Stays' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/contact', label: 'Contact' },
+];
 
 export default function TourShowcase() {
   const [, navigate] = useLocation();
@@ -172,12 +210,31 @@ export default function TourShowcase() {
   return (
     <>
       <SEO 
-        title={metadata?.title || `${tour.name} | Amon Tour`}
-        description={metadata?.description || tour.shortDescription || tour.description}
+        title={buildSeoTitle(tour.name)}
+        description={buildSeoDescription(tour.name, metadata?.description || tour.shortDescription)}
         ogImage={metadata?.image || tour.primaryImage || tour.images[0]}
         canonicalUrl={metadata?.url || `https://www.amon-tour.com/tour/${token}`}
         keywords={metadata?.keywords?.join(', ') || ''}
         structuredData={touristTripSchema}
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "Tours", url: "/tours" },
+          { name: tour.name, url: `/tour/${token}` },
+        ]}
+        faqSchema={[
+          {
+            question: `How do I book ${tour.name} with Amon Tour?`,
+            answer: "Use the Book Now button on this page, or contact our Krabi team by WhatsApp or email. Our French- and English-speaking guides confirm availability and tailor the experience to your group.",
+          },
+          {
+            question: "Can this experience be private and customized?",
+            answer: "Yes. Amon Tour specializes in private, small-group tours of Krabi and southern Thailand that can be customized to your dates, interests, and pace, away from mass tourism.",
+          },
+          {
+            question: "What areas does Amon Tour cover?",
+            answer: "We operate across Krabi and southern Thailand, including Koh Phi Phi, Phang Nga Bay, Railay Beach, and the surrounding islands and national parks.",
+          },
+        ]}
       />
       <Header />
       
@@ -438,6 +495,24 @@ export default function TourShowcase() {
             </div>
           </section>
         )}
+
+        {/* Internal links */}
+        <section className="py-10 border-t border-gray-200">
+          <div className="container mx-auto px-4">
+            <p className="text-sm font-semibold text-gray-700 mb-3">Explore more of Amon Tour</p>
+            <nav aria-label="Related pages">
+              <ul className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
+                {SHOWCASE_INTERNAL_LINKS.map(({ href, label }) => (
+                  <li key={href}>
+                    <Link href={href} className="text-secondary hover:underline font-medium">
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+        </section>
       </main>
       
       <Footer />
