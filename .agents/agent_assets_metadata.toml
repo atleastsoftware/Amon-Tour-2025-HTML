@@ -6,3 +6,9 @@ id = "J7TWQykwKmelra62Loveh"
 uri = "file://exports/Amon-Tour-Rapport-SEO-GEO-Cible.pdf"
 type = "pdf"
 title = "Rapport SEO & GEO — Amon Tour (mis à jour)"
+
+[[outputs]]
+id = "3GLEGR3f0gFZaqTiIcNP1"
+uri = "file://docs/EXPORT-TECHNIQUE-AMON-TOUR.md"
+type = "text"
+title = "Export technique — stack + connectivité Tour Ninja"
