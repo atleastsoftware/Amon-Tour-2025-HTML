@@ -12,3 +12,9 @@ id = "3GLEGR3f0gFZaqTiIcNP1"
 uri = "file://docs/EXPORT-TECHNIQUE-AMON-TOUR.md"
 type = "text"
 title = "Export technique — stack + connectivité Tour Ninja"
+
+[[outputs]]
+id = "cQKhl_Ldjv23lTf-1agop"
+uri = "file://docs/STANDARDISATION-SITE-VITRINE-TOURNINJA.md"
+type = "text"
+title = "Standardisation site vitrine Tour Ninja"
