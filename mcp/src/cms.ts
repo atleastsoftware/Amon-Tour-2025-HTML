@@ -3,8 +3,42 @@ import {
   type SiteContent,
 } from "../../site/src/content.js";
 import { pagePathFromSlug, type Page, type Section, type SectionType } from "../../site/src/schema.js";
+import { decode } from "html-entities";
+import sanitizeHtml from "sanitize-html";
 
 export interface Mutation { changes: Map<string, string | null>; summary: string }
+
+const allowedMarkupTags = new Set([
+  "a", "address", "blockquote", "br", "code", "div", "em", "h1", "h2", "h3",
+  "h4", "h5", "h6", "hr", "li", "ol", "p", "pre", "section", "span", "strong",
+  "table", "tbody", "td", "th", "thead", "tr", "ul",
+]);
+
+function assertNoExecutableMarkup(changes: Map<string, string | null>) {
+  for (const [path, value] of changes) {
+    if (value === null) continue;
+    const decoded = decode(value);
+    let unsafe = /\b(?:javascript|vbscript)\s*:|data\s*:\s*text\/html|srcdoc\s*=/i.test(decoded);
+    sanitizeHtml(decoded, {
+      allowedTags: false,
+      allowedAttributes: false,
+      allowVulnerableTags: true,
+      nonTextTags: [],
+      transformTags: {
+        "*": (tagName, attribs) => {
+          if (!allowedMarkupTags.has(tagName.toLowerCase())) unsafe = true;
+          for (const name of Object.keys(attribs)) {
+            if (/^on/i.test(name) || name.toLowerCase() === "style") unsafe = true;
+          }
+          return { tagName, attribs };
+        },
+      },
+    });
+    if (unsafe) {
+      throw new Error(`Validation du contenu refusée (${path}): balisage exécutable interdit`);
+    }
+  }
+}
 
 /** Adapte les chemins du dépôt (content/...) au chargeur du site. */
 export function contentSource(files: Map<string, string>) {
@@ -22,6 +56,7 @@ export function applyChanges(files: Map<string, string>, changes: Map<string, st
 }
 
 export function assertValid(files: Map<string, string>, changes = new Map<string, string | null>()) {
+  assertNoExecutableMarkup(changes);
   const result = validateContent(contentSource(applyChanges(files, changes)));
   if (!result.ok) throw new Error(`Validation du contenu refusée${result.file ? ` (${result.file})` : ""}: ${result.error}`);
   return result.content;

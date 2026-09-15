@@ -32,7 +32,7 @@ test("bundle de production : commit MCP → rebuild → HTML mis à jour", { tim
 
   const port = await freePort();
   const token = "prod-test-token";
-  const env = { ...process.env, PORT: String(port), REPO_ROOT: tmp, MCP_AUTH_TOKEN: token, NODE_ENV: "production", MCP_LOCAL_GIT_COMMIT: "1", GIT_AUTHOR_NAME: "test", GIT_AUTHOR_EMAIL: "test@amon-tour.com", GIT_COMMITTER_NAME: "test", GIT_COMMITTER_EMAIL: "test@amon-tour.com" };
+  const env = { ...process.env, PORT: String(port), REPO_ROOT: tmp, MCP_AUTH_TOKEN: token, MCP_ALLOW_PATH_TOKEN: "true", NODE_ENV: "test", MCP_LOCAL_GIT_COMMIT: "1", GIT_AUTHOR_NAME: "test", GIT_AUTHOR_EMAIL: "test@amon-tour.com", GIT_COMMITTER_NAME: "test", GIT_COMMITTER_EMAIL: "test@amon-tour.com" };
   // Aucun appel DB dans ce test : adresse fictive, jamais la base réelle héritée.
   (env as any).DATABASE_URL = "postgresql://test:test@127.0.0.1:1/test";
   delete (env as any).NEON_DATABASE_URL; delete (env as any).GITHUB_TOKEN; delete (env as any).GITHUB_REPO;

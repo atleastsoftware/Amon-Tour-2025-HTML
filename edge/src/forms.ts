@@ -10,8 +10,9 @@ import { sendFormNotification } from "./email.js";
 function auth(req: any, res: any, next: any) {
   const header = req.headers.authorization;
   if (!header?.startsWith("Bearer ")) return res.status(401).json({ success: false, message: "Authorization header required" });
-  const keys = ["TOUR_NINJA_API_KEY_2025", process.env.TOUR_NINJA_API_KEY].filter(Boolean);
-  if (!keys.includes(header.slice(7))) return res.status(403).json({ success: false, message: "Invalid API key" });
+  const syncToken = process.env.TOUR_NINJA_SYNC_TOKEN || process.env.TOUR_NINJA_API_KEY;
+  if (!syncToken) return res.status(503).json({ success: false, message: "Tour Ninja synchronization is not configured" });
+  if (!syncToken || header.slice(7) !== syncToken) return res.status(403).json({ success: false, message: "Invalid API key" });
   next();
 }
 

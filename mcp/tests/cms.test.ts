@@ -39,3 +39,30 @@ test("un type de section inconnu est refusé sans écriture", async (t) => {
   const after = await repo.readTree();
   assert.equal(after.files.get("content/pages/tours.json"), tree.files.get("content/pages/tours.json"));
 });
+
+test("le balisage exécutable est refusé sans écriture", async (t) => {
+  const { root, repo } = await fixture(); t.after(() => fs.rm(root, { recursive: true, force: true }));
+  const tree = await repo.readTree();
+  assert.throws(
+    () => addSection(tree.files, "tours", { type: "text", props: { content: "<script>alert(1)</script>" } }),
+    /balisage exécutable interdit/,
+  );
+  const after = await repo.readTree();
+  assert.equal(after.files.get("content/pages/tours.json"), tree.files.get("content/pages/tours.json"));
+});
+
+test("les variantes HTML exécutables sont toutes refusées", async (t) => {
+  const { root, repo } = await fixture(); t.after(() => fs.rm(root, { recursive: true, force: true }));
+  const tree = await repo.readTree();
+  for (const content of [
+    "<svg/onload=alert(1)>",
+    "<img src=x onerror=alert(1)>",
+    '<a href="java&#x73;cript:alert(1)">Lien</a>',
+    '<div style="background:url(javascript:alert(1))">x</div>',
+  ]) {
+    assert.throws(
+      () => addSection(tree.files, "tours", { type: "text", props: { content } }),
+      /balisage exécutable interdit/,
+    );
+  }
+});

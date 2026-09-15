@@ -8,13 +8,16 @@ import { createMcpRouter } from "../../mcp/src/http.js";
 import { createMcpServer } from "../../mcp/src/server.js";
 import { LocalRepo } from "../../mcp/src/repo/local.js";
 import { GitHubRepo } from "../../mcp/src/repo/github.js";
+import { validateProductionConfiguration } from "./config.js";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 // En production (edge/dist/server.js bundlé) comme en dev (edge/src/server.ts), la racine du dépôt est deux niveaux au-dessus.
 // REPO_ROOT permet de pointer vers une copie (tests de production).
 const repoRoot = process.env.REPO_ROOT ? path.resolve(process.env.REPO_ROOT) : path.resolve(here, "../..");
 const distDir = path.join(repoRoot, "site/dist");
+
 async function main() {
+  validateProductionConfiguration();
   const provider = process.env.GITHUB_TOKEN && process.env.GITHUB_REPO
     ? new GitHubContentProvider({
         repoRoot, token: process.env.GITHUB_TOKEN, repository: process.env.GITHUB_REPO,
@@ -36,10 +39,11 @@ async function main() {
           return async (...args: any[]) => { const out = await value.apply(target, args); await onLocalCommit?.(); return out; };
         },
       });
-      const siteBaseUrl = process.env.SITE_BASE_URL ?? "https://amon-tour.com";
+      const siteBaseUrl = process.env.SITE_BASE_URL ?? "https://www.amon-tour.com";
       const edgeBaseUrl = process.env.EDGE_BASE_URL ?? `http://127.0.0.1:${Number(process.env.PORT) || 5000}`;
       mcpRouter = createMcpRouter({
         token: process.env.MCP_AUTH_TOKEN,
+        allowPathToken: process.env.MCP_ALLOW_PATH_TOKEN === "true",
         createServer: () => createMcpServer({ repo, siteBaseUrl, edgeBaseUrl, tourNinja: { proxyUrl: `${edgeBaseUrl}/api/proxy/tours` } }),
       });
       console.log(`MCP CMS monté sur /mcp (dépôt ${useGitHub ? process.env.GITHUB_REPO : "local"})`);

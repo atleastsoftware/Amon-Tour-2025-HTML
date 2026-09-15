@@ -69,7 +69,9 @@ export function createMcpServer(options: Options): McpServer {
   write("update_page", "pages", "Update page metadata. Modifier une page.", {
     page: z.string(), name: z.string().optional(), active: z.boolean().optional(), sitemap: anyObject.optional(), type: z.enum(["main", "secondary", "legal", "system"]).optional(),
   }, (f, { page, ...patch }) => updatePage(f, page, patch));
-  write("delete_page", "pages", "Delete a page. Supprimer une page.", { page: z.string() }, (f, a) => deletePage(f, a.page));
+  write("delete_page", "pages", "Delete a page after explicit confirmation. Supprimer une page après confirmation.", {
+    page: z.string(), confirm: z.literal(true),
+  }, (f, a) => deletePage(f, a.page));
   register("list_sections", "List sections of a page. Lister les sections.", { page: z.string() }, async (a) => findPage(await read(), a.page).sections);
   register("get_section", "Get one section. Lire une section.", { page: z.string(), sectionId: z.string() }, async (a) => {
     const s = findPage(await read(), a.page).sections.find((x) => x.id === a.sectionId);
@@ -83,7 +85,9 @@ export function createMcpServer(options: Options): McpServer {
   }, (f, { page, sectionId, ...a }) => updateSection(f, page, sectionId, a));
   write("move_section", "sections", "Move a section. Déplacer une section.", { page: z.string(), sectionId: z.string(), order: z.number().int() },
     (f, a) => updateSection(f, a.page, a.sectionId, { order: a.order }));
-  write("delete_section", "sections", "Delete a section. Supprimer une section.", { page: z.string(), sectionId: z.string() },
+  write("delete_section", "sections", "Delete a section after explicit confirmation. Supprimer une section après confirmation.", {
+    page: z.string(), sectionId: z.string(), confirm: z.literal(true),
+  },
     (f, a) => deleteSection(f, a.page, a.sectionId));
   register("list_section_types", "List allowed section types and expected props. Types de sections.", {}, () =>
     SECTION_TYPES.map((type) => ({ type, expectedProps: sectionDescriptions[type] ?? "Heterogeneous legacy props; title/content are commonly supported." })));
@@ -146,7 +150,9 @@ export function createMcpServer(options: Options): McpServer {
     const raw = f.get(`content/blog/posts/${a.slug}.md`); if (!raw) throw new Error("Article introuvable");
     const doc = matter(raw); return updateMarkdown(f, `content/blog/posts/${a.slug}.md`, { ...doc.data, ...a.patch }, a.content ?? doc.content, `article ${a.slug} mis à jour`);
   });
-  write("delete_blog_post", "blog", "Delete a blog post. Supprimer un article.", { slug: z.string() },
+  write("delete_blog_post", "blog", "Delete a blog post after explicit confirmation. Supprimer un article après confirmation.", {
+    slug: z.string(), confirm: z.literal(true),
+  },
     (f, a) => deleteFile(f, `content/blog/posts/${a.slug}.md`, `article ${a.slug} supprimé`));
   for (const kind of ["categories", "tags"] as const) {
     register(`list_blog_${kind}`, `List blog ${kind}. Lister les ${kind}.`, {}, async () => (readContent(await read()).blog as any)[kind]);
@@ -242,7 +248,9 @@ export function createMcpServer(options: Options): McpServer {
     const list = readContent(f).redirects; if (list.some((x) => x.from === a.from)) throw new Error("Cette source existe déjà");
     list.push(a); return replaceJson(f, "redirects.json", list, `redirection ${a.from} ajoutée`);
   });
-  write("remove_redirect", "redirects", "Remove a redirect. Supprimer une redirection.", { from: z.string() }, (f, a) =>
+  write("remove_redirect", "redirects", "Remove a redirect after explicit confirmation. Supprimer une redirection après confirmation.", {
+    from: z.string(), confirm: z.literal(true),
+  }, (f, a) =>
     replaceJson(f, "redirects.json", readContent(f).redirects.filter((x) => x.from !== a.from), `redirection ${a.from} supprimée`));
 
   register("validate_content", "Validate the complete current content tree. Valider le contenu.", {}, async () => {

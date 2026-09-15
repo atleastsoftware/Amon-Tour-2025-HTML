@@ -5,7 +5,7 @@ Ce serveur expose le contenu Git versionné d’Amon Tour aux clients MCP. Chaqu
 ## Démarrage
 
 ```bash
-MCP_AUTH_TOKEN='un-jeton-long' GITHUB_REPO='atleastsoftware/Amon-Tour-2025' \
+MCP_AUTH_TOKEN='un-jeton-long' GITHUB_REPO='atleastsoftware/Amon-Tour-2025-HTML' \
 GITHUB_TOKEN='github_pat_...' npm run mcp:dev
 ```
 
@@ -14,7 +14,8 @@ Sans `GITHUB_TOKEN`, le serveur utilise le dépôt local (`process.cwd()`). `POR
 Variables :
 
 - `MCP_AUTH_TOKEN` (obligatoire) : protège toutes les requêtes MCP.
-- `GITHUB_TOKEN` : fine-grained PAT avec **Contents: read/write**, **Pull requests: read/write** et **Actions: read**.
+- `MCP_ALLOW_PATH_TOKEN=true` (optionnel, déconseillé) : autorise `/mcp/t/<jeton>` pour les clients incapables d'envoyer un en-tête Bearer. Le jeton peut alors apparaître dans les journaux d'URL.
+- `GITHUB_TOKEN` : jeton runtime dédié, limité à `atleastsoftware/Amon-Tour-2025-HTML`, avec **Contents: read/write**, **Pull requests: read/write** et **Actions: read**.
 - `GITHUB_REPO` : dépôt au format `owner/name`.
 - `GITHUB_BRANCH` : branche de publication, `main` par défaut.
 - `SITE_BASE_URL`, `EDGE_BASE_URL`, `TOUR_NINJA_PROXY_URL` : URLs publiques optionnelles.
@@ -25,8 +26,10 @@ Vérification : `GET /mcp/health`. Transport : `POST/GET/DELETE /mcp` avec `Auth
 ## Connexion
 
 **Claude** : *Settings > Connectors > Add custom connector*, puis saisir
-`https://amon-tour.com/mcp/t/<jeton>`. Utiliser plutôt l’en-tête
-`Authorization: Bearer <jeton>` lorsque le client permet les en-têtes personnalisés.
+`https://www.amon-tour.com/mcp` avec l’en-tête
+`Authorization: Bearer <jeton>`. La variante `/mcp/t/<jeton>` exige
+`MCP_ALLOW_PATH_TOKEN=true` et ne doit être activée qu'après acceptation du
+risque de fuite du jeton dans les journaux d'URL.
 
 **ChatGPT** : *Settings > Connectors > Developer mode > Add MCP server*. Saisir la
 même URL et choisir *No authentication* lorsque le jeton est dans le chemin, ou

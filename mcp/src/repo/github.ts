@@ -1,6 +1,8 @@
 import { Octokit } from "@octokit/rest";
 import type { ContentRepo } from "./types.js";
 
+const PRODUCTION_REPOSITORY = "atleastsoftware/Amon-Tour-2025-HTML";
+
 export class GitHubRepo implements ContentRepo {
   private octokit: Octokit;
   private owner: string;
@@ -13,8 +15,14 @@ export class GitHubRepo implements ContentRepo {
     const full = opts.repo ?? process.env.GITHUB_REPO;
     if (!token) throw new Error("GITHUB_TOKEN is required");
     if (!full?.includes("/")) throw new Error("GITHUB_REPO must be owner/name");
+    if (process.env.NODE_ENV === "production" && full !== PRODUCTION_REPOSITORY) {
+      throw new Error(`GITHUB_REPO must target ${PRODUCTION_REPOSITORY} in production`);
+    }
     [this.owner, this.repo] = full.split("/", 2);
     this.branch = opts.branch ?? process.env.GITHUB_BRANCH ?? "main";
+    if (process.env.NODE_ENV === "production" && this.branch !== "main") {
+      throw new Error("GITHUB_BRANCH must be main in production");
+    }
     this.octokit = new Octokit({ auth: token });
   }
 

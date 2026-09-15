@@ -83,7 +83,7 @@ export function createTourRouter() {
   router.get("/api/tour-image-proxy/:tourId/:imageIndex", async (req, res) => {
     try {
       const response = await fetch(`https://www.tourninja.io/api/tours/images/${req.params.tourId}/${req.params.imageIndex}`, {
-        headers: { Accept: "image/*,*/*", "x-api-key": process.env.TOUR_NINJA_API_KEY || "tourninja-showcase-2-amontour", "User-Agent": "Amon Tour Website" },
+        headers: { Accept: "image/*,*/*", "x-api-key": process.env.TOUR_NINJA_SHOWCASE_KEY || "tourninja-showcase-2-amontour", "User-Agent": "Amon Tour Website" },
       });
       if (!response.ok) return res.redirect("https://placehold.co/600x400/1e73be/ffffff?text=Amon+Tour");
       res.set("Content-Type", response.headers.get("content-type") || "image/jpeg");

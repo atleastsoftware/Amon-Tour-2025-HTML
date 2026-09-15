@@ -42,15 +42,40 @@ function fixture() {
 }
 
 test("les routes sync appliquent l'authentification Bearer", async () => {
+  const previous = process.env.TOUR_NINJA_SYNC_TOKEN;
+  process.env.TOUR_NINJA_SYNC_TOKEN = "tour-ninja-sync-test";
   const ctx = await fixture();
   try {
     assert.equal((await fetch(`${ctx.base}/api/sync/tour-ninja`)).status, 401);
     const response = await fetch(`${ctx.base}/api/sync/tour-ninja`, {
-      headers: { Authorization: "Bearer TOUR_NINJA_API_KEY_2025" },
+      headers: { Authorization: "Bearer tour-ninja-sync-test" },
     });
     assert.equal(response.status, 200);
     assert.equal((await response.json() as any).success, true);
-  } finally { await ctx.close(); }
+  } finally {
+    if (previous === undefined) delete process.env.TOUR_NINJA_SYNC_TOKEN;
+    else process.env.TOUR_NINJA_SYNC_TOKEN = previous;
+    await ctx.close();
+  }
+});
+
+test("les routes sync sont indisponibles sans token sans affecter le site", async () => {
+  const previousSync = process.env.TOUR_NINJA_SYNC_TOKEN;
+  const previousLegacy = process.env.TOUR_NINJA_API_KEY;
+  delete process.env.TOUR_NINJA_SYNC_TOKEN;
+  delete process.env.TOUR_NINJA_API_KEY;
+  const ctx = await fixture();
+  try {
+    const response = await fetch(`${ctx.base}/api/sync/tour-ninja`, {
+      headers: { Authorization: "Bearer unknown" },
+    });
+    assert.equal(response.status, 503);
+    assert.equal((await fetch(`${ctx.base}/api/publish/status`)).status, 200);
+  } finally {
+    if (previousSync !== undefined) process.env.TOUR_NINJA_SYNC_TOKEN = previousSync;
+    if (previousLegacy !== undefined) process.env.TOUR_NINJA_API_KEY = previousLegacy;
+    await ctx.close();
+  }
 });
 
 test("les transformations conservent exactement les champs historiques", () => {

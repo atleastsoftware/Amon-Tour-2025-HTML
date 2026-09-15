@@ -2,7 +2,7 @@ import express from "express";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 
-export function createMcpRouter(options: { token: string; createServer: () => McpServer }): express.Router {
+export function createMcpRouter(options: { token: string; allowPathToken?: boolean; createServer: () => McpServer }): express.Router {
   const router = express.Router();
   router.use(express.json({ limit: "7mb" }));
   router.use((_, res, next) => {
@@ -18,7 +18,8 @@ export function createMcpRouter(options: { token: string; createServer: () => Mc
 
   const authorized = (req: express.Request) => {
     const bearer = req.get("authorization");
-    return bearer === `Bearer ${options.token}` || req.params.token === options.token;
+    return bearer === `Bearer ${options.token}` ||
+      (options.allowPathToken === true && req.params.token === options.token);
   };
   const handler = async (req: express.Request, res: express.Response) => {
     if (!authorized(req)) {

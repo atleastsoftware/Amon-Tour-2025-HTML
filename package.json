@@ -17,7 +17,8 @@
     "edge:build": "esbuild edge/src/server.ts --platform=node --packages=external --bundle --format=esm --outfile=edge/dist/server.js",
     "edge:start": "node edge/dist/server.js",
     "mcp:dev": "tsx mcp/src/standalone.ts",
-    "test:migration": "tsx --test site/tests/*.test.ts edge/tests/*.test.ts mcp/tests/*.test.ts"
+    "test:migration": "tsx --test site/tests/*.test.ts edge/tests/*.test.ts mcp/tests/*.test.ts",
+    "production:smoke:readonly": "tsx scripts/migration/production-smoke-readonly.ts"
   },
   "dependencies": {
     "@google-cloud/storage": "^7.17.0",
@@ -71,6 +72,7 @@
     "@types/react-beautiful-dnd": "^13.1.8",
     "@types/react-datepicker": "^6.2.0",
     "@types/react-helmet": "^6.1.11",
+    "@types/sanitize-html": "^2.16.1",
     "@uppy/aws-s3": "^4.3.2",
     "@uppy/core": "^4.5.3",
     "@uppy/dashboard": "^4.4.3",
@@ -96,6 +98,7 @@
     "fs-extra": "^11.3.0",
     "google-auth-library": "^10.3.0",
     "gray-matter": "^4.0.3",
+    "html-entities": "^2.6.0",
     "https-proxy-agent": "^7.0.6",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.453.0",
@@ -117,6 +120,7 @@
     "react-icons": "^5.5.0",
     "react-resizable-panels": "^2.1.7",
     "recharts": "^2.15.2",
+    "sanitize-html": "^2.17.5",
     "stripe": "^18.1.0",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",

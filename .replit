@@ -1,5 +1,5 @@
 modules = ["nodejs-20", "web", "python-3.11", "postgresql-16"]
-run = "npm run dev"
+run = "npm run edge:dev"
 hidden = [".config", ".git", "generated-icon.png", "node_modules", "dist"]
 
 [nix]
@@ -12,7 +12,7 @@ build = ["sh", "-c", "npm run site:build -- --out site/dist && npm run edge:buil
 run = ["sh", "-c", "NODE_ENV=production npm run edge:start"]
 
 [workflows]
-runButton = "Restart Application"
+runButton = "Project"
 
 [[workflows.workflow]]
 name = "Project"
@@ -32,16 +32,16 @@ task = "shell.exec"
 args = "npm run edge:dev"
 waitForPort = 5000
 
+[workflows.workflow.metadata]
+outputType = "webview"
+
 [agent]
 integrations = ["javascript_object_storage:1.0.0", "javascript_log_in_with_replit:1.0.0", "javascript_database:1.0.0", "javascript_stripe:1.0.0"]
 
 [[ports]]
 localPort = 5000
-externalPort = 5000
-
-[[ports]]
-localPort = 5100
 externalPort = 80
+
 
 [postMerge]
 path = "scripts/post-merge.sh"
