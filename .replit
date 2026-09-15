@@ -39,6 +39,10 @@ integrations = ["javascript_object_storage:1.0.0", "javascript_log_in_with_repli
 localPort = 5000
 externalPort = 5000
 
+[[ports]]
+localPort = 5100
+externalPort = 80
+
 [postMerge]
 path = "scripts/post-merge.sh"
-timeoutMs = 20000
+timeoutMs = 180000
