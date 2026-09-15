@@ -1,0 +1,22 @@
+{
+  "slug": "group-corporate",
+  "path": "/group-corporate",
+  "name": "Group Corporate",
+  "type": "secondary",
+  "active": true,
+  "customCode": true,
+  "seo": {
+    "en": {}
+  },
+  "sections": [],
+  "sitemap": {
+    "include": true,
+    "changefreq": "monthly",
+    "priority": 0.5
+  },
+  "legacy": {
+    "pageId": 36,
+    "createdAt": "2025-09-11T04:52:57.652Z",
+    "updatedAt": "2025-09-11T04:52:57.652Z"
+  }
+}

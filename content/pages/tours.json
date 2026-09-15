@@ -1,0 +1,97 @@
+{
+  "slug": "tours",
+  "path": "/tours",
+  "name": "Experiences",
+  "type": "main",
+  "active": true,
+  "customCode": false,
+  "seo": {
+    "en": {}
+  },
+  "sections": [
+    {
+      "id": "header_page_1760358456576",
+      "type": "header_page",
+      "order": 0,
+      "active": true,
+      "props": {
+        "title": "Our Experiences",
+        "subtitle": "Discover the exceptional beauty of Krabi and southern Thailand.",
+        "ctaStyle": "primary",
+        "backgroundColor": "white",
+        "buttons": [],
+        "iconUrl": "",
+        "imageUrl": "/attached_assets/790fc1de-1a62-4e19-93eb-f2529f131485_1757694001569.jpeg",
+        "frameSize": "small",
+        "iconColor": "#ffffff",
+        "titleColor": "#ffffff",
+        "subtitleColor": "#ffffff",
+        "backgroundType": "image",
+        "gradientColor1": "#084F6E",
+        "gradientColor2": "#3BA8AF"
+      },
+      "i18n": {
+        "fr": {
+          "title": "Nos expériences",
+          "subtitle": "Découvrez la beauté exceptionnelle de Krabi et du sud de la Thaïlande."
+        },
+        "es": {
+          "title": "Nuestras Experiencias",
+          "subtitle": "Descubre la excepcional belleza de Krabi y el sur de Tailandia."
+        }
+      },
+      "legacy": {
+        "blockId": 295,
+        "createdAt": "2025-10-13T12:27:38.744Z",
+        "updatedAt": "2025-10-14T04:12:30.963Z"
+      }
+    },
+    {
+      "id": "search_bar_tours_1760427183390",
+      "type": "search_bar_tours",
+      "order": 1,
+      "active": true,
+      "props": {
+        "title": "Search bar : Tours",
+        "ctaStyle": "primary",
+        "cardsColor": "#084F6E",
+        "filtersTitle": "Filters",
+        "mobileColumns": 1,
+        "tabletColumns": 2,
+        "desktopColumns": 3,
+        "filtersBgColor": "#ffffff",
+        "backgroundColor": "#ffffff",
+        "filtersTextColor": "#374151",
+        "searchPlaceholder": "Search for a tour..."
+      },
+      "i18n": {
+        "fr": {
+          "filters_title": "Filtres",
+          "search_placeholder": "Rechercher un tour..."
+        },
+        "es": {
+          "filters_title": "Filtros",
+          "search_placeholder": "Buscar un tour..."
+        }
+      },
+      "legacy": {
+        "blockId": 331,
+        "createdAt": "2025-10-14T07:33:04.210Z",
+        "updatedAt": "2025-10-16T10:22:31.407Z",
+        "columns": {
+          "background_color": "white"
+        }
+      }
+    }
+  ],
+  "sitemap": {
+    "include": true,
+    "changefreq": "weekly",
+    "priority": 0.9
+  },
+  "legacy": {
+    "pageId": 2,
+    "createdAt": "2025-08-30T09:24:56.540Z",
+    "updatedAt": "2025-10-14T08:05:59.720Z"
+  }
+}

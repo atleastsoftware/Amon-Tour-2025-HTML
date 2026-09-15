@@ -1,0 +1,165 @@
+{
+  "slug": "custom-tour",
+  "path": "/custom-tour",
+  "name": "Custom Tour",
+  "type": "main",
+  "active": true,
+  "customCode": false,
+  "seo": {
+    "en": {}
+  },
+  "sections": [
+    {
+      "id": "header_page_1760426899350",
+      "type": "header_page",
+      "order": 0,
+      "active": true,
+      "props": {
+        "title": "Create Your Custom Tour",
+        "subtitle": "Tell us what you'd like to discover, and we'll create your personalized itinerary.",
+        "ctaStyle": "primary",
+        "backgroundColor": "white",
+        "buttons": [],
+        "iconUrl": "",
+        "imageUrl": "/attached_assets/790fc1de-1a62-4e19-93eb-f2529f131485_1757694001569.jpeg",
+        "frameSize": "small",
+        "iconColor": "#ffffff",
+        "titleColor": "#ffffff",
+        "subtitleColor": "#ffffff",
+        "backgroundType": "image",
+        "gradientColor1": "#084F6E",
+        "gradientColor2": "#3BA8AF"
+      },
+      "i18n": {
+        "fr": {
+          "title": "Créez votre visite personnalisée",
+          "subtitle": "Dites-nous ce que vous aimeriez découvrir et nous créerons votre itinéraire personnalisé."
+        },
+        "es": {
+          "title": "Crea tu tour personalizado",
+          "subtitle": "Cuéntanos qué te gustaría descubrir y crearemos tu itinerario personalizado."
+        }
+      },
+      "legacy": {
+        "blockId": 328,
+        "createdAt": "2025-10-14T07:28:19.468Z",
+        "updatedAt": "2025-10-14T07:31:53.954Z"
+      }
+    },
+    {
+      "id": "why_choose_us_1760426464313",
+      "type": "why_choose_us",
+      "order": 2,
+      "active": true,
+      "props": {
+        "title": "Why Choose a Custom Tour?",
+        "subtitle": "A personalized journey offers a unique experience tailored to your desires, pace, and budget.",
+        "ctaStyle": "primary",
+        "iconBlocks": [
+          {
+            "id": 1,
+            "title": "Flexible Itinerary",
+            "mainIcon": "fas fa-user-friends",
+            "iconColor": "#084F6E",
+            "miniIcons": [],
+            "description": "Choose the destinations that interest you and set your own travel pace."
+          },
+          {
+            "id": 2,
+            "title": "Tailored Accommodations",
+            "mainIcon": "fas fa-compass",
+            "iconColor": "#3BA8AF",
+            "miniIcons": [],
+            "description": "Select accommodations that match your preferences and budget."
+          },
+          {
+            "id": 3,
+            "title": "Personalized Support",
+            "mainIcon": "fas fa-star",
+            "iconColor": "#084F6E",
+            "miniIcons": [],
+            "description": "Benefit from expert advice and an English-speaking guide for an authentic experience."
+          }
+        ],
+        "titleColor": "#1f2937",
+        "dividerColor": "#3BA8AF",
+        "subtitleColor": "#374151",
+        "backgroundColor": "#ffffff"
+      },
+      "i18n": {
+        "fr": {
+          "title": "Pourquoi choisir une visite personnalisée ?",
+          "subtitle": "Un voyage personnalisé offre une expérience unique adaptée à vos désirs, votre rythme et votre budget.",
+          "icon_blocks_0_title": "Itinéraire flexible",
+          "icon_blocks_0_description": "Choisissez les destinations qui vous intéressent et définissez votre propre rythme de voyage.",
+          "icon_blocks_1_title": "Hébergements sur mesure",
+          "icon_blocks_1_description": "Sélectionnez des hébergements qui correspondent à vos préférences et à votre budget.",
+          "icon_blocks_2_title": "Accompagnement personnalisé",
+          "icon_blocks_2_description": "Bénéficiez de conseils d'experts et d'un guide francophone ou anglophone pour une expérience authentique."
+        },
+        "es": {
+          "title": "¿Por qué elegir un tour personalizado?",
+          "subtitle": "Un viaje personalizado ofrece una experiencia única adaptada a tus deseos, ritmo y presupuesto.",
+          "icon_blocks_0_title": "Itinerario flexible",
+          "icon_blocks_0_description": "Elige los destinos que te interesan y establece tu propio ritmo de viaje.",
+          "icon_blocks_1_title": "Alojamientos a medida",
+          "icon_blocks_1_description": "Selecciona alojamientos que se adapten a tus preferencias y presupuesto.",
+          "icon_blocks_2_title": "Acompañamiento personalizado",
+          "icon_blocks_2_description": "Benefíciate de consejos expertos y un guía de habla hispana o inglesa para una experiencia auténtica."
+        }
+      },
+      "legacy": {
+        "blockId": 325,
+        "createdAt": "2025-10-14T07:21:04.438Z",
+        "updatedAt": "2025-10-16T10:20:55.424Z",
+        "columns": {
+          "background_color": "white"
+        }
+      }
+    },
+    {
+      "id": "custom_tour_form_1760426472580",
+      "type": "custom_tour_form",
+      "order": 5,
+      "active": true,
+      "props": {
+        "title": "Our Tailor-made trips",
+        "subtitle": "Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.\n",
+        "ctaStyle": "primary",
+        "formId": 2,
+        "titleColor": "#1f2937",
+        "dividerColor": "#3BA8AF",
+        "subtitleColor": "#374151",
+        "backgroundColor": "#ffffff"
+      },
+      "i18n": {
+        "fr": {
+          "title": "Nos voyages sur mesure",
+          "subtitle": "Concevez votre propre voyage à travers la Thaïlande avec nos séjours sur mesure : des découvertes culturelles et des aventures familiales aux escapades romantiques et aux escapades sur l'île. Chaque itinéraire est conçu pour répondre à vos souhaits, offrant des expériences authentiques, des services de qualité et une immersion unique loin du tourisme de masse.\n"
+        },
+        "es": {
+          "title": "Viajes a medida.",
+          "subtitle": "Diseña tu propio viaje por Tailandia con nuestras estancias a medida: desde descubrimientos culturales y aventuras familiares hasta escapadas románticas y escapadas a la isla. Cada itinerario está diseñado para satisfacer tus deseos, ofreciendo experiencias auténticas, servicios de calidad y una inmersión única lejos del turismo de masas. [[NUEVA LÍNEA]]"
+        }
+      },
+      "legacy": {
+        "blockId": 326,
+        "createdAt": "2025-10-14T07:21:12.699Z",
+        "updatedAt": "2026-02-20T12:21:46.153Z",
+        "columns": {
+          "background_color": "white"
+        }
+      }
+    }
+  ],
+  "sitemap": {
+    "include": true,
+    "changefreq": "monthly",
+    "priority": 0.7
+  },
+  "legacy": {
+    "pageId": 3,
+    "createdAt": "2025-08-30T09:24:56.781Z",
+    "updatedAt": "2025-08-30T09:26:35.135Z"
+  }
+}

@@ -1,0 +1,282 @@
+[
+  {
+    "tourNinjaId": "JfgH4lC6Ik",
+    "tourName": "Private day trip to Koh Phi Phi and Sunset at Ao Nang local's islands",
+    "imageSourceType": "upload",
+    "customImageUrl": "/uploads/tours/tour-1757514565791-105183178.jpeg",
+    "directImageUrl": null,
+    "originalImageUrl": "/api/proxy/image?url=https%3A%2F%2Fwww.tourninja.io%2Fapi%2Fimage-proxy%2FJfgH4lC6Ik%2Fpresentation",
+    "active": true,
+    "legacy": {
+      "id": 40,
+      "createdAt": "2025-08-26T00:14:07.333Z",
+      "updatedAt": "2025-09-10T14:29:26.662Z"
+    }
+  },
+  {
+    "tourNinjaId": "o2mpYGR3lC",
+    "tourName": "Koh Kradan  & Koh Ngaï",
+    "imageSourceType": "upload",
+    "customImageUrl": "/uploads/tours/tour-1757514929598-614926541.jpeg",
+    "directImageUrl": null,
+    "originalImageUrl": "/api/proxy/image?url=https%3A%2F%2Fwww.tourninja.io%2Fapi%2Fimage-proxy%2Fo2mpYGR3lC%2Fpresentation",
+    "active": true,
+    "legacy": {
+      "id": 44,
+      "createdAt": "2025-08-26T00:15:21.263Z",
+      "updatedAt": "2025-09-10T14:35:29.891Z"
+    }
+  },
+  {
+    "tourNinjaId": "L2gHLJBUhJ",
+    "tourName": "Semi Private - Koh Hong Archipelago",
+    "imageSourceType": "upload",
+    "customImageUrl": "/uploads/tours/tour-1757514909043-601877275.jpeg",
+    "directImageUrl": null,
+    "originalImageUrl": "/api/proxy/image?url=https%3A%2F%2Fwww.tourninja.io%2Fapi%2Fimage-proxy%2FL2gHLJBUhJ%2Fpresentation",
+    "active": true,
+    "legacy": {
+      "id": 46,
+      "createdAt": "2025-08-26T00:15:52.824Z",
+      "updatedAt": "2025-09-10T14:35:10.180Z"
+    }
+  },
+  {
+    "tourNinjaId": "-Yzd7eCHa1",
+    "tourName": "Krabi Primary Forest  and Waterfall",
+    "imageSourceType": "upload",
+    "customImageUrl": "/uploads/tours/tour-1757514812592-710233932.jpeg",
+    "directImageUrl": null,
+    "originalImageUrl": "/api/proxy/image?url=https%3A%2F%2Fwww.tourninja.io%2Fapi%2Fimage-proxy%2F-Yzd7eCHa1%2Fpresentation",
+    "active": true,
+    "legacy": {
+      "id": 49,
+      "createdAt": "2025-08-26T00:16:39.486Z",
+      "updatedAt": "2025-09-10T14:33:34.276Z"
+    }
+  },
+  {
+    "tourNinjaId": "Zjqr7H0R57",
+    "tourName": "Private day trip: Ao Nang's local islands sunset and bioluminescent plankton",
+    "imageSourceType": "upload",
+    "customImageUrl": "/uploads/tours/tour-1745996624172-231261635.jpeg",
+    "directImageUrl": null,
+    "originalImageUrl": "/api/proxy/image?url=https%3A%2F%2Fwww.tourninja.io%2Fapi%2Fimage-proxy%2FZjqr7H0R57%2Fpresentation",
+    "active": true,
+    "legacy": {
+      "id": 55,
+      "createdAt": "2025-08-26T00:18:01.028Z",
+      "updatedAt": "2025-09-10T00:55:27.020Z"
+    }
+  },
+  {
+    "tourNinjaId": "t1k3AxM19B",
+    "tourName": "Phang Nga Bay : Koh Kudu and Koh Hong",
+    "imageSourceType": "upload",
+    "customImageUrl": "/uploads/tours/tour-1757514673448-638767785.jpeg",
+    "directImageUrl": null,
+    "originalImageUrl": "/api/proxy/image?url=https%3A%2F%2Fwww.tourninja.io%2Fapi%2Fimage-proxy%2Ft1k3AxM19B%2Fpresentation",
+    "active": true,
+    "legacy": {
+      "id": 56,
+      "createdAt": "2025-08-26T00:18:29.229Z",
+      "updatedAt": "2025-09-10T14:31:13.762Z"
+    }
+  },
+  {
+    "tourNinjaId": "NHCwbWtgGY",
+    "tourName": "Private day trip to Phang Nga: Koh Kudu and Koh Roi",
+    "imageSourceType": "upload",
+    "customImageUrl": "/uploads/tours/tour-1760929240349-56976068.jpeg",
+    "directImageUrl": null,
+    "originalImageUrl": "/api/image-proxy/NHCwbWtgGY/presentation",
+    "active": true,
+    "legacy": {
+      "id": 59,
+      "createdAt": "2025-10-20T03:00:40.515Z",
+      "updatedAt": "2025-10-20T03:00:40.355Z"
+    }
+  },
+  {
+    "tourNinjaId": "_LkIo_9vyF",
+    "tourName": "Private Package 2D/1N to Koh Phi Phi & Ao Nang's local islands",
+    "imageSourceType": "upload",
+    "customImageUrl": "/uploads/tours/tour-1760929266359-501749605.jpeg",
+    "directImageUrl": null,
+    "originalImageUrl": "/api/image-proxy/_LkIo_9vyF/presentation",
+    "active": true,
+    "legacy": {
+      "id": 60,
+      "createdAt": "2025-10-20T03:01:06.519Z",
+      "updatedAt": "2025-10-20T03:01:06.364Z"
+    }
+  },
+  {
+    "tourNinjaId": "EwLb3AKMQv",
+    "tourName": "Private Package 2D/1N: Bivouac at Phang Nga Bay and Koh Hong",
+    "imageSourceType": "upload",
+    "customImageUrl": "/uploads/tours/tour-1760929278097-106600375.jpeg",
+    "directImageUrl": null,
+    "originalImageUrl": "/api/image-proxy/EwLb3AKMQv/presentation",
+    "active": true,
+    "legacy": {
+      "id": 61,
+      "createdAt": "2025-10-20T03:01:18.256Z",
+      "updatedAt": "2025-10-20T03:01:18.100Z"
+    }
+  },
+  {
+    "tourNinjaId": "uSngHanqFr",
+    "tourName": "Private Day Trip: The Secrets of Railay - Adventure Course",
+    "imageSourceType": "upload",
+    "customImageUrl": "/uploads/tours/tour-1760929313648-788903007.jpeg",
+    "directImageUrl": null,
+    "originalImageUrl": "/api/image-proxy/uSngHanqFr/presentation",
+    "active": true,
+    "legacy": {
+      "id": 62,
+      "createdAt": "2025-10-20T03:01:53.805Z",
+      "updatedAt": "2025-10-20T03:01:53.650Z"
+    }
+  },
+  {
+    "tourNinjaId": "s0fLpx3q_x",
+    "tourName": "Private Day Trip to Koh Mook with Sunset",
+    "imageSourceType": "upload",
+    "customImageUrl": "/uploads/tours/tour-1760929339881-886941480.jpeg",
+    "directImageUrl": null,
+    "originalImageUrl": "/api/image-proxy/s0fLpx3q_x/presentation",
+    "active": true,
+    "legacy": {
+      "id": 63,
+      "createdAt": "2025-10-20T03:02:20.038Z",
+      "updatedAt": "2025-10-20T03:02:19.884Z"
+    }
+  },
+  {
+    "tourNinjaId": "FpfTOQaGAG",
+    "tourName": "Semi Private Day Trip to Railay & Ao Nang's local islands with sunset and plankton",
+    "imageSourceType": "upload",
+    "customImageUrl": "/uploads/tours/tour-1760929365217-561730994.jpeg",
+    "directImageUrl": null,
+    "originalImageUrl": "/api/image-proxy/FpfTOQaGAG/presentation",
+    "active": true,
+    "legacy": {
+      "id": 64,
+      "createdAt": "2025-10-20T03:02:45.372Z",
+      "updatedAt": "2025-10-20T03:02:45.218Z"
+    }
+  },
+  {
+    "tourNinjaId": "LNoTTn_o0U",
+    "tourName": "Private Day Trip to Laem Sak: Local Life in Phang Nga Bay",
+    "imageSourceType": "upload",
+    "customImageUrl": "/uploads/tours/tour-1760929378364-502477095.jpeg",
+    "directImageUrl": null,
+    "originalImageUrl": "/api/image-proxy/LNoTTn_o0U/presentation",
+    "active": true,
+    "legacy": {
+      "id": 65,
+      "createdAt": "2025-10-20T03:02:58.522Z",
+      "updatedAt": "2025-10-20T03:02:58.367Z"
+    }
+  },
+  {
+    "tourNinjaId": "Bh9zKvN-Qm",
+    "tourName": "Private day trip: Ao Luk - Temple,  Cave and Jungle",
+    "imageSourceType": "upload",
+    "customImageUrl": "/uploads/tours/tour-1760929407926-274502123.jpg",
+    "directImageUrl": null,
+    "originalImageUrl": "/api/image-proxy/Bh9zKvN-Qm/presentation",
+    "active": true,
+    "legacy": {
+      "id": 66,
+      "createdAt": "2025-10-20T03:03:28.080Z",
+      "updatedAt": "2025-10-20T03:03:27.928Z"
+    }
+  },
+  {
+    "tourNinjaId": "9Pw3V8MEX3",
+    "tourName": "Private Day Trip to Koh Hong Archipelago",
+    "imageSourceType": "upload",
+    "customImageUrl": "/uploads/tours/tour-1760929423509-237548886.jpeg",
+    "directImageUrl": null,
+    "originalImageUrl": "/api/image-proxy/9Pw3V8MEX3/presentation",
+    "active": true,
+    "legacy": {
+      "id": 67,
+      "createdAt": "2025-10-20T03:03:43.666Z",
+      "updatedAt": "2025-10-20T03:03:43.511Z"
+    }
+  },
+  {
+    "tourNinjaId": "CeNxYxqbXm",
+    "tourName": "Private Day Trip to Thalane - Mangrove kayaking  & natural pools ",
+    "imageSourceType": "upload",
+    "customImageUrl": "/uploads/tours/tour-1760929443510-890370990.jpeg",
+    "directImageUrl": null,
+    "originalImageUrl": "/api/image-proxy/CeNxYxqbXm/presentation",
+    "active": true,
+    "legacy": {
+      "id": 68,
+      "createdAt": "2025-10-20T03:04:03.666Z",
+      "updatedAt": "2025-10-20T03:04:03.512Z"
+    }
+  },
+  {
+    "tourNinjaId": "8avSq-g3eQ",
+    "tourName": "Private Day Trip to Railay & Ao Nang's local islands with sunset and plankton",
+    "imageSourceType": "upload",
+    "customImageUrl": "/uploads/tours/tour-1760929457776-393138510.jpeg",
+    "directImageUrl": null,
+    "originalImageUrl": "/api/image-proxy/8avSq-g3eQ/presentation",
+    "active": true,
+    "legacy": {
+      "id": 69,
+      "createdAt": "2025-10-20T03:04:17.940Z",
+      "updatedAt": "2025-10-20T03:04:17.779Z"
+    }
+  },
+  {
+    "tourNinjaId": "IGdQFbdKFF",
+    "tourName": "Private Day Trip to Koh Hong & Ao Nang's local islands with sunset and plankton",
+    "imageSourceType": "upload",
+    "customImageUrl": "/uploads/tours/tour-1760929481227-602964910.jpeg",
+    "directImageUrl": null,
+    "originalImageUrl": "/api/image-proxy/IGdQFbdKFF/presentation",
+    "active": true,
+    "legacy": {
+      "id": 70,
+      "createdAt": "2025-10-20T03:04:41.395Z",
+      "updatedAt": "2025-10-20T03:04:41.230Z"
+    }
+  },
+  {
+    "tourNinjaId": "Wmx1GcKCGO",
+    "tourName": "Catamaran Private Day Trip to Ao Nang's local islands",
+    "imageSourceType": "upload",
+    "customImageUrl": "/uploads/tours/tour-1760929497347-587275902.jpeg",
+    "directImageUrl": null,
+    "originalImageUrl": "/api/image-proxy/Wmx1GcKCGO/presentation",
+    "active": true,
+    "legacy": {
+      "id": 71,
+      "createdAt": "2025-10-20T03:04:57.507Z",
+      "updatedAt": "2025-10-20T03:04:57.349Z"
+    }
+  },
+  {
+    "tourNinjaId": "PIGyavyKHL",
+    "tourName": "Semi Private Day Trip to Koh Phi Phi on morning",
+    "imageSourceType": "upload",
+    "customImageUrl": "/uploads/tours/tour-1760929539400-994955144.jpeg",
+    "directImageUrl": null,
+    "originalImageUrl": "/api/image-proxy/PIGyavyKHL/presentation",
+    "active": true,
+    "legacy": {
+      "id": 72,
+      "createdAt": "2025-10-20T03:05:39.555Z",
+      "updatedAt": "2025-10-20T03:05:39.402Z"
+    }
+  }
+]

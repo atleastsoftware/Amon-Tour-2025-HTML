@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin
+Disallow: /admin-*
+Disallow: /tour-card-builder
+Disallow: /api/
+Disallow: /uploads/
+
+Sitemap: https://amon-tour.com/sitemap.xml

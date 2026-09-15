@@ -1,0 +1,78 @@
+# Pipeline de publication du site Amon Tour (HTML statique généré depuis content/)
+#
+# Déclenché à chaque commit sur main (y compris les commits créés par le serveur MCP)
+# et sur les pull requests (mode « branche + PR » du MCP).
+#
+# 1. Validation du contenu (schéma Zod)      -> échoue si un fichier content/ est invalide
+# 2. Build statique + tests de non-régression -> site/dist (artefact téléchargeable)
+# 3. Déploiement : appel du deploy hook et/ou du webhook edge (secrets GitHub)
+#    - DEPLOY_HOOK_URL          : URL de redéploiement de l'hébergeur (Replit Deployments, Render, Fly…), optionnel
+#    - EDGE_REBUILD_URL         : https://amon-tour.com/api/publish/rebuild (resync content/ + rebuild à chaud), optionnel
+#    - PUBLISH_WEBHOOK_SECRET   : secret HMAC partagé avec le serveur edge
+# L'état de ce workflow est lu par l'outil MCP `publish_status`.
+name: content-ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: content-ci-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate-build:
+    name: Valider le contenu et générer le site
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Validation du contenu (Zod)
+        run: npm run content:validate
+      - name: Build statique
+        run: npm run site:build -- --out site/dist
+      - name: Tests (générateur, edge, MCP)
+        run: npm run test:migration
+      - name: Typecheck (nouveaux modules)
+        run: npx tsc --noEmit -p tsconfig.migration.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site-dist
+          path: site/dist
+          retention-days: 14
+
+  deploy:
+    name: Publier
+    needs: validate-build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    env:
+      DEPLOY_HOOK_URL: ${{ secrets.DEPLOY_HOOK_URL }}
+      EDGE_REBUILD_URL: ${{ secrets.EDGE_REBUILD_URL }}
+      PUBLISH_WEBHOOK_SECRET: ${{ secrets.PUBLISH_WEBHOOK_SECRET }}
+    steps:
+      - name: Deploy hook hébergeur
+        if: ${{ env.DEPLOY_HOOK_URL != '' }}
+        run: curl -fsS -X POST "$DEPLOY_HOOK_URL"
+        env:
+          DEPLOY_HOOK_URL: ${{ secrets.DEPLOY_HOOK_URL }}
+      - name: Rebuild à chaud du serveur edge
+        if: ${{ env.EDGE_REBUILD_URL != '' && env.PUBLISH_WEBHOOK_SECRET != '' }}
+        env:
+          EDGE_REBUILD_URL: ${{ secrets.EDGE_REBUILD_URL }}
+          PUBLISH_WEBHOOK_SECRET: ${{ secrets.PUBLISH_WEBHOOK_SECRET }}
+          SHA: ${{ github.sha }}
+        run: |
+          body="{\"ref\":\"refs/heads/main\",\"after\":\"$SHA\"}"
+          sig="sha256=$(printf '%s' "$body" | openssl dgst -sha256 -hmac "$PUBLISH_WEBHOOK_SECRET" | sed 's/^.* //')"
+          curl -fsS -X POST "$EDGE_REBUILD_URL" \
+            -H "content-type: application/json" \
+            -H "x-hub-signature-256: $sig" \
+            -H "x-github-event: push" \
+            --data "$body"

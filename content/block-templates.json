@@ -1,0 +1,33 @@
+[
+  {
+    "id": 11,
+    "templateName": "Hero Section Premium",
+    "blockType": "hero",
+    "defaultConfiguration": {
+      "title": "Your exclusive experiences",
+      "layout": "fullscreen",
+      "buttons": [
+        {
+          "url": "/tours",
+          "text": "See our offers",
+          "style": "primary"
+        },
+        {
+          "url": "/custom-tour",
+          "text": "Custom your trip",
+          "style": "primary"
+        }
+      ],
+      "imageUrl": "/attached_assets/DJI_20241115104455_0160_D-min.jpeg",
+      "subtitle": "in Krabi – THAILAND",
+      "videoUrl": "/attached_assets/hero-video-optimized.mp4",
+      "description": "Discover amazing places away from mass tourism in Krabi.<br/>And also Khao Sok, Koh Mook and many more destinations.",
+      "enableVideo": true,
+      "overlayStyle": "gradient",
+      "textPosition": "left"
+    },
+    "previewImage": null,
+    "description": "Section Hero avec vidéo background, titre personnalisable, description et 2 boutons d'action - Modèle premium pour pages d'accueil",
+    "active": true
+  }
+]

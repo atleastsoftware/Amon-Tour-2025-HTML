@@ -1,0 +1,21 @@
+{
+  "banner": {
+    "enabled": false,
+    "text": "",
+    "backgroundColor": "#1e73be",
+    "textColor": "#ffffff",
+    "linkUrl": "",
+    "linkText": "",
+    "closeable": true
+  },
+  "notificationBar": {
+    "enabled": true,
+    "text": "Welcome to the new Amon Tour website! This site is currently in a testing phase, so a few issues may still occur. For any reference, the previous site remains accessible at www.amon-tour.fr. Thank you for your understanding",
+    "scrolling": true,
+    "isClickable": true,
+    "url": "amon-tour.fr"
+  },
+  "popup": {
+    "title": ""
+  }
+}

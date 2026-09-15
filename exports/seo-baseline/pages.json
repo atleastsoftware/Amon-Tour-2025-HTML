@@ -1,0 +1,1655 @@
+[
+  {
+    "url": "/",
+    "status": 200,
+    "title": "Amon Tour — Private Tours in Krabi Thailand | French & English Guides",
+    "description": "Krabi-based travel agency offering private tours in southern Thailand: Phi Phi, Phang Nga Bay, Railay, James Bond Island. French and English-speaking guides since 2013. Ideal for travellers from Malaysia, Singapore, Australia and worldwide.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/",
+      "en-MY=https://amon-tour.com/",
+      "en-SG=https://amon-tour.com/",
+      "en=https://amon-tour.com/",
+      "fr=https://amon-tour.com/",
+      "ms=https://amon-tour.com/",
+      "th=https://amon-tour.com/",
+      "x-default=https://amon-tour.com/",
+      "zh-CN=https://amon-tour.com/",
+      "zh-MY=https://amon-tour.com/",
+      "zh-SG=https://amon-tour.com/"
+    ],
+    "jsonLd": [
+      "TravelAgency"
+    ],
+    "h1": "Private tours in Krabi, Thailand",
+    "og": {
+      "og:type": "website",
+      "og:title": "Amon Tour — Private Tours in Krabi Thailand | French & English Guides",
+      "og:description": "Krabi-based travel agency offering private tours in southern Thailand: Phi Phi, Phang Nga Bay, Railay, James Bond Island. French and English-speaking guides since 2013. Ideal for travellers from Malaysia, Singapore, Australia and worldwide.",
+      "og:url": "https://amon-tour.com/",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/tours",
+    "status": 200,
+    "title": "Private Tours in Krabi | Amon Tour Thailand",
+    "description": "Browse all private tours and excursions from Krabi: Phi Phi Islands, Phang Nga Bay, Railay, 4-island tour, sunset cruise, kayaking, jungle trekking and more. Book your private tour in southern Thailand.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/tours",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/tours",
+      "en-MY=https://amon-tour.com/tours",
+      "en-SG=https://amon-tour.com/tours",
+      "en=https://amon-tour.com/tours",
+      "fr=https://amon-tour.com/tours",
+      "ms=https://amon-tour.com/tours",
+      "th=https://amon-tour.com/tours",
+      "x-default=https://amon-tour.com/tours",
+      "zh-CN=https://amon-tour.com/tours",
+      "zh-MY=https://amon-tour.com/tours",
+      "zh-SG=https://amon-tour.com/tours"
+    ],
+    "jsonLd": [
+      "BreadcrumbList",
+      "ItemList"
+    ],
+    "h1": "Private tours and excursions in Krabi",
+    "og": {
+      "og:type": "website",
+      "og:title": "Private Tours in Krabi | Amon Tour Thailand",
+      "og:description": "Browse all private tours and excursions from Krabi: Phi Phi Islands, Phang Nga Bay, Railay, 4-island tour, sunset cruise, kayaking, jungle trekking and more. Book your private tour in southern Thailand.",
+      "og:url": "https://amon-tour.com/tours",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/experiences",
+    "status": 200,
+    "title": "Authentic Experiences in Krabi & Southern Thailand | Amon Tour",
+    "description": "Authentic Thai experiences from Krabi: private island hopping, sea-kayaking and bivouac at Thalane, cultural visits, Thai cooking, Khao Sok jungle trekking, sunset catamaran. Designed by French & English-speaking guides.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/experiences",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/experiences",
+      "en-MY=https://amon-tour.com/experiences",
+      "en-SG=https://amon-tour.com/experiences",
+      "en=https://amon-tour.com/experiences",
+      "fr=https://amon-tour.com/experiences",
+      "ms=https://amon-tour.com/experiences",
+      "th=https://amon-tour.com/experiences",
+      "x-default=https://amon-tour.com/experiences",
+      "zh-CN=https://amon-tour.com/experiences",
+      "zh-MY=https://amon-tour.com/experiences",
+      "zh-SG=https://amon-tour.com/experiences"
+    ],
+    "jsonLd": [
+      "BreadcrumbList"
+    ],
+    "h1": "Authentic experiences in Krabi & southern Thailand",
+    "og": {
+      "og:type": "website",
+      "og:title": "Authentic Experiences in Krabi & Southern Thailand | Amon Tour",
+      "og:description": "Authentic Thai experiences from Krabi: private island hopping, sea-kayaking and bivouac at Thalane, cultural visits, Thai cooking, Khao Sok jungle trekking, sunset catamaran. Designed by French & English-speaking guides.",
+      "og:url": "https://amon-tour.com/experiences",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/destinations",
+    "status": 200,
+    "title": "Destinations & Excursions Privées à Krabi | Amon Tour",
+    "description": "Découvrez toutes les destinations couvertes par Amon Tour depuis Krabi : Koh Phi Phi, Phang Nga Bay, Railay Beach, bivouac Thalane, catamaran privatif, agence francophone. Tours privés avec guides bilingues.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/destinations",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/destinations",
+      "en-MY=https://amon-tour.com/destinations",
+      "en-SG=https://amon-tour.com/destinations",
+      "en=https://amon-tour.com/destinations",
+      "fr=https://amon-tour.com/destinations",
+      "ms=https://amon-tour.com/destinations",
+      "th=https://amon-tour.com/destinations",
+      "x-default=https://amon-tour.com/destinations",
+      "zh-CN=https://amon-tour.com/destinations",
+      "zh-MY=https://amon-tour.com/destinations",
+      "zh-SG=https://amon-tour.com/destinations"
+    ],
+    "jsonLd": [
+      "BreadcrumbList",
+      "ItemList"
+    ],
+    "h1": "Nos destinations à Krabi et en Thaïlande du Sud",
+    "og": {
+      "og:type": "website",
+      "og:title": "Destinations & Excursions Privées à Krabi | Amon Tour",
+      "og:description": "Découvrez toutes les destinations couvertes par Amon Tour depuis Krabi : Koh Phi Phi, Phang Nga Bay, Railay Beach, bivouac Thalane, catamaran privatif, agence francophone. Tours privés avec guides bilingues.",
+      "og:url": "https://amon-tour.com/destinations",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/destinations/agence-francophone-krabi",
+    "status": 200,
+    "title": "Agence de voyage francophone à Krabi | Amon Tour",
+    "description": "Agence francophone à Krabi depuis 2013. Guides FR/EN, tours privés sur mesure. Départ Ao Nang. Réservez sur WhatsApp.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/destinations/agence-francophone-krabi",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/destinations/agence-francophone-krabi",
+      "en-MY=https://amon-tour.com/destinations/agence-francophone-krabi",
+      "en-SG=https://amon-tour.com/destinations/agence-francophone-krabi",
+      "en=https://amon-tour.com/destinations/agence-francophone-krabi",
+      "fr=https://amon-tour.com/destinations/agence-francophone-krabi",
+      "ms=https://amon-tour.com/destinations/agence-francophone-krabi",
+      "th=https://amon-tour.com/destinations/agence-francophone-krabi",
+      "x-default=https://amon-tour.com/destinations/agence-francophone-krabi",
+      "zh-CN=https://amon-tour.com/destinations/agence-francophone-krabi",
+      "zh-MY=https://amon-tour.com/destinations/agence-francophone-krabi",
+      "zh-SG=https://amon-tour.com/destinations/agence-francophone-krabi"
+    ],
+    "jsonLd": [
+      "BreadcrumbList",
+      "FAQPage",
+      "TouristTrip",
+      "TravelAgency,TouristInformationCenter"
+    ],
+    "h1": "Agence de voyage francophone à Krabi — Amon Tour",
+    "og": {
+      "og:type": "website",
+      "og:title": "Agence de voyage francophone à Krabi | Amon Tour",
+      "og:description": "Agence francophone à Krabi depuis 2013. Guides FR/EN, tours privés sur mesure. Départ Ao Nang. Réservez sur WhatsApp.",
+      "og:url": "https://amon-tour.com/destinations/agence-francophone-krabi",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/destinations/koh-phi-phi",
+    "status": 200,
+    "title": "Tour privé Koh Phi Phi depuis Krabi | Amon Tour",
+    "description": "Tour privé Koh Phi Phi depuis Krabi : Maya Bay, Viking Cave, snorkeling à Phi Phi Ley. Guide francophone, bateau privé. Journée complète depuis Ao Nang.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/destinations/koh-phi-phi",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/destinations/koh-phi-phi",
+      "en-MY=https://amon-tour.com/destinations/koh-phi-phi",
+      "en-SG=https://amon-tour.com/destinations/koh-phi-phi",
+      "en=https://amon-tour.com/destinations/koh-phi-phi",
+      "fr=https://amon-tour.com/destinations/koh-phi-phi",
+      "ms=https://amon-tour.com/destinations/koh-phi-phi",
+      "th=https://amon-tour.com/destinations/koh-phi-phi",
+      "x-default=https://amon-tour.com/destinations/koh-phi-phi",
+      "zh-CN=https://amon-tour.com/destinations/koh-phi-phi",
+      "zh-MY=https://amon-tour.com/destinations/koh-phi-phi",
+      "zh-SG=https://amon-tour.com/destinations/koh-phi-phi"
+    ],
+    "jsonLd": [
+      "BreadcrumbList",
+      "FAQPage",
+      "TouristTrip",
+      "TouristTrip"
+    ],
+    "h1": "Tour privé Koh Phi Phi depuis Krabi | Amon Tour",
+    "og": {
+      "og:type": "website",
+      "og:title": "Tour privé Koh Phi Phi depuis Krabi | Amon Tour",
+      "og:description": "Tour privé Koh Phi Phi depuis Krabi : Maya Bay, Viking Cave, snorkeling à Phi Phi Ley. Guide francophone, bateau privé. Journée complète depuis Ao Nang.",
+      "og:url": "https://amon-tour.com/destinations/koh-phi-phi",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/destinations/phang-nga-bay",
+    "status": 200,
+    "title": "Excursion Phang Nga Bay depuis Krabi | Amon Tour",
+    "description": "Excursion Phang Nga Bay depuis Krabi : James Bond Island, kayak en grottes, Ko Panyi. Guide francophone, bateau privé. Réservez sur WhatsApp.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/destinations/phang-nga-bay",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/destinations/phang-nga-bay",
+      "en-MY=https://amon-tour.com/destinations/phang-nga-bay",
+      "en-SG=https://amon-tour.com/destinations/phang-nga-bay",
+      "en=https://amon-tour.com/destinations/phang-nga-bay",
+      "fr=https://amon-tour.com/destinations/phang-nga-bay",
+      "ms=https://amon-tour.com/destinations/phang-nga-bay",
+      "th=https://amon-tour.com/destinations/phang-nga-bay",
+      "x-default=https://amon-tour.com/destinations/phang-nga-bay",
+      "zh-CN=https://amon-tour.com/destinations/phang-nga-bay",
+      "zh-MY=https://amon-tour.com/destinations/phang-nga-bay",
+      "zh-SG=https://amon-tour.com/destinations/phang-nga-bay"
+    ],
+    "jsonLd": [
+      "BreadcrumbList",
+      "FAQPage",
+      "TouristTrip",
+      "TouristTrip"
+    ],
+    "h1": "Excursion Phang Nga Bay depuis Krabi | Amon Tour",
+    "og": {
+      "og:type": "website",
+      "og:title": "Excursion Phang Nga Bay depuis Krabi | Amon Tour",
+      "og:description": "Excursion Phang Nga Bay depuis Krabi : James Bond Island, kayak en grottes, Ko Panyi. Guide francophone, bateau privé. Réservez sur WhatsApp.",
+      "og:url": "https://amon-tour.com/destinations/phang-nga-bay",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/destinations/thalane-bivouac",
+    "status": 200,
+    "title": "Bivouac Thalane — Kayak & Nuit en Nature à Phang Nga | Amon Tour",
+    "description": "Bivouac kayak Thalane : mangroves vierges, lagon secret inaccessible à pied, nuit sous les étoiles à Phang Nga. Expérience signature Amon Tour.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/destinations/thalane-bivouac",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/destinations/thalane-bivouac",
+      "en-MY=https://amon-tour.com/destinations/thalane-bivouac",
+      "en-SG=https://amon-tour.com/destinations/thalane-bivouac",
+      "en=https://amon-tour.com/destinations/thalane-bivouac",
+      "fr=https://amon-tour.com/destinations/thalane-bivouac",
+      "ms=https://amon-tour.com/destinations/thalane-bivouac",
+      "th=https://amon-tour.com/destinations/thalane-bivouac",
+      "x-default=https://amon-tour.com/destinations/thalane-bivouac",
+      "zh-CN=https://amon-tour.com/destinations/thalane-bivouac",
+      "zh-MY=https://amon-tour.com/destinations/thalane-bivouac",
+      "zh-SG=https://amon-tour.com/destinations/thalane-bivouac"
+    ],
+    "jsonLd": [
+      "BreadcrumbList",
+      "FAQPage",
+      "TouristTrip",
+      "TouristTrip"
+    ],
+    "h1": "Bivouac kayak Thalane — Expérience secrète à Phang Nga | Amon Tour",
+    "og": {
+      "og:type": "website",
+      "og:title": "Bivouac Thalane — Kayak & Nuit en Nature à Phang Nga | Amon Tour",
+      "og:description": "Bivouac kayak Thalane : mangroves vierges, lagon secret inaccessible à pied, nuit sous les étoiles à Phang Nga. Expérience signature Amon Tour.",
+      "og:url": "https://amon-tour.com/destinations/thalane-bivouac",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/destinations/catamaran-krabi",
+    "status": 200,
+    "title": "Catamaran privatif à Krabi — Location avec guides | Amon Tour",
+    "description": "Catamaran privatif à Krabi avec guides bilingues FR/EN. Couchers de soleil, îles et snorkeling. Idéal couples et familles. Départ Ao Nang.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/destinations/catamaran-krabi",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/destinations/catamaran-krabi",
+      "en-MY=https://amon-tour.com/destinations/catamaran-krabi",
+      "en-SG=https://amon-tour.com/destinations/catamaran-krabi",
+      "en=https://amon-tour.com/destinations/catamaran-krabi",
+      "fr=https://amon-tour.com/destinations/catamaran-krabi",
+      "ms=https://amon-tour.com/destinations/catamaran-krabi",
+      "th=https://amon-tour.com/destinations/catamaran-krabi",
+      "x-default=https://amon-tour.com/destinations/catamaran-krabi",
+      "zh-CN=https://amon-tour.com/destinations/catamaran-krabi",
+      "zh-MY=https://amon-tour.com/destinations/catamaran-krabi",
+      "zh-SG=https://amon-tour.com/destinations/catamaran-krabi"
+    ],
+    "jsonLd": [
+      "BreadcrumbList",
+      "FAQPage",
+      "TouristTrip",
+      "TouristTrip"
+    ],
+    "h1": "Catamaran privatif à Krabi — Location avec guides | Amon Tour",
+    "og": {
+      "og:type": "website",
+      "og:title": "Catamaran privatif à Krabi — Location avec guides | Amon Tour",
+      "og:description": "Catamaran privatif à Krabi avec guides bilingues FR/EN. Couchers de soleil, îles et snorkeling. Idéal couples et familles. Départ Ao Nang.",
+      "og:url": "https://amon-tour.com/destinations/catamaran-krabi",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/destinations/railay-beach",
+    "status": 200,
+    "title": "Excursion Railay Beach depuis Ao Nang | Tour Privé Krabi",
+    "description": "Railay Beach depuis Ao Nang en longtail privé. Phra Nang Cave Beach, escalade, lagoon hike. Guide bilingue, demi-journée ou journée complète.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/destinations/railay-beach",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/destinations/railay-beach",
+      "en-MY=https://amon-tour.com/destinations/railay-beach",
+      "en-SG=https://amon-tour.com/destinations/railay-beach",
+      "en=https://amon-tour.com/destinations/railay-beach",
+      "fr=https://amon-tour.com/destinations/railay-beach",
+      "ms=https://amon-tour.com/destinations/railay-beach",
+      "th=https://amon-tour.com/destinations/railay-beach",
+      "x-default=https://amon-tour.com/destinations/railay-beach",
+      "zh-CN=https://amon-tour.com/destinations/railay-beach",
+      "zh-MY=https://amon-tour.com/destinations/railay-beach",
+      "zh-SG=https://amon-tour.com/destinations/railay-beach"
+    ],
+    "jsonLd": [
+      "BreadcrumbList",
+      "FAQPage",
+      "TouristTrip",
+      "TouristTrip"
+    ],
+    "h1": "Excursion Railay Beach depuis Ao Nang | Tour Privé Krabi — Amon Tour",
+    "og": {
+      "og:type": "website",
+      "og:title": "Excursion Railay Beach depuis Ao Nang | Tour Privé Krabi",
+      "og:description": "Railay Beach depuis Ao Nang en longtail privé. Phra Nang Cave Beach, escalade, lagoon hike. Guide bilingue, demi-journée ou journée complète.",
+      "og:url": "https://amon-tour.com/destinations/railay-beach",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/destinations/sejour-famille-personnalise-thailande",
+    "status": 200,
+    "title": "Séjour famille personnalisé en Thaïlande | Amon Tour",
+    "description": "Séjour famille sur mesure à Krabi, loin du tourisme de masse. Conçu par une famille française installée depuis 2013. Guides FR/EN, catamaran privatif.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/destinations/sejour-famille-personnalise-thailande",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/destinations/sejour-famille-personnalise-thailande",
+      "en-MY=https://amon-tour.com/destinations/sejour-famille-personnalise-thailande",
+      "en-SG=https://amon-tour.com/destinations/sejour-famille-personnalise-thailande",
+      "en=https://amon-tour.com/destinations/sejour-famille-personnalise-thailande",
+      "fr=https://amon-tour.com/destinations/sejour-famille-personnalise-thailande",
+      "ms=https://amon-tour.com/destinations/sejour-famille-personnalise-thailande",
+      "th=https://amon-tour.com/destinations/sejour-famille-personnalise-thailande",
+      "x-default=https://amon-tour.com/destinations/sejour-famille-personnalise-thailande",
+      "zh-CN=https://amon-tour.com/destinations/sejour-famille-personnalise-thailande",
+      "zh-MY=https://amon-tour.com/destinations/sejour-famille-personnalise-thailande",
+      "zh-SG=https://amon-tour.com/destinations/sejour-famille-personnalise-thailande"
+    ],
+    "jsonLd": [
+      "BreadcrumbList",
+      "FAQPage",
+      "TouristTrip",
+      "TouristTrip"
+    ],
+    "h1": "Séjour famille personnalisé en Thaïlande, loin du tourisme de masse",
+    "og": {
+      "og:type": "website",
+      "og:title": "Séjour famille personnalisé en Thaïlande | Amon Tour",
+      "og:description": "Séjour famille sur mesure à Krabi, loin du tourisme de masse. Conçu par une famille française installée depuis 2013. Guides FR/EN, catamaran privatif.",
+      "og:url": "https://amon-tour.com/destinations/sejour-famille-personnalise-thailande",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/destinations/family-tailor-made-trip-thailand",
+    "status": 200,
+    "title": "Tailor-Made Family Trips in Thailand | Amon Tour",
+    "description": "Personalized family holidays in Krabi, away from mass tourism. Planned by a French family living here since 2013. English & French guides, private catamaran.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/destinations/family-tailor-made-trip-thailand",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/destinations/family-tailor-made-trip-thailand",
+      "en-MY=https://amon-tour.com/destinations/family-tailor-made-trip-thailand",
+      "en-SG=https://amon-tour.com/destinations/family-tailor-made-trip-thailand",
+      "en=https://amon-tour.com/destinations/family-tailor-made-trip-thailand",
+      "fr=https://amon-tour.com/destinations/family-tailor-made-trip-thailand",
+      "ms=https://amon-tour.com/destinations/family-tailor-made-trip-thailand",
+      "th=https://amon-tour.com/destinations/family-tailor-made-trip-thailand",
+      "x-default=https://amon-tour.com/destinations/family-tailor-made-trip-thailand",
+      "zh-CN=https://amon-tour.com/destinations/family-tailor-made-trip-thailand",
+      "zh-MY=https://amon-tour.com/destinations/family-tailor-made-trip-thailand",
+      "zh-SG=https://amon-tour.com/destinations/family-tailor-made-trip-thailand"
+    ],
+    "jsonLd": [
+      "BreadcrumbList",
+      "FAQPage",
+      "TouristTrip",
+      "TouristTrip"
+    ],
+    "h1": "Tailor-Made Family Trips in Thailand — Away from Mass Tourism",
+    "og": {
+      "og:type": "website",
+      "og:title": "Tailor-Made Family Trips in Thailand | Amon Tour",
+      "og:description": "Personalized family holidays in Krabi, away from mass tourism. Planned by a French family living here since 2013. English & French guides, private catamaran.",
+      "og:url": "https://amon-tour.com/destinations/family-tailor-made-trip-thailand",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/stays",
+    "status": 200,
+    "title": "Thailand Accommodations — Villas, Hotels & Bungalows | Amon Tour",
+    "description": "Discover exceptional accommodations in Thailand curated by Amon Tour: luxury villas in Krabi, beachfront bungalows, boutique hotels in Bangkok. Bundle with private tours for the complete Thailand experience.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/stays",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/stays",
+      "en-MY=https://amon-tour.com/stays",
+      "en-SG=https://amon-tour.com/stays",
+      "en=https://amon-tour.com/stays",
+      "fr=https://amon-tour.com/stays",
+      "ms=https://amon-tour.com/stays",
+      "th=https://amon-tour.com/stays",
+      "x-default=https://amon-tour.com/stays",
+      "zh-CN=https://amon-tour.com/stays",
+      "zh-MY=https://amon-tour.com/stays",
+      "zh-SG=https://amon-tour.com/stays"
+    ],
+    "jsonLd": [
+      "BreadcrumbList"
+    ],
+    "h1": "Thailand accommodations — villas, hotels & bungalows",
+    "og": {
+      "og:type": "website",
+      "og:title": "Thailand Accommodations — Villas, Hotels & Bungalows | Amon Tour",
+      "og:description": "Discover exceptional accommodations in Thailand curated by Amon Tour: luxury villas in Krabi, beachfront bungalows, boutique hotels in Bangkok. Bundle with private tours for the complete Thailand experience.",
+      "og:url": "https://amon-tour.com/stays",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/external-stays",
+    "status": 200,
+    "title": "Partner Tours & Stays in Thailand | Amon Tour",
+    "description": "Discover partner tours and stays in Thailand curated by Amon Tour — excursions in Phuket, Koh Samui, Khao Lak and beyond, complementing our private Krabi tours.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/external-stays",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/external-stays",
+      "en-MY=https://amon-tour.com/external-stays",
+      "en-SG=https://amon-tour.com/external-stays",
+      "en=https://amon-tour.com/external-stays",
+      "fr=https://amon-tour.com/external-stays",
+      "ms=https://amon-tour.com/external-stays",
+      "th=https://amon-tour.com/external-stays",
+      "x-default=https://amon-tour.com/external-stays",
+      "zh-CN=https://amon-tour.com/external-stays",
+      "zh-MY=https://amon-tour.com/external-stays",
+      "zh-SG=https://amon-tour.com/external-stays"
+    ],
+    "jsonLd": [
+      "BreadcrumbList"
+    ],
+    "h1": "Partner tours & stays in Thailand",
+    "og": {
+      "og:type": "website",
+      "og:title": "Partner Tours & Stays in Thailand | Amon Tour",
+      "og:description": "Discover partner tours and stays in Thailand curated by Amon Tour — excursions in Phuket, Koh Samui, Khao Lak and beyond, complementing our private Krabi tours.",
+      "og:url": "https://amon-tour.com/external-stays",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/custom-tour",
+    "status": 200,
+    "title": "Custom Private Tour in Thailand | Plan Your Trip — Amon Tour Krabi",
+    "description": "Design your custom private tour in Thailand with Amon Tour. Tell us about your trip and a French or English-speaking guide will send a personalised itinerary within 24 hours. Krabi, Phi Phi, Phang Nga, Khao Sok and beyond.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/custom-tour",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/custom-tour",
+      "en-MY=https://amon-tour.com/custom-tour",
+      "en-SG=https://amon-tour.com/custom-tour",
+      "en=https://amon-tour.com/custom-tour",
+      "fr=https://amon-tour.com/custom-tour",
+      "ms=https://amon-tour.com/custom-tour",
+      "th=https://amon-tour.com/custom-tour",
+      "x-default=https://amon-tour.com/custom-tour",
+      "zh-CN=https://amon-tour.com/custom-tour",
+      "zh-MY=https://amon-tour.com/custom-tour",
+      "zh-SG=https://amon-tour.com/custom-tour"
+    ],
+    "jsonLd": [
+      "BreadcrumbList"
+    ],
+    "h1": "Plan your custom private tour in Thailand",
+    "og": {
+      "og:type": "website",
+      "og:title": "Custom Private Tour in Thailand | Plan Your Trip — Amon Tour Krabi",
+      "og:description": "Design your custom private tour in Thailand with Amon Tour. Tell us about your trip and a French or English-speaking guide will send a personalised itinerary within 24 hours. Krabi, Phi Phi, Phang Nga, Khao Sok and beyond.",
+      "og:url": "https://amon-tour.com/custom-tour",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/blog",
+    "status": 200,
+    "title": "Travel Blog — Krabi, Phi Phi, Phang Nga | Amon Tour",
+    "description": "Travel blog about Krabi and southern Thailand: practical tips for visiting Phi Phi, Phang Nga Bay, Railay, best season, what to pack, family travel and more — from a local Krabi-based agency.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/blog",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/blog",
+      "en-MY=https://amon-tour.com/blog",
+      "en-SG=https://amon-tour.com/blog",
+      "en=https://amon-tour.com/blog",
+      "fr=https://amon-tour.com/blog",
+      "ms=https://amon-tour.com/blog",
+      "th=https://amon-tour.com/blog",
+      "x-default=https://amon-tour.com/blog",
+      "zh-CN=https://amon-tour.com/blog",
+      "zh-MY=https://amon-tour.com/blog",
+      "zh-SG=https://amon-tour.com/blog"
+    ],
+    "jsonLd": [
+      "Blog",
+      "BreadcrumbList"
+    ],
+    "h1": "Travel blog: Krabi & southern Thailand",
+    "og": {
+      "og:type": "website",
+      "og:title": "Travel Blog — Krabi, Phi Phi, Phang Nga | Amon Tour",
+      "og:description": "Travel blog about Krabi and southern Thailand: practical tips for visiting Phi Phi, Phang Nga Bay, Railay, best season, what to pack, family travel and more — from a local Krabi-based agency.",
+      "og:url": "https://amon-tour.com/blog",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/contact",
+    "status": 200,
+    "title": "Contact Amon Tour Krabi — WhatsApp, Phone, Email",
+    "description": "Contact Amon Tour, your Krabi-based travel agency. WhatsApp +66 86 476 3804, phone +66 81 956 2849, email contact@amon-tour.com. We answer in English, French and Thai.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/contact",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/contact",
+      "en-MY=https://amon-tour.com/contact",
+      "en-SG=https://amon-tour.com/contact",
+      "en=https://amon-tour.com/contact",
+      "fr=https://amon-tour.com/contact",
+      "ms=https://amon-tour.com/contact",
+      "th=https://amon-tour.com/contact",
+      "x-default=https://amon-tour.com/contact",
+      "zh-CN=https://amon-tour.com/contact",
+      "zh-MY=https://amon-tour.com/contact",
+      "zh-SG=https://amon-tour.com/contact"
+    ],
+    "jsonLd": [
+      "BreadcrumbList",
+      "ContactPage"
+    ],
+    "h1": "Contact Amon Tour",
+    "og": {
+      "og:type": "website",
+      "og:title": "Contact Amon Tour Krabi — WhatsApp, Phone, Email",
+      "og:description": "Contact Amon Tour, your Krabi-based travel agency. WhatsApp +66 86 476 3804, phone +66 81 956 2849, email contact@amon-tour.com. We answer in English, French and Thai.",
+      "og:url": "https://amon-tour.com/contact",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/group-corporate",
+    "status": 200,
+    "title": "Group & Corporate Travel in Thailand — Team Building & Incentive | Amon Tour",
+    "description": "Group and corporate travel programmes in Thailand by Amon Tour Krabi. Team building, incentive travel, conference excursions and large group logistics across southern Thailand. French and English-speaking coordinators.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/group-corporate",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/group-corporate",
+      "en-MY=https://amon-tour.com/group-corporate",
+      "en-SG=https://amon-tour.com/group-corporate",
+      "en=https://amon-tour.com/group-corporate",
+      "fr=https://amon-tour.com/group-corporate",
+      "ms=https://amon-tour.com/group-corporate",
+      "th=https://amon-tour.com/group-corporate",
+      "x-default=https://amon-tour.com/group-corporate",
+      "zh-CN=https://amon-tour.com/group-corporate",
+      "zh-MY=https://amon-tour.com/group-corporate",
+      "zh-SG=https://amon-tour.com/group-corporate"
+    ],
+    "jsonLd": [
+      "BreadcrumbList"
+    ],
+    "h1": "Group & corporate travel in Thailand",
+    "og": {
+      "og:type": "website",
+      "og:title": "Group & Corporate Travel in Thailand — Team Building & Incentive | Amon Tour",
+      "og:description": "Group and corporate travel programmes in Thailand by Amon Tour Krabi. Team building, incentive travel, conference excursions and large group logistics across southern Thailand. French and English-speaking coordinators.",
+      "og:url": "https://amon-tour.com/group-corporate",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/become-partner",
+    "status": 200,
+    "title": "Partner with Amon Tour Krabi — Hotels, Agencies & Concierge | Amon Tour",
+    "description": "Partner with Amon Tour to offer your clients private tours in Krabi, Thailand. Competitive rates for hotels, travel agencies, DMCs and concierge services. French and English-speaking guides since 2013.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/become-partner",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/become-partner",
+      "en-MY=https://amon-tour.com/become-partner",
+      "en-SG=https://amon-tour.com/become-partner",
+      "en=https://amon-tour.com/become-partner",
+      "fr=https://amon-tour.com/become-partner",
+      "ms=https://amon-tour.com/become-partner",
+      "th=https://amon-tour.com/become-partner",
+      "x-default=https://amon-tour.com/become-partner",
+      "zh-CN=https://amon-tour.com/become-partner",
+      "zh-MY=https://amon-tour.com/become-partner",
+      "zh-SG=https://amon-tour.com/become-partner"
+    ],
+    "jsonLd": [
+      "BreadcrumbList"
+    ],
+    "h1": "Partner with Amon Tour Krabi",
+    "og": {
+      "og:type": "website",
+      "og:title": "Partner with Amon Tour Krabi — Hotels, Agencies & Concierge | Amon Tour",
+      "og:description": "Partner with Amon Tour to offer your clients private tours in Krabi, Thailand. Competitive rates for hotels, travel agencies, DMCs and concierge services. French and English-speaking guides since 2013.",
+      "og:url": "https://amon-tour.com/become-partner",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/krabi-celebration",
+    "status": 200,
+    "title": "Events & Celebrations in Krabi — Honeymoon, Anniversary, Birthday | Amon Tour",
+    "description": "Plan your perfect celebration in Krabi, Thailand with Amon Tour. Private honeymoon experiences, anniversary dinners on deserted beaches, birthday island-hopping, and family reunions. French and English-speaking guides.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/krabi-celebration",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/krabi-celebration",
+      "en-MY=https://amon-tour.com/krabi-celebration",
+      "en-SG=https://amon-tour.com/krabi-celebration",
+      "en=https://amon-tour.com/krabi-celebration",
+      "fr=https://amon-tour.com/krabi-celebration",
+      "ms=https://amon-tour.com/krabi-celebration",
+      "th=https://amon-tour.com/krabi-celebration",
+      "x-default=https://amon-tour.com/krabi-celebration",
+      "zh-CN=https://amon-tour.com/krabi-celebration",
+      "zh-MY=https://amon-tour.com/krabi-celebration",
+      "zh-SG=https://amon-tour.com/krabi-celebration"
+    ],
+    "jsonLd": [
+      "BreadcrumbList"
+    ],
+    "h1": "Events & celebrations in Krabi, Thailand",
+    "og": {
+      "og:type": "website",
+      "og:title": "Events & Celebrations in Krabi — Honeymoon, Anniversary, Birthday | Amon Tour",
+      "og:description": "Plan your perfect celebration in Krabi, Thailand with Amon Tour. Private honeymoon experiences, anniversary dinners on deserted beaches, birthday island-hopping, and family reunions. French and English-speaking guides.",
+      "og:url": "https://amon-tour.com/krabi-celebration",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/brochure",
+    "status": 200,
+    "title": "Download Our Travel Brochure — Krabi Tours Guide | Amon Tour",
+    "description": "Download the Amon Tour travel brochure — comprehensive guide to private tours in Krabi, Thailand. Phi Phi Islands, Phang Nga Bay, Railay Beach and more. Available in English and French.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/brochure",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/brochure",
+      "en-MY=https://amon-tour.com/brochure",
+      "en-SG=https://amon-tour.com/brochure",
+      "en=https://amon-tour.com/brochure",
+      "fr=https://amon-tour.com/brochure",
+      "ms=https://amon-tour.com/brochure",
+      "th=https://amon-tour.com/brochure",
+      "x-default=https://amon-tour.com/brochure",
+      "zh-CN=https://amon-tour.com/brochure",
+      "zh-MY=https://amon-tour.com/brochure",
+      "zh-SG=https://amon-tour.com/brochure"
+    ],
+    "jsonLd": [
+      "BreadcrumbList"
+    ],
+    "h1": "Amon Tour travel brochure — Krabi & southern Thailand",
+    "og": {
+      "og:type": "website",
+      "og:title": "Download Our Travel Brochure — Krabi Tours Guide | Amon Tour",
+      "og:description": "Download the Amon Tour travel brochure — comprehensive guide to private tours in Krabi, Thailand. Phi Phi Islands, Phang Nga Bay, Railay Beach and more. Available in English and French.",
+      "og:url": "https://amon-tour.com/brochure",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/villas-krabi",
+    "status": 200,
+    "title": "Luxury Villas in Krabi — Private Pool, Sea Views | Amon Tour",
+    "description": "Discover curated luxury villas in Krabi, Thailand with Amon Tour. Private pool villas, cliff-top retreats with sea views, family villas and romantic couples escapes — all bookable with private island tours.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/villas-krabi",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/villas-krabi",
+      "en-MY=https://amon-tour.com/villas-krabi",
+      "en-SG=https://amon-tour.com/villas-krabi",
+      "en=https://amon-tour.com/villas-krabi",
+      "fr=https://amon-tour.com/villas-krabi",
+      "ms=https://amon-tour.com/villas-krabi",
+      "th=https://amon-tour.com/villas-krabi",
+      "x-default=https://amon-tour.com/villas-krabi",
+      "zh-CN=https://amon-tour.com/villas-krabi",
+      "zh-MY=https://amon-tour.com/villas-krabi",
+      "zh-SG=https://amon-tour.com/villas-krabi"
+    ],
+    "jsonLd": [
+      "BreadcrumbList"
+    ],
+    "h1": "Luxury villas in Krabi, Thailand",
+    "og": {
+      "og:type": "website",
+      "og:title": "Luxury Villas in Krabi — Private Pool, Sea Views | Amon Tour",
+      "og:description": "Discover curated luxury villas in Krabi, Thailand with Amon Tour. Private pool villas, cliff-top retreats with sea views, family villas and romantic couples escapes — all bookable with private island tours.",
+      "og:url": "https://amon-tour.com/villas-krabi",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/privacy-policy",
+    "status": 200,
+    "title": "Amon Tour | Private Krabi Tours · French & English Guides",
+    "description": "Krabi travel agency run by French & English-speaking guides since 2013. Private tours to Koh Phi Phi, Phang Nga Bay & southern Thailand, tailored to you.",
+    "robots": "index, follow",
+    "hreflang": [],
+    "jsonLd": [
+      "BreadcrumbList",
+      "TravelAgency",
+      "WebSite"
+    ],
+    "h1": "Private, Tailor-Made Tours in Krabi, Thailand",
+    "og": {
+      "og:type": "website",
+      "og:site_name": "Amon Tour",
+      "og:title": "Amon Tour | Private Krabi Tours · French & English Guides",
+      "og:description": "Krabi travel agency run by French & English-speaking guides since 2013. Private tours to Koh Phi Phi, Phang Nga Bay & southern Thailand, tailored to you.",
+      "og:url": "https://amon-tour.com/",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:locale": "en",
+      "og:locale:alternate": "fr"
+    }
+  },
+  {
+    "url": "/terms-conditions",
+    "status": 200,
+    "title": "Amon Tour | Private Krabi Tours · French & English Guides",
+    "description": "Krabi travel agency run by French & English-speaking guides since 2013. Private tours to Koh Phi Phi, Phang Nga Bay & southern Thailand, tailored to you.",
+    "robots": "index, follow",
+    "hreflang": [],
+    "jsonLd": [
+      "BreadcrumbList",
+      "TravelAgency",
+      "WebSite"
+    ],
+    "h1": "Private, Tailor-Made Tours in Krabi, Thailand",
+    "og": {
+      "og:type": "website",
+      "og:site_name": "Amon Tour",
+      "og:title": "Amon Tour | Private Krabi Tours · French & English Guides",
+      "og:description": "Krabi travel agency run by French & English-speaking guides since 2013. Private tours to Koh Phi Phi, Phang Nga Bay & southern Thailand, tailored to you.",
+      "og:url": "https://amon-tour.com/",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:locale": "en",
+      "og:locale:alternate": "fr"
+    }
+  },
+  {
+    "url": "/legal-notice",
+    "status": 200,
+    "title": "Amon Tour | Private Krabi Tours · French & English Guides",
+    "description": "Krabi travel agency run by French & English-speaking guides since 2013. Private tours to Koh Phi Phi, Phang Nga Bay & southern Thailand, tailored to you.",
+    "robots": "index, follow",
+    "hreflang": [],
+    "jsonLd": [
+      "BreadcrumbList",
+      "TravelAgency",
+      "WebSite"
+    ],
+    "h1": "Private, Tailor-Made Tours in Krabi, Thailand",
+    "og": {
+      "og:type": "website",
+      "og:site_name": "Amon Tour",
+      "og:title": "Amon Tour | Private Krabi Tours · French & English Guides",
+      "og:description": "Krabi travel agency run by French & English-speaking guides since 2013. Private tours to Koh Phi Phi, Phang Nga Bay & southern Thailand, tailored to you.",
+      "og:url": "https://amon-tour.com/",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:locale": "en",
+      "og:locale:alternate": "fr"
+    }
+  },
+  {
+    "url": "/tour-detail/1",
+    "status": 200,
+    "title": "Private Tour in Krabi, Thailand | Amon Tour",
+    "description": "Book this private tour from Ao Nang, Krabi with Amon Tour — French and English-speaking guides, flexible itineraries, small group sizes. Contact us on WhatsApp for availability.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/tour-detail/1",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/tour-detail/1",
+      "en-MY=https://amon-tour.com/tour-detail/1",
+      "en-SG=https://amon-tour.com/tour-detail/1",
+      "en=https://amon-tour.com/tour-detail/1",
+      "fr=https://amon-tour.com/tour-detail/1",
+      "ms=https://amon-tour.com/tour-detail/1",
+      "th=https://amon-tour.com/tour-detail/1",
+      "x-default=https://amon-tour.com/tour-detail/1",
+      "zh-CN=https://amon-tour.com/tour-detail/1",
+      "zh-MY=https://amon-tour.com/tour-detail/1",
+      "zh-SG=https://amon-tour.com/tour-detail/1"
+    ],
+    "jsonLd": [
+      "BreadcrumbList"
+    ],
+    "h1": "Private tour in Krabi, Thailand",
+    "og": {
+      "og:type": "website",
+      "og:title": "Private Tour in Krabi, Thailand | Amon Tour",
+      "og:description": "Book this private tour from Ao Nang, Krabi with Amon Tour — French and English-speaking guides, flexible itineraries, small group sizes. Contact us on WhatsApp for availability.",
+      "og:url": "https://amon-tour.com/tour-detail/1",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/tour-detail/2",
+    "status": 200,
+    "title": "Private Tour in Krabi, Thailand | Amon Tour",
+    "description": "Book this private tour from Ao Nang, Krabi with Amon Tour — French and English-speaking guides, flexible itineraries, small group sizes. Contact us on WhatsApp for availability.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/tour-detail/2",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/tour-detail/2",
+      "en-MY=https://amon-tour.com/tour-detail/2",
+      "en-SG=https://amon-tour.com/tour-detail/2",
+      "en=https://amon-tour.com/tour-detail/2",
+      "fr=https://amon-tour.com/tour-detail/2",
+      "ms=https://amon-tour.com/tour-detail/2",
+      "th=https://amon-tour.com/tour-detail/2",
+      "x-default=https://amon-tour.com/tour-detail/2",
+      "zh-CN=https://amon-tour.com/tour-detail/2",
+      "zh-MY=https://amon-tour.com/tour-detail/2",
+      "zh-SG=https://amon-tour.com/tour-detail/2"
+    ],
+    "jsonLd": [
+      "BreadcrumbList"
+    ],
+    "h1": "Private tour in Krabi, Thailand",
+    "og": {
+      "og:type": "website",
+      "og:title": "Private Tour in Krabi, Thailand | Amon Tour",
+      "og:description": "Book this private tour from Ao Nang, Krabi with Amon Tour — French and English-speaking guides, flexible itineraries, small group sizes. Contact us on WhatsApp for availability.",
+      "og:url": "https://amon-tour.com/tour-detail/2",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/tour-detail/3",
+    "status": 200,
+    "title": "Private Tour in Krabi, Thailand | Amon Tour",
+    "description": "Book this private tour from Ao Nang, Krabi with Amon Tour — French and English-speaking guides, flexible itineraries, small group sizes. Contact us on WhatsApp for availability.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/tour-detail/3",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/tour-detail/3",
+      "en-MY=https://amon-tour.com/tour-detail/3",
+      "en-SG=https://amon-tour.com/tour-detail/3",
+      "en=https://amon-tour.com/tour-detail/3",
+      "fr=https://amon-tour.com/tour-detail/3",
+      "ms=https://amon-tour.com/tour-detail/3",
+      "th=https://amon-tour.com/tour-detail/3",
+      "x-default=https://amon-tour.com/tour-detail/3",
+      "zh-CN=https://amon-tour.com/tour-detail/3",
+      "zh-MY=https://amon-tour.com/tour-detail/3",
+      "zh-SG=https://amon-tour.com/tour-detail/3"
+    ],
+    "jsonLd": [
+      "BreadcrumbList"
+    ],
+    "h1": "Private tour in Krabi, Thailand",
+    "og": {
+      "og:type": "website",
+      "og:title": "Private Tour in Krabi, Thailand | Amon Tour",
+      "og:description": "Book this private tour from Ao Nang, Krabi with Amon Tour — French and English-speaking guides, flexible itineraries, small group sizes. Contact us on WhatsApp for availability.",
+      "og:url": "https://amon-tour.com/tour-detail/3",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/blog/krabi-or-phuket-complete-comparison-choose-perfect-thai-destination",
+    "status": 200,
+    "title": "Krabi or Phuket: Complete Comparison to Choose Your Perfect Thai Dest…",
+    "description": "Krabi vs Phuket: detailed comparison guide to choose between these two stunning Thai destinations. Beaches, activities, budget, and atmosphere compared.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/blog/krabi-or-phuket-complete-comparison-choose-perfect-thai-destination",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/blog/krabi-or-phuket-complete-comparison-choose-perfect-thai-destination",
+      "en-MY=https://amon-tour.com/blog/krabi-or-phuket-complete-comparison-choose-perfect-thai-destination",
+      "en-SG=https://amon-tour.com/blog/krabi-or-phuket-complete-comparison-choose-perfect-thai-destination",
+      "en=https://amon-tour.com/blog/krabi-or-phuket-complete-comparison-choose-perfect-thai-destination",
+      "fr=https://amon-tour.com/blog/krabi-or-phuket-complete-comparison-choose-perfect-thai-destination",
+      "ms=https://amon-tour.com/blog/krabi-or-phuket-complete-comparison-choose-perfect-thai-destination",
+      "th=https://amon-tour.com/blog/krabi-or-phuket-complete-comparison-choose-perfect-thai-destination",
+      "x-default=https://amon-tour.com/blog/krabi-or-phuket-complete-comparison-choose-perfect-thai-destination",
+      "zh-CN=https://amon-tour.com/blog/krabi-or-phuket-complete-comparison-choose-perfect-thai-destination",
+      "zh-MY=https://amon-tour.com/blog/krabi-or-phuket-complete-comparison-choose-perfect-thai-destination",
+      "zh-SG=https://amon-tour.com/blog/krabi-or-phuket-complete-comparison-choose-perfect-thai-destination"
+    ],
+    "jsonLd": [
+      "BlogPosting",
+      "BreadcrumbList"
+    ],
+    "h1": "Krabi or Phuket: Complete Comparison to Choose Your Perfect Thai Destination",
+    "og": {
+      "og:type": "website",
+      "og:title": "Krabi or Phuket: Complete Comparison to Choose Your Perfect Thai Dest…",
+      "og:description": "Krabi vs Phuket: detailed comparison guide to choose between these two stunning Thai destinations. Beaches, activities, budget, and atmosphere compared.",
+      "og:url": "https://amon-tour.com/blog/krabi-or-phuket-complete-comparison-choose-perfect-thai-destination",
+      "og:image": "/attached_assets/phi-phi-islands-island-summertime-vacation-wallpaper-preview_1749534394180.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/blog/massage-spa-krabi-guide-best-wellness-centers-traditional-treatments",
+    "status": 200,
+    "title": "Massage and Spa in Krabi: Guide to the Best Wellness Centers and Trad…",
+    "description": "Discover the best spas and massage centers in Krabi: traditional Thai massage, luxury wellness treatments and authentic therapeutic experiences.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/blog/massage-spa-krabi-guide-best-wellness-centers-traditional-treatments",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/blog/massage-spa-krabi-guide-best-wellness-centers-traditional-treatments",
+      "en-MY=https://amon-tour.com/blog/massage-spa-krabi-guide-best-wellness-centers-traditional-treatments",
+      "en-SG=https://amon-tour.com/blog/massage-spa-krabi-guide-best-wellness-centers-traditional-treatments",
+      "en=https://amon-tour.com/blog/massage-spa-krabi-guide-best-wellness-centers-traditional-treatments",
+      "fr=https://amon-tour.com/blog/massage-spa-krabi-guide-best-wellness-centers-traditional-treatments",
+      "ms=https://amon-tour.com/blog/massage-spa-krabi-guide-best-wellness-centers-traditional-treatments",
+      "th=https://amon-tour.com/blog/massage-spa-krabi-guide-best-wellness-centers-traditional-treatments",
+      "x-default=https://amon-tour.com/blog/massage-spa-krabi-guide-best-wellness-centers-traditional-treatments",
+      "zh-CN=https://amon-tour.com/blog/massage-spa-krabi-guide-best-wellness-centers-traditional-treatments",
+      "zh-MY=https://amon-tour.com/blog/massage-spa-krabi-guide-best-wellness-centers-traditional-treatments",
+      "zh-SG=https://amon-tour.com/blog/massage-spa-krabi-guide-best-wellness-centers-traditional-treatments"
+    ],
+    "jsonLd": [
+      "BlogPosting",
+      "BreadcrumbList"
+    ],
+    "h1": "Massage and Spa in Krabi: Guide to the Best Wellness Centers and Traditional Treatments",
+    "og": {
+      "og:type": "website",
+      "og:title": "Massage and Spa in Krabi: Guide to the Best Wellness Centers and Trad…",
+      "og:description": "Discover the best spas and massage centers in Krabi: traditional Thai massage, luxury wellness treatments and authentic therapeutic experiences.",
+      "og:url": "https://amon-tour.com/blog/massage-spa-krabi-guide-best-wellness-centers-traditional-treatments",
+      "og:image": "/attached_assets/DJI_20241115104455_0160_D-min.jpeg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/blog/shopping-krabi-guide-best-markets-shopping-centers-authentic-souvenirs",
+    "status": 200,
+    "title": "Shopping in Krabi: Guide to the Best Markets, Shopping Centers and Au…",
+    "description": "Complete shopping guide in Krabi: authentic night markets, modern shopping centers, local crafts and tips for finding the best unique souvenirs.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/blog/shopping-krabi-guide-best-markets-shopping-centers-authentic-souvenirs",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/blog/shopping-krabi-guide-best-markets-shopping-centers-authentic-souvenirs",
+      "en-MY=https://amon-tour.com/blog/shopping-krabi-guide-best-markets-shopping-centers-authentic-souvenirs",
+      "en-SG=https://amon-tour.com/blog/shopping-krabi-guide-best-markets-shopping-centers-authentic-souvenirs",
+      "en=https://amon-tour.com/blog/shopping-krabi-guide-best-markets-shopping-centers-authentic-souvenirs",
+      "fr=https://amon-tour.com/blog/shopping-krabi-guide-best-markets-shopping-centers-authentic-souvenirs",
+      "ms=https://amon-tour.com/blog/shopping-krabi-guide-best-markets-shopping-centers-authentic-souvenirs",
+      "th=https://amon-tour.com/blog/shopping-krabi-guide-best-markets-shopping-centers-authentic-souvenirs",
+      "x-default=https://amon-tour.com/blog/shopping-krabi-guide-best-markets-shopping-centers-authentic-souvenirs",
+      "zh-CN=https://amon-tour.com/blog/shopping-krabi-guide-best-markets-shopping-centers-authentic-souvenirs",
+      "zh-MY=https://amon-tour.com/blog/shopping-krabi-guide-best-markets-shopping-centers-authentic-souvenirs",
+      "zh-SG=https://amon-tour.com/blog/shopping-krabi-guide-best-markets-shopping-centers-authentic-souvenirs"
+    ],
+    "jsonLd": [
+      "BlogPosting",
+      "BreadcrumbList"
+    ],
+    "h1": "Shopping in Krabi: Guide to the Best Markets, Shopping Centers and Authentic Souvenirs",
+    "og": {
+      "og:type": "website",
+      "og:title": "Shopping in Krabi: Guide to the Best Markets, Shopping Centers and Au…",
+      "og:description": "Complete shopping guide in Krabi: authentic night markets, modern shopping centers, local crafts and tips for finding the best unique souvenirs.",
+      "og:url": "https://amon-tour.com/blog/shopping-krabi-guide-best-markets-shopping-centers-authentic-souvenirs",
+      "og:image": "/attached_assets/DJI_20241115104455_0160_D-min.jpeg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/blog/temples-culture-krabi-spiritual-guide-authentic-thai-traditions",
+    "status": 200,
+    "title": "Temples and Culture in Krabi: Spiritual Guide and Authentic Thai Trad…",
+    "description": "Discover the sacred temples of Krabi and the richness of Thai culture: Tiger Cave Temple, local traditions, festivals and authentic spiritual experiences.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/blog/temples-culture-krabi-spiritual-guide-authentic-thai-traditions",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/blog/temples-culture-krabi-spiritual-guide-authentic-thai-traditions",
+      "en-MY=https://amon-tour.com/blog/temples-culture-krabi-spiritual-guide-authentic-thai-traditions",
+      "en-SG=https://amon-tour.com/blog/temples-culture-krabi-spiritual-guide-authentic-thai-traditions",
+      "en=https://amon-tour.com/blog/temples-culture-krabi-spiritual-guide-authentic-thai-traditions",
+      "fr=https://amon-tour.com/blog/temples-culture-krabi-spiritual-guide-authentic-thai-traditions",
+      "ms=https://amon-tour.com/blog/temples-culture-krabi-spiritual-guide-authentic-thai-traditions",
+      "th=https://amon-tour.com/blog/temples-culture-krabi-spiritual-guide-authentic-thai-traditions",
+      "x-default=https://amon-tour.com/blog/temples-culture-krabi-spiritual-guide-authentic-thai-traditions",
+      "zh-CN=https://amon-tour.com/blog/temples-culture-krabi-spiritual-guide-authentic-thai-traditions",
+      "zh-MY=https://amon-tour.com/blog/temples-culture-krabi-spiritual-guide-authentic-thai-traditions",
+      "zh-SG=https://amon-tour.com/blog/temples-culture-krabi-spiritual-guide-authentic-thai-traditions"
+    ],
+    "jsonLd": [
+      "BlogPosting",
+      "BreadcrumbList"
+    ],
+    "h1": "Temples and Culture in Krabi: Spiritual Guide and Authentic Thai Traditions",
+    "og": {
+      "og:type": "website",
+      "og:title": "Temples and Culture in Krabi: Spiritual Guide and Authentic Thai Trad…",
+      "og:description": "Discover the sacred temples of Krabi and the richness of Thai culture: Tiger Cave Temple, local traditions, festivals and authentic spiritual experiences.",
+      "og:url": "https://amon-tour.com/blog/temples-culture-krabi-spiritual-guide-authentic-thai-traditions",
+      "og:image": "/attached_assets/DJI_20241115104455_0160_D-min.jpeg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/blog/nightlife-krabi-guide-best-bars-pubs-clubs-going-out",
+    "status": 200,
+    "title": "Nightlife in Krabi: Guide to the Best Bars, Pubs and Clubs for Going…",
+    "description": "Discover the lively nightlife of Krabi: beach bars, pubs with live music, local clubs and the best spots for unforgettable evenings.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/blog/nightlife-krabi-guide-best-bars-pubs-clubs-going-out",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/blog/nightlife-krabi-guide-best-bars-pubs-clubs-going-out",
+      "en-MY=https://amon-tour.com/blog/nightlife-krabi-guide-best-bars-pubs-clubs-going-out",
+      "en-SG=https://amon-tour.com/blog/nightlife-krabi-guide-best-bars-pubs-clubs-going-out",
+      "en=https://amon-tour.com/blog/nightlife-krabi-guide-best-bars-pubs-clubs-going-out",
+      "fr=https://amon-tour.com/blog/nightlife-krabi-guide-best-bars-pubs-clubs-going-out",
+      "ms=https://amon-tour.com/blog/nightlife-krabi-guide-best-bars-pubs-clubs-going-out",
+      "th=https://amon-tour.com/blog/nightlife-krabi-guide-best-bars-pubs-clubs-going-out",
+      "x-default=https://amon-tour.com/blog/nightlife-krabi-guide-best-bars-pubs-clubs-going-out",
+      "zh-CN=https://amon-tour.com/blog/nightlife-krabi-guide-best-bars-pubs-clubs-going-out",
+      "zh-MY=https://amon-tour.com/blog/nightlife-krabi-guide-best-bars-pubs-clubs-going-out",
+      "zh-SG=https://amon-tour.com/blog/nightlife-krabi-guide-best-bars-pubs-clubs-going-out"
+    ],
+    "jsonLd": [
+      "BlogPosting",
+      "BreadcrumbList"
+    ],
+    "h1": "Nightlife in Krabi: Guide to the Best Bars, Pubs and Clubs for Going Out",
+    "og": {
+      "og:type": "website",
+      "og:title": "Nightlife in Krabi: Guide to the Best Bars, Pubs and Clubs for Going…",
+      "og:description": "Discover the lively nightlife of Krabi: beach bars, pubs with live music, local clubs and the best spots for unforgettable evenings.",
+      "og:url": "https://amon-tour.com/blog/nightlife-krabi-guide-best-bars-pubs-clubs-going-out",
+      "og:image": "/attached_assets/DJI_20241115104455_0160_D-min.jpeg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/blog/rock-climbing-krabi-complete-guide-railay-beach-world-capital",
+    "status": 200,
+    "title": "Rock Climbing in Krabi: Complete Guide to Railay Beach, World Capital…",
+    "description": "Discover Krabi, world paradise for limestone climbing. Complete guide to climbing spots, routes, equipment, schools and tips for all levels.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/blog/rock-climbing-krabi-complete-guide-railay-beach-world-capital",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/blog/rock-climbing-krabi-complete-guide-railay-beach-world-capital",
+      "en-MY=https://amon-tour.com/blog/rock-climbing-krabi-complete-guide-railay-beach-world-capital",
+      "en-SG=https://amon-tour.com/blog/rock-climbing-krabi-complete-guide-railay-beach-world-capital",
+      "en=https://amon-tour.com/blog/rock-climbing-krabi-complete-guide-railay-beach-world-capital",
+      "fr=https://amon-tour.com/blog/rock-climbing-krabi-complete-guide-railay-beach-world-capital",
+      "ms=https://amon-tour.com/blog/rock-climbing-krabi-complete-guide-railay-beach-world-capital",
+      "th=https://amon-tour.com/blog/rock-climbing-krabi-complete-guide-railay-beach-world-capital",
+      "x-default=https://amon-tour.com/blog/rock-climbing-krabi-complete-guide-railay-beach-world-capital",
+      "zh-CN=https://amon-tour.com/blog/rock-climbing-krabi-complete-guide-railay-beach-world-capital",
+      "zh-MY=https://amon-tour.com/blog/rock-climbing-krabi-complete-guide-railay-beach-world-capital",
+      "zh-SG=https://amon-tour.com/blog/rock-climbing-krabi-complete-guide-railay-beach-world-capital"
+    ],
+    "jsonLd": [
+      "BlogPosting",
+      "BreadcrumbList"
+    ],
+    "h1": "Rock Climbing in Krabi: Complete Guide to Railay Beach, World Capital of Climbing",
+    "og": {
+      "og:type": "website",
+      "og:title": "Rock Climbing in Krabi: Complete Guide to Railay Beach, World Capital…",
+      "og:description": "Discover Krabi, world paradise for limestone climbing. Complete guide to climbing spots, routes, equipment, schools and tips for all levels.",
+      "og:url": "https://amon-tour.com/blog/rock-climbing-krabi-complete-guide-railay-beach-world-capital",
+      "og:image": "/attached_assets/DJI_20241115104455_0160_D-min.jpeg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/blog/transportation-krabi-complete-guide-getting-around-travel-options",
+    "status": 200,
+    "title": "Transportation in Krabi: Complete Guide to Getting Around and Travel…",
+    "description": "Practical guide to transportation in Krabi: airport, buses, taxis, vehicle rental, boats and tips for easy and economical travel.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/blog/transportation-krabi-complete-guide-getting-around-travel-options",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/blog/transportation-krabi-complete-guide-getting-around-travel-options",
+      "en-MY=https://amon-tour.com/blog/transportation-krabi-complete-guide-getting-around-travel-options",
+      "en-SG=https://amon-tour.com/blog/transportation-krabi-complete-guide-getting-around-travel-options",
+      "en=https://amon-tour.com/blog/transportation-krabi-complete-guide-getting-around-travel-options",
+      "fr=https://amon-tour.com/blog/transportation-krabi-complete-guide-getting-around-travel-options",
+      "ms=https://amon-tour.com/blog/transportation-krabi-complete-guide-getting-around-travel-options",
+      "th=https://amon-tour.com/blog/transportation-krabi-complete-guide-getting-around-travel-options",
+      "x-default=https://amon-tour.com/blog/transportation-krabi-complete-guide-getting-around-travel-options",
+      "zh-CN=https://amon-tour.com/blog/transportation-krabi-complete-guide-getting-around-travel-options",
+      "zh-MY=https://amon-tour.com/blog/transportation-krabi-complete-guide-getting-around-travel-options",
+      "zh-SG=https://amon-tour.com/blog/transportation-krabi-complete-guide-getting-around-travel-options"
+    ],
+    "jsonLd": [
+      "BlogPosting",
+      "BreadcrumbList"
+    ],
+    "h1": "Transportation in Krabi: Complete Guide to Getting Around and Travel Options",
+    "og": {
+      "og:type": "website",
+      "og:title": "Transportation in Krabi: Complete Guide to Getting Around and Travel…",
+      "og:description": "Practical guide to transportation in Krabi: airport, buses, taxis, vehicle rental, boats and tips for easy and economical travel.",
+      "og:url": "https://amon-tour.com/blog/transportation-krabi-complete-guide-getting-around-travel-options",
+      "og:image": "/attached_assets/DJI_20241115104455_0160_D-min.jpeg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/blog/best-restaurants-krabi-culinary-guide-thai-specialties-seafood",
+    "status": 200,
+    "title": "Best Restaurants Krabi: Culinary Guide to Thai Specialties and Seafoo…",
+    "description": "Discover the best restaurants in Krabi: authentic street food, Thai specialties, fresh seafood and international cuisine with local insider recommendations.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/blog/best-restaurants-krabi-culinary-guide-thai-specialties-seafood",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/blog/best-restaurants-krabi-culinary-guide-thai-specialties-seafood",
+      "en-MY=https://amon-tour.com/blog/best-restaurants-krabi-culinary-guide-thai-specialties-seafood",
+      "en-SG=https://amon-tour.com/blog/best-restaurants-krabi-culinary-guide-thai-specialties-seafood",
+      "en=https://amon-tour.com/blog/best-restaurants-krabi-culinary-guide-thai-specialties-seafood",
+      "fr=https://amon-tour.com/blog/best-restaurants-krabi-culinary-guide-thai-specialties-seafood",
+      "ms=https://amon-tour.com/blog/best-restaurants-krabi-culinary-guide-thai-specialties-seafood",
+      "th=https://amon-tour.com/blog/best-restaurants-krabi-culinary-guide-thai-specialties-seafood",
+      "x-default=https://amon-tour.com/blog/best-restaurants-krabi-culinary-guide-thai-specialties-seafood",
+      "zh-CN=https://amon-tour.com/blog/best-restaurants-krabi-culinary-guide-thai-specialties-seafood",
+      "zh-MY=https://amon-tour.com/blog/best-restaurants-krabi-culinary-guide-thai-specialties-seafood",
+      "zh-SG=https://amon-tour.com/blog/best-restaurants-krabi-culinary-guide-thai-specialties-seafood"
+    ],
+    "jsonLd": [
+      "BlogPosting",
+      "BreadcrumbList"
+    ],
+    "h1": "Best Restaurants Krabi: Culinary Guide to Thai Specialties and Seafood",
+    "og": {
+      "og:type": "website",
+      "og:title": "Best Restaurants Krabi: Culinary Guide to Thai Specialties and Seafoo…",
+      "og:description": "Discover the best restaurants in Krabi: authentic street food, Thai specialties, fresh seafood and international cuisine with local insider recommendations.",
+      "og:url": "https://amon-tour.com/blog/best-restaurants-krabi-culinary-guide-thai-specialties-seafood",
+      "og:image": "/attached_assets/LINE_ALBUM_Ra Beung Lay Seafood Restaurant_250327_3.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/blog/best-hotels-krabi-2025-guide-luxury-budget-accommodations",
+    "status": 200,
+    "title": "Best Hotels Krabi 2025: Guide to Luxury to Budget Accommodations | Am…",
+    "description": "Discover our selection of the best hotels in Krabi for all budgets. Luxury resorts, boutique hotels, and budget stays with expert recommendations and insider tips.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/blog/best-hotels-krabi-2025-guide-luxury-budget-accommodations",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/blog/best-hotels-krabi-2025-guide-luxury-budget-accommodations",
+      "en-MY=https://amon-tour.com/blog/best-hotels-krabi-2025-guide-luxury-budget-accommodations",
+      "en-SG=https://amon-tour.com/blog/best-hotels-krabi-2025-guide-luxury-budget-accommodations",
+      "en=https://amon-tour.com/blog/best-hotels-krabi-2025-guide-luxury-budget-accommodations",
+      "fr=https://amon-tour.com/blog/best-hotels-krabi-2025-guide-luxury-budget-accommodations",
+      "ms=https://amon-tour.com/blog/best-hotels-krabi-2025-guide-luxury-budget-accommodations",
+      "th=https://amon-tour.com/blog/best-hotels-krabi-2025-guide-luxury-budget-accommodations",
+      "x-default=https://amon-tour.com/blog/best-hotels-krabi-2025-guide-luxury-budget-accommodations",
+      "zh-CN=https://amon-tour.com/blog/best-hotels-krabi-2025-guide-luxury-budget-accommodations",
+      "zh-MY=https://amon-tour.com/blog/best-hotels-krabi-2025-guide-luxury-budget-accommodations",
+      "zh-SG=https://amon-tour.com/blog/best-hotels-krabi-2025-guide-luxury-budget-accommodations"
+    ],
+    "jsonLd": [
+      "BlogPosting",
+      "BreadcrumbList"
+    ],
+    "h1": "Best Hotels Krabi 2025: Guide to Luxury to Budget Accommodations",
+    "og": {
+      "og:type": "website",
+      "og:title": "Best Hotels Krabi 2025: Guide to Luxury to Budget Accommodations | Am…",
+      "og:description": "Discover our selection of the best hotels in Krabi for all budgets. Luxury resorts, boutique hotels, and budget stays with expert recommendations and insider tips.",
+      "og:url": "https://amon-tour.com/blog/best-hotels-krabi-2025-guide-luxury-budget-accommodations",
+      "og:image": "/attached_assets/IMG_1454-removebg-preview.png",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/blog/when-to-visit-krabi-weather-guide-best-seasons-perfect-travel",
+    "status": 200,
+    "title": "When to Visit Krabi: Weather Guide and Best Seasons for Perfect Trave…",
+    "description": "Discover when to visit Krabi based on weather, crowds and prices. Complete guide to seasons, festivals and optimal timing for your Thailand trip.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/blog/when-to-visit-krabi-weather-guide-best-seasons-perfect-travel",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/blog/when-to-visit-krabi-weather-guide-best-seasons-perfect-travel",
+      "en-MY=https://amon-tour.com/blog/when-to-visit-krabi-weather-guide-best-seasons-perfect-travel",
+      "en-SG=https://amon-tour.com/blog/when-to-visit-krabi-weather-guide-best-seasons-perfect-travel",
+      "en=https://amon-tour.com/blog/when-to-visit-krabi-weather-guide-best-seasons-perfect-travel",
+      "fr=https://amon-tour.com/blog/when-to-visit-krabi-weather-guide-best-seasons-perfect-travel",
+      "ms=https://amon-tour.com/blog/when-to-visit-krabi-weather-guide-best-seasons-perfect-travel",
+      "th=https://amon-tour.com/blog/when-to-visit-krabi-weather-guide-best-seasons-perfect-travel",
+      "x-default=https://amon-tour.com/blog/when-to-visit-krabi-weather-guide-best-seasons-perfect-travel",
+      "zh-CN=https://amon-tour.com/blog/when-to-visit-krabi-weather-guide-best-seasons-perfect-travel",
+      "zh-MY=https://amon-tour.com/blog/when-to-visit-krabi-weather-guide-best-seasons-perfect-travel",
+      "zh-SG=https://amon-tour.com/blog/when-to-visit-krabi-weather-guide-best-seasons-perfect-travel"
+    ],
+    "jsonLd": [
+      "BlogPosting",
+      "BreadcrumbList"
+    ],
+    "h1": "When to Visit Krabi: Weather Guide and Best Seasons for Perfect Travel",
+    "og": {
+      "og:type": "website",
+      "og:title": "When to Visit Krabi: Weather Guide and Best Seasons for Perfect Trave…",
+      "og:description": "Discover when to visit Krabi based on weather, crowds and prices. Complete guide to seasons, festivals and optimal timing for your Thailand trip.",
+      "og:url": "https://amon-tour.com/blog/when-to-visit-krabi-weather-guide-best-seasons-perfect-travel",
+      "og:image": "/attached_assets/DJI_20241115104455_0160_D-min.jpeg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/blog/krabi-travel-budget-2025-complete-guide-prices-money-saving-tips",
+    "status": 200,
+    "title": "Krabi Travel Budget 2025: Complete Guide to Prices and Money-Saving T…",
+    "description": "Complete budget guide for Krabi 2025: accommodation, meals, transport, activities, and expert tips to save money on your Thailand trip.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/blog/krabi-travel-budget-2025-complete-guide-prices-money-saving-tips",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/blog/krabi-travel-budget-2025-complete-guide-prices-money-saving-tips",
+      "en-MY=https://amon-tour.com/blog/krabi-travel-budget-2025-complete-guide-prices-money-saving-tips",
+      "en-SG=https://amon-tour.com/blog/krabi-travel-budget-2025-complete-guide-prices-money-saving-tips",
+      "en=https://amon-tour.com/blog/krabi-travel-budget-2025-complete-guide-prices-money-saving-tips",
+      "fr=https://amon-tour.com/blog/krabi-travel-budget-2025-complete-guide-prices-money-saving-tips",
+      "ms=https://amon-tour.com/blog/krabi-travel-budget-2025-complete-guide-prices-money-saving-tips",
+      "th=https://amon-tour.com/blog/krabi-travel-budget-2025-complete-guide-prices-money-saving-tips",
+      "x-default=https://amon-tour.com/blog/krabi-travel-budget-2025-complete-guide-prices-money-saving-tips",
+      "zh-CN=https://amon-tour.com/blog/krabi-travel-budget-2025-complete-guide-prices-money-saving-tips",
+      "zh-MY=https://amon-tour.com/blog/krabi-travel-budget-2025-complete-guide-prices-money-saving-tips",
+      "zh-SG=https://amon-tour.com/blog/krabi-travel-budget-2025-complete-guide-prices-money-saving-tips"
+    ],
+    "jsonLd": [
+      "BlogPosting",
+      "BreadcrumbList"
+    ],
+    "h1": "Krabi Travel Budget 2025: Complete Guide to Prices and Money-Saving Tips",
+    "og": {
+      "og:type": "website",
+      "og:title": "Krabi Travel Budget 2025: Complete Guide to Prices and Money-Saving T…",
+      "og:description": "Complete budget guide for Krabi 2025: accommodation, meals, transport, activities, and expert tips to save money on your Thailand trip.",
+      "og:url": "https://amon-tour.com/blog/krabi-travel-budget-2025-complete-guide-prices-money-saving-tips",
+      "og:image": "/attached_assets/DJI_20241115104455_0160_D-min.jpeg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/blog/snorkeling-krabi-best-spots-underwater-world",
+    "status": 200,
+    "title": "Snorkeling in Krabi: Guide to the 10 Best Spots to Explore Underwater…",
+    "description": "Discover the 10 best snorkeling spots in Krabi: coral reefs, tropical fish, sea turtles and crystal-clear waters for unforgettable underwater adventures.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/blog/snorkeling-krabi-best-spots-underwater-world",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/blog/snorkeling-krabi-best-spots-underwater-world",
+      "en-MY=https://amon-tour.com/blog/snorkeling-krabi-best-spots-underwater-world",
+      "en-SG=https://amon-tour.com/blog/snorkeling-krabi-best-spots-underwater-world",
+      "en=https://amon-tour.com/blog/snorkeling-krabi-best-spots-underwater-world",
+      "fr=https://amon-tour.com/blog/snorkeling-krabi-best-spots-underwater-world",
+      "ms=https://amon-tour.com/blog/snorkeling-krabi-best-spots-underwater-world",
+      "th=https://amon-tour.com/blog/snorkeling-krabi-best-spots-underwater-world",
+      "x-default=https://amon-tour.com/blog/snorkeling-krabi-best-spots-underwater-world",
+      "zh-CN=https://amon-tour.com/blog/snorkeling-krabi-best-spots-underwater-world",
+      "zh-MY=https://amon-tour.com/blog/snorkeling-krabi-best-spots-underwater-world",
+      "zh-SG=https://amon-tour.com/blog/snorkeling-krabi-best-spots-underwater-world"
+    ],
+    "jsonLd": [
+      "BlogPosting",
+      "BreadcrumbList"
+    ],
+    "h1": "Snorkeling in Krabi: Guide to the 10 Best Spots to Explore Underwater World",
+    "og": {
+      "og:type": "website",
+      "og:title": "Snorkeling in Krabi: Guide to the 10 Best Spots to Explore Underwater…",
+      "og:description": "Discover the 10 best snorkeling spots in Krabi: coral reefs, tropical fish, sea turtles and crystal-clear waters for unforgettable underwater adventures.",
+      "og:url": "https://amon-tour.com/blog/snorkeling-krabi-best-spots-underwater-world",
+      "og:image": "/attached_assets/phi-phi-islands-island-summertime-vacation-wallpaper-preview_1749533936281.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/blog/ao-nang-krabi-complete-guide-essential-tourist-center",
+    "status": 200,
+    "title": "Ao Nang Krabi: Complete Guide to the Essential Tourist Center | Amon…",
+    "description": "Discover Ao Nang, the main tourist center of Krabi. Complete guide: beaches, restaurants, nightlife, accommodations and activities for a perfect stay.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/blog/ao-nang-krabi-complete-guide-essential-tourist-center",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/blog/ao-nang-krabi-complete-guide-essential-tourist-center",
+      "en-MY=https://amon-tour.com/blog/ao-nang-krabi-complete-guide-essential-tourist-center",
+      "en-SG=https://amon-tour.com/blog/ao-nang-krabi-complete-guide-essential-tourist-center",
+      "en=https://amon-tour.com/blog/ao-nang-krabi-complete-guide-essential-tourist-center",
+      "fr=https://amon-tour.com/blog/ao-nang-krabi-complete-guide-essential-tourist-center",
+      "ms=https://amon-tour.com/blog/ao-nang-krabi-complete-guide-essential-tourist-center",
+      "th=https://amon-tour.com/blog/ao-nang-krabi-complete-guide-essential-tourist-center",
+      "x-default=https://amon-tour.com/blog/ao-nang-krabi-complete-guide-essential-tourist-center",
+      "zh-CN=https://amon-tour.com/blog/ao-nang-krabi-complete-guide-essential-tourist-center",
+      "zh-MY=https://amon-tour.com/blog/ao-nang-krabi-complete-guide-essential-tourist-center",
+      "zh-SG=https://amon-tour.com/blog/ao-nang-krabi-complete-guide-essential-tourist-center"
+    ],
+    "jsonLd": [
+      "BlogPosting",
+      "BreadcrumbList"
+    ],
+    "h1": "Ao Nang Krabi: Complete Guide to the Essential Tourist Center",
+    "og": {
+      "og:type": "website",
+      "og:title": "Ao Nang Krabi: Complete Guide to the Essential Tourist Center | Amon…",
+      "og:description": "Discover Ao Nang, the main tourist center of Krabi. Complete guide: beaches, restaurants, nightlife, accommodations and activities for a perfect stay.",
+      "og:url": "https://amon-tour.com/blog/ao-nang-krabi-complete-guide-essential-tourist-center",
+      "og:image": "/attached_assets/DJI_20241115104455_0160_D-min.jpeg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/blog/railay-beach-krabi-complete-guide-spectacular-beach",
+    "status": 200,
+    "title": "Railay Beach Krabi: Complete Guide to the Most Spectacular Beach | Am…",
+    "description": "Discover Railay Beach, accessible only by boat. Complete guide: accommodations, rock climbing, beaches, restaurants and tips for a perfect stay.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/blog/railay-beach-krabi-complete-guide-spectacular-beach",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/blog/railay-beach-krabi-complete-guide-spectacular-beach",
+      "en-MY=https://amon-tour.com/blog/railay-beach-krabi-complete-guide-spectacular-beach",
+      "en-SG=https://amon-tour.com/blog/railay-beach-krabi-complete-guide-spectacular-beach",
+      "en=https://amon-tour.com/blog/railay-beach-krabi-complete-guide-spectacular-beach",
+      "fr=https://amon-tour.com/blog/railay-beach-krabi-complete-guide-spectacular-beach",
+      "ms=https://amon-tour.com/blog/railay-beach-krabi-complete-guide-spectacular-beach",
+      "th=https://amon-tour.com/blog/railay-beach-krabi-complete-guide-spectacular-beach",
+      "x-default=https://amon-tour.com/blog/railay-beach-krabi-complete-guide-spectacular-beach",
+      "zh-CN=https://amon-tour.com/blog/railay-beach-krabi-complete-guide-spectacular-beach",
+      "zh-MY=https://amon-tour.com/blog/railay-beach-krabi-complete-guide-spectacular-beach",
+      "zh-SG=https://amon-tour.com/blog/railay-beach-krabi-complete-guide-spectacular-beach"
+    ],
+    "jsonLd": [
+      "BlogPosting",
+      "BreadcrumbList"
+    ],
+    "h1": "Railay Beach Krabi: Complete Guide to the Most Spectacular Beach",
+    "og": {
+      "og:type": "website",
+      "og:title": "Railay Beach Krabi: Complete Guide to the Most Spectacular Beach | Am…",
+      "og:description": "Discover Railay Beach, accessible only by boat. Complete guide: accommodations, rock climbing, beaches, restaurants and tips for a perfect stay.",
+      "og:url": "https://amon-tour.com/blog/railay-beach-krabi-complete-guide-spectacular-beach",
+      "og:image": "/attached_assets/DJI_20241115104455_0160_D-min.jpeg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/blog/hong-island-krabi-guide-secret-lagoon-paradise-island",
+    "status": 200,
+    "title": "Hong Island Krabi: Guide to the Secret Lagoon and Paradise Island | A…",
+    "description": "Discover Hong Island, Krabi's hidden treasure with its secret emerald lagoon. Complete guide: how to get there, what to do, best times to visit.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/blog/hong-island-krabi-guide-secret-lagoon-paradise-island",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/blog/hong-island-krabi-guide-secret-lagoon-paradise-island",
+      "en-MY=https://amon-tour.com/blog/hong-island-krabi-guide-secret-lagoon-paradise-island",
+      "en-SG=https://amon-tour.com/blog/hong-island-krabi-guide-secret-lagoon-paradise-island",
+      "en=https://amon-tour.com/blog/hong-island-krabi-guide-secret-lagoon-paradise-island",
+      "fr=https://amon-tour.com/blog/hong-island-krabi-guide-secret-lagoon-paradise-island",
+      "ms=https://amon-tour.com/blog/hong-island-krabi-guide-secret-lagoon-paradise-island",
+      "th=https://amon-tour.com/blog/hong-island-krabi-guide-secret-lagoon-paradise-island",
+      "x-default=https://amon-tour.com/blog/hong-island-krabi-guide-secret-lagoon-paradise-island",
+      "zh-CN=https://amon-tour.com/blog/hong-island-krabi-guide-secret-lagoon-paradise-island",
+      "zh-MY=https://amon-tour.com/blog/hong-island-krabi-guide-secret-lagoon-paradise-island",
+      "zh-SG=https://amon-tour.com/blog/hong-island-krabi-guide-secret-lagoon-paradise-island"
+    ],
+    "jsonLd": [
+      "BlogPosting",
+      "BreadcrumbList"
+    ],
+    "h1": "Hong Island Krabi: Guide to the Secret Lagoon and Paradise Island",
+    "og": {
+      "og:type": "website",
+      "og:title": "Hong Island Krabi: Guide to the Secret Lagoon and Paradise Island | A…",
+      "og:description": "Discover Hong Island, Krabi's hidden treasure with its secret emerald lagoon. Complete guide: how to get there, what to do, best times to visit.",
+      "og:url": "https://amon-tour.com/blog/hong-island-krabi-guide-secret-lagoon-paradise-island",
+      "og:image": "/attached_assets/phi-phi-islands-island-summertime-vacation-wallpaper-preview_1749529793245.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/blog/4-islands-tour-from-krabi-guide-most-popular-excursion",
+    "status": 200,
+    "title": "4 Islands Tour from Krabi: Guide to the Most Popular Excursion | Amon…",
+    "description": "Discover the famous 4 Islands Tour from Krabi: Poda Island, Chicken Island, Tup Island and Phra Nang Cave Beach. Complete guide with tips and tricks.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/blog/4-islands-tour-from-krabi-guide-most-popular-excursion",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/blog/4-islands-tour-from-krabi-guide-most-popular-excursion",
+      "en-MY=https://amon-tour.com/blog/4-islands-tour-from-krabi-guide-most-popular-excursion",
+      "en-SG=https://amon-tour.com/blog/4-islands-tour-from-krabi-guide-most-popular-excursion",
+      "en=https://amon-tour.com/blog/4-islands-tour-from-krabi-guide-most-popular-excursion",
+      "fr=https://amon-tour.com/blog/4-islands-tour-from-krabi-guide-most-popular-excursion",
+      "ms=https://amon-tour.com/blog/4-islands-tour-from-krabi-guide-most-popular-excursion",
+      "th=https://amon-tour.com/blog/4-islands-tour-from-krabi-guide-most-popular-excursion",
+      "x-default=https://amon-tour.com/blog/4-islands-tour-from-krabi-guide-most-popular-excursion",
+      "zh-CN=https://amon-tour.com/blog/4-islands-tour-from-krabi-guide-most-popular-excursion",
+      "zh-MY=https://amon-tour.com/blog/4-islands-tour-from-krabi-guide-most-popular-excursion",
+      "zh-SG=https://amon-tour.com/blog/4-islands-tour-from-krabi-guide-most-popular-excursion"
+    ],
+    "jsonLd": [
+      "BlogPosting",
+      "BreadcrumbList"
+    ],
+    "h1": "4 Islands Tour from Krabi: Guide to the Most Popular Excursion",
+    "og": {
+      "og:type": "website",
+      "og:title": "4 Islands Tour from Krabi: Guide to the Most Popular Excursion | Amon…",
+      "og:description": "Discover the famous 4 Islands Tour from Krabi: Poda Island, Chicken Island, Tup Island and Phra Nang Cave Beach. Complete guide with tips and tricks.",
+      "og:url": "https://amon-tour.com/blog/4-islands-tour-from-krabi-guide-most-popular-excursion",
+      "og:image": "/attached_assets/DJI_20241115104455_0160_D-min.jpeg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/blog/phi-phi-islands-from-krabi-complete-guide-unforgettable-excursion",
+    "status": 200,
+    "title": "Phi Phi Islands from Krabi: Complete Guide for an Unforgettable Excur…",
+    "description": "Everything you need to know about Phi Phi Islands: how to get there from Krabi, what to see, where to eat, best diving spots and expert tips for a perfect day.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/blog/phi-phi-islands-from-krabi-complete-guide-unforgettable-excursion",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/blog/phi-phi-islands-from-krabi-complete-guide-unforgettable-excursion",
+      "en-MY=https://amon-tour.com/blog/phi-phi-islands-from-krabi-complete-guide-unforgettable-excursion",
+      "en-SG=https://amon-tour.com/blog/phi-phi-islands-from-krabi-complete-guide-unforgettable-excursion",
+      "en=https://amon-tour.com/blog/phi-phi-islands-from-krabi-complete-guide-unforgettable-excursion",
+      "fr=https://amon-tour.com/blog/phi-phi-islands-from-krabi-complete-guide-unforgettable-excursion",
+      "ms=https://amon-tour.com/blog/phi-phi-islands-from-krabi-complete-guide-unforgettable-excursion",
+      "th=https://amon-tour.com/blog/phi-phi-islands-from-krabi-complete-guide-unforgettable-excursion",
+      "x-default=https://amon-tour.com/blog/phi-phi-islands-from-krabi-complete-guide-unforgettable-excursion",
+      "zh-CN=https://amon-tour.com/blog/phi-phi-islands-from-krabi-complete-guide-unforgettable-excursion",
+      "zh-MY=https://amon-tour.com/blog/phi-phi-islands-from-krabi-complete-guide-unforgettable-excursion",
+      "zh-SG=https://amon-tour.com/blog/phi-phi-islands-from-krabi-complete-guide-unforgettable-excursion"
+    ],
+    "jsonLd": [
+      "BlogPosting",
+      "BreadcrumbList"
+    ],
+    "h1": "Phi Phi Islands from Krabi: Complete Guide for an Unforgettable Excursion",
+    "og": {
+      "og:type": "website",
+      "og:title": "Phi Phi Islands from Krabi: Complete Guide for an Unforgettable Excur…",
+      "og:description": "Everything you need to know about Phi Phi Islands: how to get there from Krabi, what to see, where to eat, best diving spots and expert tips for a perfect day.",
+      "og:url": "https://amon-tour.com/blog/phi-phi-islands-from-krabi-complete-guide-unforgettable-excursion",
+      "og:image": "/attached_assets/phi-phi-islands-island-summertime-vacation-wallpaper-preview_1749533936281.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/blog/top-15-most-beautiful-beaches-krabi-paradise-guide",
+    "status": 200,
+    "title": "Top 15 Most Beautiful Beaches in Krabi: Guide to Paradise Beaches | A…",
+    "description": "Explore the 15 most beautiful beaches in Krabi, from Railay Beach to hidden treasures. Complete guide with photos, access information and tips for each beach.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/blog/top-15-most-beautiful-beaches-krabi-paradise-guide",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/blog/top-15-most-beautiful-beaches-krabi-paradise-guide",
+      "en-MY=https://amon-tour.com/blog/top-15-most-beautiful-beaches-krabi-paradise-guide",
+      "en-SG=https://amon-tour.com/blog/top-15-most-beautiful-beaches-krabi-paradise-guide",
+      "en=https://amon-tour.com/blog/top-15-most-beautiful-beaches-krabi-paradise-guide",
+      "fr=https://amon-tour.com/blog/top-15-most-beautiful-beaches-krabi-paradise-guide",
+      "ms=https://amon-tour.com/blog/top-15-most-beautiful-beaches-krabi-paradise-guide",
+      "th=https://amon-tour.com/blog/top-15-most-beautiful-beaches-krabi-paradise-guide",
+      "x-default=https://amon-tour.com/blog/top-15-most-beautiful-beaches-krabi-paradise-guide",
+      "zh-CN=https://amon-tour.com/blog/top-15-most-beautiful-beaches-krabi-paradise-guide",
+      "zh-MY=https://amon-tour.com/blog/top-15-most-beautiful-beaches-krabi-paradise-guide",
+      "zh-SG=https://amon-tour.com/blog/top-15-most-beautiful-beaches-krabi-paradise-guide"
+    ],
+    "jsonLd": [
+      "BlogPosting",
+      "BreadcrumbList"
+    ],
+    "h1": "Top 15 Most Beautiful Beaches in Krabi: Guide to Paradise Beaches",
+    "og": {
+      "og:type": "website",
+      "og:title": "Top 15 Most Beautiful Beaches in Krabi: Guide to Paradise Beaches | A…",
+      "og:description": "Explore the 15 most beautiful beaches in Krabi, from Railay Beach to hidden treasures. Complete guide with photos, access information and tips for each beach.",
+      "og:url": "https://amon-tour.com/blog/top-15-most-beautiful-beaches-krabi-paradise-guide",
+      "og:image": "/attached_assets/phi-phi-islands-island-summertime-vacation-wallpaper-preview_1749534394180.jpg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/blog/complete-guide-krabi-2025-thailand-trip",
+    "status": 200,
+    "title": "Complete Guide to Krabi 2025: Everything You Need to Know for Your Th…",
+    "description": "Discover our ultimate Krabi guide, the pearl of southern Thailand. Paradise beaches, dream islands, must-do activities and expert tips for a memorable trip.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/blog/complete-guide-krabi-2025-thailand-trip",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/blog/complete-guide-krabi-2025-thailand-trip",
+      "en-MY=https://amon-tour.com/blog/complete-guide-krabi-2025-thailand-trip",
+      "en-SG=https://amon-tour.com/blog/complete-guide-krabi-2025-thailand-trip",
+      "en=https://amon-tour.com/blog/complete-guide-krabi-2025-thailand-trip",
+      "fr=https://amon-tour.com/blog/complete-guide-krabi-2025-thailand-trip",
+      "ms=https://amon-tour.com/blog/complete-guide-krabi-2025-thailand-trip",
+      "th=https://amon-tour.com/blog/complete-guide-krabi-2025-thailand-trip",
+      "x-default=https://amon-tour.com/blog/complete-guide-krabi-2025-thailand-trip",
+      "zh-CN=https://amon-tour.com/blog/complete-guide-krabi-2025-thailand-trip",
+      "zh-MY=https://amon-tour.com/blog/complete-guide-krabi-2025-thailand-trip",
+      "zh-SG=https://amon-tour.com/blog/complete-guide-krabi-2025-thailand-trip"
+    ],
+    "jsonLd": [
+      "BlogPosting",
+      "BreadcrumbList"
+    ],
+    "h1": "Complete Guide to Krabi 2025: Everything You Need to Know for Your Thailand Trip",
+    "og": {
+      "og:type": "website",
+      "og:title": "Complete Guide to Krabi 2025: Everything You Need to Know for Your Th…",
+      "og:description": "Discover our ultimate Krabi guide, the pearl of southern Thailand. Paradise beaches, dream islands, must-do activities and expert tips for a memorable trip.",
+      "og:url": "https://amon-tour.com/blog/complete-guide-krabi-2025-thailand-trip",
+      "og:image": "/attached_assets/DJI_20241115104455_0160_D-min.jpeg",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/blog/ultimate-guide-to-exploring-krabi-top-islands-and-hidden-gems",
+    "status": 200,
+    "title": "Ultimate Guide to Exploring Krabi: Top Islands and Hidden Gems | Amon…",
+    "description": "Discover the ultimate guide to Krabi with insider tips on the best islands, hidden gems, and must-do activities in this Thai paradise.",
+    "robots": "index, follow",
+    "canonical": "https://amon-tour.com/blog/ultimate-guide-to-exploring-krabi-top-islands-and-hidden-gems",
+    "hreflang": [
+      "en-AU=https://amon-tour.com/blog/ultimate-guide-to-exploring-krabi-top-islands-and-hidden-gems",
+      "en-MY=https://amon-tour.com/blog/ultimate-guide-to-exploring-krabi-top-islands-and-hidden-gems",
+      "en-SG=https://amon-tour.com/blog/ultimate-guide-to-exploring-krabi-top-islands-and-hidden-gems",
+      "en=https://amon-tour.com/blog/ultimate-guide-to-exploring-krabi-top-islands-and-hidden-gems",
+      "fr=https://amon-tour.com/blog/ultimate-guide-to-exploring-krabi-top-islands-and-hidden-gems",
+      "ms=https://amon-tour.com/blog/ultimate-guide-to-exploring-krabi-top-islands-and-hidden-gems",
+      "th=https://amon-tour.com/blog/ultimate-guide-to-exploring-krabi-top-islands-and-hidden-gems",
+      "x-default=https://amon-tour.com/blog/ultimate-guide-to-exploring-krabi-top-islands-and-hidden-gems",
+      "zh-CN=https://amon-tour.com/blog/ultimate-guide-to-exploring-krabi-top-islands-and-hidden-gems",
+      "zh-MY=https://amon-tour.com/blog/ultimate-guide-to-exploring-krabi-top-islands-and-hidden-gems",
+      "zh-SG=https://amon-tour.com/blog/ultimate-guide-to-exploring-krabi-top-islands-and-hidden-gems"
+    ],
+    "jsonLd": [
+      "BlogPosting",
+      "BreadcrumbList"
+    ],
+    "h1": "Ultimate Guide to Exploring Krabi: Top Islands and Hidden Gems",
+    "og": {
+      "og:type": "website",
+      "og:title": "Ultimate Guide to Exploring Krabi: Top Islands and Hidden Gems | Amon…",
+      "og:description": "Discover the ultimate guide to Krabi with insider tips on the best islands, hidden gems, and must-do activities in this Thai paradise.",
+      "og:url": "https://amon-tour.com/blog/ultimate-guide-to-exploring-krabi-top-islands-and-hidden-gems",
+      "og:image": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+      "og:site_name": "Amon Tour"
+    }
+  },
+  {
+    "url": "/tour-ninja-iframe",
+    "status": 200,
+    "title": "Amon Tour | Private Krabi Tours · French & English Guides",
+    "description": "Krabi travel agency run by French & English-speaking guides since 2013. Private tours to Koh Phi Phi, Phang Nga Bay & southern Thailand, tailored to you.",
+    "robots": "index, follow",
+    "hreflang": [],
+    "jsonLd": [
+      "BreadcrumbList",
+      "TravelAgency",
+      "WebSite"
+    ],
+    "h1": "Private, Tailor-Made Tours in Krabi, Thailand",
+    "og": {
+      "og:type": "website",
+      "og:site_name": "Amon Tour",
+      "og:title": "Amon Tour | Private Krabi Tours · French & English Guides",
+      "og:description": "Krabi travel agency run by French & English-speaking guides since 2013. Private tours to Koh Phi Phi, Phang Nga Bay & southern Thailand, tailored to you.",
+      "og:url": "https://amon-tour.com/",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:locale": "en",
+      "og:locale:alternate": "fr"
+    }
+  },
+  {
+    "url": "/about",
+    "status": 200,
+    "title": "Amon Tour | Private Krabi Tours · French & English Guides",
+    "description": "Krabi travel agency run by French & English-speaking guides since 2013. Private tours to Koh Phi Phi, Phang Nga Bay & southern Thailand, tailored to you.",
+    "robots": "index, follow",
+    "hreflang": [],
+    "jsonLd": [
+      "BreadcrumbList",
+      "TravelAgency",
+      "WebSite"
+    ],
+    "h1": "Private, Tailor-Made Tours in Krabi, Thailand",
+    "og": {
+      "og:type": "website",
+      "og:site_name": "Amon Tour",
+      "og:title": "Amon Tour | Private Krabi Tours · French & English Guides",
+      "og:description": "Krabi travel agency run by French & English-speaking guides since 2013. Private tours to Koh Phi Phi, Phang Nga Bay & southern Thailand, tailored to you.",
+      "og:url": "https://amon-tour.com/",
+      "og:image": "https://amon-tour.com/amon-tour-team.jpg",
+      "og:locale": "en",
+      "og:locale:alternate": "fr"
+    }
+  }
+]

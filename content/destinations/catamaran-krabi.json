@@ -1,0 +1,94 @@
+{
+  "slug": "catamaran-krabi",
+  "lang": "fr",
+  "title": "Catamaran privatif à Krabi — Location avec guides | Amon Tour",
+  "metaDescription": "Catamaran privatif à Krabi avec guides bilingues FR/EN. Couchers de soleil, îles et snorkeling. Idéal couples et familles. Départ Ao Nang.",
+  "h1": "Catamaran privatif à Krabi — Location avec guides | Amon Tour",
+  "intro": "Le catamaran privatif est la façon la plus élégante et la plus confortable d'explorer les îles de Krabi. À la différence d'un speedboat bondé ou d'un longtail boat sonore, un catamaran offre de l'espace, de la stabilité, et une navigation silencieuse au moteur ou à la voile selon les conditions.",
+  "sections": [
+    {
+      "heading": "Pourquoi choisir le catamaran plutôt qu'un speedboat ?",
+      "content": "<p>Les speedboats longent les côtes à pleine vitesse, s'arrêtent quelques minutes à chaque site et repartent. C'est efficace pour cocher des cases — beaucoup moins pour profiter réellement des paysages.</p>\n<p>Un catamaran privatif change complètement la nature de l'excursion :</p>\n<ul>\n<li><strong>Espace :</strong> filets à l'avant pour vous allonger, cockpit ombragé, toilettes à bord, petit salon intérieur</li>\n<li><strong>Stabilité :</strong> la coque double du catamaran élimine le tangage — idéal si certains membres du groupe ont le mal de mer</li>\n<li><strong>Silence :</strong> la navigation à la voile (quand le vent le permet) offre une expérience totalement différente des moteurs vrombissants</li>\n<li><strong>Flexibilité :</strong> vous décidez des arrêts, de la durée à chaque endroit, et du rythme de la journée</li>\n</ul>\n<p>C'est l'option préférée des couples en voyage de noces, des familles avec enfants en bas âge, et des groupes d'amis qui veulent profiter d'une journée en mer sans contrainte de temps.</p>"
+    },
+    {
+      "heading": "Destinations accessibles en catamaran depuis Ao Nang",
+      "content": "<p>Selon la durée de location et la météo, le catamaran peut couvrir :</p>\n<ul>\n<li><strong>4 Îles (Koh Mook, Koh Ngai, Koh Kradan, Koh Rok)</strong> : archipel au sud de Krabi, eaux turquoise, plages désertes et snorkeling d'exception</li>\n<li><strong>Railay Beach et Koh Poda</strong> : falaises calcaires de Krabi à portée de voile</li>\n<li><strong>Bamboo Island et Chicken Island</strong> : spots snorkeling au nord de Phi Phi</li>\n<li><strong>Coucher de soleil sur les falaises de Railay</strong> : la formule \"sunset cruise\" — départ vers 15h, ancre face aux falaises dorées au coucher du soleil</li>\n</ul>\n<p>Certains programmes incluent un ancrage pour la nuit en mer, pour les groupes qui souhaitent passer plus de temps loin des côtes.</p>"
+    },
+    {
+      "heading": "Capacité, équipage et inclusions",
+      "content": "<p>Notre catamaran peut accueillir <strong>jusqu'à 8 à 10 passagers</strong> selon le modèle disponible (vérifier disponibilité). L'équipage comprend un skipper et un guide bilingue — vous n'avez pas à vous préoccuper de la navigation.</p>\n<p>Inclus à bord :</p>\n<ul>\n<li>Équipement de snorkeling (masques, tubas, palmes)</li>\n<li>Gilets de sauvetage et équipements de sécurité</li>\n<li>Eau, sodas, jus de fruits [TO INSERT : boissons exactes incluses]</li>\n<li>Repas ou en-cas selon la durée [TO INSERT : formule repas]</li>\n</ul>\n<p><strong>Option sunset cruise :</strong> demi-journée (4-5h), idéale pour les couples. Champagne ou vins à bord sur demande [TO INSERT : options boissons premium].</p>"
+    },
+    {
+      "heading": "Le catamaran pour un voyage de noces à Krabi",
+      "content": "<p>Krabi est une destination de voyage de noces très prisée des couples français, suisses et belges. La combinaison falaises calcaires + eaux turquoise + ambiance paisible en fait un cadre inoubliable.</p>\n<p>Pour un voyage de noces, nous pouvons personnaliser entièrement la journée :</p>\n<ul>\n<li>Ancre dans une crique déserte pour un déjeuner privé</li>\n<li>Décoration fleurie à bord pour l'arrivée</li>\n<li>Photographe ou vidéaste à bord [TO INSERT : options photo/vidéo]</li>\n<li>Sunset cruise vers les falaises dorées de Railay</li>\n</ul>\n<p>Parlez-nous de votre projet en nous contactant sur <a href=\"https://wa.me/66864763804\">WhatsApp</a>.</p>"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Combien de personnes peut accueillir un catamaran privatif à Krabi ?",
+      "answer": "Notre catamaran peut accueillir jusqu'à 8 à 10 passagers selon le modèle. L'embarcation est entièrement privatisée — aucun autre voyageur ne vous sera ajouté."
+    },
+    {
+      "question": "Quelles îles visite-t-on en catamaran depuis Krabi ?",
+      "answer": "Selon la durée et le programme choisi : Railay Beach, Koh Poda, Bamboo Island, les 4 Îles (Koh Mook, Koh Ngai, Koh Kradan). Une formule sunset cruise se concentre sur Railay et les falaises de Krabi."
+    },
+    {
+      "question": "Y a-t-il un catamaran disponible pour les couchers de soleil à Krabi ?",
+      "answer": "Oui — la formule sunset cruise (4-5h, départ vers 15h) est conçue pour voir le coucher de soleil depuis la mer, face aux falaises calcaires de Railay. Elle est particulièrement demandée par les couples."
+    },
+    {
+      "question": "Le catamaran est-il adapté aux enfants ?",
+      "answer": "Oui. La stabilité du catamaran le rend bien plus confortable pour les enfants que le speedboat, notamment par mer formée. Les filets à l'avant sont toutefois à surveiller pour les très jeunes enfants."
+    }
+  ],
+  "relatedSlugs": [
+    "koh-phi-phi",
+    "railay-beach",
+    "phang-nga-bay"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "TouristTrip",
+    "name": "Location catamaran privatif Krabi",
+    "description": "Location de catamaran privatif à Krabi avec skipper et guide bilingue FR/EN. Excursions îles, sunset cruise, voyage de noces. Départ Ao Nang. Jusqu'à 10 personnes.",
+    "url": "https://amon-tour.com/destinations/catamaran-krabi",
+    "provider": {
+      "@type": "TravelAgency",
+      "name": "Amon Tour",
+      "url": "https://amon-tour.com"
+    },
+    "touristType": [
+      "Couple",
+      "Family",
+      "Luxury"
+    ],
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 8.0319,
+      "longitude": 98.8254
+    }
+  },
+  "tripSchema": {
+    "@context": "https://schema.org",
+    "@type": "TouristTrip",
+    "name": "Location catamaran privatif Krabi",
+    "description": "Location de catamaran privatif à Krabi avec skipper et guide bilingue FR/EN. Excursions îles, sunset cruise, voyage de noces. Départ Ao Nang. Jusqu'à 10 personnes.",
+    "url": "https://amon-tour.com/destinations/catamaran-krabi",
+    "provider": {
+      "@type": "TravelAgency",
+      "name": "Amon Tour",
+      "url": "https://amon-tour.com"
+    },
+    "touristType": [
+      "Couple",
+      "Family",
+      "Luxury"
+    ],
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 8.0319,
+      "longitude": 98.8254
+    }
+  },
+  "sitemapPriority": 0.8
+}

@@ -43,3 +43,14 @@ The frontend is built with **React 18** and **TypeScript**, using **Tailwind CSS
 - **Tour Ninja API**: External API for tour inventory and details, accessed via a custom server-side proxy.
 - **Stripe**: (Prepared for) Payment processing integration.
 - **SendGrid**: For email notifications and confirmations.
+## Migration vers site HTML statique + CMS MCP (2026-09-15)
+
+Nouvelle architecture en parallèle de l'application React/Express (conservée intacte comme rollback) :
+- `content/` : contenu versionné (pages, sections, SEO, navigation, blog, pages légales, traductions, surcharges d'images Tour Ninja), validé par `site/src/schema.ts` (Zod). Exporté depuis PostgreSQL par `npm run content:export` (lecture seule sur `NEON_DATABASE_URL`).
+- `site/` : générateur statique (`npm run site:build -- --out site/dist`), parité SEO vérifiée avec `scripts/migration/seo-snapshot.ts` contre `exports/seo-baseline/`.
+- `edge/` : mini-backend Express (`npm run edge:dev`, port 5000) : site statique + API Tour Ninja identique + formulaires + sync + MCP monté sur `/mcp` (`MCP_AUTH_TOKEN` requis).
+- `mcp/` : serveur MCP Streamable HTTP (57 outils CMS) ; chaque écriture = commit GitHub (`GITHUB_TOKEN`/`GITHUB_REPO`) ou écriture locale + rebuild en dev.
+- Docs : `docs/migration/{MIGRATION,ARCHITECTURE,INVENTAIRE,SEO-COMPARAISON,VALIDATION-MCP}.md`, `mcp/README.md`, `edge/tests/parity.md`.
+- La prochaine publication Replit utilise le serveur edge (`NODE_ENV=production`) ; l'aperçu utilise `npm run edge:dev`. La publication effective nécessite « Republier ». Procédure et rollback dans `docs/migration/MIGRATION.md` §4–6.
+- Décision du propriétaire : publier avant de connecter GitHub ; il effectuera les tests manuels. Le CMS reste désactivé sans ses secrets. Conserver `DATABASE_URL` du serveur historique pour les demandes, sans migration automatique de schéma.
+- Typecheck des nouveaux modules : `npx tsc --noEmit -p tsconfig.migration.json` ; tests : `npm run test:migration`.

@@ -1,0 +1,527 @@
+{
+  "slug": "cruise",
+  "path": "/cruise",
+  "name": "Cruise",
+  "type": "main",
+  "active": true,
+  "customCode": false,
+  "seo": {
+    "en": {}
+  },
+  "sections": [
+    {
+      "id": "header_page_1760452484457",
+      "type": "header_page",
+      "order": 1,
+      "active": true,
+      "props": {
+        "title": "The Catamaran Experience",
+        "subtitle": "Sail Krabi's Hidden Gems on a Private Catamaran Adventure",
+        "ctaStyle": "primary",
+        "backgroundColor": "white",
+        "buttons": [],
+        "iconUrl": "",
+        "imageUrl": "/attached_assets/790fc1de-1a62-4e19-93eb-f2529f131485_1757694001569.jpeg",
+        "frameSize": "small",
+        "iconColor": "#ffffff",
+        "titleColor": "#ffffff",
+        "subtitleColor": "#ffffff",
+        "backgroundType": "image",
+        "gradientColor1": "#084F6E",
+        "gradientColor2": "#3BA8AF"
+      },
+      "i18n": {
+        "fr": {
+          "title": "L'expérience du catamaran",
+          "subtitle": "Découvrez les trésors cachés de Krabi lors d'une aventure privée en catamaran"
+        },
+        "es": {
+          "title": "La experiencia del catamarán",
+          "subtitle": "Navega por las joyas ocultas de Krabi en una aventura privada en catamarán"
+        }
+      },
+      "legacy": {
+        "blockId": 351,
+        "createdAt": "2025-10-14T14:34:45.286Z",
+        "updatedAt": "2025-10-15T18:09:07.558Z"
+      }
+    },
+    {
+      "id": "why_choose_us_1760452555121",
+      "type": "why_choose_us",
+      "order": 2,
+      "active": true,
+      "props": {
+        "title": "Freedom and Exclusivity",
+        "subtitle": "Navigate towards exclusivity aboard one of the rare catamaran cruises departing from Krabi. Explore the Andaman Sea as few travelers have the chance to do: in complete freedom, away from tourist circuits, with an itinerary designed entirely for you.",
+        "ctaStyle": "primary",
+        "iconBlocks": [
+          {
+            "id": 1,
+            "title": "Tailor-made routes",
+            "mainIcon": "fas fa-user-friends",
+            "iconColor": "#084F6E",
+            "miniIcons": [],
+            "description": "We compose your itinerary to reveal the best of the region, prioritizing preserved sites and exceptional moments."
+          },
+          {
+            "id": 2,
+            "title": "Expert crew",
+            "mainIcon": "fas fa-compass",
+            "iconColor": "#3BA8AF",
+            "miniIcons": [],
+            "description": "Our captains have perfect mastery of these waters. They optimize each navigation by adapting to weather conditions, tides and winds to maximize your pleasure."
+          },
+          {
+            "id": 3,
+            "title": "Total freedom",
+            "mainIcon": "fas fa-star",
+            "iconColor": "#084F6E",
+            "miniIcons": [],
+            "description": "Deserted beaches, turquoise lagoons, snorkeling in crystal-clear waters... Your cruise evolves according to your preferences."
+          }
+        ],
+        "titleColor": "#1f2937",
+        "dividerColor": "#3BA8AF",
+        "subtitleColor": "#374151",
+        "backgroundColor": "#ffffff"
+      },
+      "i18n": {
+        "fr": {
+          "title": "Liberté et exclusivité",
+          "subtitle": "Naviguez vers l'exclusivité à bord de l'une des rares croisières en catamaran au départ de Krabi. Explorez la mer d'Andaman comme peu de voyageurs ont la chance de le faire : en toute liberté, loin des circuits touristiques, avec un itinéraire entièrement conçu pour vous.",
+          "icon_blocks_0_title": "Itinéraires sur mesure",
+          "icon_blocks_0_description": "Nous composons votre itinéraire pour révéler le meilleur de la région, en privilégiant les sites préservés et les moments exceptionnels.",
+          "icon_blocks_1_title": "Équipage expert",
+          "icon_blocks_1_description": "Nos capitaines maîtrisent parfaitement ces eaux. Ils optimisent chaque navigation en s'adaptant aux conditions météorologiques, aux marées et aux vents pour maximiser votre plaisir.",
+          "icon_blocks_2_title": "Liberté totale",
+          "icon_blocks_2_description": "Plages désertes, lagons turquoise, snorkeling dans des eaux cristallines... Votre croisière évolue selon vos préférences."
+        },
+        "es": {
+          "title": "Libertad y exclusividad",
+          "subtitle": "Navega hacia la exclusividad a bordo de uno de los raros cruceros en catamarán que salen de Krabi. Explora el mar de Andamán como pocos viajeros tienen la oportunidad de hacerlo: con total libertad, lejos de los circuitos turísticos, con un itinerario pensado íntegramente para ti.",
+          "icon_blocks_0_title": "Rutas a medida",
+          "icon_blocks_0_description": "Componemos tu itinerario para revelar lo mejor de la región, priorizando sitios preservados y momentos excepcionales.",
+          "icon_blocks_1_title": "Tripulación experta",
+          "icon_blocks_1_description": "Nuestros capitanes dominan perfectamente estas aguas. Optimizan cada navegación adaptándose a las condiciones meteorológicas, mareas y vientos para maximizar tu placer.",
+          "icon_blocks_2_title": "Libertad total",
+          "icon_blocks_2_description": "Playas desiertas, lagunas turquesas, snorkel en aguas cristalinas... Tu crucero evoluciona según tus preferencias."
+        }
+      },
+      "legacy": {
+        "blockId": 352,
+        "createdAt": "2025-10-14T14:35:55.952Z",
+        "updatedAt": "2025-10-16T10:18:37.135Z",
+        "columns": {
+          "background_color": "white"
+        }
+      }
+    },
+    {
+      "id": "text_gallery_1760458215645",
+      "type": "text_gallery",
+      "order": 7,
+      "active": true,
+      "props": {
+        "title": "A Lagoon 470 Catamaran",
+        "subtitle": "Built in 1999 and constantly improved since 2023, combines comfort and character. It has 4 double cabins with private bathrooms: two cabins with queen-size beds (160 cm) and two with double beds (140 cm). Each cabin is equipped with fans, 220V sockets and large storage spaces.\n\nSpacious and well-designed, the Lagoon offers seamless flow between the interior and exterior living spaces: large, bright living room, equipped kitchen, shaded cockpit, sunbathing area at the front, etc. The discreet engine ensures peaceful navigation.\n\nPerfect for holidays with family, friends or private charter, this boat guarantees your comfort, privacy and freedom to explore the most beautiful islands of the Andaman Sea.",
+        "ctaStyle": "primary",
+        "images": [
+          "/attached_assets/790fc1de-1a62-4e19-93eb-f2529f131485_1757686414762.jpeg",
+          "/attached_assets/626e6d17-dc9b-420e-b3ee-fad71c615c7e_1757686414762.jpeg",
+          "/attached_assets/3046de19-33b6-4374-999b-c01da9abda7d_1757686414762.jpeg",
+          "/attached_assets/a03261ff-35eb-4352-abf8-9eb698da17ec_1757686436923.jpeg",
+          "/attached_assets/9b469d5b-7a43-4f13-81e5-36826d34a4d0_1757686436923.jpeg",
+          "/attached_assets/6d7d224d-fe2e-4c12-aee4-52d19d976971_1757686436923.jpeg",
+          "/attached_assets/8614f431-1592-46d0-af6e-6b5f8bf88f4a_1757686457872.jpeg",
+          "/attached_assets/30877b23-72c3-4bda-9edf-b8a2334af26a_1757686457872.jpeg",
+          "/attached_assets/7042dca5-8d61-45a3-a177-28202abbebac_1757686457872.jpeg",
+          "/attached_assets/ec633587-a525-45fc-94f9-ba186247b03d_1757686483511.jpeg",
+          "/attached_assets/ad86696b-61b6-436a-a461-6502877efdf7_1757686483512.jpeg",
+          "/attached_assets/a5925b83-84e8-4167-9ebc-2e6721a99ac7_1757686483512.jpeg",
+          "/attached_assets/32cfb689-7a4b-42a2-a54b-1c1501343059_1757686498698.jpeg",
+          "/attached_assets/62bcbbea-64f9-4c84-8dde-f6cf100b06ac_1757686498698.jpeg",
+          "attached_assets/c2bbb0b5-ec85-4ff5-afe5-1bc2047eb558_1757686498698.jpeg",
+          "/attached_assets/0df32598-c5ce-4ab5-b6b8-364340261657_1757686525806.jpeg",
+          "/attached_assets/e922cf8c-ae03-4be2-b715-bc1185241ac3_1757686525806.jpeg",
+          "/attached_assets/50d065bb-7fe3-460c-842f-205106b21217_1757686525806.jpeg",
+          "/attached_assets/5008f297-b9ad-453f-a386-43ce40898224_1757686525806.jpeg",
+          "/attached_assets/ff534450-22ca-4e96-8fac-d503f5939fd9_1757686525806.jpeg",
+          "/attached_assets/3a45de92-799e-451b-8716-00521427a91e_1757692962965.jpeg",
+          "/attached_assets/ef2966c4-e873-4654-a14f-ecfaa8d6acd2_1757692962965.jpeg",
+          "/attached_assets/ddfdc492-c289-4bf4-b563-df377b94b3cc_1757692962965.jpeg",
+          "/attached_assets/29ce9bad-cae7-4528-8ce1-8624a63f09b9_1757692962965.jpeg",
+          "/attached_assets/0bd01e0d-320d-49e9-8003-325e3bde7e68_1757692962965.jpeg",
+          "/attached_assets/6a2b81ce-e641-4b05-9fd0-fcf206699dc9_1757692962965.jpeg",
+          "/attached_assets/da5f838c-120c-4ede-8cbf-8d6e086d8061_1757692962965.jpeg"
+        ],
+        "titleColor": "#1f2937",
+        "carouselType": "petite",
+        "dividerColor": "#3BA8AF",
+        "subtitleColor": "#374151",
+        "backgroundColor": "#ffffff"
+      },
+      "i18n": {
+        "fr": {
+          "title": "Un catamaran Lagoon 470",
+          "subtitle": "Construit en 1999 et constamment amélioré depuis 2023, allie confort et caractère. Il dispose de 4 cabines doubles avec salles de bain privées : deux cabines avec lits queen-size (160 cm) et deux avec lits doubles (140 cm). Chaque cabine est équipée de ventilateurs, de prises 220V et de grands espaces de rangement.\n\nSpacieux et bien conçu, le Lagoon offre une circulation fluide entre les espaces de vie intérieurs et extérieurs : grand salon lumineux, cuisine équipée, cockpit ombragé, espace bain de soleil à l'avant, etc. Le moteur discret assure une navigation paisible.\n\nParfait pour des vacances en famille, entre amis ou en charter privé, ce bateau garantit votre confort, votre intimité et votre liberté d'explorer les plus belles îles de la mer d'Andaman."
+        },
+        "es": {
+          "title": "Un catamarán Lagoon 470",
+          "subtitle": "Construido en 1999 y constantemente mejorado desde 2023, combina comodidad y carácter. Cuenta con 4 cabinas dobles con baños privados: dos cabinas con camas queen-size (160 cm) y dos con camas dobles (140 cm). Cada cabina está equipada con ventiladores, enchufes de 220V y amplios espacios de almacenamiento.\n\nAmplio y bien diseñado, el Lagoon ofrece un flujo perfecto entre los espacios de vida interiores y exteriores: gran sala luminosa, cocina equipada, cabina sombreada, área para tomar el sol en la parte delantera, etc. El motor discreto asegura una navegación tranquila.\n\nPerfecto para vacaciones en familia, con amigos o en chárter privado, este barco garantiza tu comodidad, privacidad y libertad para explorar las islas más hermosas del mar de Andamán."
+        }
+      },
+      "legacy": {
+        "blockId": 353,
+        "createdAt": "2025-10-14T16:10:16.475Z",
+        "updatedAt": "2025-10-16T10:19:01.755Z",
+        "columns": {
+          "background_color": "white"
+        }
+      }
+    },
+    {
+      "id": "text_video_1760458237105",
+      "type": "text_video",
+      "order": 8,
+      "active": true,
+      "props": {
+        "title": "Our Catamaran in Video",
+        "subtitle": "Explore your future vessel and discover the unique experience that awaits you aboard our Lagoon 470.",
+        "ctaStyle": "primary",
+        "videoUrl": "https://youtu.be/VCECtIN2AbQ",
+        "videoType": "youtube",
+        "titleColor": "#1f2937",
+        "dividerColor": "#3BA8AF",
+        "subtitleColor": "#374151",
+        "backgroundColor": "#ffffff"
+      },
+      "i18n": {
+        "fr": {
+          "title": "Notre catamaran en vidéo",
+          "subtitle": "Explorez votre futur navire et découvrez l'expérience unique qui vous attend à bord de notre Lagoon 470."
+        },
+        "es": {
+          "title": "Nuestro catamarán en vídeo",
+          "subtitle": "Explora tu futura embarcación y descubre la experiencia única que te espera a bordo de nuestro Lagoon 470."
+        }
+      },
+      "legacy": {
+        "blockId": 354,
+        "createdAt": "2025-10-14T16:10:37.937Z",
+        "updatedAt": "2025-10-16T10:19:17.005Z",
+        "columns": {
+          "background_color": "white"
+        }
+      }
+    },
+    {
+      "id": "text_listing_1760513027653",
+      "type": "text_listing",
+      "order": 15,
+      "active": true,
+      "props": {
+        "title": "Route suggestions",
+        "subtitle": "Each itinerary is adapted to the season, natural conditions, and tourist traffic to guarantee you an optimal experience.",
+        "ctaStyle": "primary",
+        "items": [
+          {
+            "label": "1 day",
+            "description": "Only available through this offer: <a href=\"https://www.tourninja.io/details/Wmx1GcKCGO\">Catamaran Private Day Trip</a>"
+          },
+          {
+            "label": "2 days",
+            "description": "Head towards Koh Hong or the legendary Koh Phi Phi"
+          },
+          {
+            "label": "3-4 days",
+            "description": "Combined Phang Nga Bay and Koh Phi Phi"
+          },
+          {
+            "label": "5-6 days",
+            "description": "Getaway to the preserved waters of Koh Rok and Koh Mook"
+          },
+          {
+            "label": "7 days and more",
+            "description": "Odyssey to the paradise islands of Koh Lipe or Similan"
+          }
+        ],
+        "labelColor": "#084F6E",
+        "titleColor": "#1f2937",
+        "dividerColor": "#3BA8AF",
+        "backgroundColor": "#ffffff"
+      },
+      "i18n": {
+        "fr": {
+          "title": "Suggestions d'itinéraire",
+          "subtitle": "Chaque itinéraire est adapté à la saison, aux conditions naturelles et au trafic touristique pour vous garantir une expérience optimale.",
+          "items_0_label": "1 jour",
+          "items_0_description": "Uniquement disponible grâce à cette offre&nbsp;: <a href=\"https://www.tourninja.io/details/Wmx1GcKCGO\">Excursion privée d'une journée en catamaran</a>",
+          "items_1_label": "2 jours",
+          "items_1_description": "Dirigez-vous vers Koh Hong ou le légendaire Koh Phi Phi",
+          "items_2_label": "3 à 4 jours",
+          "items_2_description": "Baie de Phang Nga et Koh Phi Phi combinées",
+          "items_3_label": "5-6 jours",
+          "items_3_description": "Escapade dans les eaux préservées de Koh Rok et Koh Mook",
+          "items_4_label": "7 jours et plus",
+          "items_4_description": "Odyssée aux îles paradisiaques de Koh Lipe ou Similan"
+        },
+        "es": {
+          "title": "Sugerencias de ruta",
+          "subtitle": "Cada itinerario se adapta a la temporada, las condiciones naturales y el tráfico turístico para garantizarte una experiencia óptima.",
+          "items_0_label": "1 día",
+          "items_0_description": "Solo disponible a través de esta oferta: <a href=\"https://www.tourninja.io/details/Wmx1GcKCGO\">Excursión privada en catamarán de un día</a>",
+          "items_1_label": "2 días",
+          "items_1_description": "Dirígete a Koh Hong o al legendario Koh Phi Phi",
+          "items_2_label": "3-4 días",
+          "items_2_description": "Combinación de la bahía de Phang Nga y Koh Phi Phi",
+          "items_3_label": "5-6 días",
+          "items_3_description": "Escapada a las aguas preservadas de Koh Rok y Koh Mook",
+          "items_4_label": "7 días y más",
+          "items_4_description": "Odisea a las paradisíacas islas de Koh Lipe o Similan"
+        }
+      },
+      "legacy": {
+        "blockId": 365,
+        "createdAt": "2025-10-15T07:23:48.479Z",
+        "updatedAt": "2025-10-16T10:33:14.179Z",
+        "columns": {
+          "background_color": "white"
+        }
+      }
+    },
+    {
+      "id": "text_pricing_1760547491910",
+      "type": "text_pricing",
+      "order": 17,
+      "active": true,
+      "props": {
+        "title": "Seasonal Pricing",
+        "subtitle": "Daily rate for a minimum of 2 days and 1 night. Maximum capacity: 8 adults.",
+        "ctaStyle": "primary",
+        "titleColor": "#1f2937",
+        "pickupTimes": [
+          {
+            "time": "8:30",
+            "price": "+1,300 Baht",
+            "location": "from Tubkeak",
+            "supplementColor": "#3BA8AF"
+          },
+          {
+            "time": "8:30",
+            "price": "+1,800 Baht",
+            "location": "from Thalane",
+            "supplementColor": "#3BA8AF"
+          },
+          {
+            "time": "8:40",
+            "price": "+1,000 Baht",
+            "location": "from Klong Mueang",
+            "supplementColor": "#3BA8AF"
+          },
+          {
+            "time": "8:45",
+            "price": "No extra fee",
+            "location": "from Ao Nang",
+            "supplementColor": "#084F6E"
+          },
+          {
+            "time": "9:00",
+            "price": "No extra fee",
+            "location": "from Railay",
+            "supplementColor": "#084F6E"
+          }
+        ],
+        "pickupTitle": "Pick up times and transfer surcharges",
+        "dividerColor": "#3BA8AF",
+        "pricingCards": [
+          {
+            "cycle": "per day",
+            "label": "Period:",
+            "price": "39,000",
+            "title": "Very High Season",
+            "currency": "THB",
+            "moreText": "Dec 15, 2025 - Jan 15, 2026",
+            "subtitle": "Peak period rates",
+            "headerGradient": "#3BA8AF"
+          },
+          {
+            "cycle": "per day",
+            "label": "Label",
+            "price": "31,000",
+            "title": "High Season",
+            "currency": "THB",
+            "moreText": "Oct 15 - Dec 14, 2025\nJan 15 - Mar 31, 2026",
+            "subtitle": "Premium period rates",
+            "headerGradient": "#247e8f"
+          },
+          {
+            "cycle": "per day",
+            "label": "Period:",
+            "price": "28,000",
+            "title": "Low Season",
+            "currency": "THB",
+            "moreText": "Apr 1 - Oct 14, 2026\n\n",
+            "subtitle": "Best value rates",
+            "headerGradient": "#084F6E"
+          }
+        ],
+        "includedTitle": "Included in Price",
+        "subtitleColor": "#374151",
+        "backgroundColor": "#f9fafb",
+        "pickupTimeColor": "#333333",
+        "notIncludedTitle": "Not Included in Price",
+        "pickupPriceColor": "#333333",
+        "includedLogoColor": "#3BA8AF",
+        "showPickupSection": true,
+        "includedDescription": "Transfers (on request), national park fees (depending on the itinerary), beer, wine, spirits. Lunch and dinner (Thai cuisine): 500 Baht per person per meal. Please let us know your preferences and we will provision the boat accordingly.",
+        "notIncludedLogoColor": "#3BA8AF",
+        "notIncludedDescription": "Boat rental with captain, assistant and professional English-speaking guide, fuel, semi-rigid dinghy for 5 to 6 people with an 18 HP engine, BBQ, fishing equipment and a paddleboard, fresh fruit, sodas, water. Breakfast (tea, coffee, toast, omelet).\n\n"
+      },
+      "i18n": {
+        "fr": {
+          "title": "Tarif saisonnier",
+          "subtitle": "Tarif journalier pour un minimum de 2 jours et 1 nuit. Capacité maximale : 8 adultes.",
+          "pickup_title": "Heures de prise en charge et suppléments de transfert",
+          "included_title": "Inclus dans le prix",
+          "included_description": "Transferts (sur demande), frais de parc national (selon l'itinéraire), bière, vin, spiritueux. Déjeuner et dîner (cuisine thaïlandaise) : 500 bahts par personne et par repas. Veuillez nous faire part de vos préférences et nous provisionnerons le bateau en conséquence.",
+          "not_included_title": "Non inclus dans le prix",
+          "not_included_description": "Location de bateau avec capitaine, assistant et guide professionnel anglophone, carburant, canot semi-rigide pour 5 à 6 personnes avec moteur 18 CV, barbecue, matériel de pêche et paddleboard, fruits frais, sodas, eau. Petit-déjeuner (thé, café, pain grillé, omelette).\n\n",
+          "pricing_cards_0_title": "Très haute saison",
+          "pricing_cards_0_subtitle": "Taux de période de pointe",
+          "pricing_cards_0_price": "39 000",
+          "pricing_cards_0_currency": "THB",
+          "pricing_cards_0_cycle": "par jour",
+          "pricing_cards_0_label": "Période:",
+          "pricing_cards_0_more_text": "15 déc. 2025 - 15 janv. 2026",
+          "pricing_cards_1_title": "Haute Saison",
+          "pricing_cards_1_subtitle": "Taux de la période de prime",
+          "pricing_cards_1_price": "31 000",
+          "pricing_cards_1_currency": "THB",
+          "pricing_cards_1_cycle": "par jour",
+          "pricing_cards_1_label": "Étiquette",
+          "pricing_cards_1_more_text": "15 oct. - 14 déc. 2025\n15 janv. - 31 mars 2026",
+          "pricing_cards_2_title": "Basse saison",
+          "pricing_cards_2_subtitle": "Tarifs les plus avantageux",
+          "pricing_cards_2_price": "28 000",
+          "pricing_cards_2_currency": "THB",
+          "pricing_cards_2_cycle": "par jour",
+          "pricing_cards_2_label": "Période:",
+          "pricing_cards_2_more_text": "1er avr. - 14 oct. 2026\n\n",
+          "pickup_times_0_time": "8:30",
+          "pickup_times_0_location": "de Tubkeak",
+          "pickup_times_0_price": "+1 300 bahts",
+          "pickup_times_1_time": "8:30",
+          "pickup_times_1_location": "de Thalane",
+          "pickup_times_1_price": "+1 800 bahts",
+          "pickup_times_2_time": "8h40",
+          "pickup_times_2_location": "de Klong Mueang",
+          "pickup_times_2_price": "+1 000 bahts",
+          "pickup_times_3_time": "8:45",
+          "pickup_times_3_location": "d'Ao Nang",
+          "pickup_times_3_price": "Pas de frais supplémentaires",
+          "pickup_times_4_time": "9:00",
+          "pickup_times_4_location": "de Railay",
+          "pickup_times_4_price": "Pas de frais supplémentaires"
+        },
+        "es": {
+          "title": "Precios de temporada",
+          "subtitle": "Tarifa diaria para un mínimo de 2 días y 1 noche. Capacidad máxima: 8 adultos.",
+          "pickup_title": "Horarios de recogida y recargos por transferencia",
+          "included_title": "Incluido en el precio",
+          "included_description": "Traslados (bajo petición), tarifas del parque nacional (dependiendo del itinerario), cerveza, vino, licores. Almuerzo y cena (cocina tailandesa): 500 Baht por persona por comida. Por favor, háganos saber sus preferencias y aprovisionaremos el barco en consecuencia.",
+          "not_included_title": "No incluido en el precio",
+          "not_included_description": "Alquiler de barcos con capitán, asistente y guía profesional de habla inglesa, combustible, bote semirrígido para 5 a 6 personas con motor de 18 HP, barbacoa, equipo de pesca y tabla de remo, fruta fresca, refrescos, agua. Desayuno (té, café, tostadas, tortilla).",
+          "pricing_cards_0_title": "Muy alta temporada",
+          "pricing_cards_0_subtitle": "Tasas de periodo pico",
+          "pricing_cards_0_price": "39.000",
+          "pricing_cards_0_currency": "THB",
+          "pricing_cards_0_cycle": "al día",
+          "pricing_cards_0_label": "de pago:",
+          "pricing_cards_0_more_text": "15 de diciembre de 2025 - 15 de enero de 2026",
+          "pricing_cards_1_title": "Temporada Alta",
+          "pricing_cards_1_subtitle": "Tarifas del periodo premium",
+          "pricing_cards_1_price": "31 000",
+          "pricing_cards_1_currency": "THB",
+          "pricing_cards_1_cycle": "al día",
+          "pricing_cards_1_label": "Etiqueta",
+          "pricing_cards_1_more_text": "Del 15 de octubre al 14 de diciembre de 2025\nDel 15 de enero al 31 de marzo de 2026",
+          "pricing_cards_2_title": "Temporada Baja",
+          "pricing_cards_2_subtitle": "Mejores tarifas de valor",
+          "pricing_cards_2_price": "28.000",
+          "pricing_cards_2_currency": "THB",
+          "pricing_cards_2_cycle": "al día",
+          "pricing_cards_2_label": "de pago:",
+          "pricing_cards_2_more_text": "Del 1 de abril al 14 de octubre de 2026\n\n",
+          "pickup_times_0_time": "8:30",
+          "pickup_times_0_location": "de Tubkeak",
+          "pickup_times_0_price": "+1.300 Baht",
+          "pickup_times_1_time": "8:30",
+          "pickup_times_1_location": "de talano",
+          "pickup_times_1_price": "+1.800 Baht",
+          "pickup_times_2_time": "8:00",
+          "pickup_times_2_location": "de Klong Mueang",
+          "pickup_times_2_price": "+1.000 Baht",
+          "pickup_times_3_time": "8:45",
+          "pickup_times_3_location": "de Ao Nang",
+          "pickup_times_3_price": "Sin tarifa adicional",
+          "pickup_times_4_time": "9:00",
+          "pickup_times_4_location": "de Railay",
+          "pickup_times_4_price": "Sin tarifa adicional"
+        }
+      },
+      "legacy": {
+        "blockId": 373,
+        "createdAt": "2025-10-15T16:58:12.028Z",
+        "updatedAt": "2025-10-16T10:20:15.450Z",
+        "columns": {
+          "background_color": "white"
+        }
+      }
+    },
+    {
+      "id": "custom_tour_form_1760538281024",
+      "type": "custom_tour_form",
+      "order": 19,
+      "active": true,
+      "props": {
+        "title": "Custom Quote Request",
+        "subtitle": "Fill out the form below and we will contact you within 24 hours.",
+        "ctaStyle": "primary",
+        "formId": 8,
+        "titleColor": "#1f2937",
+        "dividerColor": "#3BA8AF",
+        "subtitleColor": "#374151",
+        "backgroundColor": "#f9fafb"
+      },
+      "i18n": {
+        "fr": {
+          "title": "Demande de devis",
+          "subtitle": "Remplissez le formulaire ci-dessous et nous vous contacterons dans les 24h. "
+        },
+        "es": {
+          "title": "Solicitud de presupuesto personalizado",
+          "subtitle": "Rellene el siguiente formulario y nos pondremos en contacto con usted en un plazo de 24 horas."
+        }
+      },
+      "legacy": {
+        "blockId": 371,
+        "createdAt": "2025-10-15T14:24:41.860Z",
+        "updatedAt": "2025-10-16T10:20:33.746Z",
+        "columns": {
+          "background_color": "white"
+        }
+      }
+    }
+  ],
+  "sitemap": {
+    "include": true,
+    "changefreq": "weekly",
+    "priority": 0.7
+  },
+  "legacy": {
+    "pageId": 58,
+    "createdAt": "2025-10-14T14:33:01.042Z",
+    "updatedAt": "2025-10-16T00:48:40.518Z"
+  }
+}

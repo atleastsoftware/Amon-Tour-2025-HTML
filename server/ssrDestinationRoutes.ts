@@ -47,7 +47,7 @@ type Destination = {
  * Destination data
  * ────────────────────────────────────────────────────────────────────────── */
 
-const DESTINATIONS: Destination[] = [
+export const DESTINATIONS: Destination[] = [
   /* ── 1. Agence francophone Krabi ─────────────────────────────────────── */
   {
     slug: "agence-francophone-krabi",

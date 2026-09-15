@@ -1,0 +1,212 @@
+[
+  {
+    "id": 4,
+    "name": "Adventure",
+    "slug": "adventure"
+  },
+  {
+    "id": 5,
+    "name": "Beach",
+    "slug": "beach"
+  },
+  {
+    "id": 6,
+    "name": "Food",
+    "slug": "food"
+  },
+  {
+    "id": 7,
+    "name": "Photography",
+    "slug": "photography"
+  },
+  {
+    "id": 8,
+    "name": "Krabi",
+    "slug": "krabi"
+  },
+  {
+    "id": 9,
+    "name": "Thailand",
+    "slug": "thailand"
+  },
+  {
+    "id": 10,
+    "name": "Thailand Travel",
+    "slug": "thailand-travel"
+  },
+  {
+    "id": 11,
+    "name": "Krabi Guide",
+    "slug": "krabi-guide"
+  },
+  {
+    "id": 12,
+    "name": "Phi Phi Islands",
+    "slug": "phi-phi-islands"
+  },
+  {
+    "id": 13,
+    "name": "Railay Beach",
+    "slug": "railay-beach"
+  },
+  {
+    "id": 14,
+    "name": "Ao Nang",
+    "slug": "ao-nang"
+  },
+  {
+    "id": 15,
+    "name": "4 Islands Tour",
+    "slug": "4-islands-tour"
+  },
+  {
+    "id": 16,
+    "name": "Hong Island",
+    "slug": "hong-island"
+  },
+  {
+    "id": 17,
+    "name": "Maya Bay",
+    "slug": "maya-bay"
+  },
+  {
+    "id": 18,
+    "name": "Krabi Beaches",
+    "slug": "krabi-beaches"
+  },
+  {
+    "id": 19,
+    "name": "Krabi Tours",
+    "slug": "krabi-tours"
+  },
+  {
+    "id": 20,
+    "name": "Snorkeling",
+    "slug": "snorkeling"
+  },
+  {
+    "id": 21,
+    "name": "Free Diving",
+    "slug": "free-diving"
+  },
+  {
+    "id": 22,
+    "name": "Kayak",
+    "slug": "kayak"
+  },
+  {
+    "id": 23,
+    "name": "Climbing",
+    "slug": "climbing"
+  },
+  {
+    "id": 24,
+    "name": "Tours Krabi",
+    "slug": "tours-krabi"
+  },
+  {
+    "id": 25,
+    "name": "What to do Krabi",
+    "slug": "what-to-do-krabi"
+  },
+  {
+    "id": 26,
+    "name": "Krabi Accommodations",
+    "slug": "krabi-accommodations"
+  },
+  {
+    "id": 27,
+    "name": "Krabi Restaurants",
+    "slug": "krabi-restaurants"
+  },
+  {
+    "id": 28,
+    "name": "Travel Tips",
+    "slug": "travel-tips-tag"
+  },
+  {
+    "id": 29,
+    "name": "Krabi Budget",
+    "slug": "krabi-budget"
+  },
+  {
+    "id": 30,
+    "name": "Thailand Seasons",
+    "slug": "thailand-seasons"
+  },
+  {
+    "id": 31,
+    "name": "Nightlife",
+    "slug": "nightlife"
+  },
+  {
+    "id": 32,
+    "name": "Thai Culture",
+    "slug": "thai-culture"
+  },
+  {
+    "id": 33,
+    "name": "Temples",
+    "slug": "temples"
+  },
+  {
+    "id": 34,
+    "name": "Markets",
+    "slug": "markets"
+  },
+  {
+    "id": 35,
+    "name": "Street food",
+    "slug": "street-food"
+  },
+  {
+    "id": 36,
+    "name": "Seafood",
+    "slug": "seafood"
+  },
+  {
+    "id": 37,
+    "name": "Family Activities",
+    "slug": "family-activities"
+  },
+  {
+    "id": 38,
+    "name": "Romantic",
+    "slug": "romantic"
+  },
+  {
+    "id": 39,
+    "name": "Adventure Activities",
+    "slug": "adventure-activities"
+  },
+  {
+    "id": 40,
+    "name": "Nature",
+    "slug": "nature"
+  },
+  {
+    "id": 41,
+    "name": "Travel Photography",
+    "slug": "travel-photography"
+  },
+  {
+    "id": 42,
+    "name": "Sunsets",
+    "slug": "sunsets"
+  },
+  {
+    "id": 100,
+    "name": "Krabi Weather",
+    "slug": "krabi-weather"
+  },
+  {
+    "id": 101,
+    "name": "When to Go",
+    "slug": "when-to-go"
+  },
+  {
+    "id": 102,
+    "name": "Trip Planning",
+    "slug": "trip-planning"
+  }
+]

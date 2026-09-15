@@ -1,0 +1,26 @@
+[
+  {
+    "from": "/tour-details/:id",
+    "to": "/tour-detail/:id",
+    "status": 301,
+    "note": "legacy alias kept by the SPA"
+  },
+  {
+    "from": "/booking",
+    "to": "/tours",
+    "status": 301,
+    "note": "Stripe booking flow retired; bookings go through Tour Ninja"
+  },
+  {
+    "from": "/cart",
+    "to": "/tours",
+    "status": 301,
+    "note": "cart retired; bookings go through Tour Ninja"
+  },
+  {
+    "from": "/payment-complete",
+    "to": "/tours",
+    "status": 301,
+    "note": "payment flow retired"
+  }
+]

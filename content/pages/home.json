@@ -1,0 +1,687 @@
+{
+  "slug": "home",
+  "path": "/",
+  "name": "Home",
+  "type": "main",
+  "active": true,
+  "customCode": false,
+  "seo": {
+    "en": {}
+  },
+  "sections": [
+    {
+      "id": "hero_1760097856557",
+      "type": "hero",
+      "order": 11,
+      "active": true,
+      "props": {
+        "title": "Your exclusive \nexperiences\nin Krabi – THAILAND",
+        "subtitle": "Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.",
+        "description": "Hero section",
+        "ctaStyle": "primary",
+        "backgroundColor": "white",
+        "ctaUrl": "",
+        "buttons": [
+          {
+            "url": "/tours",
+            "text": "See our offers",
+            "color": "#084F6E",
+            "style": "filled",
+            "textColor": "#ffffff"
+          },
+          {
+            "url": "/custom-tour",
+            "text": "Custom your trip",
+            "color": "#084F6E",
+            "style": "filled",
+            "textColor": "#ffffff"
+          }
+        ],
+        "ctaText": "",
+        "overlay": true,
+        "heroSize": "grande",
+        "videoUrl": "/attached_assets/hero-video-optimized.mp4",
+        "titleColor": "#ffffff",
+        "hasAnimation": true,
+        "backgroundType": "video",
+        "backgroundImage": "",
+        "titleAccentText": "in Krabi –",
+        "contentAlignment": "left",
+        "titleAccentColor": "#084F6E"
+      },
+      "i18n": {
+        "fr": {
+          "title": "Vos expériences\nexclusives à Krabi  \nTHAÏLANDE",
+          "subtitle": "Découvrez des endroits incroyables loin du tourisme de masse à Krabi.\nEt aussi Khao Sok, Koh Mook et bien d'autres destinations.",
+          "title_accent": "à Krabi",
+          "buttons_0_text": "Voir nos offres",
+          "buttons_1_text": "Personnalisez votre voyage"
+        },
+        "es": {
+          "title": "Tus experiencias \nexclusivas en \nKrabi - TAILANDIA",
+          "subtitle": "Descubre lugares increíbles alejados del turismo de masas en Krabi.\nY también Khao Sok, Koh Mook y muchos destinos más.",
+          "title_accent": "Krabi -",
+          "buttons_0_text": "Ver nuestras ofertas",
+          "buttons_1_text": "Personaliza tu viaje"
+        }
+      },
+      "legacy": {
+        "blockId": 199,
+        "createdAt": "2025-10-10T12:04:16.576Z",
+        "updatedAt": "2025-12-10T00:53:47.776Z"
+      }
+    },
+    {
+      "id": "text_1760111834681",
+      "type": "text",
+      "order": 32,
+      "active": true,
+      "props": {
+        "title": "When expats welcome you in their host country",
+        "ctaStyle": "primary",
+        "content": "Since 2013, our family-run travel agency has been curating exclusive activities around Krabi and designing tailor-made trips all across Thailand. We aim to deliver immersive travel experiences, away from mass tourism, with personalized service for every traveler — welcoming you as part of our family or close friends.",
+        "titleColor": "#1f2937",
+        "contentColor": "#374151",
+        "dividerColor": "#3BA8AF",
+        "backgroundColor": "#ffffff"
+      },
+      "i18n": {
+        "fr": {
+          "title": "Quand les expatriés vous accueillent dans leur pays d'accueil",
+          "description": "Depuis 2013, notre agence de voyages familiale organise des activités exclusives autour de Krabi et conçoit des voyages sur mesure dans toute la Thaïlande. Nous visons à offrir des expériences de voyage immersives, loin du tourisme de masse, avec un service personnalisé pour chaque voyageur, en vous accueillant dans le cadre de notre famille ou de nos amis proches."
+        },
+        "es": {
+          "title": "Cuando los expatriados te reciben en su país de acogida",
+          "description": "Desde 2013, nuestra agencia de viajes familiar organiza actividades exclusivas en Krabi y diseña viajes a medida por toda Tailandia. Nuestro objetivo es ofrecer experiencias de viaje inmersivas, lejos del turismo masivo, con un servicio personalizado para cada viajero, dándole la bienvenida como parte de nuestra familia o amigos cercanos."
+        }
+      },
+      "legacy": {
+        "blockId": 205,
+        "createdAt": "2025-10-10T15:57:14.698Z",
+        "updatedAt": "2025-12-01T13:01:26.824Z",
+        "columns": {
+          "background_color": "white"
+        }
+      }
+    },
+    {
+      "id": "popular_experiences_1760209007780",
+      "type": "popular_experiences",
+      "order": 53,
+      "active": false,
+      "props": {
+        "title": "Our exclusive experiences",
+        "subtitle": "Explore our finest experiences in Krabi, all guaranteed off the beaten path: private and semi-private sea tours, unique land excursions (kayaking through mangroves, waterfalls, tropical jungle, centuries-old trees, temples, karst caves, natural pools), and exclusive 2-day / 1-night packages.",
+        "ctaStyle": "primary",
+        "buttonUrl": "/tours",
+        "buttonText": "Tours & Experiences",
+        "cardsColor": "#084F6E",
+        "showAllAds": false,
+        "titleColor": "#1f2937",
+        "dividerColor": "#3BA8AF",
+        "mobileColumns": 1,
+        "subtitleColor": "#374151",
+        "tabletColumns": 2,
+        "categoryFilter": "all",
+        "desktopColumns": 3,
+        "backgroundColor": "#ffffff",
+        "cardButtonColor": "#084F6E",
+        "displayCountMobile": 4,
+        "displayCountTablet": 4,
+        "displayCountDesktop": 6
+      },
+      "i18n": {
+        "fr": {
+          "title": "Expériences uniques",
+          "subtitle": "Explorez nos plus belles expériences à Krabi, toutes garanties hors des sentiers battus : excursions en mer privées et semi-privées, excursions terrestres uniques (kayak à travers les mangroves, les cascades, la jungle tropicale, les arbres centenaires, les temples, les grottes karstiques, les piscines naturelles) et forfaits exclusifs de 2 jours / 1 nuit.",
+          "button_text": "Tours et expériences"
+        },
+        "es": {
+          "title": "Experiencias exclusivas",
+          "subtitle": "Explore nuestras mejores experiencias en Krabi, todas garantizadas fuera de lo común: excursiones marítimas privadas y semiprivadas, excursiones terrestres únicas (kayak a través de manglares, cascadas, selva tropical, árboles centenarios, templos, cuevas kársticas, piscinas naturales) y paquetes exclusivos de 2 días / 1 noche.",
+          "button_text": "Tours y Experiencias"
+        }
+      },
+      "legacy": {
+        "blockId": 247,
+        "createdAt": "2025-10-11T18:56:47.798Z",
+        "updatedAt": "2025-12-06T05:27:28.355Z",
+        "columns": {
+          "background_color": "white"
+        }
+      }
+    },
+    {
+      "id": "tour_ninja_section_1768984287633",
+      "type": "tour_ninja_section",
+      "order": 63,
+      "active": false,
+      "props": {
+        "ctaStyle": "primary",
+        "title": "Titre de la section",
+        "subtitle": "Description de votre grille de cartes avec prix.",
+        "buttonUrl": "",
+        "buttonText": "Bouton",
+        "cardsColor": "#084F6E",
+        "showAllAds": false,
+        "titleColor": "#333333",
+        "buttonStyle": "solid",
+        "dividerColor": "#3BA8AF",
+        "mobileColumns": 1,
+        "subtitleColor": "#666666",
+        "tabletColumns": 2,
+        "categoryFilter": "all",
+        "desktopColumns": 3,
+        "backgroundColor": "#ffffff",
+        "buttonTextColor": "#ffffff",
+        "cardButtonColor": "#084F6E",
+        "displayCountMobile": 4,
+        "displayCountTablet": 4,
+        "displayCountDesktop": 6,
+        "buttonBackgroundColor": "#084F6E"
+      },
+      "legacy": {
+        "blockId": 440,
+        "createdAt": "2026-01-21T08:31:27.653Z",
+        "updatedAt": "2026-01-21T08:31:27.726Z",
+        "columns": {
+          "title": "Card Grid Price",
+          "background_color": "white"
+        }
+      }
+    },
+    {
+      "id": "popular_experiences_1764997919699",
+      "type": "popular_experiences",
+      "order": 64,
+      "active": true,
+      "props": {
+        "title": "Our Private Boat Trip",
+        "subtitle": "Discover of beauty of Krabi islands and Phang Nga by catamaran, speedboat or longtail boat",
+        "ctaStyle": "primary",
+        "buttonUrl": "/tours",
+        "buttonText": "See all our trips",
+        "cardsColor": "#084F6E",
+        "showAllAds": false,
+        "titleColor": "#333333",
+        "buttonStyle": "solid",
+        "dividerColor": "#3BA8AF",
+        "mobileColumns": 1,
+        "subtitleColor": "#666666",
+        "tabletColumns": 2,
+        "categoryFilter": "custom",
+        "desktopColumns": 3,
+        "backgroundColor": "#ffffff",
+        "buttonTextColor": "#ffffff",
+        "cardButtonColor": "#084F6E",
+        "selectedTourIds": [
+          "VNbDPiuZIN",
+          "NHCwbWtgGY",
+          "JfgH4lC6Ik",
+          "IGdQFbdKFF",
+          "9Pw3V8MEX3",
+          "8avSq-g3eQ",
+          "t1k3AxM19B",
+          "Wmx1GcKCGO"
+        ],
+        "displayCountMobile": 4,
+        "displayCountTablet": 4,
+        "displayCountDesktop": 6,
+        "buttonBackgroundColor": "#084F6E"
+      },
+      "legacy": {
+        "blockId": 437,
+        "createdAt": "2025-12-06T05:11:59.719Z",
+        "updatedAt": "2026-01-21T08:31:27.676Z",
+        "columns": {
+          "background_color": "white"
+        }
+      }
+    },
+    {
+      "id": "popular_experiences_1764998197497",
+      "type": "popular_experiences",
+      "order": 65,
+      "active": true,
+      "props": {
+        "title": "Our Private Land Trip",
+        "subtitle": "Amon Tour offers private land excursions in Krabi, fully tailored to your preferences. Unique activities, professional guides (French-speaking available), preserved locations, eco-friendly approach, and flexible organization for an authentic, seamless experience.",
+        "ctaStyle": "primary",
+        "buttonUrl": "/tours",
+        "buttonText": "See all our trips",
+        "cardsColor": "#084F6E",
+        "showAllAds": false,
+        "titleColor": "#333333",
+        "buttonStyle": "solid",
+        "dividerColor": "#3BA8AF",
+        "mobileColumns": 1,
+        "subtitleColor": "#666666",
+        "tabletColumns": 2,
+        "categoryFilter": "custom",
+        "desktopColumns": 3,
+        "backgroundColor": "#ffffff",
+        "buttonTextColor": "#ffffff",
+        "cardButtonColor": "#084F6E",
+        "selectedTourIds": [
+          "CeNxYxqbXm",
+          "Bh9zKvN-Qm",
+          "-Yzd7eCHa1",
+          "LNoTTn_o0U",
+          "uSngHanqFr"
+        ],
+        "displayCountMobile": 4,
+        "displayCountTablet": 4,
+        "displayCountDesktop": 6,
+        "buttonBackgroundColor": "#084F6E"
+      },
+      "legacy": {
+        "blockId": 438,
+        "createdAt": "2025-12-06T05:16:37.660Z",
+        "updatedAt": "2026-01-21T08:31:27.676Z",
+        "columns": {
+          "background_color": "white"
+        }
+      }
+    },
+    {
+      "id": "popular_experiences_1764998428617",
+      "type": "popular_experiences",
+      "order": 66,
+      "active": true,
+      "props": {
+        "title": "Our Semi-Private Boat Trip",
+        "subtitle": "Small-group excursions offering private-level comfort, a friendly atmosphere, and exclusive routes away from the crowds.",
+        "ctaStyle": "primary",
+        "buttonUrl": "/tours",
+        "buttonText": "See all our trips",
+        "cardsColor": "#084F6E",
+        "showAllAds": false,
+        "titleColor": "#333333",
+        "buttonStyle": "solid",
+        "dividerColor": "#3BA8AF",
+        "mobileColumns": 1,
+        "subtitleColor": "#666666",
+        "tabletColumns": 2,
+        "categoryFilter": "custom",
+        "desktopColumns": 3,
+        "backgroundColor": "#ffffff",
+        "buttonTextColor": "#ffffff",
+        "cardButtonColor": "#084F6E",
+        "selectedTourIds": [
+          "L2gHLJBUhJ",
+          "FpfTOQaGAG",
+          "PIGyavyKHL"
+        ],
+        "displayCountMobile": 4,
+        "displayCountTablet": 4,
+        "displayCountDesktop": 6,
+        "buttonBackgroundColor": "#084F6E"
+      },
+      "legacy": {
+        "blockId": 439,
+        "createdAt": "2025-12-06T05:20:28.637Z",
+        "updatedAt": "2026-01-21T08:31:27.676Z",
+        "columns": {
+          "background_color": "white"
+        }
+      }
+    },
+    {
+      "id": "popular_experiences_1763367381606",
+      "type": "popular_experiences",
+      "order": 67,
+      "active": true,
+      "props": {
+        "title": "Our Exclusive Packages",
+        "subtitle": "Discover our exclusive 2–3 day packages: immersive experiences, carefully selected activities, and charming accommodations away from the crowds. Perfect for exploring Krabi in depth, these short stays combine comfort, authenticity, and personalized support, allowing you to experience Thailand differently and with complete peace of mind.",
+        "ctaStyle": "primary",
+        "buttonUrl": "/tours",
+        "buttonText": "See all our trips",
+        "cardsColor": "#084F6E",
+        "showAllAds": false,
+        "titleColor": "#333333",
+        "buttonStyle": "solid",
+        "dividerColor": "#3BA8AF",
+        "mobileColumns": 1,
+        "subtitleColor": "#666666",
+        "tabletColumns": 2,
+        "categoryFilter": "multi_day",
+        "desktopColumns": 3,
+        "backgroundColor": "#ffffff",
+        "buttonTextColor": "#ffffff",
+        "cardButtonColor": "#084F6E",
+        "displayCountMobile": 19,
+        "displayCountTablet": 19,
+        "displayCountDesktop": 19,
+        "buttonBackgroundColor": "#084F6E"
+      },
+      "i18n": {
+        "fr": {
+          "title": "Nos forfaits exclusifs",
+          "subtitle": "Découvrez nos forfaits exclusifs de 2 à 3 jours : expériences immersives, activités soigneusement sélectionnées et hébergements de charme loin de la foule. Parfait pour explorer Krabi en profondeur, ces courts séjours allient confort, authenticité et soutien personnalisé, vous permettant de découvrir la Thaïlande différemment et en toute tranquillité d'esprit.",
+          "button_text": "Tours et expériences"
+        },
+        "es": {
+          "title": "\" Programas exclusivos.",
+          "subtitle": "Descubre nuestros exclusivos paquetes de 2-3 días: experiencias inmersivas, actividades cuidadosamente seleccionadas y alojamientos encantadores lejos de las multitudes. Perfecto para explorar Krabi en profundidad, estas estancias cortas combinan comodidad, autenticidad y atención personalizada, lo que te permite experimentar Tailandia de manera diferente y con total tranquilidad.",
+          "button_text": "Tours y experiencias"
+        }
+      },
+      "legacy": {
+        "blockId": 433,
+        "createdAt": "2025-11-17T08:16:21.624Z",
+        "updatedAt": "2026-01-21T08:31:27.676Z",
+        "columns": {
+          "background_color": "white"
+        }
+      }
+    },
+    {
+      "id": "custom_tour_form_1760210923902",
+      "type": "custom_tour_form",
+      "order": 68,
+      "active": true,
+      "props": {
+        "title": "Our Tailor-made trips",
+        "subtitle": "Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.",
+        "ctaStyle": "primary",
+        "formId": 2,
+        "titleColor": "#1f2937",
+        "dividerColor": "#3BA8AF",
+        "subtitleColor": "#374151",
+        "backgroundColor": "#ffffff"
+      },
+      "i18n": {
+        "fr": {
+          "title": "Nos voyages sur mesure",
+          "subtitle": "Concevez votre propre voyage à travers la Thaïlande avec nos séjours sur mesure : des découvertes culturelles et des aventures familiales aux escapades romantiques et aux escapades sur l'île. Chaque itinéraire est conçu pour répondre à vos souhaits, offrant des expériences authentiques, des services de qualité et une immersion unique loin du tourisme de masse."
+        },
+        "es": {
+          "title": "Viajes a medida.",
+          "subtitle": "Diseña tu propio viaje por Tailandia con nuestras estancias a medida: desde descubrimientos culturales y aventuras familiares hasta escapadas románticas y escapadas a la isla. Cada itinerario está diseñado para satisfacer tus deseos, ofreciendo experiencias auténticas, servicios de calidad y una inmersión única lejos del turismo de masas."
+        }
+      },
+      "legacy": {
+        "blockId": 252,
+        "createdAt": "2025-10-11T19:28:43.921Z",
+        "updatedAt": "2026-01-21T08:31:27.676Z",
+        "columns": {
+          "background_color": "white"
+        }
+      }
+    },
+    {
+      "id": "tour_ninja_section_1760264522491",
+      "type": "tour_ninja_section",
+      "order": 73,
+      "active": false,
+      "props": {
+        "title": "Some Ideas For Your Next Trip",
+        "subtitle": "Get inspired by our custom-designed travel experiences.",
+        "ctaStyle": "primary",
+        "buttonUrl": "/tours",
+        "buttonText": "Tours & Experiences",
+        "showAllAds": false,
+        "titleColor": "#1f2937",
+        "buttonStyle": "solid",
+        "dividerColor": "#3BA8AF",
+        "mobileColumns": 1,
+        "subtitleColor": "#374151",
+        "tabletColumns": 2,
+        "categoryFilter": "all",
+        "desktopColumns": 3,
+        "backgroundColor": "#f9fafb",
+        "buttonTextColor": "#ffffff",
+        "cardButtonColor": "#084F6E",
+        "displayCountMobile": 4,
+        "displayCountTablet": 4,
+        "displayCountDesktop": 6,
+        "buttonBackgroundColor": "#084F6E"
+      },
+      "i18n": {
+        "fr": {
+          "title": "Quelques idées pour votre prochain voyage",
+          "subtitle": "Laissez-vous inspirer par nos expériences de voyage personnalisées.",
+          "button_text": "Tours et expériences"
+        },
+        "es": {
+          "title": "Algunas ideas para tu próximo viaje",
+          "subtitle": "Inspírate con nuestras experiencias de viaje personalizadas.",
+          "button_text": "Tours y experiencias"
+        }
+      },
+      "legacy": {
+        "blockId": 255,
+        "createdAt": "2025-10-12T10:22:02.508Z",
+        "updatedAt": "2026-01-21T08:31:27.676Z",
+        "columns": {
+          "background_color": "white"
+        }
+      }
+    },
+    {
+      "id": "why_choose_us_1760267201660",
+      "type": "why_choose_us",
+      "order": 80,
+      "active": true,
+      "props": {
+        "title": "Why Choose Us",
+        "subtitle": "Experience an exclusive private day trip with our English or French-speaking and certified guides.",
+        "ctaStyle": "primary",
+        "iconBlocks": [
+          {
+            "id": 1,
+            "title": "Private Tours",
+            "mainIcon": "fas fa-user-friends",
+            "iconColor": "#084F6E",
+            "miniIcons": [
+              {
+                "icon": "fas fa-car",
+                "text": "Private Car"
+              },
+              {
+                "icon": "fas fa-language",
+                "text": "Guide"
+              },
+              {
+                "icon": "fas fa-shield-alt",
+                "text": "Nouveau"
+              }
+            ],
+            "description": "Experience an exclusive day trip with our professional guides and private vehicles."
+          },
+          {
+            "id": 2,
+            "title": "Customized Itineraries",
+            "mainIcon": "fas fa-compass",
+            "iconColor": "#3BA8AF",
+            "miniIcons": [
+              {
+                "icon": "fas fa-map-marked-alt",
+                "text": "Custom Route"
+              },
+              {
+                "icon": "fas fa-clock",
+                "text": "Flexible Time"
+              },
+              {
+                "icon": "fas fa-list-check",
+                "text": "Your Pace"
+              }
+            ],
+            "description": "Create your own journey based on your desires, your pace, and your interests."
+          },
+          {
+            "id": 3,
+            "title": "Authentic Experiences",
+            "mainIcon": "fas fa-star",
+            "iconColor": "#084F6E",
+            "miniIcons": [
+              {
+                "icon": "fas fa-utensils",
+                "text": "Local Food"
+              },
+              {
+                "icon": "fas fa-hands-helping",
+                "text": " Local People"
+              },
+              {
+                "icon": "fas fa-landmark",
+                "text": "Culture"
+              }
+            ],
+            "description": "Discover destinations off the beaten path and immerse yourself in the local culture."
+          }
+        ],
+        "titleColor": "#1f2937",
+        "dividerColor": "#3BA8AF",
+        "subtitleColor": "#374151",
+        "backgroundColor": "#ffffff"
+      },
+      "i18n": {
+        "fr": {
+          "title": "Pourquoi Nous Choisir",
+          "subtitle": "Vivez une excursion privée exclusive d'une journée avec nos guides certifiés anglophones ou francophones.",
+          "icon_blocks_0_title": "Tours privés",
+          "icon_blocks_0_description": "Vivez une excursion exclusive d'une journée avec nos guides professionnels et véhicules privés.",
+          "icon_blocks_0_mini_icons_0_text": "Voiture privée",
+          "icon_blocks_0_mini_icons_1_text": "Guide",
+          "icon_blocks_0_mini_icons_2_text": "Sécurité",
+          "icon_blocks_1_title": "Itinéraires personnalisés",
+          "icon_blocks_1_description": "Créez votre propre voyage basé sur vos désirs, votre rythme et vos intérêts.",
+          "icon_blocks_1_mini_icons_0_text": "Itinéraire sur mesure",
+          "icon_blocks_1_mini_icons_1_text": "Horaires flexibles",
+          "icon_blocks_1_mini_icons_2_text": "Votre rythme",
+          "icon_blocks_2_title": "Expériences authentiques",
+          "icon_blocks_2_description": "Découvrez des destinations hors des sentiers battus et immergez-vous dans la culture locale.",
+          "icon_blocks_2_mini_icons_0_text": "Cuisine locale",
+          "icon_blocks_2_mini_icons_1_text": "Population locale",
+          "icon_blocks_2_mini_icons_2_text": "Culture"
+        },
+        "es": {
+          "title": "Por qué Elegir a Nosotros",
+          "subtitle": "Disfruta de una excursión privada exclusiva de un día con nuestros guías certificados de habla inglesa o francesa.",
+          "icon_blocks_0_title": "Tours privados",
+          "icon_blocks_0_description": "Vive una excursión exclusiva de un día con nuestros guías profesionales y vehículos privados.",
+          "icon_blocks_0_mini_icons_0_text": "Coche privado",
+          "icon_blocks_0_mini_icons_1_text": "Guía",
+          "icon_blocks_0_mini_icons_2_text": "Seguridad",
+          "icon_blocks_1_title": "Itinerarios personalizados",
+          "icon_blocks_1_description": "Crea tu propio viaje basado en tus deseos, tu ritmo y tus intereses.",
+          "icon_blocks_1_mini_icons_0_text": "Ruta personalizada",
+          "icon_blocks_1_mini_icons_1_text": "Horario flexible",
+          "icon_blocks_1_mini_icons_2_text": "Tu ritmo",
+          "icon_blocks_2_title": "Experiencias auténticas",
+          "icon_blocks_2_description": "Descubre destinos fuera de los caminos trillados y sumérgete en la cultura local.",
+          "icon_blocks_2_mini_icons_0_text": "Comida local",
+          "icon_blocks_2_mini_icons_1_text": "Gente local",
+          "icon_blocks_2_mini_icons_2_text": "Cultura"
+        }
+      },
+      "legacy": {
+        "blockId": 259,
+        "createdAt": "2025-10-12T11:06:41.678Z",
+        "updatedAt": "2026-01-21T08:31:27.676Z",
+        "columns": {
+          "background_color": "white"
+        }
+      }
+    },
+    {
+      "id": "who_we_are_1760273103820",
+      "type": "who_we_are",
+      "order": 92,
+      "active": true,
+      "props": {
+        "title": "Who We Are",
+        "ctaStyle": "primary",
+        "images": [
+          {
+            "id": 1,
+            "alt": "",
+            "url": "/family-photo.png"
+          },
+          {
+            "alt": "",
+            "url": "/amon-tour-team.jpg"
+          }
+        ],
+        "buttons": [
+          {
+            "id": 1,
+            "url": "/contact",
+            "text": "Contact Us",
+            "color": "#084F6E",
+            "style": "filled",
+            "textColor": "#ffffff"
+          },
+          {
+            "id": 2,
+            "url": "/custom-tour",
+            "text": "Create Your Journey →",
+            "color": "#ffffff",
+            "style": "outline",
+            "textColor": "#084F6E"
+          }
+        ],
+        "sections": [
+          {
+            "text": "We live here year-round, in the heart of the region we love. This close connection to the destination allows us to offer exclusive experiences in Krabi, designed and guided by our team of professional local guides or trusted partners.\n\nYou are not booking a generic tour — you are being welcomed, guided, and cared for by people who live here, who know the tides, the seasons, the crowds to avoid, and the hidden gems worth discovering.",
+            "subtitle": "Deep Local Roots"
+          },
+          {
+            "text": "Combine the warmth and proximity of a local agency in Krabi with the expertise of a tailor-made travel designer for all of Thailand. At Amon Tour, you are supported before, during, and after your trip. You are in contact with real people – a face, a voice, a team – not a call center or an algorithm. We are here, on the ground, to make your trip a seamless, personal, and unforgettable experience.",
+            "subtitle": "Our Concept"
+          }
+        ],
+        "textColor": "#374151",
+        "titleColor": "#1f2937",
+        "layoutStyle": "right",
+        "dividerColor": "#374151",
+        "introduction": "We are Eric, Margaux, Gabriel, and Raphaël, a French family living in Krabi, southern Thailand, since 2013.\n\nFrom our life here, we created Amon Tour — a small, independent travel agency built on a simple idea: personally welcome our travelers to Krabi and offer them a different way to experience Thailand.",
+        "subtitleColor": "#1f2937",
+        "backgroundColor": "#ffffff"
+      },
+      "i18n": {
+        "fr": {
+          "title": "Qui sommes-nous",
+          "introduction": "Nous sommes Eric, Margaux, Gabriel et Raphaël, une famille française vivant à Krabi, dans le sud de la Thaïlande, depuis 2013.\n\nDe notre vie ici, nous avons créé Amon Tour, une petite agence de voyage indépendante construite sur une idée simple : accueillir personnellement nos voyageurs à Krabi et leur offrir une façon différente de découvrir la Thaïlande.",
+          "sections_0_subtitle": "Ancrage local",
+          "sections_0_text": "Nous vivons ici toute l'année, au cœur de la région que nous aimons. Ce lien étroit avec la destination nous permet d'offrir des expériences exclusives à Krabi, conçues et guidées par notre équipe de guides locaux professionnels ou de partenaires de confiance.\n\nVous ne réservez pas une visite générique : vous êtes accueilli, guidé et pris en charge par des personnes qui vivent ici, qui connaissent les marées, les saisons, les foules à éviter et les joyaux cachés qui valent la peine d'être découverts.",
+          "sections_1_subtitle": "Concept &amp; Principe",
+          "sections_1_text": "Combinez la chaleur et la proximité d'une agence locale à Krabi avec l'expertise d'un concepteur de voyages sur mesure pour toute la Thaïlande. Chez Amon Tour, vous bénéficiez d'une assistance avant, pendant et après votre voyage. Vous êtes en contact avec de vraies personnes - un visage, une voix, une équipe - pas un centre d'appels ou un algorithme. Nous sommes là, sur le terrain, pour faire de votre voyage une expérience fluide, personnelle et inoubliable.",
+          "buttons_0_text": "Nous contacter",
+          "buttons_1_text": "Créez votre parcours →"
+        },
+        "es": {
+          "title": "Quiénes somos",
+          "introduction": "Somos Eric, Margaux, Gabriel y Raphaël, una familia francesa que vive en Krabi, al sur de Tailandia, desde 2013.\n\nDe nuestra vida aquí, creamos Amon Tour, una pequeña agencia de viajes independiente basada en una idea simple: dar la bienvenida personalmente a nuestros viajeros a Krabi y ofrecerles una forma diferente de experimentar Tailandia.",
+          "sections_0_subtitle": "LAS RAÍCES DE UN PUEBLO",
+          "sections_0_text": "Vivimos aquí todo el año, en el corazón de la región que amamos. Esta estrecha conexión con el destino nos permite ofrecer experiencias exclusivas en Krabi, diseñadas y guiadas por nuestro equipo de guías locales profesionales o socios de confianza.\n\nNo estás reservando una excursión genérica: estás siendo recibido, guiado y cuidado por personas que viven aquí, que conocen las mareas, las estaciones, las multitudes que hay que evitar y las joyas ocultas que vale la pena descubrir.",
+          "sections_1_subtitle": "Nuestro concepto",
+          "sections_1_text": "Combina la calidez y la proximidad de una agencia local en Krabi con la experiencia de un diseñador de viajes a medida para toda Tailandia. En Amon Tour, te apoyamos antes, durante y después de tu viaje. Estás en contacto con personas reales: una cara, una voz, un equipo, no un centro de llamadas o un algoritmo. Estamos aquí, sobre el terreno, para hacer de tu viaje una experiencia fluida, personal e inolvidable.",
+          "buttons_0_text": "Contáctanos",
+          "buttons_1_text": "Crea tu viaje →"
+        }
+      },
+      "legacy": {
+        "blockId": 270,
+        "createdAt": "2025-10-12T12:45:03.837Z",
+        "updatedAt": "2026-01-21T08:31:27.676Z",
+        "columns": {
+          "background_color": "white"
+        }
+      }
+    }
+  ],
+  "sitemap": {
+    "include": true,
+    "changefreq": "daily",
+    "priority": 1
+  },
+  "legacy": {
+    "pageId": 1,
+    "createdAt": "2025-08-30T09:24:56.147Z",
+    "updatedAt": "2025-10-16T00:11:53.529Z"
+  }
+}

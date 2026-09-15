@@ -1,0 +1,105 @@
+{
+  "slug": "blog",
+  "path": "/blog",
+  "name": "Blog",
+  "type": "main",
+  "active": true,
+  "customCode": false,
+  "seo": {
+    "en": {}
+  },
+  "sections": [
+    {
+      "id": "header_page_1760426944426",
+      "type": "header_page",
+      "order": 3,
+      "active": true,
+      "props": {
+        "title": "Travel Blog",
+        "subtitle": "Discover the best of Krabi through our travel guides, tips, and local insights.",
+        "ctaStyle": "primary",
+        "backgroundColor": "white",
+        "buttons": [],
+        "iconUrl": "",
+        "imageUrl": "/attached_assets/790fc1de-1a62-4e19-93eb-f2529f131485_1757694001569.jpeg",
+        "frameSize": "small",
+        "iconColor": "#ffffff",
+        "titleColor": "#ffffff",
+        "subtitleColor": "#ffffff",
+        "backgroundType": "image",
+        "gradientColor1": "#084F6E",
+        "gradientColor2": "#3BA8AF"
+      },
+      "i18n": {
+        "fr": {
+          "title": "Blog de voyage",
+          "subtitle": "Découvrez le meilleur de Krabi grâce à nos guides de voyage, conseils et informations locales."
+        },
+        "es": {
+          "title": "Blog de viajes",
+          "subtitle": "Descubre lo mejor de Krabi a través de nuestras guías de viaje, consejos e información local."
+        }
+      },
+      "legacy": {
+        "blockId": 329,
+        "createdAt": "2025-10-14T07:29:04.542Z",
+        "updatedAt": "2025-10-14T14:18:18.746Z"
+      }
+    },
+    {
+      "id": "blog_search_1760450936393",
+      "type": "blog_search",
+      "order": 7,
+      "active": true,
+      "props": {
+        "title": "Search Bar: Blog",
+        "ctaStyle": "primary",
+        "cardColor": "#084F6E",
+        "tagsTitle": "Tags",
+        "allTagsText": "Tous les tags",
+        "tagButtonColor": "#3BA8AF",
+        "backgroundColor": "#ffffff",
+        "categoriesTitle": "Catégories",
+        "allCategoriesText": "Toutes les catégories",
+        "searchPlaceholder": "Rechercher des articles...",
+        "tagButtonTextColor": "#ffffff",
+        "categoryButtonColor": "#084F6E",
+        "categoryButtonTextColor": "#ffffff"
+      },
+      "i18n": {
+        "fr": {
+          "search_placeholder": "Rechercher des articles...",
+          "tags_title": "Étiquettes",
+          "categories_title": "Catégories",
+          "all_tags_text": "Tous les tags",
+          "all_categories_text": "Toutes les catégories"
+        },
+        "es": {
+          "search_placeholder": "Buscar artículos...",
+          "tags_title": "Etiquetas",
+          "categories_title": "Categorías",
+          "all_tags_text": "Todas las etiquetas",
+          "all_categories_text": "Todas las categorías"
+        }
+      },
+      "legacy": {
+        "blockId": 347,
+        "createdAt": "2025-10-14T14:08:56.508Z",
+        "updatedAt": "2025-10-16T03:22:20.396Z",
+        "columns": {
+          "background_color": "white"
+        }
+      }
+    }
+  ],
+  "sitemap": {
+    "include": true,
+    "changefreq": "weekly",
+    "priority": 0.6
+  },
+  "legacy": {
+    "pageId": 4,
+    "createdAt": "2025-08-30T09:24:56.858Z",
+    "updatedAt": "2025-08-30T09:26:35.210Z"
+  }
+}

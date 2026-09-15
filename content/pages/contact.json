@@ -1,0 +1,182 @@
+{
+  "slug": "contact",
+  "path": "/contact",
+  "name": "Contact",
+  "type": "main",
+  "active": true,
+  "customCode": false,
+  "seo": {
+    "en": {}
+  },
+  "sections": [
+    {
+      "id": "header_page_1760426996249",
+      "type": "header_page",
+      "order": 0,
+      "active": true,
+      "props": {
+        "title": "Contact Us",
+        "subtitle": "We're here to help you plan the perfect experience in Krabi.",
+        "ctaStyle": "primary",
+        "backgroundColor": "white",
+        "buttons": [],
+        "iconUrl": "",
+        "imageUrl": "/attached_assets/790fc1de-1a62-4e19-93eb-f2529f131485_1757694001569.jpeg",
+        "frameSize": "small",
+        "iconColor": "#ffffff",
+        "titleColor": "#ffffff",
+        "subtitleColor": "#ffffff",
+        "backgroundType": "image",
+        "gradientColor1": "#084F6E",
+        "gradientColor2": "#3BA8AF"
+      },
+      "i18n": {
+        "fr": {
+          "title": "Nous contacter",
+          "subtitle": "Nous sommes là pour vous aider à planifier l'expérience parfaite à Krabi."
+        },
+        "es": {
+          "title": "Contáctanos",
+          "subtitle": "Estamos aquí para ayudarte a planificar la experiencia perfecta en Krabi."
+        }
+      },
+      "legacy": {
+        "blockId": 330,
+        "createdAt": "2025-10-14T07:29:57.088Z",
+        "updatedAt": "2025-10-14T07:31:47.245Z"
+      }
+    },
+    {
+      "id": "contact_1760442350744",
+      "type": "contact",
+      "order": 4,
+      "active": true,
+      "props": {
+        "title": "Get In Touch",
+        "subtitle": "Ready to explore Krabi? Contact us through any of the methods below. Our friendly team is here to answer your questions and help you plan an unforgettable experience.",
+        "ctaStyle": "primary",
+        "email": "info@amon-tour.com",
+        "phone": "+66 9 62 16 65 59",
+        "lineId": "amontour",
+        "whatsapp": "+66 6 53 49 64 45",
+        "aboutTitle": "About Our Company",
+        "emailLabel": "Email",
+        "phoneLabel": "Téléphone",
+        "titleColor": "#1f2937",
+        "companyName": "Flame BB Co., Ltd.",
+        "lineIdLabel": "Line ID",
+        "companyBrand": "Amon Tour is a brand of:",
+        "dividerColor": "#3BA8AF",
+        "subtitleColor": "#374151",
+        "whatsappLabel": "WhatsApp",
+        "companyLicense": "34/01995",
+        "backgroundColor": "#ffffff",
+        "showAboutCompany": true,
+        "companyDescription": "We are a licensed tour operator based in Ao Nang, Krabi, specializing in authentic local experiences and personalized travel services."
+      },
+      "i18n": {
+        "fr": {
+          "title": "Contactez-nous",
+          "subtitle": "Prêt à explorer Krabi ? Contactez-nous par l'une des méthodes ci-dessous. Notre équipe amicale est là pour répondre à vos questions et vous aider à planifier une expérience inoubliable.",
+          "email_label": "Adresse e-mail",
+          "email": "info@amon-tour.com",
+          "phone_label": "Téléphone",
+          "phone": "+66 9 62 16 65 59",
+          "whatsapp_label": "WhatsApp",
+          "whatsapp": "+66 6 53 49 64 45",
+          "line_id_label": "ID Ligne",
+          "line_id": "amontour",
+          "about_title": "À PROPOS DE NOTRE SOCIÉTÉ",
+          "company_brand": "Amon Tour est une marque de :",
+          "company_name": "Flamme BB Co., Ltd.",
+          "company_license": "34/01995",
+          "company_description": "Nous sommes un voyagiste agréé basé à Ao Nang, Krabi, spécialisé dans les expériences locales authentiques et les services de voyage personnalisés."
+        },
+        "es": {
+          "title": "Póngase en contacto",
+          "subtitle": "¿Todo listo para explorar Krabi? Contáctenos a través de cualquiera de los métodos a continuación. Nuestro amable equipo está aquí para responder a tus preguntas y ayudarte a planificar una experiencia inolvidable.",
+          "email_label": "Correo electrónico",
+          "email": "info@amon-tour.com",
+          "phone_label": "Teléfono",
+          "phone": "+66 9 62 16 65 59",
+          "whatsapp_label": "WhatsApp",
+          "whatsapp": "+66 6 53 49 64 45",
+          "line_id_label": "Id línea unida",
+          "line_id": "amontour",
+          "about_title": "Sobre nuestra compañía",
+          "company_brand": "Amon Tour es una marca de:",
+          "company_name": "Llama BB Co., Ltd.",
+          "company_license": "34/01995",
+          "company_description": "Somos un operador turístico con licencia con sede en Ao Nang, Krabi, especializado en experiencias locales auténticas y servicios de viaje personalizados."
+        }
+      },
+      "legacy": {
+        "blockId": 340,
+        "createdAt": "2025-10-14T11:45:50.865Z",
+        "updatedAt": "2025-10-16T10:16:10.622Z",
+        "columns": {
+          "background_color": "white"
+        }
+      }
+    },
+    {
+      "id": "text_1760444728837",
+      "type": "text",
+      "order": 6,
+      "active": true,
+      "props": {
+        "title": "Ready to Start Your Adventure?",
+        "ctaStyle": "primary",
+        "buttons": [
+          {
+            "url": "https://api.whatsapp.com/send/?phone=66653496445&text&type=phone_number&app_absent=0",
+            "text": "Chat on WhatsApp",
+            "color": "#16a249",
+            "style": "filled",
+            "textColor": "#ffffff"
+          },
+          {
+            "url": "mailto:info@amon-tour.com",
+            "text": "Send us an Email",
+            "color": "#084F6E",
+            "style": "filled",
+            "textColor": "#ffffff"
+          }
+        ],
+        "content": "Whether you're looking for a private tour, custom itinerary, or have questions about Krabi, our local experts are ready to help you create unforgettable memories.",
+        "titleColor": "#1f2937",
+        "contentColor": "#374151",
+        "dividerColor": "#f5f5f4",
+        "backgroundColor": "#f5f5f4"
+      },
+      "i18n": {
+        "fr": {
+          "title": "Prêt à commencer votre aventure ?",
+          "description": "Que vous recherchiez une visite privée, un itinéraire personnalisé ou que vous ayez des questions sur Krabi, nos experts locaux sont prêts à vous aider à créer des souvenirs inoubliables."
+        },
+        "es": {
+          "title": "¿Todo listo para empezar tu aventura? ",
+          "description": "Ya sea que estés buscando un tour privado, un itinerario personalizado o tengas preguntas sobre Krabi, nuestros expertos locales están listos para ayudarte a crear recuerdos inolvidables."
+        }
+      },
+      "legacy": {
+        "blockId": 344,
+        "createdAt": "2025-10-14T12:25:29.660Z",
+        "updatedAt": "2025-10-16T10:16:28.433Z",
+        "columns": {
+          "background_color": "white"
+        }
+      }
+    }
+  ],
+  "sitemap": {
+    "include": true,
+    "changefreq": "monthly",
+    "priority": 0.5
+  },
+  "legacy": {
+    "pageId": 5,
+    "createdAt": "2025-08-30T09:24:56.934Z",
+    "updatedAt": "2025-08-30T09:26:35.285Z"
+  }
+}

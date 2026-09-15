@@ -1,0 +1,22 @@
+{
+  "slug": "villas-krabi",
+  "path": "/villas-krabi",
+  "name": "Villas Krabi",
+  "type": "secondary",
+  "active": true,
+  "customCode": true,
+  "seo": {
+    "en": {}
+  },
+  "sections": [],
+  "sitemap": {
+    "include": true,
+    "changefreq": "monthly",
+    "priority": 0.6
+  },
+  "legacy": {
+    "pageId": 38,
+    "createdAt": "2025-09-11T04:52:57.652Z",
+    "updatedAt": "2025-09-11T04:52:57.652Z"
+  }
+}

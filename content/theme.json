@@ -1,0 +1,253 @@
+{
+  "colors": {
+    "primary": "#084F6E",
+    "secondary": "#3BA8AF",
+    "background": "#ffffff",
+    "text": "#1a1a1a",
+    "textLight": "#6b7280",
+    "border": "#e5e7eb",
+    "backgroundFooter": "#000000",
+    "textFooter": "#ffffff",
+    "palette": {
+      "primary": "#1e73be",
+      "secondary": "#E6B64C",
+      "background": "#ffffff",
+      "text": "#1a1a1a",
+      "text_light": "#6b7280",
+      "success": "#10b981",
+      "warning": "#f59e0b",
+      "error": "#ef4444",
+      "border": "#e5e7eb",
+      "backgroundFooter": "#000000",
+      "textFooter": "#ffffff"
+    }
+  },
+  "typography": {
+    "headingFont": "Montserrat",
+    "bodyFont": "Lato",
+    "accentFont": "Inter",
+    "headingWeight": "600",
+    "bodyWeight": "400",
+    "baseSize": "16px",
+    "scale": "1.125",
+    "fontHeadingSetting": "Inter",
+    "fontBodySetting": "Inter"
+  },
+  "buttons": {
+    "primary_style": "rounded-lg",
+    "border_radius": "8px",
+    "shadow": "small",
+    "hover_effect": "scale",
+    "transition": "all 0.2s ease"
+  },
+  "backgrounds": {
+    "hero_bg": "linear-gradient(135deg, #1e73be 0%, #0c4a6e 100%)",
+    "page_bg": "#ffffff",
+    "footer_bg": "#000000",
+    "section_bg": "#f8fafc"
+  },
+  "logos": {
+    "header_logo": "/src/assets/logo-a.png",
+    "footer_logo": "/src/assets/logo-a.png",
+    "favicon": "/favicon.ico",
+    "logo_height": "48px"
+  },
+  "seoMeta": {
+    "site_title": "Amon Tour - Exclusive Thailand Travel Experience",
+    "tagline": "Discover the hidden gems of Krabi and southern Thailand",
+    "meta_description": "Exclusive Experiences in Thailand with Amon Tour. Discover Krabi hidden islands, local culture, and unforgettable adventures. Book your personalized Thai journey today.",
+    "meta_keywords": "Thailand travel, Krabi tours, authentic Thailand, island hopping, local culture, adventure tours",
+    "og_image": "/src/assets/hero-image.jpg"
+  },
+  "legacySettings": [
+    {
+      "section": "theme",
+      "key": "primary_color",
+      "value": "#084F6E",
+      "type": "color",
+      "isActive": true
+    },
+    {
+      "section": "theme",
+      "key": "secondary_color",
+      "value": "#3BA8AF",
+      "type": "color",
+      "isActive": true
+    },
+    {
+      "section": "theme",
+      "key": "font_heading",
+      "value": "Inter",
+      "type": "text",
+      "isActive": true
+    },
+    {
+      "section": "theme",
+      "key": "font_body",
+      "value": "Inter",
+      "type": "text",
+      "isActive": true
+    },
+    {
+      "section": "general",
+      "key": "site_title",
+      "value": "Amon Tour - Authentic Thailand Experiences",
+      "type": "text",
+      "isActive": true
+    },
+    {
+      "section": "general",
+      "key": "site_description",
+      "value": "Discover authentic Thailand with Amon Tour. Krabi-based travel experts offering unique experiences in Southern Thailand.",
+      "type": "text",
+      "isActive": true
+    },
+    {
+      "section": "navigation",
+      "key": "logo_url",
+      "value": "/attached_assets/logo.png",
+      "type": "text",
+      "isActive": true
+    },
+    {
+      "section": "navigation",
+      "key": "show_search",
+      "value": "true",
+      "type": "boolean",
+      "isActive": true
+    },
+    {
+      "section": "footer",
+      "key": "footer_contact_info",
+      "value": "[\n  {\"label\": \"Brand Introduction\", \"value\": \"Amon Tour is a brand of:\", \"style\": \"title\"},\n  {\"label\": \"Company Name\", \"value\": \"Flame BB Co., Ltd.\", \"style\": \"text\"},\n  {\"label\": \"Address\", \"value\": \"242 Moo1 Tombol Ao Nang\\\\n81180 Krabi, Thailand\", \"style\": \"address\"},\n  {\"label\": \"TAT License\", \"value\": \"TAT License: 34/01995\", \"style\": \"license_badge\"},\n  {\"label\": \"Email\", \"value\": \"info@amon-tour.com\", \"style\": \"email\"},\n  {\"label\": \"Operations Manager\", \"value\": \"Operations manager: +66 (0)6 2574 8788\", \"style\": \"phone_with_title\"},\n  {\"label\": \"Travel Advisor\", \"value\": \"Travel Advisor Manager: +66 (0)8 0463 4691\", \"style\": \"phone_with_title\"},\n  {\"label\": \"WhatsApp\", \"value\": \"WhatsApp: +66 65 349 6445\", \"style\": \"whatsapp\"},\n  {\"label\": \"LINE ID\", \"value\": \"Line ID: amontour\", \"style\": \"line\"}\n]",
+      "type": "json",
+      "isActive": true
+    },
+    {
+      "section": "footer",
+      "key": "footer_useful_links",
+      "value": "[\n  {\"text\": \"Our brochure\", \"url\": \"/brochure\", \"isPage\": true},\n  {\"text\": \"Krabi Celebration\", \"url\": \"/krabi-celebration\", \"isPage\": true},\n  {\"text\": \"Fun Garden\", \"url\": \"https://www.facebook.com/thefungardenkrabi/\", \"isPage\": false},\n  {\"text\": \"Villas in Krabi\", \"url\": \"/villas-krabi\", \"isPage\": true},\n  {\"text\": \"Become Partner\", \"url\": \"/become-partner\", \"isPage\": true},\n  {\"text\": \"Group & Corporate\", \"url\": \"/group-corporate\", \"isPage\": true}\n]",
+      "type": "json",
+      "isActive": true
+    },
+    {
+      "section": "footer",
+      "key": "footer_social_media",
+      "value": "[\n  {\"name\": \"Facebook\", \"url\": \"https://web.facebook.com/amontourthailand\", \"icon\": \"facebook-f\"},\n  {\"name\": \"Instagram\", \"url\": \"https://www.instagram.com/amontourthailand/\", \"icon\": \"instagram\"},\n  {\"name\": \"YouTube\", \"url\": \"https://www.youtube.com/@amontour4949\", \"icon\": \"youtube\"}\n]",
+      "type": "json",
+      "isActive": true
+    },
+    {
+      "section": "footer",
+      "key": "footer_newsletter",
+      "value": "{\"enabled\": true, \"title\": \"Newsletter\", \"description\": \"Subscribe to receive our special offers and travel tips.\", \"placeholder\": \"Your email\", \"buttonText\": \"Subscribe\", \"privacyText\": \"We respect your privacy. Unsubscribe at any time.\"}",
+      "type": "json",
+      "isActive": true
+    },
+    {
+      "section": "theme",
+      "key": "color_palette",
+      "value": "{\"primary\":\"#1e73be\",\"secondary\":\"#E6B64C\",\"background\":\"#ffffff\",\"text\":\"#1a1a1a\",\"text_light\":\"#6b7280\",\"success\":\"#10b981\",\"warning\":\"#f59e0b\",\"error\":\"#ef4444\",\"border\":\"#e5e7eb\",\"backgroundFooter\":\"#000000\",\"textFooter\":\"#ffffff\"}",
+      "type": "json",
+      "isActive": true
+    },
+    {
+      "section": "theme",
+      "key": "typography",
+      "value": "{\"heading_font\": \"Poppins\", \"body_font\": \"Inter\", \"accent_font\": \"Inter\", \"heading_weight\": \"600\", \"body_weight\": \"400\", \"accent_weight\": \"500\", \"base_size\": \"16px\", \"scale\": \"1.125\"}",
+      "type": "json",
+      "isActive": true
+    },
+    {
+      "section": "theme",
+      "key": "button_styles",
+      "value": "{\"primary_style\":\"rounded-lg\",\"border_radius\":\"8px\",\"shadow\":\"small\",\"hover_effect\":\"scale\",\"transition\":\"all 0.2s ease\"}",
+      "type": "json",
+      "isActive": true
+    },
+    {
+      "section": "theme",
+      "key": "background_colors",
+      "value": "{\"hero_bg\": \"linear-gradient(135deg, #1e73be 0%, #0c4a6e 100%)\", \"page_bg\": \"#ffffff\", \"footer_bg\": \"#000000\", \"section_bg\": \"#f8fafc\"}",
+      "type": "json",
+      "isActive": true
+    },
+    {
+      "section": "theme",
+      "key": "logo_settings",
+      "value": "{\"header_logo\": \"/src/assets/logo-a.png\", \"footer_logo\": \"/src/assets/logo-a.png\", \"favicon\": \"/favicon.ico\", \"logo_height\": \"48px\"}",
+      "type": "json",
+      "isActive": true
+    },
+    {
+      "section": "theme",
+      "key": "seo_meta",
+      "value": "{\"site_title\":\"Amon Tour - Exclusive Thailand Travel Experience\",\"tagline\":\"Discover the hidden gems of Krabi and southern Thailand\",\"meta_description\":\"Exclusive Experiences in Thailand with Amon Tour. Discover Krabi hidden islands, local culture, and unforgettable adventures. Book your personalized Thai journey today.\",\"meta_keywords\":\"Thailand travel, Krabi tours, authentic Thailand, island hopping, local culture, adventure tours\",\"og_image\":\"/src/assets/hero-image.jpg\"}",
+      "type": "json",
+      "isActive": true
+    },
+    {
+      "section": "theme",
+      "key": "announcement_banner",
+      "value": "{\"enabled\": false, \"text\": \"\", \"background_color\": \"#1e73be\", \"text_color\": \"#ffffff\", \"link_url\": \"\", \"link_text\": \"\", \"closeable\": true}",
+      "type": "json",
+      "isActive": true
+    },
+    {
+      "section": "theme",
+      "key": "popup_settings",
+      "value": "{\"title\":\"\"}",
+      "type": "json",
+      "isActive": true
+    },
+    {
+      "section": "footer",
+      "key": "useful_links",
+      "value": "[{\"text\":\"Our brochure\",\"url\":\"/brochure\",\"type\":\"page\"},{\"text\":\"Krabi Celebration\",\"url\":\"/krabi-celebration\",\"type\":\"page\"},{\"text\":\"Fun Garden\",\"url\":\"/https://www.facebook.com/thefungardenkrabi/\",\"type\":\"page\"},{\"text\":\"Villas in Krabi\",\"url\":\"/villas-krabi\",\"type\":\"page\"},{\"text\":\"Become Partner\",\"url\":\"/become-partner\",\"type\":\"page\"},{\"text\":\"Group & Corporate\",\"url\":\"/group-corporate\",\"type\":\"page\"}]",
+      "type": "text",
+      "isActive": true
+    },
+    {
+      "section": "footer",
+      "key": "contact_info",
+      "value": "[{\"label\":\"Brand Introduction \",\"value\":\"Amon Tour is a brand of:\",\"style\":\"title\"},{\"label\":\"Company Name\",\"value\":\"Flame BB Co., Ltd.\",\"style\":\"text\"},{\"label\":\"Address\",\"value\":\"242 Moo1 Tombol Ao Nang\\n81180 Krabi, Thailand\",\"style\":\"address\"},{\"label\":\"TAT License\",\"value\":\"TAT License: 34/01995\",\"style\":\"license_badge\"},{\"label\":\"Email\",\"value\":\"info@amon-tour.com\",\"style\":\"email\"},{\"label\":\"Operations Manager\",\"value\":\"Operations manager: +66 (0)6 2574 8788\",\"style\":\"phone_with_title\"},{\"label\":\"Travel Advisor\",\"value\":\"Travel Advisor Manager: +66 (0)8 0463 4691\",\"style\":\"phone_with_title\"},{\"label\":\"WhatsApp\",\"value\":\"WhatsApp: +66 65 349 6445\",\"style\":\"whatsapp\"},{\"label\":\"LINE ID\",\"value\":\"Line ID: amontour\",\"style\":\"line\"}]",
+      "type": "text",
+      "isActive": true
+    },
+    {
+      "section": "footer",
+      "key": "newsletter_config",
+      "value": "{\"title\":\"Newsletter\",\"description\":\"Subscribe to receive our special offers and travel tips.\",\"privacy\":\"We respect your privacy. Unsubscribe at any time.\",\"buttonText\":\"Subscribe\",\"placeholderText\":\"Enter your email\",\"enabled\":true}",
+      "type": "text",
+      "isActive": true
+    },
+    {
+      "section": "footer",
+      "key": "copyright_config",
+      "value": "{\"text\":\"© 2025 Flame BB Co., Ltd. (Amon Tour). All rights reserved.\",\"enabled\":true}",
+      "type": "text",
+      "isActive": true
+    },
+    {
+      "section": "theme",
+      "key": "notification_bar",
+      "value": "{\"enabled\":true,\"text\":\"Welcome to the new Amon Tour website! This site is currently in a testing phase, so a few issues may still occur. For any reference, the previous site remains accessible at www.amon-tour.fr. Thank you for your understanding\",\"scrolling\":true,\"is_clickable\":true,\"url\":\"amon-tour.fr\",\"background_color\":\"#3BA8AF\",\"text_color\":\"#ffffff\",\"scroll_speed\":\"slow\"}",
+      "type": "text",
+      "isActive": true
+    },
+    {
+      "section": "theme",
+      "key": "heading_font",
+      "value": "Montserrat",
+      "type": "text",
+      "isActive": true
+    },
+    {
+      "section": "theme",
+      "key": "body_font",
+      "value": "Lato",
+      "type": "text",
+      "isActive": true
+    }
+  ]
+}

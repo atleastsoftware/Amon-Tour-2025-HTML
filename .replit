@@ -8,8 +8,8 @@ packages = ["ffmpeg", "jq"]
 
 [deployment]
 deploymentTarget = "autoscale"
-build = ["npm", "run", "build"]
-run = ["npm", "run", "start"]
+build = ["sh", "-c", "npm run site:build -- --out site/dist && npm run edge:build"]
+run = ["sh", "-c", "NODE_ENV=production npm run edge:start"]
 
 [workflows]
 runButton = "Restart Application"
@@ -29,7 +29,7 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "npm run dev"
+args = "npm run edge:dev"
 waitForPort = 5000
 
 [agent]

@@ -1,0 +1,56 @@
+{
+  "name": "Amon Tour",
+  "baseUrl": "https://amon-tour.com",
+  "languages": [
+    "en",
+    "fr",
+    "es"
+  ],
+  "defaultLanguage": "en",
+  "hreflangLocales": [
+    "en",
+    "en-MY",
+    "en-SG",
+    "en-AU",
+    "fr",
+    "th",
+    "zh-CN",
+    "zh-SG",
+    "zh-MY",
+    "ms",
+    "x-default"
+  ],
+  "title": "Amon Tour - Authentic Thailand Experiences",
+  "description": "Discover authentic Thailand with Amon Tour. Krabi-based travel experts offering unique experiences in Southern Thailand.",
+  "brand": {
+    "primary": "#084F6E",
+    "primaryDark": "#063A52",
+    "gold": "#E6B64C",
+    "logo": "/favicon.png",
+    "phone": "+66 81 956 2849",
+    "phoneIntl": "+66819562849",
+    "whatsapp": "+66 86 476 3804",
+    "whatsappIntl": "66864763804",
+    "email": "contact@amon-tour.com",
+    "addressLine1": "Ao Nang, Krabi",
+    "addressLine2": "Thailand"
+  },
+  "social": [
+    "https://web.facebook.com/amontourthailand",
+    "https://www.instagram.com/amontourthailand/",
+    "https://www.youtube.com/@amontour4949"
+  ],
+  "organization": {
+    "site_title": "Amon Tour - Exclusive Thailand Travel Experience",
+    "tagline": "Discover the hidden gems of Krabi and southern Thailand",
+    "meta_description": "Exclusive Experiences in Thailand with Amon Tour. Discover Krabi hidden islands, local culture, and unforgettable adventures. Book your personalized Thai journey today.",
+    "meta_keywords": "Thailand travel, Krabi tours, authentic Thailand, island hopping, local culture, adventure tours",
+    "og_image": "/src/assets/hero-image.jpg"
+  },
+  "tourNinja": {
+    "baseUrl": "https://www.tourninja.io",
+    "companyId": "2",
+    "showcaseKey": "tourninja-showcase-2-amontour",
+    "catalogueCacheTtlHours": 24
+  }
+}

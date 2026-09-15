@@ -1,0 +1,280 @@
+{
+  "id": 8,
+  "name": "Custom Quote Request",
+  "title": "",
+  "subtitle": "",
+  "description": "Tell us what you'd like to discover, and we'll create your personalized itinerary.",
+  "headerImage": "",
+  "layout": "single-column",
+  "formLayout": "footer",
+  "colors": {
+    "backgroundColor": "hsl(var(--background))",
+    "primaryColor": "#084F6E",
+    "textColor": "#030303",
+    "frameColor": "#ffffff",
+    "titleColor": "#ffffff",
+    "subtitleColor": "#ffffff"
+  },
+  "fields": [
+    {
+      "id": "fullName",
+      "type": "text",
+      "label": "Full Name ",
+      "style": {
+        "width": "half",
+        "marginBottom": 16
+      },
+      "required": true,
+      "placeholder": "Your name"
+    },
+    {
+      "id": "email",
+      "type": "email",
+      "label": "Email",
+      "style": {
+        "width": "half",
+        "marginBottom": 16
+      },
+      "required": true,
+      "placeholder": "Your email"
+    },
+    {
+      "id": "countrycode",
+      "type": "phone",
+      "label": "Phone Number",
+      "style": {
+        "width": "half",
+        "marginBottom": 16
+      },
+      "options": [
+        "🇫🇷 +33",
+        "🇹🇭 +66",
+        "🇺🇸 +1",
+        "🇬🇧 +44",
+        "🇩🇪 +49",
+        "🇪🇸 +34"
+      ],
+      "required": true,
+      "placeholder": "+66 XX XXX XXXX"
+    },
+    {
+      "id": "numberOfAdults",
+      "type": "select",
+      "label": "Number of Passengers",
+      "style": {
+        "width": "half",
+        "marginBottom": 16
+      },
+      "options": [
+        "1 ",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8"
+      ],
+      "required": false,
+      "placeholder": "Maximum 8 passengers"
+    },
+    {
+      "id": "duration",
+      "type": "select",
+      "label": "Desired Duration",
+      "style": {
+        "width": "full",
+        "marginBottom": 16
+      },
+      "options": [
+        "1 day",
+        "2 days",
+        "3-4 days",
+        "5-6 days",
+        "7 days and more"
+      ],
+      "required": true,
+      "placeholder": "Choose a duration"
+    },
+    {
+      "id": "message",
+      "type": "textarea",
+      "label": "Preferred Dates (Optional)",
+      "style": {
+        "width": "full",
+        "marginBottom": 16
+      },
+      "required": false,
+      "placeholder": "Ex: January 15-20, 2025"
+    },
+    {
+      "id": "field_1760538055472_601m4mrk9",
+      "type": "textarea",
+      "label": "Preferred Destinations (Optional) Ex: Koh Phi Phi, Koh Hong...",
+      "style": {
+        "width": "full",
+        "marginBottom": 16
+      },
+      "required": false,
+      "placeholder": "Ex: Koh Phi Phi, Koh Hong..."
+    },
+    {
+      "id": "field_1760538069884_u83xvw5m0",
+      "type": "textarea",
+      "label": "Special Requests (Optional)",
+      "style": {
+        "width": "full",
+        "marginBottom": 16
+      },
+      "required": false,
+      "placeholder": "Dietary requirements, birthday celebration, etc."
+    }
+  ],
+  "settings": {
+    "errorMessage": "There was a problem sending your request. Please try again.",
+    "successMessage": "Thank you! We will contact you very soon to discuss your travel project.",
+    "submitButtonText": "Send my request",
+    "emailNotification": true,
+    "submitButtonColor": "hsl(var(--primary))",
+    "whatsappButtonText": "Or contact us directly via WhatsApp",
+    "whatsappButtonEnabled": true
+  },
+  "translations": {
+    "en": {
+      "title": "",
+      "description": "Tell us what you'd like to discover, and we'll create your personalized itinerary.",
+      "error_message": "There was a problem sending your request. Please try again.",
+      "field_0_label": "Full Name ",
+      "field_1_label": "Email",
+      "field_2_label": "Phone Number",
+      "field_3_label": "Number of Passengers",
+      "field_4_label": "Desired Duration",
+      "field_5_label": "Preferred Dates (Optional)",
+      "field_6_label": "Preferred Destinations (Optional) Ex: Koh Phi Phi, Koh Hong...",
+      "field_7_label": "Special Requests (Optional)",
+      "success_message": "Thank you! We will contact you very soon to discuss your travel project.",
+      "field_2_option_0": "🇫🇷 +33",
+      "field_2_option_1": "🇹🇭 +66",
+      "field_2_option_2": "🇺🇸 +1",
+      "field_2_option_3": "🇬🇧 +44",
+      "field_2_option_4": "🇩🇪 +49",
+      "field_2_option_5": "🇪🇸 +34",
+      "field_3_option_0": "1 ",
+      "field_3_option_1": "2",
+      "field_3_option_2": "3",
+      "field_3_option_3": "4",
+      "field_3_option_4": "5",
+      "field_3_option_5": "6",
+      "field_3_option_6": "7",
+      "field_3_option_7": "8",
+      "field_4_option_0": "1 day",
+      "field_4_option_1": "2 days",
+      "field_4_option_2": "3-4 days",
+      "field_4_option_3": "5-6 days",
+      "field_4_option_4": "7 days and more",
+      "submit_button_text": "Send my request",
+      "field_0_placeholder": "Your name",
+      "field_1_placeholder": "Your email",
+      "field_2_placeholder": "+66 XX XXX XXXX",
+      "field_3_placeholder": "Maximum 8 passengers",
+      "field_4_placeholder": "Choose a duration",
+      "field_5_placeholder": "Ex: January 15-20, 2025",
+      "field_6_placeholder": "Ex: Koh Phi Phi, Koh Hong...",
+      "field_7_placeholder": "Dietary requirements, birthday celebration, etc.",
+      "whatsapp_button_text": "Or contact us directly via WhatsApp"
+    },
+    "es": {
+      "title": "",
+      "description": "Cuéntanos qué te gustaría descubrir y crearemos tu itinerario personalizado.",
+      "error_message": "Hubo un problema al enviar tu solicitud. Por favor, inténtalo de nuevo.",
+      "field_0_label": "Nombre completo",
+      "field_1_label": "Email",
+      "field_2_label": "Número de teléfono",
+      "field_3_label": "Número de pasajeros",
+      "field_4_label": "Duración deseada",
+      "field_5_label": "Fechas preferidas (Opcional)",
+      "field_6_label": "Destinos preferidos (Opcional) Ej: Koh Phi Phi, Koh Hong...",
+      "field_7_label": "Solicitudes especiales (Opcional)",
+      "success_message": "¡Gracias! Te contactaremos muy pronto para discutir tu proyecto de viaje.",
+      "field_2_option_0": "🇫🇷 +33",
+      "field_2_option_1": "🇹🇭 +66",
+      "field_2_option_2": "🇺🇸 +1",
+      "field_2_option_3": "🇬🇧 +44",
+      "field_2_option_4": "🇩🇪 +49",
+      "field_2_option_5": "🇪🇸 +34",
+      "field_3_option_0": "1",
+      "field_3_option_1": "2",
+      "field_3_option_2": "3",
+      "field_3_option_3": "4",
+      "field_3_option_4": "5",
+      "field_3_option_5": "6",
+      "field_3_option_6": "7",
+      "field_3_option_7": "8",
+      "field_4_option_0": "1 día",
+      "field_4_option_1": "2 días",
+      "field_4_option_2": "3-4 días",
+      "field_4_option_3": "5-6 días",
+      "field_4_option_4": "7 días y más",
+      "submit_button_text": "Enviar mi solicitud",
+      "field_0_placeholder": "Tu nombre",
+      "field_1_placeholder": "Tu email",
+      "field_2_placeholder": "+66 XX XXX XXXX",
+      "field_3_placeholder": "Máximo 8 pasajeros",
+      "field_4_placeholder": "Elige una duración",
+      "field_5_placeholder": "Ej: 15-20 enero 2025",
+      "field_6_placeholder": "Ej: Koh Phi Phi, Koh Hong...",
+      "field_7_placeholder": "Requisitos dietéticos, celebración de cumpleaños, etc.",
+      "whatsapp_button_text": "O contáctanos directamente por WhatsApp"
+    },
+    "fr": {
+      "title": "",
+      "description": "Dites-nous ce que vous aimeriez découvrir et nous créerons votre itinéraire personnalisé.",
+      "error_message": "Un problème est survenu lors de l'envoi de votre demande. Veuillez réessayer.",
+      "field_0_label": "Nom complet",
+      "field_1_label": "Email",
+      "field_2_label": "Numéro de téléphone",
+      "field_3_label": "Nombre de passagers",
+      "field_4_label": "Durée souhaitée",
+      "field_5_label": "Dates préférées (Optionnel)",
+      "field_6_label": "Destinations préférées (Optionnel) Ex: Koh Phi Phi, Koh Hong...",
+      "field_7_label": "Demandes spéciales (Optionnel)",
+      "success_message": "Merci ! Nous vous contacterons très bientôt pour discuter de votre projet de voyage.",
+      "field_2_option_0": "🇫🇷 +33",
+      "field_2_option_1": "🇹🇭 +66",
+      "field_2_option_2": "🇺🇸 +1",
+      "field_2_option_3": "🇬🇧 +44",
+      "field_2_option_4": "🇩🇪 +49",
+      "field_2_option_5": "🇪🇸 +34",
+      "field_3_option_0": "1",
+      "field_3_option_1": "2",
+      "field_3_option_2": "3",
+      "field_3_option_3": "4",
+      "field_3_option_4": "5",
+      "field_3_option_5": "6",
+      "field_3_option_6": "7",
+      "field_3_option_7": "8",
+      "field_4_option_0": "1 jour",
+      "field_4_option_1": "2 jours",
+      "field_4_option_2": "3-4 jours",
+      "field_4_option_3": "5-6 jours",
+      "field_4_option_4": "7 jours et plus",
+      "submit_button_text": "Envoyer ma demande",
+      "field_0_placeholder": "Votre nom",
+      "field_1_placeholder": "Votre email",
+      "field_2_placeholder": "+66 XX XXX XXXX",
+      "field_3_placeholder": "Maximum 8 passagers",
+      "field_4_placeholder": "Choisissez une durée",
+      "field_5_placeholder": "Ex: 15-20 janvier 2025",
+      "field_6_placeholder": "Ex: Koh Phi Phi, Koh Hong...",
+      "field_7_placeholder": "Régime alimentaire, célébration d'anniversaire, etc.",
+      "whatsapp_button_text": "Ou contactez-nous directement via WhatsApp"
+    }
+  },
+  "translationsMeta": {},
+  "active": true,
+  "submitTarget": "custom_tour_requests",
+  "legacy": {
+    "createdAt": "2025-10-15T15:51:52.278Z",
+    "updatedAt": "2025-10-15T15:51:52.278Z"
+  }
+}

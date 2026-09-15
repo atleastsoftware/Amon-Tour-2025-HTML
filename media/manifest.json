@@ -1,0 +1,677 @@
+{
+  "generatedAt": "2026-09-15T03:49:17.605Z",
+  "items": [
+    {
+      "path": "/uploads/tours/sample-forest.svg",
+      "filename": "sample-forest.svg",
+      "fileSize": 523,
+      "sha256": "feba20abc008c510023f812ba91b4e9db827e35956500243974647452c80d40d",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/sample-phi-phi.svg",
+      "filename": "sample-phi-phi.svg",
+      "fileSize": 527,
+      "sha256": "c720e9259d4dc83bd0dd7cb967084f82048cfaa972b625f882462eb3fbe71aea",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/sample-railay.svg",
+      "filename": "sample-railay.svg",
+      "fileSize": 525,
+      "sha256": "e4c1aa2683181596231bf3d210aaf21411c07651a409b4ccbd9e334563aaa398",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1745996624172-231261635.jpeg",
+      "filename": "tour-1745996624172-231261635.jpeg",
+      "fileSize": 979184,
+      "sha256": "f06a10a780de0d5daa888f33617c1e0bbe5069a2e5c29a64548d04b13ba02efb",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1745996684988-936942722.jpeg",
+      "filename": "tour-1745996684988-936942722.jpeg",
+      "fileSize": 979184,
+      "sha256": "f06a10a780de0d5daa888f33617c1e0bbe5069a2e5c29a64548d04b13ba02efb",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1745997543304-107440663.jpeg",
+      "filename": "tour-1745997543304-107440663.jpeg",
+      "fileSize": 979184,
+      "sha256": "f06a10a780de0d5daa888f33617c1e0bbe5069a2e5c29a64548d04b13ba02efb",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1746001937422-166714393.jpeg",
+      "filename": "tour-1746001937422-166714393.jpeg",
+      "fileSize": 979184,
+      "sha256": "f06a10a780de0d5daa888f33617c1e0bbe5069a2e5c29a64548d04b13ba02efb",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1747303081329-876446760.png",
+      "filename": "tour-1747303081329-876446760.png",
+      "fileSize": 713118,
+      "sha256": "5c3e02a77f67947a23786abe09aa6d0a44f56165bab2c944c3fe59eaea582c90",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1747303593152-173349505.png",
+      "filename": "tour-1747303593152-173349505.png",
+      "fileSize": 654424,
+      "sha256": "d1343ec5ed6a6423bbf00d3deaec0d1cf520bc709e19426a8fc6c042320b88de",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1747304140252-894895424.png",
+      "filename": "tour-1747304140252-894895424.png",
+      "fileSize": 654424,
+      "sha256": "d1343ec5ed6a6423bbf00d3deaec0d1cf520bc709e19426a8fc6c042320b88de",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1747367094281-825447156.png",
+      "filename": "tour-1747367094281-825447156.png",
+      "fileSize": 1904779,
+      "sha256": "60f3700f4606a6ec84b712ae7e7a7d6bf35a1520235b16babeb8fd30a533cde3",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1747367095939-476892080.png",
+      "filename": "tour-1747367095939-476892080.png",
+      "fileSize": 114574,
+      "sha256": "c683d50effc95f7f97c19e26fff902c3b249657d3991bc1e947887a75d80ba2c",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1747367096152-33112124.png",
+      "filename": "tour-1747367096152-33112124.png",
+      "fileSize": 1013711,
+      "sha256": "643b3cc3ec964ff1d24aec16872bd2be1c03ad58aa034478a7fec7370a86676d",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1754714746856-314614434.png",
+      "filename": "tour-1754714746856-314614434.png",
+      "fileSize": 1746683,
+      "sha256": "3efaf15a611824a65bc111616a04a06d668d6c87988b408bd1da89af6ab42a02",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1754748310813-55507207.png",
+      "filename": "tour-1754748310813-55507207.png",
+      "fileSize": 2067566,
+      "sha256": "ddf96f68888565a2193e9ba8ffcd143f1e99bcf099d8d729ac07a9d960bd3560",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1754748446250-645970181.jpeg",
+      "filename": "tour-1754748446250-645970181.jpeg",
+      "fileSize": 511529,
+      "sha256": "12ffd7d0a8d5d5d9b7e4a7629bad967649bc53653473e9abc8b0ee9426754e5b",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1754816317280-71545064.jpeg",
+      "filename": "tour-1754816317280-71545064.jpeg",
+      "fileSize": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1754816358221-290703384.jpeg",
+      "filename": "tour-1754816358221-290703384.jpeg",
+      "fileSize": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1754816381014-771284773.jpg",
+      "filename": "tour-1754816381014-771284773.jpg",
+      "fileSize": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1754816405500-877622656.jpeg",
+      "filename": "tour-1754816405500-877622656.jpeg",
+      "fileSize": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1754816439179-322855290.jpeg",
+      "filename": "tour-1754816439179-322855290.jpeg",
+      "fileSize": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1754816480916-390212634.jpeg",
+      "filename": "tour-1754816480916-390212634.jpeg",
+      "fileSize": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1754816503155-375167765.jpeg",
+      "filename": "tour-1754816503155-375167765.jpeg",
+      "fileSize": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1754816524864-740424960.jpeg",
+      "filename": "tour-1754816524864-740424960.jpeg",
+      "fileSize": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1754816544072-723063397.jpeg",
+      "filename": "tour-1754816544072-723063397.jpeg",
+      "fileSize": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1754816565215-182945748.jpeg",
+      "filename": "tour-1754816565215-182945748.jpeg",
+      "fileSize": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1754816596449-634553577.jpeg",
+      "filename": "tour-1754816596449-634553577.jpeg",
+      "fileSize": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1754816647078-836973709.jpeg",
+      "filename": "tour-1754816647078-836973709.jpeg",
+      "fileSize": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1754816668408-45135677.jpeg",
+      "filename": "tour-1754816668408-45135677.jpeg",
+      "fileSize": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1754816689377-36309818.jpeg",
+      "filename": "tour-1754816689377-36309818.jpeg",
+      "fileSize": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1754816720535-856337768.jpeg",
+      "filename": "tour-1754816720535-856337768.jpeg",
+      "fileSize": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1754816780349-585902009.jpeg",
+      "filename": "tour-1754816780349-585902009.jpeg",
+      "fileSize": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1754816814833-815991714.jpeg",
+      "filename": "tour-1754816814833-815991714.jpeg",
+      "fileSize": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1754816828409-517810912.jpeg",
+      "filename": "tour-1754816828409-517810912.jpeg",
+      "fileSize": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1757261412544-161183412.svg",
+      "filename": "tour-1757261412544-161183412.svg",
+      "fileSize": 945,
+      "sha256": "1c2fcd998fda25a5002d3dd04c2902153d1b05bf8471de8a811635a590a1b1cd",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1757502908936-426641984.png",
+      "filename": "tour-1757502908936-426641984.png",
+      "fileSize": 338154,
+      "sha256": "86c507745ab6e2b6098754a0d39547a29438c276eb86f0bf8ae71f06ca238f4d",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1757503962722-833828844.png",
+      "filename": "tour-1757503962722-833828844.png",
+      "fileSize": 58420,
+      "sha256": "a9f0b00ab3e56b2bd00ec2efb053d64db7e0d653d615c44d06307d7a918f143a",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1757505086174-360003853.jpg",
+      "filename": "tour-1757505086174-360003853.jpg",
+      "fileSize": 349884,
+      "sha256": "9ddd2c35c40bd3da8d91687da5cc62fc8b0060fae873818ccf3bbc64068bbf46",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1757505370526-41768227.jpg",
+      "filename": "tour-1757505370526-41768227.jpg",
+      "fileSize": 367459,
+      "sha256": "4f630c63729ed8e36e7396e1136951d84a86adde603516e1ec6a27cb5dd7a264",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1757508734677-579708404.jpeg",
+      "filename": "tour-1757508734677-579708404.jpeg",
+      "fileSize": 606254,
+      "sha256": "4accb516a9f163381039a6d1e6d70fb91dc0aec73a39805af64cbe70297e4477",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1757508750775-657229459.jpeg",
+      "filename": "tour-1757508750775-657229459.jpeg",
+      "fileSize": 1030506,
+      "sha256": "67b2c5dfbc60ee9dd7d8423a5be67a0929c7c239ae0aff6caf6e2d7df2b86558",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1757508862176-418359633.jpeg",
+      "filename": "tour-1757508862176-418359633.jpeg",
+      "fileSize": 606254,
+      "sha256": "4accb516a9f163381039a6d1e6d70fb91dc0aec73a39805af64cbe70297e4477",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1757508890894-505993812.jpeg",
+      "filename": "tour-1757508890894-505993812.jpeg",
+      "fileSize": 1030506,
+      "sha256": "67b2c5dfbc60ee9dd7d8423a5be67a0929c7c239ae0aff6caf6e2d7df2b86558",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1757509168427-784398474.jpeg",
+      "filename": "tour-1757509168427-784398474.jpeg",
+      "fileSize": 399886,
+      "sha256": "0646581197f96f1f480f1a199d5ec0530b5c2c0906e148ef06c963f07d1eb8b9",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1757509174158-193162314.jpeg",
+      "filename": "tour-1757509174158-193162314.jpeg",
+      "fileSize": 399886,
+      "sha256": "0646581197f96f1f480f1a199d5ec0530b5c2c0906e148ef06c963f07d1eb8b9",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1757509201197-433821629.jpeg",
+      "filename": "tour-1757509201197-433821629.jpeg",
+      "fileSize": 399886,
+      "sha256": "0646581197f96f1f480f1a199d5ec0530b5c2c0906e148ef06c963f07d1eb8b9",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1757512093876-472144192.jpeg",
+      "filename": "tour-1757512093876-472144192.jpeg",
+      "fileSize": 606254,
+      "sha256": "4accb516a9f163381039a6d1e6d70fb91dc0aec73a39805af64cbe70297e4477",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1757513719509-442621799.jpeg",
+      "filename": "tour-1757513719509-442621799.jpeg",
+      "fileSize": 575089,
+      "sha256": "6f7640cc23ae154dd970bfb764d59cea4954d95843e24d830d9aff49c794616d",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1757514117818-775649084.jpeg",
+      "filename": "tour-1757514117818-775649084.jpeg",
+      "fileSize": 575089,
+      "sha256": "6f7640cc23ae154dd970bfb764d59cea4954d95843e24d830d9aff49c794616d",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1757514449217-128907924.jpeg",
+      "filename": "tour-1757514449217-128907924.jpeg",
+      "fileSize": 575089,
+      "sha256": "6f7640cc23ae154dd970bfb764d59cea4954d95843e24d830d9aff49c794616d",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1757514565791-105183178.jpeg",
+      "filename": "tour-1757514565791-105183178.jpeg",
+      "fileSize": 445914,
+      "sha256": "4fdea6bcbd9768a257748c57cf7b573c9f56df4fdf9970a54e2589d6e71bd4cf",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1757514576850-879366261.jpeg",
+      "filename": "tour-1757514576850-879366261.jpeg",
+      "fileSize": 575089,
+      "sha256": "6f7640cc23ae154dd970bfb764d59cea4954d95843e24d830d9aff49c794616d",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1757514593678-707664288.jpeg",
+      "filename": "tour-1757514593678-707664288.jpeg",
+      "fileSize": 523163,
+      "sha256": "a3a7d62035706b5a938991c19e00fef5299e134e300ccf6ebbc3c5ab1aa7f262",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1757514651908-606778837.jpeg",
+      "filename": "tour-1757514651908-606778837.jpeg",
+      "fileSize": 445914,
+      "sha256": "4fdea6bcbd9768a257748c57cf7b573c9f56df4fdf9970a54e2589d6e71bd4cf",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1757514673448-638767785.jpeg",
+      "filename": "tour-1757514673448-638767785.jpeg",
+      "fileSize": 1190762,
+      "sha256": "e5fa23855ed64c492a9a160c71fb7f8585edf260e9a80334d5629ae7f3c9d099",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1757514716222-537527525.jpeg",
+      "filename": "tour-1757514716222-537527525.jpeg",
+      "fileSize": 362926,
+      "sha256": "6cedb95ba70825ffac3485869199bbae9e2c9dbb9ca525936a757314088fe5aa",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1757514743809-87258486.jpeg",
+      "filename": "tour-1757514743809-87258486.jpeg",
+      "fileSize": 810033,
+      "sha256": "8e4a0728ecc5e8b663d5f61e53b327f56655091e1ee4a40a87c1d51d80fda4ef",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1757514761989-659898188.jpeg",
+      "filename": "tour-1757514761989-659898188.jpeg",
+      "fileSize": 575089,
+      "sha256": "6f7640cc23ae154dd970bfb764d59cea4954d95843e24d830d9aff49c794616d",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1757514812592-710233932.jpeg",
+      "filename": "tour-1757514812592-710233932.jpeg",
+      "fileSize": 1012744,
+      "sha256": "fdca0e65fe063ccf20ccd15090285415ea371ffc6bbf91e3962e89903512aea8",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1757514909043-601877275.jpeg",
+      "filename": "tour-1757514909043-601877275.jpeg",
+      "fileSize": 810033,
+      "sha256": "8e4a0728ecc5e8b663d5f61e53b327f56655091e1ee4a40a87c1d51d80fda4ef",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1757514929598-614926541.jpeg",
+      "filename": "tour-1757514929598-614926541.jpeg",
+      "fileSize": 247000,
+      "sha256": "ccd20b104da9e2c55bfa2f5e5e68a64135e21c3d9426828e057b4248a8eb87ed",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1759144746170-401396424.png",
+      "filename": "tour-1759144746170-401396424.png",
+      "fileSize": 654424,
+      "sha256": "d1343ec5ed6a6423bbf00d3deaec0d1cf520bc709e19426a8fc6c042320b88de",
+      "source": "uploads"
+    },
+    {
+      "path": "/uploads/tours/tour-1760583203391-696371563.jpg",
+      "filename": "tour-1760583203391-696371563.jpg",
+      "fileSize": 190601,
+      "sha256": "35b676354bbca20d7d5fd6bc4e35e5eaab394e8ddabf021e4927f9b874f05de0",
+      "source": "uploads"
+    },
+    {
+      "path": "/attached_assets/hero-video-optimized.mp4",
+      "filename": "hero-video-optimized.mp4",
+      "fileSize": 6369824,
+      "sha256": "5b728c6d46bf24cc2695b3e6c9d0f69e455f2a8b0aecac30d0ef98875485fee9",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/790fc1de-1a62-4e19-93eb-f2529f131485_1757694001569.jpeg",
+      "filename": "790fc1de-1a62-4e19-93eb-f2529f131485_1757694001569.jpeg",
+      "fileSize": 249799,
+      "sha256": "ed5552c2c9a987524994ab6ac225ddacc28f3480e67c29125d32c98686b5c888",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/790fc1de-1a62-4e19-93eb-f2529f131485_1757686414762.jpeg",
+      "filename": "790fc1de-1a62-4e19-93eb-f2529f131485_1757686414762.jpeg",
+      "fileSize": 254846,
+      "sha256": "d94a6804d1c4e2a85ebbaba0ae2cc96263599e385c2cdaff01f8d9a3a55e00f9",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/626e6d17-dc9b-420e-b3ee-fad71c615c7e_1757686414762.jpeg",
+      "filename": "626e6d17-dc9b-420e-b3ee-fad71c615c7e_1757686414762.jpeg",
+      "fileSize": 458493,
+      "sha256": "60b1bdc6526a0f57d76d76c38cda9b06ea7ca0b4573b73eab83bee94132e845e",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/3046de19-33b6-4374-999b-c01da9abda7d_1757686414762.jpeg",
+      "filename": "3046de19-33b6-4374-999b-c01da9abda7d_1757686414762.jpeg",
+      "fileSize": 305148,
+      "sha256": "c3f49302dea5075a5adf97b771bd16850e4be3b40267c03fe743cd85f074e742",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/a03261ff-35eb-4352-abf8-9eb698da17ec_1757686436923.jpeg",
+      "filename": "a03261ff-35eb-4352-abf8-9eb698da17ec_1757686436923.jpeg",
+      "fileSize": 202276,
+      "sha256": "a086b0ed6e74fcbc04bbdb8bb14311b6b8d94e63e2a58539d7bc6badc2f52055",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/9b469d5b-7a43-4f13-81e5-36826d34a4d0_1757686436923.jpeg",
+      "filename": "9b469d5b-7a43-4f13-81e5-36826d34a4d0_1757686436923.jpeg",
+      "fileSize": 360639,
+      "sha256": "a9444258bb996466933a02aa71eaaabdcf834b2ba67c72193dc37f6474bf8fb3",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/6d7d224d-fe2e-4c12-aee4-52d19d976971_1757686436923.jpeg",
+      "filename": "6d7d224d-fe2e-4c12-aee4-52d19d976971_1757686436923.jpeg",
+      "fileSize": 242298,
+      "sha256": "52fb843ccce7f9955a19b25fd4e1a972db725232f98862b2faab622334179fb5",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/8614f431-1592-46d0-af6e-6b5f8bf88f4a_1757686457872.jpeg",
+      "filename": "8614f431-1592-46d0-af6e-6b5f8bf88f4a_1757686457872.jpeg",
+      "fileSize": 274447,
+      "sha256": "954af72c1875ccf85c787a1b03dd462d09a99815e3af6b99178b593fc349d933",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/30877b23-72c3-4bda-9edf-b8a2334af26a_1757686457872.jpeg",
+      "filename": "30877b23-72c3-4bda-9edf-b8a2334af26a_1757686457872.jpeg",
+      "fileSize": 177470,
+      "sha256": "2ab8fbd87c227cf65a29862f5b6117674a60acfea6818819c29dd50b54236bf9",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/7042dca5-8d61-45a3-a177-28202abbebac_1757686457872.jpeg",
+      "filename": "7042dca5-8d61-45a3-a177-28202abbebac_1757686457872.jpeg",
+      "fileSize": 296011,
+      "sha256": "3e983e0876c9ade9f257f0ba774a364dfe78eebefaef3b97205372dcc732fdc2",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/ec633587-a525-45fc-94f9-ba186247b03d_1757686483511.jpeg",
+      "filename": "ec633587-a525-45fc-94f9-ba186247b03d_1757686483511.jpeg",
+      "fileSize": 279493,
+      "sha256": "d2d5bb3068d902c948bf457efe0d2afe6d36ba55da8e29263f25b774b14b1dd8",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/ad86696b-61b6-436a-a461-6502877efdf7_1757686483512.jpeg",
+      "filename": "ad86696b-61b6-436a-a461-6502877efdf7_1757686483512.jpeg",
+      "fileSize": 223640,
+      "sha256": "62bf94118c79acd1548d9ff494838155491f067ffaba7140205aedb7e285eaec",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/a5925b83-84e8-4167-9ebc-2e6721a99ac7_1757686483512.jpeg",
+      "filename": "a5925b83-84e8-4167-9ebc-2e6721a99ac7_1757686483512.jpeg",
+      "fileSize": 189356,
+      "sha256": "9eda0c0638d088adfd83ac642dec834d75e5d3abf76c43fb442f9a49f9fcf381",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/32cfb689-7a4b-42a2-a54b-1c1501343059_1757686498698.jpeg",
+      "filename": "32cfb689-7a4b-42a2-a54b-1c1501343059_1757686498698.jpeg",
+      "fileSize": 260350,
+      "sha256": "005393e3638012a35c46232900440654d9fbff1aec3eb33c7a08095d95a7425d",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/62bcbbea-64f9-4c84-8dde-f6cf100b06ac_1757686498698.jpeg",
+      "filename": "62bcbbea-64f9-4c84-8dde-f6cf100b06ac_1757686498698.jpeg",
+      "fileSize": 191300,
+      "sha256": "800b2676c38db0aa4dfdcefd4a8a28f19d8c85b8fe0904c45aa5a46adf27cd91",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/0df32598-c5ce-4ab5-b6b8-364340261657_1757686525806.jpeg",
+      "filename": "0df32598-c5ce-4ab5-b6b8-364340261657_1757686525806.jpeg",
+      "fileSize": 114423,
+      "sha256": "96c825a09fb5221ff8cd5a299ab25288bd19aacbe6267ea1a5b49f33442a5d74",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/e922cf8c-ae03-4be2-b715-bc1185241ac3_1757686525806.jpeg",
+      "filename": "e922cf8c-ae03-4be2-b715-bc1185241ac3_1757686525806.jpeg",
+      "fileSize": 311390,
+      "sha256": "90bb8bae404da1375b4c363738c2a731b60e087c452eae33ada5305950f90aaa",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/50d065bb-7fe3-460c-842f-205106b21217_1757686525806.jpeg",
+      "filename": "50d065bb-7fe3-460c-842f-205106b21217_1757686525806.jpeg",
+      "fileSize": 398384,
+      "sha256": "ffe2d169518e691710209f58fdc836da7d4c0a28be00b1b54d15cf9de3fa152a",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/5008f297-b9ad-453f-a386-43ce40898224_1757686525806.jpeg",
+      "filename": "5008f297-b9ad-453f-a386-43ce40898224_1757686525806.jpeg",
+      "fileSize": 443782,
+      "sha256": "a48efcfe38d6376ca4b5ad05a51a1c9d12c8e1105b5148411ed8860e456a7810",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/ff534450-22ca-4e96-8fac-d503f5939fd9_1757686525806.jpeg",
+      "filename": "ff534450-22ca-4e96-8fac-d503f5939fd9_1757686525806.jpeg",
+      "fileSize": 689838,
+      "sha256": "49fc6853ef105849624fb4c0fb0818cde809c75aaca0b8e13ef608f49c295ba6",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/3a45de92-799e-451b-8716-00521427a91e_1757692962965.jpeg",
+      "filename": "3a45de92-799e-451b-8716-00521427a91e_1757692962965.jpeg",
+      "fileSize": 356518,
+      "sha256": "6f61a606c2edfabf4ecbc32786018ee97a5656f58764693c3f67cac6160eca83",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/ef2966c4-e873-4654-a14f-ecfaa8d6acd2_1757692962965.jpeg",
+      "filename": "ef2966c4-e873-4654-a14f-ecfaa8d6acd2_1757692962965.jpeg",
+      "fileSize": 249509,
+      "sha256": "21d09d49af13b4b1cfc7cf6b81144446dbdea6675ea8b4918c36861b0d235cf4",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/ddfdc492-c289-4bf4-b563-df377b94b3cc_1757692962965.jpeg",
+      "filename": "ddfdc492-c289-4bf4-b563-df377b94b3cc_1757692962965.jpeg",
+      "fileSize": 157715,
+      "sha256": "e51b0206c878aa7554bb5b185a561918b112f4d938bf93d9aeb8e6017c3bbdd4",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/29ce9bad-cae7-4528-8ce1-8624a63f09b9_1757692962965.jpeg",
+      "filename": "29ce9bad-cae7-4528-8ce1-8624a63f09b9_1757692962965.jpeg",
+      "fileSize": 223406,
+      "sha256": "95a1fc7ffe5b351a5a4988d7f3f2324f1e21fac978f2166470df682dbc99e513",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/0bd01e0d-320d-49e9-8003-325e3bde7e68_1757692962965.jpeg",
+      "filename": "0bd01e0d-320d-49e9-8003-325e3bde7e68_1757692962965.jpeg",
+      "fileSize": 396012,
+      "sha256": "f3f0116c231350f0da99a6284a961c56a1ce487dd7d66305862d60c0bc7629bc",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/6a2b81ce-e641-4b05-9fd0-fcf206699dc9_1757692962965.jpeg",
+      "filename": "6a2b81ce-e641-4b05-9fd0-fcf206699dc9_1757692962965.jpeg",
+      "fileSize": 325748,
+      "sha256": "fa3233a372a02e5998859f1ca4ad333ffc06b632b88484e466bd1948894a8931",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/da5f838c-120c-4ede-8cbf-8d6e086d8061_1757692962965.jpeg",
+      "filename": "da5f838c-120c-4ede-8cbf-8d6e086d8061_1757692962965.jpeg",
+      "fileSize": 292894,
+      "sha256": "bae501ab9b0f175bee932e1187affb82dc8c141c0a0592445dbe5f242a87f181",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/DJI_20241115104455_0160_D-min.jpeg",
+      "filename": "DJI_20241115104455_0160_D-min.jpeg",
+      "fileSize": 1454285,
+      "sha256": "20b9e60346864c479250b6301b4ed06c6fee8c54fd2acfd85c1dcfec55258ea8",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/phi-phi-islands-island-summertime-vacation-wallpaper-preview_1749534394180.jpg",
+      "filename": "phi-phi-islands-island-summertime-vacation-wallpaper-preview_1749534394180.jpg",
+      "fileSize": 103550,
+      "sha256": "64ebb2c1dfb815a3fb0a5a5dce2a08a437f1cfffc994ba64e0ede412a13e9664",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/phi-phi-islands-island-summertime-vacation-wallpaper-preview_1749533936281.jpg",
+      "filename": "phi-phi-islands-island-summertime-vacation-wallpaper-preview_1749533936281.jpg",
+      "fileSize": 103550,
+      "sha256": "64ebb2c1dfb815a3fb0a5a5dce2a08a437f1cfffc994ba64e0ede412a13e9664",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/phi-phi-islands-island-summertime-vacation-wallpaper-preview_1749529793245.jpg",
+      "filename": "phi-phi-islands-island-summertime-vacation-wallpaper-preview_1749529793245.jpg",
+      "fileSize": 103550,
+      "sha256": "64ebb2c1dfb815a3fb0a5a5dce2a08a437f1cfffc994ba64e0ede412a13e9664",
+      "source": "attached_assets"
+    },
+    {
+      "path": "/attached_assets/IMG_1454-removebg-preview.png",
+      "filename": "IMG_1454-removebg-preview.png",
+      "fileSize": 40633,
+      "sha256": "f0cb1750356cffc0fea51f70304a34909ead2e790a27a733b42fb0634c8db444",
+      "source": "attached_assets"
+    }
+  ]
+}

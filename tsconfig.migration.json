@@ -1,0 +1,25 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "site/**/*",
+    "edge/**/*",
+    "mcp/**/*",
+    "scripts/migration/**/*",
+    "shared/**/*",
+    "server/ssrDestinationRoutes.ts",
+    "server/ssrShared.ts",
+    "server/ssrTourNinjaRelease.ts",
+    "server/services/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.test.ts",
+    "site/dist",
+    "edge/dist"
+  ],
+  "compilerOptions": {
+    "incremental": false,
+    "noEmit": true,
+    "target": "es2022"
+  }
+}

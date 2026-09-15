@@ -1,0 +1,74 @@
+[
+  {
+    "id": 4,
+    "name": "Travel Guides",
+    "slug": "travel-guides",
+    "description": "Essential guides for exploring Thailand"
+  },
+  {
+    "id": 5,
+    "name": "Island Adventures",
+    "slug": "island-adventures",
+    "description": "Discover the most beautiful islands in Thailand"
+  },
+  {
+    "id": 6,
+    "name": "Local Culture",
+    "slug": "local-culture",
+    "description": "Experience authentic Thai culture and traditions"
+  },
+  {
+    "id": 7,
+    "name": "Test Category",
+    "slug": "test-category",
+    "description": "Testing blog management functionality"
+  },
+  {
+    "id": 8,
+    "name": "Travel Planning",
+    "slug": "travel-planning",
+    "description": "Complete guides for planning your trip to Krabi and Southern Thailand"
+  },
+  {
+    "id": 9,
+    "name": "Beaches and Islands",
+    "slug": "beaches-and-islands",
+    "description": "Discover the most beautiful beaches and paradisiac islands of Krabi"
+  },
+  {
+    "id": 10,
+    "name": "Tours and Excursions",
+    "slug": "tours-and-excursions",
+    "description": "Must-do tours and excursions from Krabi"
+  },
+  {
+    "id": 11,
+    "name": "Water Activities",
+    "slug": "water-activities",
+    "description": "Diving, snorkeling, kayak and water sports in Krabi"
+  },
+  {
+    "id": 12,
+    "name": "Travel Destinations",
+    "slug": "travel-destinations",
+    "description": "Guide to the best destinations and places to visit in Krabi"
+  },
+  {
+    "id": 13,
+    "name": "Travel Tips",
+    "slug": "travel-tips",
+    "description": "Practical tips, budget advice and tricks for a successful trip"
+  },
+  {
+    "id": 14,
+    "name": "Culture and Traditions",
+    "slug": "culture-and-traditions",
+    "description": "Discover Thai culture and local traditions of Krabi"
+  },
+  {
+    "id": 15,
+    "name": "Food and Dining",
+    "slug": "food-and-dining",
+    "description": "Culinary specialties, restaurants and street food of Krabi"
+  }
+]

@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "identifier": "hero_homepage",
+    "pageLocation": "home",
+    "title": "Discover Thailand Like Never Before",
+    "subtitle": "Authentic experiences in Krabi and Southern Thailand",
+    "content": "Escape the ordinary and immerse yourself in the real Thailand. From pristine beaches to ancient temples, from local markets to hidden waterfalls - we create journeys that transform travelers into storytellers.",
+    "imageUrl": "/attached_assets/hero-bg.jpg",
+    "ctaText": "Explore Our Tours",
+    "ctaUrl": "/experiences",
+    "active": true,
+    "displayOrder": 1
+  },
+  {
+    "id": 2,
+    "identifier": "about_section",
+    "pageLocation": "home",
+    "title": "Your Local Thailand Experts",
+    "subtitle": "Over 10 years of creating unforgettable memories",
+    "content": "Based in the heart of Krabi, we are passionate locals who know every hidden gem, every secret spot, and every authentic experience that makes Thailand magical. Our small group tours ensure personalized attention and genuine connections.",
+    "imageUrl": "/attached_assets/about-img.jpg",
+    "ctaText": "Learn More",
+    "ctaUrl": "/about",
+    "active": true,
+    "displayOrder": 2
+  },
+  {
+    "id": 3,
+    "identifier": "featured_experiences",
+    "pageLocation": "home",
+    "title": "Featured Experiences",
+    "subtitle": "Handpicked adventures for every traveler",
+    "content": "From island hopping in crystal-clear waters to trekking through lush rainforests, our experiences showcase the very best of Southern Thailand. Each tour is carefully designed to create lasting memories.",
+    "imageUrl": null,
+    "ctaText": "View All Experiences",
+    "ctaUrl": "/experiences",
+    "active": true,
+    "displayOrder": 3
+  },
+  {
+    "id": 4,
+    "identifier": "contact_hero",
+    "pageLocation": "contact",
+    "title": "Get in Touch",
+    "subtitle": "Ready to start your Thailand adventure?",
+    "content": "Have questions about our tours? Want to create a custom itinerary? Our friendly team is here to help you plan the perfect Thailand experience.",
+    "imageUrl": null,
+    "ctaText": null,
+    "ctaUrl": null,
+    "active": true,
+    "displayOrder": 1
+  },
+  {
+    "id": 5,
+    "identifier": "blog_intro",
+    "pageLocation": "blog",
+    "title": "Thailand Travel Stories",
+    "subtitle": "Inspiration, tips, and insider knowledge",
+    "content": "Discover the hidden gems of Thailand through our travel stories. Get insider tips, cultural insights, and inspiration for your next adventure.",
+    "imageUrl": null,
+    "ctaText": null,
+    "ctaUrl": null,
+    "active": true,
+    "displayOrder": 1
+  }
+]

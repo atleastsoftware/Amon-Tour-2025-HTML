@@ -1,4 +1,4 @@
 #!/bin/bash
 set -e
 npm install
-npx drizzle-kit push --force
+# La migration HTML conserve les tables existantes : aucune mutation automatique du schéma.

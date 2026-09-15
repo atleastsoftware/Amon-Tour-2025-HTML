@@ -1,0 +1,2161 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "tours": "Circuitos",
+    "experiences": "Experiencias",
+    "cruise": "Crucero",
+    "customTrip": "Viaje a medida",
+    "blog": "Noticias",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "title": "Tus\nexperiencias exclusivas\nen Krabi - TAILANDIA",
+    "subtitle": "en Krabi",
+    "thailand": "TAILANDIA",
+    "description": "Descubre lugares increíbles lejos del turismo de masas en Krabi.\nY también Khao Sok, Koh Mook y muchos más destinos.",
+    "seeOffers": "Ver nuestras ofertas",
+    "customTrip": "Personaliza tu viaje",
+    "titleAccent": "en Krabi -"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error de carga",
+    "tryAgain": "Intentar de nuevo",
+    "learnMore": "Saber más",
+    "viewDetails": "Ver detalles",
+    "bookNow": "Reservar ahora",
+    "filters": "Filtros",
+    "show": "Mostrar",
+    "hide": "Ocultar",
+    "searchPlaceholder": "Buscar un tour...",
+    "allPrices": "Todos los precios",
+    "allDurations": "Todas las duraciones",
+    "allDestinations": "Todos los destinos",
+    "priceOnRequest": "Precio bajo petición",
+    "clearFilters": "Limpiar filtros",
+    "day": "día",
+    "days": "días",
+    "back": "Atrás"
+  },
+  "tours": {
+    "title": "Tours y Experiencias",
+    "description": "Explora nuestras mejores experiencias en Krabi, todas garantizadas fuera de los caminos trillados: tours marítimos privados y semi-privados, excursiones terrestres únicas (kayak por los manglares, cascadas, selva tropical, árboles centenarios, templos, cuevas kársticas, piscinas naturales), y paquetes exclusivos de 2 días / 1 noche.",
+    "duration": "Duración",
+    "participants": "Participantes máx.",
+    "price": "Desde",
+    "featured": "Nuestras experiencias exclusivas"
+  },
+  "tourDetail": {
+    "notFound": "Tour no encontrado",
+    "notFoundDescription": "El tour solicitado no fue encontrado.",
+    "backToTours": "Volver a los tours",
+    "booking": "Reserva",
+    "startingFrom": "Desde",
+    "perPerson": "por persona",
+    "contactForPrice": "Contactar para precio",
+    "description": "Descripción",
+    "highlights": "Destacados",
+    "guests": "personas",
+    "upTo": "Hasta",
+    "minGuests": "Mínimo",
+    "moreDetails": "Más detalles en Tour Ninja"
+  },
+  "tourNinjaIframe": {
+    "presentation": "Presentación",
+    "booking": "Reserva"
+  },
+  "blogPage": {
+    "title": "Blog de viaje",
+    "subtitle": "Descubre lo mejor de Krabi a través de nuestras guías de viaje, consejos e información local.",
+    "searchPlaceholder": "Buscar artículos...",
+    "tags": "Etiquetas",
+    "allTags": "Todas las etiquetas",
+    "categories": "Categorías",
+    "allCategories": "Todas las categorías",
+    "readMore": "Leer más",
+    "noArticles": "No se encontraron artículos",
+    "noArticlesDescription": "Intenta ajustar tus criterios de búsqueda o navega por todos los artículos.",
+    "clearFilters": "Limpiar filtros",
+    "backToBlog": "Volver al blog",
+    "articleNotFound": "Artículo no encontrado",
+    "articleNotFoundDescription": "El artículo que buscas no existe o ha sido eliminado."
+  },
+  "blogCategories": {
+    "Travel Guides": "Guías de viaje",
+    "Island Adventures": "Aventuras en las islas",
+    "Local Culture": "Cultura local",
+    "Travel Planning": "Planificación de viaje",
+    "Beaches and Islands": "Playas e islas",
+    "Tours and Excursions": "Tours y excursiones",
+    "Water Activities": "Actividades acuáticas",
+    "Travel Destinations": "Destinos de viaje",
+    "Travel Tips": "Consejos de viaje",
+    "Culture and Traditions": "Cultura y tradiciones",
+    "Food and Dining": "Gastronomía"
+  },
+  "blogTags": {
+    "Adventure": "Aventura",
+    "Beach": "Playa",
+    "Food": "Gastronomía",
+    "Photography": "Fotografía",
+    "Krabi": "Krabi",
+    "Thailand": "Tailandia",
+    "Thailand Travel": "Viaje a Tailandia",
+    "Krabi Guide": "Guía de Krabi",
+    "Phi Phi Islands": "Islas Phi Phi",
+    "Railay Beach": "Playa Railay",
+    "Ao Nang": "Ao Nang",
+    "4 Islands Tour": "Tour de las 4 islas",
+    "Hong Island": "Isla Hong",
+    "Maya Bay": "Bahía Maya",
+    "Krabi Beaches": "Playas de Krabi",
+    "Krabi Tours": "Tours en Krabi",
+    "Snorkeling": "Snorkel",
+    "Free Diving": "Buceo libre",
+    "Kayak": "Kayak",
+    "Climbing": "Escalada",
+    "Tours Krabi": "Tours Krabi",
+    "What to do Krabi": "Qué hacer en Krabi",
+    "Krabi Accommodations": "Alojamientos en Krabi",
+    "Krabi Restaurants": "Restaurantes en Krabi",
+    "Travel Tips": "Consejos de viaje",
+    "Krabi Budget": "Presupuesto Krabi",
+    "Thailand Seasons": "Temporadas en Tailandia",
+    "Nightlife": "Vida nocturna",
+    "Thai Culture": "Cultura tailandesa",
+    "Temples": "Templos"
+  },
+  "home": {
+    "introTitle": "Cuando los expatriados te dan la bienvenida en su país de adopción",
+    "introDescription": "Desde 2013, nuestra agencia de viajes familiar ha estado creando actividades exclusivas alrededor de Krabi y diseñando viajes a medida en toda Tailandia. Nuestro objetivo es ofrecer experiencias de viaje inmersivas, lejos del turismo de masas, con un servicio personalizado para cada viajero — dándote la bienvenida como parte de nuestra familia o amigos cercanos.",
+    "customTripTitle": "Crea tu viaje a medida",
+    "customTripSubtitle": "Tu historia de viaje comienza con tus sueños -",
+    "customTripDescription": "déjanos escribir el resto.",
+    "fullName": "Nombre completo",
+    "email": "Correo electrónico",
+    "countryCode": "Código de país",
+    "whatsappNumber": "Número de WhatsApp",
+    "numberOfAdults": "Número de adultos",
+    "numberOfKids": "Número de niños (menores de 12 años)",
+    "numberOfKidsLabel": "Número de niños",
+    "datesOfTrip": "Fechas del viaje",
+    "approximateDuration": "O duración aproximada",
+    "tripTypes": "Tipos de viaje",
+    "destinations": "Destinos",
+    "describeIdealTrip": "Describe tu viaje ideal",
+    "sendRequest": "Enviar mi solicitud",
+    "orContactDirectly": "O contáctanos directamente vía WhatsApp",
+    "contactWhatsApp": "Contactar vía WhatsApp",
+    "cultureHistory": "Cultura e Historia",
+    "natureAdventure": "Naturaleza y Aventura",
+    "beachesIslands": "Playas e Islas",
+    "familyTrip": "Viaje familiar",
+    "groupTrip": "Viaje en grupo",
+    "weddingHoneymoon": "Boda y Luna de miel",
+    "khaoSok": "Parque Nacional de Khao Sok",
+    "bangkok": "Bangkok",
+    "krabi": "Krabi",
+    "chiangMai": "Chiang Mai",
+    "kohMook": "Isla de Koh Mook",
+    "othersDestinations": "Otros destinos",
+    "someIdeasTitle": "Algunas ideas para tu próximo viaje",
+    "someIdeasDescription": "Inspírate con nuestras experiencias de viaje diseñadas a medida.",
+    "whyChooseTitle": "Por qué elegirnos",
+    "whyChooseDescription": "Experimenta una excursión privada exclusiva con nuestros guías certificados que hablan inglés o francés.",
+    "privateTours": "Tours privados",
+    "privateToursDesc": "Vive una excursión exclusiva con nuestros guías profesionales y vehículos privados.",
+    "customizedItineraries": "Itinerarios personalizados",
+    "customizedItinerariesDesc": "Crea tu propio viaje basado en tus deseos, tu ritmo y tus intereses.",
+    "authenticExperiences": "Experiencias auténticas",
+    "authenticExperiencesDesc": "Descubre destinos fuera de los caminos trillados y sumérgete en la cultura local.",
+    "privateCar": "Coche privado",
+    "guide": "Guía",
+    "safety": "Seguridad",
+    "customRoute": "Ruta personalizada",
+    "flexibleTime": "Horario flexible",
+    "yourPace": "Tu ritmo",
+    "localFood": "Comida local",
+    "localPeople": "Gente local",
+    "culture": "Cultura",
+    "whoWeAreTitle": "Quiénes somos",
+    "whoWeAreDescription": "Somos Eric, Margaux, Gabriel y Raphaël, una familia francesa viviendo en Krabi, sur de Tailandia, desde 2013.",
+    "whoWeAreStory": "De nuestra vida aquí, creamos Amon Tour — una pequeña agencia de viajes independiente basada en una idea simple: dar la bienvenida personalmente a nuestros viajeros a Krabi y ofrecerles una forma diferente de experimentar Tailandia.",
+    "deepLocalRootsTitle": "Raíces locales profundas",
+    "deepLocalRootsDescription": "Vivimos aquí todo el año, en el corazón de la región que amamos. Esta conexión cercana con el destino nos permite ofrecer experiencias exclusivas en Krabi, diseñadas y guiadas por nuestro equipo de guías locales profesionales o socios de confianza.",
+    "deepLocalRootsExplanation": "No estás reservando un tour genérico — estás siendo recibido, guiado y cuidado por personas que viven aquí, que conocen las mareas, las estaciones, las multitudes a evitar y las joyas ocultas que vale la pena descubrir.",
+    "ourConceptTitle": "Nuestro concepto",
+    "ourConceptDescription": "Combinar la calidez y cercanía de una agencia local en Krabi con la experiencia de un diseñador de viajes a medida para toda Tailandia. En Amon Tour, estás apoyado antes, durante y después de tu viaje. Estás en contacto con personas reales – una cara, una voz, un equipo – no un centro de llamadas o un algoritmo. Estamos aquí, en el terreno, para hacer de tu viaje una experiencia fluida, personal e inolvidable.",
+    "testimonialsTitle": "Reseñas de nuestros viajeros",
+    "testimonialsDescription": "Descubre las experiencias auténticas de nuestros clientes durante sus viajes con Amon Tour en Tailandia.",
+    "basedOnReviews": "Basado en 80 reseñas",
+    "tailorMadeTitle": "Nuestros viajes a medida",
+    "tailorMadeDescription": "Diseña tu propio viaje por Tailandia con nuestras estancias a medida: desde descubrimientos culturales y aventuras familiares hasta escapadas románticas y escapes a islas. Cada itinerario está diseñado para coincidir con tus deseos, ofreciendo experiencias auténticas, servicios de calidad y una inmersión única lejos del turismo de masas.",
+    "contactUs": "Contáctanos",
+    "createYourJourney": "Crea tu viaje"
+  },
+  "footer": {
+    "contact": "Contacto",
+    "usefulLinks": "Enlaces útiles",
+    "newsletter": "Boletín",
+    "aboutUs": "Acerca de",
+    "followUs": "Síguenos",
+    "privacyPolicy": "Política de privacidad",
+    "terms": "Términos y condiciones",
+    "subscribeNewsletter": "Suscríbete para recibir nuestras ofertas especiales y consejos de viaje.",
+    "privacyRespect": "Respetamos tu privacidad. Cancela la suscripción en cualquier momento.",
+    "ourBrochure": "Nuestro folleto",
+    "allRightsReserved": "Todos los derechos reservados",
+    "designedBy": "Diseñado por",
+    "followSocialMedia": "Síguenos en redes sociales",
+    "newsletterPlaceholder": "Tu dirección de correo",
+    "subscribe": "Suscribirse",
+    "successfulSubscription": "¡Suscripción exitosa!",
+    "thankYouSubscription": "Gracias por suscribirte a nuestro boletín.",
+    "newsletterError": "Error de suscripción. Por favor, inténtalo de nuevo."
+  },
+  "cruise": {
+    "title": "Cruceros Krabi",
+    "subtitle": "Experiencias inolvidables en el agua",
+    "description": "Navega por las aguas cristalinas de Krabi a bordo de nuestros barcos privados y semi-privados cuidadosamente seleccionados.",
+    "krabiCelebrationTitle": "Krabi Celebration - Yate de lujo",
+    "krabiCelebrationDescription": "Experimenta el lujo máximo a bordo de nuestro yate exclusivo. Perfecto para ocasiones especiales, propuestas de matrimonio, o simplemente para darte un capricho con una experiencia inolvidable en las aguas cristalinas de Krabi.",
+    "privateChartersTitle": "Chárteres privados",
+    "privateChartersDescription": "Elige de nuestra flota de barcos para tu aventura privada perfecta. Desde lanchas rápidas hasta veleros tradicionales, tenemos la embarcación ideal para tu viaje.",
+    "features": "Características",
+    "capacity": "Capacidad",
+    "duration": "Duración",
+    "included": "Incluido",
+    "bookNow": "Reservar ahora",
+    "viewDetails": "Ver detalles",
+    "fromPrice": "Desde",
+    "perDay": "por día",
+    "maxGuests": "huéspedes máximo",
+    "luxuryAmenities": "Comodidades de lujo",
+    "experiencedCrew": "Tripulación experimentada",
+    "customItinerary": "Itinerario personalizado",
+    "gourmetCatering": "Catering gourmet",
+    "snorkelingGear": "Equipo de snorkel",
+    "soundSystem": "Sistema de sonido",
+    "sunDeck": "Cubierta para tomar el sol",
+    "airConditionedCabins": "Cabinas con aire acondicionado",
+    "seoTitle": "Cruceros de lujo en Krabi - Chárteres de yates privados",
+    "seoDescription": "Explora Krabi desde el agua con nuestros cruceros de lujo y chárteres de yates privados. Experiencias inolvidables, tripulación profesional e itinerarios personalizados.",
+    "seoKeywords": "cruceros krabi, yate de lujo krabi, chárter privado tailandia, alquiler de barcos krabi, tours en barco",
+    "requestSent": "¡Solicitud enviada!",
+    "contactShortly": "Nos pondremos en contacto contigo pronto para hablar sobre tu viaje.",
+    "errorMessage": "Hubo un problema al enviar tu solicitud. Por favor, inténtalo de nuevo.",
+    "phoneRequired": "Por favor, introduce tu número de WhatsApp. Este campo es obligatorio.",
+    "fullNamePlaceholder": "Tu nombre completo",
+    "emailPlaceholder": "tu@email.com",
+    "datesPlaceholder": "Selecciona tus fechas de viaje",
+    "chooseDuration": "Seleccionar duración",
+    "sending": "Enviando..."
+  },
+  "customTour": {
+    "title": "Crea tu viaje perfecto en Tailandia",
+    "subtitle": "Tu viaje, tus reglas. Nosotros nos encargamos de los detalles.",
+    "seoTitle": "Viajes a medida en Tailandia - Tours personalizados en Krabi",
+    "seoDescription": "Crea tu viaje ideal en Tailandia con Amon Tour. Itinerarios a medida, guías locales expertos y experiencias auténticas lejos del turismo de masas.",
+    "seoKeywords": "viaje a medida tailandia, tour personalizado krabi, viaje privado tailandia, itinerario personalizado",
+    "whyChoose": "¿Por qué elegir nuestros viajes a medida?",
+    "whyChooseDescription": "Con más de 10 años de experiencia en Tailandia, creamos viajes que coinciden perfectamente con tus sueños y deseos.",
+    "flexibleItinerary": "Itinerarios flexibles",
+    "flexibleItineraryDescription": "Cambia tus planes sobre la marcha. Tu viaje se adapta a tus deseos, no al revés.",
+    "tailoredAccommodations": "Alojamientos a medida",
+    "tailoredAccommodationsDescription": "Desde encantadores hoteles boutique hasta resorts de lujo, seleccionamos los lugares perfectos para tu estilo y presupuesto.",
+    "personalizedSupport": "Soporte personalizado 24/7",
+    "personalizedSupportDescription": "Nuestro equipo local siempre está disponible para asistirte, aconsejarte y asegurarse de que todo salga perfectamente."
+  },
+  "seo": {
+    "defaultTitle": "Amon Tour - Experiencias auténticas en Tailandia",
+    "defaultDescription": "Descubre la Tailandia auténtica con Amon Tour. Tours privados en Krabi, viajes a medida y experiencias exclusivas lejos del turismo de masas.",
+    "defaultKeywords": "amon tour, tours krabi, viaje tailandia, tour privado krabi, agencia viajes local"
+  },
+  "experiences": {
+    "title": "Descubre las experiencias en Tailandia",
+    "subtitle": "Sumérgete en la auténtica cultura tailandesa con nuestras experiencias únicas",
+    "availableTitle": "Tours y experiencias disponibles",
+    "availableSubtitle": "Descubre nuestros auténticos tours por Tailandia con guías expertos"
+  },
+  "custom": {
+    "subtitle": "Diseña tu propio viaje por Tailandia con nuestras estancias a medida: desde descubrimientos culturales y aventuras familiares hasta escapadas románticas y escapadas a la isla. Cada itinerario está diseñado para satisfacer tus deseos, ofreciendo experiencias auténticas, servicios de calidad y una inmersión única lejos del turismo de masas."
+  },
+  "custom_tour_form": {
+    "title": "Viajes a medida.",
+    "subtitle": "Diseña tu propio viaje por Tailandia con nuestras estancias a medida: desde descubrimientos culturales y aventuras familiares hasta escapadas románticas y escapadas a la isla. Cada itinerario está diseñado para satisfacer tus deseos, ofreciendo experiencias auténticas, servicios de calidad y una inmersión única lejos del turismo de masas."
+  },
+  "who_we_are": {
+    "title": "Quiénes somos",
+    "introduction": "Somos Eric, Margaux, Gabriel y Raphaël, una familia francesa que vive en Krabi, al sur de Tailandia, desde 2013.\n\nDe nuestra vida aquí, creamos Amon Tour, una pequeña agencia de viajes independiente basada en una idea simple: dar la bienvenida personalmente a nuestros viajeros a Krabi y ofrecerles una forma diferente de experimentar Tailandia.",
+    "sections_0_subtitle": "LAS RAÍCES DE UN PUEBLO",
+    "sections_0_text": "Vivimos aquí todo el año, en el corazón de la región que amamos. Esta estrecha conexión con el destino nos permite ofrecer experiencias exclusivas en Krabi, diseñadas y guiadas por nuestro equipo de guías locales profesionales o socios de confianza.\n\nNo estás reservando una excursión genérica: estás siendo recibido, guiado y cuidado por personas que viven aquí, que conocen las mareas, las estaciones, las multitudes que hay que evitar y las joyas ocultas que vale la pena descubrir."
+  },
+  "text_video_354": {
+    "title": "Nuestro catamarán en vídeo",
+    "subtitle": "Explora tu futura embarcación y descubre la experiencia única que te espera a bordo de nuestro Lagoon 470."
+  },
+  "header_page_295": {
+    "title": "Nuestras Experiencias",
+    "subtitle": "Descubre la excepcional belleza de Krabi y el sur de Tailandia."
+  },
+  "why_choose_us_325": {
+    "title": "¿Por qué elegir un tour personalizado?",
+    "subtitle": "Un viaje personalizado ofrece una experiencia única adaptada a tus deseos, ritmo y presupuesto.",
+    "icon_blocks_0_title": "Itinerario flexible",
+    "icon_blocks_0_description": "Elige los destinos que te interesan y establece tu propio ritmo de viaje.",
+    "icon_blocks_1_title": "Alojamientos a medida",
+    "icon_blocks_1_description": "Selecciona alojamientos que se adapten a tus preferencias y presupuesto.",
+    "icon_blocks_2_title": "Acompañamiento personalizado",
+    "icon_blocks_2_description": "Benefíciate de consejos expertos y un guía de habla hispana o inglesa para una experiencia auténtica."
+  },
+  "text_205": {
+    "title": "Cuando los expatriados te reciben en su país de acogida",
+    "description": "Desde 2013, nuestra agencia de viajes familiar organiza actividades exclusivas en Krabi y diseña viajes a medida por toda Tailandia. Nuestro objetivo es ofrecer experiencias de viaje inmersivas, lejos del turismo masivo, con un servicio personalizado para cada viajero, dándole la bienvenida como parte de nuestra familia o amigos cercanos."
+  },
+  "text_section_424": {
+    "title": "Aviso Legal",
+    "description": "<section><h2>Editor test</h2><p>El sitio web amon-tour.com es producido por Flame BB Co., Ltd., con un capital de 4,000,000 de bahts tailandeses, registrada en el Ministerio de Comercio de Tailandia (DBD) en Krabi bajo el número 0815558001588, con sede en 242 Moo1 – Na Thai – Ao Nang – 81000 Krabi – Tailandia. La empresa posee una licencia turística emitida por el Ministro de Turismo de Tailandia (TAT) bajo el número 34/01995.</p><p><span>Director de Publicación:</span>&nbsp;Eric Mosnier-Thoumas en su calidad de Director Ejecutivo y administrador del sitio web.</p></section><section><h2>Exención de responsabilidad</h2><p>Flame BB se esfuerza por garantizar, en la medida de lo posible, la exactitud y actualización de la información distribuida en este sitio, para lo cual se reserva el derecho de corregir, en cualquier momento y sin previo aviso, el contenido. Sin embargo, Flame BB no puede garantizar la exactitud, precisión o integridad de la información disponible en este sitio.</p><p>En consecuencia, Flame BB renuncia a toda responsabilidad:</p><ul><li>por cualquier interrupción del sitio</li><li>por la aparición de errores</li><li>por cualquier inexactitud u omisión relacionada con la información disponible en el sitio</li><li>por cualquier daño resultante de una intrusión fraudulenta de un tercero que haya llevado a una modificación de la información disponible en el sitio</li><li>y más generalmente por cualquier daño directo o indirecto, cualesquiera que sean sus causas, naturaleza o consecuencias, incluidos notablemente los costos que puedan surgir de la adquisición de bienes propuestos en el sitio, pérdida de beneficios, clientes, datos o cualquier otra pérdida de activos intangibles que pueda ocurrir debido al acceso de cualquier persona al sitio o la imposibilidad de acceder a él o el crédito otorgado a cualquier información proveniente directa o indirectamente de él.</li></ul></section><section><h2>Protección de datos personales</h2><p>Flame BB se compromete a preservar la confidencialidad de la información que pueda proporcionar el usuario de Internet.</p><p>Cualquier información personal que el usuario de Internet pueda transmitir a Flame BB para el uso de ciertos servicios está sujeta a las disposiciones de la Ley N° 78-17 sobre Informática y Libertad del 6 de enero de 1978. En este sentido, el usuario de Internet tiene derecho a acceder, rectificar y eliminar información personal que le concierne, que puede ejercer en cualquier momento enviando una carta a:</p><address>Flame BB<br>242/1 Moo1 – Na Thai – Ao Nang<br>81000 Krabi – Thailand</address></section><section><h2>Enlaces</h2><p>El sitio puede incluir enlaces a otros sitios. En la medida en que Flame BB no puede controlar estos sitios, Flame BB no puede ser responsable de poner a disposición estos sitios y no puede asumir ninguna responsabilidad con respecto al contenido, anuncios, productos, servicios o cualquier otro material disponible en o desde estos sitios. Además, Flame BB no puede ser responsable de ningún daño probado o alegado que resulte de o esté relacionado con el uso o la confianza en el contenido, bienes o servicios disponibles en estos sitios o fuentes externas.</p></section><section><h2>Derechos de propiedad intelectual de Flame BB</h2><p>El sitio, así como cualquier software necesariamente utilizado en relación con él, puede contener información confidencial protegida por la ley de propiedad intelectual aplicable o cualquier otra ley. Así, a menos que se indique lo contrario, los derechos de propiedad intelectual sobre los documentos contenidos en el sitio y cada uno de los elementos creados para este sitio son propiedad exclusiva de Flame BB, que no otorga ninguna licencia ni ningún otro derecho que el de consultar el sitio. En particular, las marcas comerciales y otros derechos de propiedad intelectual mencionados en el sitio son propiedad de las entidades correspondientes de Flame BB. La reproducción de todos los documentos publicados en el sitio solo está autorizada con los fines exclusivos de información para uso personal y privado, estando expresamente prohibida cualquier reproducción y cualquier uso de copias realizadas con otros fines. También está prohibido copiar, modificar, crear una obra derivada, realizar ingeniería inversa o ensamblar o de cualquier otra manera intentar encontrar el código fuente (excepto en los casos previstos por la ley), vender, ceder, sublicenciar o transferir de cualquier manera cualquier derecho relacionado con el software. Del mismo modo, también está prohibido modificar el software o utilizar versiones modificadas del software, particularmente (sin que esta lista sea limitativa) para obtener acceso no autorizado al servicio y para acceder al sitio por cualquier medio que no sea a través de la interfaz proporcionada por Flame BB.</p></section><section><h2>Derechos y propiedades</h2><p>A menos que se indique lo contrario, todos los textos, fotografías y otros elementos visuales de este sitio son propiedad exclusiva del autor y, por lo tanto, están protegidos por derechos de autor.<br>Prohibición estricta de copiar, reproducir o redistribuir este contenido en cualquier forma.<br>Cualquier uso fuera de este medio debe ser objeto de una solicitud por escrito.</p></section>"
+  },
+  "contact_340": {
+    "title": "Póngase en contacto",
+    "subtitle": "¿Todo listo para explorar Krabi? Contáctenos a través de cualquiera de los métodos a continuación. Nuestro amable equipo está aquí para responder a tus preguntas y ayudarte a planificar una experiencia inolvidable.",
+    "email_label": "Correo electrónico",
+    "email": "info@amon-tour.com",
+    "phone_label": "Teléfono",
+    "phone": "+66 9 62 16 65 59",
+    "whatsapp_label": "WhatsApp",
+    "whatsapp": "+66 6 53 49 64 45",
+    "line_id_label": "Id línea unida",
+    "line_id": "amontour",
+    "about_title": "Sobre nuestra compañía",
+    "company_brand": "Amon Tour es una marca de:",
+    "company_name": "Llama BB Co., Ltd.",
+    "company_license": "34/01995",
+    "company_description": "Somos un operador turístico con licencia con sede en Ao Nang, Krabi, especializado en experiencias locales auténticas y servicios de viaje personalizados."
+  },
+  "hero_199": {
+    "title": "Tus experiencias \nexclusivas en \nKrabi - TAILANDIA",
+    "subtitle": "Descubre lugares increíbles alejados del turismo de masas en Krabi.\nY también Khao Sok, Koh Mook y muchos destinos más.",
+    "title_accent": "Krabi -",
+    "buttons_0_text": "Ver nuestras ofertas",
+    "buttons_1_text": "Personaliza tu viaje"
+  },
+  "blog_search_347": {
+    "search_placeholder": "Buscar artículos...",
+    "tags_title": "Etiquetas",
+    "categories_title": "Categorías",
+    "all_tags_text": "Todas las etiquetas",
+    "all_categories_text": "Todas las categorías"
+  },
+  "text_344": {
+    "title": "¿Todo listo para empezar tu aventura? ",
+    "description": "Ya sea que estés buscando un tour privado, un itinerario personalizado o tengas preguntas sobre Krabi, nuestros expertos locales están listos para ayudarte a crear recuerdos inolvidables."
+  },
+  "text_listing_365": {
+    "title": "Sugerencias de ruta",
+    "subtitle": "Cada itinerario se adapta a la temporada, las condiciones naturales y el tráfico turístico para garantizarte una experiencia óptima.",
+    "items_0_label": "1 día",
+    "items_0_description": "Solo disponible a través de esta oferta: <a href=\"https://www.tourninja.io/details/Wmx1GcKCGO\">Excursión privada en catamarán de un día</a>",
+    "items_1_label": "2 días",
+    "items_1_description": "Dirígete a Koh Hong o al legendario Koh Phi Phi",
+    "items_2_label": "3-4 días",
+    "items_2_description": "Combinación de la bahía de Phang Nga y Koh Phi Phi",
+    "items_3_label": "5-6 días",
+    "items_3_description": "Escapada a las aguas preservadas de Koh Rok y Koh Mook",
+    "items_4_label": "7 días y más",
+    "items_4_description": "Odisea a las paradisíacas islas de Koh Lipe o Similan"
+  },
+  "header_page_351": {
+    "title": "La experiencia del catamarán",
+    "subtitle": "Navega por las joyas ocultas de Krabi en una aventura privada en catamarán"
+  },
+  "tour_ninja_section_255": {
+    "title": "Algunas ideas para tu próximo viaje",
+    "subtitle": "Inspírate con nuestras experiencias de viaje personalizadas.",
+    "button_text": "Tours y experiencias"
+  },
+  "header_page_328": {
+    "title": "Crea tu tour personalizado",
+    "subtitle": "Cuéntanos qué te gustaría descubrir y crearemos tu itinerario personalizado."
+  },
+  "custom_tour_form_326": {
+    "title": "Viajes a medida.",
+    "subtitle": "Diseña tu propio viaje por Tailandia con nuestras estancias a medida: desde descubrimientos culturales y aventuras familiares hasta escapadas románticas y escapadas a la isla. Cada itinerario está diseñado para satisfacer tus deseos, ofreciendo experiencias auténticas, servicios de calidad y una inmersión única lejos del turismo de masas. [[NUEVA LÍNEA]]"
+  },
+  "text_section_423": {
+    "title": "Aviso Legal",
+    "description": "<section><h2>Protección de datos</h2><p>Flame BB Co., Ltd. se compromete a preservar la confidencialidad de la información que puedan proporcionar en línea los visitantes y clientes de nuestro sitio web. Esta política de privacidad explica cómo recopilamos, utilizamos y protegemos su información personal.</p></section><section><h2>Recopilación de información</h2><p>Podemos recopilar información personal como:</p><ul><li>Nombre y datos de contacto</li><li>Dirección de correo electrónico</li><li>Número de teléfono</li><li>Preferencias de viaje</li><li>Información de reserva</li><li>Detalles de pago</li></ul><p>Esta información se recopila cuando usted:</p><ul><li>Realiza una reserva</li><li>Solicita un tour personalizado</li><li>Se suscribe a nuestro boletín</li><li>Nos contacta a través de nuestro formulario de contacto o WhatsApp</li></ul></section><section><h2>Uso de la información</h2><p>La información que recopilamos se utiliza para:</p><ul><li>Procesar sus reservas y solicitudes de tours</li><li>Comunicarnos con usted sobre sus arreglos de viaje</li><li>Proporcionar soporte al cliente</li><li>Enviarle ofertas promocionales y boletines (si ha optado por recibirlos)</li><li>Mejorar nuestro sitio web y servicios</li><li>Cumplir con los requisitos legales</li></ul></section><section><h2>Seguridad de datos</h2><p>Implementamos medidas de seguridad apropiadas para proteger su información personal contra el acceso no autorizado, alteración, divulgación o destrucción. Sin embargo, ningún método de transmisión por Internet o almacenamiento electrónico es 100% seguro, y no podemos garantizar una seguridad absoluta.</p></section><section><h2>Retención de datos</h2><p>Conservamos su información personal durante el tiempo necesario para cumplir con los fines para los que la recopilamos, incluido el cumplimiento de cualquier requisito legal, contable o de presentación de informes.</p></section><section><h2>Sus derechos</h2><p>Según las leyes aplicables de protección de datos, usted tiene derechos con respecto a sus datos personales, que incluyen:</p><ul><li>El derecho a acceder a su información personal</li><li>El derecho a corregir información inexacta</li><li>El derecho a solicitar la eliminación de su información</li><li>El derecho a restringir u oponerse al procesamiento</li><li>El derecho a la portabilidad de datos</li></ul><p>Para ejercer estos derechos, comuníquese con nosotros en la dirección a continuación.</p></section><section><h2>Cookies</h2><p>Nuestro sitio web utiliza cookies para mejorar su experiencia de navegación. Puede configurar su navegador para rechazar todas o algunas cookies del navegador, pero esto puede evitar que algunas partes de nuestro sitio web funcionen correctamente.</p></section><section><h2>Enlaces de terceros</h2><p>Nuestro sitio web puede contener enlaces a sitios web de terceros. No somos responsables de las prácticas de privacidad o el contenido de estos sitios web. Le recomendamos que lea las políticas de privacidad de estos sitios web.</p></section><section><h2>Cambios a esta política</h2><p>Podemos actualizar esta política de privacidad de vez en cuando. Le notificaremos cualquier cambio significativo publicando la nueva política en esta página.</p></section><section><h2>Información de contacto</h2><p>Si tiene alguna pregunta sobre esta política de privacidad o nuestras prácticas de datos, comuníquese con nosotros en:</p><address>Flame BB Co., Ltd.<br>242/1 Moo1 – Na Thai – Ao Nang<br>81000 Krabi – Thailand<br>Email: info@amon-tour.com</address></section>"
+  },
+  "text_gallery_353": {
+    "title": "Un catamarán Lagoon 470",
+    "subtitle": "Construido en 1999 y constantemente mejorado desde 2023, combina comodidad y carácter. Cuenta con 4 cabinas dobles con baños privados: dos cabinas con camas queen-size (160 cm) y dos con camas dobles (140 cm). Cada cabina está equipada con ventiladores, enchufes de 220V y amplios espacios de almacenamiento.\n\nAmplio y bien diseñado, el Lagoon ofrece un flujo perfecto entre los espacios de vida interiores y exteriores: gran sala luminosa, cocina equipada, cabina sombreada, área para tomar el sol en la parte delantera, etc. El motor discreto asegura una navegación tranquila.\n\nPerfecto para vacaciones en familia, con amigos o en chárter privado, este barco garantiza tu comodidad, privacidad y libertad para explorar las islas más hermosas del mar de Andamán."
+  },
+  "custom_tour_form_252": {
+    "title": "Viajes a medida.",
+    "subtitle": "Diseña tu propio viaje por Tailandia con nuestras estancias a medida: desde descubrimientos culturales y aventuras familiares hasta escapadas románticas y escapadas a la isla. Cada itinerario está diseñado para satisfacer tus deseos, ofreciendo experiencias auténticas, servicios de calidad y una inmersión única lejos del turismo de masas."
+  },
+  "header_page_329": {
+    "title": "Blog de viajes",
+    "subtitle": "Descubre lo mejor de Krabi a través de nuestras guías de viaje, consejos e información local."
+  },
+  "header_page_330": {
+    "title": "Contáctanos",
+    "subtitle": "Estamos aquí para ayudarte a planificar la experiencia perfecta en Krabi."
+  },
+  "custom_tour_form_371": {
+    "title": "Solicitud de presupuesto personalizado",
+    "subtitle": "Rellene el siguiente formulario y nos pondremos en contacto con usted en un plazo de 24 horas."
+  },
+  "text_section_368": {
+    "title": "Aviso Legal",
+    "description": "<section><h2>Editor</h2><p>El sitio web amon-tour.com es producido por Flame BB Co., Ltd., con un capital de 4,000,000 de bahts tailandeses, registrada en el Ministerio de Comercio de Tailandia (DBD) en Krabi bajo el número 0815558001588, con sede en 242 Moo1 – Na Thai – Ao Nang – 81000 Krabi – Tailandia. La empresa posee una licencia turística emitida por el Ministro de Turismo de Tailandia (TAT) bajo el número 34/01995.</p><p><span>Director de Publicación:</span>&nbsp;Eric Mosnier-Thoumas en su calidad de Director Ejecutivo y administrador del sitio web.</p></section><section><h2>Exención de responsabilidad</h2><p>Flame BB se esfuerza por garantizar, en la medida de lo posible, la exactitud y actualización de la información distribuida en este sitio, para lo cual se reserva el derecho de corregir, en cualquier momento y sin previo aviso, el contenido. Sin embargo, Flame BB no puede garantizar la exactitud, precisión o integridad de la información disponible en este sitio.</p><p>En consecuencia, Flame BB renuncia a toda responsabilidad:</p><ul><li>por cualquier interrupción del sitio</li><li>por la aparición de errores</li><li>por cualquier inexactitud u omisión relacionada con la información disponible en el sitio</li><li>por cualquier daño resultante de una intrusión fraudulenta de un tercero que haya llevado a una modificación de la información disponible en el sitio</li><li>y más generalmente por cualquier daño directo o indirecto, cualesquiera que sean sus causas, naturaleza o consecuencias, incluidos notablemente los costos que puedan surgir de la adquisición de bienes propuestos en el sitio, pérdida de beneficios, clientes, datos o cualquier otra pérdida de activos intangibles que pueda ocurrir debido al acceso de cualquier persona al sitio o la imposibilidad de acceder a él o el crédito otorgado a cualquier información proveniente directa o indirectamente de él.</li></ul></section><section><h2>Protección de datos personales</h2><p>Flame BB se compromete a preservar la confidencialidad de la información que pueda proporcionar el usuario de Internet.</p><p>Cualquier información personal que el usuario de Internet pueda transmitir a Flame BB para el uso de ciertos servicios está sujeta a las disposiciones de la Ley N° 78-17 sobre Informática y Libertad del 6 de enero de 1978. En este sentido, el usuario de Internet tiene derecho a acceder, rectificar y eliminar información personal que le concierne, que puede ejercer en cualquier momento enviando una carta a:</p><address>Flame BB<br>242/1 Moo1 – Na Thai – Ao Nang<br>81000 Krabi – Thailand</address></section><section><h2>Enlaces</h2><p>El sitio puede incluir enlaces a otros sitios. En la medida en que Flame BB no puede controlar estos sitios, Flame BB no puede ser responsable de poner a disposición estos sitios y no puede asumir ninguna responsabilidad con respecto al contenido, anuncios, productos, servicios o cualquier otro material disponible en o desde estos sitios. Además, Flame BB no puede ser responsable de ningún daño probado o alegado que resulte de o esté relacionado con el uso o la confianza en el contenido, bienes o servicios disponibles en estos sitios o fuentes externas.</p></section><section><h2>Derechos de propiedad intelectual de Flame BB</h2><p>El sitio, así como cualquier software necesariamente utilizado en relación con él, puede contener información confidencial protegida por la ley de propiedad intelectual aplicable o cualquier otra ley. Así, a menos que se indique lo contrario, los derechos de propiedad intelectual sobre los documentos contenidos en el sitio y cada uno de los elementos creados para este sitio son propiedad exclusiva de Flame BB, que no otorga ninguna licencia ni ningún otro derecho que el de consultar el sitio. En particular, las marcas comerciales y otros derechos de propiedad intelectual mencionados en el sitio son propiedad de las entidades correspondientes de Flame BB. La reproducción de todos los documentos publicados en el sitio solo está autorizada con los fines exclusivos de información para uso personal y privado, estando expresamente prohibida cualquier reproducción y cualquier uso de copias realizadas con otros fines. También está prohibido copiar, modificar, crear una obra derivada, realizar ingeniería inversa o ensamblar o de cualquier otra manera intentar encontrar el código fuente (excepto en los casos previstos por la ley), vender, ceder, sublicenciar o transferir de cualquier manera cualquier derecho relacionado con el software. Del mismo modo, también está prohibido modificar el software o utilizar versiones modificadas del software, particularmente (sin que esta lista sea limitativa) para obtener acceso no autorizado al servicio y para acceder al sitio por cualquier medio que no sea a través de la interfaz proporcionada por Flame BB.</p></section><section><h2>Derechos y propiedades</h2><p>A menos que se indique lo contrario, todos los textos, fotografías y otros elementos visuales de este sitio son propiedad exclusiva del autor y, por lo tanto, están protegidos por derechos de autor.<br>Prohibición estricta de copiar, reproducir o redistribuir este contenido en cualquier forma.<br>Cualquier uso fuera de este medio debe ser objeto de una solicitud por escrito.</p></section>"
+  },
+  "text_section_369": {
+    "title": "Términos y condiciones",
+    "description": "<section><h2>1. Términos generales</h2><p>Estos Términos y Condiciones rigen su uso del sitio web de Amon Tour y los servicios proporcionados por Flame BB Co., Ltd., una empresa registrada en Tailandia con el número de licencia TAT 34/01995.</p><p>Al acceder a nuestro sitio web o utilizar nuestros servicios, acepta estar sujeto a estos Términos y Condiciones. Si no está de acuerdo con alguna parte de estos términos, por favor no utilice nuestro sitio web o servicios.</p></section><section><h2>2. Reserva</h2><p>2.1 Todas las reservas están sujetas a disponibilidad y confirmación.</p><p>2.2 Una reserva se confirma una vez que hemos recibido el depósito requerido o el pago completo, y usted ha recibido un correo electrónico de confirmación de nuestra parte.</p><p>2.3 La persona que realiza la reserva acepta estos Términos y Condiciones en nombre de todos los miembros del grupo y es responsable de todos los pagos adeudados.</p><p>2.4 Toda la información proporcionada durante el proceso de reserva debe ser precisa y completa.</p></section><section><h2>3. Pago</h2><p>3.1 Para asegurar una reserva, se requiere un depósito del 30% del precio total del tour, a menos que se especifique lo contrario.</p><p>3.2 El pago completo debe recibirse al menos 7 días antes de la fecha del tour, a menos que se acuerde lo contrario.</p><p>3.3 Los pagos se pueden realizar a través de los métodos de pago especificados en nuestro sitio web o según se comunique durante el proceso de reserva.</p><p>3.4 Todos los precios se cotizan en bahts tailandeses (THB) a menos que se especifique lo contrario.</p></section><section><h2>4. Política de cancelación y reembolso</h2><p>4.1 Cancelación por parte del cliente:</p><ul><li>Más de 30 días antes de la fecha del tour: Reembolso completo menos tarifas administrativas</li><li>15-30 días antes de la fecha del tour: Reembolso del 70%</li><li>7-14 días antes de la fecha del tour: Reembolso del 50%</li><li>Menos de 7 días antes de la fecha del tour: Sin reembolso</li></ul><p>4.2 Cancelación por parte de Amon Tour:</p><p>Si necesitamos cancelar un tour debido a circunstancias imprevistas, condiciones climáticas adversas o participantes insuficientes, le ofreceremos una fecha alternativa o un reembolso completo.</p></section><section><h2>5. Modificaciones de la reserva</h2><p>5.1 Las solicitudes de modificación deben presentarse por escrito (correo electrónico).</p><p>5.2 Haremos todo lo posible para acomodar las solicitudes de cambio, pero no podemos garantizar que sean posibles.</p><p>5.3 Las modificaciones están sujetas a disponibilidad y pueden incurrir en cargos adicionales.</p></section><section><h2>6. Responsabilidades del viajero</h2><p>6.1 Es su responsabilidad asegurarse de tener documentos de viaje válidos (pasaporte, visa si es necesario).</p><p>6.2 Debe cumplir con las leyes y regulaciones locales durante su tour.</p><p>6.3 Debe seguir las instrucciones de seguridad proporcionadas por nuestros guías.</p><p>6.4 Es responsable de sus pertenencias personales durante el tour.</p></section><section><h2>7. Limitación de responsabilidad</h2><p>7.1 Flame BB Co., Ltd. actúa como intermediario en la organización de tours y servicios de viaje.</p><p>7.2 No somos responsables de daños, pérdidas, lesiones o retrasos causados por eventos fuera de nuestro control, incluidos pero no limitados a: condiciones climáticas, desastres naturales, huelgas, actos de guerra o terrorismo.</p><p>7.3 Nuestra responsabilidad está limitada al monto del tour que ha reservado.</p></section><section><h2>8. Seguro</h2><p>Recomendamos encarecidamente que adquiera un seguro de viaje completo que cubra cancelación, emergencias médicas, pérdida de equipaje y otros riesgos potenciales de viaje.</p></section><section><h2>9. Reclamaciones</h2><p>Cualquier reclamación debe presentarse por escrito dentro de los 30 días posteriores a la finalización del tour. Haremos todo lo posible para resolver todas las reclamaciones de manera justa y oportuna.</p></section><section><h2>10. Ley aplicable</h2><p>Estos Términos y Condiciones se rigen e interpretan de acuerdo con las leyes de Tailandia. Cualquier disputa estará sujeta a la jurisdicción exclusiva de los tribunales de Krabi, Tailandia.</p></section><section><h2>11. Modificaciones de los términos</h2><p>Nos reservamos el derecho de modificar estos Términos y Condiciones en cualquier momento. Cualquier cambio se publicará en nuestro sitio web y entrará en vigencia inmediatamente.</p></section>"
+  },
+  "text_section_370": {
+    "title": "Política de privacidad",
+    "description": "<section><h2>Protección de datos</h2><p>Flame BB Co., Ltd. se compromete a preservar la confidencialidad de la información que puedan proporcionar en línea los visitantes y clientes de nuestro sitio web. Esta política de privacidad explica cómo recopilamos, utilizamos y protegemos su información personal.</p></section><section><h2>Recopilación de información</h2><p>Podemos recopilar información personal como:</p><ul><li>Nombre y datos de contacto</li><li>Dirección de correo electrónico</li><li>Número de teléfono</li><li>Preferencias de viaje</li><li>Información de reserva</li><li>Detalles de pago</li></ul><p>Esta información se recopila cuando usted:</p><ul><li>Realiza una reserva</li><li>Solicita un tour personalizado</li><li>Se suscribe a nuestro boletín</li><li>Nos contacta a través de nuestro formulario de contacto o WhatsApp</li></ul></section><section><h2>Uso de la información</h2><p>La información que recopilamos se utiliza para:</p><ul><li>Procesar sus reservas y solicitudes de tours</li><li>Comunicarnos con usted sobre sus arreglos de viaje</li><li>Proporcionar soporte al cliente</li><li>Enviarle ofertas promocionales y boletines (si ha optado por recibirlos)</li><li>Mejorar nuestro sitio web y servicios</li><li>Cumplir con los requisitos legales</li></ul></section><section><h2>Seguridad de datos</h2><p>Implementamos medidas de seguridad apropiadas para proteger su información personal contra el acceso no autorizado, alteración, divulgación o destrucción. Sin embargo, ningún método de transmisión por Internet o almacenamiento electrónico es 100% seguro, y no podemos garantizar una seguridad absoluta.</p></section><section><h2>Retención de datos</h2><p>Conservamos su información personal durante el tiempo necesario para cumplir con los fines para los que la recopilamos, incluido el cumplimiento de cualquier requisito legal, contable o de presentación de informes.</p></section><section><h2>Sus derechos</h2><p>Según las leyes aplicables de protección de datos, usted tiene derechos con respecto a sus datos personales, que incluyen:</p><ul><li>El derecho a acceder a su información personal</li><li>El derecho a corregir información inexacta</li><li>El derecho a solicitar la eliminación de su información</li><li>El derecho a restringir u oponerse al procesamiento</li><li>El derecho a la portabilidad de datos</li></ul><p>Para ejercer estos derechos, comuníquese con nosotros en la dirección a continuación.</p></section><section><h2>Cookies</h2><p>Nuestro sitio web utiliza cookies para mejorar su experiencia de navegación. Puede configurar su navegador para rechazar todas o algunas cookies del navegador, pero esto puede evitar que algunas partes de nuestro sitio web funcionen correctamente.</p></section><section><h2>Enlaces de terceros</h2><p>Nuestro sitio web puede contener enlaces a sitios web de terceros. No somos responsables de las prácticas de privacidad o el contenido de estos sitios web. Le recomendamos que lea las políticas de privacidad de estos sitios web.</p></section><section><h2>Cambios a esta política</h2><p>Podemos actualizar esta política de privacidad de vez en cuando. Le notificaremos cualquier cambio significativo publicando la nueva política en esta página.</p></section><section><h2>Información de contacto</h2><p>Si tiene alguna pregunta sobre esta política de privacidad o nuestras prácticas de datos, comuníquese con nosotros en:</p><address>Flame BB Co., Ltd.<br>242/1 Moo1 – Na Thai – Ao Nang<br>81000 Krabi – Thailand<br>Email: info@amon-tour.com</address></section>"
+  },
+  "why_choose_us_352": {
+    "title": "Libertad y exclusividad",
+    "subtitle": "Navega hacia la exclusividad a bordo de uno de los raros cruceros en catamarán que salen de Krabi. Explora el mar de Andamán como pocos viajeros tienen la oportunidad de hacerlo: con total libertad, lejos de los circuitos turísticos, con un itinerario pensado íntegramente para ti.",
+    "icon_blocks_0_title": "Rutas a medida",
+    "icon_blocks_0_description": "Componemos tu itinerario para revelar lo mejor de la región, priorizando sitios preservados y momentos excepcionales.",
+    "icon_blocks_1_title": "Tripulación experta",
+    "icon_blocks_1_description": "Nuestros capitanes dominan perfectamente estas aguas. Optimizan cada navegación adaptándose a las condiciones meteorológicas, mareas y vientos para maximizar tu placer.",
+    "icon_blocks_2_title": "Libertad total",
+    "icon_blocks_2_description": "Playas desiertas, lagunas turquesas, snorkel en aguas cristalinas... Tu crucero evoluciona según tus preferencias."
+  },
+  "popular_experiences_433": {
+    "title": "\" Programas exclusivos.",
+    "subtitle": "Descubre nuestros exclusivos paquetes de 2-3 días: experiencias inmersivas, actividades cuidadosamente seleccionadas y alojamientos encantadores lejos de las multitudes. Perfecto para explorar Krabi en profundidad, estas estancias cortas combinan comodidad, autenticidad y atención personalizada, lo que te permite experimentar Tailandia de manera diferente y con total tranquilidad.",
+    "button_text": "Tours y experiencias"
+  },
+  "why_choose_us_259": {
+    "title": "Por qué Elegir a Nosotros",
+    "subtitle": "Disfruta de una excursión privada exclusiva de un día con nuestros guías certificados de habla inglesa o francesa.",
+    "icon_blocks_0_title": "Tours privados",
+    "icon_blocks_0_description": "Vive una excursión exclusiva de un día con nuestros guías profesionales y vehículos privados.",
+    "icon_blocks_0_mini_icons_0_text": "Coche privado",
+    "icon_blocks_0_mini_icons_1_text": "Guía",
+    "icon_blocks_0_mini_icons_2_text": "Seguridad",
+    "icon_blocks_1_title": "Itinerarios personalizados",
+    "icon_blocks_1_description": "Crea tu propio viaje basado en tus deseos, tu ritmo y tus intereses.",
+    "icon_blocks_1_mini_icons_0_text": "Ruta personalizada",
+    "icon_blocks_1_mini_icons_1_text": "Horario flexible",
+    "icon_blocks_1_mini_icons_2_text": "Tu ritmo",
+    "icon_blocks_2_title": "Experiencias auténticas",
+    "icon_blocks_2_description": "Descubre destinos fuera de los caminos trillados y sumérgete en la cultura local.",
+    "icon_blocks_2_mini_icons_0_text": "Comida local",
+    "icon_blocks_2_mini_icons_1_text": "Gente local",
+    "icon_blocks_2_mini_icons_2_text": "Cultura"
+  },
+  "who_we_are_270": {
+    "title": "Quiénes somos",
+    "introduction": "Somos Eric, Margaux, Gabriel y Raphaël, una familia francesa que vive en Krabi, al sur de Tailandia, desde 2013.\n\nDe nuestra vida aquí, creamos Amon Tour, una pequeña agencia de viajes independiente basada en una idea simple: dar la bienvenida personalmente a nuestros viajeros a Krabi y ofrecerles una forma diferente de experimentar Tailandia.",
+    "sections_0_subtitle": "LAS RAÍCES DE UN PUEBLO",
+    "sections_0_text": "Vivimos aquí todo el año, en el corazón de la región que amamos. Esta estrecha conexión con el destino nos permite ofrecer experiencias exclusivas en Krabi, diseñadas y guiadas por nuestro equipo de guías locales profesionales o socios de confianza.\n\nNo estás reservando una excursión genérica: estás siendo recibido, guiado y cuidado por personas que viven aquí, que conocen las mareas, las estaciones, las multitudes que hay que evitar y las joyas ocultas que vale la pena descubrir.",
+    "sections_1_subtitle": "Nuestro concepto",
+    "sections_1_text": "Combina la calidez y la proximidad de una agencia local en Krabi con la experiencia de un diseñador de viajes a medida para toda Tailandia. En Amon Tour, te apoyamos antes, durante y después de tu viaje. Estás en contacto con personas reales: una cara, una voz, un equipo, no un centro de llamadas o un algoritmo. Estamos aquí, sobre el terreno, para hacer de tu viaje una experiencia fluida, personal e inolvidable.",
+    "buttons_0_text": "Contáctanos",
+    "buttons_1_text": "Crea tu viaje →"
+  },
+  "text_pricing_373": {
+    "title": "Precios de temporada",
+    "subtitle": "Tarifa diaria para un mínimo de 2 días y 1 noche. Capacidad máxima: 8 adultos.",
+    "pickup_title": "Horarios de recogida y recargos por transferencia",
+    "included_title": "Incluido en el precio",
+    "included_description": "Traslados (bajo petición), tarifas del parque nacional (dependiendo del itinerario), cerveza, vino, licores. Almuerzo y cena (cocina tailandesa): 500 Baht por persona por comida. Por favor, háganos saber sus preferencias y aprovisionaremos el barco en consecuencia.",
+    "not_included_title": "No incluido en el precio",
+    "not_included_description": "Alquiler de barcos con capitán, asistente y guía profesional de habla inglesa, combustible, bote semirrígido para 5 a 6 personas con motor de 18 HP, barbacoa, equipo de pesca y tabla de remo, fruta fresca, refrescos, agua. Desayuno (té, café, tostadas, tortilla).",
+    "pricing_cards_0_title": "Muy alta temporada",
+    "pricing_cards_0_subtitle": "Tasas de periodo pico",
+    "pricing_cards_0_price": "39.000",
+    "pricing_cards_0_currency": "THB",
+    "pricing_cards_0_cycle": "al día",
+    "pricing_cards_0_label": "de pago:",
+    "pricing_cards_0_more_text": "15 de diciembre de 2025 - 15 de enero de 2026",
+    "pricing_cards_1_title": "Temporada Alta",
+    "pricing_cards_1_subtitle": "Tarifas del periodo premium",
+    "pricing_cards_1_price": "31 000",
+    "pricing_cards_1_currency": "THB",
+    "pricing_cards_1_cycle": "al día",
+    "pricing_cards_1_label": "Etiqueta",
+    "pricing_cards_1_more_text": "Del 15 de octubre al 14 de diciembre de 2025\nDel 15 de enero al 31 de marzo de 2026",
+    "pricing_cards_2_title": "Temporada Baja",
+    "pricing_cards_2_subtitle": "Mejores tarifas de valor",
+    "pricing_cards_2_price": "28.000",
+    "pricing_cards_2_currency": "THB",
+    "pricing_cards_2_cycle": "al día",
+    "pricing_cards_2_label": "de pago:",
+    "pricing_cards_2_more_text": "Del 1 de abril al 14 de octubre de 2026\n\n",
+    "pickup_times_0_time": "8:30",
+    "pickup_times_0_location": "de Tubkeak",
+    "pickup_times_0_price": "+1.300 Baht",
+    "pickup_times_1_time": "8:30",
+    "pickup_times_1_location": "de talano",
+    "pickup_times_1_price": "+1.800 Baht",
+    "pickup_times_2_time": "8:00",
+    "pickup_times_2_location": "de Klong Mueang",
+    "pickup_times_2_price": "+1.000 Baht",
+    "pickup_times_3_time": "8:45",
+    "pickup_times_3_location": "de Ao Nang",
+    "pickup_times_3_price": "Sin tarifa adicional",
+    "pickup_times_4_time": "9:00",
+    "pickup_times_4_location": "de Railay",
+    "pickup_times_4_price": "Sin tarifa adicional"
+  },
+  "popular_experiences_247": {
+    "title": "Experiencias exclusivas",
+    "subtitle": "Explore nuestras mejores experiencias en Krabi, todas garantizadas fuera de lo común: excursiones marítimas privadas y semiprivadas, excursiones terrestres únicas (kayak a través de manglares, cascadas, selva tropical, árboles centenarios, templos, cuevas kársticas, piscinas naturales) y paquetes exclusivos de 2 días / 1 noche.",
+    "button_text": "Tours y Experiencias"
+  },
+  "navigation_menu_8": {
+    "name": "Crucero"
+  },
+  "footer_useful_links": {
+    "item_0_text": "Nuestro folleto",
+    "item_0_url": "/brochure",
+    "item_1_text": "Krabi Celebration",
+    "item_1_url": "/krabi-celebration",
+    "item_2_text": "Fun Garden",
+    "item_2_url": "/https://www.facebook.com/thefungardenkrabi/",
+    "item_3_text": "Villas en Krabi",
+    "item_3_url": "/villas-krabi",
+    "item_4_text": "Convertirse en socio",
+    "item_4_url": "/become-partner",
+    "item_5_text": "Grupo y empresa",
+    "item_5_url": "/group-corporate"
+  },
+  "announcement_bar": {
+    "text": "¡Bienvenidos al nuevo sitio web de Amon Tour! Este sitio se encuentra actualmente en una fase de prueba, por lo que aún pueden ocurrir algunos problemas. Para cualquier referencia, el sitio anterior permanece accesible en www.amon-tour.fr. Gracias por tu comprensión"
+  },
+  "footer_newsletter_config": {
+    "title": "Hoja informativa",
+    "description": "Suscríbete para recibir nuestras ofertas especiales y consejos de viaje.",
+    "button_text": "Suscribir"
+  },
+  "footer_copyright_config": {
+    "text": "© 2025 Flame BB Co., Ltd. (Amon Tour). Reservados todos los derechos."
+  },
+  "navigation_menu_1": {
+    "name": "Hogar"
+  },
+  "navigation_menu_2": {
+    "name": "Experiencias"
+  },
+  "navigation_menu_3": {
+    "name": "Viaje personalizado"
+  },
+  "navigation_menu_4": {
+    "name": "Blog"
+  },
+  "navigation_menu_5": {
+    "name": "Contacto"
+  },
+  "footer_contact_info": {
+    "item_0_label": "Introducción de la marca",
+    "item_0_value": "Amon Tour es una marca de:",
+    "item_1_label": "Nombre de la empresa",
+    "item_1_value": "Flame BB Co., Ltd.",
+    "item_2_label": "Dirección",
+    "item_2_value": "242 Moo1 Tombol Ao Nang\n81180 Krabi, Tailandia",
+    "item_3_label": "Licencia TAT",
+    "item_3_value": "Licencia TAT: 34/01995",
+    "item_4_label": "Correo electrónico",
+    "item_4_value": "info@amon-tour.com",
+    "item_5_label": "Gerente de operaciones",
+    "item_5_value": "Gerente de operaciones: +66 (0)6 2574 8788",
+    "item_6_label": "Asesor de viajes",
+    "item_6_value": "Gerente asesor de viajes: +66 (0)8 0463 4691",
+    "item_7_label": "WhatsApp",
+    "item_7_value": "WhatsApp: +66 65 349 6445",
+    "item_8_label": "LINE ID",
+    "item_8_value": "LINE ID: amontour"
+  },
+  "admin": {
+    "login": {
+      "title": "Inicio de sesión de administración",
+      "subtitle": "Accede al panel de gestión",
+      "username": "Nombre de usuario",
+      "password": "Contraseña",
+      "loginButton": "Iniciar sesión",
+      "footer": "Acceso reservado solo para administradores",
+      "redirecting": "Redirigiendo al panel de control...",
+      "success": {
+        "title": "Inicio de sesión exitoso",
+        "description": "Redirigiendo al panel de control..."
+      },
+      "errors": {
+        "required": "Por favor, complete todos los campos",
+        "invalid": "Credenciales inválidas"
+      }
+    },
+    "appearance": {
+      "title": "Apariencia del sitio",
+      "description": "Personalizar colores y tema",
+      "backToAdmin": "Volver al admin",
+      "tabs": {
+        "theme": "Tema",
+        "pages": "Páginas",
+        "footer": "Pie de página"
+      },
+      "theme": {
+        "title": "Configuración del tema",
+        "subtitle": "Personalizar colores y estilos",
+        "design": "Diseño",
+        "elements": "Elementos",
+        "branding": "Imagen de marca",
+        "colors": "Colores",
+        "typography": "Tipografía",
+        "buttonStyles": "Estilos de botones",
+        "announcementBar": "Barra de anuncios",
+        "popupAnnouncement": "Anuncio emergente",
+        "logoFavicon": "Logo y Favicon",
+        "seoMetadata": "SEO y Metadatos",
+        "otherColors": "Otros colores",
+        "colorReference": "Referencia de color",
+        "buttons": "Botones",
+        "logos": "Logos",
+        "notificationBar": "Barra de notificación",
+        "popup": "Ventana emergente",
+        "baseColors": "Colores base",
+        "baseColorsDesc": "Colores base del sitio y referencias de estilo para selectores de color",
+        "primaryColor": "Color principal",
+        "secondaryColor": "Color secundario",
+        "headingColor": "Color de título",
+        "textColor": "Color de texto",
+        "backgroundColor": "Color de fondo",
+        "customColor": "Color personalizado",
+        "saveColors": "Guardar colores",
+        "saveTypography": "Guardar tipografía",
+        "saveButtons": "Guardar botones",
+        "saveLogos": "Guardar logos",
+        "saveNotificationBar": "Guardar barra de notificación",
+        "savePopup": "Guardar ventana emergente",
+        "saveChanges": "Guardar los cambios",
+        "saved": "¡Guardado con éxito!",
+        "error": "Error al guardar",
+        "enableNotificationBar": "Activar barra de notificación",
+        "notificationText": "Texto de notificación",
+        "enableScrolling": "Activar desplazamiento (ideal para textos largos)",
+        "enableNewsletter": "Activar boletín",
+        "enableCopyright": "Activar derechos de autor",
+        "saving": "Guardando...",
+        "textMenu": "Texto del menú",
+        "backgroundMenu": "Fondo del menú",
+        "textFooter": "Texto del pie de página",
+        "backgroundFooter": "Fondo del pie de página",
+        "errorColor": "Color de error",
+        "successColor": "Color de éxito",
+        "typographyDesc": "Familias de fuentes y estilos de texto",
+        "headingFont": "Fuente de títulos",
+        "bodyFont": "Fuente del texto",
+        "headingWeight": "Peso del título",
+        "bodyWeight": "Peso del texto",
+        "baseSize": "Tamaño base",
+        "preview": "Vista previa",
+        "previewHeading": "Bienvenido a Amon Tour",
+        "previewText": "Descubre los tesoros escondidos de Krabi y el sur de Tailandia con nuestras experiencias auténticas y personalizadas.",
+        "buttonStylesDesc": "Personalizar la apariencia y comportamiento de los botones",
+        "borderRadius": "Radio del borde",
+        "shadowStyle": "Estilo de sombra",
+        "hoverEffect": "Efecto al pasar",
+        "buttonPreview": "Vista previa de botones",
+        "primaryButton": "Botón principal",
+        "outlineButton": "Botón con contorno",
+        "noShadow": "Sin sombra",
+        "smallShadow": "Sombra pequeña",
+        "mediumShadow": "Sombra mediana",
+        "largeShadow": "Sombra grande",
+        "none": "Ninguno",
+        "scaleUp": "Ampliar",
+        "fade": "Desvanecer",
+        "shadowGrow": "Sombra creciente",
+        "small": "Pequeño",
+        "medium": "Mediano",
+        "large": "Grande",
+        "pill": "Redondeado",
+        "announcementBarDesc": "Gestionar la barra de notificación mostrada en la parte superior del sitio",
+        "scrollSpeed": "Velocidad de desplazamiento",
+        "slow": "Lento",
+        "fast": "Rápido",
+        "makeClickable": "Hacer clicleable (con URL)",
+        "redirectUrl": "URL de redirección",
+        "urlPlaceholder": "Página del sitio (/tours) o enlace externo (https://...)",
+        "bgColor": "Color de fondo",
+        "textColorLabel": "Color del texto",
+        "announcementPreview": "Vista previa de la barra de anuncios",
+        "popupTitle": "Anuncios emergentes",
+        "popupDesc": "Pop-ups promocionales y anuncios",
+        "enablePopups": "Activar pop-ups",
+        "popupType": "Tipo de pop-up",
+        "newsletterSignup": "Suscripción al boletín",
+        "specialPromotion": "Promoción especial",
+        "generalAnnouncement": "Anuncio general",
+        "popupFieldTitle": "Título",
+        "popupFieldDescription": "Descripción",
+        "buttonText": "Texto del botón",
+        "delaySeconds": "Retraso (segundos)",
+        "popupPreview": "Vista previa del pop-up",
+        "popupDisabled": "Pop-up desactivado - esta vista previa no aparecerá en el sitio",
+        "appearsAfter": "Aparece después de",
+        "seconds": "segundos",
+        "logoFaviconTitle": "Logo y Favicon",
+        "logoFaviconDesc": "Gestionar logos individuales con controles de carga/enlace y tamaño",
+        "headerLogo": "Logo del encabezado",
+        "footerLogo": "Logo del pie de página",
+        "faviconLogo": "Favicon",
+        "size": "Tamaño",
+        "imageUrlPath": "URL/Ruta de imagen",
+        "seoTitle": "SEO y Metadatos",
+        "seoDesc": "Configuración global de SEO y metadatos de redes sociales",
+        "siteTitle": "Título del sitio",
+        "tagline": "Eslogan",
+        "metaDescription": "Meta descripción",
+        "keywords": "Palabras clave (separadas por comas)",
+        "ogImageUrl": "URL de imagen Open Graph"
+      },
+      "footer": {
+        "title": "Configuración del pie de página",
+        "contactInfo": "Información de contacto",
+        "contactInfoDesc": "Gestionar detalles de contacto del pie de página",
+        "usefulLinks": "Enlaces útiles",
+        "usefulLinksDesc": "Gestionar enlaces de navegación del pie de página",
+        "socialMedia": "Redes sociales",
+        "socialMediaDesc": "Gestionar enlaces de redes sociales",
+        "newsletter": "Boletín",
+        "newsletterDesc": "Configurar sección del boletín",
+        "copyright": "Derechos de autor",
+        "copyrightDesc": "Configurar texto de derechos de autor",
+        "addContactInfo": "Añadir información de contacto",
+        "addLink": "Añadir enlace",
+        "addSocialMedia": "Añadir red social",
+        "moveUp": "Mover arriba",
+        "moveDown": "Mover abajo",
+        "delete": "Eliminar",
+        "label": "Etiqueta",
+        "value": "Valor",
+        "style": "Estilo de visualización",
+        "url": "URL",
+        "icon": "Icono",
+        "preview": "Vista previa en el sitio"
+      },
+      "common": {
+        "loadingAppearance": "Cargando configuración de apariencia..."
+      },
+      "navigation": {
+        "menuItems": "Elementos del menú",
+        "addItem": "Añadir elemento",
+        "noItems": "No hay elementos de menú. Haz clic en \"Añadir elemento\" para empezar.",
+        "editItem": "Editar elemento",
+        "itemName": "Nombre del elemento",
+        "itemUrl": "URL",
+        "openIn": "Abrir en",
+        "sameTab": "Misma pestaña",
+        "newTab": "Nueva pestaña",
+        "itemVisible": "Elemento visible",
+        "parentItem": "Elemento padre",
+        "noParent": "Sin padre (nivel superior)",
+        "success": "Éxito",
+        "error": "Error",
+        "description": "Gestiona los elementos del menú de navegación de tu sitio. Arrastra y suelta para reordenar. Nota: El enlace \"Inicio\" (/) se gestiona automáticamente - solo aparece cuando no estás en la página de inicio.",
+        "menuItemDialog": {
+          "addTitle": "Añadir un elemento de menú",
+          "editTitle": "Modificar un elemento de menú",
+          "description": "Configura los detalles del elemento de navegación",
+          "menuName": "Nombre del menú *",
+          "menuNamePlaceholder": "ej: Inicio, Experiencias...",
+          "urlLink": "Enlace URL *",
+          "selectPage": "Elegir página",
+          "customUrlPlaceholder": "o introducir URL personalizada",
+          "parentMenu": "Menú padre (opcional)",
+          "selectParent": "Seleccionar un menú padre",
+          "noParentMain": "Ninguno (menú principal)",
+          "openIn": "Abrir en",
+          "sameTab": "Misma pestaña",
+          "newTab": "Nueva pestaña",
+          "elementVisible": "Elemento visible",
+          "cancel": "Cancelar",
+          "save": "Guardar"
+        },
+        "deleteDialog": {
+          "title": "Eliminar elemento",
+          "description": "¿Estás seguro de que quieres eliminar \"{{name}}\"? Esta acción también eliminará todos los subelementos.",
+          "deleteSubItem": "Eliminar subelemento",
+          "deleteSubItemDesc": "¿Estás seguro de que quieres eliminar este subelemento?",
+          "cancel": "Cancelar",
+          "delete": "Eliminar"
+        }
+      },
+      "pageManagement": {
+        "slugUrl": "Slug/URL Externa",
+        "notModifiable": "(no modificable)",
+        "externalLinkCheck": "Marque si es un enlace externo (redirección a una URL completa)",
+        "notLinked": "Esta página aún no está vinculada a otras secciones del sitio",
+        "pageId": "ID de página:",
+        "publicUrl": "URL pública:",
+        "createdAt": "Creada el:",
+        "modifiedAt": "Modificada el:",
+        "mainPage": "Página principal",
+        "secondaryPage": "Página secundaria",
+        "viewPage": "Ver página",
+        "editPage": "Editar página",
+        "generalInfo": "Información general",
+        "metadataConfig": "Metadatos y configuración de la página",
+        "pageName": "Nombre de la página",
+        "pageType": "Tipo de página",
+        "state": "Estado",
+        "active": "Activo",
+        "seoTitle": "Título SEO",
+        "seoKeywords": "Palabras clave SEO",
+        "seoDescription": "Descripción SEO",
+        "notDefined": "No definido",
+        "pageEditor": "Editor de página",
+        "addPage": "Añadir una página",
+        "choosePageToEdit": "Elige la página a editar",
+        "manageFooterContent": "Gestionar el contenido del pie de página",
+        "technicalInfo": "Información técnica",
+        "technicalInfoDesc": "Detalles técnicos y metadatos del sistema",
+        "pageReferences": "Referencias de página",
+        "pageReferencesDesc": "Ubicaciones donde esta página está referenciada en el sitio",
+        "pageNotFound": "Configuración de página no encontrada",
+        "references": {
+          "mainNav": "Menú de navegación principal",
+          "homePage": "Página de inicio del sitio",
+          "footerLinks": "Enlaces del pie de página",
+          "specialForms": "Páginas de formularios especiales"
+        },
+        "categories": {
+          "homePage": "Página de inicio",
+          "mainPages": "Páginas principales",
+          "secondaryPages": "Páginas secundarias",
+          "legalPages": "Avisos legales"
+        },
+        "deleteDialog": {
+          "title": "Confirmar eliminación",
+          "description": "¿Estás seguro de que quieres eliminar la página \"{{name}}\"? Esta acción es irreversible y también eliminará todo el contenido asociado.",
+          "cancel": "Cancelar",
+          "delete": "Eliminar",
+          "deleteError": "Error durante la eliminación",
+          "pageDeleted": "Página eliminada",
+          "pageDeletedDesc": "La página se ha eliminado correctamente.",
+          "deletePageError": "No se pudo eliminar la página."
+        }
+      },
+      "footerManagers": {
+        "contactInfo": {
+          "title": "Información de contacto",
+          "description": "Gestionar datos de contacto del pie de página",
+          "displayStyle": "Estilo de visualización",
+          "contentLabel": "Contenido (aparece en el sitio)",
+          "titleBold": "Título (Negrita)",
+          "text": "Texto",
+          "address": "Dirección",
+          "licenseBadge": "Distintivo de licencia",
+          "email": "Correo electrónico",
+          "phoneWithTitle": "Teléfono con título",
+          "whatsapp": "WhatsApp",
+          "lineId": "LINE ID",
+          "addContactInfo": "Añadir información de contacto"
+        },
+        "usefulLinks": {
+          "title": "Enlaces útiles",
+          "description": "Gestionar enlaces de navegación del pie de página",
+          "contentLabel": "Contenido (aparece en el sitio)",
+          "page": "Página",
+          "customUrl": "URL personalizada",
+          "selectPage": "Seleccionar página",
+          "addLink": "Añadir enlace"
+        },
+        "socialMedia": {
+          "title": "Redes sociales",
+          "description": "Gestionar enlaces de redes sociales",
+          "url": "URL",
+          "addSocialMedia": "Añadir red social"
+        },
+        "newsletter": {
+          "title": "Boletín",
+          "description": "Configurar la sección del boletín",
+          "enableNewsletter": "Activar el boletín",
+          "titleLabel": "Título",
+          "descriptionLabel": "Descripción",
+          "emailPlaceholder": "Marcador de email",
+          "buttonText": "Texto del botón",
+          "privacyText": "Texto de privacidad"
+        },
+        "copyright": {
+          "title": "Copyright",
+          "description": "Configurar el texto de copyright",
+          "enableCopyright": "Activar copyright",
+          "copyrightText": "Texto de copyright"
+        }
+      }
+    },
+    "dashboard": {
+      "title": "Administración",
+      "subtitle": "Panel de gestión centralizado",
+      "logout": "Cerrar sesión",
+      "sections": {
+        "customTours": {
+          "title": "Solicitudes de tours personalizados",
+          "description": "Gestionar solicitudes de tours personalizados"
+        },
+        "krabiCelebration": {
+          "title": "Krabi Celebration",
+          "description": "Solicitudes de eventos especiales"
+        },
+        "partnership": {
+          "title": "Solicitudes de asociación",
+          "description": "Propuestas de colaboración"
+        },
+        "groups": {
+          "title": "Grupos y Empresas",
+          "description": "Solicitudes de grupos y empresas"
+        },
+        "blog": {
+          "title": "Gestión del blog",
+          "description": "Crear y editar artículos"
+        },
+        "newsletter": {
+          "title": "Boletín",
+          "description": "Gestionar suscripciones al boletín"
+        },
+        "tourCards": {
+          "title": "Fichas de tours",
+          "description": "Crear y gestionar fichas de tours"
+        },
+        "tourNinjaImages": {
+          "title": "Imágenes de Tour Ninja",
+          "description": "Reemplazar imágenes de Tour Ninja con las suyas"
+        },
+        "translations": {
+          "title": "Gestión de traducciones",
+          "description": "Corregir y personalizar traducciones"
+        },
+        "messages": {
+          "title": "Mensajes de contacto",
+          "description": "Ver y responder mensajes"
+        },
+        "settings": {
+          "title": "Configuración",
+          "description": "Configuración y preferencias"
+        },
+        "partnershipRequests": {
+          "title": "Solicitudes de asociación",
+          "description": "Propuestas de colaboración"
+        },
+        "groupRequests": {
+          "title": "Grupos y Empresas",
+          "description": "Solicitudes de grupos y empresas"
+        },
+        "blogManagement": {
+          "title": "Gestión del blog",
+          "description": "Crear y editar artículos"
+        }
+      }
+    },
+    "customTours": {
+      "title": "Solicitudes de tours personalizados",
+      "backToAdmin": "Volver a administración",
+      "exportCSV": "Exportar CSV",
+      "searchPlaceholder": "Buscar por nombre o correo electrónico...",
+      "filterByStatus": "Filtrar por estado",
+      "allStatus": "Todos los estados",
+      "statusNew": "Nuevo",
+      "statusInProgress": "En progreso",
+      "statusArchived": "Archivado",
+      "requestsCount": "Solicitudes de tours ({count})",
+      "loadingRequests": "Cargando solicitudes...",
+      "noRequests": "No se encontraron solicitudes.",
+      "tableHeaders": {
+        "name": "Nombre",
+        "contact": "Contacto",
+        "travelers": "Viajeros",
+        "datesDuration": "Fechas/Duración",
+        "status": "Estado",
+        "date": "Fecha",
+        "actions": "Acciones"
+      },
+      "dates": "Fechas:",
+      "duration": "Duración:",
+      "notSpecified": "No especificado",
+      "days": "días",
+      "deleteConfirm": "¿Está seguro de que desea eliminar esta solicitud?",
+      "requestDetails": "Detalles de la solicitud",
+      "fullName": "Nombre completo",
+      "email": "Correo electrónico",
+      "phone": "Teléfono",
+      "adults": "Adultos",
+      "kids": "Niños",
+      "tripDates": "Fechas del viaje",
+      "tripTiming": "Momento del viaje",
+      "tripTypes": "Tipos de viaje",
+      "noTripTypes": "No se seleccionaron tipos de viaje",
+      "destinations": "Destinos",
+      "noDestinations": "No se seleccionaron destinos",
+      "message": "Mensaje",
+      "submitted": "Enviado",
+      "success": {
+        "statusUpdated": "Estado actualizado con éxito",
+        "requestDeleted": "Solicitud eliminada con éxito",
+        "dataExported": "Datos exportados con éxito"
+      },
+      "errors": {
+        "exportFailed": "Error al exportar datos"
+      }
+    },
+    "krabiCelebration": {
+      "title": "Krabi Celebration",
+      "subtitle": "Solicitudes de eventos especiales",
+      "unreadBadge": "{count} nuevo(s)",
+      "viewAll": "Ver todo",
+      "unreadOnly": "Solo no leídos",
+      "requestsReceived": "Solicitudes recibidas ({count})",
+      "noRequests": "Aún no hay solicitudes.",
+      "noUnreadRequests": "No hay solicitudes sin leer.",
+      "tableHeaders": {
+        "status": "Estado",
+        "name": "Nombre",
+        "celebrationType": "Tipo de celebración",
+        "guests": "Invitados",
+        "date": "Fecha",
+        "receivedOn": "Recibido el",
+        "actions": "Acciones"
+      },
+      "statusNew": "Nuevo",
+      "statusRead": "Leído",
+      "peopleCount": "{count} persona(s)",
+      "dialogTitle": "Detalles de la solicitud de celebración",
+      "dialogDescription": "Ver toda la información sobre esta solicitud de evento especial",
+      "fields": {
+        "contactName": "Nombre del contacto",
+        "email": "Correo electrónico",
+        "whatsapp": "WhatsApp",
+        "celebrationType": "Tipo de celebración",
+        "guests": "Número de invitados",
+        "date": "Fecha del evento",
+        "budget": "Presupuesto",
+        "description": "Descripción"
+      },
+      "notProvided": "No proporcionado",
+      "receivedOn": "Recibido el",
+      "replyByEmail": "Responder por correo electrónico",
+      "markAsRead": "Marcar como leído",
+      "markAsReadSuccess": "Solicitud marcada como leída",
+      "markAsReadError": "Error al marcar como leída",
+      "deleteSuccess": "Solicitud eliminada con éxito",
+      "deleteError": "Error al eliminar la solicitud"
+    },
+    "partnershipRequests": {
+      "title": "Solicitudes de asociación",
+      "subtitle": "Propuestas de colaboración",
+      "unreadBadge": "{count} nuevo(s)",
+      "viewAll": "Ver todo",
+      "unreadOnly": "Solo no leídos",
+      "requestsReceived": "Solicitudes recibidas ({count})",
+      "noRequests": "Aún no hay solicitudes.",
+      "noUnreadRequests": "No hay solicitudes sin leer.",
+      "tableHeaders": {
+        "status": "Estado",
+        "contact": "Contacto",
+        "company": "Empresa",
+        "activityType": "Tipo de actividad",
+        "website": "Sitio web",
+        "receivedOn": "Recibido el",
+        "actions": "Acciones"
+      },
+      "statusNew": "Nuevo",
+      "statusRead": "Leído",
+      "dialogTitle": "Detalles de la solicitud de asociación",
+      "dialogDescription": "Ver toda la información sobre esta propuesta de asociación",
+      "fields": {
+        "contactName": "Nombre del contacto",
+        "email": "Correo electrónico",
+        "companyName": "Nombre de la empresa",
+        "partnershipType": "Tipo de asociación",
+        "phone": "Teléfono",
+        "website": "Sitio web",
+        "projectDescription": "Descripción del proyecto"
+      },
+      "notProvided": "No proporcionado",
+      "receivedOn": "Recibido el",
+      "replyByEmail": "Responder por correo electrónico",
+      "markAsRead": "Marcar como leído",
+      "markAsReadSuccess": "Solicitud marcada como leída",
+      "markAsReadError": "Error al marcar como leída",
+      "deleteSuccess": "Solicitud eliminada con éxito",
+      "deleteError": "Error al eliminar la solicitud"
+    },
+    "groupRequests": {
+      "title": "Grupos y Empresas",
+      "subtitle": "Solicitudes de viajes de grupo y empresariales",
+      "unreadBadge": "{count} nuevo(s)",
+      "viewAll": "Ver todo",
+      "unreadOnly": "Solo no leídos",
+      "requestsReceived": "Solicitudes recibidas ({count})",
+      "noRequests": "Aún no hay solicitudes.",
+      "noUnreadRequests": "No hay solicitudes sin leer.",
+      "tableHeaders": {
+        "status": "Estado",
+        "contact": "Contacto",
+        "company": "Empresa",
+        "participants": "Participantes",
+        "travelDates": "Fechas de viaje",
+        "receivedOn": "Recibido el",
+        "actions": "Acciones"
+      },
+      "statusNew": "Nuevo",
+      "statusRead": "Leído",
+      "peopleCount": "{count} persona(s)",
+      "notSpecified": "No especificado",
+      "dialogTitle": "Detalles de la solicitud de viaje en grupo",
+      "dialogDescription": "Ver toda la información sobre esta solicitud de viaje en grupo",
+      "fields": {
+        "contactName": "Nombre del contacto",
+        "email": "Correo electrónico",
+        "company": "Empresa/Organización",
+        "phone": "Teléfono",
+        "participants": "Número de participantes",
+        "budget": "Presupuesto",
+        "travelDates": "Fechas de viaje",
+        "specialRequirements": "Requisitos especiales"
+      },
+      "notProvided": "No proporcionado",
+      "receivedOn": "Recibido el",
+      "replyByEmail": "Responder por correo electrónico",
+      "markAsRead": "Marcar como leído",
+      "markAsReadSuccess": "Solicitud marcada como leída",
+      "markAsReadError": "Error al marcar como leída",
+      "deleteSuccess": "Solicitud eliminada con éxito",
+      "deleteError": "Error al eliminar la solicitud"
+    },
+    "tourCard": {
+      "form": {
+        "title": "Crear una ficha de tour",
+        "nameLabel": "Nombre del tour / estadía *",
+        "namePlaceholder": "ej. Excursión por las islas de Krabi",
+        "descriptionLabel": "Descripción (opcional)",
+        "descriptionPlaceholder": "Breve descripción del tour...",
+        "priceLabel": "Precio desde *",
+        "pricePlaceholder": "0",
+        "currencyLabel": "Moneda",
+        "typeLabel": "Tipo de ficha *",
+        "tour": "Tour",
+        "tourSubtitle": "Excursiones guiadas",
+        "experience": "Estadía/Experiencia",
+        "experienceSubtitle": "Actividades y Descubrimientos",
+        "customLinkLabel": "Enlace personalizado (Tour Ninja) *",
+        "customLinkPlaceholder": "https://...",
+        "locationTagsLabel": "Etiquetas de ubicación",
+        "locationTagsPlaceholder": "ej. Krabi, Phi Phi...",
+        "addButton": "Agregar",
+        "photosLabel": "Fotos (1 a 3) *",
+        "preview": "Vista previa",
+        "mainPhoto": "Foto principal",
+        "clickToAdd": "Haga clic para agregar",
+        "dragDrop": "o arrastre y suelte",
+        "photosHelp": "PNG, JPG hasta 10 MB (1 a 3 fotos)",
+        "photosRemaining": "Se pueden agregar {count} foto(s) más",
+        "generate": "Crear ficha de tour",
+        "generating": "Creando...",
+        "autoFillTitle": "Título autocompletado",
+        "autoFillDescription": "El título se extrajo de la URL",
+        "errors": {
+          "titleRequired": "El título es obligatorio",
+          "linkRequired": "El enlace personalizado es obligatorio",
+          "photosRequired": "Se requiere al menos una foto",
+          "uploadError": "Error de carga",
+          "uploadErrorDescription": "Error al cargar una o más imágenes",
+          "createErrorDescription": "Error al crear la ficha de tour"
+        },
+        "success": {
+          "created": "Ficha de tour creada",
+          "createdDescription": "La ficha de tour se ha creado con éxito"
+        }
+      }
+    },
+    "translationEditor": {
+      "title": "Editor de traducciones de bloques",
+      "subtitle": "Gestionar las traducciones francesas y españolas para todos los bloques de página",
+      "loading": "Cargando traducciones...",
+      "save": "Guardar traducciones",
+      "pagesLabel": "Páginas :",
+      "blocksLabel": "Bloques :",
+      "noTextToTranslate": "No hay texto para traducir en esta página",
+      "noTextInBlock": "Este bloque no contiene texto para traducir",
+      "tabs": {
+        "french": "Francés",
+        "spanish": "Español"
+      },
+      "originalText": "Original (Inglés):",
+      "translationPlaceholder": {
+        "fr": "Traducción francesa...",
+        "es": "Traducción española..."
+      },
+      "saveSuccess": {
+        "title": "Guardado",
+        "description": "Traducciones guardadas con éxito"
+      },
+      "saveError": {
+        "title": "Error",
+        "description": "Error al guardar las traducciones"
+      }
+    },
+    "blockTypes": {
+      "hero": "Sección Hero",
+      "heroDesc": "Banner de bienvenida con título, subtítulo y botones CTA",
+      "header_page": "Encabezado de página",
+      "header_pageDesc": "Encabezado de página con título, subtítulo e imagen de fondo",
+      "text": "Texto + Botones",
+      "textSection": "Texto",
+      "textDesc": "Sección de texto con título, contenido y botones de acción",
+      "cardGridDate": "Cuadrícula: Duración",
+      "cardGridDateDesc": "Cuadrícula de tarjetas con insignias de duración",
+      "cardGridPrice": "Cuadrícula: Precio",
+      "cardGridPriceDesc": "Cuadrícula de tarjetas con insignias de precio",
+      "contact": "Contacto",
+      "contactDesc": "Sección de contacto con email, teléfono, WhatsApp y Line ID",
+      "form": "Formulario",
+      "formDesc": "Formulario con imagen y campos personalizables",
+      "textImage": "Texto + Imágenes",
+      "textImageDesc": "Sección de texto con imágenes",
+      "iconGrid": "Texto + Iconos",
+      "iconGridDesc": "Cuadrícula de iconos con texto",
+      "searchModule": "Barra de búsqueda: Tours",
+      "searchModuleDesc": "Módulo de búsqueda para tours",
+      "blog_search": "Barra de búsqueda: Blog",
+      "blog_searchDesc": "Módulo de búsqueda para el blog",
+      "text_gallery": "Texto + Galería",
+      "text_galleryDesc": "Sección de texto con galería de imágenes",
+      "text_video": "Texto + Vídeo",
+      "text_videoDesc": "Sección de texto con vídeo",
+      "text_listing": "Texto + Lista",
+      "text_listingDesc": "Sección de texto con lista de elementos",
+      "text_pricing": "Texto + Precios",
+      "text_pricingDesc": "Sección de texto con tarjetas de precios"
+    },
+    "common": {
+      "back": "Volver",
+      "loading": "Cargando...",
+      "success": "Éxito",
+      "error": "Error",
+      "delete": "Eliminar",
+      "edit": "Editar",
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar",
+      "actions": "Acciones",
+      "viewDetails": "Ver detalles",
+      "new": "Nuevo",
+      "processing": "Procesando...",
+      "noResults": "No se encontraron resultados",
+      "title": "Título",
+      "content": "Contenido",
+      "name": "Nombre",
+      "enterName": "Introduce el nombre",
+      "close": "Cerrar",
+      "saving": "Guardando...",
+      "creating": "Creando...",
+      "confirmDelete": "Confirmar eliminación",
+      "deleteConfirmation": "¿Estás seguro de que quieres eliminar esto? Esta acción no se puede deshacer.",
+      "deleteWarning": "Esta acción no se puede deshacer."
+    },
+    "fieldNames": {
+      "title": "Título",
+      "subtitle": "Subtítulo",
+      "description": "Descripción",
+      "content": "Contenido",
+      "ctaText": "Texto del botón",
+      "titleAccent": "Palabra destacada",
+      "placeholder": "Texto indicativo",
+      "introduction": "Introducción",
+      "text": "Texto",
+      "label": "Etiqueta",
+      "emailLabel": "Etiqueta de email",
+      "email": "Email",
+      "phoneLabel": "Etiqueta de teléfono",
+      "phone": "Teléfono",
+      "whatsappLabel": "Etiqueta de WhatsApp",
+      "whatsapp": "WhatsApp",
+      "lineIdLabel": "Etiqueta de LINE ID",
+      "lineId": "LINE ID",
+      "aboutTitle": "Título acerca de",
+      "companyBrand": "Marca",
+      "companyName": "Nombre de empresa",
+      "companyLicense": "Licencia",
+      "companyDescription": "Descripción de empresa",
+      "buttonText": "Texto del botón",
+      "viewDetailsText": "Texto ver detalles",
+      "bookNowText": "Texto reservar ahora",
+      "privacyText": "Texto de privacidad",
+      "searchPlaceholder": "Texto de búsqueda",
+      "filtersTitle": "Título de filtros",
+      "tagsTitle": "Título de etiquetas",
+      "categoriesTitle": "Título de categorías",
+      "allTagsText": "Texto todas las etiquetas",
+      "allCategoriesText": "Texto todas las categorías",
+      "pickupTitle": "Título de recogida",
+      "includedTitle": "Título incluido",
+      "includedDescription": "Descripción incluido",
+      "notIncludedTitle": "Título no incluido",
+      "notIncludedDescription": "Descripción no incluido",
+      "price": "Precio",
+      "currency": "Moneda",
+      "cycle": "Ciclo",
+      "moreText": "Texto más",
+      "time": "Hora",
+      "location": "Ubicación",
+      "block": "Bloque",
+      "miniIcon": "Mini icono",
+      "button": "Botón",
+      "item": "Elemento",
+      "section": "Sección",
+      "pricingCard": "Tarjeta de precios",
+      "pickupTime": "Hora de recogida"
+    },
+    "editor": {
+      "title": "Gestión de Contenido",
+      "description": "Gestiona fácilmente el contenido de tu sitio web con nuestras herramientas de edición profesionales",
+      "backToAppearance": "Volver a Apariencia del sitio",
+      "backToContentManagement": "Volver a Gestión de Contenido",
+      "accessEditor": "Acceder al editor",
+      "pages": "Páginas",
+      "legalPages": "Páginas legales",
+      "forms": "Formularios",
+      "view": "Ver",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "duplicate": "Duplicar",
+      "add": "Añadir",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "close": "Cerrar",
+      "back": "Volver",
+      "visible": "Visible",
+      "viewPage": "Ver página",
+      "pageEditor": {
+        "title": "Editor de página",
+        "description": "Crear, editar, eliminar contenido de bloques de cada página",
+        "listTitle": "Editor de Páginas",
+        "listDescription": "Gestiona el contenido y la estructura de tus páginas web",
+        "blockEditorTitle": "Editor de página",
+        "blockEditorDescription": "Cada bloque reproduce exactamente la sección correspondiente de tu sitio web",
+        "insertBlockHere": "Insertar un bloque aquí",
+        "homePage": "PÁGINA DE INICIO",
+        "mainPages": "PÁGINAS PRINCIPALES",
+        "secondaryPages": "PÁGINAS SECUNDARIAS",
+        "addPage": "Añadir una página"
+      },
+      "legalEditor": {
+        "title": "Editor de avisos legales",
+        "description": "Crear y gestionar páginas legales (avisos, T&C, privacidad)",
+        "listTitle": "Editor de avisos legales",
+        "listDescription": "Gestiona las páginas legales de tu sitio (avisos legales, T&C, privacidad)",
+        "createLegalPage": "Crear una página legal",
+        "titleLabel": "Título",
+        "contentLabel": "Contenido",
+        "addPage": "Crear una página legal",
+        "heading2": "Título 2",
+        "heading3": "Título 3",
+        "bold": "Negrita",
+        "italic": "Cursiva",
+        "alignLeft": "Alinear a la izquierda",
+        "alignCenter": "Centrar",
+        "alignRight": "Alinear a la derecha",
+        "bulletList": "Lista con viñetas",
+        "editorHelp": "Haz clic en el área de arriba para editar. Selecciona texto y usa los botones de formato.",
+        "urlAutoGenerated": "La URL se generará automáticamente a partir del nombre"
+      },
+      "formEditor": {
+        "title": "Editor de formularios",
+        "description": "Crear y gestionar formularios personalizados con campos dinámicos",
+        "listTitle": "Editor de Formularios",
+        "listDescription": "Crea y gestiona formularios personalizados con campos dinámicos",
+        "addForm": "Añadir un formulario",
+        "formBuilder": "Constructor de formularios",
+        "formName": "Nombre del formulario:",
+        "formNamePlaceholder": "Ej: Formulario de contacto"
+      },
+      "blockTypes": {
+        "hero": "Sección Hero",
+        "heroDesc": "Banner de bienvenida con título, subtítulo y botones CTA",
+        "header_page": "Encabezado de página",
+        "header_pageDesc": "Encabezado de página con título, subtítulo e imagen de fondo",
+        "text": "Texto + Botones",
+        "textDesc": "Sección de texto con título, contenido y botones de acción",
+        "cardGridDate": "Cuadrícula: Duración",
+        "cardGridDateDesc": "Cuadrícula de tarjetas con insignias de duración",
+        "cardGridPrice": "Cuadrícula: Precios",
+        "cardGridPriceDesc": "Cuadrícula de tarjetas con insignias de precio",
+        "contact": "Contacto",
+        "contactDesc": "Sección de contacto con email, teléfono, WhatsApp y Line ID",
+        "form": "Formulario",
+        "formDesc": "Formulario con imagen y campos personalizables",
+        "gallery": "Galería",
+        "galleryDesc": "Tarjetas de testimonios desplazables",
+        "iconGrid": "Texto + Iconos",
+        "iconGridDesc": "Cuadrícula de iconos con descripciones de texto",
+        "searchModule": "Barra de búsqueda: Tours",
+        "searchModuleDesc": "Módulo de búsqueda y filtrado de tours",
+        "textImage": "Texto + Imágenes",
+        "textImageDesc": "Sección de texto con imagen opcional",
+        "blog_search": "Barra de búsqueda: Blog",
+        "blog_searchDesc": "Barra de búsqueda y filtrado de artículos de blog",
+        "text_gallery": "Texto + Galería",
+        "text_galleryDesc": "Sección de texto con galería de imágenes",
+        "text_video": "Texto + Video",
+        "text_videoDesc": "Sección de texto con video incrustado",
+        "text_listing": "Texto + Listado",
+        "text_listingDesc": "Sección de texto con lista de elementos",
+        "text_pricing": "Texto + Precios",
+        "text_pricingDesc": "Sección de texto con tabla de precios"
+      },
+      "blockSelection": {
+        "title": "Añadir un bloque",
+        "preview": "Vista previa",
+        "selectBlockToPreview": "Selecciona un tipo de bloque para ver la vista previa",
+        "cancel": "Cancelar",
+        "add": "Añadir"
+      },
+      "formBuilder": {
+        "colorPicker": {
+          "colorHint": "Haz clic en el cuadro de color para elegir visualmente o en el código de color para ingresarlo directamente",
+          "primary": "Primario",
+          "secondary": "Secundario",
+          "heading": "Encabezado",
+          "text": "Texto",
+          "background": "Fondo",
+          "colorReference": "Color: {{color}}",
+          "customColor": "Color personalizado"
+        },
+        "preview": {
+          "addFieldsToPreview": "Añade campos para ver la vista previa",
+          "formTitle": "Título del formulario"
+        },
+        "datePicker": {
+          "alertMessage": "Selector de fecha - Un calendario se abriría aquí en el sitio real"
+        },
+        "builder": {
+          "add": "Añadir",
+          "options": "Opciones",
+          "fieldLabel": "Etiqueta del campo",
+          "placeholder": "Texto de ayuda",
+          "required": "Obligatorio",
+          "width": "Ancho",
+          "full": "Completo",
+          "half": "Mitad",
+          "third": "Tercio",
+          "twoThirds": "Dos tercios",
+          "addField": "Añadir campo",
+          "noFields": "No hay campos. Haz clic en \"Añadir campo\" para empezar."
+        },
+        "style": {
+          "layout": "Disposición",
+          "layoutDescription": "Elige cómo organizar la imagen y el formulario",
+          "columns": "Columnas",
+          "columnsDesc": "Imagen y título a la izquierda, formulario a la derecha",
+          "columnsReversed": "Columnas invertidas",
+          "columnsReversedDesc": "Formulario a la izquierda, imagen y título a la derecha",
+          "header": "Encabezado",
+          "headerLayoutDesc": "Imagen y título arriba, formulario debajo en todo el ancho",
+          "footer": "Pie de página",
+          "footerLayoutDesc": "Formulario estándar de pie de página (sin imagen)",
+          "colors": "Colores",
+          "primaryColor": "Color principal",
+          "frameColor": "Color del marco",
+          "titleColor": "Color del título",
+          "subtitleColor": "Color del subtítulo",
+          "textColor": "Color del texto"
+        },
+        "informations": {
+          "title": "Información",
+          "formTitle": "Título del formulario",
+          "formSubtitle": "Subtítulo del formulario",
+          "headerImage": "Imagen de encabezado",
+          "uploadImage": "Subir imagen",
+          "currentImage": "Imagen actual"
+        },
+        "settings": {
+          "title": "Configuración",
+          "submitButtonText": "Texto del botón de envío",
+          "successMessage": "Mensaje de éxito",
+          "errorMessage": "Mensaje de error",
+          "redirectUrl": "URL de redirección",
+          "emailNotification": "Notificación por email",
+          "whatsappButton": "Botón de WhatsApp",
+          "whatsappButtonText": "Texto del botón de WhatsApp"
+        },
+        "tabs": {
+          "informations": "Información",
+          "builder": "Campos",
+          "style": "Estilo",
+          "settings": "Configuración"
+        }
+      },
+      "fieldNames": {
+        "title": "Título",
+        "subtitle": "Subtítulo",
+        "titleAccent": "Acento del título",
+        "description": "Descripción",
+        "content": "Contenido",
+        "ctaText": "Texto CTA",
+        "placeholder": "Marcador de posición",
+        "introduction": "Introducción",
+        "text": "Texto",
+        "label": "Etiqueta",
+        "emailLabel": "Etiqueta de correo",
+        "email": "Correo electrónico",
+        "phoneLabel": "Etiqueta de teléfono",
+        "phone": "Teléfono",
+        "whatsappLabel": "Etiqueta de WhatsApp",
+        "whatsapp": "WhatsApp",
+        "lineIdLabel": "Etiqueta de Line ID",
+        "lineId": "ID de Line",
+        "aboutTitle": "Título Acerca de",
+        "companyBrand": "Marca de la empresa",
+        "companyName": "Nombre de la empresa",
+        "companyLicense": "Licencia de la empresa",
+        "companyDescription": "Descripción de la empresa",
+        "buttonText": "Texto del botón",
+        "viewDetailsText": "Texto de ver detalles",
+        "bookNowText": "Texto de reservar ahora",
+        "privacyText": "Texto de privacidad",
+        "searchPlaceholder": "Marcador de búsqueda",
+        "tagsTitle": "Título de etiquetas",
+        "categoriesTitle": "Título de categorías",
+        "allTagsText": "Texto de todas las etiquetas",
+        "allCategoriesText": "Texto de todas las categorías",
+        "pickupTitle": "Título de recogida",
+        "includedTitle": "Título de incluido",
+        "includedDescription": "Descripción de incluido",
+        "notIncludedTitle": "Título de no incluido",
+        "notIncludedDescription": "Descripción de no incluido",
+        "price": "Precio",
+        "currency": "Moneda",
+        "cycle": "Ciclo",
+        "moreText": "Texto de más",
+        "time": "Hora",
+        "location": "Ubicación",
+        "button": "Botón",
+        "item": "Elemento",
+        "section": "Sección",
+        "block": "Bloque",
+        "pricingCard": "Tarjeta de precios",
+        "pickupTime": "Hora de recogida",
+        "miniIcon": "Mini icono"
+      },
+      "pageMessages": {
+        "customCodePage": "Página con código personalizado",
+        "customCodeDescription": "Esta página: <span class=\"font-mono text-secondary\">{{slug}}</span> utiliza código personalizado fuera del editor.",
+        "cannotEditCustomCode": "No puedes editar esta página aquí. Tendrás que editar el código directamente.",
+        "loading": "Cargando...",
+        "loadingBlocks": "Cargando bloques...",
+        "noBlocks": "Esta página aún no tiene bloques",
+        "addFirstBlock": "Añade tu primer bloque para empezar a construir tu página",
+        "addBlock": "Añadir bloque",
+        "addTemplate": "Añadir plantilla",
+        "deleteSection": "Eliminar esta sección",
+        "confirmDelete": "¿Estás seguro? Esta acción no se puede deshacer.",
+        "deletePermanently": "Eliminar permanentemente",
+        "fullScreenPreview": "Vista previa a pantalla completa: {{title}}",
+        "previewDescription": "Así es como aparecerá el bloque en la página",
+        "menuNavigation": "Navegación del menú",
+        "menuNavigationDesc": "Gestiona los elementos del menú de navegación de tu sitio. Arrastra y suelta para reordenar. Nota: El enlace \"Inicio\" (/) se gestiona automáticamente - solo aparece cuando no estás en la página de inicio.",
+        "addMenuItem": "Añadir elemento",
+        "addPageModal": {
+          "title": "Añadir una nueva página",
+          "description": "Crea una nueva página o duplica una página existente",
+          "createMode": "Modo de creación",
+          "newBlankPage": "Crear una nueva página en blanco",
+          "duplicateFromExisting": "Duplicar de una página existente",
+          "createLegalPage": "Crear una página legal",
+          "pageToDuplicate": "Página a duplicar",
+          "selectPage": "Selecciona una página",
+          "pageName": "Nombre de la página",
+          "pageNamePlaceholder": "Ej: Acerca de",
+          "urlAutoGenerated": "La URL se generará automáticamente a partir del nombre",
+          "cancel": "Cancelar",
+          "add": "Añadir",
+          "creating": "Creando...",
+          "success": "Éxito",
+          "pageCreated": "La página se ha creado correctamente",
+          "error": "Error",
+          "pageNameRequired": "El nombre de la página es obligatorio",
+          "selectPageToDuplicate": "Por favor, selecciona una página para duplicar",
+          "pageAlreadyExists": "Ya existe una página con este nombre. Por favor, elige un nombre diferente.",
+          "createError": "No se pudo crear la página"
+        }
+      }
+    },
+    "newsletter": {
+      "title": "Gestión del boletín",
+      "description": "Gestionar suscripciones y exportar listas de suscriptores",
+      "exportCsv": "Exportar CSV",
+      "exportSuccess": "Suscriptores exportados con éxito",
+      "exportFailed": "Error al exportar suscriptores",
+      "totalSubscribers": "Total de suscriptores",
+      "confirmed": "Confirmados",
+      "pendingConfirmation": "Pendiente de confirmación",
+      "unsubscribed": "Dados de baja",
+      "pending": "Pendiente",
+      "filters": "Filtros",
+      "filtersDescription": "Buscar y filtrar suscripciones",
+      "searchPlaceholder": "Buscar por dirección de email...",
+      "allSubscribers": "Todos los suscriptores",
+      "confirmedOnly": "Solo confirmados",
+      "subscriptionsList": "Suscripciones al boletín",
+      "subscriptionsDescription": "Lista completa de suscriptores con su estado y detalles de suscripción",
+      "noSubscriptions": "No hay suscripciones todavía.",
+      "noMatchingResults": "No se encontraron suscripciones que coincidan con tu búsqueda.",
+      "emailAddress": "Dirección de email",
+      "subscribedDate": "Fecha de suscripción",
+      "language": "Idioma"
+    },
+    "blog": {
+      "title": "Gestión del blog",
+      "description": "Gestionar artículos del blog",
+      "createPost": "Crear artículo",
+      "blogPosts": "Artículos del blog",
+      "noPostsYet": "No hay artículos de blog todavía.",
+      "postCreated": "Artículo creado con éxito",
+      "postUpdated": "Artículo actualizado con éxito",
+      "postDeleted": "Artículo eliminado con éxito",
+      "titleRequired": "El título es obligatorio",
+      "contentRequired": "El contenido es obligatorio",
+      "authorRequired": "El nombre del autor es obligatorio",
+      "form": {
+        "title": "Título",
+        "content": "Contenido",
+        "excerpt": "Extracto",
+        "coverImage": "URL de la imagen de portada",
+        "authorName": "Nombre del autor",
+        "status": "Estado",
+        "category": "Categoría",
+        "selectCategory": "Seleccionar una categoría",
+        "noCategory": "Sin categoría"
+      },
+      "createNewPost": "Crear Nueva Publicación",
+      "editPost": "Editar Publicación",
+      "enterTitle": "Ingrese el título de la publicación",
+      "briefDescription": "Breve descripción",
+      "coverImageUrl": "URL de la Imagen de Portada",
+      "coverImage": "Imagen de Portada",
+      "writeContent": "Escriba su contenido aquí",
+      "selectStatus": "Seleccionar estado",
+      "draft": "Borrador",
+      "published": "Publicado",
+      "noCategory": "Sin categoría",
+      "noPosts": "No se encontraron publicaciones. ¡Cree su primera publicación!",
+      "postTitle": "Título",
+      "author": "Autor",
+      "category": "Categoría",
+      "selectCategory": "Seleccionar categoría",
+      "created": "Creado",
+      "updatePost": "Actualizar Publicación",
+      "createSuccess": "Artículo creado con éxito",
+      "updateSuccess": "Publicación actualizada y traducciones actualizadas",
+      "deleteSuccess": "Publicación eliminada con éxito",
+      "deleteFailed": "Error al eliminar la publicación",
+      "confirmDelete": "¿Está seguro de que desea eliminar esta publicación?",
+      "excerpt": "Extracto",
+      "content": "Contenido",
+      "unsavedChanges": "Cambios sin guardar",
+      "unsavedChangesMessage": "Tiene cambios sin guardar. ¿Está seguro de que desea cerrar? Sus cambios se perderán.",
+      "continueEditing": "Continuar editando",
+      "discardChanges": "Descartar cambios",
+      "clickToUpload": "Haga clic para subir una imagen",
+      "invalidFileType": "Tipo de archivo no válido",
+      "selectValidImage": "Por favor, seleccione una imagen JPEG, PNG, GIF o WebP.",
+      "fileTooLarge": "Archivo demasiado grande",
+      "selectSmaller": "Por favor, seleccione una imagen de menos de 5 MB.",
+      "uploadSuccess": "Carga exitosa",
+      "imageUploaded": "Su imagen se ha cargado correctamente.",
+      "uploadFailed": "Error de carga",
+      "tryAgain": "Hubo un problema al cargar su imagen. Por favor, inténtelo de nuevo."
+    },
+    "tourNinjaImages": {
+      "title": "Gestión de Imágenes Tour Ninja",
+      "description": "Reemplaza las imágenes de Tour Ninja con tus propias imágenes personalizadas",
+      "addCustomImage": "Añadir Imagen Personalizada",
+      "customizeTourImage": "Personalizar Imagen del Tour",
+      "selectTour": "Seleccionar Tour",
+      "chooseTour": "Elegir un tour...",
+      "noToursAvailable": "No hay tours disponibles",
+      "chooseTourToCustomize": "Elegir un tour para personalizar",
+      "customized": "Personalizado",
+      "inactive": "Inactivo",
+      "days": "día(s)",
+      "editImage": "Editar imagen",
+      "customizeImage": "Personalizar imagen",
+      "noToursAvailableTitle": "No hay tours disponibles",
+      "unableToLoadTours": "No se pueden cargar los tours de Tour Ninja. Por favor, verifica la conexión API.",
+      "noCustomImage": "Sin imagen personalizada",
+      "imageSelected": "Imagen seleccionada",
+      "imageReadyToUpload": "{filename} lista para subir",
+      "pleaseSelectValidImage": "Por favor, selecciona un archivo de imagen válido",
+      "customImageAddedSuccess": "Imagen personalizada añadida con éxito",
+      "failedToAddCustomImage": "Error al añadir la imagen personalizada",
+      "imageUpdatedSuccess": "Imagen actualizada con éxito",
+      "failedToUpdateImage": "Error al actualizar la imagen",
+      "imageStatusChanged": "Estado de la imagen cambiado",
+      "failedToChangeStatus": "Error al cambiar el estado",
+      "imageDeletedSuccess": "Imagen eliminada con éxito",
+      "failedToDeleteImage": "Error al eliminar la imagen",
+      "pleaseCompleteRequiredFields": "Por favor, completa todos los campos obligatorios",
+      "pleaseSelectImageToUpload": "Por favor, selecciona una imagen para subir",
+      "pleaseEnterValidImageUrl": "Por favor, ingresa una URL de imagen válida",
+      "authenticationRequired": "Autenticación requerida",
+      "pleaseLoginToAccess": "Debes iniciar sesión para acceder a esta página."
+    },
+    "translation": {
+      "title": "Gestión de traducciones",
+      "description": "Gestionar traducciones para bloques de contenido, elementos globales y formularios",
+      "back": "Volver",
+      "pageBlocks": "Bloques de páginas",
+      "globalElements": "Elementos globales",
+      "forms": "Formularios",
+      "blockTranslations": "Editor de traducciones de bloques",
+      "blockTranslationsDesc": "Gestionar traducciones en francés y español para todos los bloques de páginas",
+      "noBlocksFound": "No se encontraron bloques para esta página"
+    },
+    "tourCardBuilder": {
+      "title": "Constructor de fichas",
+      "description": "Crea fácilmente fichas para tus tours y experiencias",
+      "yourCards": "Tus fichas",
+      "noCardsYet": "No hay fichas todavía. ¡Crea tu primera ficha!",
+      "quickCreate": "Creación rápida de ficha",
+      "bookingLink": "Enlace de reserva (URL)",
+      "bookingLinkPlaceholder": "Ej: https://www.tourniquet.com/tour/...",
+      "extractInfo": "Extraer info",
+      "createCard": "Crear una ficha de tour",
+      "cardCreated": "Ficha creada con éxito",
+      "cardUpdated": "Ficha actualizada con éxito",
+      "cardDeleted": "Ficha eliminada con éxito",
+      "deleteSuccess": "Tarjeta eliminada con éxito",
+      "deleteFailed": "Se produjo un error al eliminar la tarjeta",
+      "updateSuccess": "Tarjeta actualizada con éxito",
+      "updateFailed": "Se produjo un error al actualizar la tarjeta",
+      "loadingCards": "Cargando tarjetas...",
+      "noCards": "¡Aún no hay tarjetas. Cree su primera tarjeta!"
+    },
+    "globalElementTranslationEditor": {
+      "title": "Editor de Traducciones de Elementos Globales",
+      "description": "Gestionar traducciones para navegación, pie de página y elementos de anuncios",
+      "buttons": {
+        "footer": "Pie de página",
+        "navigation": "Navegación",
+        "announcement": "Anuncio",
+        "popup": "Ventana emergente"
+      },
+      "footerSectionsTitle": "Secciones del pie de página",
+      "footerSections": {
+        "contactInfo": "Información de contacto",
+        "usefulLinks": "Enlaces útiles",
+        "socialMedia": "Redes sociales",
+        "newsletterConfig": "Configuración del boletín",
+        "copyrightConfig": "Configuración de derechos de autor"
+      },
+      "tabs": {
+        "french": "Francés",
+        "spanish": "Español"
+      },
+      "badges": {
+        "autoTranslated": "Traducido automáticamente",
+        "manuallyEdited": "Editado manualmente"
+      },
+      "save": "Guardar",
+      "fieldNames": {
+        "title": "Título",
+        "text": "Texto",
+        "message": "Mensaje",
+        "description": "Descripción",
+        "linkText": "Texto del enlace",
+        "linkUrl": "URL del enlace",
+        "ctaText": "Texto CTA",
+        "ctaUrl": "URL CTA",
+        "email": "Correo electrónico",
+        "phone": "Teléfono",
+        "whatsapp": "WhatsApp",
+        "lineId": "ID de Line",
+        "address": "Dirección",
+        "emailLabel": "Etiqueta de correo",
+        "phoneLabel": "Etiqueta de teléfono",
+        "buttonText": "Texto del botón",
+        "placeholder": "Marcador de posición",
+        "successMessage": "Mensaje de éxito",
+        "errorMessage": "Mensaje de error",
+        "name": "Nombre"
+      },
+      "toasts": {
+        "saveSuccess": {
+          "title": "Guardado",
+          "description": "Traducciones guardadas correctamente"
+        },
+        "saveError": {
+          "title": "Error",
+          "description": "Error al guardar las traducciones"
+        }
+      }
+    },
+    "formTranslationEditor": {
+      "title": "Editor de Traducciones de Formularios",
+      "description": "Gestionar traducciones para formularios personalizados",
+      "tabs": {
+        "french": "Francés",
+        "spanish": "Español"
+      },
+      "buttons": {
+        "regenerate": "Regenerar Traducciones",
+        "save": "Guardar Traducciones"
+      },
+      "badges": {
+        "autoTranslated": "Traducido automáticamente",
+        "manuallyEdited": "Editado manualmente"
+      },
+      "fieldNames": {
+        "formName": "Nombre del formulario",
+        "description": "Descripción",
+        "submitButton": "Botón de envío",
+        "successMessage": "Mensaje de éxito",
+        "errorMessage": "Mensaje de error",
+        "fieldLabel": "Etiqueta del campo {number}",
+        "fieldPlaceholder": "Marcador del campo {number}"
+      },
+      "noForms": "No se encontraron formularios",
+      "selectForm": "Selecciona un formulario para editar las traducciones",
+      "toasts": {
+        "saveSuccess": {
+          "title": "Guardado",
+          "description": "Traducciones del formulario guardadas correctamente"
+        },
+        "saveError": {
+          "title": "Error",
+          "description": "Error al guardar las traducciones"
+        },
+        "regenerateSuccess": {
+          "title": "Regenerado",
+          "description": "Las traducciones se han regenerado"
+        },
+        "regenerateError": {
+          "title": "Error",
+          "description": "Error al regenerar las traducciones"
+        }
+      }
+    }
+  },
+  "_meta": {
+    "text_pricing_373": {
+      "title": {
+        "isManuallyEdited": true
+      },
+      "subtitle": {
+        "isManuallyEdited": true
+      },
+      "pickup_title": {
+        "isManuallyEdited": true
+      },
+      "included_title": {
+        "isManuallyEdited": true
+      },
+      "included_description": {
+        "isManuallyEdited": true
+      },
+      "not_included_title": {
+        "isManuallyEdited": true
+      },
+      "not_included_description": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_0_title": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_0_subtitle": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_0_price": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_0_currency": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_0_cycle": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_0_label": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_0_more_text": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_1_title": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_1_subtitle": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_1_price": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_1_currency": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_1_cycle": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_1_label": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_1_more_text": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_2_title": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_2_subtitle": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_2_price": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_2_currency": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_2_cycle": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_2_label": {
+        "isManuallyEdited": true
+      },
+      "pricing_cards_2_more_text": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_0_time": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_0_location": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_0_price": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_1_time": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_1_location": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_1_price": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_2_time": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_2_location": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_2_price": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_3_time": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_3_location": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_3_price": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_4_time": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_4_location": {
+        "isManuallyEdited": true
+      },
+      "pickup_times_4_price": {
+        "isManuallyEdited": true
+      }
+    },
+    "hero_199": {
+      "title": {
+        "isManuallyEdited": true
+      },
+      "title_accent": {
+        "isManuallyEdited": true
+      },
+      "buttons_0_text": {
+        "isManuallyEdited": true
+      },
+      "buttons_1_text": {
+        "isManuallyEdited": true
+      }
+    },
+    "navigation_menu_1": {
+      "name": {
+        "isManuallyEdited": true
+      }
+    },
+    "navigation_menu_2": {
+      "name": {
+        "isManuallyEdited": true
+      }
+    },
+    "navigation_menu_3": {
+      "name": {
+        "isManuallyEdited": true
+      }
+    },
+    "navigation_menu_4": {
+      "name": {
+        "isManuallyEdited": true
+      }
+    },
+    "navigation_menu_5": {
+      "name": {
+        "isManuallyEdited": true
+      }
+    },
+    "navigation_menu_8": {
+      "name": {
+        "isManuallyEdited": true
+      }
+    },
+    "popular_experiences_247": {
+      "title": {
+        "isManuallyEdited": true
+      },
+      "subtitle": {
+        "isManuallyEdited": true
+      },
+      "button_text": {
+        "isManuallyEdited": true
+      }
+    },
+    "popular_experiences_433": {
+      "title": {
+        "isManuallyEdited": true
+      },
+      "subtitle": {
+        "isManuallyEdited": true
+      },
+      "button_text": {
+        "isManuallyEdited": true
+      }
+    },
+    "tour_ninja_section_255": {
+      "title": {
+        "isManuallyEdited": true
+      },
+      "subtitle": {
+        "isManuallyEdited": true
+      },
+      "button_text": {
+        "isManuallyEdited": true
+      }
+    },
+    "search_bar_tours_331": {
+      "filters_title": {
+        "isManuallyEdited": true
+      },
+      "search_placeholder": {
+        "isManuallyEdited": true
+      }
+    }
+  },
+  "text_436": {
+    "title": "nuevo texto de prueba número dos",
+    "description": "pequeña prueba número dos"
+  },
+  "search_bar_tours_331": {
+    "filters_title": "Filtros",
+    "search_placeholder": "Buscar un tour..."
+  },
+  "blogPosts": {
+    "4": {
+      "title": "Guía Definitiva para Explorar Krabi: Las Mejores Islas y Tesoros Ocultos",
+      "excerpt": "Descubre la guía definitiva de Krabi con consejos de expertos sobre las mejores islas, tesoros ocultos y actividades imprescindibles en este paraíso tailandés."
+    },
+    "10": {
+      "title": "Guía Completa de Krabi 2025: Todo lo que Necesitas Saber para tu Viaje a Tailandia",
+      "excerpt": "Descubre nuestra guía definitiva de Krabi, la perla del sur de Tailandia. Playas paradisíacas, islas de ensueño, actividades imprescindibles y consejos de expertos para un viaje memorable."
+    },
+    "11": {
+      "title": "Top 15 de las Playas Más Hermosas de Krabi: Guía de Playas Paradisíacas",
+      "excerpt": "Explora las 15 playas más hermosas de Krabi, desde Railay Beach hasta tesoros ocultos. Guía completa con fotos, información de acceso y consejos para cada playa."
+    },
+    "12": {
+      "title": "Las Islas Phi Phi desde Krabi: Guía Completa para una Excursión Inolvidable",
+      "excerpt": "Todo lo que necesitas saber sobre las islas Phi Phi: cómo llegar desde Krabi, qué ver, dónde comer, mejores spots de buceo y consejos de expertos para un día perfecto."
+    },
+    "13": {
+      "title": "Tour de las 4 Islas desde Krabi: Guía de la Excursión Más Popular",
+      "excerpt": "Descubre el famoso Tour de las 4 Islas desde Krabi: Poda Island, Chicken Island, Tup Island y Phra Nang Cave Beach. Guía completa con trucos y consejos."
+    },
+    "14": {
+      "title": "Hong Island Krabi: Guía de la Laguna Secreta y la Isla Paradisíaca",
+      "excerpt": "Descubre Hong Island, el tesoro oculto de Krabi con su laguna esmeralda secreta. Guía completa: cómo llegar, qué hacer, mejores horarios para visitar."
+    },
+    "15": {
+      "title": "Railay Beach Krabi: Guía Completa de la Playa Más Espectacular",
+      "excerpt": "Descubre Railay Beach, accesible solo en barco. Guía completa: alojamientos, escalada, playas, restaurantes y consejos para una estancia perfecta."
+    },
+    "16": {
+      "title": "Ao Nang Krabi: Guía Completa del Centro Turístico Esencial",
+      "excerpt": "Descubre Ao Nang, el principal centro turístico de Krabi. Guía completa: playas, restaurantes, vida nocturna, alojamientos y actividades para una estancia perfecta."
+    },
+    "17": {
+      "title": "Snorkel en Krabi: Guía de los 10 Mejores Spots para Explorar el Mundo Submarino",
+      "excerpt": "Descubre los 10 mejores spots de snorkel en Krabi: arrecifes de coral, peces tropicales, tortugas marinas y aguas cristalinas para aventuras submarinas inolvidables."
+    },
+    "18": {
+      "title": "Presupuesto Viaje Krabi 2025: Guía Completa de Precios y Consejos para Ahorrar",
+      "excerpt": "Guía de presupuesto completa para Krabi 2025: alojamiento, comidas, transporte, actividades y consejos de expertos para ahorrar en tu viaje a Tailandia."
+    },
+    "19": {
+      "title": "Cuándo Visitar Krabi: Guía del Clima y Mejores Temporadas para un Viaje Perfecto",
+      "excerpt": "Descubre cuándo visitar Krabi según el clima, afluencia y precios. Guía completa de temporadas, festivales y timing óptimo para tu viaje a Tailandia."
+    },
+    "21": {
+      "title": "Mejores Hoteles Krabi 2025: Guía del Lujo a los Alojamientos Económicos",
+      "excerpt": "Descubre nuestra selección de los mejores hoteles en Krabi para todos los presupuestos. Resorts de lujo, hoteles boutique y estancias económicas con recomendaciones de expertos."
+    },
+    "22": {
+      "title": "Mejores Restaurantes Krabi: Guía Culinaria de Especialidades Tailandesas y Mariscos",
+      "excerpt": "Descubre los mejores restaurantes de Krabi: street food auténtico, especialidades tailandesas, mariscos frescos y cocina internacional con recomendaciones locales."
+    },
+    "23": {
+      "title": "Escalada en Krabi: Guía Completa de Railay Beach, Capital Mundial de la Escalada",
+      "excerpt": "Descubre Krabi, paraíso mundial de la escalada en caliza. Guía completa de spots, rutas, equipamiento, escuelas y consejos para todos los niveles."
+    },
+    "24": {
+      "title": "Transporte en Krabi: Guía Completa para Desplazarse y Opciones de Viaje",
+      "excerpt": "Guía práctica del transporte en Krabi: aeropuerto, buses, taxis, alquiler de vehículos, barcos y consejos para viajar fácil y económicamente."
+    },
+    "25": {
+      "title": "Vida Nocturna en Krabi: Guía de los Mejores Bares, Pubs y Clubs para Salir",
+      "excerpt": "Descubre la animada vida nocturna de Krabi: bares de playa, pubs con música en vivo, clubs locales y los mejores spots para noches inolvidables."
+    },
+    "26": {
+      "title": "Templos y Cultura en Krabi: Guía Espiritual y Tradiciones Tailandesas Auténticas",
+      "excerpt": "Descubre los templos sagrados de Krabi y la riqueza de la cultura tailandesa: Templo de la Cueva del Tigre, tradiciones locales, festivales y experiencias espirituales auténticas."
+    },
+    "27": {
+      "title": "Masaje y Spa en Krabi: Guía de los Mejores Centros de Bienestar y Tratamientos Tradicionales",
+      "excerpt": "Descubre los mejores spas y centros de masaje en Krabi: masaje tailandés tradicional, tratamientos de bienestar de lujo y experiencias terapéuticas auténticas."
+    },
+    "28": {
+      "title": "Compras en Krabi: Guía de los Mejores Mercados, Centros Comerciales y Souvenirs Auténticos",
+      "excerpt": "Guía de compras completa en Krabi: mercados nocturnos auténticos, centros comerciales modernos, artesanía local y consejos para encontrar los mejores souvenirs únicos."
+    },
+    "29": {
+      "title": "Krabi o Phuket: Comparación Completa para Elegir tu Destino Tailandés Perfecto",
+      "excerpt": "Krabi vs Phuket: guía comparativa detallada para elegir entre estos dos impresionantes destinos tailandeses. Playas, actividades, presupuesto y ambiente comparados."
+    },
+    "30": {
+      "title": "Top 5 Rutas en Catamarán Privado en Tailandia: Descubre Islas Ocultas desde Krabi",
+      "excerpt": "Descubre las 5 mejores rutas en catamarán privado en Tailandia desde Krabi. Navega hacia la bahía de Phang Nga, Phi Phi, Koh Rok y más a bordo del catamarán Lagoon 470 de Amon Tour con tripulación."
+    }
+  }
+}

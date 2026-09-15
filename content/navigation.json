@@ -1,0 +1,96 @@
+{
+  "logoUrl": "/media/brand/logo-amon.png",
+  "showSearch": true,
+  "items": [
+    {
+      "id": 1,
+      "label": {
+        "en": "Home",
+        "fr": "Accueil",
+        "es": "Inicio"
+      },
+      "url": "/",
+      "order": 0,
+      "active": true,
+      "target": "_self",
+      "iconName": null,
+      "description": null,
+      "children": []
+    },
+    {
+      "id": 2,
+      "label": {
+        "en": "Experiences",
+        "fr": "Expériences",
+        "es": "Experiencias"
+      },
+      "url": "/tours",
+      "order": 0,
+      "active": true,
+      "target": "_self",
+      "iconName": null,
+      "description": null,
+      "children": []
+    },
+    {
+      "id": 3,
+      "label": {
+        "en": "Custom Trip",
+        "fr": "Voyage sur mesure",
+        "es": "Viaje a medida"
+      },
+      "url": "/custom-tour",
+      "order": 0,
+      "active": true,
+      "target": "_blank",
+      "iconName": null,
+      "description": null,
+      "children": []
+    },
+    {
+      "id": 8,
+      "label": {
+        "en": "Cruise",
+        "fr": "Croisière",
+        "es": "Crucero"
+      },
+      "url": "/cruise",
+      "order": 0,
+      "active": true,
+      "target": "_self",
+      "iconName": null,
+      "description": null,
+      "children": []
+    },
+    {
+      "id": 4,
+      "label": {
+        "en": "Blog",
+        "fr": "Actualités",
+        "es": "Noticias"
+      },
+      "url": "/blog",
+      "order": 2,
+      "active": true,
+      "target": "_self",
+      "iconName": null,
+      "description": null,
+      "children": []
+    },
+    {
+      "id": 5,
+      "label": {
+        "en": "Contact",
+        "fr": "Nous contacter",
+        "es": "Contacto"
+      },
+      "url": "/contact",
+      "order": 5,
+      "active": true,
+      "target": "_self",
+      "iconName": null,
+      "description": null,
+      "children": []
+    }
+  ]
+}
