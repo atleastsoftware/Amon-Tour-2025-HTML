@@ -7,6 +7,7 @@ import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import DynamicBlocksRenderer from "@/components/DynamicBlocksRenderer";
 import { motion } from "framer-motion";
 import { Loader2 } from "lucide-react";
+import { useTourNinjaRelease } from "@/contexts/TourNinjaReleaseContext";
 
 interface PageConfiguration {
   id: number;
@@ -36,6 +37,12 @@ interface DynamicPageProps {
 export default function DynamicPage({ slug: propSlug }: DynamicPageProps = {}) {
   const params = useParams();
   const slug = propSlug || params.slug || '';
+  const remoteRelease = useTourNinjaRelease();
+  const remoteSeo = remoteRelease.page(`/${slug}`)?.seo;
+  const remoteTitle = remoteRelease.text(remoteSeo?.title);
+  const remoteDescription = remoteRelease.text(remoteSeo?.description);
+  const remoteKeywords = remoteRelease.text(remoteSeo?.keywords);
+  const remoteOgImage = remoteRelease.mediaUrl(remoteSeo?.ogMediaId);
 
   // Récupérer la configuration de la page
   const { data: pageConfig, isLoading: isLoadingConfig, error: configError } = useQuery<PageConfiguration>({
@@ -100,8 +107,11 @@ export default function DynamicPage({ slug: propSlug }: DynamicPageProps = {}) {
   return (
     <>
       <Helmet>
-        <title>{pageConfig.pageName} - Amon Tour</title>
-        <meta name="description" content={`${pageConfig.pageName} - Amon Tour, votre agence de voyage à Krabi`} />
+        <title>{remoteTitle || pageConfig.pageName + ' - Amon Tour'}</title>
+        <meta name="description" content={remoteDescription || `${pageConfig.pageName} - Amon Tour, votre agence de voyage à Krabi`} />
+        {remoteKeywords && <meta name="keywords" content={remoteKeywords} />}
+        {remoteOgImage && <meta property="og:image" content={remoteOgImage} />}
+        {remoteOgImage && <meta name="twitter:image" content={remoteOgImage} />}
       </Helmet>
 
       <Header />

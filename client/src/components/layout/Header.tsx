@@ -8,6 +8,7 @@ import logoAmon from "@/assets/logo-amon.png";
 import LanguageSelector from "@/components/LanguageSelector";
 import { useTranslation } from "@/contexts/TranslationContext";
 import { useGlobalElementTranslations } from "@/hooks/useGlobalElementTranslations";
+import { useTourNinjaRelease } from "@/contexts/TourNinjaReleaseContext";
 
 type NavLinkProps = {
   href: string;
@@ -49,6 +50,7 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [headerHeight, setHeaderHeight] = useState(64);
+  const [remoteLogoFailed, setRemoteLogoFailed] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const isBookingPage = location.startsWith('/booking');
   const isHomePage = location === '/';
@@ -57,6 +59,7 @@ export default function Header() {
   const { translations, currentLanguage } = useTranslation();
   const nav = translations.nav;
   const { translateValue } = useGlobalElementTranslations();
+  const remoteRelease = useTourNinjaRelease();
 
   // Fetch navigation menu items from database
   const { data: menuItems = [] } = useQuery<any[]>({
@@ -105,6 +108,20 @@ export default function Header() {
   
   const headerLogoSrc = logoConfig.header_logo?.startsWith('/src/') ? logoAmon : (logoConfig.header_logo || logoAmon);
   const headerLogoHeight = logoConfig.header_logo_height || "80px";
+  const remoteLogo = remoteRelease.mediaUrl(remoteRelease.release?.branding?.logoMediaId);
+  const siteName = remoteRelease.text(remoteRelease.release?.branding?.siteName) || "Amon Tour";
+  const displayedHeaderLogo = remoteLogo && !remoteLogoFailed ? remoteLogo : headerLogoSrc;
+  useEffect(() => setRemoteLogoFailed(false), [remoteRelease.contentDigest, remoteLogo]);
+  const releaseNavigation = remoteRelease.release?.navigation?.items;
+  const displayedMenuItems: any[] = releaseNavigation
+    ? releaseNavigation.map((item, index) => ({
+        id: item.id,
+        url: item.route,
+        displayOrder: index,
+        isActive: true,
+        name: remoteRelease.text(item.label) || item.route,
+      }))
+    : menuItems;
 
   // Track scroll position for header transparency and measure header height
   useEffect(() => {
@@ -301,10 +318,11 @@ export default function Header() {
             whileHover={{ scale: 1.05 }}
           >
             <img 
-              src={headerLogoSrc} 
-              alt="Amon Logo" 
+                src={displayedHeaderLogo}
+                alt={`${siteName} logo`}
               className="w-auto mt-1 ml-3"
               style={{ height: headerLogoHeight }}
+                onError={() => setRemoteLogoFailed(true)}
             />
             <span 
               className={`ml-3 text-3xl font-bold ${
@@ -315,7 +333,7 @@ export default function Header() {
                 color: isHomePage && !scrolled ? 'white' : 'hsl(var(--primary))'
               }}
             >
-              Amon Tour
+              {siteName}
             </span>
           </motion.div>
         </Link>
@@ -368,7 +386,7 @@ export default function Header() {
               {nav.home}
             </NavLink>
           )}
-          {menuItems
+          {displayedMenuItems
             .filter((item: any) => !item.parentId && item.isActive && item.url !== '/')
             .sort((a: any, b: any) => a.displayOrder - b.displayOrder)
             .map((item: any) => (
@@ -379,7 +397,7 @@ export default function Header() {
                 isHomePage={isHomePage} 
                 scrolled={scrolled}
               >
-                {getTranslatedMenuName(item)}
+                {releaseNavigation ? item.name : getTranslatedMenuName(item)}
               </NavLink>
             ))}
           
@@ -418,7 +436,7 @@ export default function Header() {
                   {nav.home}
                 </NavLink>
               )}
-              {menuItems
+              {displayedMenuItems
                 .filter((item: any) => !item.parentId && item.isActive && item.url !== '/')
                 .sort((a: any, b: any) => a.displayOrder - b.displayOrder)
                 .map((item: any) => (
@@ -430,7 +448,7 @@ export default function Header() {
                     isHomePage={isHomePage} 
                     scrolled={scrolled}
                   >
-                    {getTranslatedMenuName(item)}
+                    {releaseNavigation ? item.name : getTranslatedMenuName(item)}
                   </NavLink>
                 ))}
               

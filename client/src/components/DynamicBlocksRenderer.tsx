@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Loader2, Users, Compass, Sparkles, ExternalLink, Clock } from "lucide-react";
 import Gallery from "@/components/ui/Gallery";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/contexts/TranslationContext";
+import { useLocation } from "wouter";
+import { useTourNinjaRelease } from "@/contexts/TourNinjaReleaseContext";
 
 // Lazy load form components
 const CruiseForm = lazy(() => import("@/components/CruiseForm"));
@@ -58,15 +60,41 @@ function hexToRgba(hex: string, alpha: number = 1): string {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
+function escapePlainTextForLegacyHtmlContainer(value: string) {
+  return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
 export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererProps) {
   const { translations, currentLanguage } = useTranslation();
+  const [location] = useLocation();
+  const remoteRelease = useTourNinjaRelease();
+  const releaseHero = remoteRelease.page(location)?.hero;
+  const [failedRemoteMedia, setFailedRemoteMedia] = useState<Set<string>>(() => new Set());
+  useEffect(() => setFailedRemoteMedia(new Set()), [remoteRelease.contentDigest]);
+  const releaseHeroMedia = releaseHero?.mediaId && !failedRemoteMedia.has(releaseHero.mediaId)
+    ? remoteRelease.release?.media[releaseHero.mediaId]
+    : undefined;
   const hero = translations.hero;
   const home = translations.home;
   const tours = translations.tours;
   const common = translations.common;
+  const releaseSectionForBlock = (block: PageBlock) => block.identifier
+    ? remoteRelease.page(location)?.sections?.find(
+        (section) => section.id === block.identifier && section.type === block.blockType,
+      )
+    : undefined;
   
   // Helper function to get dynamic translations from JSON files (updated by backend)
   const getDynamicTranslation = (blockType: string, blockId: number, field: string, fallback: string = ''): string => {
+    const localBlock = blocks.find((block) => block.id === blockId);
+    const releaseSection = localBlock ? releaseSectionForBlock(localBlock) : undefined;
+    const remoteValue =
+      field === "title" ? remoteRelease.text(releaseSection?.title) :
+      field === "subtitle" ? remoteRelease.text(releaseSection?.subtitle) :
+      field === "description" || field === "content" ? remoteRelease.text(releaseSection?.description) :
+      field === "cta_text" || field === "buttonText" ? remoteRelease.text(releaseSection?.cta?.label) :
+      undefined;
+    if (remoteValue) return remoteValue;
     const dynamicTranslations = (translations as any);
     const section = `${blockType}_${blockId}`; // Unique section for each block instance
     const value = dynamicTranslations?.[section]?.[field];
@@ -74,6 +102,35 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
   };
   
   const renderBlock = (block: PageBlock) => {
+    // Apply only compatible, plain-text release fields to an existing local
+    // block. This never creates a block or accepts markup/configuration from
+    // the release. A media failure removes the overlay and restores local data.
+    const releaseSection = releaseSectionForBlock(block);
+    const sectionMedia = releaseSection?.mediaId && !failedRemoteMedia.has(releaseSection.mediaId)
+      ? remoteRelease.release?.media[releaseSection.mediaId]
+      : undefined;
+    if (releaseSection) {
+      const mediaUrl = sectionMedia?.url;
+      const ctaText = remoteRelease.text(releaseSection.cta?.label);
+      block = {
+        ...block,
+        imageUrl: sectionMedia?.kind === "image" && mediaUrl ? mediaUrl : block.imageUrl,
+        imageAlt: sectionMedia?.kind === "image" && mediaUrl ? (remoteRelease.text(sectionMedia.alt) || block.imageAlt) : block.imageAlt,
+        ctaText: ctaText || block.ctaText,
+        ctaUrl: releaseSection.cta?.route || block.ctaUrl,
+        configuration: {
+          ...(block.configuration || {}),
+          ...(sectionMedia?.kind === "image" && mediaUrl ? { imageUrl: mediaUrl, backgroundImage: mediaUrl } : {}),
+          ...(sectionMedia?.kind === "video" && mediaUrl ? { videoUrl: mediaUrl, backgroundType: "video" } : {}),
+          ...(releaseSection.mediaId ? { tourNinjaMediaId: releaseSection.mediaId } : {}),
+          ...(ctaText ? { ctaText, buttonText: ctaText } : {}),
+          ...(releaseSection.cta?.route ? { ctaUrl: releaseSection.cta.route, buttonUrl: releaseSection.cta.route } : {}),
+        },
+      };
+    }
+    // Several legacy local block components render CMS HTML. Release content
+    // is plain text, so encode it before it reaches those compatibility paths.
+    const legacyHtml = (value: string) => releaseSection ? escapePlainTextForLegacyHtmlContainer(value) : value;
     // Pour l'instant, on affiche un rendu basique pour chaque type de bloc
     // Dans le futur, chaque type de bloc aura son propre composant
     switch (block.blockType) {
@@ -114,6 +171,9 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                 playsInline
                 preload="auto"
                 className="w-full h-full object-cover"
+                onError={() => {
+                  if (releaseSection?.mediaId) setFailedRemoteMedia((previous) => new Set(previous).add(releaseSection.mediaId!));
+                }}
               >
                 <source src={headerPageConfig.videoUrl} type="video/mp4" />
               </video>
@@ -123,10 +183,13 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
         } else if (headerPageConfig.imageUrl || block.imageUrl) {
           headerBackground = (
             <>
-              <img 
+                <img
                 src={headerPageConfig.imageUrl || block.imageUrl} 
                 alt={headerPageConfig.imageAlt || block.imageAlt || headerTitle} 
                 className="absolute inset-0 w-full h-full object-cover z-0"
+                  onError={() => {
+                    if (releaseSection?.mediaId) setFailedRemoteMedia((previous) => new Set(previous).add(releaseSection.mediaId!));
+                  }}
               />
               <div className="absolute inset-0 bg-black/50 z-10"></div>
             </>
@@ -188,8 +251,8 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
         }[contentAlignment];
         
         // Use dynamic translations from JSON files (automatically updated by backend)
-        const fullTitle = getDynamicTranslation(block.blockType, block.id, 'title', heroConfig.title || block.title || '');
-        const accentText = getDynamicTranslation(block.blockType, block.id, 'title_accent', heroConfig.titleAccentText || '');
+        const fullTitle = remoteRelease.text(releaseHero?.title) || getDynamicTranslation(block.blockType, block.id, 'title', heroConfig.title || block.title || '');
+        const accentText = remoteRelease.text(releaseHero?.highlight) || getDynamicTranslation(block.blockType, block.id, 'title_accent', heroConfig.titleAccentText || '');
         const titleColor = heroConfig.titleColor || '#ffffff';
         const accentColor = heroConfig.titleAccentColor || '#3BA8AF';
         const hasAnimation = heroConfig.hasAnimation !== false;
@@ -234,7 +297,31 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
         
         // Render background
         let heroBackground;
-        if (bgType === 'color') {
+        if (releaseHeroMedia?.kind === "image") {
+          heroBackground = (
+            <motion.img
+              src={releaseHeroMedia.url}
+              alt={remoteRelease.text(releaseHeroMedia.alt) || ''}
+              className="absolute inset-0 w-full h-full object-cover z-0"
+              initial={{ scale: 1.1 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 1.2 }}
+              onError={() => {
+                if (releaseHero?.mediaId) setFailedRemoteMedia((previous) => new Set(previous).add(releaseHero.mediaId!));
+              }}
+            />
+          );
+        } else if (releaseHeroMedia?.kind === "video") {
+          heroBackground = (
+            <div className="absolute inset-0 w-full h-full z-0">
+              <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" onError={() => {
+                if (releaseHero?.mediaId) setFailedRemoteMedia((previous) => new Set(previous).add(releaseHero.mediaId!));
+              }}>
+                <source src={releaseHeroMedia.url} type="video/mp4" />
+              </video>
+            </div>
+          );
+        } else if (bgType === 'color') {
           heroBackground = (
             <div 
               className="absolute inset-0 w-full h-full z-0"
@@ -284,6 +371,9 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                 muted
                 playsInline
                 className="absolute inset-0 w-full h-full object-cover"
+                onError={() => {
+                  if (releaseSection?.mediaId) setFailedRemoteMedia((previous) => new Set(previous).add(releaseSection.mediaId!));
+                }}
               >
                 <source src={heroConfig.videoUrl} type="video/mp4" />
               </video>
@@ -298,11 +388,19 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
               initial={{ scale: 1.1 }}
               animate={{ scale: 1 }}
               transition={{ duration: 1.2 }}
+              onError={() => {
+                const failedId = releaseHero?.mediaId || releaseSection?.mediaId;
+                if (failedId) setFailedRemoteMedia((previous) => new Set(previous).add(failedId));
+              }}
             />
           );
         } else {
           heroBackground = <div className="absolute inset-0 w-full h-full z-0 bg-gradient-to-br from-primary to-secondary" />;
         }
+        const remoteButtons = [releaseHero?.primaryCta, releaseHero?.secondaryCta]
+          .filter(Boolean)
+          .map((cta) => ({ text: remoteRelease.text(cta?.label), url: cta?.route, style: 'solid' }));
+        const heroButtons = remoteButtons.length > 0 ? remoteButtons : (heroConfig.buttons || []);
 
         return (
           <section key={block.id} className="relative pt-40 md:pt-48 pb-20 min-h-screen flex overflow-hidden">
@@ -321,7 +419,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                 } : {}}
               >
                 {heroTitle}
-                {(heroConfig.subtitle || block.subtitle) && (
+                {(remoteRelease.text(releaseHero?.description) || heroConfig.subtitle || block.subtitle) && (
                   <p 
                     className="text-lg md:text-xl mb-8 max-w-3xl"
                     style={{ 
@@ -329,14 +427,14 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                       whiteSpace: 'pre-line'
                     }}
                   >
-                    {getDynamicTranslation(block.blockType, block.id, 'subtitle', heroConfig.subtitle || block.subtitle || '')}
+                    {remoteRelease.text(releaseHero?.description) || getDynamicTranslation(block.blockType, block.id, 'subtitle', heroConfig.subtitle || block.subtitle || '')}
                   </p>
                 )}
-                {heroConfig.buttons && heroConfig.buttons.length > 0 && (
+                {heroButtons.length > 0 && (
                   <div 
                     className={`flex gap-4 mt-8 ${contentAlignment === 'center' ? 'justify-center' : contentAlignment === 'right' ? 'justify-end' : 'justify-start'}`}
                   >
-                    {heroConfig.buttons.map((button: any, index: number) => {
+                    {heroButtons.map((button: any, index: number) => {
                       // Use dynamic translations from JSON (updated automatically by backend)
                       const buttonKey = `buttons_${index}_text`;
                       const buttonText = getDynamicTranslation(block.blockType, block.id, buttonKey, button.text || '');
@@ -484,7 +582,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
               {sectionContent && (
                 <div 
                   className="prose prose-lg mx-auto"
-                  dangerouslySetInnerHTML={{ __html: sectionContent }}
+                  dangerouslySetInnerHTML={{ __html: legacyHtml(sectionContent) }}
                 />
               )}
             </div>
@@ -541,7 +639,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                   {textImgContent && (
                     <div 
                       className="prose prose-lg max-w-none"
-                      dangerouslySetInnerHTML={{ __html: textImgContent }}
+                      dangerouslySetInnerHTML={{ __html: legacyHtml(textImgContent) }}
                     />
                   )}
                   {textImgCtaText && (block.ctaUrl || textImgConfig.ctaUrl) && (
@@ -559,6 +657,9 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                       src={block.imageUrl || textImgConfig.imageUrl} 
                       alt={block.imageAlt || textImgConfig.imageAlt || textImgTitle || ''} 
                       className="w-full rounded-lg shadow-lg"
+                      onError={() => {
+                        if (releaseSection?.mediaId) setFailedRemoteMedia((previous) => new Set(previous).add(releaseSection.mediaId!));
+                      }}
                     />
                   </div>
                 )}
@@ -675,7 +776,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                 {advantagesContent && (
                   <div 
                     className="prose prose-lg max-w-none"
-                    dangerouslySetInnerHTML={{ __html: advantagesContent }}
+                    dangerouslySetInnerHTML={{ __html: legacyHtml(advantagesContent) }}
                   />
                 )}
               </div>
@@ -695,7 +796,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
               {advantagesContent && (
                 <div 
                   className="prose prose-lg mx-auto max-w-none"
-                  dangerouslySetInnerHTML={{ __html: advantagesContent }}
+                  dangerouslySetInnerHTML={{ __html: legacyHtml(advantagesContent) }}
                 />
               )}
             </div>
@@ -722,7 +823,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
               {cardGridContent && (
                 <div 
                   className="prose prose-lg mx-auto max-w-none"
-                  dangerouslySetInnerHTML={{ __html: cardGridContent }}
+                  dangerouslySetInnerHTML={{ __html: legacyHtml(cardGridContent) }}
                 />
               )}
             </div>
@@ -738,12 +839,14 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
         const viewDetailsText = getDynamicTranslation(block.blockType, block.id, "viewDetailsText", popularExpConfig.viewDetailsText || '');
         const bookNowText = getDynamicTranslation(block.blockType, block.id, "bookNowText", popularExpConfig.bookNowText || '');
         const ctaButtonText = getDynamicTranslation(block.blockType, block.id, "buttonText", popularExpConfig.buttonText || '');
+        const catalogueTitle = remoteRelease.text(remoteRelease.release?.catalogue?.heading);
+        const catalogueDescription = remoteRelease.text(remoteRelease.release?.catalogue?.description);
         
         return (
           <PopularExperiencesBlock
             key={block.id}
-            title={popularTitle}
-            subtitle={popularSubtitle}
+            title={remoteRelease.text(releaseSection?.title) || catalogueTitle || popularTitle}
+            subtitle={remoteRelease.text(releaseSection?.subtitle) || catalogueDescription || popularSubtitle}
             configuration={{
               ...popularExpConfig,
               viewDetailsText: viewDetailsText || undefined,

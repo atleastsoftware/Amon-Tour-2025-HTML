@@ -1,0 +1,1 @@
+- [Tour Ninja release safety](tour-ninja-release-safety.md) — opt-in overlays preserve local content; upstream configuration contract still requires agreement.

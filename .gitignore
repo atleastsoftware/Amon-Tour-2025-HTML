@@ -4,3 +4,8 @@ dist
 server/public
 vite.config.ts.*
 *.tar.gz
+edge/.cache
+edge/data
+
+# Archive des données transactionnelles (PII) : jamais dans Git
+exports/archive/

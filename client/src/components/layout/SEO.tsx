@@ -1,6 +1,8 @@
 import { Helmet } from 'react-helmet';
 import { useEffect, useState } from 'react';
 import { useTranslation } from '@/contexts/TranslationContext';
+import { useLocation } from 'wouter';
+import { useTourNinjaRelease } from '@/contexts/TourNinjaReleaseContext';
 
 // Safety clamp: trim any meta description to <=160 chars at a word boundary.
 function clampDescription(desc: string, max = 160): string {
@@ -46,14 +48,21 @@ export default function SEO({
 }: SEOProps) {
   const siteUrl = 'https://amon-tour.com';
   const { translations } = useTranslation();
+  const [location] = useLocation();
+  const remoteRelease = useTourNinjaRelease();
   const seo = translations.seo;
-  
-  const finalTitle = title || seo.defaultTitle;
-  const finalDescription = clampDescription(description || seo.defaultDescription);
-  const finalKeywords = keywords || seo.defaultKeywords;
-  
-  const fullTitle = finalTitle.includes('Amon Tour') ? finalTitle : `${finalTitle} | Amon Tour`;
-  const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
+  const releasePage = remoteRelease.page(location);
+  const remoteSeo = releasePage?.seo;
+  const siteName = remoteRelease.text(remoteRelease.release?.branding?.siteName) || "Amon Tour";
+
+  const finalTitle = remoteRelease.text(remoteSeo?.title) || title || seo.defaultTitle;
+  const finalDescription = clampDescription(remoteRelease.text(remoteSeo?.description) || description || seo.defaultDescription);
+  const finalKeywords = remoteRelease.text(remoteSeo?.keywords) || keywords || seo.defaultKeywords;
+  const releaseOgImage = remoteRelease.mediaUrl(remoteSeo?.ogMediaId);
+
+  const fullTitle = finalTitle.includes(siteName) ? finalTitle : `${finalTitle} | ${siteName}`;
+  const resolvedOgImage = releaseOgImage || ogImage;
+  const fullOgImage = resolvedOgImage.startsWith('http') ? resolvedOgImage : `${siteUrl}${resolvedOgImage}`;
   const [detectedLanguage, setDetectedLanguage] = useState(language);
   
   useEffect(() => {
@@ -175,8 +184,8 @@ export default function SEO({
       <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
       <meta name="language" content={detectedLanguage} />
       <html lang={detectedLanguage} />
-      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-      <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1" />
+       <meta name="robots" content={remoteRelease.isPreview ? "noindex, nofollow, noarchive" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"} />
+       <meta name="googlebot" content={remoteRelease.isPreview ? "noindex, nofollow, noarchive" : "index, follow, max-image-preview:large, max-snippet:-1"} />
       <meta name="author" content="Amon Tour Thailand" />
       <meta name="publisher" content="Amon Tour" />
       
@@ -189,7 +198,7 @@ export default function SEO({
       <meta property="og:image:height" content="630" />
       <meta property="og:image:alt" content={`${title} - Amon Tour Thailand`} />
       <meta property="og:url" content={currentUrl} />
-      <meta property="og:site_name" content="Amon Tour" />
+       <meta property="og:site_name" content={siteName} />
       <meta property="og:locale" content="en_US" />
       <meta property="og:locale:alternate" content="zh_CN" />
       <meta property="og:locale:alternate" content="zh_SG" />

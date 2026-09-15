@@ -10,6 +10,7 @@ import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import heroImage from "@/assets/DJI_20241115104455_0160_D-min.jpeg";
 import { useTranslation } from "@/contexts/TranslationContext";
+import { useTourNinjaRelease } from "@/contexts/TourNinjaReleaseContext";
 
 // Use optimized video (6MB instead of 40MB) for better loading performance
 const backgroundVideo = "/attached_assets/hero-video-optimized.mp4";
@@ -63,15 +64,30 @@ export default function Hero() {
   const [isMobile, setIsMobile] = useState(false);
   const [currentVideoSrc, setCurrentVideoSrc] = useState(backgroundVideo);
   const [attemptedFallback, setAttemptedFallback] = useState(false);
+  const [remoteMediaFailed, setRemoteMediaFailed] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const loadTimeoutRef = useRef<NodeJS.Timeout>();
 
   // Get translations using the hook
   const { translations, currentLanguage } = useTranslation();
   const hero = translations.hero;
+  const remoteRelease = useTourNinjaRelease();
+  const releaseHero = remoteRelease.page("/")?.hero;
+  const remoteHeroSource = remoteRelease.mediaUrl(releaseHero?.mediaId);
+  useEffect(() => {
+    setRemoteMediaFailed(false);
+    setVideoError(false);
+    setAttemptedFallback(false);
+  }, [remoteRelease.contentDigest, remoteHeroSource]);
+  const remoteHeroImage = remoteHeroSource;
+  const remoteHeroMedia = releaseHero?.mediaId && !remoteMediaFailed ? remoteRelease.release?.media[releaseHero.mediaId] : undefined;
+  const heroTitle = remoteRelease.text(releaseHero?.title) || hero.title;
+  const heroHighlight = remoteRelease.text(releaseHero?.highlight) || hero.subtitle;
+  const heroSuffix = remoteRelease.text(releaseHero?.suffix) || hero.thailand;
+  const heroDescription = remoteRelease.text(releaseHero?.description) || hero.description;
 
   // Force component to have a unique key based on language to ensure re-render
-  const componentKey = `hero-${currentLanguage}-${hero?.title}`;
+  const componentKey = `hero-${currentLanguage}-${heroTitle}`;
 
   // Simple: always use animation (no dashboard config needed)
   const hasAnimation = true;
@@ -96,9 +112,9 @@ export default function Hero() {
 
   // Render title with colors - ONLY uses JSON translations
   const renderTitleWithColors = () => {
-    const mainTitle = hero.title;
-    const colorPart = hero.subtitle;
-    const heroCountry = hero.thailand;
+    const mainTitle = heroTitle;
+    const colorPart = heroHighlight;
+    const heroCountry = heroSuffix;
 
     return (
       <>
@@ -148,9 +164,12 @@ export default function Hero() {
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
         {/* Fallback Image */}
         <img
-          src={heroImage}
-          alt="Beautiful Krabi landscape"
+          src={remoteHeroMedia?.kind === "image" && remoteHeroImage ? remoteHeroImage : heroImage}
+          alt={remoteRelease.text(remoteHeroMedia?.alt) || "Beautiful Krabi landscape"}
           className="absolute top-0 left-0 w-full h-full object-cover"
+          onError={() => {
+            if (remoteHeroMedia?.kind === "image") setRemoteMediaFailed(true);
+          }}
         />
 
         {/* Video Overlay with intelligent loading and comprehensive fallback */}
@@ -175,6 +194,7 @@ export default function Hero() {
             }}
             onError={(e) => {
               console.error("Video failed to load:", currentVideoSrc);
+              if (remoteHeroMedia?.kind === "video") setRemoteMediaFailed(true);
               setVideoError(true);
             }}
             onWaiting={() => {
@@ -185,7 +205,7 @@ export default function Hero() {
               setVideoLoaded(true);
             }}
           >
-            <source src={currentVideoSrc} type="video/mp4" />
+            <source src={remoteHeroMedia?.kind === "video" ? remoteHeroMedia.url : currentVideoSrc} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         )}
@@ -220,21 +240,21 @@ export default function Hero() {
               </h1>
 
               <p className="mb-6 text-lg drop-shadow-md text-white/90">
-                {hero.description}
+                {heroDescription}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-start">
                 {/* Use JSON translations */}
                 {[
                   {
-                    text: hero.seeOffers,
-                    url: "/tours",
+                    text: remoteRelease.text(releaseHero?.primaryCta?.label) || hero.seeOffers,
+                    url: releaseHero?.primaryCta?.route || "/tours",
                     color: "#084F6E",
                     style: "filled",
                   },
                   {
-                    text: hero.customTrip,
-                    url: "/custom-tour",
+                    text: remoteRelease.text(releaseHero?.secondaryCta?.label) || hero.customTrip,
+                    url: releaseHero?.secondaryCta?.route || "/custom-tour",
                     color: "#084F6E",
                     style: "filled",
                   },

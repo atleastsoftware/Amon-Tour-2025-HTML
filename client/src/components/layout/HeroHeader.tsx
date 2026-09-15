@@ -1,4 +1,7 @@
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useLocation } from "wouter";
+import { useTourNinjaRelease } from "@/contexts/TourNinjaReleaseContext";
 
 interface HeroHeaderProps {
   title: string;
@@ -23,6 +26,17 @@ export default function HeroHeader({
   alt = "Hero background image",
   dataTestId = "hero-header"
 }: HeroHeaderProps) {
+  const [remoteMediaFailed, setRemoteMediaFailed] = useState(false);
+  const [location] = useLocation();
+  const remoteRelease = useTourNinjaRelease();
+  const remoteHero = remoteRelease.page(location)?.hero;
+  const remoteMedia = remoteHero?.mediaId ? remoteRelease.release?.media[remoteHero.mediaId] : undefined;
+  const displayedTitle = remoteRelease.text(remoteHero?.title) || title;
+  const displayedSubtitle = remoteRelease.text(remoteHero?.description) || subtitle;
+  const usableRemoteMedia = remoteMedia && !remoteMediaFailed ? remoteMedia : undefined;
+  const displayedAlt = remoteRelease.text(usableRemoteMedia?.alt) || alt;
+  useEffect(() => setRemoteMediaFailed(false), [remoteRelease.contentDigest, remoteMedia?.url]);
+
   return (
     <section 
       className={`relative ${heightClass}`} 
@@ -30,13 +44,22 @@ export default function HeroHeader({
     >
       <div className={`absolute inset-0 ${overlayClass} z-10`}></div>
       <div className="absolute inset-0 z-0">
-        <img 
-          src={bgImageUrl}
-          alt={alt}
-          className="w-full h-full object-cover"
-          decoding="async"
-          fetchPriority="high"
-        />
+        {usableRemoteMedia?.kind === "video" ? (
+          <video autoPlay loop muted playsInline className="w-full h-full object-cover" onError={() => setRemoteMediaFailed(true)}>
+            <source src={usableRemoteMedia.url} type="video/mp4" />
+          </video>
+        ) : (
+          <img
+            src={usableRemoteMedia?.url || bgImageUrl}
+            alt={displayedAlt}
+            className="w-full h-full object-cover"
+            decoding="async"
+            fetchPriority="high"
+            onError={() => {
+              if (usableRemoteMedia) setRemoteMediaFailed(true);
+            }}
+          />
+        )}
       </div>
       <div className={`container mx-auto px-4 relative z-20 h-full flex flex-col justify-center ${center ? 'items-center text-center' : ''} text-white`}>
         {animate ? (
@@ -52,9 +75,9 @@ export default function HeroHeader({
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              {title}
+              {displayedTitle}
             </motion.h1>
-            {subtitle && (
+            {displayedSubtitle && (
               <motion.p 
                 className="text-lg md:text-xl max-w-2xl"
                 data-testid="text-hero-subtitle"
@@ -62,7 +85,7 @@ export default function HeroHeader({
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
-                {subtitle}
+                {displayedSubtitle}
               </motion.p>
             )}
           </motion.div>
@@ -72,14 +95,14 @@ export default function HeroHeader({
               className="text-4xl md:text-5xl font-heading font-bold mb-4"
               data-testid="text-hero-title"
             >
-              {title}
+              {displayedTitle}
             </h1>
-            {subtitle && (
+            {displayedSubtitle && (
               <p 
                 className="text-lg md:text-xl max-w-2xl"
                 data-testid="text-hero-subtitle"
               >
-                {subtitle}
+                {displayedSubtitle}
               </p>
             )}
           </>

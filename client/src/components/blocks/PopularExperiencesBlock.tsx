@@ -1,8 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import { useIframe } from "@/contexts/IframeContext";
 import { useTranslation } from "@/contexts/TranslationContext";
+import { useTourNinjaRelease } from "@/contexts/TourNinjaReleaseContext";
 
 // Helper function to convert hex to rgba
 function hexToRgba(hex: string, alpha: number = 1): string {
@@ -26,9 +28,12 @@ export default function PopularExperiencesBlock({
   isPreview = false
 }: PopularExperiencesBlockProps) {
   const { openIframe } = useIframe();
+  const [sectionMediaFailed, setSectionMediaFailed] = useState(false);
   const { translations, currentLanguage } = useTranslation();
+  const remoteRelease = useTourNinjaRelease();
   const tours = translations.tours;
   const common = translations.common;
+  const catalogue = remoteRelease.release?.catalogue;
   
   // Use translated button texts from configuration if available, otherwise fall back to common translations
   const viewDetailsLabel = configuration.viewDetailsText || common.viewDetails;
@@ -46,8 +51,8 @@ export default function PopularExperiencesBlock({
   };
   
   // Use translations as fallback if no title/subtitle provided
-  const displayTitle = title || tours.featured;
-  const displaySubtitle = subtitle || tours.description;
+  const displayTitle = title || remoteRelease.text(catalogue?.heading) || tours.featured;
+  const displaySubtitle = subtitle || remoteRelease.text(catalogue?.description) || tours.description;
   
   const { data: tourNinjaResponse, isLoading: tourNinjaLoading } = useQuery<{success: boolean, data: any[]}>({
     queryKey: ['/api/proxy/tours', currentLanguage], // ✅ Add language to queryKey!
@@ -69,6 +74,10 @@ export default function PopularExperiencesBlock({
   });
 
   const config = configuration;
+  useEffect(() => setSectionMediaFailed(false), [config.tourNinjaMediaId, config.backgroundImage, remoteRelease.contentDigest]);
+  const remoteSectionBackground = config.tourNinjaMediaId && config.backgroundImage && !sectionMediaFailed
+    ? config.backgroundImage
+    : undefined;
 
   // Extract tours from API response
   const tourNinjaTours = tourNinjaResponse?.data || [];
@@ -101,6 +110,19 @@ export default function PopularExperiencesBlock({
     }
   }
 
+  // A configured release can curate the existing proxy catalogue, but never
+  // replaces it. IDs are matched against both proxy id forms and ordered
+  // exactly as configured; absent IDs simply remain absent.
+  if (catalogue?.featuredTourIds?.length) {
+    const byId = new Map(filteredTours.map((tour: any) => [
+      String(tour.externalId ?? tour.id),
+      tour,
+    ]));
+    filteredTours = catalogue.featuredTourIds
+      .map((id) => byId.get(String(id)))
+      .filter((tour): tour is any => Boolean(tour));
+  }
+
   // Calculate display count
   let displayCount = 6;
   if (config.showAllAds === true) {
@@ -113,7 +135,13 @@ export default function PopularExperiencesBlock({
   const displayTours = Array.isArray(filteredTours) ? filteredTours.slice(0, displayCount) : [];
 
   return (
-    <section id="tours" className="py-16" style={{ backgroundColor: config.backgroundColor || '#ffffff' }}>
+    <section id="tours" className="py-16" style={{
+      backgroundColor: config.backgroundColor || '#ffffff',
+      ...(remoteSectionBackground ? { backgroundImage: `linear-gradient(rgba(255,255,255,.88), rgba(255,255,255,.88)), url("${remoteSectionBackground}")`, backgroundSize: "cover", backgroundPosition: "center" } : {}),
+    }}>
+      {remoteSectionBackground && (
+        <img src={remoteSectionBackground} alt="" className="hidden" onError={() => setSectionMediaFailed(true)} />
+      )}
       <div className="container mx-auto px-4 max-w-4xl text-center mb-8">
         <motion.div
           initial={{ y: -20, opacity: 0 }}
@@ -281,72 +309,22 @@ export default function PopularExperiencesBlock({
                 </motion.div>
               );
             })
+          ) : catalogue?.featuredTourIds ? (
+            <p className="col-span-full py-8 text-center text-gray-500">
+              {remoteRelease.text(catalogue?.emptyMessage) || tours.description}
+            </p>
           ) : (
             Array.from({ length: Math.min(displayCount, 12) }).map((_, index) => (
-              <motion.div
-                key={`${index}-${config.cardsColor || '#2563eb'}`}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
-              >
-                <div 
-                  key={config.cardsColor}
-                  className="relative h-48 overflow-hidden"
-                  style={{ 
-                    background: `linear-gradient(135deg, ${hexToRgba(config.cardsColor || '#2563eb', 0.3)}, ${hexToRgba(config.cardsColor || '#2563eb', 0.6)})`
-                  }}
-                >
-                  <div className="absolute top-4 right-4 z-20">
-                    <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-full text-xs">
-                      {formatDuration(index % 2 + 1)}
-                    </span>
-                  </div>
+              <motion.div key={`${index}-${config.cardsColor || '#2563eb'}`} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: index * 0.1 }} className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
+                <div className="relative h-48 overflow-hidden" style={{ background: `linear-gradient(135deg, ${hexToRgba(config.cardsColor || '#2563eb', 0.3)}, ${hexToRgba(config.cardsColor || '#2563eb', 0.6)})` }}>
+                  <div className="absolute top-4 right-4 z-20"><span className="bg-white/90 text-gray-800 px-2 py-1 rounded-full text-xs">{formatDuration(index % 2 + 1)}</span></div>
                 </div>
-                
                 <div className="p-6">
-                  <h3 className="text-lg font-bold text-gray-800 mb-3 line-clamp-2">
-                    Tour Experience {index + 1}
-                  </h3>
-                  
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                    Découvrez les plus beaux endroits de Krabi avec nos guides expérimentés.
-                  </p>
-                  
+                  <h3 className="text-lg font-bold text-gray-800 mb-3 line-clamp-2">Tour Experience {index + 1}</h3>
+                  <p className="text-gray-600 text-sm mb-4 line-clamp-3">Découvrez les plus beaux endroits de Krabi avec nos guides expérimentés.</p>
                   <div className="flex gap-2">
-                    <button 
-                      className="flex-1 border py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
-                      style={{
-                        borderColor: config.cardsColor || '#2563eb',
-                        color: config.cardsColor || '#2563eb',
-                        backgroundColor: 'white',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = (config.cardsColor || '#2563eb') + '10';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = 'white';
-                      }}
-                    >
-                      {viewDetailsLabel}
-                      <ChevronRight className="h-3 w-3" />
-                    </button>
-                    <button 
-                      className="flex-1 py-2 px-3 rounded-lg font-semibold transition-colors text-white flex items-center justify-center gap-1"
-                      style={{
-                        backgroundColor: config.cardsColor || '#2563eb',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.filter = 'brightness(110%)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.filter = 'brightness(100%)';
-                      }}
-                    >
-                      {bookNowLabel}
-                      <ChevronRight className="h-3 w-3" />
-                    </button>
+                    <button className="flex-1 border py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1" style={{ borderColor: config.cardsColor || '#2563eb', color: config.cardsColor || '#2563eb', backgroundColor: 'white' }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = (config.cardsColor || '#2563eb') + '10'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'white'; }}>{viewDetailsLabel}<ChevronRight className="h-3 w-3" /></button>
+                    <button className="flex-1 py-2 px-3 rounded-lg font-semibold transition-colors text-white flex items-center justify-center gap-1" style={{ backgroundColor: config.cardsColor || '#2563eb' }} onMouseEnter={(e) => { e.currentTarget.style.filter = 'brightness(110%)'; }} onMouseLeave={(e) => { e.currentTarget.style.filter = 'brightness(100%)'; }}>{bookNowLabel}<ChevronRight className="h-3 w-3" /></button>
                   </div>
                 </div>
               </motion.div>

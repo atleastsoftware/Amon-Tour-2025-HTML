@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
+import { clearTourNinjaPreview } from "@/lib/tourNinjaPreview";
 
 interface LoginCredentials {
   username: string;
@@ -34,6 +35,11 @@ export const useLogout = () => {
       return response.json();
     },
     onSuccess: () => {
+      // Dispatch synchronously so the mounted provider drops a draft before
+      // the admin route initiates its SPA navigation.
+      clearTourNinjaPreview(sessionStorage, () => {
+        window.dispatchEvent(new Event("tour-ninja-release-preview-reset"));
+      });
       queryClient.invalidateQueries({ queryKey: ["/api/me"] });
     },
   });

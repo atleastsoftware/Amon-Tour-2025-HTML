@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
 import { useIsAuthenticated, useLogout } from "@/lib/auth";
 import { useQuery } from "@tanstack/react-query";
@@ -37,6 +37,7 @@ export default function Admin() {
   const sections = dashboard?.sections || {};
   const [, setLocation] = useLocation();
   const logout = useLogout();
+  const [previewError, setPreviewError] = useState<string | null>(null);
 
   // Fetch unread counts for notifications
   const { data: krabiUnreadData = [] } = useQuery<unknown[]>({
@@ -80,6 +81,30 @@ export default function Admin() {
     setLocation('/');
   };
 
+  const startTourNinjaDraftPreview = async () => {
+    setPreviewError(null);
+    try {
+      const response = await fetch("/api/admin/tour-ninja/releases/preview", {
+        credentials: "same-origin",
+        cache: "no-store",
+      });
+      const snapshot = await response.json();
+      if (!response.ok || snapshot.enabled !== true) {
+        throw new Error("No valid Tour Ninja draft release is configured.");
+      }
+      // Session storage is intentionally tab-scoped: it cannot create a
+      // shareable public preview URL and is cleared when the tab is closed.
+      if (!snapshot.contentDigest) {
+        throw new Error("Draft preview did not provide a content digest.");
+      }
+      sessionStorage.setItem("tour-ninja-release-preview", "true");
+      sessionStorage.setItem("tour-ninja-release-preview-digest", snapshot.contentDigest);
+      window.location.assign("/");
+    } catch (error) {
+      setPreviewError(error instanceof Error ? error.message : "Draft preview is unavailable.");
+    }
+  };
+
   if (authLoading) return <div className="container mx-auto p-8 text-center">{adminT?.common?.loading || "Loading..."}</div>;
 
   return (
@@ -107,12 +132,24 @@ export default function Admin() {
                   <span className="hidden sm:inline">{adminT?.appearance?.title || "Site Appearance"}</span>
                   <span className="sm:hidden">{adminT?.appearance?.shortTitle || "Apparence"}</span>
                 </Button>
+                <Button
+                  variant="outline"
+                  onClick={startTourNinjaDraftPreview}
+                  className="flex items-center gap-2 text-sm sm:text-base"
+                  data-testid="button-tour-ninja-draft-preview"
+                >
+                  <Globe className="h-4 w-4" />
+                  Preview Tour Ninja draft
+                </Button>
                 <Button variant="outline" onClick={handleLogout} className="flex items-center gap-2 text-sm sm:text-base">
                   <LogOut className="h-4 w-4" />
                   {dashboard?.logout || "Logout"}
                 </Button>
               </div>
             </div>
+            {previewError && (
+              <p className="mb-4 text-sm text-destructive" role="alert">{previewError}</p>
+            )}
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* Custom Tour Requests */}

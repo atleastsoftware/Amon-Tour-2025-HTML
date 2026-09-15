@@ -14,6 +14,8 @@ import {
   escapeAttr,
   BRAND,
 } from "./ssrShared";
+import { getTourNinjaReleaseSnapshot } from "./services/tourNinjaReleaseService";
+import { withTourNinjaSsrRelease } from "./ssrTourNinjaRelease";
 
 const BASE_URL = BRAND.baseUrl;
 const WA = BRAND.whatsappIntl;
@@ -1145,6 +1147,24 @@ export function registerDestinationRoutes(app: Express): void {
   // Destination landing pages are pure SSR HTML — served to ALL visitors,
   // not just bots. These pages have no SPA counterpart, so all users need
   // the server-rendered HTML (bots for indexing, humans for conversion).
-  app.get("/destinations", ssrDestinationsHub);
-  app.get("/destinations/:slug", ssrDestinationPage);
+  app.get("/destinations", ssrWithTourNinjaRelease(ssrDestinationsHub));
+  app.get("/destinations/:slug", ssrWithTourNinjaRelease(ssrDestinationPage));
+}
+
+function ssrWithTourNinjaRelease(
+  handler: (req: Request, res: Response) => Promise<unknown> | unknown,
+) {
+  return async (req: Request, res: Response, next: import("express").NextFunction) => {
+    try {
+      // This is deliberately the configured live release only; no client
+      // controlled URL or draft release is ever consulted for SSR.
+      const snapshot = await getTourNinjaReleaseSnapshot("live");
+      await withTourNinjaSsrRelease(
+        snapshot.enabled ? snapshot.release : null,
+        () => handler(req, res),
+      );
+    } catch (error) {
+      next(error);
+    }
+  };
 }

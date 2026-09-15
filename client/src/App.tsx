@@ -54,6 +54,8 @@ import { IframeProvider } from "@/contexts/IframeContext";
 import CookieConsent from "@/components/ui/CookieConsent";
 import ThemeLoader from "@/components/ThemeLoader";
 import PopupAnnouncement from "@/components/PopupAnnouncement";
+import { TourNinjaReleaseProvider } from "@/contexts/TourNinjaReleaseContext";
+import TourNinjaReleaseMeta from "@/components/TourNinjaReleaseMeta";
 import { useEffect } from "react";
 import { useLocation } from "wouter";
 
@@ -136,13 +138,16 @@ function App() {
   return (
     <TooltipProvider>
       <TranslationProvider>
-        <IframeProvider>
-          <ThemeLoader />
-          <Router />
-          <WhatsAppButton />
-          <CookieConsent />
-          <PopupAnnouncement />
-        </IframeProvider>
+        <TourNinjaReleaseProvider>
+          <TourNinjaReleaseMeta />
+          <IframeProvider>
+            <ThemeLoader />
+            <Router />
+            <WhatsAppButton />
+            <CookieConsent />
+            <PopupAnnouncement />
+          </IframeProvider>
+        </TourNinjaReleaseProvider>
       </TranslationProvider>
     </TooltipProvider>
   );

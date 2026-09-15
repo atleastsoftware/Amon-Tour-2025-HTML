@@ -15,6 +15,7 @@ import { formatTHB } from "@/lib/utils";
 import { useTourNinjaWithCustomImages, type TourNinjaTour } from "@/hooks/useTourNinja";
 import { useIframe } from "@/contexts/IframeContext";
 import { useTranslation } from "@/contexts/TranslationContext";
+import { useTourNinjaRelease } from "@/contexts/TourNinjaReleaseContext";
 
 export default function Tours() {
   const { tours, isLoading, error, success, cached, fallback } = useTourNinjaWithCustomImages();
@@ -22,6 +23,8 @@ export default function Tours() {
   const { translations } = useTranslation();
   const t = translations.tours;
   const common = translations.common;
+  const remoteRelease = useTourNinjaRelease();
+  const catalogue = remoteRelease.release?.catalogue;
   
   // Filtres
   const [searchTerm, setSearchTerm] = useState("");
@@ -190,8 +193,8 @@ export default function Tours() {
       <main className="min-h-screen bg-gradient-to-br from-primary/10 to-primary/20">
         {/* Hero */}
         <HeroHeader 
-          title={t.title}
-          subtitle={t.description}
+          title={remoteRelease.text(catalogue?.heading) || t.title}
+          subtitle={remoteRelease.text(catalogue?.description) || t.description}
           alt="Tours and experiences in Thailand"
         />
 

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from '../contexts/TranslationContext';
 import { Check } from 'lucide-react';
+import { useTourNinjaRelease } from '@/contexts/TourNinjaReleaseContext';
 
 const languageData = {
   en: { 
@@ -22,6 +23,7 @@ const languageData = {
 
 export default function LanguageSelector() {
   const { currentLanguage, setLanguage, isChangingLanguage } = useTranslation();
+  const remoteRelease = useTourNinjaRelease();
   const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
 
   const handleLanguageChange = (langCode: string) => {
@@ -61,7 +63,9 @@ export default function LanguageSelector() {
 
   return (
     <div className="flex items-center gap-2">
-      {Object.entries(languageData).map(([langCode, langData]) => (
+      {Object.entries(languageData)
+        .filter(([langCode]) => !remoteRelease.release?.languages || remoteRelease.release.languages.supported.includes(langCode as "en" | "fr" | "es"))
+        .map(([langCode, langData]) => (
         <button
           key={langCode}
           onClick={() => handleLanguageChange(langCode)}
@@ -75,14 +79,14 @@ export default function LanguageSelector() {
             ${isChangingLanguage ? "cursor-not-allowed" : "cursor-pointer"}
             disabled:opacity-50
           `}
-          aria-label={`Switch to ${langData.name}`}
-          title={langData.name}
+          aria-label={`Switch to ${remoteRelease.text(remoteRelease.release?.languages?.labels?.[langCode as "en" | "fr" | "es"]) || langData.name}`}
+          title={remoteRelease.text(remoteRelease.release?.languages?.labels?.[langCode as "en" | "fr" | "es"]) || langData.name}
           data-testid={`language-${langCode}`}
         >
           {!failedImages.has(langCode) ? (
             <img 
               src={langData.flagUrl} 
-              alt={`${langData.name} flag`}
+              alt={`${remoteRelease.text(remoteRelease.release?.languages?.labels?.[langCode as "en" | "fr" | "es"]) || langData.name} flag`}
               className={`w-8 h-6 object-cover rounded ${isChangingLanguage ? "grayscale" : ""}`}
               loading="eager"
               onError={() => handleImageError(langCode)}

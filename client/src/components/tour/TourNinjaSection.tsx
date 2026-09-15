@@ -4,11 +4,20 @@ import { useTourNinjaWithCustomImages } from "@/hooks/useTourNinja";
 import TourNinjaCard from "./TourNinjaCard";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/contexts/TranslationContext";
+import { useTourNinjaRelease } from "@/contexts/TourNinjaReleaseContext";
 
 export default function TourNinjaSection() {
   const { tours, isLoading, error, refetch, cached, fallback, success } = useTourNinjaWithCustomImages();
   const { translations, currentLanguage } = useTranslation();
   const home = translations.home;
+  const remoteRelease = useTourNinjaRelease();
+  const catalogue = remoteRelease.release?.catalogue;
+  const catalogueTours = catalogue?.featuredTourIds?.length
+    ? tours.filter((tour) => catalogue.featuredTourIds?.includes(tour.externalId || tour.id))
+    : tours;
+  const catalogueHeading = remoteRelease.text(catalogue?.heading) || home.someIdeasTitle;
+  const catalogueDescription = remoteRelease.text(catalogue?.description) || home.someIdeasDescription;
+  const catalogueEmptyMessage = remoteRelease.text(catalogue?.emptyMessage) || translations.tours.description;
   
   console.log('🎯 [TourNinjaSection] Rendered with:', { 
     currentLanguage, 
@@ -53,9 +62,9 @@ export default function TourNinjaSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{home.someIdeasTitle}</h2>
+            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{catalogueHeading}</h2>
             <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">{home.someIdeasDescription}</p>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto">{catalogueDescription}</p>
           </motion.div>
         </div>
 
@@ -72,14 +81,14 @@ export default function TourNinjaSection() {
               </div>
             ))}
           </div>
-        ) : tours.length > 0 ? (
+        ) : catalogueTours.length > 0 ? (
           <motion.div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            {tours.map((tour, index) => (
+            {catalogueTours.map((tour, index) => (
               <TourNinjaCard 
                 key={tour.id || index} 
                 tour={tour} 
@@ -89,7 +98,7 @@ export default function TourNinjaSection() {
           </motion.div>
         ) : (
           <div className="text-center py-8">
-            <p className="text-gray-500">{translations.tours.description}</p>
+            <p className="text-gray-500">{catalogueEmptyMessage}</p>
             <Button 
               onClick={() => refetch()} 
               variant="outline" 

@@ -43,6 +43,7 @@ import { blockTranslationService } from "./services/blockTranslationService";
 import { globalElementTranslationService } from "./services/globalElementTranslationService";
 import { registerSsrRoutes } from "./ssrSeoRoutes";
 import { registerDestinationRoutes, DESTINATION_SLUGS } from "./ssrDestinationRoutes";
+import { registerTourNinjaReleaseRoutes } from "./api/tourNinjaReleaseRoutes";
 
 // Initialize default legal pages on startup
 async function initializeDefaultLegalPages() {
@@ -297,6 +298,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
     return res.status(401).json({ message: "Authentication required" });
   };
+
+  registerTourNinjaReleaseRoutes(app, requireAuth);
 
   // Serve uploaded files
   app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));

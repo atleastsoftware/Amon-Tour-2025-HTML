@@ -1,3 +1,8 @@
+import {
+  getCurrentTourNinjaSsrRelease,
+  getTourNinjaSsrPageOverride,
+} from "./ssrTourNinjaRelease";
+
 /**
  * Server-Side Rendered HTML shell for SEO-critical pages.
  *
@@ -77,6 +82,8 @@ export type SsrShellOptions = {
   lang?: string;         // <html lang>, defaults to "en"
   breadcrumbs?: Array<{ label: string; url?: string }>;
   metaImage?: string;    // og:image
+  keywords?: string;     // optional release SEO keywords
+  heroDescription?: string; // optional release hero summary
 };
 
 function renderBreadcrumbs(items: Array<{ label: string; url?: string }>): string {
@@ -225,10 +232,14 @@ p{margin:0 0 1em}
 `;
 
 export function ssrHtmlShell(opts: SsrShellOptions): string {
-  const lang = opts.lang || "en";
-  const canonical = `${BASE_URL}${opts.path}`;
-  const description = truncate(opts.description, 320);
-  const ogImage = opts.metaImage || `${BASE_URL}/amon-tour-team.jpg`;
+  const releaseOverride = getTourNinjaSsrPageOverride(getCurrentTourNinjaSsrRelease(), opts);
+  // Do not alter any shell field when there is no usable live release. This
+  // preserves the existing SSR response (including canonical and JSON-LD).
+  const page = releaseOverride ? { ...opts, ...releaseOverride } : opts;
+  const lang = page.lang || "en";
+  const canonical = `${BASE_URL}${page.path}`;
+  const description = truncate(page.description, 320);
+  const ogImage = page.metaImage || `${BASE_URL}/amon-tour-team.jpg`;
 
   const hreflangLinks = HREFLANG_LOCALES
     .map((loc) => `<link rel="alternate" hreflang="${loc}" href="${canonical}" />`)
@@ -251,19 +262,19 @@ export function ssrHtmlShell(opts: SsrShellOptions): string {
     <meta name="theme-color" content="${BRAND.primary}" />
     <meta name="robots" content="index, follow" />
     <meta name="author" content="Amon Tour Thailand" />
-    <title>${escapeHtml(opts.title)}</title>
+    <title>${escapeHtml(page.title)}</title>
     <meta name="description" content="${escapeAttr(description)}" />
-    <link rel="canonical" href="${escapeAttr(canonical)}" />
+    ${page.keywords ? `<meta name="keywords" content="${escapeAttr(page.keywords)}" />\n    ` : ""}<link rel="canonical" href="${escapeAttr(canonical)}" />
     ${hreflangLinks}
 
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="${escapeAttr(opts.title)}" />
+    <meta property="og:title" content="${escapeAttr(page.title)}" />
     <meta property="og:description" content="${escapeAttr(description)}" />
     <meta property="og:url" content="${escapeAttr(canonical)}" />
     <meta property="og:image" content="${escapeAttr(ogImage)}" />
     <meta property="og:site_name" content="Amon Tour" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="${escapeAttr(opts.title)}" />
+    <meta name="twitter:title" content="${escapeAttr(page.title)}" />
     <meta name="twitter:description" content="${escapeAttr(description)}" />
     <meta name="twitter:image" content="${escapeAttr(ogImage)}" />
 
@@ -282,18 +293,20 @@ export function ssrHtmlShell(opts: SsrShellOptions): string {
     ${schemaBlocks}
 </head>
 <body>
-${renderHeader(opts.path)}
+${renderHeader(page.path)}
 <main>
     <section class="page-hero">
         <div class="container">
             ${breadcrumbsHtml}
-            <h1>${escapeHtml(opts.h1)}</h1>
-            <p>${escapeHtml(opts.description.split(". ")[0])}.</p>
+            <h1>${escapeHtml(page.h1)}</h1>
+            <p>${page.heroDescription
+              ? escapeHtml(page.heroDescription)
+              : `${escapeHtml(page.description.split(". ")[0])}.`}</p>
         </div>
     </section>
     <section class="page-content">
         <div class="container">
-${opts.bodyHtml}
+${page.bodyHtml}
         </div>
     </section>
 </main>

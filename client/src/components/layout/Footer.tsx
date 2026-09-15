@@ -1,11 +1,13 @@
 import { Link } from "wouter";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { FadeInWhenVisible, SlideUpWhenVisible, StaggerChildren, StaggerItem } from "@/components/ui/animations";
 import NewsletterSubscription from "@/components/newsletter/NewsletterSubscription";
 import logoA from "@/assets/logo-a.png";
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from '@/contexts/TranslationContext';
 import { useGlobalElementTranslations } from '@/hooks/useGlobalElementTranslations';
+import { useTourNinjaRelease } from "@/contexts/TourNinjaReleaseContext";
 import { 
   Facebook, 
   Instagram, 
@@ -137,9 +139,11 @@ function renderContactInfo(item: any) {
 }
 
 export default function Footer() {
+  const [remoteLogoFailed, setRemoteLogoFailed] = useState(false);
   const { translations } = useTranslation();
   const footer = translations.footer;
   const { translateValue, translateArray } = useGlobalElementTranslations();
+  const remoteRelease = useTourNinjaRelease();
   
   // Fetch dynamic footer content
   const { data: siteSettings } = useQuery({
@@ -186,6 +190,9 @@ export default function Footer() {
   const logoSettings = logoSettingsRaw ? (typeof logoSettingsRaw === 'string' ? JSON.parse(logoSettingsRaw) : logoSettingsRaw) : {};
   const footerLogoSrc = logoSettings.footer_logo?.startsWith('/src/') ? logoA : (logoSettings.footer_logo || logoA);
   const footerLogoHeight = logoSettings.footer_logo_height || "48px";
+  const remoteLogo = remoteRelease.mediaUrl(remoteRelease.release?.branding?.logoMediaId);
+  const siteName = remoteRelease.text(remoteRelease.release?.branding?.siteName) || "Amon Tour";
+  useEffect(() => setRemoteLogoFailed(false), [remoteRelease.contentDigest, remoteLogo]);
   
   return (
     <footer className="pt-8 pb-4" style={{ backgroundColor: 'hsl(var(--footer-background))', color: 'hsl(var(--footer-text))' }}>
@@ -200,10 +207,11 @@ export default function Footer() {
             whileHover={{ scale: 1.05 }}
           >
             <img 
-              src={footerLogoSrc} 
-              alt="Amon Tour Logo" 
+              src={remoteLogo && !remoteLogoFailed ? remoteLogo : footerLogoSrc}
+              alt={`${siteName} logo`}
               className="w-auto"
               style={{ height: footerLogoHeight }}
+              onError={() => setRemoteLogoFailed(true)}
             />
           </motion.div>
         </div>

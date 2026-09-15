@@ -7,6 +7,7 @@ import DynamicBlocksRenderer from "@/components/DynamicBlocksRenderer";
 import Testimonials from "@/components/home/Testimonials";
 import { motion } from "framer-motion";
 import { Loader2 } from "lucide-react";
+import { useTourNinjaRelease } from "@/contexts/TourNinjaReleaseContext";
 
 interface PageConfiguration {
   id: number;
@@ -35,6 +36,12 @@ interface PageBlock {
 
 export default function HomeDynamicPage() {
   const slug = 'home';
+  const remoteRelease = useTourNinjaRelease();
+  const remoteSeo = remoteRelease.page("/")?.seo;
+  const remoteTitle = remoteRelease.text(remoteSeo?.title);
+  const remoteDescription = remoteRelease.text(remoteSeo?.description);
+  const remoteKeywords = remoteRelease.text(remoteSeo?.keywords);
+  const remoteOgImage = remoteRelease.mediaUrl(remoteSeo?.ogMediaId);
 
   // Récupérer la configuration de la page home
   const { data: pageConfig, isLoading: isLoadingConfig, error: configError } = useQuery<PageConfiguration>({
@@ -98,9 +105,11 @@ export default function HomeDynamicPage() {
   return (
     <>
       <Helmet>
-        <title>{pageConfig.seoTitle || pageConfig.pageName + ' - Amon Tour'}</title>
-        <meta name="description" content={pageConfig.seoDescription || `${pageConfig.pageName} - Amon Tour, votre agence de voyage à Krabi`} />
-        {pageConfig.seoKeywords && <meta name="keywords" content={pageConfig.seoKeywords} />}
+        <title>{remoteTitle || pageConfig.seoTitle || pageConfig.pageName + ' - Amon Tour'}</title>
+        <meta name="description" content={remoteDescription || pageConfig.seoDescription || `${pageConfig.pageName} - Amon Tour, votre agence de voyage à Krabi`} />
+        {(remoteKeywords || pageConfig.seoKeywords) && <meta name="keywords" content={remoteKeywords || pageConfig.seoKeywords} />}
+        {remoteOgImage && <meta property="og:image" content={remoteOgImage} />}
+        {remoteOgImage && <meta name="twitter:image" content={remoteOgImage} />}
       </Helmet>
 
       <Header />

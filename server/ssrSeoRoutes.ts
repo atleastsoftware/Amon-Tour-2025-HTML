@@ -17,6 +17,8 @@ import {
   truncate,
   BRAND,
 } from "./ssrShared";
+import { getTourNinjaReleaseSnapshot } from "./services/tourNinjaReleaseService";
+import { withTourNinjaSsrRelease } from "./ssrTourNinjaRelease";
 
 const BASE_URL = BRAND.baseUrl;
 
@@ -1234,7 +1236,13 @@ function ssrIfBot(handler: (req: Request, res: Response) => Promise<unknown> | u
       return next();
     }
     try {
-      await handler(req, res);
+      // Always request only the deployer-configured live endpoint. Request
+      // paths, query values, and user input never influence the remote URL.
+      const snapshot = await getTourNinjaReleaseSnapshot("live");
+      await withTourNinjaSsrRelease(
+        snapshot.enabled ? snapshot.release : null,
+        () => handler(req, res),
+      );
     } catch (err) {
       console.error("[SSR] handler error:", err);
       next(err);
