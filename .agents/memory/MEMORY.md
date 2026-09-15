@@ -1,2 +1,3 @@
 - [Tour Ninja release safety](tour-ninja-release-safety.md) — opt-in overlays preserve local content; upstream configuration contract still requires agreement.
 - [Static migration safety](static-migration-architecture.md) — distinguish export source from runtime DB; preserve historical indexing; no production-only local CMS writes.
+- [Testing the CMS MCP locally](mcp-local-testing.md) — copy needs a git identity + MCP_LOCAL_GIT_COMMIT; use the self-restoring pack-check script; prod /mcp exists only after cutover.
