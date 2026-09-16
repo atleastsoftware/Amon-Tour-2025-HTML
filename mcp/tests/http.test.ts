@@ -68,3 +68,34 @@ test("une suppression sans confirmation explicite est refusée", async (t) => {
   assert.equal(response.status, 200);
   assert.match(await response.text(), /confirm|required|invalid/i);
 });
+
+test("les lectures CMS critiques répondent de bout en bout", async (t) => {
+  const fixture = await start(); t.after(() => fixture.server.close());
+  const headers = { "content-type": "application/json", accept: "application/json, text/event-stream", authorization: "Bearer test" };
+  const calls: Array<[string, Record<string, unknown>]> = [
+    ["list_pages", {}],
+    ["get_page", { page: "tours" }],
+    ["list_sections", { page: "tours" }],
+    ["preview_page", { page: "tours", lang: "en" }],
+    ["seo_audit", {}],
+    ["validate_content", {}],
+    ["publish_status", {}],
+    ["get_navigation", {}],
+    ["get_translations", { lang: "en" }],
+    ["list_forms", {}],
+    ["list_media", {}],
+    ["list_static_pages", {}],
+    ["get_commit_history", { limit: 3 }],
+  ];
+  for (const [name, args] of calls) {
+    const response = await fetch(fixture.url, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({ jsonrpc: "2.0", id: name, method: "tools/call", params: { name, arguments: args } }),
+    });
+    assert.equal(response.status, 200, name);
+    const body = await response.text();
+    assert.doesNotMatch(body, /"isError":true/, name);
+    assert.doesNotMatch(body, /Bad credentials/, name);
+  }
+});

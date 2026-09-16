@@ -2,8 +2,9 @@ import fs from "node:fs";
 import path from "node:path";
 import { Octokit } from "@octokit/rest";
 import { fsSource, loadContent, type SiteContent } from "../../site/src/content.js";
+import { explainGitHubError } from "../../mcp/src/repo/github.js";
 
-export interface ContentVersion { sha: string; source: string; syncedAt: string }
+export interface ContentVersion { sha: string; source: string; syncedAt: string; syncError?: string }
 export interface ContentProvider {
   getContent(): SiteContent;
   getVersion(): ContentVersion;
@@ -55,7 +56,7 @@ export class GitHubContentProvider implements ContentProvider {
       const ref = await this.octokit.git.getRef({ owner: this.owner, repo: this.repo, ref: `heads/${this.branch}` });
       const sha = ref.data.object.sha;
       if (sha === this.version.sha) {
-        this.version.syncedAt = new Date().toISOString();
+        this.version = { source: this.version.source, sha, syncedAt: new Date().toISOString() };
         return { changed: false, sha };
       }
       const tree = await this.octokit.git.getTree({ owner: this.owner, repo: this.repo, tree_sha: sha, recursive: "true" });
@@ -91,10 +92,12 @@ export class GitHubContentProvider implements ContentProvider {
       };
       removeDeleted(this.contentDir);
       this.content = loadContent(fsSource(this.contentDir));
-      this.version = { ...this.version, sha, syncedAt: new Date().toISOString() };
+      this.version = { source: this.version.source, sha, syncedAt: new Date().toISOString() };
       return { changed: true, sha };
     } catch (error) {
-      console.error("Échec de synchronisation GitHub, conservation de la version précédente :", error);
+      const explained = explainGitHubError(error, "la synchronisation du site");
+      this.version = { ...this.version, syncError: explained.message };
+      console.error("Échec de synchronisation GitHub, conservation de la version précédente :", explained.message);
       return { changed: false, sha: this.version.sha };
     }
   }

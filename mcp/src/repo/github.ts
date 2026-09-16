@@ -3,6 +3,29 @@ import type { ContentRepo } from "./types.js";
 
 const PRODUCTION_REPOSITORY = "atleastsoftware/Amon-Tour-2025-HTML";
 
+export function explainGitHubError(error: unknown, operation: string): Error {
+  const status = Number((error as any)?.status);
+  if (status === 401) {
+    return new Error(
+      `Authentification GitHub du CMS invalide pendant ${operation}: GITHUB_TOKEN est rejeté par GitHub (HTTP 401). ` +
+      "Remplacer le secret Production par un fine-grained token actif limité au dépôt Amon-Tour-2025-HTML.",
+    );
+  }
+  if (status === 403) {
+    return new Error(
+      `Permissions GitHub insuffisantes pendant ${operation} (HTTP 403). ` +
+      "GITHUB_TOKEN doit autoriser Contents read/write, Pull requests read/write et Actions read.",
+    );
+  }
+  if (status === 404) {
+    return new Error(
+      `Dépôt GitHub inaccessible pendant ${operation} (HTTP 404). ` +
+      `Vérifier que le token a accès à ${PRODUCTION_REPOSITORY} et que GITHUB_BRANCH vaut main.`,
+    );
+  }
+  return error instanceof Error ? error : new Error(`Erreur GitHub pendant ${operation}: ${String(error)}`);
+}
+
 export class GitHubRepo implements ContentRepo {
   private octokit: Octokit;
   private owner: string;
@@ -24,29 +47,41 @@ export class GitHubRepo implements ContentRepo {
       throw new Error("GITHUB_BRANCH must be main in production");
     }
     this.octokit = new Octokit({ auth: token });
+    this.octokit.hook.error("request", async (error, request) => {
+      const operation = `${String(request.method || "requête")} ${String(request.url || "GitHub")}`;
+      throw explainGitHubError(error, operation);
+    });
   }
 
   private async head(branch: string) {
-    return (await this.octokit.git.getRef({ owner: this.owner, repo: this.repo, ref: `heads/${branch}` })).data.object.sha;
+    try {
+      return (await this.octokit.git.getRef({ owner: this.owner, repo: this.repo, ref: `heads/${branch}` })).data.object.sha;
+    } catch (error) {
+      throw explainGitHubError(error, `la lecture de ${this.owner}/${this.repo}@${branch}`);
+    }
   }
 
   async readTree(branch = this.branch) {
-    const sha = await this.head(branch);
-    const commit = await this.octokit.git.getCommit({ owner: this.owner, repo: this.repo, commit_sha: sha });
-    const tree = await this.octokit.git.getTree({ owner: this.owner, repo: this.repo, tree_sha: commit.data.tree.sha, recursive: "true" });
-    const wanted = tree.data.tree.filter((e) => e.type === "blob" && e.path &&
-      (e.path.startsWith("content/") || e.path === "media/manifest.json"));
-    const files = new Map<string, string>();
-    await Promise.all(wanted.map(async (e) => {
-      let text = this.blobs.get(e.sha!);
-      if (text === undefined) {
-        const blob = await this.octokit.git.getBlob({ owner: this.owner, repo: this.repo, file_sha: e.sha! });
-        text = Buffer.from(blob.data.content, blob.data.encoding as BufferEncoding).toString("utf8");
-        this.blobs.set(e.sha!, text);
-      }
-      files.set(e.path!, text);
-    }));
-    return { sha, files };
+    try {
+      const sha = await this.head(branch);
+      const commit = await this.octokit.git.getCommit({ owner: this.owner, repo: this.repo, commit_sha: sha });
+      const tree = await this.octokit.git.getTree({ owner: this.owner, repo: this.repo, tree_sha: commit.data.tree.sha, recursive: "true" });
+      const wanted = tree.data.tree.filter((e) => e.type === "blob" && e.path &&
+        (e.path.startsWith("content/") || e.path === "media/manifest.json"));
+      const files = new Map<string, string>();
+      await Promise.all(wanted.map(async (e) => {
+        let text = this.blobs.get(e.sha!);
+        if (text === undefined) {
+          const blob = await this.octokit.git.getBlob({ owner: this.owner, repo: this.repo, file_sha: e.sha! });
+          text = Buffer.from(blob.data.content, blob.data.encoding as BufferEncoding).toString("utf8");
+          this.blobs.set(e.sha!, text);
+        }
+        files.set(e.path!, text);
+      }));
+      return { sha, files };
+    } catch (error) {
+      throw explainGitHubError(error, "la lecture du contenu CMS");
+    }
   }
 
   async commit(changes: Map<string, string | null>, opts: { message: string; branch?: string; createPr?: { title: string; body: string }; author?: string }) {
@@ -95,18 +130,26 @@ export class GitHubRepo implements ContentRepo {
   }
 
   async getStatus() {
-    const headSha = await this.head(this.branch);
-    const commit = await this.octokit.repos.getCommit({ owner: this.owner, repo: this.repo, ref: headSha });
-    const runs = await this.octokit.actions.listWorkflowRunsForRepo({ owner: this.owner, repo: this.repo, branch: this.branch, per_page: 20 });
-    return {
-      headSha,
-      lastCommit: { message: commit.data.commit.message, date: commit.data.commit.committer?.date ?? "", url: commit.data.html_url },
-      ciRuns: runs.data.workflow_runs.map((r) => ({ name: r.name ?? "", status: r.status ?? "", conclusion: r.conclusion, url: r.html_url, createdAt: r.created_at })),
-    };
+    try {
+      const headSha = await this.head(this.branch);
+      const commit = await this.octokit.repos.getCommit({ owner: this.owner, repo: this.repo, ref: headSha });
+      const runs = await this.octokit.actions.listWorkflowRunsForRepo({ owner: this.owner, repo: this.repo, branch: this.branch, per_page: 20 });
+      return {
+        headSha,
+        lastCommit: { message: commit.data.commit.message, date: commit.data.commit.committer?.date ?? "", url: commit.data.html_url },
+        ciRuns: runs.data.workflow_runs.map((r) => ({ name: r.name ?? "", status: r.status ?? "", conclusion: r.conclusion, url: r.html_url, createdAt: r.created_at })),
+      };
+    } catch (error) {
+      throw explainGitHubError(error, "la lecture du statut de publication");
+    }
   }
 
   async getCommitHistory(limit = 20) {
-    const commits = await this.octokit.repos.listCommits({ owner: this.owner, repo: this.repo, sha: this.branch, path: "content", per_page: limit });
-    return commits.data.map((c) => ({ sha: c.sha, message: c.commit.message, date: c.commit.committer?.date, url: c.html_url }));
+    try {
+      const commits = await this.octokit.repos.listCommits({ owner: this.owner, repo: this.repo, sha: this.branch, path: "content", per_page: limit });
+      return commits.data.map((c) => ({ sha: c.sha, message: c.commit.message, date: c.commit.committer?.date, url: c.html_url }));
+    } catch (error) {
+      throw explainGitHubError(error, "la lecture de l'historique du contenu");
+    }
   }
 }

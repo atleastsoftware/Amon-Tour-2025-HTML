@@ -13,7 +13,7 @@ import { buildSite } from "../../site/src/build.js";
 import { fsSource, loadContent } from "../../site/src/content.js";
 import { serializeForm } from "../../site/src/formSerializer.js";
 
-function fixture() {
+function fixture(providerOverride?: ContentProvider) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "amon-edge-"));
   const dist = path.join(root, "dist");
   fs.mkdirSync(dist);
@@ -23,7 +23,7 @@ function fixture() {
     redirects: [], legacyTours: [], blockTemplates: [], translations: {},
     blog: { posts: [], categories: [], tags: [] },
   };
-  const provider: ContentProvider = {
+  const provider: ContentProvider = providerOverride ?? {
     getContent: () => content,
     getVersion: () => ({ sha: "test-sha", source: "test", syncedAt: "2025-01-01T00:00:00.000Z" }),
     sync: async () => ({ changed: false, sha: "test-sha" }),
@@ -74,6 +74,45 @@ test("les routes sync sont indisponibles sans token sans affecter le site", asyn
   } finally {
     if (previousSync !== undefined) process.env.TOUR_NINJA_SYNC_TOKEN = previousSync;
     if (previousLegacy !== undefined) process.env.TOUR_NINJA_API_KEY = previousLegacy;
+    await ctx.close();
+  }
+});
+
+test("la republication signale un échec GitHub puis efface l'erreur après récupération", async () => {
+  const oldToken = process.env.MCP_AUTH_TOKEN;
+  process.env.MCP_AUTH_TOKEN = "rebuild-test";
+  const content = loadContent(fsSource(path.resolve("content")));
+  let failed = true;
+  let version = { sha: "cache", source: "github:test", syncedAt: new Date(0).toISOString(), syncError: "Authentification GitHub invalide" } as any;
+  const provider: ContentProvider = {
+    getContent: () => content,
+    getVersion: () => version,
+    sync: async () => {
+      version = failed
+        ? { ...version, syncError: "Authentification GitHub invalide" }
+        : { sha: "restored", source: version.source, syncedAt: new Date().toISOString() };
+      return { changed: !failed, sha: version.sha };
+    },
+  };
+  const ctx = await fixture(provider);
+  try {
+    const call = () => fetch(`${ctx.base}/api/publish/rebuild`, {
+      method: "POST",
+      headers: { Authorization: "Bearer rebuild-test", "content-type": "application/json" },
+      body: "{}",
+    });
+    const unavailable = await call();
+    assert.equal(unavailable.status, 503);
+    assert.equal((await unavailable.json() as any).ok, false);
+    failed = false;
+    const restored = await call();
+    assert.equal(restored.status, 200);
+    const body: any = await restored.json();
+    assert.equal(body.ok, true);
+    assert.equal(body.syncError, undefined);
+  } finally {
+    if (oldToken === undefined) delete process.env.MCP_AUTH_TOKEN;
+    else process.env.MCP_AUTH_TOKEN = oldToken;
     await ctx.close();
   }
 });

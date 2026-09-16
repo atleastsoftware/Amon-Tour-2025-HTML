@@ -46,3 +46,11 @@ externalPort = 80
 [postMerge]
 path = "scripts/post-merge.sh"
 timeoutMs = 180000
+
+[userenv]
+
+[userenv.production]
+GITHUB_BRANCH = "main"
+GITHUB_REPO = "atleastsoftware/Amon-Tour-2025-HTML"
+
+[userenv.shared]

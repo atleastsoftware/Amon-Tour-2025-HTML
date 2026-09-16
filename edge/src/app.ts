@@ -108,9 +108,10 @@ export function createEdgeApp(opts: EdgeAppOptions): express.Express {
     routes = (report.routes || []).map((r: any) => r.path); builtAt = new Date().toISOString();
     return sync;
   };
-  app.get("/api/publish/status", (_req, res) => res.json({
-    ...opts.contentProvider.getVersion(), builtAt, routes, ok: true,
-  }));
+  app.get("/api/publish/status", (_req, res) => {
+    const version = opts.contentProvider.getVersion();
+    res.json({ ...version, builtAt, routes, ok: !version.syncError });
+  });
   app.post("/api/publish/rebuild", async (req, res) => {
     const bearer = !!process.env.MCP_AUTH_TOKEN && req.headers.authorization === `Bearer ${process.env.MCP_AUTH_TOKEN}`;
     const signature = String(req.headers["x-hub-signature-256"] || "");
@@ -120,7 +121,9 @@ export function createEdgeApp(opts: EdgeAppOptions): express.Express {
     const signed = !!secret && signature.length === expected.length && crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expected));
     if (!bearer && !signed) return res.status(401).json({ message: "Unauthorized" });
     await rebuild();
-    return res.json({ ...opts.contentProvider.getVersion(), builtAt, routes, ok: true });
+    const version = opts.contentProvider.getVersion();
+    const ok = !version.syncError;
+    return res.status(ok ? 200 : 503).json({ ...version, builtAt, routes, ok });
   });
   if (opts.mcpRouter) app.use("/mcp", opts.mcpRouter);
 
