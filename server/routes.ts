@@ -1,3 +1,5 @@
+import { persistCustomTour, customTourCsv, syncKeys } from "./customTourRecovery.mjs";
+import { loadPublishedTours } from "./tourNinjaPublicCatalog.mjs";
 import express, { type Express, type Request, type Response } from "express";
 import { createServer, type Server } from "http";
 import { z } from "zod";
@@ -608,8 +610,9 @@ Sitemap: https://amon-tour.com/sitemap.xml`;
   app.post("/api/custom-tour-requests", async (req, res) => {
     try {
       const requestData = insertCustomTourRequestSchema.parse(req.body);
-      const request = await storage.createCustomTourRequest(requestData);
-      res.status(201).json({ message: "Custom tour request submitted successfully", request });
+      const { request, notification } = await persistCustomTour(() => storage.createCustomTourRequest(requestData));
+      if (notification !== "accepted") console.warn("Custom Trip notification pending", { requestId: request.id, status: notification });
+      res.status(201).json({ message: "Custom tour request submitted successfully", request, notification });
     } catch (error) {
       res.status(400).json({ message: "Invalid request data", error });
     }
@@ -1292,8 +1295,9 @@ Sitemap: https://amon-tour.com/sitemap.xml`;
         destinations: validatedData.destinations || []
       };
       
-      const customTourRequest = await storage.createCustomTourRequest(requestData);
-      res.status(201).json(customTourRequest);
+      const { request: customTourRequest, notification } = await persistCustomTour(() => storage.createCustomTourRequest(requestData));
+      if (notification !== "accepted") console.warn("Custom Trip notification pending", { requestId: customTourRequest.id, status: notification });
+      res.status(201).json({ ...customTourRequest, notification });
     } catch (error: any) {
       console.error("Error creating custom tour request:", error);
       if (error instanceof z.ZodError) {
@@ -1336,16 +1340,12 @@ Sitemap: https://amon-tour.com/sitemap.xml`;
       
       const requests = await storage.getCustomTourRequests(filters);
       
-      // Create CSV content
-      const csvHeaders = 'ID,Full Name,Email,Phone,Adults,Kids,Trip Dates,Duration,Trip Types,Destinations,Message,Status,Created Date\n';
-      const csvData = requests.map(request => {
-        const tripTypes = Array.isArray(request.tripTypes) ? request.tripTypes.join('; ') : '';
-        const destinations = Array.isArray(request.destinations) ? request.destinations.join('; ') : '';
-        return `${request.id},"${request.fullName}","${request.email}","${request.phoneNumber}",${request.numberOfAdults},${request.numberOfKids},"${request.tripDates || ''}","${request.duration || ''}","${tripTypes}","${destinations}","${request.message.replace(/"/g, '""')}","${request.status}","${request.createdAt?.toISOString().split('T')[0] || ''}"`;
-      }).join('\n');
-      
-      const csvContent = csvHeaders + csvData;
-      
+      const since = req.query.since;
+      if (since !== undefined && typeof since !== "string") return res.status(400).json({ message: "Invalid since timestamp" });
+      let csvContent: string;
+      try { csvContent = customTourCsv(requests, since); }
+      catch (error) { if (error instanceof RangeError) return res.status(400).json({ message: error.message }); throw error; }
+      res.setHeader("Cache-Control", "no-store");
       res.setHeader('Content-Type', 'text/csv');
       res.setHeader('Content-Disposition', 'attachment; filename="custom-tour-requests.csv"');
       res.send(csvContent);
@@ -1544,11 +1544,8 @@ Sitemap: https://amon-tour.com/sitemap.xml`;
       // API key authentication for Tour Ninja
       const authHeader = req.headers.authorization;
       
-      // Accept both the hardcoded key for Tour Ninja sync and the environment key for internal use
-      const validApiKeys = [
-        "TOUR_NINJA_API_KEY_2025", // Tour Ninja's dedicated sync key
-        process.env.TOUR_NINJA_API_KEY // Environment key if set
-      ].filter(Boolean);
+      const validApiKeys = syncKeys(process.env);
+      if (!validApiKeys.length) return res.status(503).json({ success: false, message: "Tour Ninja synchronization is not configured" });
       
       if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return res.status(401).json({ 
@@ -1620,11 +1617,8 @@ Sitemap: https://amon-tour.com/sitemap.xml`;
       // API key authentication for Tour Ninja
       const authHeader = req.headers.authorization;
       
-      // Accept both the hardcoded key for Tour Ninja sync and the environment key for internal use
-      const validApiKeys = [
-        "TOUR_NINJA_API_KEY_2025", // Tour Ninja's dedicated sync key
-        process.env.TOUR_NINJA_API_KEY // Environment key if set
-      ].filter(Boolean);
+      const validApiKeys = syncKeys(process.env);
+      if (!validApiKeys.length) return res.status(503).json({ success: false, message: "Tour Ninja synchronization is not configured" });
       
       if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return res.status(401).json({ 
@@ -2353,337 +2347,24 @@ Sitemap: https://amon-tour.com/sitemap.xml`;
     }
   });
 
-  // Secure Tour Ninja API proxy route
+  // Use only the current, agency-scoped, public V2 projection.
   app.get("/api/proxy/tours", async (req, res) => {
-    // Get language parameter from query string (defaults to 'en')
-    const language = (req.query.language as string) || 'en';
-    
     try {
-      // Use correct Tour Ninja production credentials
-      const apiKey = "tourninja-showcase-2-amontour";
-      const companyId = "2";
-      
-      console.log("Using Tour Ninja production API");
-      console.log("Tour Ninja API endpoint: https://www.tourninja.io/api/public/tours");
-      console.log("Requested language:", language);
-      const allowedDomain = process.env.COMPANY_DOMAIN;
-      
-      // Security: Verify domain if configured (disabled for deployment debugging)
-      // if (allowedDomain && req.hostname !== allowedDomain && req.hostname !== 'localhost') {
-      //   return res.status(403).json({ 
-      //     message: "Access denied for this domain" 
-      //   });
-      // }
-      
-      if (!apiKey || !companyId) {
-        console.error("Tour Ninja credentials missing:", {
-          hasApiKey: !!apiKey,
-          hasCompanyId: !!companyId,
-          environment: process.env.NODE_ENV,
-          hostname: req.hostname
-        });
-        return res.status(500).json({ 
-          message: "Tour Ninja API credentials not configured",
-          configured: false,
-          debug: {
-            hasApiKey: !!apiKey,
-            hasCompanyId: !!companyId,
-            environment: process.env.NODE_ENV
-          }
-        });
-      }
-
-      // Only clear cache if requested explicitly
-      const forceFresh = req.query.fresh === 'true';
-      if (forceFresh) {
-        console.log("Fresh data requested - clearing cache for language:", language);
-        clearCache(language);
-      }
-
-      // Check if cache is still valid for this specific language
-      const cachedEntry = getCachedData(language);
-      const cacheAge = cachedEntry ? Date.now() - cachedEntry.timestamp : Infinity;
-      const isCacheValid = cachedEntry && cacheAge < CACHE_TTL && !forceFresh;
-      
-      if (isCacheValid) {
-        console.log(`Returning cached data for language '${language}' (age: ${Math.round(cacheAge / 1000)}s, TTL: ${Math.round(CACHE_TTL / 1000)}s)`);
-        return res.json({
-          success: true,
-          data: cachedEntry.data,
-          cached: true,
-          cacheAge: cacheAge,
-          timestamp: cachedEntry.timestamp,
-          language: language
-        });
-      }
-
-      // Always use the new API endpoint with apiKey, companyId, and language
-      const primaryUrl = `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}&limit=100&language=${language}`;
-      const fallbackUrl = `https://www.tourninja.io/api/public/tours/legacy?companyId=${companyId}&language=${language}`;
-      
-      console.log("Fetching fresh data from Tour Ninja API (cache expired or invalid)", {
-        url: primaryUrl,
-        usingNewApi: true,
-        environment: process.env.NODE_ENV,
-        hostname: req.hostname,
-        language: language,
-        cacheAge: Math.round(cacheAge / 1000) + "s"
-      });
-      
-      let response;
-      let controller = new AbortController();
-      let timeoutId = setTimeout(() => controller.abort(), 30000); // 30 seconds timeout
-      
-      // Simple fetch call as recommended
-      const nodeFetch = (await import('node-fetch')).default;
-      
-      try {
-        response = await nodeFetch(primaryUrl, {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json'
-          },
-          signal: controller.signal
-        });
-        
-        console.log("✅ Primary API fetch successful - Status:", response.status, response.statusText);
-        
-        if (!response.ok) {
-          console.log("❌ Primary API returned non-OK status:", response.status, "- trying fallback URL:", fallbackUrl);
-          clearTimeout(timeoutId);
-          controller = new AbortController();
-          timeoutId = setTimeout(() => controller.abort(), 30000);
-          
-          response = await nodeFetch(fallbackUrl, {
-            method: 'GET',
-            headers: {
-              'Accept': 'application/json'
-            },
-            signal: controller.signal
-          });
-        }
-      } catch (error) {
-        console.log("❌ Primary API threw error:", error instanceof Error ? error.message : String(error));
-        console.log("Full error details:", error);
-        console.log("Trying fallback URL:", fallbackUrl);
-        clearTimeout(timeoutId);
-        controller = new AbortController();
-        timeoutId = setTimeout(() => controller.abort(), 30000);
-        
-        response = await nodeFetch(fallbackUrl, {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json'
-          },
-          signal: controller.signal
-        });
-      }
-      
-      clearTimeout(timeoutId);
-
-      console.log("Tour Ninja API Response Status:", response.status, response.statusText);
-      
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Tour Ninja API Error Response:", errorText);
-        throw new Error(`Tour Ninja API error: ${response.status} ${response.statusText} - ${errorText}`);
-      }
-
-      const responseText = await response.text();
-      console.log("Tour Ninja API Raw Response:", responseText.substring(0, 500));
-      
-      let apiResponse;
-      try {
-        apiResponse = JSON.parse(responseText);
-      } catch (e) {
-        console.error("Failed to parse Tour Ninja API response:", e);
-        throw new Error("Invalid JSON response from Tour Ninja API");
-      }
-      
-      // Extract and enhance tours data from the legacy API response  
-      let tours: any[] = [];
-      
-      // Process tours from the API response - handle both new and legacy formats
-      if (apiResponse.success && apiResponse.tours && Array.isArray(apiResponse.tours)) {
-        tours = apiResponse.tours.map((tour: any) => {
-          // Convert Tour Ninja image URLs to use our proxy endpoint
-          const tourImages: string[] = [];
-          
-          // Check if API provided 'image' field directly
-          if (tour.image) {
-            // Use index 0 for the featured/presentation image
-            const proxyUrl = `/api/tour-image-proxy/${tour.id}/0`;
-            tourImages.push(proxyUrl);
-            console.log(`Tour ${tour.name}: Using proxied featured image: ${proxyUrl}`);
-          } 
-          // Check for 'images' array if provided
-          else if (tour.images && Array.isArray(tour.images) && tour.images.length > 0) {
-            tour.images.forEach((img: string, index: number) => {
-              if (img) {
-                // Convert each image to proxy URL
-                const proxyUrl = `/api/tour-image-proxy/${tour.id}/${index}`;
-                if (!tourImages.includes(proxyUrl)) {
-                  tourImages.push(proxyUrl);
-                }
-              }
-            });
-            console.log(`Tour ${tour.name}: Added ${tourImages.length} proxied images`);
-          }
-          // If no image data from API, use proxy endpoint with default index
-          else if (tour.id) {
-            // Use proxy endpoint: /api/tour-image-proxy/{TOUR_ID}/0 for featured image
-            const proxyUrl = `/api/tour-image-proxy/${tour.id}/0`;
-            tourImages.push(proxyUrl);
-            console.log(`Tour ${tour.name}: Using default proxied image: ${proxyUrl}`);
-            
-            // Optionally add additional proxy image URLs (1-4) for galleries
-            for (let i = 1; i <= 4; i++) {
-              tourImages.push(`/api/tour-image-proxy/${tour.id}/${i}`);
-            }
-          } 
-          // Only use placeholder if no ID available at all
-          else {
-            tourImages.push('https://via.placeholder.com/800x600/3BA8AF/ffffff?text=Tour+Image');
-            console.log(`Tour ${tour.name}: No tour ID available, using placeholder`);
-          }
-          
-          // Use the first image as primary (the featured image)
-          const primaryImage = tourImages[0] || null;
-          
-          return {
-            id: tour.id,
-            name: tour.name || tour.title,
-            description: tour.description || '',
-            shortDescription: tour.description ? tour.description.substring(0, 150) + '...' : '',
-            // Return all images from the API
-            images: tourImages,
-            primaryImage: primaryImage,
-            fallbackImage: primaryImage,
-            presentationImageUrl: primaryImage,
-            originalPrimaryImage: primaryImage,
-            price: tour.price || 0,
-            currency: tour.currency || 'THB',
-            duration: tour.duration || 1,
-            location: tour.destination || 'Krabi, Thailand',
-            bookingUrl: tour.bookingUrl || tour.url || `https://www.tourninja.io/book/${tour.id}`,
-            detailsUrl: tour.detailsUrl || tour.url || `https://www.tourninja.io/details/${tour.id}`,
-            presentationUrl: tour.detailsUrl || tour.url || `https://www.tourninja.io/details/${tour.id}`,
-            externalId: tour.id,
-            slug: tour.slug || tour.name?.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-            tourType: tour.tourType || 'group',
-            maxParticipants: tour.maxParticipants || 12,
-            isActive: true,
-            category: tour.category || '',
-            tags: tour.tags || [],
-            maxGuests: tour.maxParticipants || 12,
-            minGuests: 1
-          };
-        });
-      } else if (Array.isArray(apiResponse)) {
-        // Legacy: Fallback if API returns array directly
-        tours = apiResponse.map((tour: any) => ({
-          ...tour,
-          primaryImage: tour.image || (tour.images && tour.images[0]) || null,
-          bookingUrl: tour.bookingUrl || tour.url || `https://www.tourninja.io/book/${tour.id}`,
-          detailsUrl: tour.detailsUrl || tour.url || `https://www.tourninja.io/details/${tour.id}`,
-          presentationUrl: tour.presentationUrl || tour.detailsUrl || tour.url || `https://www.tourninja.io/details/${tour.id}`,
-          location: tour.location || 'Krabi, Thailand'
-        }));
-      } else if (apiResponse.data && Array.isArray(apiResponse.data)) {
-        tours = apiResponse.data;
-      }
-      
-      console.log(`Tour Ninja API: Successfully processed ${tours.length} tours`);
-      console.log("Tour Ninja API Full Response Structure:", {
-        hasToursArray: !!apiResponse.tours,
-        toursArrayLength: apiResponse.tours ? apiResponse.tours.length : 0,
-        isDirectArray: Array.isArray(apiResponse),
-        directArrayLength: Array.isArray(apiResponse) ? apiResponse.length : 0,
-        hasDataProperty: !!apiResponse.data,
-        dataLength: apiResponse.data ? apiResponse.data.length : 0,
-        allKeys: Object.keys(apiResponse)
-      });
-      
-      // If no tours found, use demo credentials as fallback 
-      if (!tours || tours.length === 0) {
-        console.log("🔄 Applying demo fallback for tours...");
-        // Force using demo data that works
-        const fallbackUrl = "https://www.tourninja.io/api/public/tours?apiKey=tourninja-showcase-2-amontour&companyId=2&limit=100";
-        clearCache(language); // Clear cache to force fresh fetch
-        // This will be handled by the existing logic above
-      }
-      
-      // Update cache (language-specific)
-      setCachedData(language, tours);
-      console.log(`Tour Ninja API: Data cached successfully for language '${language}'`);
-      
-      res.json({
-        success: true,
-        data: tours,
-        cached: false,
-        fallback: tours.length > 0 && tours[0]?.id ? (tours[0].id.toString().startsWith('demo') ? 'demo' : 'production') : 'none',
-        timestamp: Date.now(),
-        language: language
-      });
-    } catch (error) {
-      console.error("Error fetching tours from Tour Ninja:", error);
-      
-      // Fallback to cache if available, even if expired
-      const cachedEntry = getCachedData(language);
-      if (cachedEntry) {
-        console.log(`Returning expired cache as fallback for language '${language}'`);
-        return res.json({
-          success: true,
-          data: cachedEntry.data,
-          cached: true,
-          fallback: true,
-          timestamp: cachedEntry.timestamp,
-          language: language
-        });
-      }
-      
-      // Log the exact error for debugging
-      console.log("Tour Ninja API Error Details:", {
-        status: error instanceof Error ? error.message : String(error),
-        timestamp: new Date().toISOString(),
-        url: 'https://www.tourninja.io/api/public/tours/legacy?companyId=2'
-      });
-      
-      // Return empty array until API connection is resolved - no fallback data
-      res.json({ 
-        success: true,
-        data: [],
-        cached: false,
-        message: "Tour Ninja API connection en cours de résolution", 
-        apiStatus: "connection_issue",
-        error: process.env.NODE_ENV === 'development' ? String(error) : undefined
-      });
+      const tours = await loadPublishedTours(req.query.language);
+      res.json({ success: true, data: tours, cached: false, apiStatus: "connected" });
+    } catch {
+      res.status(503).json({ success: false, data: [], apiStatus: "unavailable",
+        message: "The published Amon Tour catalogue is temporarily unavailable." });
     }
   });
-
-  // Tour Showcase endpoint - Get specific tour by token from TourNinja
   app.get("/api/public/tour-showcase/:token", async (req, res) => {
     try {
-      const { token } = req.params;
-      const response = await fetch(`https://www.tourninja.io/api/public/tours/legacy?companyId=2`, {
-        headers: { 'Accept': 'application/json' }
-      });
-      
-      if (!response.ok) {
-        return res.status(404).json({ message: "Tour not found" });
-      }
-      
-      const data = await response.json();
-      const tour = data.tours?.find((t: any) => t.id === token);
-      
-      if (!tour) {
-        return res.status(404).json({ message: "Tour not found" });
-      }
-      
+      const tours = await loadPublishedTours(req.query.language);
+      const tour = tours.find((item: { id: string }) => item.id === req.params.token);
+      if (!tour) return res.status(404).json({ message: "Tour not found" });
       res.json(tour);
-    } catch (error) {
-      console.error("Error fetching tour showcase:", error);
-      res.status(500).json({ message: "Server error" });
+    } catch {
+      res.status(503).json({ message: "The published Amon Tour catalogue is temporarily unavailable." });
     }
   });
 
