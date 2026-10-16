@@ -1,3 +1,4 @@
+import { initialAdminPassword } from "./customTourRecovery.mjs";
 import express, { type Request, Response, NextFunction } from "express";
 import session from "express-session";
 import connectPg from "connect-pg-simple";
@@ -129,18 +130,12 @@ async function ensureAdminUser() {
     
     if (!existingAdmin) {
       // Create admin user if it doesn't exist
-      const adminPassword = process.env.ADMIN_PASSWORD;
-      
-      if (!adminPassword) {
-        if (app.get("env") === "production") {
-          throw new Error("ADMIN_PASSWORD environment variable is required in production");
-        } else {
-          log("WARNING: No ADMIN_PASSWORD set. Using default password for development only.");
-        }
+      const passwordToUse = initialAdminPassword(process.env);
+      if (!passwordToUse) {
+        log("Admin bootstrap disabled: ADMIN_PASSWORD must be supplied explicitly.");
+        return;
       }
-      
       log("Creating admin user");
-      const passwordToUse = adminPassword || "ChangeThisPassword123!";
       const hashedPassword = await bcrypt.hash(passwordToUse, 10);
       await storage.createUser({
         username: "admin",

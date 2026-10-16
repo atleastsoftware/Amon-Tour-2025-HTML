@@ -1,3 +1,4 @@
+import { persistCustomTour } from "../../server/customTourRecovery.mjs";
 import { Router } from "express";
 import { ZodError, type ZodType } from "zod";
 import { EdgeStorage } from "./storage.js";
@@ -23,6 +24,10 @@ export function createFormsRouter(storage: EdgeStorage) {
     router.post(url, async (req, res) => {
       try {
         const data = schema.parse(coerce ? coerce(req.body) : req.body);
+        if (table === "custom_tour_requests") {
+          const { request, notification } = await persistCustomTour(() => storage.insert(table, data));
+          return res.status(201).json({ ...success(request), notification });
+        }
         const record = await storage.insert(table, data);
         if (emailType) void sendFormNotification(emailType, data, record.id);
         res.status(201).json(success(record));
@@ -55,7 +60,8 @@ export function createFormsRouter(storage: EdgeStorage) {
       const data = customTourSchema.parse(req.body);
       if (!data.tripDates?.trim() && !data.duration?.trim()) throw new Error("Please provide either your trip dates or an approximate duration.");
       if (!data.tripTypes.length && !data.destinations.length) throw new Error("Please select at least one trip type or destination.");
-      res.status(201).json(await storage.insert("custom_tour_requests", data));
+      const { request, notification } = await persistCustomTour(() => storage.insert("custom_tour_requests", data));
+      res.status(201).json({ ...request, notification });
     } catch (error: any) { res.status(400).json({ message: "Invalid request data", error: error?.issues || error?.message || String(error) }); }
   });
   router.post("/api/reservations", (_req, res) => res.status(410).json({ message: "Online reservations are no longer available. Please contact Amon Tour." }));

@@ -1,0 +1,30 @@
+name: Legacy operational recovery
+on:
+  pull_request:
+    paths:
+      - 'server/customTourRecovery.*'
+      - 'server/tourNinjaPublicCatalog.*'
+      - 'server/routes.ts'
+      - 'server/index.ts'
+      - 'edge/src/forms.ts'
+      - 'tests/legacyOperations.test.mjs'
+      - '.github/workflows/legacy-operations.yml'
+permissions:
+  contents: read
+jobs:
+  focused-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            server/customTourRecovery.mjs
+            server/tourNinjaPublicCatalog.mjs
+            tests/legacyOperations.test.mjs
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: node --test tests/legacyOperations.test.mjs
